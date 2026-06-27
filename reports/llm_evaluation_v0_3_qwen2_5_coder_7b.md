@@ -14,10 +14,14 @@
 | scenario_type accuracy | 20.00% |
 | doc_category accuracy | 40.00% |
 | target_doc_file accuracy | 40.00% |
+| raw scenario_type accuracy | 20.00% |
+| raw doc_category accuracy | 40.00% |
+| raw target_doc_file accuracy | 40.00% |
 | patch fact coverage | 54.55% |
 | false positives | 0 |
 | false negatives | 3 |
 | hallucinations | 0 |
 | parse errors | 0 |
+| parse error types | {} |
 | average confidence | 63.00% |
 | average latency seconds | 0.0001 |

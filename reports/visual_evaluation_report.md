@@ -92,4 +92,38 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 
 ## Real Hugging Face LLM figures
 
-No real Hugging Face LLM prediction files were found yet.
+### baseline_vs_real_llm_doc_category_accuracy_v0_3
+
+![baseline_vs_real_llm_doc_category_accuracy_v0_3](figures/baseline_vs_real_llm_doc_category_accuracy_v0_3.png)
+
+### baseline_vs_real_llm_fact_coverage_v0_3
+
+![baseline_vs_real_llm_fact_coverage_v0_3](figures/baseline_vs_real_llm_fact_coverage_v0_3.png)
+
+### baseline_vs_real_llm_metrics_v0_3
+
+![baseline_vs_real_llm_metrics_v0_3](figures/baseline_vs_real_llm_metrics_v0_3.png)
+
+### real_llm_confusion_matrix_best_model_v0_3
+
+![real_llm_confusion_matrix_best_model_v0_3](figures/real_llm_confusion_matrix_best_model_v0_3.png)
+
+### real_llm_latency_v0_3
+
+![real_llm_latency_v0_3](figures/real_llm_latency_v0_3.png)
+
+### real_llm_model_comparison_metrics_v0_3
+
+![real_llm_model_comparison_metrics_v0_3](figures/real_llm_model_comparison_metrics_v0_3.png)
+
+### real_llm_normalized_vs_raw_accuracy_v0_3
+
+![real_llm_normalized_vs_raw_accuracy_v0_3](figures/real_llm_normalized_vs_raw_accuracy_v0_3.png)
+
+### real_llm_parse_errors_v0_3
+
+![real_llm_parse_errors_v0_3](figures/real_llm_parse_errors_v0_3.png)
+
+### real_llm_per_doc_category_best_model_v0_3
+
+![real_llm_per_doc_category_best_model_v0_3](figures/real_llm_per_doc_category_best_model_v0_3.png)

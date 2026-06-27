@@ -10,6 +10,7 @@ from pathlib import Path
 from docguard_llm.evaluator import DATA_DIR, MOCK_WARNING, REPORTS_DIR, evaluate_model, read_jsonl, write_comparison_report, write_jsonl, write_model_report
 from docguard_llm.hf_client import HFClient
 from docguard_llm.json_parser import FALLBACK_PREDICTION, extract_json_object, parse_model_output
+from docguard_llm.label_normalizer import add_normalized_fields
 from docguard_llm.llm_agent import predict
 from docguard_llm.model_registry import get_model_config, list_models
 from docguard_llm.prompt_builder import build_compact_prompt, build_prompt, build_sanity_prompt, select_few_shot_examples
@@ -47,7 +48,7 @@ def append_jsonl(path: Path, row: dict) -> None:
 
 def fallback_prediction(record: dict, model_key: str, backend: str, error_message: str) -> dict:
     config = get_model_config(model_key)
-    return {
+    row = {
         "record_id": record["id"],
         "model_key": model_key,
         "model_id": config["model_id"],
@@ -55,9 +56,42 @@ def fallback_prediction(record: dict, model_key: str, backend: str, error_messag
         **dict(FALLBACK_PREDICTION),
         "raw_model_output": "",
         "parse_error": True,
+        "parse_error_type": "runtime_error",
         "latency_seconds": None,
         "error_message": error_message,
     }
+    return add_normalized_fields(row, record)
+
+
+def retry_prediction_on_parse_error(record: dict, args: argparse.Namespace, examples: list[dict], prediction: dict) -> dict:
+    if args.backend == "mock" or not args.retry_on_parse_error:
+        return prediction
+    if not prediction.get("parse_error") or prediction.get("parse_error_type") != "truncated_json":
+        return prediction
+    original_tokens = os.getenv("DOCGUARD_MAX_NEW_TOKENS")
+    current_tokens = int(original_tokens or "150")
+    os.environ["DOCGUARD_MAX_NEW_TOKENS"] = str(current_tokens + 100)
+    print(f"retry-on-parse-error: retrying {record['id']} with max_new_tokens={current_tokens + 100}", flush=True)
+    try:
+        original_raw_output = prediction.get("raw_model_output", "")
+        original_parse_error_type = prediction.get("parse_error_type", "")
+        retry = predict(record, args.model, args.backend, examples, compact_prompt=args.compact_prompt)
+        retry["retry_attempted"] = True
+        retry["retry_success"] = not retry.get("parse_error")
+        retry["original_raw_output"] = original_raw_output
+        retry["original_parse_error_type"] = original_parse_error_type
+        retry["retry_raw_output"] = retry.get("raw_model_output", "")
+        return retry
+    except Exception as exc:
+        prediction["retry_attempted"] = True
+        prediction["retry_success"] = False
+        prediction["retry_error_message"] = traceback.format_exc() if args.debug else (str(exc) or exc.__class__.__name__)
+        return prediction
+    finally:
+        if original_tokens is None:
+            os.environ.pop("DOCGUARD_MAX_NEW_TOKENS", None)
+        else:
+            os.environ["DOCGUARD_MAX_NEW_TOKENS"] = original_tokens
 
 
 def list_models_command(_args: argparse.Namespace) -> int:
@@ -90,9 +124,11 @@ def evaluate_command(args: argparse.Namespace) -> int:
         try:
             print("generation started", flush=True)
             prediction = predict(record, args.model, args.backend, examples, compact_prompt=args.compact_prompt)
+            prediction = retry_prediction_on_parse_error(record, args, examples, prediction)
             print("generation finished", flush=True)
             print(f"latency: {prediction.get('latency_seconds')}", flush=True)
             print(f"parse success: {not prediction.get('parse_error')}", flush=True)
+            print(f"parse error type: {prediction.get('parse_error_type', '')}", flush=True)
         except Exception as exc:
             message = traceback.format_exc() if args.debug else (str(exc) or exc.__class__.__name__)
             print(f"generation failed: {message}", flush=True)
@@ -297,6 +333,7 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate.add_argument("--limit", type=int)
     evaluate.add_argument("--compact-prompt", action="store_true")
     evaluate.add_argument("--continue-on-error", action="store_true")
+    evaluate.add_argument("--retry-on-parse-error", action="store_true")
     evaluate.add_argument("--debug", action="store_true")
     evaluate.add_argument("--timeout-seconds", type=int, help="Documentary option for CPU-only runs; no hard Windows timeout is enforced.")
     evaluate.set_defaults(func=evaluate_command)

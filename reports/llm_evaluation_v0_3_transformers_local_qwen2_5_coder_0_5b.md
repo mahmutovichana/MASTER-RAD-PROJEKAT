@@ -7,15 +7,19 @@
 | --- | ---: |
 | Records | 3 |
 | docs_update_required precision | 100.00% |
-| docs_update_required recall | 66.67% |
-| docs_update_required F1 | 80.00% |
+| docs_update_required recall | 100.00% |
+| docs_update_required F1 | 100.00% |
 | scenario_type accuracy | 0.00% |
-| doc_category accuracy | 0.00% |
+| doc_category accuracy | 33.33% |
 | target_doc_file accuracy | 33.33% |
-| patch fact coverage | 66.67% |
+| raw scenario_type accuracy | 0.00% |
+| raw doc_category accuracy | 0.00% |
+| raw target_doc_file accuracy | 33.33% |
+| patch fact coverage | 100.00% |
 | false positives | 0 |
-| false negatives | 1 |
+| false negatives | 0 |
 | hallucinations | 0 |
-| parse errors | 1 |
-| average confidence | 60.00% |
-| average latency seconds | 20.7584 |
+| parse errors | 0 |
+| parse error types | {} |
+| average confidence | 90.00% |
+| average latency seconds | 24.0960 |

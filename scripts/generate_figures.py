@@ -208,6 +208,10 @@ def save_fallback_line(path: Path, points: list[tuple[float, float]]) -> None:
 
 def main() -> int:
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    for stale_name in ["real_llm_parse_error_counts_v0_3.png", "real_llm_latency_comparison_v0_3.png"]:
+        stale_path = FIGURES_DIR / stale_name
+        if stale_path.exists():
+            stale_path.unlink()
     records = read_jsonl(DATA_DIR / "docguard_dataset.jsonl")
     test_records = read_jsonl(DATA_DIR / "test.jsonl")
     metrics, predictions = evaluate_split("test")
@@ -369,8 +373,8 @@ def write_llm_figures(baseline_metrics: dict, llm_metrics: dict[str, dict], resu
             "comparison": "real_llm_model_comparison_metrics_v0_3.png",
             "category": "baseline_vs_real_llm_doc_category_accuracy_v0_3.png",
             "facts": "baseline_vs_real_llm_fact_coverage_v0_3.png",
-            "parse": "real_llm_parse_error_counts_v0_3.png",
-            "latency": "real_llm_latency_comparison_v0_3.png",
+            "parse": "real_llm_parse_errors_v0_3.png",
+            "latency": "real_llm_latency_v0_3.png",
             "confusion": "real_llm_confusion_matrix_best_model_v0_3.png",
             "per_category": "real_llm_per_doc_category_best_model_v0_3.png",
         }
@@ -399,6 +403,27 @@ def write_llm_figures(baseline_metrics: dict, llm_metrics: dict[str, dict], resu
     save_bar(FIGURES_DIR / names["parse"], model_labels, [llm_metrics[m]["parse_error_count"] for m in model_labels], f"LLM Parse Error Counts v0.3 ({title_suffix})")
     if any(llm_metrics[m].get("average_latency_seconds") is not None for m in model_labels):
         save_bar(FIGURES_DIR / names["latency"], model_labels, [llm_metrics[m].get("average_latency_seconds") or 0 for m in model_labels], f"LLM Latency Comparison v0.3 ({title_suffix})", "Seconds")
+    if result_kind == "real":
+        labels = []
+        values = []
+        for model_key, model_metrics in llm_metrics.items():
+            labels.extend([
+                f"{model_key} raw scenario",
+                f"{model_key} norm scenario",
+                f"{model_key} raw category",
+                f"{model_key} norm category",
+                f"{model_key} raw target",
+                f"{model_key} norm target",
+            ])
+            values.extend([
+                model_metrics.get("raw_scenario_type_accuracy", 0.0),
+                model_metrics.get("scenario_type_accuracy", 0.0),
+                model_metrics.get("raw_doc_category_accuracy", 0.0),
+                model_metrics.get("doc_category_accuracy", 0.0),
+                model_metrics.get("raw_target_doc_file_accuracy", 0.0),
+                model_metrics.get("target_doc_file_accuracy", 0.0),
+            ])
+        save_bar(FIGURES_DIR / "real_llm_normalized_vs_raw_accuracy_v0_3.png", labels, values, "Real LLM Normalized vs Raw Accuracy v0.3", "Accuracy")
     best_predictions = load_llm_predictions_for_model(best_model, result_kind)
     if best_predictions:
         best_split, best_rows = best_predictions

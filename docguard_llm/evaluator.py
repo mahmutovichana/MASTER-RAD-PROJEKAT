@@ -5,6 +5,8 @@ import re
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from docguard_llm.json_parser import likely_truncated_json
+from docguard_llm.label_normalizer import add_normalized_fields
 from docguard_llm.llm_agent import predict
 from docguard_llm.model_registry import list_models
 from docguard_llm.prompt_builder import DATA_DIR, select_few_shot_examples
@@ -67,11 +69,14 @@ def hallucination_count(record: dict, prediction: dict) -> int:
 def evaluate_predictions(records: list[dict], predictions: list[dict]) -> dict:
     tp = fp = fn = tn = 0
     scenario_correct = category_correct = target_correct = parse_errors = hallucinations = 0
+    raw_scenario_correct = raw_category_correct = raw_target_correct = 0
+    parse_error_types: Counter = Counter()
     confidence_sum = latency_sum = latency_count = 0.0
     covered = total_facts = 0
     per_scenario: dict[str, Counter] = defaultdict(Counter)
     per_category: dict[str, Counter] = defaultdict(Counter)
     for record, prediction in zip(records, predictions):
+        prediction = add_normalized_fields(prediction, record)
         gold = bool(record["docs_update_required"])
         pred = bool(prediction["docs_update_required"])
         if gold and pred:
@@ -82,19 +87,30 @@ def evaluate_predictions(records: list[dict], predictions: list[dict]) -> dict:
             fn += 1
         else:
             tn += 1
-        if prediction["scenario_type"] == record["scenario_type"]:
+        if prediction.get("scenario_type") == record["scenario_type"]:
+            raw_scenario_correct += 1
+        if prediction.get("doc_category") == record["doc_category"]:
+            raw_category_correct += 1
+        if prediction.get("target_doc_file") == record["target_doc_file"]:
+            raw_target_correct += 1
+        if prediction["normalized_scenario_type"] == record["scenario_type"]:
             scenario_correct += 1
             per_scenario[record["scenario_type"]]["correct"] += 1
-        if prediction["doc_category"] == record["doc_category"]:
+        if prediction["normalized_doc_category"] == record["doc_category"]:
             category_correct += 1
             per_category[record["doc_category"]]["correct"] += 1
-        if prediction["target_doc_file"] == record["target_doc_file"]:
+        if prediction["normalized_target_doc_file"] == record["target_doc_file"]:
             target_correct += 1
         for fact in record["expected_facts"]:
             total_facts += 1
             if fact_covered(fact, prediction):
                 covered += 1
         parse_errors += int(bool(prediction["parse_error"]))
+        parse_error_type = prediction.get("parse_error_type")
+        if not parse_error_type and prediction.get("parse_error") and likely_truncated_json(prediction.get("raw_model_output", "")):
+            parse_error_type = "truncated_json"
+        if parse_error_type:
+            parse_error_types[parse_error_type] += 1
         hallucinations += hallucination_count(record, prediction)
         confidence_sum += float(prediction.get("confidence") or 0.0)
         if prediction.get("latency_seconds") is not None:
@@ -112,11 +128,15 @@ def evaluate_predictions(records: list[dict], predictions: list[dict]) -> dict:
         "scenario_type_accuracy": scenario_correct / total,
         "doc_category_accuracy": category_correct / total,
         "target_doc_file_accuracy": target_correct / total,
+        "raw_scenario_type_accuracy": raw_scenario_correct / total,
+        "raw_doc_category_accuracy": raw_category_correct / total,
+        "raw_target_doc_file_accuracy": raw_target_correct / total,
         "patch_fact_coverage": covered / total_facts if total_facts else 0.0,
         "false_positive_count": fp,
         "false_negative_count": fn,
         "hallucination_count": hallucinations,
         "parse_error_count": parse_errors,
+        "parse_error_types": dict(parse_error_types),
         "average_confidence": confidence_sum / total,
         "average_latency_seconds": latency_sum / latency_count if latency_count else None,
         "true_positive_count": tp,
@@ -165,11 +185,15 @@ def write_model_report(path: Path, model_key: str, split: str, backend: str, met
         f"| scenario_type accuracy | {fmt(metrics['scenario_type_accuracy'])} |",
         f"| doc_category accuracy | {fmt(metrics['doc_category_accuracy'])} |",
         f"| target_doc_file accuracy | {fmt(metrics['target_doc_file_accuracy'])} |",
+        f"| raw scenario_type accuracy | {fmt(metrics.get('raw_scenario_type_accuracy'))} |",
+        f"| raw doc_category accuracy | {fmt(metrics.get('raw_doc_category_accuracy'))} |",
+        f"| raw target_doc_file accuracy | {fmt(metrics.get('raw_target_doc_file_accuracy'))} |",
         f"| patch fact coverage | {fmt(metrics['patch_fact_coverage'])} |",
         f"| false positives | {metrics['false_positive_count']} |",
         f"| false negatives | {metrics['false_negative_count']} |",
         f"| hallucinations | {metrics['hallucination_count']} |",
         f"| parse errors | {metrics['parse_error_count']} |",
+        f"| parse error types | {json.dumps(metrics.get('parse_error_types', {}), ensure_ascii=False)} |",
         f"| average confidence | {fmt(metrics['average_confidence'])} |",
         f"| average latency seconds | {metrics['average_latency_seconds'] or 0:.4f} |",
     ])
