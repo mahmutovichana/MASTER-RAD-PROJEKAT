@@ -22,6 +22,12 @@ RULE_BASED_V03 = {
     "patch_fact_coverage": 0.1169,
 }
 
+MOCK_WARNING = (
+    "Important: This report was generated with the mock backend. Mock results validate the DocGuard LLM pipeline, "
+    "but they do not represent real Hugging Face model quality. Real model results must be generated with "
+    "transformers_local or text_generation_inference backends."
+)
+
 
 def read_jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
@@ -143,6 +149,10 @@ def write_model_report(path: Path, model_key: str, split: str, backend: str, met
     lines = [
         f"# LLM Evaluation v0.3: {model_key}",
         "",
+    ]
+    if backend == "mock":
+        lines.extend([f"> {MOCK_WARNING}", ""])
+    lines.extend([
         f"- split: {split}",
         f"- backend: {backend}",
         "",
@@ -162,11 +172,11 @@ def write_model_report(path: Path, model_key: str, split: str, backend: str, met
         f"| parse errors | {metrics['parse_error_count']} |",
         f"| average confidence | {fmt(metrics['average_confidence'])} |",
         f"| average latency seconds | {metrics['average_latency_seconds'] or 0:.4f} |",
-    ]
+    ])
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def write_comparison_report(path: Path, split: str, model_metrics: dict[str, dict]) -> None:
+def write_comparison_report(path: Path, split: str, model_metrics: dict[str, dict], backend: str = "mock") -> None:
     metrics = [
         "docs_update_required_precision",
         "docs_update_required_recall",
@@ -177,7 +187,10 @@ def write_comparison_report(path: Path, split: str, model_metrics: dict[str, dic
         "patch_fact_coverage",
     ]
     keys = list(list_models())
-    lines = ["# LLM Model Comparison v0.3", "", f"Split: `{split}`", "", "| Metric | rule_based_v0_3 | qwen2_5_coder_7b | deepseek_coder_6_7b | qwen2_5_coder_3b | Best model | Interpretation |", "| --- | ---: | ---: | ---: | ---: | --- | --- |"]
+    lines = ["# LLM Model Comparison v0.3", ""]
+    if backend == "mock":
+        lines.extend([f"> {MOCK_WARNING}", ""])
+    lines.extend([f"Split: `{split}`", f"Backend: `{backend}`", "", "| Metric | rule_based_v0_3 | qwen2_5_coder_7b | deepseek_coder_6_7b | qwen2_5_coder_3b | Best model | Interpretation |", "| --- | ---: | ---: | ---: | ---: | --- | --- |"])
     for metric in metrics:
         values = {key: model_metrics.get(key, {}).get(metric, 0.0) for key in keys}
         best = max(values, key=values.get)
@@ -185,4 +198,3 @@ def write_comparison_report(path: Path, split: str, model_metrics: dict[str, dic
             f"| `{metric}` | {fmt(RULE_BASED_V03.get(metric, 0.0))} | {fmt(values['qwen2_5_coder_7b'])} | {fmt(values['deepseek_coder_6_7b'])} | {fmt(values['qwen2_5_coder_3b'])} | `{best}` | Mock backend validates plumbing; real model runs should replace these values. |"
         )
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-

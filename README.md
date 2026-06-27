@@ -107,7 +107,11 @@ python scripts/generate_figures.py
 
 ## Hugging Face LLM-Assisted Phase
 
+> Important: This report was generated with the mock backend. Mock results validate the DocGuard LLM pipeline, but they do not represent real Hugging Face model quality. Real model results must be generated with transformers_local or text_generation_inference backends.
+
 The LLM-assisted prototype lives in `docguard_llm/`. It performs inference only; no fine-tuning is done in this phase.
+
+The default repository checks do not download or run large Hugging Face models. Real model evaluation is optional and should be run manually on a small subset first.
 
 Supported model keys:
 
@@ -128,20 +132,40 @@ python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_7b 
 python -m docguard_llm.cli compare --split validation --backend mock --limit 20
 ```
 
+The official mock output filenames include `_mock`, for example:
+
+- `data/llm_predictions_v0_3_validation_mock_qwen2_5_coder_7b.jsonl`
+- `reports/llm_evaluation_v0_3_mock_qwen2_5_coder_7b.md`
+- `reports/llm_model_comparison_v0_3_mock.md`
+
+Install optional local inference dependencies:
+
+```bash
+pip install transformers accelerate torch sentencepiece
+```
+
+Optional quantization packages such as `bitsandbytes` may be useful on compatible GPU setups, but they are not required for default checks.
+
+Smoke-test one real model on one validation record:
+
+```bash
+python -m docguard_llm.cli smoke-test --model qwen2_5_coder_3b --backend transformers_local
+```
+
 Run local Transformers inference:
 
 ```bash
-python -m docguard_llm.cli evaluate --split test --model qwen2_5_coder_7b --backend transformers_local
+python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_3b --backend transformers_local --limit 10
 ```
 
 Run against a local vLLM/TGI OpenAI-compatible server:
 
 ```bash
 $env:DOCGUARD_TGI_BASE_URL="http://localhost:8000/v1"
-python -m docguard_llm.cli evaluate --split test --model qwen2_5_coder_7b --backend text_generation_inference
+python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_3b --backend text_generation_inference --limit 10
 ```
 
-The 7B models may require a GPU, quantization, or a local serving setup. Use `qwen2_5_coder_3b` for a smaller local comparison.
+The 7B models may require a GPU, quantization, or a local serving setup. Use `qwen2_5_coder_3b` for the first practical local test. See `reports/real_llm_run_plan.md` and `reports/real_llm_manual_review_template.md` before running larger real-model evaluations.
 
 ## Current Split
 

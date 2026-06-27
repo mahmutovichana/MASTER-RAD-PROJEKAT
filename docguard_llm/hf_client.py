@@ -116,7 +116,7 @@ class HFClient:
         model = AutoModelForCausalLM.from_pretrained(
             self.model_id,
             token=token,
-            torch_dtype="auto",
+            dtype="auto",
             device_map="auto",
         )
         if hasattr(tokenizer, "apply_chat_template"):

@@ -23,7 +23,7 @@ except ModuleNotFoundError:
     HAS_MATPLOTLIB = False
 
 from docguard.evaluator import evaluate_split, read_jsonl
-from docguard_llm.evaluator import evaluate_predictions as evaluate_llm_predictions
+from docguard_llm.evaluator import MOCK_WARNING, evaluate_predictions as evaluate_llm_predictions
 
 
 def save_bar(path: Path, labels: list[str], values: list[float], title: str, ylabel: str = "Count") -> None:
@@ -265,106 +265,161 @@ def main() -> int:
     save_line(FIGURES_DIR / "precision_recall_curve_v0_3.png", pr, "Baseline Precision-Recall Curve v0.3", "Recall", "Precision")
     save_line(FIGURES_DIR / "roc_curve_v0_3.png", roc, "Baseline ROC Curve v0.3", "False Positive Rate", "True Positive Rate")
 
-    llm_metrics = load_llm_metrics()
-    if llm_metrics:
-        model_labels = list(llm_metrics)
-        best_model = max(model_labels, key=lambda key: llm_metrics[key]["docs_update_required_f1"])
-        best_metrics = llm_metrics[best_model]
-        save_bar(
-            FIGURES_DIR / "baseline_vs_llm_metrics_v0_3.png",
-            ["baseline F1", *[f"{m} F1" for m in model_labels]],
-            [metrics["docs_update_required_f1"], *[llm_metrics[m]["docs_update_required_f1"] for m in model_labels]],
-            "Baseline vs LLM F1 v0.3",
-            "F1",
-        )
-        save_grouped_llm_metrics(FIGURES_DIR / "llm_model_comparison_metrics_v0_3.png", llm_metrics)
-        save_bar(
-            FIGURES_DIR / "baseline_vs_llm_doc_category_accuracy_v0_3.png",
-            ["baseline", *model_labels],
-            [metrics["doc_category_accuracy"], *[llm_metrics[m]["doc_category_accuracy"] for m in model_labels]],
-            "Baseline vs LLM Doc Category Accuracy v0.3",
-            "Accuracy",
-        )
-        save_bar(
-            FIGURES_DIR / "baseline_vs_llm_fact_coverage_v0_3.png",
-            ["baseline", *model_labels],
-            [metrics["patch_fact_coverage"], *[llm_metrics[m]["patch_fact_coverage"] for m in model_labels]],
-            "Baseline vs LLM Fact Coverage v0.3",
-            "Coverage",
-        )
-        save_bar(
-            FIGURES_DIR / "llm_parse_error_counts_v0_3.png",
-            model_labels,
-            [llm_metrics[m]["parse_error_count"] for m in model_labels],
-            "LLM Parse Error Counts v0.3",
-        )
-        if any(llm_metrics[m].get("average_latency_seconds") is not None for m in model_labels):
-            save_bar(
-                FIGURES_DIR / "llm_latency_comparison_v0_3.png",
-                model_labels,
-                [llm_metrics[m].get("average_latency_seconds") or 0 for m in model_labels],
-                "LLM Latency Comparison v0.3",
-                "Seconds",
-            )
-        best_predictions = load_llm_predictions_for_model(best_model)
-        if best_predictions:
-            best_split, best_rows = best_predictions
-            best_records = read_jsonl(DATA_DIR / f"{best_split}.jsonl")[: len(best_rows)]
-            labels = ["negative", "positive"]
-            llm_matrix = [[0, 0], [0, 0]]
-            for record, prediction in zip(best_records, best_rows):
-                i = 1 if record["docs_update_required"] else 0
-                j = 1 if prediction["docs_update_required"] else 0
-                llm_matrix[i][j] += 1
-            save_confusion_matrix(FIGURES_DIR / "llm_confusion_matrix_best_model_v0_3.png", llm_matrix, labels, f"LLM Confusion Matrix: {best_model}")
-            save_bar(
-                FIGURES_DIR / "llm_per_doc_category_best_model_v0_3.png",
-                list(best_metrics["per_doc_category"]),
-                [m["accuracy"] for m in best_metrics["per_doc_category"].values()],
-                f"LLM Per-Doc-Category Accuracy: {best_model}",
-                "Accuracy",
-            )
+    mock_llm_metrics = load_llm_metrics("mock")
+    if mock_llm_metrics:
+        write_llm_figures(metrics, mock_llm_metrics, "mock", "mock backend")
+
+    real_llm_metrics = load_llm_metrics("real")
+    if real_llm_metrics:
+        write_llm_figures(metrics, real_llm_metrics, "real", "real Hugging Face")
 
     report_lines = [
         "# Visual Evaluation Report",
+        "",
+        f"> {MOCK_WARNING}",
         "",
         "These figures summarize dataset v0.3 and the rule-based baseline. ROC and precision-recall curves use simple baseline scores: 1.0 for confident positive, 0.0 for confident negative, and 0.5 for unknown or unsupported changes. They are included for completeness; these curves will be more meaningful for the later NLP-assisted model.",
         "",
         "Figure generation tries to use matplotlib first. In this local environment matplotlib was unavailable, so the script can fall back to a small built-in PNG renderer while preserving the same output filenames.",
         "",
     ]
-    for image in sorted(FIGURES_DIR.glob("*.png")):
-        report_lines.extend([f"## {image.stem}", "", f"![{image.stem}](figures/{image.name})", ""])
+    add_figure_section(report_lines, "Rule-based baseline figures", [p for p in sorted(FIGURES_DIR.glob("*.png")) if not is_llm_figure(p.name)])
+    add_figure_section(report_lines, "Mock LLM pipeline figures", [p for p in sorted(FIGURES_DIR.glob("*_mock.png"))])
+    real_figures = [p for p in sorted(FIGURES_DIR.glob("*.png")) if is_real_llm_figure(p.name)]
+    if real_figures:
+        add_figure_section(report_lines, "Real Hugging Face LLM figures", real_figures)
+    else:
+        report_lines.extend(["## Real Hugging Face LLM figures", "", "No real Hugging Face LLM prediction files were found yet.", ""])
     (REPORTS_DIR / "visual_evaluation_report.md").write_text("\n".join(report_lines), encoding="utf-8")
     print(f"Generated {len(list(FIGURES_DIR.glob('*.png')))} figures in {FIGURES_DIR.relative_to(ROOT)}")
     return 0
 
 
-def load_llm_predictions_for_model(model_key: str) -> tuple[str, list[dict]] | None:
-    candidates = sorted(DATA_DIR.glob(f"llm_predictions_v0_3_*_{model_key}.jsonl"))
+def add_figure_section(report_lines: list[str], title: str, images: list[Path]) -> None:
+    report_lines.extend([f"## {title}", ""])
+    for image in images:
+        report_lines.extend([f"### {image.stem}", "", f"![{image.stem}](figures/{image.name})", ""])
+
+
+def is_llm_figure(name: str) -> bool:
+    return "llm" in name
+
+
+def is_real_llm_figure(name: str) -> bool:
+    return name.startswith("baseline_vs_real_llm_") or name.startswith("real_llm_")
+
+
+def load_llm_predictions_for_model(model_key: str, result_kind: str) -> tuple[str, list[dict]] | None:
+    if result_kind == "mock":
+        candidates = sorted(DATA_DIR.glob(f"llm_predictions_v0_3_*_mock_{model_key}.jsonl"))
+    else:
+        candidates = [p for p in sorted(DATA_DIR.glob(f"llm_predictions_v0_3_*_*_{model_key}.jsonl")) if "_mock_" not in p.name]
     if not candidates:
         return None
     path = candidates[-1]
-    split = path.name.removeprefix("llm_predictions_v0_3_").removesuffix(f"_{model_key}.jsonl")
+    stem = path.name.removeprefix("llm_predictions_v0_3_").removesuffix(f"_{model_key}.jsonl")
+    split = stem.split("_mock_")[0] if "_mock_" in stem else stem.split("_", 1)[0]
     return split, read_jsonl(path)
 
 
-def load_llm_metrics() -> dict[str, dict]:
+def load_llm_metrics(result_kind: str) -> dict[str, dict]:
     metrics = {}
     for path in sorted(DATA_DIR.glob("llm_predictions_v0_3_*.jsonl")):
+        is_mock = "_mock_" in path.name
+        if result_kind == "mock" and not is_mock:
+            continue
+        if result_kind == "real" and is_mock:
+            continue
         stem = path.stem.removeprefix("llm_predictions_v0_3_")
         for split in ["validation", "test", "train"]:
-            prefix = f"{split}_"
-            if stem.startswith(prefix):
+            mock_prefix = f"{split}_mock_"
+            real_prefixes = [f"{split}_transformers_local_", f"{split}_text_generation_inference_"]
+            if result_kind == "mock" and stem.startswith(mock_prefix):
+                model_key = stem.removeprefix(mock_prefix)
+            elif result_kind == "real" and any(stem.startswith(prefix) for prefix in real_prefixes):
+                prefix = next(prefix for prefix in real_prefixes if stem.startswith(prefix))
                 model_key = stem.removeprefix(prefix)
-                predictions = read_jsonl(path)
-                records = read_jsonl(DATA_DIR / f"{split}.jsonl")[: len(predictions)]
-                metrics[model_key] = evaluate_llm_predictions(records, predictions)
-                break
+            else:
+                continue
+            predictions = read_jsonl(path)
+            records = read_jsonl(DATA_DIR / f"{split}.jsonl")[: len(predictions)]
+            metrics[model_key] = evaluate_llm_predictions(records, predictions)
+            break
     return metrics
 
 
-def save_grouped_llm_metrics(path: Path, llm_metrics: dict[str, dict]) -> None:
+def write_llm_figures(baseline_metrics: dict, llm_metrics: dict[str, dict], result_kind: str, title_suffix: str) -> None:
+    model_labels = list(llm_metrics)
+    best_model = max(model_labels, key=lambda key: llm_metrics[key]["docs_update_required_f1"])
+    best_metrics = llm_metrics[best_model]
+    if result_kind == "mock":
+        names = {
+            "baseline": "baseline_vs_llm_metrics_v0_3_mock.png",
+            "comparison": "llm_model_comparison_metrics_v0_3_mock.png",
+            "category": "baseline_vs_llm_doc_category_accuracy_v0_3_mock.png",
+            "facts": "baseline_vs_llm_fact_coverage_v0_3_mock.png",
+            "parse": "llm_parse_error_counts_v0_3_mock.png",
+            "latency": "llm_latency_comparison_v0_3_mock.png",
+            "confusion": "llm_confusion_matrix_best_model_v0_3_mock.png",
+            "per_category": "llm_per_doc_category_best_model_v0_3_mock.png",
+        }
+    else:
+        names = {
+            "baseline": "baseline_vs_real_llm_metrics_v0_3.png",
+            "comparison": "real_llm_model_comparison_metrics_v0_3.png",
+            "category": "baseline_vs_real_llm_doc_category_accuracy_v0_3.png",
+            "facts": "baseline_vs_real_llm_fact_coverage_v0_3.png",
+            "parse": "real_llm_parse_error_counts_v0_3.png",
+            "latency": "real_llm_latency_comparison_v0_3.png",
+            "confusion": "real_llm_confusion_matrix_best_model_v0_3.png",
+            "per_category": "real_llm_per_doc_category_best_model_v0_3.png",
+        }
+    save_bar(
+        FIGURES_DIR / names["baseline"],
+        ["baseline F1", *[f"{m} F1" for m in model_labels]],
+        [baseline_metrics["docs_update_required_f1"], *[llm_metrics[m]["docs_update_required_f1"] for m in model_labels]],
+        f"Baseline vs LLM F1 v0.3 ({title_suffix})",
+        "F1",
+    )
+    save_grouped_llm_metrics(FIGURES_DIR / names["comparison"], llm_metrics, title_suffix)
+    save_bar(
+        FIGURES_DIR / names["category"],
+        ["baseline", *model_labels],
+        [baseline_metrics["doc_category_accuracy"], *[llm_metrics[m]["doc_category_accuracy"] for m in model_labels]],
+        f"Baseline vs LLM Doc Category Accuracy v0.3 ({title_suffix})",
+        "Accuracy",
+    )
+    save_bar(
+        FIGURES_DIR / names["facts"],
+        ["baseline", *model_labels],
+        [baseline_metrics["patch_fact_coverage"], *[llm_metrics[m]["patch_fact_coverage"] for m in model_labels]],
+        f"Baseline vs LLM Fact Coverage v0.3 ({title_suffix})",
+        "Coverage",
+    )
+    save_bar(FIGURES_DIR / names["parse"], model_labels, [llm_metrics[m]["parse_error_count"] for m in model_labels], f"LLM Parse Error Counts v0.3 ({title_suffix})")
+    if any(llm_metrics[m].get("average_latency_seconds") is not None for m in model_labels):
+        save_bar(FIGURES_DIR / names["latency"], model_labels, [llm_metrics[m].get("average_latency_seconds") or 0 for m in model_labels], f"LLM Latency Comparison v0.3 ({title_suffix})", "Seconds")
+    best_predictions = load_llm_predictions_for_model(best_model, result_kind)
+    if best_predictions:
+        best_split, best_rows = best_predictions
+        best_records = read_jsonl(DATA_DIR / f"{best_split}.jsonl")[: len(best_rows)]
+        labels = ["negative", "positive"]
+        llm_matrix = [[0, 0], [0, 0]]
+        for record, prediction in zip(best_records, best_rows):
+            i = 1 if record["docs_update_required"] else 0
+            j = 1 if prediction["docs_update_required"] else 0
+            llm_matrix[i][j] += 1
+        save_confusion_matrix(FIGURES_DIR / names["confusion"], llm_matrix, labels, f"LLM Confusion Matrix: {best_model} ({title_suffix})")
+        save_bar(
+            FIGURES_DIR / names["per_category"],
+            list(best_metrics["per_doc_category"]),
+            [m["accuracy"] for m in best_metrics["per_doc_category"].values()],
+            f"LLM Per-Doc-Category Accuracy: {best_model} ({title_suffix})",
+            "Accuracy",
+        )
+
+
+def save_grouped_llm_metrics(path: Path, llm_metrics: dict[str, dict], title_suffix: str = "") -> None:
     values = []
     labels = []
     for model_key, metrics in llm_metrics.items():
@@ -374,7 +429,8 @@ def save_grouped_llm_metrics(path: Path, llm_metrics: dict[str, dict]) -> None:
             metrics["docs_update_required_recall"],
             metrics["docs_update_required_f1"],
         ])
-    save_bar(path, labels, values, "LLM Model Comparison Metrics v0.3", "Score")
+    suffix = f" ({title_suffix})" if title_suffix else ""
+    save_bar(path, labels, values, f"LLM Model Comparison Metrics v0.3{suffix}", "Score")
 
 
 if __name__ == "__main__":
