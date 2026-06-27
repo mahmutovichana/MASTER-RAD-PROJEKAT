@@ -4,6 +4,7 @@ import json
 import os
 import time
 import urllib.request
+from pathlib import Path
 
 from docguard_llm.model_registry import get_model_config
 
@@ -19,8 +20,10 @@ class HFClient:
         self.backend = backend or os.getenv("DOCGUARD_LLM_BACKEND", "mock")
         if self.backend not in BACKENDS:
             raise ValueError(f"Unsupported backend {self.backend}. Use one of {sorted(BACKENDS)}")
-        self.max_new_tokens = int(os.getenv("DOCGUARD_MAX_NEW_TOKENS", "800"))
+        default_tokens = "150" if self.backend == "transformers_local" else "800"
+        self.max_new_tokens = int(os.getenv("DOCGUARD_MAX_NEW_TOKENS", default_tokens))
         self.temperature = float(os.getenv("DOCGUARD_TEMPERATURE", "0.0"))
+        self.offload_folder = Path(os.getenv("DOCGUARD_OFFLOAD_FOLDER", ".docguard_offload"))
 
     def generate(self, messages: list[dict]) -> tuple[str, float]:
         start = time.perf_counter()
@@ -108,17 +111,21 @@ class HFClient:
         except ModuleNotFoundError as exc:
             raise RuntimeError(
                 "transformers_local requires optional dependencies: install torch and transformers. "
-                "7B models may require a GPU or quantized/local serving setup; use qwen2_5_coder_3b "
-                "as the lightweight option or backend=text_generation_inference for vLLM/TGI."
+                "7B models may require a GPU or quantized/local serving setup; use qwen2_5_coder_0_5b "
+                "or qwen2_5_coder_1_5b for CPU-only smoke tests, or backend=text_generation_inference for vLLM/TGI."
             ) from exc
         token = os.getenv("HF_TOKEN")
         tokenizer = AutoTokenizer.from_pretrained(self.model_id, token=token)
-        model = AutoModelForCausalLM.from_pretrained(
-            self.model_id,
-            token=token,
-            dtype="auto",
-            device_map="auto",
-        )
+        self.offload_folder.mkdir(parents=True, exist_ok=True)
+        model_kwargs = {
+            "token": token,
+            "device_map": "auto",
+            "offload_folder": str(self.offload_folder),
+        }
+        try:
+            model = AutoModelForCausalLM.from_pretrained(self.model_id, dtype="auto", **model_kwargs)
+        except TypeError:
+            model = AutoModelForCausalLM.from_pretrained(self.model_id, torch_dtype="auto", **model_kwargs)
         if hasattr(tokenizer, "apply_chat_template"):
             prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
         else:
@@ -128,4 +135,3 @@ class HFClient:
             outputs = model.generate(**inputs, max_new_tokens=self.max_new_tokens, do_sample=False)
         generated = outputs[0][inputs["input_ids"].shape[-1]:]
         return tokenizer.decode(generated, skip_special_tokens=True)
-

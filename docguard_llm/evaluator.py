@@ -190,11 +190,20 @@ def write_comparison_report(path: Path, split: str, model_metrics: dict[str, dic
     lines = ["# LLM Model Comparison v0.3", ""]
     if backend == "mock":
         lines.extend([f"> {MOCK_WARNING}", ""])
-    lines.extend([f"Split: `{split}`", f"Backend: `{backend}`", "", "| Metric | rule_based_v0_3 | qwen2_5_coder_7b | deepseek_coder_6_7b | qwen2_5_coder_3b | Best model | Interpretation |", "| --- | ---: | ---: | ---: | ---: | --- | --- |"])
+    model_headers = " | ".join(keys)
+    model_alignment = " | ".join("---:" for _ in keys)
+    lines.extend([
+        f"Split: `{split}`",
+        f"Backend: `{backend}`",
+        "",
+        f"| Metric | rule_based_v0_3 | {model_headers} | Best model | Interpretation |",
+        f"| --- | ---: | {model_alignment} | --- | --- |",
+    ])
     for metric in metrics:
         values = {key: model_metrics.get(key, {}).get(metric, 0.0) for key in keys}
         best = max(values, key=values.get)
+        model_cells = " | ".join(fmt(values[key]) for key in keys)
         lines.append(
-            f"| `{metric}` | {fmt(RULE_BASED_V03.get(metric, 0.0))} | {fmt(values['qwen2_5_coder_7b'])} | {fmt(values['deepseek_coder_6_7b'])} | {fmt(values['qwen2_5_coder_3b'])} | `{best}` | Mock backend validates plumbing; real model runs should replace these values. |"
+            f"| `{metric}` | {fmt(RULE_BASED_V03.get(metric, 0.0))} | {model_cells} | `{best}` | Mock backend validates plumbing; real model runs should replace these values. |"
         )
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")

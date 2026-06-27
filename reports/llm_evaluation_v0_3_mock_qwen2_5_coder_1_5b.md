@@ -1,4 +1,4 @@
-# LLM Evaluation v0.3: qwen2_5_coder_3b
+# LLM Evaluation v0.3: qwen2_5_coder_1_5b
 
 > Important: This report was generated with the mock backend. Mock results validate the DocGuard LLM pipeline, but they do not represent real Hugging Face model quality. Real model results must be generated with transformers_local or text_generation_inference backends.
 
@@ -20,4 +20,4 @@
 | hallucinations | 0 |
 | parse errors | 0 |
 | average confidence | 63.00% |
-| average latency seconds | 0.0000 |
+| average latency seconds | 0.0001 |

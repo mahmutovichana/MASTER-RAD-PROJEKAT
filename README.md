@@ -118,6 +118,10 @@ Supported model keys:
 - `qwen2_5_coder_7b`: `Qwen/Qwen2.5-Coder-7B-Instruct`
 - `deepseek_coder_6_7b`: `deepseek-ai/deepseek-coder-6.7b-instruct`
 - `qwen2_5_coder_3b`: `Qwen/Qwen2.5-Coder-3B-Instruct`
+- `qwen2_5_coder_1_5b`: `Qwen/Qwen2.5-Coder-1.5B-Instruct`
+- `qwen2_5_coder_0_5b`: `Qwen/Qwen2.5-Coder-0.5B-Instruct`
+
+The 0.5B and 1.5B models are included only for CPU-friendly real-run validation. The 3B model is the first stronger local option. The 7B model remains the main quality candidate, but it should normally be run on GPU, Colab/Kaggle, or a vLLM/TGI server rather than CPU-only.
 
 List models:
 
@@ -165,7 +169,34 @@ $env:DOCGUARD_TGI_BASE_URL="http://localhost:8000/v1"
 python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_3b --backend text_generation_inference --limit 10
 ```
 
-The 7B models may require a GPU, quantization, or a local serving setup. Use `qwen2_5_coder_3b` for the first practical local test. See `reports/real_llm_run_plan.md` and `reports/real_llm_manual_review_template.md` before running larger real-model evaluations.
+The 7B models may require a GPU, quantization, or a local serving setup. Use `qwen2_5_coder_3b` for the first stronger local test. See `reports/real_llm_run_plan.md` and `reports/real_llm_manual_review_template.md` before running larger real-model evaluations.
+
+## CPU-Only Real-Run Troubleshooting
+
+Check CUDA availability:
+
+```bash
+python -c "import torch; print(torch.__version__); print(torch.cuda.is_available())"
+```
+
+If CUDA is `False`, do not start with 7B models. CPU and disk offload can be very slow, and full 3B/7B evaluation should be done on GPU, Colab/Kaggle, or vLLM/TGI. Start with the smallest sanity-only real generation path, then compact prompts:
+
+```powershell
+$env:DOCGUARD_MAX_NEW_TOKENS="60"
+python -m docguard_llm.cli smoke-test --model qwen2_5_coder_0_5b --backend transformers_local --sanity-only --debug
+```
+
+```powershell
+$env:DOCGUARD_MAX_NEW_TOKENS="120"
+python -m docguard_llm.cli smoke-test --model qwen2_5_coder_1_5b --backend transformers_local --compact-prompt --debug
+```
+
+```powershell
+$env:DOCGUARD_MAX_NEW_TOKENS="150"
+python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_1_5b --backend transformers_local --limit 3
+```
+
+The `smoke-test` command prints progress, prompt previews, raw output previews, parse status, and writes `reports/real_llm_smoke_test_<model_key>.md`. Mock results are useful for validating the pipeline, but they are not real Hugging Face model quality.
 
 ## Current Split
 

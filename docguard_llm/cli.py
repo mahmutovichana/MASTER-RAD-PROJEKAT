@@ -2,12 +2,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import traceback
 from pathlib import Path
 
 from docguard_llm.evaluator import DATA_DIR, MOCK_WARNING, REPORTS_DIR, evaluate_model, read_jsonl, write_comparison_report, write_jsonl, write_model_report
+from docguard_llm.hf_client import HFClient
+from docguard_llm.json_parser import parse_model_output
 from docguard_llm.llm_agent import predict
 from docguard_llm.model_registry import get_model_config, list_models
-from docguard_llm.prompt_builder import select_few_shot_examples
+from docguard_llm.prompt_builder import build_compact_prompt, build_prompt, build_sanity_prompt, select_few_shot_examples
 
 
 def backend_tag(backend: str) -> str:
@@ -73,51 +77,130 @@ def predict_command(args: argparse.Namespace) -> int:
 
 
 def smoke_test_command(args: argparse.Namespace) -> int:
-    record = read_jsonl(DATA_DIR / "validation.jsonl")[0]
+    config = get_model_config(args.model)
     report_path = REPORTS_DIR / f"real_llm_smoke_test_{args.model}.md"
-    try:
-        prediction = predict(record, args.model, args.backend, select_few_shot_examples())
-    except Exception as exc:
-        message = str(exc) or exc.__class__.__name__
+    record = None
+    record_id = args.record_id or "first validation record"
+    prompt_messages: list[dict] = []
+    prompt_text = ""
+    raw_output = ""
+    parsed_prediction: dict = {}
+    parse_error = True
+    latency = None
+    error_message = ""
+
+    def progress(label: str, value: object = None) -> None:
+        if value is None:
+            print(label, flush=True)
+        else:
+            print(f"{label}: {value}", flush=True)
+
+    def write_smoke_report(status: str, usable: bool) -> None:
         lines = [
             f"# Real LLM Smoke Test: {args.model}",
             "",
+            f"- command: `python -m docguard_llm.cli smoke-test --model {args.model} --backend {args.backend}`",
             f"- backend: {args.backend}",
-            "- status: failed",
+            f"- model_key: {args.model}",
+            f"- model_id: {config['model_id']}",
+            f"- selected_record_id: {record.get('id') if record else record_id}",
+            f"- compact_prompt: {args.compact_prompt}",
+            f"- sanity_only: {args.sanity_only}",
+            f"- prompt_length_characters: {len(prompt_text)}",
+            f"- parse_success: {not parse_error}",
+            f"- latency_seconds: {latency if latency is not None else 'n/a'}",
+            f"- status: {status}",
+            f"- output_usable: {usable}",
             "",
-            "The selected backend could not complete one validation prediction.",
+        ]
+        if args.backend == "mock":
+            lines.extend([f"> {MOCK_WARNING}", ""])
+        if error_message:
+            lines.extend(["## Error Message", "", error_message, ""])
+        lines.extend([
+            "## Prompt Preview",
             "",
-            f"Clear message: {message}",
-            "",
-            "For local Transformers runs, install optional dependencies with:",
-            "",
-            "```bash",
-            "pip install transformers accelerate torch sentencepiece",
+            "```text",
+            prompt_text[:2000],
             "```",
             "",
-            "If hardware is the issue, try `qwen2_5_coder_3b` first or use a local vLLM/TGI OpenAI-compatible server.",
-        ]
+            "## Raw Model Output",
+            "",
+            "```text",
+            raw_output,
+            "```",
+            "",
+            "## Parsed Prediction",
+            "",
+            "```json",
+            json.dumps(parsed_prediction, indent=2, ensure_ascii=False) if parsed_prediction else "{}",
+            "```",
+        ])
         report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-        print(json.dumps({"status": "failed", "model": args.model, "backend": args.backend, "message": message, "report": str(report_path)}, indent=2))
+
+    try:
+        progress("selected model key", args.model)
+        progress("model id", config["model_id"])
+        progress("backend", args.backend)
+        progress("max_new_tokens", os.getenv("DOCGUARD_MAX_NEW_TOKENS", "150" if args.backend == "transformers_local" else "800"))
+        progress("compact_prompt", args.compact_prompt)
+        progress("sanity_only", args.sanity_only)
+        progress("output report path", report_path)
+
+        if args.sanity_only:
+            record_id = "sanity-only"
+            progress("selected record id", record_id)
+            progress("record loaded successfully", "skipped")
+            prompt_messages = build_sanity_prompt()
+        else:
+            records = read_jsonl(DATA_DIR / "validation.jsonl")
+            if args.record_id:
+                record = next((r for r in records if r["id"] == args.record_id), None)
+                if record is None:
+                    raise ValueError(f"Record not found in validation split: {args.record_id}")
+            else:
+                record = records[0]
+            record_id = record["id"]
+            progress("selected record id", record_id)
+            progress("record loaded successfully", True)
+            prompt_messages = build_compact_prompt(record) if args.compact_prompt else build_prompt(record, select_few_shot_examples())
+
+        prompt_text = "\n\n".join(f"{message['role']}: {message['content']}" for message in prompt_messages)
+        progress("prompt built successfully", True)
+        progress("prompt length in characters", len(prompt_text))
+        progress("first 500 characters of prompt", prompt_text[:500])
+
+        client = HFClient(model_key=args.model, backend=args.backend)
+        progress("generation started")
+        raw_output, latency = client.generate(prompt_messages)
+        progress("generation finished")
+        progress("latency seconds", latency)
+        progress("raw output length", len(raw_output))
+        progress("first 1000 characters of raw output", raw_output[:1000])
+
+        if args.sanity_only:
+            try:
+                parsed_prediction = json.loads(raw_output.strip())
+                parse_error = parsed_prediction != {"ok": True}
+            except json.JSONDecodeError:
+                parsed_prediction = {"raw_json_parse_error": True}
+                parse_error = True
+        else:
+            parsed_prediction, parse_error = parse_model_output(raw_output)
+
+        progress("parse success", not parse_error)
+        progress("structured prediction JSON", json.dumps(parsed_prediction, indent=2, ensure_ascii=False))
+        write_smoke_report("succeeded", not parse_error)
+        return 0 if not parse_error else 1
+    except Exception as exc:
+        error_message = str(exc) or exc.__class__.__name__
+        if args.debug:
+            error_message = traceback.format_exc()
+        write_smoke_report("failed", False)
+        print(json.dumps({"status": "failed", "model": args.model, "backend": args.backend, "message": error_message, "report": str(report_path)}, indent=2))
+        if args.debug:
+            traceback.print_exc()
         return 1
-    lines = [
-        f"# Real LLM Smoke Test: {args.model}",
-        "",
-        f"- backend: {args.backend}",
-        "- status: succeeded",
-        f"- record_id: {record['id']}",
-        "",
-        "## Structured Prediction",
-        "",
-        "```json",
-        json.dumps(prediction, indent=2, ensure_ascii=False),
-        "```",
-    ]
-    if args.backend == "mock":
-        lines[1:1] = ["", f"> {MOCK_WARNING}"]
-    report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(json.dumps(prediction, indent=2, ensure_ascii=False))
-    return 0
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -143,6 +226,10 @@ def build_parser() -> argparse.ArgumentParser:
     smoke = sub.add_parser("smoke-test")
     smoke.add_argument("--model", choices=list(list_models()), required=True)
     smoke.add_argument("--backend", choices=["mock", "transformers_local", "text_generation_inference"], default="transformers_local")
+    smoke.add_argument("--record-id")
+    smoke.add_argument("--compact-prompt", action="store_true")
+    smoke.add_argument("--sanity-only", action="store_true")
+    smoke.add_argument("--debug", action="store_true")
     smoke.set_defaults(func=smoke_test_command)
     return parser
 

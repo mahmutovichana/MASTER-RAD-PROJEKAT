@@ -131,3 +131,28 @@ def build_prompt(record: dict, few_shot_examples: list[dict] | None = None) -> l
     }
     return [{"role": "system", "content": system}, {"role": "user", "content": json.dumps(user_payload, indent=2)}]
 
+
+def build_compact_prompt(record: dict) -> list[dict]:
+    system = (
+        "You are DocGuard. Return strict JSON only. "
+        "Use only facts grounded in code_diff and docs_before_excerpt."
+    )
+    user_payload = {
+        "task": "Decide whether this REST API code change requires documentation updates and return the required JSON schema.",
+        "candidate_documentation_files": CANDIDATE_DOC_FILES,
+        "expected_output_json_schema": output_schema_text(),
+        "record": {
+            "id": record["id"],
+            "changed_files": record["changed_files"],
+            "code_diff": record["code_diff"],
+            "docs_before_excerpt": record["docs_before_excerpt"],
+        },
+    }
+    return [{"role": "system", "content": system}, {"role": "user", "content": json.dumps(user_payload, indent=2)}]
+
+
+def build_sanity_prompt() -> list[dict]:
+    return [
+        {"role": "system", "content": "Return JSON only."},
+        {"role": "user", "content": 'Return only this JSON: {"ok": true}'},
+    ]
