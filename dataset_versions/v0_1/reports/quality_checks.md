@@ -2,7 +2,7 @@
 
 The validation script checks:
 
-- at least 1500 records exist
+- at least 1000 records exist
 - required fields are present
 - duplicate ids do not exist
 - duplicate semantic records do not exist
@@ -28,20 +28,3 @@ Current reusable scenario templates:
 - `changed_auth_requirement`
 - `added_response_field`
 - `internal_refactor`
-- `removed_endpoint`
-- `changed_endpoint_path`
-- `changed_http_method`
-- `added_request_field`
-- `removed_request_field`
-- `changed_validation_max`
-- `changed_enum_values`
-- `changed_status_code`
-- `changed_error_response`
-- `deprecated_endpoint`
-- `docs_already_updated`
-- `formatting_only`
-- `test_only_change`
-- `comment_only_change`
-- `dependency_config_change`
-- `rename_private_helper`
-- `internal_service_logic_no_api_change`

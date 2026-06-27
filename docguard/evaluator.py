@@ -106,7 +106,17 @@ def evaluate_records(records: list[dict]) -> tuple[dict, list[dict]]:
     false_positive_count = 0
     false_negative_count = 0
     hallucinations = 0
+    unknown_count = 0
+    known_total = 0
+    known_correct = 0
     per_scenario: dict[str, Counter] = defaultdict(Counter)
+    known_scenarios = {
+        "new_endpoint",
+        "changed_validation_min",
+        "changed_auth_requirement",
+        "added_response_field",
+        "internal_refactor",
+    }
 
     for record, prediction in zip(records, predictions):
         gold_docs = bool(record["docs_update_required"])
@@ -125,6 +135,12 @@ def evaluate_records(records: list[dict]) -> tuple[dict, list[dict]]:
         if prediction["scenario_type"] == record["scenario_type"]:
             scenario_correct += 1
             per_scenario[record["scenario_type"]]["correct"] += 1
+        if prediction["scenario_type"] == "unknown_change":
+            unknown_count += 1
+        if record["scenario_type"] in known_scenarios:
+            known_total += 1
+            if prediction["scenario_type"] == record["scenario_type"]:
+                known_correct += 1
         per_scenario[record["scenario_type"]]["total"] += 1
 
         if prediction["target_doc_file"] == record["target_doc_file"]:
@@ -138,6 +154,8 @@ def evaluate_records(records: list[dict]) -> tuple[dict, list[dict]]:
         "docs_update_required_recall": docs_metrics["recall"],
         "docs_update_required_f1": docs_metrics["f1"],
         "scenario_type_accuracy": scenario_correct / len(records) if records else 0.0,
+        "known_scenario_accuracy": known_correct / known_total if known_total else 0.0,
+        "unknown_unsupported_scenario_count": unknown_count,
         "target_doc_file_accuracy": target_doc_correct / len(records) if records else 0.0,
         "patch_fact_coverage": patch_fact_coverage(records, predictions),
         "false_positive_count": false_positive_count,
@@ -179,10 +197,21 @@ def format_percent(value: float) -> str:
 
 
 def write_report(path: Path, split: str, metrics: dict) -> None:
+    v01 = {
+        "docs_update_required_precision": 1.0,
+        "docs_update_required_recall": 1.0,
+        "docs_update_required_f1": 1.0,
+        "scenario_type_accuracy": 1.0,
+        "target_doc_file_accuracy": 1.0,
+        "patch_fact_coverage": 0.8,
+        "false_positive_count": 0,
+        "false_negative_count": 0,
+        "hallucination_count": 0,
+    }
     lines = [
         "# Baseline Evaluation",
         "",
-        "- Dataset version used: v0.1",
+        "- Dataset version used: v0.2",
         f"- Split evaluated: {split}",
         "",
         "## Metric Table",
@@ -194,11 +223,27 @@ def write_report(path: Path, split: str, metrics: dict) -> None:
         f"| docs_update_required recall | {format_percent(metrics['docs_update_required_recall'])} |",
         f"| docs_update_required F1 | {format_percent(metrics['docs_update_required_f1'])} |",
         f"| scenario_type accuracy | {format_percent(metrics['scenario_type_accuracy'])} |",
+        f"| known-scenario accuracy | {format_percent(metrics['known_scenario_accuracy'])} |",
+        f"| unknown/unsupported scenario count | {metrics['unknown_unsupported_scenario_count']} |",
         f"| target_doc_file accuracy | {format_percent(metrics['target_doc_file_accuracy'])} |",
         f"| patch fact coverage | {format_percent(metrics['patch_fact_coverage'])} |",
         f"| false positives | {metrics['false_positive_count']} |",
         f"| false negatives | {metrics['false_negative_count']} |",
         f"| hallucination count | {metrics['hallucination_count']} |",
+        "",
+        "## v0.1 vs v0.2 Comparison",
+        "",
+        "| Metric | v0.1 value | v0.2 value | Interpretation |",
+        "| --- | ---: | ---: | --- |",
+        f"| docs_update_required precision | {format_percent(v01['docs_update_required_precision'])} | {format_percent(metrics['docs_update_required_precision'])} | Measures how often predicted documentation updates are correct. |",
+        f"| docs_update_required recall | {format_percent(v01['docs_update_required_recall'])} | {format_percent(metrics['docs_update_required_recall'])} | Drops if unsupported positive changes are missed. |",
+        f"| docs_update_required F1 | {format_percent(v01['docs_update_required_f1'])} | {format_percent(metrics['docs_update_required_f1'])} | Overall binary update-detection quality. |",
+        f"| scenario_type accuracy | {format_percent(v01['scenario_type_accuracy'])} | {format_percent(metrics['scenario_type_accuracy'])} | v0.2 includes unsupported scenario types, so this should be lower. |",
+        f"| target_doc_file accuracy | {format_percent(v01['target_doc_file_accuracy'])} | {format_percent(metrics['target_doc_file_accuracy'])} | All current records still target API docs. |",
+        f"| patch fact coverage | {format_percent(v01['patch_fact_coverage'])} | {format_percent(metrics['patch_fact_coverage'])} | Lower coverage shows the baseline cannot generate patches for many v0.2 changes. |",
+        f"| false positives | {v01['false_positive_count']} | {metrics['false_positive_count']} | Negative changes incorrectly flagged as doc updates. |",
+        f"| false negatives | {v01['false_negative_count']} | {metrics['false_negative_count']} | Positive changes missed by the baseline. |",
+        f"| hallucination count | {v01['hallucination_count']} | {metrics['hallucination_count']} | Unsupported changes should not trigger invented patches. |",
         "",
         "## Per-Scenario Performance",
         "",
@@ -215,7 +260,7 @@ def write_report(path: Path, split: str, metrics: dict) -> None:
             "",
             "## Interpretation",
             "",
-            "This deterministic baseline performs well on the current template-generated v0.1 scenarios because the diffs contain regular route, schema, repository, and service patterns. Patch fact coverage is intentionally stricter than classification and highlights facts that are not fully recoverable from code diffs alone.",
+            "The deterministic baseline remains strong on v0.1-style scenarios, but v0.2 introduces many unsupported change types. Those examples are intentionally classified as `unknown_change`, which makes scenario accuracy lower and exposes where an NLP-assisted DocGuard agent should improve.",
             "",
             "## Limitations",
             "",

@@ -112,6 +112,10 @@ def analyze_record(record: dict) -> DiffFacts:
         target_doc_file="docs/api.md",
     )
 
+    if "diff --git a/docs/api.md" in diff:
+        facts.scenario_signals.add("unsupported_negative")
+        return facts
+
     auth_match = re.search(
         r"-(\w+Router)\.(get|post|put|patch|delete)\(\"([^\"]+)\",\s*(\w+)\);\n"
         r"\+(\w+Router)\.(get|post|put|patch|delete)\(\"([^\"]+)\",\s*(\w+),\s*(\w+)\);",
@@ -138,6 +142,30 @@ def analyze_record(record: dict) -> DiffFacts:
         facts.new_min = int(validation_match.group(3))
         facts.method = "POST"
         facts.full_path = f"/{module}" if module else None
+        return facts
+
+    if re.search(r"\n-[^\n]*Router\.(get|post|put|patch|delete)\(", diff) and re.search(r"\n\+[^\n]*Router\.(get|post|put|patch|delete)\(", diff):
+        facts.scenario_signals.add("unsupported_positive")
+        return facts
+
+    if re.search(r"\n-[^\n]*Router\.(get|post|put|patch|delete)\(", diff):
+        facts.scenario_signals.add("unsupported_positive")
+        return facts
+
+    if re.search(r"\n\+\s*// Deprecated:", diff):
+        facts.scenario_signals.add("unsupported_positive")
+        return facts
+
+    if re.search(r"\n[+-]\s+\w+:\s*z\.", diff):
+        facts.scenario_signals.add("unsupported_positive")
+        return facts
+
+    if re.search(r"\n-\s+res\.status\(\d+\)", diff) and re.search(r"\n\+\s+res\.status\(\d+\)", diff):
+        facts.scenario_signals.add("unsupported_positive")
+        return facts
+
+    if re.search(r"\n-\s+return res\.status\(\d+\)\.json\(\{ error:", diff) and re.search(r"\n\+\s+return res\.status\(\d+\)\.json\(\{ error:", diff):
+        facts.scenario_signals.add("unsupported_positive")
         return facts
 
     response_field_match = re.search(r"\+\s+([A-Za-z_][A-Za-z0-9_]*):\s*string;", diff)

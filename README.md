@@ -16,6 +16,14 @@ This repository currently contains a reusable synthetic dataset generator:
 
 The full target can later be reached by adding more projects and increasing the generation configuration.
 
+## Current Status
+
+- Dataset v0.1 frozen in `dataset_versions/v0_1`
+- Dataset v0.2 generated with 10 projects, 1500 records, and expanded scenario diversity
+- Rule-based baseline implemented in `docguard/`
+- Baseline evaluated on v0.1 and v0.2
+- Next step: NLP-assisted DocGuard for harder v0.2 scenarios
+
 ## Dataset v0.1
 
 Dataset v0.1 is a controlled synthetic dataset for the first baseline evaluation of the DocGuard agent. It is designed to test whether a deterministic or NLP-assisted system can inspect REST API code diffs, decide whether API documentation needs an update, classify the change type, and produce a minimal documentation patch.
@@ -59,6 +67,7 @@ scripts/
 reports/
   dataset_statistics.md
   dataset_v0_1_summary.md
+  dataset_v0_2_summary.md
   manual_audit_sample.jsonl
   manual_audit_template.md
   quality_checks.md

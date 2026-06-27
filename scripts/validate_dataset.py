@@ -298,8 +298,8 @@ def assert_split_integrity(dataset_records: list[dict]) -> None:
 
 def main() -> int:
     records = read_jsonl(DATASET_PATH)
-    if len(records) < 1000:
-        raise AssertionError(f"Expected at least 1000 records, found {len(records)}")
+    if len(records) < 1500:
+        raise AssertionError(f"Expected at least 1500 records, found {len(records)}")
 
     assert_no_duplicate_ids(records)
     assert_no_duplicate_records(records)

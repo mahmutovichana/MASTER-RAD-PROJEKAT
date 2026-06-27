@@ -19,8 +19,8 @@ from docguard.evaluator import (
 def evaluate_command(args: argparse.Namespace) -> int:
     metrics, predictions = evaluate_split(args.split)
     if args.split == "test":
-        write_predictions(ROOT / "data" / "predictions_test.jsonl", predictions)
-        write_report(ROOT / "reports" / "baseline_evaluation.md", args.split, metrics)
+        write_predictions(ROOT / "data" / "predictions_test_v0_2.jsonl", predictions)
+        write_report(ROOT / "reports" / "baseline_evaluation_v0_2.md", args.split, metrics)
 
     print(json.dumps(metrics, indent=2, ensure_ascii=False))
     return 0

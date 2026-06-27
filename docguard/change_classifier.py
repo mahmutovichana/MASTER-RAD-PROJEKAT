@@ -26,9 +26,23 @@ def classify_facts(facts: DiffFacts) -> dict[str, object]:
                 "target_doc_file": facts.target_doc_file,
             }
 
+    if "unsupported_positive" in facts.scenario_signals:
+        return {
+            "docs_update_required": True,
+            "scenario_type": "unknown_change",
+            "target_doc_file": facts.target_doc_file,
+        }
+
+    if "unsupported_negative" in facts.scenario_signals:
+        return {
+            "docs_update_required": False,
+            "scenario_type": "unknown_change",
+            "target_doc_file": facts.target_doc_file,
+        }
+
     return {
         "docs_update_required": False,
-        "scenario_type": "internal_refactor",
+        "scenario_type": "unknown_change",
         "target_doc_file": facts.target_doc_file,
     }
 

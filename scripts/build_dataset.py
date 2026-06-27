@@ -10,10 +10,21 @@ from pathlib import Path
 from scenario_templates import (
     ScenarioContext,
     added_response_field,
+    added_request_field,
+    changed_endpoint_path,
+    changed_error_response,
+    changed_http_method,
     changed_auth_requirement,
+    changed_enum_values,
+    changed_status_code,
     changed_validation_min,
+    changed_validation_max,
+    deprecated_endpoint,
     internal_refactor,
+    negative_record,
     new_endpoint,
+    removed_endpoint,
+    removed_request_field,
 )
 
 
@@ -21,7 +32,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 REPORTS_DIR = ROOT / "reports"
 PROJECTS_DIR = ROOT / "generated_projects"
-RECORDS_PER_PROJECT = 100
+RECORDS_PER_PROJECT = 150
 
 TRAIN_PROJECTS = {
     "shop-api",
@@ -45,6 +56,30 @@ VARIANT_TERMS = [
     "public",
     "admin",
     "scheduled",
+]
+SCENARIO_SEQUENCE = [
+    "new_endpoint",
+    "changed_validation_min",
+    "changed_auth_requirement",
+    "added_response_field",
+    "internal_refactor",
+    "removed_endpoint",
+    "changed_endpoint_path",
+    "changed_http_method",
+    "added_request_field",
+    "removed_request_field",
+    "changed_validation_max",
+    "changed_enum_values",
+    "changed_status_code",
+    "changed_error_response",
+    "deprecated_endpoint",
+    "docs_already_updated",
+    "formatting_only",
+    "test_only_change",
+    "comment_only_change",
+    "dependency_config_change",
+    "rename_private_helper",
+    "internal_service_logic_no_api_change",
 ]
 
 
@@ -377,17 +412,20 @@ def context_for(project: ProjectSpec, module: ModuleSpec, record_id: str) -> Sce
     )
 
 
-def record_for(project: ProjectSpec, module: ModuleSpec, index: int) -> dict[str, object]:
+def record_for(project: ProjectSpec, module: ModuleSpec, index: int, global_index: int) -> dict[str, object]:
     ctx = context_for(project, module, f"{project.project_id}-{index:03d}")
     item_pascal = pascal(module.item_name)
     module_pascal = pascal(module.name)
     router_name = f"{camel(module.item_name)}Router"
     service_name = f"{camel(module.item_name)}Service"
     repository_name = f"{camel(module.item_name)}Repository"
-    scenario_slot = (index - 1) % 5
-    cycle = (index - 1) // (5 * len(project.modules))
+    scenario_type = SCENARIO_SEQUENCE[global_index % len(SCENARIO_SEQUENCE)]
+    cycle = global_index // len(SCENARIO_SEQUENCE)
+    endpoint = f"POST /{module.name}"
+    path = f"/{module.name}"
+    handler = f"create{item_pascal}"
 
-    if scenario_slot == 0:
+    if scenario_type == "new_endpoint":
         endpoint_variants = [
             ("/:id", f"/{module.name}/:id", f"get{item_pascal}", f"get{item_pascal}", f"Returns a single {module.item_name} by id"),
             ("/:id/audit", f"/{module.name}/:id/audit", f"get{item_pascal}Audit", f"get{item_pascal}Audit", f"Returns audit details for a single {module.item_name}"),
@@ -414,7 +452,7 @@ def record_for(project: ProjectSpec, module: ModuleSpec, index: int) -> dict[str
             service_call=f"{service_name}.{service_method}(req.params.id)",
             description=description,
         )
-    if scenario_slot == 1:
+    if scenario_type == "changed_validation_min":
         old_min = module.numeric_min + cycle
         new_min = old_min + 1
         effective_max = max(module.numeric_max, new_min + 10)
@@ -431,7 +469,7 @@ def record_for(project: ProjectSpec, module: ModuleSpec, index: int) -> dict[str
             endpoint=f"POST /{module.name}",
             validation_context=validation_context,
         )
-    if scenario_slot == 2:
+    if scenario_type == "changed_auth_requirement":
         auth_variants = [
             (module.auth_description, f"require{item_pascal}Access"),
             (f"elevated {module.auth_description}", f"requireElevated{item_pascal}Access"),
@@ -455,7 +493,7 @@ def record_for(project: ProjectSpec, module: ModuleSpec, index: int) -> dict[str
             middleware=middleware,
             auth_description=auth_description,
         )
-    if scenario_slot == 3:
+    if scenario_type == "added_response_field":
         field = module.response_field if cycle == 0 else f"{module.response_field}{pascal(VARIANT_TERMS[cycle % len(VARIANT_TERMS)])}"
         response_fields = list(module.response_fields)
         if field not in response_fields:
@@ -467,20 +505,90 @@ def record_for(project: ProjectSpec, module: ModuleSpec, index: int) -> dict[str
             field_description=f"{field} is generated when the {module.item_name} is created",
             response_fields=response_fields,
         )
-    return internal_refactor(
-        ctx,
-        symbol_before=f"raw{module_pascal}{pascal(VARIANT_TERMS[cycle % len(VARIANT_TERMS)])}",
-        symbol_after=f"prepared{module_pascal}{pascal(VARIANT_TERMS[cycle % len(VARIANT_TERMS)])}",
-        behavior_summary=f"{repository_name}.list()",
-    )
+    if scenario_type == "internal_refactor":
+        return internal_refactor(
+            ctx,
+            symbol_before=f"raw{module_pascal}{pascal(VARIANT_TERMS[cycle % len(VARIANT_TERMS)])}",
+            symbol_after=f"prepared{module_pascal}{pascal(VARIANT_TERMS[cycle % len(VARIANT_TERMS)])}",
+            behavior_summary=f"{repository_name}.list()",
+        )
+    if scenario_type == "removed_endpoint":
+        term = VARIANT_TERMS[cycle % len(VARIANT_TERMS)]
+        return removed_endpoint(ctx, method="GET", path=f"/{module.name}/legacy-{term}", route_path=f"/legacy-{term}", router_name=router_name, handler=f"listLegacy{module_pascal}{pascal(term)}")
+    if scenario_type == "changed_endpoint_path":
+        term = VARIANT_TERMS[cycle % len(VARIANT_TERMS)]
+        return changed_endpoint_path(ctx, method="GET", old_path=f"/{module.name}/old-{term}", new_path=f"/{module.name}/active-{term}", old_route_path=f"/old-{term}", new_route_path=f"/active-{term}", router_name=router_name, handler=f"list{module_pascal}")
+    if scenario_type == "changed_http_method":
+        method_variants = [
+            ("POST", "PATCH", f"/method-{VARIANT_TERMS[cycle % len(VARIANT_TERMS)]}", f"/{module.name}/method-{VARIANT_TERMS[cycle % len(VARIANT_TERMS)]}"),
+            ("POST", "PUT", f"/replace-{VARIANT_TERMS[cycle % len(VARIANT_TERMS)]}", f"/{module.name}/replace-{VARIANT_TERMS[cycle % len(VARIANT_TERMS)]}"),
+            ("GET", "POST", f"/search-{VARIANT_TERMS[cycle % len(VARIANT_TERMS)]}", f"/{module.name}/search-{VARIANT_TERMS[cycle % len(VARIANT_TERMS)]}"),
+            ("PATCH", "DELETE", f"/archive-{VARIANT_TERMS[cycle % len(VARIANT_TERMS)]}", f"/{module.name}/archive-{VARIANT_TERMS[cycle % len(VARIANT_TERMS)]}"),
+        ]
+        old_method, new_method, route_path, public_path = method_variants[cycle % len(method_variants)]
+        return changed_http_method(ctx, old_method=old_method, new_method=new_method, path=public_path, route_path=route_path, router_name=router_name, handler=handler)
+    if scenario_type == "added_request_field":
+        field = f"{VARIANT_TERMS[cycle % len(VARIANT_TERMS)]}Note"
+        return added_request_field(ctx, endpoint=endpoint, field=field, zod_type="z.string().min(3).optional()", description=f"optional string used for {VARIANT_TERMS[cycle % len(VARIANT_TERMS)]} workflows")
+    if scenario_type == "removed_request_field":
+        field = f"legacy{pascal(VARIANT_TERMS[cycle % len(VARIANT_TERMS)])}Code"
+        return removed_request_field(ctx, endpoint=endpoint, field=field, description=f"legacy string code for {VARIANT_TERMS[cycle % len(VARIANT_TERMS)]} workflows")
+    if scenario_type == "changed_validation_max":
+        old_max = module.numeric_max + cycle + 5
+        new_max = module.numeric_max + cycle
+        field = f"{module.numeric_field}{pascal(VARIANT_TERMS[cycle % len(VARIANT_TERMS)])}Limit"
+        return changed_validation_max(ctx, field=field, old_max=old_max, new_max=new_max, endpoint=endpoint)
+    if scenario_type == "changed_enum_values":
+        old_values = ["draft", "active", "archived"]
+        new_values = ["draft", "active", VARIANT_TERMS[cycle % len(VARIANT_TERMS)]]
+        return changed_enum_values(ctx, field="status", old_values=old_values, new_values=new_values, endpoint=endpoint)
+    if scenario_type == "changed_status_code":
+        old_status = 200 + (cycle % 20)
+        new_status = old_status + 1
+        status_endpoint = f"POST /{module.name}/{VARIANT_TERMS[cycle % len(VARIANT_TERMS)]}-status"
+        return changed_status_code(ctx, endpoint=status_endpoint, old_status=old_status, new_status=new_status, handler=handler)
+    if scenario_type == "changed_error_response":
+        return changed_error_response(ctx, endpoint=endpoint, old_error="Invalid request", new_error=f"{pascal(VARIANT_TERMS[cycle % len(VARIANT_TERMS)])} validation failed", status_code=400)
+    if scenario_type == "deprecated_endpoint":
+        term = VARIANT_TERMS[cycle % len(VARIANT_TERMS)]
+        return deprecated_endpoint(ctx, method="GET", path=f"/{module.name}/legacy-{term}", deprecation_date=f"2027-{(cycle % 9) + 1:02d}-01")
+
+    if scenario_type == "docs_already_updated":
+        old_min = module.numeric_min + cycle
+        new_min = old_min + 1
+        code_diff = f"diff --git a/{ctx.schema_file} b/{ctx.schema_file}\n@@\n-  {module.numeric_field}: z.number().int().min({old_min})\n+  {module.numeric_field}: z.number().int().min({new_min})\ndiff --git a/docs/api.md b/docs/api.md\n@@\n-- `{module.numeric_field}`: integer, minimum {old_min}\n+- `{module.numeric_field}`: integer, minimum {new_min}"
+        return negative_record(ctx, scenario_type=scenario_type, summary=f"Updated {module.numeric_field} validation and documentation together for {VARIANT_TERMS[cycle % len(VARIANT_TERMS)]} workflows.", changed_file=ctx.schema_file, code_diff=code_diff, negative_reason="The API contract changed, but the documentation update is already included in the same diff.")
+    if scenario_type == "formatting_only":
+        spaces = " " * ((cycle % 3) + 2)
+        return negative_record(ctx, scenario_type=scenario_type, summary=f"Reformatted route spacing for {VARIANT_TERMS[cycle % len(VARIANT_TERMS)]} readability without changing behavior.", changed_file=ctx.route_file, code_diff=f"diff --git a/{ctx.route_file} b/{ctx.route_file}\n@@\n-{router_name}.get(\"/\", list{module_pascal});\n+{router_name}.get(\"/\",{spaces}list{module_pascal});", negative_reason="Only whitespace changed; the API contract is unchanged.")
+    if scenario_type == "test_only_change":
+        test_file = f"src/modules/{module.name}/{module.name}.service.ts"
+        return negative_record(ctx, scenario_type=scenario_type, summary="Added internal service test coverage notes.", changed_file=test_file, code_diff=f"diff --git a/{test_file} b/{test_file}\n@@\n+// Test coverage added for {VARIANT_TERMS[cycle % len(VARIANT_TERMS)]} branch behavior.", negative_reason="The change affects tests or test coverage notes only and does not alter the API contract.")
+    if scenario_type == "comment_only_change":
+        term = VARIANT_TERMS[cycle % len(VARIANT_TERMS)]
+        return negative_record(ctx, scenario_type=scenario_type, summary=f"Added implementation comment for {term} maintenance context.", changed_file=ctx.controller_file, code_diff=f"diff --git a/{ctx.controller_file} b/{ctx.controller_file}\n@@\n+// Keep {module.name} {term} response handling stable for clients.", negative_reason="Only a source comment changed; routes, schemas, status codes, and response bodies are unchanged.")
+    if scenario_type == "dependency_config_change":
+        patch_version = (cycle % 9) + 1
+        term = VARIANT_TERMS[cycle % len(VARIANT_TERMS)]
+        return negative_record(ctx, scenario_type=scenario_type, summary=f"Updated package metadata for {term} tooling without API behavior changes.", changed_file="package.json", code_diff=f"diff --git a/package.json b/package.json\n@@\n-  \"docguard:{term}\": \"check\"\n+  \"docguard:{term}\": \"check --strict\"", negative_reason="Package metadata changed, but the REST API contract did not change.")
+    if scenario_type == "rename_private_helper":
+        suffix = pascal(VARIANT_TERMS[cycle % len(VARIANT_TERMS)])
+        return negative_record(ctx, scenario_type=scenario_type, summary=f"Renamed a private {VARIANT_TERMS[cycle % len(VARIANT_TERMS)]} helper function.", changed_file=ctx.service_file, code_diff=f"diff --git a/{ctx.service_file} b/{ctx.service_file}\n@@\n-function normalize{item_pascal}{suffix}Input(input) {{\n+function prepare{item_pascal}{suffix}Input(input) {{", negative_reason="A private helper was renamed without changing public routes, schemas, or responses.")
+    if scenario_type == "internal_service_logic_no_api_change":
+        sort_field = "id" if cycle % 2 == 0 else "name"
+        return negative_record(ctx, scenario_type=scenario_type, summary=f"Changed internal {VARIANT_TERMS[cycle % len(VARIANT_TERMS)]} sorting logic without API contract changes.", changed_file=ctx.service_file, code_diff=f"diff --git a/{ctx.service_file} b/{ctx.service_file}\n@@\n-    return {repository_name}.list();\n+    return {repository_name}.list().sort((left, right) => left.{sort_field}.localeCompare(right.{sort_field}));", negative_reason="Internal ordering logic changed, but the documented endpoints and fields are unchanged.")
+
+    raise ValueError(f"Unsupported scenario type: {scenario_type}")
 
 
 def build_records() -> list[dict[str, object]]:
     records: list[dict[str, object]] = []
+    global_index = 0
     for project in PROJECTS:
         for index in range(1, RECORDS_PER_PROJECT + 1):
             module = project.modules[(index - 1) % len(project.modules)]
-            records.append(record_for(project, module, index))
+            records.append(record_for(project, module, index, global_index))
+            global_index += 1
     return records
 
 
@@ -513,7 +621,7 @@ def write_reports(records: list[dict[str, object]]) -> None:
     stats_lines = [
         "# Dataset Statistics",
         "",
-        "Dataset regenerated from reusable scenario templates and variation pools across 10 synthetic REST API projects.",
+        "Dataset v0.2 regenerated from reusable scenario templates and variation pools across 10 synthetic REST API projects.",
         "",
         "| Metric | Value |",
         "| --- | ---: |",
@@ -543,7 +651,7 @@ def write_reports(records: list[dict[str, object]]) -> None:
                 "",
                 "The validation script checks:",
                 "",
-                "- at least 1000 records exist",
+                "- at least 1500 records exist",
                 "- required fields are present",
                 "- duplicate ids do not exist",
                 "- duplicate semantic records do not exist",
@@ -564,11 +672,7 @@ def write_reports(records: list[dict[str, object]]) -> None:
                 "",
                 "Current reusable scenario templates:",
                 "",
-                "- `new_endpoint`",
-                "- `changed_validation_min`",
-                "- `changed_auth_requirement`",
-                "- `added_response_field`",
-                "- `internal_refactor`",
+                *[f"- `{scenario}`" for scenario in SCENARIO_SEQUENCE],
             ]
         )
         + "\n",
