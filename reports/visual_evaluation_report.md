@@ -8,6 +8,18 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 
 ![baseline_metrics_v0_1_v0_2_v0_3](figures/baseline_metrics_v0_1_v0_2_v0_3.png)
 
+## baseline_vs_llm_doc_category_accuracy_v0_3
+
+![baseline_vs_llm_doc_category_accuracy_v0_3](figures/baseline_vs_llm_doc_category_accuracy_v0_3.png)
+
+## baseline_vs_llm_fact_coverage_v0_3
+
+![baseline_vs_llm_fact_coverage_v0_3](figures/baseline_vs_llm_fact_coverage_v0_3.png)
+
+## baseline_vs_llm_metrics_v0_3
+
+![baseline_vs_llm_metrics_v0_3](figures/baseline_vs_llm_metrics_v0_3.png)
+
 ## binary_confusion_matrix_v0_3
 
 ![binary_confusion_matrix_v0_3](figures/binary_confusion_matrix_v0_3.png)
@@ -19,6 +31,26 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 ## doc_category_distribution_v0_3
 
 ![doc_category_distribution_v0_3](figures/doc_category_distribution_v0_3.png)
+
+## llm_confusion_matrix_best_model_v0_3
+
+![llm_confusion_matrix_best_model_v0_3](figures/llm_confusion_matrix_best_model_v0_3.png)
+
+## llm_latency_comparison_v0_3
+
+![llm_latency_comparison_v0_3](figures/llm_latency_comparison_v0_3.png)
+
+## llm_model_comparison_metrics_v0_3
+
+![llm_model_comparison_metrics_v0_3](figures/llm_model_comparison_metrics_v0_3.png)
+
+## llm_parse_error_counts_v0_3
+
+![llm_parse_error_counts_v0_3](figures/llm_parse_error_counts_v0_3.png)
+
+## llm_per_doc_category_best_model_v0_3
+
+![llm_per_doc_category_best_model_v0_3](figures/llm_per_doc_category_best_model_v0_3.png)
 
 ## per_doc_category_accuracy_v0_3
 

@@ -23,6 +23,7 @@ except ModuleNotFoundError:
     HAS_MATPLOTLIB = False
 
 from docguard.evaluator import evaluate_split, read_jsonl
+from docguard_llm.evaluator import evaluate_predictions as evaluate_llm_predictions
 
 
 def save_bar(path: Path, labels: list[str], values: list[float], title: str, ylabel: str = "Count") -> None:
@@ -250,16 +251,79 @@ def main() -> int:
         binary_matrix[i][j] += 1
     save_confusion_matrix(FIGURES_DIR / "binary_confusion_matrix_v0_3.png", binary_matrix, binary_labels, "docs_update_required Confusion Matrix v0.3")
 
-    scenario_labels = sorted(set(r["scenario_type"] for r in test_records) | set(p["scenario_type"] for p in predictions))
+    top_scenarios = [name for name, _count in Counter(r["scenario_type"] for r in test_records).most_common(15)]
+    scenario_labels = sorted(set(top_scenarios + ["other", "unknown_change"]))
+    def group_scenario(name: str) -> str:
+        return name if name in top_scenarios or name == "unknown_change" else "other"
     idx = {label: i for i, label in enumerate(scenario_labels)}
     matrix = [[0 for _ in scenario_labels] for _ in scenario_labels]
     for record, prediction in zip(test_records, predictions):
-        matrix[idx[record["scenario_type"]]][idx[prediction["scenario_type"]]] += 1
+        matrix[idx[group_scenario(record["scenario_type"])]][idx[group_scenario(prediction["scenario_type"])]] += 1
     save_confusion_matrix(FIGURES_DIR / "scenario_confusion_matrix_v0_3.png", matrix, scenario_labels, "Scenario Type Confusion Matrix v0.3")
 
     pr, roc = pr_roc_points(test_records, predictions)
     save_line(FIGURES_DIR / "precision_recall_curve_v0_3.png", pr, "Baseline Precision-Recall Curve v0.3", "Recall", "Precision")
     save_line(FIGURES_DIR / "roc_curve_v0_3.png", roc, "Baseline ROC Curve v0.3", "False Positive Rate", "True Positive Rate")
+
+    llm_metrics = load_llm_metrics()
+    if llm_metrics:
+        model_labels = list(llm_metrics)
+        best_model = max(model_labels, key=lambda key: llm_metrics[key]["docs_update_required_f1"])
+        best_metrics = llm_metrics[best_model]
+        save_bar(
+            FIGURES_DIR / "baseline_vs_llm_metrics_v0_3.png",
+            ["baseline F1", *[f"{m} F1" for m in model_labels]],
+            [metrics["docs_update_required_f1"], *[llm_metrics[m]["docs_update_required_f1"] for m in model_labels]],
+            "Baseline vs LLM F1 v0.3",
+            "F1",
+        )
+        save_grouped_llm_metrics(FIGURES_DIR / "llm_model_comparison_metrics_v0_3.png", llm_metrics)
+        save_bar(
+            FIGURES_DIR / "baseline_vs_llm_doc_category_accuracy_v0_3.png",
+            ["baseline", *model_labels],
+            [metrics["doc_category_accuracy"], *[llm_metrics[m]["doc_category_accuracy"] for m in model_labels]],
+            "Baseline vs LLM Doc Category Accuracy v0.3",
+            "Accuracy",
+        )
+        save_bar(
+            FIGURES_DIR / "baseline_vs_llm_fact_coverage_v0_3.png",
+            ["baseline", *model_labels],
+            [metrics["patch_fact_coverage"], *[llm_metrics[m]["patch_fact_coverage"] for m in model_labels]],
+            "Baseline vs LLM Fact Coverage v0.3",
+            "Coverage",
+        )
+        save_bar(
+            FIGURES_DIR / "llm_parse_error_counts_v0_3.png",
+            model_labels,
+            [llm_metrics[m]["parse_error_count"] for m in model_labels],
+            "LLM Parse Error Counts v0.3",
+        )
+        if any(llm_metrics[m].get("average_latency_seconds") is not None for m in model_labels):
+            save_bar(
+                FIGURES_DIR / "llm_latency_comparison_v0_3.png",
+                model_labels,
+                [llm_metrics[m].get("average_latency_seconds") or 0 for m in model_labels],
+                "LLM Latency Comparison v0.3",
+                "Seconds",
+            )
+        best_predictions = load_llm_predictions_for_model(best_model)
+        if best_predictions:
+            best_split, best_rows = best_predictions
+            best_records = read_jsonl(DATA_DIR / f"{best_split}.jsonl")[: len(best_rows)]
+            labels = ["negative", "positive"]
+            llm_matrix = [[0, 0], [0, 0]]
+            for record, prediction in zip(best_records, best_rows):
+                i = 1 if record["docs_update_required"] else 0
+                j = 1 if prediction["docs_update_required"] else 0
+                llm_matrix[i][j] += 1
+            save_confusion_matrix(FIGURES_DIR / "llm_confusion_matrix_best_model_v0_3.png", llm_matrix, labels, f"LLM Confusion Matrix: {best_model}")
+            save_bar(
+                FIGURES_DIR / "llm_per_doc_category_best_model_v0_3.png",
+                list(best_metrics["per_doc_category"]),
+                [m["accuracy"] for m in best_metrics["per_doc_category"].values()],
+                f"LLM Per-Doc-Category Accuracy: {best_model}",
+                "Accuracy",
+            )
 
     report_lines = [
         "# Visual Evaluation Report",
@@ -274,6 +338,43 @@ def main() -> int:
     (REPORTS_DIR / "visual_evaluation_report.md").write_text("\n".join(report_lines), encoding="utf-8")
     print(f"Generated {len(list(FIGURES_DIR.glob('*.png')))} figures in {FIGURES_DIR.relative_to(ROOT)}")
     return 0
+
+
+def load_llm_predictions_for_model(model_key: str) -> tuple[str, list[dict]] | None:
+    candidates = sorted(DATA_DIR.glob(f"llm_predictions_v0_3_*_{model_key}.jsonl"))
+    if not candidates:
+        return None
+    path = candidates[-1]
+    split = path.name.removeprefix("llm_predictions_v0_3_").removesuffix(f"_{model_key}.jsonl")
+    return split, read_jsonl(path)
+
+
+def load_llm_metrics() -> dict[str, dict]:
+    metrics = {}
+    for path in sorted(DATA_DIR.glob("llm_predictions_v0_3_*.jsonl")):
+        stem = path.stem.removeprefix("llm_predictions_v0_3_")
+        for split in ["validation", "test", "train"]:
+            prefix = f"{split}_"
+            if stem.startswith(prefix):
+                model_key = stem.removeprefix(prefix)
+                predictions = read_jsonl(path)
+                records = read_jsonl(DATA_DIR / f"{split}.jsonl")[: len(predictions)]
+                metrics[model_key] = evaluate_llm_predictions(records, predictions)
+                break
+    return metrics
+
+
+def save_grouped_llm_metrics(path: Path, llm_metrics: dict[str, dict]) -> None:
+    values = []
+    labels = []
+    for model_key, metrics in llm_metrics.items():
+        labels.extend([f"{model_key} precision", f"{model_key} recall", f"{model_key} F1"])
+        values.extend([
+            metrics["docs_update_required_precision"],
+            metrics["docs_update_required_recall"],
+            metrics["docs_update_required_f1"],
+        ])
+    save_bar(path, labels, values, "LLM Model Comparison Metrics v0.3", "Score")
 
 
 if __name__ == "__main__":

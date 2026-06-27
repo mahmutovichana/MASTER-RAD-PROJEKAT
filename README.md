@@ -105,6 +105,44 @@ Generate visual reports:
 python scripts/generate_figures.py
 ```
 
+## Hugging Face LLM-Assisted Phase
+
+The LLM-assisted prototype lives in `docguard_llm/`. It performs inference only; no fine-tuning is done in this phase.
+
+Supported model keys:
+
+- `qwen2_5_coder_7b`: `Qwen/Qwen2.5-Coder-7B-Instruct`
+- `deepseek_coder_6_7b`: `deepseek-ai/deepseek-coder-6.7b-instruct`
+- `qwen2_5_coder_3b`: `Qwen/Qwen2.5-Coder-3B-Instruct`
+
+List models:
+
+```bash
+python -m docguard_llm.cli list-models
+```
+
+Run a mock evaluation without downloading models:
+
+```bash
+python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_7b --backend mock --limit 20
+python -m docguard_llm.cli compare --split validation --backend mock --limit 20
+```
+
+Run local Transformers inference:
+
+```bash
+python -m docguard_llm.cli evaluate --split test --model qwen2_5_coder_7b --backend transformers_local
+```
+
+Run against a local vLLM/TGI OpenAI-compatible server:
+
+```bash
+$env:DOCGUARD_TGI_BASE_URL="http://localhost:8000/v1"
+python -m docguard_llm.cli evaluate --split test --model qwen2_5_coder_7b --backend text_generation_inference
+```
+
+The 7B models may require a GPU, quantization, or a local serving setup. Use `qwen2_5_coder_3b` for a smaller local comparison.
+
 ## Current Split
 
 Splits are project-level:
