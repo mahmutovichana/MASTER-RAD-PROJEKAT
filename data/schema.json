@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DocGuardDatasetRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "project_id",
+    "scenario_type",
+    "docs_update_required",
+    "change_summary",
+    "changed_files",
+    "code_diff",
+    "docs_before_excerpt",
+    "target_doc_file",
+    "target_section",
+    "expected_facts",
+    "gold_doc_patch",
+    "docs_after_gold_excerpt",
+    "negative_reason",
+    "difficulty",
+    "tags"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "project_id": { "type": "string", "minLength": 1 },
+    "scenario_type": { "type": "string", "minLength": 1 },
+    "docs_update_required": { "type": "boolean" },
+    "change_summary": { "type": "string", "minLength": 1 },
+    "changed_files": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1
+    },
+    "code_diff": { "type": "string", "minLength": 1 },
+    "docs_before_excerpt": { "type": "string" },
+    "target_doc_file": { "type": "string", "minLength": 1 },
+    "target_section": { "type": "string", "minLength": 1 },
+    "expected_facts": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "gold_doc_patch": {
+      "anyOf": [
+        { "type": "string" },
+        { "type": "null" }
+      ]
+    },
+    "docs_after_gold_excerpt": { "type": "string" },
+    "negative_reason": {
+      "anyOf": [
+        { "type": "string" },
+        { "type": "null" }
+      ]
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["easy", "medium", "hard"]
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}
