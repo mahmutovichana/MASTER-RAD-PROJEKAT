@@ -20,4 +20,4 @@
 | hallucinations | 0 |
 | parse errors | 0 |
 | average confidence | 63.00% |
-| average latency seconds | 0.0000 |
+| average latency seconds | 0.0001 |

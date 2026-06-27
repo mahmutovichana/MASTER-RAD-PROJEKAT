@@ -150,16 +150,16 @@ pip install transformers accelerate torch sentencepiece
 
 Optional quantization packages such as `bitsandbytes` may be useful on compatible GPU setups, but they are not required for default checks.
 
-Smoke-test one real model on one validation record:
+Smoke-test one small real model on one validation record:
 
 ```bash
-python -m docguard_llm.cli smoke-test --model qwen2_5_coder_3b --backend transformers_local
+python -m docguard_llm.cli smoke-test --model qwen2_5_coder_0_5b --backend transformers_local --compact-prompt
 ```
 
 Run local Transformers inference:
 
 ```bash
-python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_3b --backend transformers_local --limit 10
+python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_0_5b --backend transformers_local --limit 3 --compact-prompt --continue-on-error
 ```
 
 Run against a local vLLM/TGI OpenAI-compatible server:
@@ -169,7 +169,7 @@ $env:DOCGUARD_TGI_BASE_URL="http://localhost:8000/v1"
 python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_3b --backend text_generation_inference --limit 10
 ```
 
-The 7B models may require a GPU, quantization, or a local serving setup. Use `qwen2_5_coder_3b` for the first stronger local test. See `reports/real_llm_run_plan.md` and `reports/real_llm_manual_review_template.md` before running larger real-model evaluations.
+The 7B models may require a GPU, quantization, or a local serving setup. On CPU-only machines, use `qwen2_5_coder_0_5b` first and treat `qwen2_5_coder_1_5b` as an optional next sanity check. See `reports/real_llm_run_plan.md`, `reports/real_llm_cpu_run_status.md`, and `reports/real_llm_manual_review_template.md` before running larger real-model evaluations.
 
 ## CPU-Only Real-Run Troubleshooting
 
@@ -179,7 +179,7 @@ Check CUDA availability:
 python -c "import torch; print(torch.__version__); print(torch.cuda.is_available())"
 ```
 
-If CUDA is `False`, do not start with 7B models. CPU and disk offload can be very slow, and full 3B/7B evaluation should be done on GPU, Colab/Kaggle, or vLLM/TGI. Start with the smallest sanity-only real generation path, then compact prompts:
+If CUDA is `False`, do not start with 3B or 7B models. CPU and disk offload can be very slow, and full 3B/7B evaluation should be done on GPU, Colab/Kaggle, or vLLM/TGI. Start with the smallest sanity-only real generation path, then 0.5B compact prompts:
 
 ```powershell
 $env:DOCGUARD_MAX_NEW_TOKENS="60"
@@ -188,15 +188,22 @@ python -m docguard_llm.cli smoke-test --model qwen2_5_coder_0_5b --backend trans
 
 ```powershell
 $env:DOCGUARD_MAX_NEW_TOKENS="120"
-python -m docguard_llm.cli smoke-test --model qwen2_5_coder_1_5b --backend transformers_local --compact-prompt --debug
+python -m docguard_llm.cli smoke-test --model qwen2_5_coder_0_5b --backend transformers_local --compact-prompt --debug
 ```
 
 ```powershell
-$env:DOCGUARD_MAX_NEW_TOKENS="150"
-python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_1_5b --backend transformers_local --limit 3
+$env:DOCGUARD_MAX_NEW_TOKENS="120"
+python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_0_5b --backend transformers_local --limit 3 --compact-prompt --continue-on-error
 ```
 
-The `smoke-test` command prints progress, prompt previews, raw output previews, parse status, and writes `reports/real_llm_smoke_test_<model_key>.md`. Mock results are useful for validating the pipeline, but they are not real Hugging Face model quality.
+Only after 0.5B works should you try 1.5B sanity-only:
+
+```powershell
+$env:DOCGUARD_MAX_NEW_TOKENS="60"
+python -m docguard_llm.cli smoke-test --model qwen2_5_coder_1_5b --backend transformers_local --sanity-only --debug
+```
+
+The `smoke-test` command writes report checkpoints before generation starts, after prompt build, after generation starts, after generation finishes, and after parsing. Real `evaluate` writes each prediction to JSONL immediately, so partial outputs survive if a later CPU generation fails. The `--timeout-seconds` option is documented for run notes, but no hard Windows timeout is enforced around low-level model generation. Mock results are useful for validating the pipeline, but they are not real Hugging Face model quality.
 
 ## Current Split
 

@@ -126,12 +126,12 @@ def evaluate_predictions(records: list[dict], predictions: list[dict]) -> dict:
     }
 
 
-def evaluate_model(split: str, model_key: str, backend: str, limit: int | None = None) -> tuple[dict, list[dict]]:
+def evaluate_model(split: str, model_key: str, backend: str, limit: int | None = None, compact_prompt: bool = False) -> tuple[dict, list[dict]]:
     records = read_jsonl(split_path(split))
     if limit:
         records = records[:limit]
     examples = select_few_shot_examples()
-    predictions = [predict(record, model_key, backend, examples) for record in records]
+    predictions = [predict(record, model_key, backend, examples, compact_prompt=compact_prompt) for record in records]
     return evaluate_predictions(records, predictions), predictions
 
 

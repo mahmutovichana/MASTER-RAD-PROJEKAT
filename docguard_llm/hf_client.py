@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import copy
 import time
 import urllib.request
 from pathlib import Path
@@ -131,7 +132,15 @@ class HFClient:
         else:
             prompt = "\n".join(f"{m['role']}: {m['content']}" for m in messages)
         inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+        generation_config = copy.deepcopy(model.generation_config)
+        generation_config.do_sample = False
+        for field in ["temperature", "top_p", "top_k"]:
+            if hasattr(generation_config, field):
+                try:
+                    setattr(generation_config, field, None)
+                except (TypeError, ValueError):
+                    pass
         with torch.no_grad():
-            outputs = model.generate(**inputs, max_new_tokens=self.max_new_tokens, do_sample=False)
+            outputs = model.generate(**inputs, max_new_tokens=self.max_new_tokens, generation_config=generation_config)
         generated = outputs[0][inputs["input_ids"].shape[-1]:]
         return tokenizer.decode(generated, skip_special_tokens=True)
