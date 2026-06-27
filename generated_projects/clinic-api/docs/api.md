@@ -1,40 +1,25 @@
-# Clinic API Documentation
+# Clinic API API Reference
 
 ## Patients
 
-            ### GET /patients
+### GET /patients
 
-            Returns all patients.
+Returns all patients.
 
-            Response: `200 OK`
+### POST /patients
 
-            ### POST /patients
+Creates a patient.
 
-            Creates a patient.
+- `riskScore`: integer, minimum 0, maximum 10
 
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `riskScore`: integer, minimum 0, maximum 10
-
-            Response: `201 Created`
 ## Appointments
 
-            ### GET /appointments
+### GET /appointments
 
-            Returns all appointments.
+Returns all appointments.
 
-            Response: `200 OK`
+### POST /appointments
 
-            ### POST /appointments
+Creates a appointment.
 
-            Creates a appointment.
-
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `durationMinutes`: integer, minimum 10, maximum 180
-
-            Response: `201 Created`
+- `durationMinutes`: integer, minimum 10, maximum 180

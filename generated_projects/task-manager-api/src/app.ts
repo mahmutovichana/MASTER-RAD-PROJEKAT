@@ -1,13 +1,10 @@
 import express from "express";
+        import { authMiddleware } from "./middleware/auth";
+        import { auditMiddleware } from "./middleware/audit";
         import { taskRouter } from "./modules/tasks/tasks.routes";
 import { projectRouter } from "./modules/projects/projects.routes";
-
         export const app = express();
-
         app.use(express.json());
-        app.use("/tasks", taskRouter);
-app.use("/projects", projectRouter);
-
-        app.get("/health", (_req, res) => {
-          res.status(200).json({ status: "ok" });
-        });
+        app.use("/tasks", auditMiddleware, authMiddleware, taskRouter);
+app.use("/projects", auditMiddleware, authMiddleware, projectRouter);
+        app.get("/health", (_req, res) => res.status(200).json({ status: "ok" }));

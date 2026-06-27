@@ -1,40 +1,25 @@
-# Booking API Documentation
+# Booking API API Reference
 
 ## Rooms
 
-            ### GET /rooms
+### GET /rooms
 
-            Returns all rooms.
+Returns all rooms.
 
-            Response: `200 OK`
+### POST /rooms
 
-            ### POST /rooms
+Creates a room.
 
-            Creates a room.
+- `capacity`: integer, minimum 1, maximum 200
 
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `capacity`: integer, minimum 1, maximum 200
-
-            Response: `201 Created`
 ## Reservations
 
-            ### GET /reservations
+### GET /reservations
 
-            Returns all reservations.
+Returns all reservations.
 
-            Response: `200 OK`
+### POST /reservations
 
-            ### POST /reservations
+Creates a reservation.
 
-            Creates a reservation.
-
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `guestCount`: integer, minimum 1, maximum 12
-
-            Response: `201 Created`
+- `guestCount`: integer, minimum 1, maximum 12

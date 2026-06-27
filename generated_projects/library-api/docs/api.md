@@ -1,40 +1,25 @@
-# Library API Documentation
+# Library API API Reference
 
 ## Books
 
-            ### GET /books
+### GET /books
 
-            Returns all books.
+Returns all books.
 
-            Response: `200 OK`
+### POST /books
 
-            ### POST /books
+Creates a book.
 
-            Creates a book.
+- `copyCount`: integer, minimum 1, maximum 20
 
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `copyCount`: integer, minimum 1, maximum 20
-
-            Response: `201 Created`
 ## Loans
 
-            ### GET /loans
+### GET /loans
 
-            Returns all loans.
+Returns all loans.
 
-            Response: `200 OK`
+### POST /loans
 
-            ### POST /loans
+Creates a loan.
 
-            Creates a loan.
-
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `loanDays`: integer, minimum 1, maximum 60
-
-            Response: `201 Created`
+- `loanDays`: integer, minimum 1, maximum 60

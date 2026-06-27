@@ -1,40 +1,25 @@
-# Billing API Documentation
+# Billing API API Reference
 
 ## Invoices
 
-            ### GET /invoices
+### GET /invoices
 
-            Returns all invoices.
+Returns all invoices.
 
-            Response: `200 OK`
+### POST /invoices
 
-            ### POST /invoices
+Creates a invoice.
 
-            Creates a invoice.
+- `lineCount`: integer, minimum 1, maximum 200
 
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `lineCount`: integer, minimum 1, maximum 200
-
-            Response: `201 Created`
 ## Payments
 
-            ### GET /payments
+### GET /payments
 
-            Returns all payments.
+Returns all payments.
 
-            Response: `200 OK`
+### POST /payments
 
-            ### POST /payments
+Creates a payment.
 
-            Creates a payment.
-
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `amountCents`: integer, minimum 100, maximum 100000
-
-            Response: `201 Created`
+- `amountCents`: integer, minimum 100, maximum 100000

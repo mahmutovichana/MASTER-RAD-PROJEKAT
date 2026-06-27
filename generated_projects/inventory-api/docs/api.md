@@ -1,40 +1,25 @@
-# Inventory API Documentation
+# Inventory API API Reference
 
 ## Items
 
-            ### GET /items
+### GET /items
 
-            Returns all items.
+Returns all items.
 
-            Response: `200 OK`
+### POST /items
 
-            ### POST /items
+Creates a item.
 
-            Creates a item.
+- `reorderPoint`: integer, minimum 0, maximum 1000
 
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `reorderPoint`: integer, minimum 0, maximum 1000
-
-            Response: `201 Created`
 ## Shipments
 
-            ### GET /shipments
+### GET /shipments
 
-            Returns all shipments.
+Returns all shipments.
 
-            Response: `200 OK`
+### POST /shipments
 
-            ### POST /shipments
+Creates a shipment.
 
-            Creates a shipment.
-
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `packageCount`: integer, minimum 1, maximum 100
-
-            Response: `201 Created`
+- `packageCount`: integer, minimum 1, maximum 100

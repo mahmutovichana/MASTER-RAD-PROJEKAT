@@ -1,40 +1,25 @@
-# Learning Platform API Documentation
+# Learning Platform API API Reference
 
 ## Courses
 
-            ### GET /courses
+### GET /courses
 
-            Returns all courses.
+Returns all courses.
 
-            Response: `200 OK`
+### POST /courses
 
-            ### POST /courses
+Creates a course.
 
-            Creates a course.
+- `lessonCount`: integer, minimum 1, maximum 80
 
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `lessonCount`: integer, minimum 1, maximum 80
-
-            Response: `201 Created`
 ## Enrollments
 
-            ### GET /enrollments
+### GET /enrollments
 
-            Returns all enrollments.
+Returns all enrollments.
 
-            Response: `200 OK`
+### POST /enrollments
 
-            ### POST /enrollments
+Creates a enrollment.
 
-            Creates a enrollment.
-
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `progressPercent`: integer, minimum 0, maximum 100
-
-            Response: `201 Created`
+- `progressPercent`: integer, minimum 0, maximum 100

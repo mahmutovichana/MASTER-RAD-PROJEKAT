@@ -19,10 +19,11 @@ The full target can later be reached by adding more projects and increasing the 
 ## Current Status
 
 - Dataset v0.1 frozen in `dataset_versions/v0_1`
-- Dataset v0.2 generated with 10 projects, 1500 records, and expanded scenario diversity
+- Dataset v0.2 frozen in `dataset_versions/v0_2`
+- Dataset v0.3 generated with 10 projects, 2500 records, higher-level documentation categories, and expanded scenario diversity
 - Rule-based baseline implemented in `docguard/`
-- Baseline evaluated on v0.1 and v0.2
-- Next step: NLP-assisted DocGuard for harder v0.2 scenarios
+- Baseline evaluated on v0.1, v0.2, and v0.3
+- Next step: NLP-assisted DocGuard for harder v0.3 scenarios
 
 ## Dataset v0.1
 
@@ -68,6 +69,9 @@ reports/
   dataset_statistics.md
   dataset_v0_1_summary.md
   dataset_v0_2_summary.md
+  dataset_v0_3_summary.md
+  visual_evaluation_report.md
+  figures/
   manual_audit_sample.jsonl
   manual_audit_template.md
   quality_checks.md
@@ -88,6 +92,18 @@ python scripts/validate_dataset.py
 ```
 
 The validator checks required fields, positive/negative label consistency, duplicate ids, changed file references, project-level split leakage, and basic schema constraints.
+
+Evaluate the current baseline:
+
+```bash
+python -m docguard.cli evaluate --split test --version v0_3
+```
+
+Generate visual reports:
+
+```bash
+python scripts/generate_figures.py
+```
 
 ## Current Split
 

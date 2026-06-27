@@ -1,13 +1,10 @@
 import express from "express";
+        import { authMiddleware } from "./middleware/auth";
+        import { auditMiddleware } from "./middleware/audit";
         import { courseRouter } from "./modules/courses/courses.routes";
 import { enrollmentRouter } from "./modules/enrollments/enrollments.routes";
-
         export const app = express();
-
         app.use(express.json());
-        app.use("/courses", courseRouter);
-app.use("/enrollments", enrollmentRouter);
-
-        app.get("/health", (_req, res) => {
-          res.status(200).json({ status: "ok" });
-        });
+        app.use("/courses", auditMiddleware, authMiddleware, courseRouter);
+app.use("/enrollments", auditMiddleware, authMiddleware, enrollmentRouter);
+        app.get("/health", (_req, res) => res.status(200).json({ status: "ok" }));

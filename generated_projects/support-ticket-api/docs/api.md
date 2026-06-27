@@ -1,40 +1,25 @@
-# Support Ticket API Documentation
+# Support Ticket API API Reference
 
 ## Tickets
 
-            ### GET /tickets
+### GET /tickets
 
-            Returns all tickets.
+Returns all tickets.
 
-            Response: `200 OK`
+### POST /tickets
 
-            ### POST /tickets
+Creates a ticket.
 
-            Creates a ticket.
+- `severity`: integer, minimum 1, maximum 5
 
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `severity`: integer, minimum 1, maximum 5
-
-            Response: `201 Created`
 ## Comments
 
-            ### GET /comments
+### GET /comments
 
-            Returns all comments.
+Returns all comments.
 
-            Response: `200 OK`
+### POST /comments
 
-            ### POST /comments
+Creates a comment.
 
-            Creates a comment.
-
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `visibilityLevel`: integer, minimum 1, maximum 3
-
-            Response: `201 Created`
+- `visibilityLevel`: integer, minimum 1, maximum 3

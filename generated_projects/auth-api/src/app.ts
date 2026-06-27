@@ -1,13 +1,10 @@
 import express from "express";
+        import { authMiddleware } from "./middleware/auth";
+        import { auditMiddleware } from "./middleware/audit";
         import { userRouter } from "./modules/users/users.routes";
 import { sessionRouter } from "./modules/sessions/sessions.routes";
-
         export const app = express();
-
         app.use(express.json());
-        app.use("/users", userRouter);
-app.use("/sessions", sessionRouter);
-
-        app.get("/health", (_req, res) => {
-          res.status(200).json({ status: "ok" });
-        });
+        app.use("/users", auditMiddleware, authMiddleware, userRouter);
+app.use("/sessions", auditMiddleware, authMiddleware, sessionRouter);
+        app.get("/health", (_req, res) => res.status(200).json({ status: "ok" }));

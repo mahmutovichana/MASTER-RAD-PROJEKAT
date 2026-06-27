@@ -19,8 +19,9 @@ from docguard.evaluator import (
 def evaluate_command(args: argparse.Namespace) -> int:
     metrics, predictions = evaluate_split(args.split)
     if args.split == "test":
-        write_predictions(ROOT / "data" / "predictions_test_v0_2.jsonl", predictions)
-        write_report(ROOT / "reports" / "baseline_evaluation_v0_2.md", args.split, metrics)
+        suffix = args.version
+        write_predictions(ROOT / "data" / f"predictions_test_{suffix}.jsonl", predictions)
+        write_report(ROOT / "reports" / f"baseline_evaluation_{suffix}.md", args.split, metrics, args.version)
 
     print(json.dumps(metrics, indent=2, ensure_ascii=False))
     return 0
@@ -47,7 +48,9 @@ def predict_command(args: argparse.Namespace) -> int:
     output = {
         "record_id": record["id"],
         "predicted_docs_update_required": prediction["docs_update_required"],
+        "predicted_docs_update_score": prediction["docs_update_score"],
         "predicted_scenario_type": prediction["scenario_type"],
+        "predicted_doc_category": prediction["doc_category"],
         "predicted_target_doc_file": prediction["target_doc_file"],
         "generated_doc_patch": prediction["generated_doc_patch"],
         "gold_scenario_type": record["scenario_type"],
@@ -64,6 +67,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     evaluate_parser = subparsers.add_parser("evaluate")
     evaluate_parser.add_argument("--split", choices=["train", "validation", "test"], required=True)
+    evaluate_parser.add_argument("--version", default="v0_3")
     evaluate_parser.set_defaults(func=evaluate_command)
 
     predict_parser = subparsers.add_parser("predict")

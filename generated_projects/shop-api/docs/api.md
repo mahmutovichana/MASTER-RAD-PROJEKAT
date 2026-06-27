@@ -1,40 +1,25 @@
-# Shop API Documentation
+# Shop API API Reference
 
 ## Products
 
-            ### GET /products
+### GET /products
 
-            Returns all products.
+Returns all products.
 
-            Response: `200 OK`
+### POST /products
 
-            ### POST /products
+Creates a product.
 
-            Creates a product.
+- `stock`: integer, minimum 0, maximum 500
 
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `stock`: integer, minimum 0, maximum 500
-
-            Response: `201 Created`
 ## Orders
 
-            ### GET /orders
+### GET /orders
 
-            Returns all orders.
+Returns all orders.
 
-            Response: `200 OK`
+### POST /orders
 
-            ### POST /orders
+Creates a order.
 
-            Creates a order.
-
-            Request fields:
-
-            - `name`: string, minimum length 2
-            - `status`: one of `draft`, `active`, `archived`
-            - `quantity`: integer, minimum 1, maximum 25
-
-            Response: `201 Created`
+- `quantity`: integer, minimum 1, maximum 25

@@ -1,13 +1,10 @@
 import express from "express";
+        import { authMiddleware } from "./middleware/auth";
+        import { auditMiddleware } from "./middleware/audit";
         import { roomRouter } from "./modules/rooms/rooms.routes";
 import { reservationRouter } from "./modules/reservations/reservations.routes";
-
         export const app = express();
-
         app.use(express.json());
-        app.use("/rooms", roomRouter);
-app.use("/reservations", reservationRouter);
-
-        app.get("/health", (_req, res) => {
-          res.status(200).json({ status: "ok" });
-        });
+        app.use("/rooms", auditMiddleware, authMiddleware, roomRouter);
+app.use("/reservations", auditMiddleware, authMiddleware, reservationRouter);
+        app.get("/health", (_req, res) => res.status(200).json({ status: "ok" }));

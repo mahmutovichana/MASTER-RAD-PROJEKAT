@@ -1,13 +1,10 @@
 import express from "express";
+        import { authMiddleware } from "./middleware/auth";
+        import { auditMiddleware } from "./middleware/audit";
         import { itemRouter } from "./modules/items/items.routes";
 import { shipmentRouter } from "./modules/shipments/shipments.routes";
-
         export const app = express();
-
         app.use(express.json());
-        app.use("/items", itemRouter);
-app.use("/shipments", shipmentRouter);
-
-        app.get("/health", (_req, res) => {
-          res.status(200).json({ status: "ok" });
-        });
+        app.use("/items", auditMiddleware, authMiddleware, itemRouter);
+app.use("/shipments", auditMiddleware, authMiddleware, shipmentRouter);
+        app.get("/health", (_req, res) => res.status(200).json({ status: "ok" }));

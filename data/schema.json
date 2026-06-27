@@ -19,47 +19,104 @@
     "docs_after_gold_excerpt",
     "negative_reason",
     "difficulty",
-    "tags"
+    "tags",
+    "doc_category",
+    "change_level",
+    "affected_documentation_files",
+    "primary_documentation_reason",
+    "change_intent_summary"
   ],
   "properties": {
-    "id": { "type": "string", "minLength": 1 },
-    "project_id": { "type": "string", "minLength": 1 },
-    "scenario_type": { "type": "string", "minLength": 1 },
-    "docs_update_required": { "type": "boolean" },
-    "change_summary": { "type": "string", "minLength": 1 },
+    "id": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "scenario_type": {
+      "type": "string"
+    },
+    "change_summary": {
+      "type": "string"
+    },
+    "code_diff": {
+      "type": "string"
+    },
+    "docs_before_excerpt": {
+      "type": "string"
+    },
+    "target_doc_file": {
+      "type": "string"
+    },
+    "target_section": {
+      "type": "string"
+    },
+    "docs_after_gold_excerpt": {
+      "type": "string"
+    },
+    "difficulty": {
+      "type": "string"
+    },
+    "doc_category": {
+      "type": "string"
+    },
+    "change_level": {
+      "type": "string"
+    },
+    "primary_documentation_reason": {
+      "type": "string"
+    },
+    "change_intent_summary": {
+      "type": "string"
+    },
+    "docs_update_required": {
+      "type": "boolean"
+    },
     "changed_files": {
       "type": "array",
-      "items": { "type": "string", "minLength": 1 },
+      "items": {
+        "type": "string"
+      },
       "minItems": 1
     },
-    "code_diff": { "type": "string", "minLength": 1 },
-    "docs_before_excerpt": { "type": "string" },
-    "target_doc_file": { "type": "string", "minLength": 1 },
-    "target_section": { "type": "string", "minLength": 1 },
     "expected_facts": {
       "type": "array",
-      "items": { "type": "string", "minLength": 1 }
+      "items": {
+        "type": "string"
+      }
     },
     "gold_doc_patch": {
       "anyOf": [
-        { "type": "string" },
-        { "type": "null" }
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
       ]
     },
-    "docs_after_gold_excerpt": { "type": "string" },
     "negative_reason": {
       "anyOf": [
-        { "type": "string" },
-        { "type": "null" }
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
       ]
-    },
-    "difficulty": {
-      "type": "string",
-      "enum": ["easy", "medium", "hard"]
     },
     "tags": {
       "type": "array",
-      "items": { "type": "string", "minLength": 1 }
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_documentation_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
     }
   }
 }
