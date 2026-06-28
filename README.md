@@ -212,3 +212,44 @@ Splits are project-level:
 - train: 7 projects
 - validation: 1 project
 - test: 2 projects
+
+## DocGuard v0.4 CPU-First Hybrid Phase
+
+v0.4 moves from LLM-heavy experimentation to a CPU-first hybrid system:
+
+- 30 synthetic REST API projects
+- 6000 balanced records
+- explicit `no_update` category for negatives
+- signal extraction and deterministic document routing
+- CPU-friendly ML/fallback classifiers
+- hybrid agent with deterministic patch composition
+- optional small LLM verifier using `--prompt-mode hybrid_compact`
+
+Build and validate v0.4:
+
+```bash
+python scripts/build_dataset.py --version v0_4
+python scripts/validate_dataset.py --version v0_4
+```
+
+Train and evaluate CPU ML:
+
+```bash
+python -m docguard_ml.cli train --version v0_4
+python -m docguard_ml.cli evaluate --version v0_4 --split validation
+```
+
+Evaluate the hybrid router:
+
+```bash
+python -m docguard_hybrid.cli evaluate --split validation --version v0_4 --limit 100
+```
+
+Use the short hybrid LLM prompt only for small CPU validation runs:
+
+```powershell
+$env:DOCGUARD_MAX_NEW_TOKENS="180"
+python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_0_5b --backend transformers_local --limit 10 --prompt-mode hybrid_compact --continue-on-error --retry-on-parse-error
+```
+
+`transformers_local` works on CPU but can be slow. The optional `llama_cpp` backend supports GGUF models through `llama-cpp-python` when installed and configured with `DOCGUARD_LLAMACPP_MODEL_PATH`; it is not required for default checks. The 0.5B model remains the default CPU proof model, while larger 1.5B/3B/7B evaluations are future GPU, Colab/Kaggle, vLLM/TGI, or quantized GGUF work.

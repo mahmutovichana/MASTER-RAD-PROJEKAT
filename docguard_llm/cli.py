@@ -16,7 +16,7 @@ from docguard_llm.model_registry import get_model_config, list_models
 from docguard_llm.prompt_builder import build_prompt_for_mode, build_sanity_prompt, select_few_shot_examples
 
 
-PROMPT_MODES = ("compact", "compact_v2", "full")
+PROMPT_MODES = ("compact", "compact_v2", "full", "hybrid_compact")
 
 
 def resolve_prompt_mode(args: argparse.Namespace) -> str:
@@ -347,7 +347,7 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate = sub.add_parser("evaluate")
     evaluate.add_argument("--split", choices=["train", "validation", "test"], required=True)
     evaluate.add_argument("--model", choices=list(list_models()), required=True)
-    evaluate.add_argument("--backend", choices=["mock", "transformers_local", "text_generation_inference"], default="mock")
+    evaluate.add_argument("--backend", choices=["mock", "transformers_local", "text_generation_inference", "llama_cpp"], default="mock")
     evaluate.add_argument("--limit", type=int)
     evaluate.add_argument("--compact-prompt", action="store_true")
     evaluate.add_argument("--prompt-mode", choices=PROMPT_MODES)
@@ -358,19 +358,19 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate.set_defaults(func=evaluate_command)
     compare = sub.add_parser("compare")
     compare.add_argument("--split", choices=["train", "validation", "test"], required=True)
-    compare.add_argument("--backend", choices=["mock", "transformers_local", "text_generation_inference"], default="mock")
+    compare.add_argument("--backend", choices=["mock", "transformers_local", "text_generation_inference", "llama_cpp"], default="mock")
     compare.add_argument("--limit", type=int)
     compare.set_defaults(func=compare_command)
     predict_parser = sub.add_parser("predict")
     predict_parser.add_argument("--record-id", required=True)
     predict_parser.add_argument("--model", choices=list(list_models()), required=True)
-    predict_parser.add_argument("--backend", choices=["mock", "transformers_local", "text_generation_inference"], default="mock")
+    predict_parser.add_argument("--backend", choices=["mock", "transformers_local", "text_generation_inference", "llama_cpp"], default="mock")
     predict_parser.add_argument("--compact-prompt", action="store_true")
     predict_parser.add_argument("--prompt-mode", choices=PROMPT_MODES)
     predict_parser.set_defaults(func=predict_command)
     smoke = sub.add_parser("smoke-test")
     smoke.add_argument("--model", choices=list(list_models()), required=True)
-    smoke.add_argument("--backend", choices=["mock", "transformers_local", "text_generation_inference"], default="transformers_local")
+    smoke.add_argument("--backend", choices=["mock", "transformers_local", "text_generation_inference", "llama_cpp"], default="transformers_local")
     smoke.add_argument("--record-id")
     smoke.add_argument("--compact-prompt", action="store_true")
     smoke.add_argument("--prompt-mode", choices=PROMPT_MODES)

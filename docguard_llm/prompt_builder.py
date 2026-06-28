@@ -210,7 +210,29 @@ def build_prompt_for_mode(record: dict, prompt_mode: str, few_shot_examples: lis
         return build_compact_prompt_v2(record)
     if prompt_mode == "full":
         return build_prompt(record, few_shot_examples)
+    if prompt_mode == "hybrid_compact":
+        return build_hybrid_compact_prompt(record)
     raise ValueError(f"Unsupported prompt mode: {prompt_mode}")
+
+
+def build_hybrid_compact_prompt(record: dict) -> list[dict]:
+    from docguard_hybrid.doc_router import route
+
+    routed = route(record)
+    system = "You are DocGuard. Return strict JSON only. Use only the provided candidates."
+    user_payload = {
+        "task": "Verify the routed documentation decision and produce a concise JSON prediction.",
+        "changed_files": record["changed_files"],
+        "code_diff": record["code_diff"],
+        "docs_before_excerpt": record["docs_before_excerpt"],
+        "extracted_signals": routed["signals"],
+        "router_candidate_doc_categories": routed["candidate_doc_categories"],
+        "router_candidate_target_doc_files": routed["candidate_target_doc_files"],
+        "router_candidate_scenario_types": routed["candidate_scenario_types"],
+        "router_reason": routed["router_reason"],
+        "expected_output_json_schema": output_schema_text(),
+    }
+    return [{"role": "system", "content": system}, {"role": "user", "content": json.dumps(user_payload, indent=2)}]
 
 
 def build_sanity_prompt() -> list[dict]:

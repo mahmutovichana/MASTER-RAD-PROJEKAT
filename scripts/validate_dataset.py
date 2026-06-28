@@ -1,58 +1,59 @@
 from __future__ import annotations
 
+import argparse
 import json
 import sys
+from collections import Counter
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
-DATASET_PATH = DATA_DIR / "docguard_dataset.jsonl"
-SPLIT_PATHS = {"train": DATA_DIR / "train.jsonl", "validation": DATA_DIR / "validation.jsonl", "test": DATA_DIR / "test.jsonl"}
+PROJECTS_DIR = ROOT / "generated_projects"
+SPLIT_PATHS = {split: DATA_DIR / f"{split}.jsonl" for split in ["train", "validation", "test"]}
 
+DOC_FILES = {
+    "docs/api.md",
+    "docs/architecture.md",
+    "docs/models.md",
+    "docs/developer-setup.md",
+    "docs/testing.md",
+    "docs/configuration.md",
+    "docs/workflows.md",
+    "CHANGELOG.md",
+}
+DOC_CATEGORIES_V04 = {
+    "api_reference",
+    "architecture_flow",
+    "model_contract",
+    "developer_setup",
+    "testing_instructions",
+    "configuration",
+    "workflow_documentation",
+    "changelog",
+    "no_update",
+}
 REQUIRED_FIELDS = {
-    "id", "project_id", "scenario_type", "docs_update_required", "change_summary", "changed_files", "code_diff",
-    "docs_before_excerpt", "target_doc_file", "target_section", "expected_facts", "gold_doc_patch",
-    "docs_after_gold_excerpt", "negative_reason", "difficulty", "tags", "doc_category", "change_level",
-    "affected_documentation_files", "primary_documentation_reason", "change_intent_summary",
-}
-
-DOC_CATEGORIES = {
-    "api_reference", "architecture_flow", "model_contract", "developer_setup", "testing_instructions",
-    "configuration", "workflow_documentation", "changelog",
-}
-CHANGE_LEVELS = {"low", "medium", "high"}
-POSITIVE_SCENARIOS = {
-    "new_endpoint", "removed_endpoint", "changed_endpoint_path", "changed_http_method", "added_request_field",
-    "removed_request_field", "changed_validation_min", "changed_validation_max", "changed_enum_values",
-    "changed_auth_requirement", "added_response_field", "changed_status_code", "changed_error_response",
-    "deprecated_endpoint", "added_middleware_flow", "changed_auth_flow", "added_dto_model",
-    "changed_dto_field_semantics", "changed_run_command", "changed_test_command", "added_environment_variable",
-    "changed_local_development_flow", "added_background_job_flow", "changed_error_handling_flow",
-    "added_service_orchestration_flow", "changed_caching_or_rate_limit_flow",
-}
-NEGATIVE_SCENARIOS = {
-    "internal_refactor", "rename_private_helper", "formatting_only", "test_only_change", "comment_only_change",
-    "dependency_config_change", "docs_already_updated", "internal_service_logic_no_api_change",
-    "internal_variable_rename_no_behavior_change", "private_helper_refactor_no_flow_change",
-    "formatting_only_in_docs_or_code", "dev_dependency_patch_no_command_change",
-    "test_assertion_refactor_no_behavior_change", "comments_reworded_no_contract_change",
-    "log_message_change_no_user_visible_behavior", "internal_performance_refactor_no_documented_behavior_change",
+    "id", "project_id", "split", "scenario_type", "docs_update_required", "change_summary", "changed_files",
+    "code_diff", "docs_before_excerpt", "target_doc_file", "target_section", "expected_facts",
+    "gold_doc_patch", "generated_doc_patch", "docs_after_gold_excerpt", "negative_reason", "difficulty",
+    "tags", "doc_category", "change_level", "affected_documentation_files", "primary_documentation_reason",
+    "change_intent_summary",
 }
 
 
 def read_jsonl(path: Path) -> list[dict]:
     if not path.exists():
         raise AssertionError(f"Missing file: {path.relative_to(ROOT)}")
-    records = []
+    rows = []
     for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
         if not line.strip():
             continue
         try:
-            records.append(json.loads(line))
+            rows.append(json.loads(line))
         except json.JSONDecodeError as exc:
             raise AssertionError(f"{path.relative_to(ROOT)}:{line_number} invalid JSON: {exc}") from exc
-    return records
+    return rows
 
 
 def fingerprint(record: dict) -> str:
@@ -61,74 +62,76 @@ def fingerprint(record: dict) -> str:
 
 def assert_shape(record: dict) -> None:
     missing = REQUIRED_FIELDS - set(record)
-    extra = set(record) - REQUIRED_FIELDS
     if missing:
         raise AssertionError(f"{record.get('id', '<unknown>')} missing fields: {sorted(missing)}")
-    if extra:
-        raise AssertionError(f"{record['id']} has extra fields: {sorted(extra)}")
-    if record["doc_category"] not in DOC_CATEGORIES:
-        raise AssertionError(f"{record['id']} invalid doc_category")
-    if record["change_level"] not in CHANGE_LEVELS:
-        raise AssertionError(f"{record['id']} invalid change_level")
-    for field in ["changed_files", "tags", "affected_documentation_files"]:
-        if not isinstance(record[field], list) or not record[field]:
-            raise AssertionError(f"{record['id']} {field} must be a non-empty list")
-    if not isinstance(record["expected_facts"], list):
-        raise AssertionError(f"{record['id']} expected_facts must be a list")
+    if record["doc_category"] not in DOC_CATEGORIES_V04:
+        raise AssertionError(f"{record['id']} invalid doc_category: {record['doc_category']}")
+    if not isinstance(record["changed_files"], list) or not record["changed_files"]:
+        raise AssertionError(f"{record['id']} changed_files must be non-empty")
+    for field in ["expected_facts", "tags", "affected_documentation_files"]:
+        if not isinstance(record[field], list):
+            raise AssertionError(f"{record['id']} {field} must be a list")
 
 
 def assert_label_rules(record: dict) -> None:
-    scenario = record["scenario_type"]
-    if scenario not in POSITIVE_SCENARIOS | NEGATIVE_SCENARIOS:
-        raise AssertionError(f"{record['id']} unknown scenario_type: {scenario}")
-    if scenario in POSITIVE_SCENARIOS and not record["docs_update_required"]:
-        raise AssertionError(f"{record['id']} positive scenario has negative label")
-    if scenario in NEGATIVE_SCENARIOS and record["docs_update_required"]:
-        raise AssertionError(f"{record['id']} negative scenario has positive label")
     if record["docs_update_required"]:
+        if record["doc_category"] == "no_update":
+            raise AssertionError(f"{record['id']} positive record has no_update category")
+        if record["target_doc_file"] not in DOC_FILES:
+            raise AssertionError(f"{record['id']} positive record has invalid target_doc_file")
+        if not record["target_section"]:
+            raise AssertionError(f"{record['id']} positive record has empty target_section")
+        if not record["gold_doc_patch"] or not record["generated_doc_patch"]:
+            raise AssertionError(f"{record['id']} positive record lacks patch")
         if not record["expected_facts"]:
-            raise AssertionError(f"{record['id']} positive record has no expected_facts")
-        if not record["gold_doc_patch"]:
-            raise AssertionError(f"{record['id']} positive record has no gold_doc_patch")
-        if record["negative_reason"] not in (None, ""):
+            raise AssertionError(f"{record['id']} positive record lacks expected_facts")
+        if record["negative_reason"] is not None:
             raise AssertionError(f"{record['id']} positive record has negative_reason")
-        if "@@" not in record["gold_doc_patch"] or record["target_section"] not in record["gold_doc_patch"]:
-            raise AssertionError(f"{record['id']} gold patch lacks hunk or target section")
-        if record["docs_after_gold_excerpt"] == record["docs_before_excerpt"]:
-            raise AssertionError(f"{record['id']} positive after excerpt did not change")
     else:
+        if record["doc_category"] != "no_update":
+            raise AssertionError(f"{record['id']} negative record category must be no_update")
+        if record["target_doc_file"] not in (None, ""):
+            raise AssertionError(f"{record['id']} negative target_doc_file must be empty")
+        if record["target_section"] != "":
+            raise AssertionError(f"{record['id']} negative target_section must be empty")
+        if record["gold_doc_patch"] is not None or record["generated_doc_patch"] is not None:
+            raise AssertionError(f"{record['id']} negative patch must be null")
         if record["expected_facts"]:
-            raise AssertionError(f"{record['id']} negative record has expected_facts")
-        if record["gold_doc_patch"] not in (None, ""):
-            raise AssertionError(f"{record['id']} negative record has gold patch")
+            raise AssertionError(f"{record['id']} negative expected_facts must be empty")
         if not record["negative_reason"]:
-            raise AssertionError(f"{record['id']} negative record has no reason")
-        if record["docs_after_gold_excerpt"] != record["docs_before_excerpt"]:
-            raise AssertionError(f"{record['id']} negative docs_after differs")
+            raise AssertionError(f"{record['id']} negative_reason must be non-empty")
 
 
 def assert_files(record: dict) -> None:
-    project_root = ROOT / "generated_projects" / record["project_id"]
+    project_root = PROJECTS_DIR / record["project_id"]
     for changed_file in record["changed_files"]:
         if not (project_root / changed_file).exists():
             raise AssertionError(f"{record['id']} missing changed file: {changed_file}")
-    for doc_file in set(record["affected_documentation_files"] + [record["target_doc_file"]]):
+    if record["docs_update_required"]:
+        if not (project_root / record["target_doc_file"]).exists():
+            raise AssertionError(f"{record['id']} missing target doc file: {record['target_doc_file']}")
+    for doc_file in record["affected_documentation_files"]:
+        if doc_file not in DOC_FILES:
+            raise AssertionError(f"{record['id']} invalid affected doc file: {doc_file}")
         if not (project_root / doc_file).exists():
-            raise AssertionError(f"{record['id']} missing documentation file: {doc_file}")
+            raise AssertionError(f"{record['id']} missing affected doc file: {doc_file}")
 
 
-def assert_splits(dataset_records: list[dict]) -> None:
-    by_id = {record["id"]: record for record in dataset_records}
+def assert_splits(records: list[dict]) -> None:
+    by_id = {record["id"]: record for record in records}
     seen_ids: set[str] = set()
     project_split: dict[str, str] = {}
     for split, path in SPLIT_PATHS.items():
-        for record in read_jsonl(path):
+        rows = read_jsonl(path)
+        for record in rows:
             if record["id"] not in by_id:
                 raise AssertionError(f"{split} contains unknown id {record['id']}")
             if record["id"] in seen_ids:
                 raise AssertionError(f"{record['id']} appears in multiple splits")
             if fingerprint(record) != fingerprint(by_id[record["id"]]):
                 raise AssertionError(f"{record['id']} differs between split and dataset")
+            if record.get("split") != split:
+                raise AssertionError(f"{record['id']} has split field {record.get('split')} but is in {split}")
             seen_ids.add(record["id"])
             previous = project_split.setdefault(record["project_id"], split)
             if previous != split:
@@ -137,14 +140,24 @@ def assert_splits(dataset_records: list[dict]) -> None:
         raise AssertionError("Split records do not exactly match dataset records")
 
 
-def main() -> int:
-    records = read_jsonl(DATASET_PATH)
-    if len(records) < 2500:
-        raise AssertionError(f"Expected at least 2500 records, found {len(records)}")
+def assert_distribution(records: list[dict]) -> None:
+    if len(records) != 6000:
+        raise AssertionError(f"Expected 6000 v0.4 records, found {len(records)}")
+    labels = Counter(bool(r["docs_update_required"]) for r in records)
+    if labels[True] != labels[False]:
+        raise AssertionError(f"Expected 50/50 labels, got {labels}")
+    scenario_counts = Counter(r["scenario_type"] for r in records)
+    too_small = {scenario: count for scenario, count in scenario_counts.items() if count < 80}
+    if too_small:
+        raise AssertionError(f"Scenarios below 80 examples: {too_small}")
+
+
+def validate_v0_4() -> None:
+    records = read_jsonl(DATA_DIR / "docguard_dataset.jsonl")
     ids = [record["id"] for record in records]
     if len(ids) != len(set(ids)):
         raise AssertionError("Duplicate ids exist")
-    seen = {}
+    seen: dict[str, str] = {}
     for record in records:
         fp = fingerprint(record)
         if fp in seen:
@@ -153,8 +166,16 @@ def main() -> int:
         assert_shape(record)
         assert_label_rules(record)
         assert_files(record)
+    assert_distribution(records)
     assert_splits(records)
-    print(f"Dataset validation passed: {len(records)} v0.3 records, labels consistent, documentation targets valid, no split leakage.")
+    print("Dataset validation passed: 6000 v0.4 records, balanced labels, negative schema valid, no split leakage.")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--version", default="v0_4", choices=["v0_4"])
+    parser.parse_args()
+    validate_v0_4()
     return 0
 
 

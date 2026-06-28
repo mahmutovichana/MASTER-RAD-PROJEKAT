@@ -1,0 +1,1 @@
+// type_alias_rename_no_contract_change

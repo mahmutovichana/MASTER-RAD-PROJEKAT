@@ -1,0 +1,30 @@
+# Hybrid Evaluation v0.4
+
+| Metric | Value |
+| --- | ---: |
+| `total_records` | 500 |
+| `docs_update_required_precision` | 0.9294 |
+| `docs_update_required_recall` | 1.0000 |
+| `docs_update_required_f1` | 0.9634 |
+| `false_positive_count` | 19 |
+| `false_negative_count` | 0 |
+| `true_positive_count` | 250 |
+| `true_negative_count` | 231 |
+| `positive_doc_category_accuracy` | 0.8600 |
+| `positive_target_doc_file_accuracy` | 0.8600 |
+| `positive_scenario_type_accuracy` | 0.2360 |
+| `positive_patch_fact_coverage` | 1.0000 |
+| `negative_classification_accuracy` | 0.9240 |
+| `false_positive_rate` | 0.0760 |
+| `negative_reason_available_rate` | 1.0000 |
+| `macro_scenario_f1` | 0.4524 |
+| `macro_doc_category_f1` | 0.7608 |
+| `average_latency_seconds` | 0.0000 |
+| `p50_latency_seconds` | 0.0000 |
+| `p95_latency_seconds` | 0.0000 |
+| `router_llm_agreement_rate` | 1.0000 |
+| `router_ml_agreement_rate` | 1.0000 |
+| `corrected_target_doc_file_count` | 0 |
+| `invalid_source_file_target_count` | 0 |
+| `deterministic_patch_used_count` | 269 |
+| `llm_patch_rewrite_used_count` | 0 |

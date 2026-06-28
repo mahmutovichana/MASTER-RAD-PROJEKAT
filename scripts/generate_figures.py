@@ -217,18 +217,23 @@ def main() -> int:
     metrics, predictions = evaluate_split("test")
 
     save_bar(FIGURES_DIR / "dataset_version_record_counts.png", ["v0.1", "v0.2", "v0.3"], [1000, 1500, len(records)], "Dataset Version Record Counts")
+    save_bar(FIGURES_DIR / "dataset_version_record_counts_v0_3_v0_4.png", ["v0.3", "v0.4"], [2500, len(records)], "Dataset Version Record Counts: v0.3 vs v0.4")
 
     scenario_counts = Counter(r["scenario_type"] for r in records)
     save_bar(FIGURES_DIR / "scenario_distribution_v0_3.png", list(scenario_counts), list(scenario_counts.values()), "Scenario Distribution v0.3")
+    save_bar(FIGURES_DIR / "scenario_distribution_v0_4.png", list(scenario_counts), list(scenario_counts.values()), "Scenario Distribution v0.4")
 
     category_counts = Counter(r["doc_category"] for r in records)
     save_bar(FIGURES_DIR / "doc_category_distribution_v0_3.png", list(category_counts), list(category_counts.values()), "Documentation Category Distribution v0.3")
+    save_bar(FIGURES_DIR / "doc_category_distribution_v0_4.png", list(category_counts), list(category_counts.values()), "Documentation Category Distribution v0.4")
 
     label_counts = Counter("positive" if r["docs_update_required"] else "negative" for r in records)
     save_bar(FIGURES_DIR / "positive_negative_distribution_v0_3.png", list(label_counts), list(label_counts.values()), "Positive vs Negative Records v0.3")
+    save_bar(FIGURES_DIR / "positive_negative_distribution_v0_4.png", list(label_counts), list(label_counts.values()), "Positive vs Negative Records v0.4")
 
     split_counts = {split: len(read_jsonl(DATA_DIR / f"{split}.jsonl")) for split in ["train", "validation", "test"]}
     save_bar(FIGURES_DIR / "split_distribution_v0_3.png", list(split_counts), list(split_counts.values()), "Split Distribution v0.3")
+    write_v0_4_figures(metrics)
 
     save_grouped_metrics(FIGURES_DIR / "baseline_metrics_v0_1_v0_2_v0_3.png", metrics)
 
@@ -456,6 +461,82 @@ def save_grouped_llm_metrics(path: Path, llm_metrics: dict[str, dict], title_suf
         ])
     suffix = f" ({title_suffix})" if title_suffix else ""
     save_bar(path, labels, values, f"LLM Model Comparison Metrics v0.3{suffix}", "Score")
+
+
+def write_v0_4_figures(baseline_metrics: dict) -> None:
+    try:
+        from docguard_ml.evaluate import evaluate as evaluate_ml
+        from docguard_hybrid.evaluator import evaluate_records as evaluate_hybrid
+    except Exception:
+        return
+    try:
+        ml_metrics = evaluate_ml("validation")
+        hybrid_records = read_jsonl(DATA_DIR / "validation.jsonl")[:100]
+        hybrid_metrics, _hybrid_predictions = evaluate_hybrid(hybrid_records)
+    except Exception:
+        return
+    save_bar(
+        FIGURES_DIR / "baseline_vs_ml_vs_hybrid_metrics_v0_4.png",
+        ["baseline F1", "ML F1", "hybrid F1"],
+        [
+            baseline_metrics.get("docs_update_required_f1", 0.0),
+            ml_metrics.get("docs_update_required_f1", 0.0),
+            hybrid_metrics.get("docs_update_required_f1", 0.0),
+        ],
+        "Baseline vs ML vs Hybrid Binary F1 v0.4",
+        "F1",
+    )
+    save_bar(
+        FIGURES_DIR / "positive_only_target_file_accuracy_v0_4.png",
+        ["ML", "hybrid"],
+        [ml_metrics.get("positive_target_doc_file_accuracy", 0.0), hybrid_metrics.get("positive_target_doc_file_accuracy", 0.0)],
+        "Positive-Only Target File Accuracy v0.4",
+        "Accuracy",
+    )
+    save_bar(
+        FIGURES_DIR / "negative_classification_accuracy_v0_4.png",
+        ["ML", "hybrid"],
+        [ml_metrics.get("negative_classification_accuracy", 0.0), hybrid_metrics.get("negative_classification_accuracy", 0.0)],
+        "Negative Classification Accuracy v0.4",
+        "Accuracy",
+    )
+    save_bar(
+        FIGURES_DIR / "macro_f1_scenario_doc_category_v0_4.png",
+        ["ML scenario", "hybrid scenario", "ML category", "hybrid category"],
+        [
+            ml_metrics.get("macro_scenario_f1", 0.0),
+            hybrid_metrics.get("macro_scenario_f1", 0.0),
+            ml_metrics.get("macro_doc_category_f1", 0.0),
+            hybrid_metrics.get("macro_doc_category_f1", 0.0),
+        ],
+        "Macro F1 by Scenario and Doc Category v0.4",
+        "Macro F1",
+    )
+    save_bar(
+        FIGURES_DIR / "router_ml_llm_agreement_v0_4.png",
+        ["router/ML", "router/LLM"],
+        [hybrid_metrics.get("router_ml_agreement_rate", 0.0), hybrid_metrics.get("router_llm_agreement_rate", 0.0)],
+        "Router, ML, and LLM Agreement v0.4",
+        "Agreement",
+    )
+    save_bar(
+        FIGURES_DIR / "invalid_source_target_file_count_v0_4.png",
+        ["invalid source targets", "corrected targets"],
+        [hybrid_metrics.get("invalid_source_file_target_count", 0), hybrid_metrics.get("corrected_target_doc_file_count", 0)],
+        "Invalid Source Target File Count v0.4",
+        "Count",
+    )
+    save_bar(
+        FIGURES_DIR / "cpu_latency_comparison_v0_4.png",
+        ["hybrid avg", "hybrid p50", "hybrid p95"],
+        [
+            hybrid_metrics.get("average_latency_seconds", 0.0),
+            hybrid_metrics.get("p50_latency_seconds", 0.0),
+            hybrid_metrics.get("p95_latency_seconds", 0.0),
+        ],
+        "CPU Latency Comparison v0.4",
+        "Seconds",
+    )
 
 
 if __name__ == "__main__":

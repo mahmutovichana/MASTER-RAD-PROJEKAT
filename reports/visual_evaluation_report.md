@@ -12,17 +12,45 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 
 ![baseline_metrics_v0_1_v0_2_v0_3](figures/baseline_metrics_v0_1_v0_2_v0_3.png)
 
+### baseline_vs_ml_vs_hybrid_metrics_v0_4
+
+![baseline_vs_ml_vs_hybrid_metrics_v0_4](figures/baseline_vs_ml_vs_hybrid_metrics_v0_4.png)
+
 ### binary_confusion_matrix_v0_3
 
 ![binary_confusion_matrix_v0_3](figures/binary_confusion_matrix_v0_3.png)
+
+### cpu_latency_comparison_v0_4
+
+![cpu_latency_comparison_v0_4](figures/cpu_latency_comparison_v0_4.png)
 
 ### dataset_version_record_counts
 
 ![dataset_version_record_counts](figures/dataset_version_record_counts.png)
 
+### dataset_version_record_counts_v0_3_v0_4
+
+![dataset_version_record_counts_v0_3_v0_4](figures/dataset_version_record_counts_v0_3_v0_4.png)
+
 ### doc_category_distribution_v0_3
 
 ![doc_category_distribution_v0_3](figures/doc_category_distribution_v0_3.png)
+
+### doc_category_distribution_v0_4
+
+![doc_category_distribution_v0_4](figures/doc_category_distribution_v0_4.png)
+
+### invalid_source_target_file_count_v0_4
+
+![invalid_source_target_file_count_v0_4](figures/invalid_source_target_file_count_v0_4.png)
+
+### macro_f1_scenario_doc_category_v0_4
+
+![macro_f1_scenario_doc_category_v0_4](figures/macro_f1_scenario_doc_category_v0_4.png)
+
+### negative_classification_accuracy_v0_4
+
+![negative_classification_accuracy_v0_4](figures/negative_classification_accuracy_v0_4.png)
 
 ### per_doc_category_accuracy_v0_3
 
@@ -35,6 +63,14 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 ### positive_negative_distribution_v0_3
 
 ![positive_negative_distribution_v0_3](figures/positive_negative_distribution_v0_3.png)
+
+### positive_negative_distribution_v0_4
+
+![positive_negative_distribution_v0_4](figures/positive_negative_distribution_v0_4.png)
+
+### positive_only_target_file_accuracy_v0_4
+
+![positive_only_target_file_accuracy_v0_4](figures/positive_only_target_file_accuracy_v0_4.png)
 
 ### precision_recall_curve_v0_3
 
@@ -51,6 +87,10 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 ### scenario_distribution_v0_3
 
 ![scenario_distribution_v0_3](figures/scenario_distribution_v0_3.png)
+
+### scenario_distribution_v0_4
+
+![scenario_distribution_v0_4](figures/scenario_distribution_v0_4.png)
 
 ### split_distribution_v0_3
 

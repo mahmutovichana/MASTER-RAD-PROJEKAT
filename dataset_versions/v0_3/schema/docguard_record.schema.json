@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DocGuardDatasetRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "project_id",
+    "scenario_type",
+    "docs_update_required",
+    "change_summary",
+    "changed_files",
+    "code_diff",
+    "docs_before_excerpt",
+    "target_doc_file",
+    "target_section",
+    "expected_facts",
+    "gold_doc_patch",
+    "docs_after_gold_excerpt",
+    "negative_reason",
+    "difficulty",
+    "tags",
+    "doc_category",
+    "change_level",
+    "affected_documentation_files",
+    "primary_documentation_reason",
+    "change_intent_summary"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "scenario_type": {
+      "type": "string"
+    },
+    "change_summary": {
+      "type": "string"
+    },
+    "code_diff": {
+      "type": "string"
+    },
+    "docs_before_excerpt": {
+      "type": "string"
+    },
+    "target_doc_file": {
+      "type": "string"
+    },
+    "target_section": {
+      "type": "string"
+    },
+    "docs_after_gold_excerpt": {
+      "type": "string"
+    },
+    "difficulty": {
+      "type": "string"
+    },
+    "doc_category": {
+      "type": "string"
+    },
+    "change_level": {
+      "type": "string"
+    },
+    "primary_documentation_reason": {
+      "type": "string"
+    },
+    "change_intent_summary": {
+      "type": "string"
+    },
+    "docs_update_required": {
+      "type": "boolean"
+    },
+    "changed_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "expected_facts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "gold_doc_patch": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "negative_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_documentation_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  }
+}

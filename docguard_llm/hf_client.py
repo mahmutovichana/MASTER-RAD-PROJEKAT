@@ -10,7 +10,7 @@ from pathlib import Path
 from docguard_llm.model_registry import get_model_config
 
 
-BACKENDS = {"mock", "transformers_local", "text_generation_inference"}
+BACKENDS = {"mock", "transformers_local", "text_generation_inference", "llama_cpp"}
 
 
 class HFClient:
@@ -32,6 +32,8 @@ class HFClient:
             output = self._mock_generate(messages)
         elif self.backend == "text_generation_inference":
             output = self._tgi_generate(messages)
+        elif self.backend == "llama_cpp":
+            output = self._llama_cpp_generate(messages)
         else:
             output = self._transformers_generate(messages)
         return output, time.perf_counter() - start
@@ -144,3 +146,25 @@ class HFClient:
             outputs = model.generate(**inputs, max_new_tokens=self.max_new_tokens, generation_config=generation_config)
         generated = outputs[0][inputs["input_ids"].shape[-1]:]
         return tokenizer.decode(generated, skip_special_tokens=True)
+
+    def _llama_cpp_generate(self, messages: list[dict]) -> str:
+        try:
+            from llama_cpp import Llama
+        except ModuleNotFoundError as exc:
+            raise RuntimeError(
+                "llama_cpp backend requires optional dependency llama-cpp-python and DOCGUARD_LLAMACPP_MODEL_PATH. "
+                "It is disabled by default and is intended for GGUF CPU inference."
+            ) from exc
+        model_path = os.getenv("DOCGUARD_LLAMACPP_MODEL_PATH")
+        if not model_path:
+            raise RuntimeError("DOCGUARD_LLAMACPP_MODEL_PATH must point to a local GGUF model for backend=llama_cpp.")
+        n_ctx = int(os.getenv("DOCGUARD_LLAMACPP_N_CTX", "2048"))
+        n_threads_env = os.getenv("DOCGUARD_LLAMACPP_N_THREADS")
+        temperature = float(os.getenv("DOCGUARD_LLAMACPP_TEMPERATURE", "0.0"))
+        kwargs = {"model_path": model_path, "n_ctx": n_ctx}
+        if n_threads_env:
+            kwargs["n_threads"] = int(n_threads_env)
+        llm = Llama(**kwargs)
+        prompt = "\n".join(f"{m['role']}: {m['content']}" for m in messages) + "\nassistant:"
+        result = llm(prompt, max_tokens=self.max_new_tokens, temperature=temperature)
+        return result["choices"][0]["text"]
