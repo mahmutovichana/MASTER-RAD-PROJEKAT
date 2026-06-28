@@ -11,7 +11,10 @@ def evaluate_command(args: argparse.Namespace) -> int:
     if args.limit:
         records = records[: args.limit]
     metrics, _predictions = evaluate_records(records)
-    write_report(REPORTS_DIR / "hybrid_evaluation_v0_4.md", metrics)
+    suffix = f"_{args.split}" if not args.limit else ""
+    write_report(REPORTS_DIR / f"hybrid_evaluation_v0_4{suffix}.md", metrics)
+    if args.limit:
+        write_report(REPORTS_DIR / "hybrid_evaluation_v0_4.md", metrics)
     print(json.dumps(metrics, indent=2, ensure_ascii=False, default=dict))
     return 0
 

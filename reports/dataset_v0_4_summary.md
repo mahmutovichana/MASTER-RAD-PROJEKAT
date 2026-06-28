@@ -24,6 +24,25 @@ DocGuard v0.4 is a CPU-first dataset version for hybrid documentation consistenc
 - `testing_instructions`: 206
 - `workflow_documentation`: 312
 
+## Positive-Only Documentation Categories
+
+- `api_reference`: 1339
+- `architecture_flow`: 312
+- `changelog`: 103
+- `configuration`: 312
+- `developer_setup`: 208
+- `model_contract`: 208
+- `testing_instructions`: 206
+- `workflow_documentation`: 312
+
+## Negative-Only Documentation Categories
+
+- `no_update`: 3000
+
+## Positive Category Balance Warnings
+
+- WARNING: `changelog` has only 103 positive examples (<200).
+
 ## Scenario Types
 
 - `added_background_job_flow`: 104
@@ -75,3 +94,4 @@ DocGuard v0.4 is a CPU-first dataset version for hybrid documentation consistenc
 - Positive fine-grained metrics are evaluated separately from negative binary classification.
 - The dataset is balanced 50/50 for binary documentation-update detection.
 - The intended baseline path is signal routing plus CPU ML, with small LLMs optional.
+- Positive category rebalance flag used: `False`.

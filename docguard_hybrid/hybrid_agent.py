@@ -23,7 +23,7 @@ def predict(record: dict, ml_prediction: dict | None = None, llm_prediction: dic
         return {
             "record_id": record["id"],
             "docs_update_required": False,
-            "scenario_type": record.get("scenario_type", "unknown_change") if record.get("doc_category") == "no_update" else "unknown_change",
+            "scenario_type": (routed.get("candidate_scenario_types") or ["unknown_change"])[0],
             "doc_category": "no_update",
             "target_doc_file": "",
             "generated_doc_patch": None,

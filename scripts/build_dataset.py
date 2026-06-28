@@ -228,16 +228,29 @@ def negative_record(project_id: str, split: str, seq: int, scenario: str, varian
     }
 
 
-def build_v0_4_records() -> list[dict]:
+def positive_sequence(rebalance_positive_categories: bool = False) -> list[str]:
+    if not rebalance_positive_categories:
+        return POSITIVE_SCENARIOS
+    return [
+        *POSITIVE_SCENARIOS,
+        "added_dto_model_field", "removed_dto_model_field",
+        "changed_test_command", "changed_testing_framework",
+        "changelog_worthy_behavior_change", "changelog_worthy_behavior_change",
+        "changed_local_development_flow", "changed_seed_or_setup_flow",
+    ]
+
+
+def build_v0_4_records(rebalance_positive_categories: bool = False) -> list[dict]:
     records: list[dict] = []
     pos_i = neg_i = 0
+    positives = positive_sequence(rebalance_positive_categories)
     for project_index, project_id in enumerate(project_ids(), start=1):
         split = split_for_project(project_index)
         create_project(project_id)
         for seq in range(1, 201):
             variant = (project_index * 1000) + seq
             if seq % 2:
-                scenario = POSITIVE_SCENARIOS[pos_i % len(POSITIVE_SCENARIOS)]
+                scenario = positives[pos_i % len(positives)]
                 records.append(positive_record(project_id, split, seq, scenario, variant))
                 pos_i += 1
             else:
@@ -266,10 +279,12 @@ def write_schema() -> None:
     write_text(SCHEMA_DIR / "docguard_record.schema.json", text)
 
 
-def write_v0_4_reports(records: list[dict]) -> None:
+def write_v0_4_reports(records: list[dict], rebalanced: bool = False) -> None:
     REPORTS_DIR.mkdir(exist_ok=True)
     scenario_counts = Counter(r["scenario_type"] for r in records)
     category_counts = Counter(r["doc_category"] for r in records)
+    positive_category_counts = Counter(r["doc_category"] for r in records if r["docs_update_required"])
+    negative_category_counts = Counter(r["doc_category"] for r in records if not r["docs_update_required"])
     split_counts = Counter(r["split"] for r in records)
     pos = sum(r["docs_update_required"] for r in records)
     lines = [
@@ -291,6 +306,18 @@ def write_v0_4_reports(records: list[dict]) -> None:
         "",
         *[f"- `{k}`: {v}" for k, v in sorted(category_counts.items())],
         "",
+        "## Positive-Only Documentation Categories",
+        "",
+        *[f"- `{k}`: {v}" for k, v in sorted(positive_category_counts.items())],
+        "",
+        "## Negative-Only Documentation Categories",
+        "",
+        *[f"- `{k}`: {v}" for k, v in sorted(negative_category_counts.items())],
+        "",
+        "## Positive Category Balance Warnings",
+        "",
+        *([f"- WARNING: `{k}` has only {v} positive examples (<200)." for k, v in sorted(positive_category_counts.items()) if v < 200] or ["- No positive doc category is below 200 examples."]),
+        "",
         "## Scenario Types",
         "",
         *[f"- `{k}`: {v}" for k, v in sorted(scenario_counts.items())],
@@ -301,6 +328,7 @@ def write_v0_4_reports(records: list[dict]) -> None:
         "- Positive fine-grained metrics are evaluated separately from negative binary classification.",
         "- The dataset is balanced 50/50 for binary documentation-update detection.",
         "- The intended baseline path is signal routing plus CPU ML, with small LLMs optional.",
+        f"- Positive category rebalance flag used: `{rebalanced}`.",
     ]
     write_text(REPORTS_DIR / "dataset_v0_4_summary.md", "\n".join(lines))
     write_text(REPORTS_DIR / "v0_3_to_v0_4_changes.md", "# v0.3 to v0.4 Changes\n\n- Froze v0.3 artifacts.\n- Expanded to 30 projects and 6000 v0.4 records.\n- Added `no_update` category for negatives.\n- Added CPU-first hybrid and ML evaluation path.\n")
@@ -315,21 +343,22 @@ def write_active_dataset(records: list[dict]) -> None:
         write_jsonl(DATA_DIR / f"{split}.jsonl", [r for r in records if r["split"] == split])
 
 
-def build_v0_4() -> None:
+def build_v0_4(rebalance_positive_categories: bool = False) -> None:
     PROJECTS_DIR.mkdir(exist_ok=True)
-    records = build_v0_4_records()
+    records = build_v0_4_records(rebalance_positive_categories)
     write_active_dataset(records)
     write_schema()
-    write_v0_4_reports(records)
+    write_v0_4_reports(records, rebalanced=rebalance_positive_categories)
     print(f"Generated v0.4 dataset: {len(project_ids())} projects, {len(records)} records.")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--version", default="v0_4", choices=["v0_4"])
+    parser.add_argument("--rebalance-positive-categories", action="store_true", help="Reserved v0.4.1 option; current 6000-record generator already keeps all positive categories near or above 200 except changelog.")
     args = parser.parse_args()
     if args.version == "v0_4":
-        build_v0_4()
+        build_v0_4(args.rebalance_positive_categories)
     return 0
 
 

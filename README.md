@@ -232,17 +232,39 @@ python scripts/build_dataset.py --version v0_4
 python scripts/validate_dataset.py --version v0_4
 ```
 
+The dataset builder writes positive-only documentation category diagnostics to `reports/dataset_v0_4_summary.md`. To experiment with a more even positive category mix, rebuild with:
+
+```bash
+python scripts/build_dataset.py --version v0_4 --rebalance-positive-categories
+python scripts/validate_dataset.py --version v0_4
+```
+
 Train and evaluate CPU ML:
 
 ```bash
 python -m docguard_ml.cli train --version v0_4
 python -m docguard_ml.cli evaluate --version v0_4 --split validation
+python -m docguard_ml.cli evaluate --version v0_4 --split test
+```
+
+The ML trainer uses scikit-learn when available and falls back to the repository signal model otherwise. Evaluation reports include `ml_backend` so runs are comparable. On Python versions where scikit-learn wheels are not available, use the fallback path or a Python 3.12 virtual environment:
+
+```bash
+python -m pip install scikit-learn joblib
 ```
 
 Evaluate the hybrid router:
 
 ```bash
-python -m docguard_hybrid.cli evaluate --split validation --version v0_4 --limit 100
+python -m docguard_hybrid.cli evaluate --split validation --version v0_4
+python -m docguard_hybrid.cli evaluate --split test --version v0_4
+```
+
+Create the v0.4 ablation and figures:
+
+```bash
+python scripts/create_ablation_v0_4.py
+python scripts/generate_figures.py
 ```
 
 Use the short hybrid LLM prompt only for small CPU validation runs:

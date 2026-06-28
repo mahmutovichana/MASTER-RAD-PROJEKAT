@@ -2,7 +2,7 @@
 
 > Important: This report was generated with the mock backend. Mock results validate the DocGuard LLM pipeline, but they do not represent real Hugging Face model quality. Real model results must be generated with transformers_local or text_generation_inference backends.
 
-These figures summarize dataset v0.3 and the rule-based baseline. ROC and precision-recall curves use simple baseline scores: 1.0 for confident positive, 0.0 for confident negative, and 0.5 for unknown or unsupported changes. They are included for completeness; these curves will be more meaningful for the later NLP-assisted model.
+These figures summarize dataset v0.3 history, v0.4 CPU-first dataset diagnostics, and the rule-based, ML, and deterministic hybrid evaluation paths. ROC and precision-recall curves use simple baseline scores: 1.0 for confident positive, 0.0 for confident negative, and 0.5 for unknown or unsupported changes.
 
 Figure generation tries to use matplotlib first. In this local environment matplotlib was unavailable, so the script can fall back to a small built-in PNG renderer while preserving the same output filenames.
 
@@ -52,6 +52,10 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 
 ![negative_classification_accuracy_v0_4](figures/negative_classification_accuracy_v0_4.png)
 
+### negative_scenario_distribution_v0_4
+
+![negative_scenario_distribution_v0_4](figures/negative_scenario_distribution_v0_4.png)
+
 ### per_doc_category_accuracy_v0_3
 
 ![per_doc_category_accuracy_v0_3](figures/per_doc_category_accuracy_v0_3.png)
@@ -59,6 +63,10 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 ### per_scenario_accuracy_v0_3
 
 ![per_scenario_accuracy_v0_3](figures/per_scenario_accuracy_v0_3.png)
+
+### positive_doc_category_distribution_v0_4
+
+![positive_doc_category_distribution_v0_4](figures/positive_doc_category_distribution_v0_4.png)
 
 ### positive_negative_distribution_v0_3
 
@@ -71,6 +79,10 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 ### positive_only_target_file_accuracy_v0_4
 
 ![positive_only_target_file_accuracy_v0_4](figures/positive_only_target_file_accuracy_v0_4.png)
+
+### positive_scenario_distribution_v0_4
+
+![positive_scenario_distribution_v0_4](figures/positive_scenario_distribution_v0_4.png)
 
 ### precision_recall_curve_v0_3
 

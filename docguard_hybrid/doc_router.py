@@ -15,52 +15,86 @@ DOC_FILES = {
     "no_update": "",
 }
 
+NEGATIVE_SIGNAL_TO_SCENARIO = [
+    ("internal_variable_rename", "internal_variable_rename_no_behavior_change"),
+    ("private_helper_refactor", "private_helper_refactor_no_flow_change"),
+    ("formatting_only", "formatting_only_in_docs_or_code"),
+    ("comments_only", "comments_reworded_no_contract_change"),
+    ("test_only_no_behavior_change", "test_assertion_refactor_no_behavior_change"),
+    ("dev_dependency_patch_no_command_change", "dev_dependency_patch_no_command_change"),
+    ("log_message_change_no_user_visible_behavior", "log_message_change_no_user_visible_behavior"),
+    ("internal_performance_refactor_no_documented_behavior_change", "internal_performance_refactor_no_documented_behavior_change"),
+    ("docs_already_updated", "docs_already_updated"),
+    ("config_refactor_no_new_env_var", "config_refactor_no_new_env_var"),
+    ("route_implementation_refactor_no_contract_change", "route_implementation_refactor_no_contract_change"),
+    ("helper_extraction_no_behavior_change", "helper_extraction_no_behavior_change"),
+    ("type_alias_rename_no_contract_change", "type_alias_rename_no_contract_change"),
+]
+
+POSITIVE_SIGNAL_TO_ROUTE = [
+    ("added_env_var", "configuration", "added_environment_variable"),
+    ("removed_env_var", "configuration", "removed_environment_variable"),
+    ("config_default_change", "configuration", "changed_default_config_value"),
+    ("local_seed_or_dev_flow", "developer_setup", "changed_local_development_flow"),
+    ("package_script_change", "developer_setup", "changed_seed_or_setup_flow"),
+    ("changed_background_job_schedule", "workflow_documentation", "changed_background_job_schedule"),
+    ("schedule_job_change", "workflow_documentation", "added_background_job_flow"),
+    ("service_orchestration_change", "workflow_documentation", "added_service_orchestration_flow"),
+    ("middleware_error_change", "architecture_flow", "changed_error_handling_flow"),
+    ("rate_limit_or_cache_change", "architecture_flow", "changed_caching_or_rate_limit_flow"),
+    ("auth_middleware_change", "architecture_flow", "changed_middleware_auth_flow"),
+    ("dto_field_added", "model_contract", "added_dto_model_field"),
+    ("dto_field_removed", "model_contract", "removed_dto_model_field"),
+    ("changed_testing_framework", "testing_instructions", "changed_testing_framework"),
+    ("test_command_change", "testing_instructions", "changed_test_command"),
+    ("changelog_worthy_change", "changelog", "changelog_worthy_behavior_change"),
+    ("route_removed", "api_reference", "removed_endpoint"),
+    ("route_path_changed", "api_reference", "changed_endpoint_path"),
+    ("http_method_changed", "api_reference", "changed_http_method"),
+    ("changed_status_code", "api_reference", "changed_status_code"),
+    ("changed_auth_requirement", "api_reference", "changed_auth_requirement"),
+    ("request_field_added", "api_reference", "added_request_field"),
+    ("request_field_removed", "api_reference", "removed_request_field"),
+    ("response_field_added", "api_reference", "added_response_field"),
+    ("response_field_removed", "api_reference", "removed_response_field"),
+    ("validation_min_change", "api_reference", "changed_validation_min"),
+    ("validation_max_change", "api_reference", "changed_validation_max"),
+    ("validation_enum_change", "api_reference", "changed_enum_values"),
+    ("route_added", "api_reference", "new_endpoint"),
+]
+
 
 def route(record: dict) -> dict:
     signals = extract_signals(record)
     names = signal_names(signals)
-    negative = any(signals[name] for name in [
-        "docs_already_updated", "formatting_only", "comments_only", "test_only_no_behavior_change",
-        "private_helper_refactor", "internal_variable_rename", "source_only_refactor",
-    ])
-    if negative and not any(signals[name] for name in [
-        "added_env_var", "removed_env_var", "config_default_change", "package_script_change", "local_seed_or_dev_flow",
-        "route_added", "route_removed", "route_path_changed", "http_method_changed", "zod_validation_change",
-        "request_field_change", "response_field_change", "dto_model_change", "middleware_error_change",
-        "auth_middleware_change", "rate_limit_or_cache_change", "schedule_job_change",
-        "service_orchestration_change", "test_command_change", "changelog_worthy_change",
-    ]):
-        return {
-            "docs_update_required": False,
-            "candidate_doc_categories": ["no_update"],
-            "candidate_target_doc_files": [],
-            "candidate_scenario_types": ["unknown_change"],
-            "router_confidence": 0.92,
-            "router_reason": f"No documented behavior change signals: {', '.join(names)}",
-            "signals": names,
-        }
-    if signals["added_env_var"] or signals["removed_env_var"] or signals["config_default_change"]:
-        category, scenario = "configuration", "added_environment_variable"
-    elif signals["package_script_change"] or signals["local_seed_or_dev_flow"]:
-        category, scenario = "developer_setup", "changed_local_development_flow"
-    elif signals["schedule_job_change"] or signals["service_orchestration_change"]:
-        category, scenario = "workflow_documentation", "added_background_job_flow" if signals["schedule_job_change"] else "added_service_orchestration_flow"
-    elif signals["middleware_error_change"] or signals["auth_middleware_change"] or signals["rate_limit_or_cache_change"]:
-        category, scenario = "architecture_flow", "changed_error_handling_flow"
-    elif signals["dto_model_change"] and not (signals["zod_validation_change"] or signals["request_field_change"]):
-        category, scenario = "model_contract", "added_dto_model_field"
-    elif signals["test_command_change"]:
-        category, scenario = "testing_instructions", "changed_test_command"
-    elif signals["changelog_worthy_change"]:
-        category, scenario = "changelog", "changelog_worthy_behavior_change"
-    else:
-        category, scenario = "api_reference", "new_endpoint"
+    for signal, category, scenario in POSITIVE_SIGNAL_TO_ROUTE:
+        if signals.get(signal):
+            return {
+                "docs_update_required": True,
+                "candidate_doc_categories": [category],
+                "candidate_target_doc_files": [DOC_FILES[category]],
+                "candidate_scenario_types": [scenario],
+                "router_confidence": 0.9,
+                "router_reason": f"Matched positive signal `{signal}` from: {', '.join(names)}",
+                "signals": names,
+            }
+    for signal, scenario in NEGATIVE_SIGNAL_TO_SCENARIO:
+        if signals.get(signal):
+            return {
+                "docs_update_required": False,
+                "candidate_doc_categories": ["no_update"],
+                "candidate_target_doc_files": [],
+                "candidate_scenario_types": [scenario],
+                "router_confidence": 0.94,
+                "router_reason": f"Matched no-update signal `{signal}` from: {', '.join(names)}",
+                "signals": names,
+            }
     return {
-        "docs_update_required": True,
-        "candidate_doc_categories": [category],
-        "candidate_target_doc_files": [DOC_FILES[category]],
-        "candidate_scenario_types": [scenario],
-        "router_confidence": 0.82,
-        "router_reason": f"Matched signals: {', '.join(names) or 'api-like change'}",
+        "docs_update_required": False,
+        "candidate_doc_categories": ["no_update"],
+        "candidate_target_doc_files": [],
+        "candidate_scenario_types": ["unknown_change"],
+        "router_confidence": 0.55,
+        "router_reason": f"No high-confidence documentation signal. Signals: {', '.join(names) or 'none'}",
         "signals": names,
     }

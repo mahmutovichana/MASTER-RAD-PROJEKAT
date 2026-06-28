@@ -31,9 +31,19 @@ def save_bar(path: Path, labels: list[str], values: list[float], title: str, yla
         save_fallback_bar(path, values)
         return
     plt.figure(figsize=(max(8, len(labels) * 0.35), 5))
-    plt.bar(labels, values)
+    bars = plt.bar(labels, values)
     plt.title(title)
     plt.ylabel(ylabel)
+    max_value = max(values) if values else 0
+    if max_value <= 0:
+        plt.ylim(0, 1)
+        plt.text(0.5, 0.55, "All values are zero", transform=plt.gca().transAxes, ha="center", va="center", fontsize=11)
+    elif max_value <= 1.0 and ylabel.lower() in {"accuracy", "score", "f1", "macro f1", "agreement"}:
+        plt.ylim(0, 1.05)
+    for bar, value in zip(bars, values):
+        if len(labels) <= 20:
+            label = f"{value:.2f}" if isinstance(value, float) and value <= 1 else f"{value:.0f}"
+            plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height(), label, ha="center", va="bottom", fontsize=7)
     plt.xticks(rotation=60, ha="right")
     plt.tight_layout()
     plt.savefig(path, dpi=160)
@@ -173,6 +183,8 @@ def save_fallback_bar(path: Path, values: list[float]) -> None:
         write_png(path, width, height, pixels)
         return
     max_value = max(values) or 1
+    if all(float(value) == 0.0 for value in values):
+        rect(pixels, 360, 245, 540, 275, (210, 210, 210))
     bar_w = max(4, 760 // len(values))
     for i, value in enumerate(values):
         x0 = 75 + i * bar_w
@@ -287,7 +299,7 @@ def main() -> int:
         "",
         f"> {MOCK_WARNING}",
         "",
-        "These figures summarize dataset v0.3 and the rule-based baseline. ROC and precision-recall curves use simple baseline scores: 1.0 for confident positive, 0.0 for confident negative, and 0.5 for unknown or unsupported changes. They are included for completeness; these curves will be more meaningful for the later NLP-assisted model.",
+        "These figures summarize dataset v0.3 history, v0.4 CPU-first dataset diagnostics, and the rule-based, ML, and deterministic hybrid evaluation paths. ROC and precision-recall curves use simple baseline scores: 1.0 for confident positive, 0.0 for confident negative, and 0.5 for unknown or unsupported changes.",
         "",
         "Figure generation tries to use matplotlib first. In this local environment matplotlib was unavailable, so the script can fall back to a small built-in PNG renderer while preserving the same output filenames.",
         "",
@@ -471,7 +483,7 @@ def write_v0_4_figures(baseline_metrics: dict) -> None:
         return
     try:
         ml_metrics = evaluate_ml("validation")
-        hybrid_records = read_jsonl(DATA_DIR / "validation.jsonl")[:100]
+        hybrid_records = read_jsonl(DATA_DIR / "validation.jsonl")
         hybrid_metrics, _hybrid_predictions = evaluate_hybrid(hybrid_records)
     except Exception:
         return
@@ -536,6 +548,30 @@ def write_v0_4_figures(baseline_metrics: dict) -> None:
         ],
         "CPU Latency Comparison v0.4",
         "Seconds",
+    )
+    all_records = read_jsonl(DATA_DIR / "docguard_dataset.jsonl")
+    positive_records = [record for record in all_records if record["docs_update_required"]]
+    negative_records = [record for record in all_records if not record["docs_update_required"]]
+    positive_categories = Counter(record["doc_category"] for record in positive_records)
+    positive_scenarios = Counter(record["scenario_type"] for record in positive_records)
+    negative_scenarios = Counter(record["scenario_type"] for record in negative_records)
+    save_bar(
+        FIGURES_DIR / "positive_doc_category_distribution_v0_4.png",
+        list(positive_categories),
+        list(positive_categories.values()),
+        "Positive Documentation Category Distribution v0.4",
+    )
+    save_bar(
+        FIGURES_DIR / "positive_scenario_distribution_v0_4.png",
+        list(positive_scenarios),
+        list(positive_scenarios.values()),
+        "Positive Scenario Distribution v0.4",
+    )
+    save_bar(
+        FIGURES_DIR / "negative_scenario_distribution_v0_4.png",
+        list(negative_scenarios),
+        list(negative_scenarios.values()),
+        "Negative Scenario Distribution v0.4",
     )
 
 

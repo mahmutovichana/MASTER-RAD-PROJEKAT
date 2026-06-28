@@ -50,6 +50,7 @@ def evaluate(split: str) -> dict:
         per_category[record["doc_category"]]["correct"] += int(pred["doc_category"] == record["doc_category"])
     p, r, f1 = binary(tp, fp, fn)
     metrics = {
+        "ml_backend": model.get("backend", "fallback"),
         "total_records": len(records),
         "docs_update_required_precision": p,
         "docs_update_required_recall": r,
