@@ -24,4 +24,4 @@
 | parse errors | 0 |
 | parse error types | {} |
 | average confidence | 63.00% |
-| average latency seconds | 0.0000 |
+| average latency seconds | 0.0001 |

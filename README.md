@@ -153,13 +153,13 @@ Optional quantization packages such as `bitsandbytes` may be useful on compatibl
 Smoke-test one small real model on one validation record:
 
 ```bash
-python -m docguard_llm.cli smoke-test --model qwen2_5_coder_0_5b --backend transformers_local --compact-prompt
+python -m docguard_llm.cli smoke-test --model qwen2_5_coder_0_5b --backend transformers_local --prompt-mode compact_v2
 ```
 
 Run local Transformers inference:
 
 ```bash
-python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_0_5b --backend transformers_local --limit 3 --compact-prompt --continue-on-error
+python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_0_5b --backend transformers_local --limit 10 --prompt-mode compact_v2 --continue-on-error --retry-on-parse-error
 ```
 
 Run against a local vLLM/TGI OpenAI-compatible server:
@@ -188,19 +188,12 @@ python -m docguard_llm.cli smoke-test --model qwen2_5_coder_0_5b --backend trans
 
 ```powershell
 $env:DOCGUARD_MAX_NEW_TOKENS="120"
-python -m docguard_llm.cli smoke-test --model qwen2_5_coder_0_5b --backend transformers_local --compact-prompt --debug
+python -m docguard_llm.cli smoke-test --model qwen2_5_coder_0_5b --backend transformers_local --prompt-mode compact_v2 --debug
 ```
 
 ```powershell
 $env:DOCGUARD_MAX_NEW_TOKENS="180"
-python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_0_5b --backend transformers_local --limit 3 --compact-prompt --continue-on-error --retry-on-parse-error
-```
-
-Then expand carefully:
-
-```powershell
-$env:DOCGUARD_MAX_NEW_TOKENS="180"
-python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_0_5b --backend transformers_local --limit 5 --compact-prompt --continue-on-error --retry-on-parse-error
+python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_0_5b --backend transformers_local --limit 10 --prompt-mode compact_v2 --continue-on-error --retry-on-parse-error
 ```
 
 Only after 0.5B works should you try 1.5B sanity-only:
@@ -210,7 +203,7 @@ $env:DOCGUARD_MAX_NEW_TOKENS="60"
 python -m docguard_llm.cli smoke-test --model qwen2_5_coder_1_5b --backend transformers_local --sanity-only --debug
 ```
 
-The `smoke-test` command writes report checkpoints before generation starts, after prompt build, after generation starts, after generation finishes, and after parsing. Real `evaluate` writes each prediction to JSONL immediately, so partial outputs survive if a later CPU generation fails. For `qwen2_5_coder_0_5b` compact DocGuard prompts, `120` new tokens may truncate JSON; use `180` or `220` for evaluation and keep `60` only for sanity-only. The `--retry-on-parse-error` option retries likely truncated JSON once with 100 additional tokens. The `--timeout-seconds` option is documented for run notes, but no hard Windows timeout is enforced around low-level model generation. Mock results are useful for validating the pipeline, but they are not real Hugging Face model quality.
+The `smoke-test` command writes report checkpoints before generation starts, after prompt build, after generation starts, after generation finishes, and after parsing. Real `evaluate` writes each prediction to JSONL immediately, so partial outputs survive if a later CPU generation fails. `--compact-prompt` remains supported and is equivalent to `--prompt-mode compact`; use `--prompt-mode compact_v2` for the improved enum-guided prompt. For `qwen2_5_coder_0_5b` compact DocGuard prompts, `120` new tokens may truncate JSON; use `180` or `220` for evaluation and keep `60` only for sanity-only. The `--retry-on-parse-error` option retries likely truncated JSON once with 100 additional tokens. The `--timeout-seconds` option is documented for run notes, but no hard Windows timeout is enforced around low-level model generation. Mock results are useful for validating the pipeline, but they are not real Hugging Face model quality.
 
 ## Current Split
 

@@ -13,7 +13,16 @@ from docguard_llm.json_parser import FALLBACK_PREDICTION, extract_json_object, p
 from docguard_llm.label_normalizer import add_normalized_fields
 from docguard_llm.llm_agent import predict
 from docguard_llm.model_registry import get_model_config, list_models
-from docguard_llm.prompt_builder import build_compact_prompt, build_prompt, build_sanity_prompt, select_few_shot_examples
+from docguard_llm.prompt_builder import build_prompt_for_mode, build_sanity_prompt, select_few_shot_examples
+
+
+PROMPT_MODES = ("compact", "compact_v2", "full")
+
+
+def resolve_prompt_mode(args: argparse.Namespace) -> str:
+    if getattr(args, "prompt_mode", None):
+        return args.prompt_mode
+    return "compact" if getattr(args, "compact_prompt", False) else "full"
 
 
 def backend_tag(backend: str) -> str:
@@ -75,7 +84,8 @@ def retry_prediction_on_parse_error(record: dict, args: argparse.Namespace, exam
     try:
         original_raw_output = prediction.get("raw_model_output", "")
         original_parse_error_type = prediction.get("parse_error_type", "")
-        retry = predict(record, args.model, args.backend, examples, compact_prompt=args.compact_prompt)
+        retry = predict(record, args.model, args.backend, examples, prompt_mode=resolve_prompt_mode(args))
+        retry["prompt_mode"] = resolve_prompt_mode(args)
         retry["retry_attempted"] = True
         retry["retry_success"] = not retry.get("parse_error")
         retry["original_raw_output"] = original_raw_output
@@ -101,8 +111,11 @@ def list_models_command(_args: argparse.Namespace) -> int:
 
 def evaluate_command(args: argparse.Namespace) -> int:
     output_path = prediction_path(args.split, args.model, args.backend)
+    prompt_mode = resolve_prompt_mode(args)
     if args.backend == "mock":
-        metrics, predictions = evaluate_model(args.split, args.model, args.backend, args.limit, compact_prompt=args.compact_prompt)
+        metrics, predictions = evaluate_model(args.split, args.model, args.backend, args.limit, prompt_mode=prompt_mode)
+        for prediction in predictions:
+            prediction["prompt_mode"] = prompt_mode
         write_jsonl(output_path, predictions)
         write_model_report(model_report_path(args.model, args.backend), args.model, args.split, args.backend, metrics)
         write_mock_compatibility_files(args.split, args.model, predictions, metrics)
@@ -120,10 +133,11 @@ def evaluate_command(args: argparse.Namespace) -> int:
     for index, record in enumerate(records, start=1):
         print(f"record {index}/{total}: {record['id']}", flush=True)
         print(f"model key: {args.model}", flush=True)
-        print(f"prompt mode: {'compact' if args.compact_prompt else 'full'}", flush=True)
+        print(f"prompt mode: {prompt_mode}", flush=True)
         try:
             print("generation started", flush=True)
-            prediction = predict(record, args.model, args.backend, examples, compact_prompt=args.compact_prompt)
+            prediction = predict(record, args.model, args.backend, examples, prompt_mode=prompt_mode)
+            prediction["prompt_mode"] = prompt_mode
             prediction = retry_prediction_on_parse_error(record, args, examples, prediction)
             print("generation finished", flush=True)
             print(f"latency: {prediction.get('latency_seconds')}", flush=True)
@@ -168,7 +182,8 @@ def predict_command(args: argparse.Namespace) -> int:
     record = next((r for r in records if r["id"] == args.record_id), None)
     if not record:
         raise SystemExit(f"Record not found: {args.record_id}")
-    prediction = predict(record, args.model, args.backend, select_few_shot_examples(), compact_prompt=args.compact_prompt)
+    prediction = predict(record, args.model, args.backend, select_few_shot_examples(), prompt_mode=resolve_prompt_mode(args))
+    prediction["prompt_mode"] = resolve_prompt_mode(args)
     print(json.dumps(prediction, indent=2, ensure_ascii=False))
     return 0
 
@@ -185,6 +200,7 @@ def smoke_test_command(args: argparse.Namespace) -> int:
     parse_error = True
     latency = None
     error_message = ""
+    prompt_mode = resolve_prompt_mode(args)
     state = {
         "last_completed_step": "initialized",
         "generation_started_at": "",
@@ -207,6 +223,7 @@ def smoke_test_command(args: argparse.Namespace) -> int:
             f"- model_id: {config['model_id']}",
             f"- selected_record_id: {record.get('id') if record else record_id}",
             f"- compact_prompt: {args.compact_prompt}",
+            f"- prompt_mode: {prompt_mode}",
             f"- sanity_only: {args.sanity_only}",
             f"- prompt_length_characters: {len(prompt_text)}",
             f"- parse_success: {not parse_error}",
@@ -250,6 +267,7 @@ def smoke_test_command(args: argparse.Namespace) -> int:
         progress("backend", args.backend)
         progress("max_new_tokens", os.getenv("DOCGUARD_MAX_NEW_TOKENS", "150" if args.backend == "transformers_local" else "800"))
         progress("compact_prompt", args.compact_prompt)
+        progress("prompt_mode", prompt_mode)
         progress("sanity_only", args.sanity_only)
         progress("output report path", report_path)
         write_smoke_report("started", False)
@@ -270,7 +288,7 @@ def smoke_test_command(args: argparse.Namespace) -> int:
             record_id = record["id"]
             progress("selected record id", record_id)
             progress("record loaded successfully", True)
-            prompt_messages = build_compact_prompt(record) if args.compact_prompt else build_prompt(record, select_few_shot_examples())
+            prompt_messages = build_prompt_for_mode(record, prompt_mode, select_few_shot_examples())
         state["last_completed_step"] = "record_loaded"
         write_smoke_report("record_loaded", False)
 
@@ -332,6 +350,7 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate.add_argument("--backend", choices=["mock", "transformers_local", "text_generation_inference"], default="mock")
     evaluate.add_argument("--limit", type=int)
     evaluate.add_argument("--compact-prompt", action="store_true")
+    evaluate.add_argument("--prompt-mode", choices=PROMPT_MODES)
     evaluate.add_argument("--continue-on-error", action="store_true")
     evaluate.add_argument("--retry-on-parse-error", action="store_true")
     evaluate.add_argument("--debug", action="store_true")
@@ -347,12 +366,14 @@ def build_parser() -> argparse.ArgumentParser:
     predict_parser.add_argument("--model", choices=list(list_models()), required=True)
     predict_parser.add_argument("--backend", choices=["mock", "transformers_local", "text_generation_inference"], default="mock")
     predict_parser.add_argument("--compact-prompt", action="store_true")
+    predict_parser.add_argument("--prompt-mode", choices=PROMPT_MODES)
     predict_parser.set_defaults(func=predict_command)
     smoke = sub.add_parser("smoke-test")
     smoke.add_argument("--model", choices=list(list_models()), required=True)
     smoke.add_argument("--backend", choices=["mock", "transformers_local", "text_generation_inference"], default="transformers_local")
     smoke.add_argument("--record-id")
     smoke.add_argument("--compact-prompt", action="store_true")
+    smoke.add_argument("--prompt-mode", choices=PROMPT_MODES)
     smoke.add_argument("--sanity-only", action="store_true")
     smoke.add_argument("--debug", action="store_true")
     smoke.set_defaults(func=smoke_test_command)

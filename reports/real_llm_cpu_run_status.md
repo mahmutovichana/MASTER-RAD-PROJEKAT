@@ -13,6 +13,7 @@
 - The sanity-only parser now extracts JSON objects from fenced or surrounding text before checking for `{"ok": true}`.
 - `qwen2_5_coder_0_5b` compact DocGuard smoke test succeeded for `support-ticket-api-001` with usable structured output and about 23.6 seconds latency.
 - A tiny 3-record real evaluation with `DOCGUARD_MAX_NEW_TOKENS=120` produced F1 80%, one truncated JSON parse error, and about 20.76 seconds average latency.
+- A 10-record real evaluation with `DOCGUARD_MAX_NEW_TOKENS=180` produced 100% precision, 100% recall, 100% F1, zero parse errors, and about 22.17 seconds average latency. Fine-grained scenario, category, and target-file accuracy remained weak.
 - `qwen2_5_coder_1_5b` compact prompt downloaded and loaded, reached `generation started`, then returned to PowerShell without a visible completion, latency, raw output, or completed report.
 
 ## Conclusion
@@ -34,10 +35,5 @@
 
 ```powershell
 $env:DOCGUARD_MAX_NEW_TOKENS="180"
-python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_0_5b --backend transformers_local --limit 3 --compact-prompt --continue-on-error --retry-on-parse-error
-```
-
-```powershell
-$env:DOCGUARD_MAX_NEW_TOKENS="180"
-python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_0_5b --backend transformers_local --limit 5 --compact-prompt --continue-on-error --retry-on-parse-error
+python -m docguard_llm.cli evaluate --split validation --model qwen2_5_coder_0_5b --backend transformers_local --limit 10 --prompt-mode compact_v2 --continue-on-error --retry-on-parse-error
 ```
