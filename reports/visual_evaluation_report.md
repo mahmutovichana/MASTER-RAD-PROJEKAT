@@ -4,6 +4,8 @@
 
 These figures summarize dataset v0.3 history, v0.4 CPU-first dataset diagnostics, and the rule-based, ML, and deterministic hybrid evaluation paths. ROC and precision-recall curves use simple baseline scores: 1.0 for confident positive, 0.0 for confident negative, and 0.5 for unknown or unsupported changes.
 
+The all-scenario HF confusion chart with an `other` bucket is diagnostic only and should not be used as the main thesis figure because `other` aggregates unrelated scenario labels. Use the positive scenario, negative scenario, grouped negative reason, and top-confusion figures instead.
+
 Figure generation tries to use matplotlib first. In this local environment matplotlib was unavailable, so the script can fall back to a small built-in PNG renderer while preserving the same output filenames.
 
 ## Rule-based baseline figures
@@ -52,6 +54,10 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 
 ![hf_embedding_doc_category_accuracy_v0_4](figures/hf_embedding_doc_category_accuracy_v0_4.png)
 
+### hf_embedding_scenario_confusion_all_with_other_v0_4
+
+![hf_embedding_scenario_confusion_all_with_other_v0_4](figures/hf_embedding_scenario_confusion_all_with_other_v0_4.png)
+
 ### hf_embedding_vs_ml_scenario_accuracy_v0_4
 
 ![hf_embedding_vs_ml_scenario_accuracy_v0_4](figures/hf_embedding_vs_ml_scenario_accuracy_v0_4.png)
@@ -76,9 +82,37 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 
 ![hf_latency_comparison_v0_4](figures/hf_latency_comparison_v0_4.png)
 
+### hf_negative_reason_group_accuracy_v0_4
+
+![hf_negative_reason_group_accuracy_v0_4](figures/hf_negative_reason_group_accuracy_v0_4.png)
+
+### hf_negative_reason_group_confusion_v0_4
+
+![hf_negative_reason_group_confusion_v0_4](figures/hf_negative_reason_group_confusion_v0_4.png)
+
+### hf_negative_scenario_confusion_v0_4
+
+![hf_negative_scenario_confusion_v0_4](figures/hf_negative_scenario_confusion_v0_4.png)
+
+### hf_negative_subtype_accuracy_v0_4
+
+![hf_negative_subtype_accuracy_v0_4](figures/hf_negative_subtype_accuracy_v0_4.png)
+
+### hf_positive_scenario_confusion_v0_4
+
+![hf_positive_scenario_confusion_v0_4](figures/hf_positive_scenario_confusion_v0_4.png)
+
+### hf_staged_vs_flat_metrics_v0_4
+
+![hf_staged_vs_flat_metrics_v0_4](figures/hf_staged_vs_flat_metrics_v0_4.png)
+
 ### hf_stress_test_metrics_v0_4
 
 ![hf_stress_test_metrics_v0_4](figures/hf_stress_test_metrics_v0_4.png)
+
+### hf_top_scenario_confusions_v0_4
+
+![hf_top_scenario_confusions_v0_4](figures/hf_top_scenario_confusions_v0_4.png)
 
 ### invalid_source_target_file_count_v0_4
 

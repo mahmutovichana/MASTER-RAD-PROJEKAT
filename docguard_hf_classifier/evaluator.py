@@ -4,11 +4,20 @@ import json
 import random
 import re
 import hashlib
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 
 from docguard_hf_classifier.dataset_export import DATA_DIR, HF_DATA_DIR, export, mode_dir, read_jsonl
-from docguard_hf_classifier.embedding_classifier import compute_metrics, evaluate as evaluate_embeddings, load_model, predict_rows, train as train_embeddings, write_report
+from docguard_hf_classifier.embedding_classifier import (
+    compute_metrics,
+    evaluate as evaluate_embeddings,
+    load_model,
+    negative_reason_group,
+    predict_rows,
+    prediction_path,
+    train as train_embeddings,
+    write_report,
+)
 from docguard_hf_classifier.text_builder import DEFAULT_INPUT_MODE, INPUT_MODES
 from docguard_hybrid.doc_router import route
 
@@ -195,6 +204,16 @@ def stress_test(version: str = "v0_4", input_mode: str = DEFAULT_INPUT_MODE) -> 
     predictions, latency = predict_rows(stressed, model)
     metrics = compute_metrics(stressed, predictions, latency, model)
     write_report(REPORTS_DIR / "hf_stress_test_v0_4.md", f"HF Stress Test v0.4 {input_mode}", metrics)
+    lines = (REPORTS_DIR / "hf_stress_test_v0_4.md").read_text(encoding="utf-8").splitlines()
+    lines.extend([
+        "",
+        "## Interpretation",
+        "",
+        "Binary robustness is measured by precision, recall, F1, false positives, and false negatives. Fine-grained robustness is measured by positive target/scenario accuracy, negative subtype accuracy, negative reason group accuracy, and macro scenario F1.",
+        "",
+        "The expected pattern is that binary documentation-update detection remains more robust than fine-grained target or subtype prediction. Fine-grained labels are more sensitive to lexical and template changes.",
+    ])
+    (REPORTS_DIR / "hf_stress_test_v0_4.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     return metrics
 
 
@@ -245,3 +264,125 @@ def write_split_leakage_check(input_mode: str = DEFAULT_INPUT_MODE) -> dict:
     REPORTS_DIR.mkdir(exist_ok=True)
     (REPORTS_DIR / "dataset_split_leakage_check_v0_4.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     return {"project_overlaps": project_overlaps, "near_duplicate_count": len(near_duplicates), "repeated_diff_hash_count": len(repeated_diffs)}
+
+
+def read_predictions(split: str = "test", input_mode: str = DEFAULT_INPUT_MODE, classifier_architecture: str = "flat") -> list[dict]:
+    path = prediction_path(split, input_mode, classifier_architecture)
+    if not path.exists():
+        return []
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def write_negative_subtype_error_analysis(input_mode: str = DEFAULT_INPUT_MODE, split: str = "test", classifier_architecture: str = "flat") -> dict:
+    rows = read_jsonl(mode_dir(input_mode) / f"{split}.jsonl")
+    predictions = read_predictions(split, input_mode, classifier_architecture)
+    pred_by_id = {prediction["record_id"]: prediction for prediction in predictions}
+    subtype_counts: dict[str, Counter] = defaultdict(Counter)
+    group_counts: dict[str, Counter] = defaultdict(Counter)
+    confusions = Counter()
+    examples = []
+    for row in rows:
+        if row["docs_update_required_label"] == "true":
+            continue
+        pred = pred_by_id.get(row["id"])
+        if not pred:
+            continue
+        gold_subtype = row["scenario_type_label"]
+        pred_subtype = pred["scenario_type"]
+        gold_group = negative_reason_group(gold_subtype)
+        pred_group = negative_reason_group(pred_subtype)
+        subtype_counts[gold_subtype]["total"] += 1
+        subtype_counts[gold_subtype]["correct"] += int(pred_subtype == gold_subtype)
+        group_counts[gold_group]["total"] += 1
+        group_counts[gold_group]["correct"] += int(pred_group == gold_group)
+        if pred_subtype != gold_subtype:
+            confusions[(gold_subtype, pred_subtype)] += 1
+            if not pred["docs_update_required"] and len(examples) < 12:
+                examples.append((row["id"], gold_subtype, pred_subtype, gold_group, pred_group))
+    lines = [
+        "# HF Negative Subtype Error Analysis v0.4",
+        "",
+        f"Input mode: `{input_mode}`",
+        f"Split: `{split}`",
+        f"Classifier architecture: `{classifier_architecture}`",
+        "",
+        "Negative subtype errors are less severe than false positives or false negatives when binary classification is correct, because the system still correctly predicts that no documentation update is required. They are diagnostic labels for analysis, not patch-generation targets.",
+        "",
+        "## Negative Scenario Subtype Accuracy",
+        "",
+        "| Subtype | Support | Correct | Accuracy |",
+        "| --- | ---: | ---: | ---: |",
+    ]
+    for label, counts in sorted(subtype_counts.items()):
+        total = counts["total"]
+        correct = counts["correct"]
+        lines.append(f"| `{label}` | {total} | {correct} | {correct / total if total else 0.0:.4f} |")
+    lines.extend(["", "## Negative Reason Group Accuracy", "", "| Group | Support | Correct | Accuracy |", "| --- | ---: | ---: | ---: |"])
+    for label, counts in sorted(group_counts.items()):
+        total = counts["total"]
+        correct = counts["correct"]
+        lines.append(f"| `{label}` | {total} | {correct} | {correct / total if total else 0.0:.4f} |")
+    lines.extend(["", "## Top Confused Negative Subtype Pairs", ""])
+    for (gold, pred), count in confusions.most_common(20):
+        gold_total = subtype_counts[gold]["total"] or 1
+        lines.append(f"- `{gold}` -> `{pred}`: {count} ({count / gold_total:.1%} of `{gold}`)")
+    if not confusions:
+        lines.append("None.")
+    lines.extend(["", "## Binary Correct, Subtype Wrong Examples", "", "| Record | Gold subtype | Predicted subtype | Gold group | Predicted group |", "| --- | --- | --- | --- | --- |"])
+    for record_id, gold, pred, gold_group, pred_group in examples:
+        lines.append(f"| `{record_id}` | `{gold}` | `{pred}` | `{gold_group}` | `{pred_group}` |")
+    if not examples:
+        lines.append("| None |  |  |  |  |")
+    REPORTS_DIR.mkdir(exist_ok=True)
+    (REPORTS_DIR / "hf_negative_subtype_error_analysis_v0_4.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return {
+        "negative_subtypes": len(subtype_counts),
+        "negative_groups": len(group_counts),
+        "confusion_pairs": len(confusions),
+    }
+
+
+def refresh_embedding_report_from_predictions(input_mode: str = DEFAULT_INPUT_MODE, split: str = "test", classifier_architecture: str = "flat") -> dict:
+    rows = read_jsonl(mode_dir(input_mode) / f"{split}.jsonl")
+    predictions = read_predictions(split, input_mode, classifier_architecture)
+    if not predictions:
+        return {"refreshed": False, "reason": "prediction file missing"}
+    latency_values = [float(pred.get("latency_seconds") or 0.0) for pred in predictions]
+    fake_model = {
+        "model_name": predictions[0].get("model_name", "unknown"),
+        "input_mode": input_mode,
+        "classifier_architecture": classifier_architecture,
+        "classifier_type": predictions[0].get("classifier_type", "unknown"),
+    }
+    metrics = compute_metrics(rows, predictions, sum(latency_values) / len(latency_values) if latency_values else 0.0, fake_model)
+    suffix = "" if classifier_architecture == "flat" else f"_{classifier_architecture}"
+    write_report(REPORTS_DIR / f"hf_embedding_evaluation_v0_4_{input_mode}_{split}{suffix}.md", f"HF Embedding Evaluation v0.4 {input_mode} {split} {classifier_architecture}", metrics)
+    return {"refreshed": True, "records": len(rows), "split": split, "input_mode": input_mode, "classifier_architecture": classifier_architecture}
+
+
+def write_staged_vs_flat_comparison(input_mode: str = DEFAULT_INPUT_MODE, split: str = "test") -> dict:
+    flat = read_metrics_report(REPORTS_DIR / f"hf_embedding_evaluation_v0_4_{input_mode}_{split}.md")
+    staged = read_metrics_report(REPORTS_DIR / f"hf_embedding_evaluation_v0_4_{input_mode}_{split}_staged.md")
+    lines = [
+        "# HF Staged vs Flat Comparison v0.4",
+        "",
+        f"Input mode: `{input_mode}`",
+        f"Split: `{split}`",
+        "",
+        "| Architecture | F1 | Positive scenario | Negative scenario | Negative reason group | Macro scenario F1 |",
+        "| --- | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    for name, metrics in [("flat", flat), ("staged", staged)]:
+        if metrics:
+            lines.append(
+                f"| `{name}` | {float(metrics.get('docs_update_required_f1', 0.0)):.4f} | "
+                f"{float(metrics.get('positive_scenario_type_accuracy', 0.0)):.4f} | "
+                f"{float(metrics.get('negative_scenario_type_accuracy', 0.0)):.4f} | "
+                f"{float(metrics.get('negative_reason_group_accuracy', 0.0)):.4f} | "
+                f"{float(metrics.get('macro_scenario_f1', 0.0)):.4f} |"
+            )
+        else:
+            lines.append(f"| `{name}` | not run | not run | not run | not run | not run |")
+    REPORTS_DIR.mkdir(exist_ok=True)
+    (REPORTS_DIR / "hf_staged_vs_flat_comparison_v0_4.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return {"flat_available": bool(flat), "staged_available": bool(staged)}

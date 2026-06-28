@@ -19,7 +19,7 @@ def export_command(args: argparse.Namespace) -> int:
 def train_embeddings_command(args: argparse.Namespace) -> int:
     from docguard_hf_classifier.embedding_classifier import train
     try:
-        print_json(train(args.version, args.model, args.backend, args.input_mode))
+        print_json(train(args.version, args.model, args.backend, args.input_mode, args.classifier_architecture))
     except RuntimeError as exc:
         print(str(exc))
         return 2
@@ -28,11 +28,14 @@ def train_embeddings_command(args: argparse.Namespace) -> int:
 
 def evaluate_embeddings_command(args: argparse.Namespace) -> int:
     from docguard_hf_classifier.embedding_classifier import evaluate
-    from docguard_hf_classifier.evaluator import write_error_analysis
+    from docguard_hf_classifier.evaluator import write_error_analysis, write_negative_subtype_error_analysis, write_staged_vs_flat_comparison
     try:
-        metrics, _predictions = evaluate(args.split, args.input_mode)
+        metrics, _predictions = evaluate(args.split, args.input_mode, args.classifier_architecture)
         if args.split == "validation":
             write_error_analysis(args.split, args.input_mode)
+        if args.split == "test":
+            write_negative_subtype_error_analysis(args.input_mode, args.split, args.classifier_architecture)
+            write_staged_vs_flat_comparison(args.input_mode, args.split)
         print_json(metrics)
     except RuntimeError as exc:
         print(str(exc))
@@ -100,6 +103,27 @@ def leakage_report_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def negative_analysis_command(args: argparse.Namespace) -> int:
+    from docguard_hf_classifier.evaluator import refresh_embedding_report_from_predictions, write_negative_subtype_error_analysis, write_staged_vs_flat_comparison
+    refresh_embedding_report_from_predictions(args.input_mode, args.split, args.classifier_architecture)
+    print_json({
+        "negative_subtype_analysis": write_negative_subtype_error_analysis(args.input_mode, args.split, args.classifier_architecture),
+        "staged_vs_flat": write_staged_vs_flat_comparison(args.input_mode, args.split),
+    })
+    return 0
+
+
+def refresh_reports_command(args: argparse.Namespace) -> int:
+    from docguard_hf_classifier.evaluator import refresh_embedding_report_from_predictions, write_negative_subtype_error_analysis, write_staged_vs_flat_comparison
+    results = []
+    for split in ["validation", "test"]:
+        results.append(refresh_embedding_report_from_predictions(args.input_mode, split, args.classifier_architecture))
+    write_negative_subtype_error_analysis(args.input_mode, "test", args.classifier_architecture)
+    write_staged_vs_flat_comparison(args.input_mode, "test")
+    print_json({"results": results})
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="docguard_hf_classifier")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -113,12 +137,14 @@ def build_parser() -> argparse.ArgumentParser:
     train_embeddings.add_argument("--model", default="sentence-transformers/all-MiniLM-L6-v2")
     train_embeddings.add_argument("--backend", choices=["sentence_transformers", "transformers"], default="sentence_transformers")
     train_embeddings.add_argument("--input-mode", choices=INPUT_MODES, default=DEFAULT_INPUT_MODE)
+    train_embeddings.add_argument("--classifier-architecture", choices=["flat", "staged"], default="flat")
     train_embeddings.set_defaults(func=train_embeddings_command)
 
     evaluate_embeddings = sub.add_parser("evaluate-embeddings")
     evaluate_embeddings.add_argument("--version", default="v0_4")
     evaluate_embeddings.add_argument("--split", choices=["train", "validation", "test"], required=True)
     evaluate_embeddings.add_argument("--input-mode", choices=INPUT_MODES, default=DEFAULT_INPUT_MODE)
+    evaluate_embeddings.add_argument("--classifier-architecture", choices=["flat", "staged"], default="flat")
     evaluate_embeddings.set_defaults(func=evaluate_embeddings_command)
 
     zero_shot = sub.add_parser("evaluate-zero-shot")
@@ -157,6 +183,19 @@ def build_parser() -> argparse.ArgumentParser:
     leakage.add_argument("--version", default="v0_4")
     leakage.add_argument("--input-mode", choices=INPUT_MODES, default=DEFAULT_INPUT_MODE)
     leakage.set_defaults(func=leakage_report_command)
+
+    negative = sub.add_parser("analyze-negatives")
+    negative.add_argument("--version", default="v0_4")
+    negative.add_argument("--split", choices=["validation", "test"], default="test")
+    negative.add_argument("--input-mode", choices=INPUT_MODES, default=DEFAULT_INPUT_MODE)
+    negative.add_argument("--classifier-architecture", choices=["flat", "staged"], default="flat")
+    negative.set_defaults(func=negative_analysis_command)
+
+    refresh = sub.add_parser("refresh-reports")
+    refresh.add_argument("--version", default="v0_4")
+    refresh.add_argument("--input-mode", choices=INPUT_MODES, default=DEFAULT_INPUT_MODE)
+    refresh.add_argument("--classifier-architecture", choices=["flat", "staged"], default="flat")
+    refresh.set_defaults(func=refresh_reports_command)
     return parser
 
 

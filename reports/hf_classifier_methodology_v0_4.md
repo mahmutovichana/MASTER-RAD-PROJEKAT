@@ -21,3 +21,9 @@ Recommended reporting tiers:
 - Upper-bound assisted result: `full_current`
 
 The `full_current` result should be treated as an upper bound, not as the main no-leak learned classifier result.
+
+v0.4.3 separates scenario evaluation into overall, positive, and negative subsets. This matters because positive scenario and target-file accuracy drive documentation patch generation, while negative subtype labels are diagnostic explanations for no-update cases. Binary no-update detection is the primary practical requirement for negatives.
+
+Negative no-update subtypes are grouped into thesis-friendly reason groups such as `no_behavior_change_refactor`, `no_contract_change_textual`, and `dependency_or_config_no_doc_impact`. These groups are more interpretable than a large flat confusion matrix and better reflect the fact that many negative subtype confusions still produce the correct operational decision: no documentation update.
+
+Large scenario confusion matrices should not be used as the main thesis figure. Positive scenario, negative scenario, and grouped negative reason matrices are reported separately.

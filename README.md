@@ -303,12 +303,15 @@ HF input modes are available for leakage analysis:
 
 Use `raw_diff_plus_docs` as the primary fair thesis result. Treat `raw_diff_plus_signals` as assisted and `full_current` as an upper-bound setting because summaries and rule-derived signals can leak label semantics.
 
+Scenario evaluation is split into positive and negative subsets. For practical DocGuard behavior, binary no-update detection and positive target/scenario accuracy matter most. Negative subtype labels are diagnostic, so reports also include grouped negative reason accuracy for a cleaner thesis discussion.
+
 Run the input ablation and stress checks:
 
 ```bash
 python -m docguard_hf_classifier.cli ablate-inputs --version v0_4 --model sentence-transformers/all-MiniLM-L6-v2
 python -m docguard_hf_classifier.cli stress-test --version v0_4 --input-mode raw_diff_plus_docs
 python -m docguard_hf_classifier.cli leakage-check --version v0_4 --input-mode raw_diff_plus_docs
+python -m docguard_hf_classifier.cli analyze-negatives --version v0_4 --split test --input-mode raw_diff_plus_docs
 ```
 
 Optional slower CPU experiments:

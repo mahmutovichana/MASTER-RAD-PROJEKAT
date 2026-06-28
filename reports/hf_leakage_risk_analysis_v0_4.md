@@ -11,3 +11,5 @@ Recommended thesis reporting:
 - Upper-bound assisted result: `full_current`
 
 `raw_diff_only` is the strictest setting. `raw_diff_plus_docs` is the recommended default because the model sees the code change and the existing documentation context without gold-like summaries or handcrafted scenario signals.
+
+v0.4.3 also separates negative subtype evaluation from binary no-update detection. A negative subtype mistake is less severe than a false positive or false negative when the model still predicts `docs_update_required=false`. For thesis reporting, prioritize binary detection, positive target/scenario accuracy, and grouped negative reason accuracy.

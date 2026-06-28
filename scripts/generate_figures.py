@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import sys
 import zlib
+import textwrap
 from collections import Counter
 from pathlib import Path
 
@@ -98,6 +99,48 @@ def save_confusion_matrix(path: Path, matrix: list[list[int]], labels: list[str]
     plt.ylabel("Gold")
     plt.tight_layout()
     plt.savefig(path, dpi=180)
+    plt.close()
+
+
+def save_float_confusion_matrix(path: Path, matrix: list[list[float]], labels: list[str], title: str) -> None:
+    if not HAS_MATPLOTLIB:
+        save_fallback_matrix(path, [[int(value * 100) for value in row] for row in matrix])
+        return
+    wrapped = ["\n".join(textwrap.wrap(label, width=18)) for label in labels]
+    size = max(7, min(16, len(labels) * 0.65))
+    plt.figure(figsize=(size, size))
+    plt.imshow(matrix, cmap="Blues", vmin=0, vmax=1)
+    plt.title(title)
+    plt.colorbar(label="Row-normalized share")
+    plt.xticks(range(len(labels)), wrapped, rotation=0, ha="center", fontsize=7)
+    plt.yticks(range(len(labels)), wrapped, fontsize=7)
+    if len(labels) <= 14:
+        for i, row in enumerate(matrix):
+            for j, value in enumerate(row):
+                if value >= 0.05:
+                    plt.text(j, i, f"{value:.0%}", ha="center", va="center", fontsize=6)
+    plt.xlabel("Predicted")
+    plt.ylabel("Gold")
+    plt.tight_layout()
+    plt.savefig(path, dpi=180)
+    plt.close()
+
+
+def save_horizontal_bar(path: Path, labels: list[str], values: list[float], title: str, xlabel: str = "Count") -> None:
+    if not HAS_MATPLOTLIB:
+        save_fallback_bar(path, values)
+        return
+    height = max(4, min(14, len(labels) * 0.45 + 1.5))
+    wrapped = ["\n".join(textwrap.wrap(label, width=42)) for label in labels]
+    plt.figure(figsize=(12, height))
+    bars = plt.barh(wrapped, values)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.gca().invert_yaxis()
+    for bar, value in zip(bars, values):
+        plt.text(bar.get_width(), bar.get_y() + bar.get_height() / 2, f" {value:.2f}" if isinstance(value, float) and value <= 1 else f" {value:.0f}", va="center", fontsize=8)
+    plt.tight_layout()
+    plt.savefig(path, dpi=170)
     plt.close()
 
 
@@ -300,6 +343,8 @@ def main() -> int:
         f"> {MOCK_WARNING}",
         "",
         "These figures summarize dataset v0.3 history, v0.4 CPU-first dataset diagnostics, and the rule-based, ML, and deterministic hybrid evaluation paths. ROC and precision-recall curves use simple baseline scores: 1.0 for confident positive, 0.0 for confident negative, and 0.5 for unknown or unsupported changes.",
+        "",
+        "The all-scenario HF confusion chart with an `other` bucket is diagnostic only and should not be used as the main thesis figure because `other` aggregates unrelated scenario labels. Use the positive scenario, negative scenario, grouped negative reason, and top-confusion figures instead.",
         "",
         "Figure generation tries to use matplotlib first. In this local environment matplotlib was unavailable, so the script can fall back to a small built-in PNG renderer while preserving the same output filenames.",
         "",
@@ -591,6 +636,8 @@ def write_v0_4_figures(baseline_metrics: dict) -> None:
     )
     write_hf_input_ablation_figures()
     write_hf_stress_figure()
+    write_negative_subtype_figures()
+    write_staged_vs_flat_figure()
     write_hf_confusion_figure()
     save_bar(
         FIGURES_DIR / "invalid_source_target_file_count_v0_4.png",
@@ -656,9 +703,16 @@ def write_hf_confusion_figure() -> None:
     pred_path = DATA_DIR / "hf_embedding_predictions_v0_4_raw_diff_plus_docs_validation.jsonl"
     if not pred_path.exists():
         save_confusion_matrix(FIGURES_DIR / "hf_embedding_confusion_scenarios_v0_4.png", [[0]], ["not run"], "HF Embedding Scenario Confusion v0.4")
+        save_confusion_matrix(FIGURES_DIR / "hf_positive_scenario_confusion_v0_4.png", [[0]], ["not run"], "HF Positive Scenario Confusion v0.4")
+        save_confusion_matrix(FIGURES_DIR / "hf_negative_scenario_confusion_v0_4.png", [[0]], ["not run"], "HF Negative Scenario Confusion v0.4")
+        save_confusion_matrix(FIGURES_DIR / "hf_negative_reason_group_confusion_v0_4.png", [[0]], ["not run"], "HF Negative Reason Group Confusion v0.4")
+        save_horizontal_bar(FIGURES_DIR / "hf_top_scenario_confusions_v0_4.png", ["not run"], [0], "HF Top Scenario Confusions v0.4")
         return
     records = {row["id"]: row for row in read_jsonl(DATA_DIR / "hf_v0_4" / "raw_diff_plus_docs" / "validation.jsonl")}
     predictions = read_jsonl(pred_path)
+    write_split_scenario_confusions(records, predictions)
+    write_negative_group_confusion(records, predictions)
+    write_top_scenario_confusions(records, predictions)
     errors = [pred for pred in predictions if records.get(pred["record_id"], {}).get("scenario_type_label") != pred["scenario_type"]]
     if not errors:
         save_bar(FIGURES_DIR / "hf_embedding_confusion_scenarios_v0_4.png", ["scenario errors"], [0], "HF Embedding Scenario Confusion v0.4", "Errors")
@@ -675,6 +729,96 @@ def write_hf_confusion_figure() -> None:
         got = pred["scenario_type"] if pred["scenario_type"] in top else "other"
         matrix[index[gold]][index[got]] += 1
     save_confusion_matrix(FIGURES_DIR / "hf_embedding_confusion_scenarios_v0_4.png", matrix, labels, "HF Embedding Scenario Confusion v0.4")
+    (FIGURES_DIR / "hf_embedding_scenario_confusion_all_with_other_v0_4.png").write_bytes((FIGURES_DIR / "hf_embedding_confusion_scenarios_v0_4.png").read_bytes())
+
+
+NEGATIVE_REASON_GROUPS = {
+    "no_behavior_change_refactor": {
+        "internal_variable_rename_no_behavior_change",
+        "private_helper_refactor_no_flow_change",
+        "helper_extraction_no_behavior_change",
+        "internal_performance_refactor_no_documented_behavior_change",
+        "type_alias_rename_no_contract_change",
+    },
+    "no_contract_change_textual": {
+        "formatting_only_in_docs_or_code",
+        "comments_reworded_no_contract_change",
+        "log_message_change_no_user_visible_behavior",
+    },
+    "test_only_no_product_behavior": {"test_assertion_refactor_no_behavior_change"},
+    "dependency_or_config_no_doc_impact": {"dev_dependency_patch_no_command_change", "config_refactor_no_new_env_var"},
+    "docs_already_consistent": {"docs_already_updated"},
+    "route_internal_no_contract_change": {"route_implementation_refactor_no_contract_change"},
+}
+NEGATIVE_SCENARIO_TO_GROUP = {scenario: group for group, scenarios in NEGATIVE_REASON_GROUPS.items() for scenario in scenarios}
+
+
+def negative_reason_group(label: str) -> str:
+    return NEGATIVE_SCENARIO_TO_GROUP.get(label, "other_negative")
+
+
+def normalized_matrix(labels: list[str], pairs: list[tuple[str, str]]) -> list[list[float]]:
+    counts = [[0 for _ in labels] for _ in labels]
+    idx = {label: i for i, label in enumerate(labels)}
+    for gold, pred in pairs:
+        if gold in idx and pred in idx:
+            counts[idx[gold]][idx[pred]] += 1
+    matrix = []
+    for row in counts:
+        total = sum(row)
+        matrix.append([value / total if total else 0.0 for value in row])
+    return matrix
+
+
+def write_split_scenario_confusions(records: dict[str, dict], predictions: list[dict]) -> None:
+    positive_pairs = []
+    negative_pairs = []
+    for pred in predictions:
+        row = records.get(pred["record_id"])
+        if not row:
+            continue
+        pair = (row["scenario_type_label"], pred["scenario_type"])
+        if row["docs_update_required_label"] == "true":
+            positive_pairs.append(pair)
+        else:
+            negative_pairs.append(pair)
+    pos_labels = sorted({gold for gold, _pred in positive_pairs} | {pred for _gold, pred in positive_pairs})
+    neg_labels = sorted({gold for gold, _pred in negative_pairs} | {pred for _gold, pred in negative_pairs})
+    save_float_confusion_matrix(FIGURES_DIR / "hf_positive_scenario_confusion_v0_4.png", normalized_matrix(pos_labels, positive_pairs), pos_labels, "HF Positive Scenario Confusion v0.4")
+    save_float_confusion_matrix(FIGURES_DIR / "hf_negative_scenario_confusion_v0_4.png", normalized_matrix(neg_labels, negative_pairs), neg_labels, "HF Negative Scenario Confusion v0.4")
+
+
+def write_negative_group_confusion(records: dict[str, dict], predictions: list[dict]) -> None:
+    pairs = []
+    for pred in predictions:
+        row = records.get(pred["record_id"])
+        if row and row["docs_update_required_label"] == "false":
+            pairs.append((negative_reason_group(row["scenario_type_label"]), negative_reason_group(pred["scenario_type"])))
+    labels = sorted({gold for gold, _pred in pairs} | {pred for _gold, pred in pairs})
+    save_float_confusion_matrix(FIGURES_DIR / "hf_negative_reason_group_confusion_v0_4.png", normalized_matrix(labels, pairs), labels, "HF Negative Reason Group Confusion v0.4")
+
+
+def write_top_scenario_confusions(records: dict[str, dict], predictions: list[dict]) -> None:
+    confusions = Counter()
+    support = Counter()
+    for pred in predictions:
+        row = records.get(pred["record_id"])
+        if not row:
+            continue
+        gold = row["scenario_type_label"]
+        got = pred["scenario_type"]
+        support[gold] += 1
+        if gold != got:
+            confusions[(gold, got)] += 1
+    if not confusions:
+        save_horizontal_bar(FIGURES_DIR / "hf_top_scenario_confusions_v0_4.png", ["no off-diagonal errors"], [0], "HF Top Scenario Confusions v0.4")
+        return
+    labels = []
+    values = []
+    for (gold, got), count in confusions.most_common(20):
+        labels.append(f"{gold} -> {got} ({count}, {count / max(1, support[gold]):.1%})")
+        values.append(count)
+    save_horizontal_bar(FIGURES_DIR / "hf_top_scenario_confusions_v0_4.png", labels, values, "HF Top Scenario Confusions v0.4", "Count")
 
 
 def ablation_metrics_by_mode() -> dict[str, dict]:
@@ -726,6 +870,61 @@ def write_hf_stress_figure() -> None:
         "HF Stress Test Metrics v0.4",
         "Score",
     )
+
+
+def read_accuracy_table(path: Path, section_title: str) -> dict[str, float]:
+    if not path.exists():
+        return {}
+    lines = path.read_text(encoding="utf-8").splitlines()
+    in_section = False
+    values = {}
+    for line in lines:
+        if line.startswith("## "):
+            in_section = line.strip("# ").strip() == section_title
+            continue
+        if in_section and line.startswith("| `"):
+            parts = [part.strip() for part in line.strip("|").split("|")]
+            if len(parts) >= 4:
+                try:
+                    values[parts[0].strip("`")] = float(parts[3])
+                except ValueError:
+                    pass
+    return values
+
+
+def write_negative_subtype_figures() -> None:
+    path = REPORTS_DIR / "hf_negative_subtype_error_analysis_v0_4.md"
+    subtype = read_accuracy_table(path, "Negative Scenario Subtype Accuracy")
+    groups = read_accuracy_table(path, "Negative Reason Group Accuracy")
+    if subtype:
+        save_horizontal_bar(FIGURES_DIR / "hf_negative_subtype_accuracy_v0_4.png", list(subtype), list(subtype.values()), "HF Negative Subtype Accuracy v0.4", "Accuracy")
+    else:
+        save_horizontal_bar(FIGURES_DIR / "hf_negative_subtype_accuracy_v0_4.png", ["not run"], [0], "HF Negative Subtype Accuracy v0.4", "Accuracy")
+    if groups:
+        save_horizontal_bar(FIGURES_DIR / "hf_negative_reason_group_accuracy_v0_4.png", list(groups), list(groups.values()), "HF Negative Reason Group Accuracy v0.4", "Accuracy")
+    else:
+        save_horizontal_bar(FIGURES_DIR / "hf_negative_reason_group_accuracy_v0_4.png", ["not run"], [0], "HF Negative Reason Group Accuracy v0.4", "Accuracy")
+
+
+def write_staged_vs_flat_figure() -> None:
+    path = REPORTS_DIR / "hf_staged_vs_flat_comparison_v0_4.md"
+    if not path.exists():
+        save_bar(FIGURES_DIR / "hf_staged_vs_flat_metrics_v0_4.png", ["flat", "staged"], [0, 0], "HF Staged vs Flat Metrics v0.4", "Score")
+        return
+    labels = []
+    values = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.startswith("| `"):
+            continue
+        parts = [part.strip() for part in line.strip("|").split("|")]
+        if len(parts) < 6 or parts[1] == "not run":
+            continue
+        name = parts[0].strip("`")
+        labels.extend([f"{name} F1", f"{name} neg scenario", f"{name} neg group"])
+        values.extend([float(parts[1]), float(parts[3]), float(parts[4])])
+    if not values:
+        labels, values = ["flat", "staged"], [0, 0]
+    save_bar(FIGURES_DIR / "hf_staged_vs_flat_metrics_v0_4.png", labels, values, "HF Staged vs Flat Metrics v0.4", "Score")
 
 
 if __name__ == "__main__":
