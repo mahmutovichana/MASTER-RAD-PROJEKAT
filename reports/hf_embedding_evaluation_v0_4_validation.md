@@ -3,6 +3,7 @@
 | Metric | Value |
 | --- | ---: |
 | `model_name` | sentence-transformers/all-MiniLM-L6-v2 |
+| `input_mode` | full_current |
 | `classifier_type` | LogisticRegression |
 | `total_records` | 1000 |
 | `docs_update_required_precision` | 1.0000 |
@@ -16,4 +17,4 @@
 | `negative_classification_accuracy` | 1.0000 |
 | `macro_scenario_f1` | 1.0000 |
 | `macro_doc_category_f1` | 1.0000 |
-| `average_embedding_inference_latency_seconds` | 0.0213 |
+| `average_embedding_inference_latency_seconds` | 0.0291 |

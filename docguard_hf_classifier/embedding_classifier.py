@@ -1,20 +1,36 @@
 from __future__ import annotations
 
 import json
+import sys
 import time
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
-from docguard_hf_classifier.dataset_export import HF_DATA_DIR, read_jsonl
+from docguard_hf_classifier.dataset_export import HF_DATA_DIR, mode_dir, read_jsonl
 from docguard_hf_classifier.label_maps import TASKS
+from docguard_hf_classifier.text_builder import DEFAULT_INPUT_MODE, INPUT_MODES
 
 ROOT = Path(__file__).resolve().parents[1]
+BUNDLED_PYTHON_PACKAGES = Path.home() / ".cache" / "codex-runtimes" / "codex-primary-runtime" / "dependencies" / "python"
+if BUNDLED_PYTHON_PACKAGES.exists():
+    sys.path.insert(0, str(BUNDLED_PYTHON_PACKAGES))
 MODELS_DIR = ROOT / "models" / "hf_v0_4"
 REPORTS_DIR = ROOT / "reports"
 INSTALL_COMMAND = "python -m pip install sentence-transformers scikit-learn joblib"
-MODEL_PATH = MODELS_DIR / "embedding_classifier.joblib"
-PREDICTION_PATH_TEMPLATE = "hf_embedding_predictions_v0_4_{split}.jsonl"
+PREDICTION_PATH_TEMPLATE = "hf_embedding_predictions_v0_4_{input_mode}_{split}.jsonl"
+
+
+def model_path(input_mode: str = DEFAULT_INPUT_MODE) -> Path:
+    return MODELS_DIR / input_mode / "embedding_classifier.joblib"
+
+
+def legacy_prediction_path(split: str) -> Path:
+    return ROOT / "data" / f"hf_embedding_predictions_v0_4_{split}.jsonl"
+
+
+def prediction_path(split: str, input_mode: str = DEFAULT_INPUT_MODE) -> Path:
+    return ROOT / "data" / PREDICTION_PATH_TEMPLATE.format(input_mode=input_mode, split=split)
 
 
 def require_embedding_dependencies(backend: str = "sentence_transformers") -> tuple[Any, Any, Any, Any]:
@@ -58,11 +74,13 @@ def labels(rows: list[dict], task: str) -> list[str]:
     return [row[f"{task}_label"] for row in rows]
 
 
-def train(version: str = "v0_4", model_name: str = "sentence-transformers/all-MiniLM-L6-v2", backend: str = "sentence_transformers") -> dict:
+def train(version: str = "v0_4", model_name: str = "sentence-transformers/all-MiniLM-L6-v2", backend: str = "sentence_transformers", input_mode: str = DEFAULT_INPUT_MODE) -> dict:
     if version != "v0_4":
         raise ValueError("Only v0_4 is supported.")
     joblib, LogisticRegression, encoder_factory, _pairwise = require_embedding_dependencies(backend)
-    train_rows = read_jsonl(HF_DATA_DIR / "train.jsonl")
+    if input_mode not in INPUT_MODES:
+        raise ValueError(f"Unsupported input mode: {input_mode}")
+    train_rows = read_jsonl(mode_dir(input_mode) / "train.jsonl")
     texts = [row["input_text"] for row in train_rows]
     started = time.perf_counter()
     if backend == "sentence_transformers":
@@ -79,31 +97,34 @@ def train(version: str = "v0_4", model_name: str = "sentence-transformers/all-Mi
         if task == "target_doc_file":
             indices = [index for index, row in enumerate(train_rows) if row["docs_update_required_label"] == "true"]
             task_rows = [train_rows[index] for index in indices]
-            task_embeddings = embeddings[indices] if hasattr(embeddings, "__getitem__") else [embeddings[index] for index in indices]
+            task_embeddings = embeddings[indices] if hasattr(embeddings, "shape") else [embeddings[index] for index in indices]
         clf = LogisticRegression(max_iter=1000, class_weight="balanced")
         clf.fit(task_embeddings, labels(task_rows, task))
         classifiers[task] = clf
-    MODELS_DIR.mkdir(parents=True, exist_ok=True)
+    path = model_path(input_mode)
+    path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "version": version,
+        "input_mode": input_mode,
         "model_name": model_name,
         "classifier_type": "LogisticRegression",
         "classifiers": classifiers,
         "encoder": encoder_payload,
         "train_seconds": time.perf_counter() - started,
     }
-    joblib.dump(payload, MODEL_PATH)
-    return {"model_path": str(MODEL_PATH), "model_name": model_name, "classifier_type": "LogisticRegression", "records": len(train_rows), "backend": backend}
+    joblib.dump(payload, path)
+    return {"model_path": str(path), "input_mode": input_mode, "model_name": model_name, "classifier_type": "LogisticRegression", "records": len(train_rows), "backend": backend}
 
 
-def load_model() -> dict:
+def load_model(input_mode: str = DEFAULT_INPUT_MODE) -> dict:
     try:
         import joblib
     except ModuleNotFoundError as exc:
         raise RuntimeError(f"Missing classifier dependency `{exc.name}`. Install with: {INSTALL_COMMAND}") from exc
-    if not MODEL_PATH.exists():
-        raise RuntimeError(f"HF embedding classifier not found at {MODEL_PATH}. Run `python -m docguard_hf_classifier.cli train-embeddings --version v0_4 --model sentence-transformers/all-MiniLM-L6-v2`.")
-    return joblib.load(MODEL_PATH)
+    path = model_path(input_mode)
+    if not path.exists():
+        raise RuntimeError(f"HF embedding classifier not found at {path}. Run `python -m docguard_hf_classifier.cli train-embeddings --version v0_4 --model sentence-transformers/all-MiniLM-L6-v2 --input-mode {input_mode}`.")
+    return joblib.load(path)
 
 
 def softmax(values: list[float]) -> list[float]:
@@ -221,6 +242,7 @@ def compute_metrics(rows: list[dict], predictions: list[dict], latency: float, m
     p, r, f1 = binary(tp, fp, fn)
     return {
         "model_name": model["model_name"],
+        "input_mode": model.get("input_mode", DEFAULT_INPUT_MODE),
         "classifier_type": model["classifier_type"],
         "total_records": len(rows),
         "docs_update_required_precision": p,
@@ -249,26 +271,31 @@ def write_report(path: Path, title: str, metrics: dict) -> None:
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def write_predictions(split: str, predictions: list[dict]) -> None:
-    path = ROOT / "data" / PREDICTION_PATH_TEMPLATE.format(split=split)
+def write_predictions(split: str, predictions: list[dict], input_mode: str = DEFAULT_INPUT_MODE) -> None:
+    path = prediction_path(split, input_mode)
     path.write_text("\n".join(json.dumps(row, ensure_ascii=False) for row in predictions) + "\n", encoding="utf-8")
+    if input_mode == "full_current":
+        legacy_prediction_path(split).write_text(path.read_text(encoding="utf-8"), encoding="utf-8")
 
 
-def evaluate(split: str = "validation") -> tuple[dict, list[dict]]:
-    model = load_model()
-    rows = read_jsonl(HF_DATA_DIR / f"{split}.jsonl")
+def evaluate(split: str = "validation", input_mode: str = DEFAULT_INPUT_MODE) -> tuple[dict, list[dict]]:
+    model = load_model(input_mode)
+    rows = read_jsonl(mode_dir(input_mode) / f"{split}.jsonl")
     predictions, latency = predict_rows(rows, model)
     metrics = compute_metrics(rows, predictions, latency, model)
     REPORTS_DIR.mkdir(exist_ok=True)
-    write_report(REPORTS_DIR / f"hf_embedding_evaluation_v0_4_{split}.md", f"HF Embedding Evaluation v0.4 {split}", metrics)
-    write_predictions(split, predictions)
+    write_report(REPORTS_DIR / f"hf_embedding_evaluation_v0_4_{input_mode}_{split}.md", f"HF Embedding Evaluation v0.4 {input_mode} {split}", metrics)
+    if input_mode == "full_current":
+        write_report(REPORTS_DIR / f"hf_embedding_evaluation_v0_4_{split}.md", f"HF Embedding Evaluation v0.4 {split}", metrics)
+    write_predictions(split, predictions, input_mode)
     return metrics, predictions
 
 
-def load_predictions_by_id(split: str) -> dict[str, dict]:
-    path = ROOT / "data" / PREDICTION_PATH_TEMPLATE.format(split=split)
+def load_predictions_by_id(split: str, input_mode: str = DEFAULT_INPUT_MODE) -> dict[str, dict]:
+    path = prediction_path(split, input_mode)
+    if not path.exists() and input_mode == "full_current":
+        path = legacy_prediction_path(split)
     if not path.exists():
         return {}
     rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
     return {row["record_id"]: row for row in rows}
-

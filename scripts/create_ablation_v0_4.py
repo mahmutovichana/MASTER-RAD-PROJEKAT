@@ -57,9 +57,10 @@ def main() -> int:
     ml = evaluate_ml("test")
     test_records = read_jsonl(DATA_DIR / "test.jsonl")
     hybrid, _ = evaluate_records(test_records)
-    hf_embedding = read_metrics_report(REPORTS_DIR / "hf_embedding_evaluation_v0_4_test.md")
+    hf_embedding = read_metrics_report(REPORTS_DIR / "hf_embedding_evaluation_v0_4_raw_diff_plus_docs_test.md")
+    hf_embedding_upper = read_metrics_report(REPORTS_DIR / "hf_embedding_evaluation_v0_4_full_current_test.md") or read_metrics_report(REPORTS_DIR / "hf_embedding_evaluation_v0_4_test.md")
     hf_sequence = read_metrics_report(REPORTS_DIR / "hf_sequence_evaluation_v0_4_scenario_type.md")
-    hybrid_hf = read_metrics_report(REPORTS_DIR / "hybrid_hf_embedding_evaluation_v0_4_test.md")
+    hybrid_hf = read_metrics_report(REPORTS_DIR / "hybrid_hf_embedding_evaluation_v0_4_raw_diff_plus_docs_test.md") or read_metrics_report(REPORTS_DIR / "hybrid_hf_embedding_evaluation_v0_4_test.md")
     lines = [
         "# Ablation v0.4",
         "",
@@ -67,7 +68,8 @@ def main() -> int:
         "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
         row("rule baseline", baseline),
         row("ML-only", ml),
-        row("HF embedding classifier", hf_embedding) if hf_embedding else "| HF embedding classifier | not run | not run | not run | not run | not run | not run | not run | not run | not run | not run |",
+        row("HF embedding classifier (raw_diff_plus_docs)", hf_embedding) if hf_embedding else "| HF embedding classifier (raw_diff_plus_docs) | not run | not run | not run | not run | not run | not run | not run | not run | not run | not run |",
+        row("HF embedding upper bound (full_current)", hf_embedding_upper) if hf_embedding_upper else "| HF embedding upper bound (full_current) | not run | not run | not run | not run | not run | not run | not run | not run | not run | not run |",
         row("HF sequence classifier", hf_sequence) if hf_sequence else "| HF sequence classifier | optional | optional | optional | optional | optional | optional | optional | optional | optional | optional |",
         row("deterministic hybrid router", hybrid),
         row("hybrid + HF embedding classifier", hybrid_hf) if hybrid_hf else "| hybrid + HF embedding classifier | not run | not run | not run | not run | not run | not run | not run | not run | not run | not run |",

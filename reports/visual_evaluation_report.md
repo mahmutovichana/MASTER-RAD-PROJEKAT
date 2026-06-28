@@ -56,9 +56,29 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 
 ![hf_embedding_vs_ml_scenario_accuracy_v0_4](figures/hf_embedding_vs_ml_scenario_accuracy_v0_4.png)
 
+### hf_full_vs_no_leak_comparison_v0_4
+
+![hf_full_vs_no_leak_comparison_v0_4](figures/hf_full_vs_no_leak_comparison_v0_4.png)
+
+### hf_input_ablation_binary_f1_v0_4
+
+![hf_input_ablation_binary_f1_v0_4](figures/hf_input_ablation_binary_f1_v0_4.png)
+
+### hf_input_ablation_doc_category_accuracy_v0_4
+
+![hf_input_ablation_doc_category_accuracy_v0_4](figures/hf_input_ablation_doc_category_accuracy_v0_4.png)
+
+### hf_input_ablation_scenario_accuracy_v0_4
+
+![hf_input_ablation_scenario_accuracy_v0_4](figures/hf_input_ablation_scenario_accuracy_v0_4.png)
+
 ### hf_latency_comparison_v0_4
 
 ![hf_latency_comparison_v0_4](figures/hf_latency_comparison_v0_4.png)
+
+### hf_stress_test_metrics_v0_4
+
+![hf_stress_test_metrics_v0_4](figures/hf_stress_test_metrics_v0_4.png)
 
 ### invalid_source_target_file_count_v0_4
 

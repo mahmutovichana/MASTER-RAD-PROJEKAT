@@ -280,17 +280,35 @@ python -m pip install sentence-transformers scikit-learn joblib
 Export the dataset and train/evaluate the CPU-friendly embedding classifier:
 
 ```bash
-python -m docguard_hf_classifier.cli export --version v0_4
-python -m docguard_hf_classifier.cli train-embeddings --version v0_4 --model sentence-transformers/all-MiniLM-L6-v2
-python -m docguard_hf_classifier.cli evaluate-embeddings --version v0_4 --split validation
-python -m docguard_hf_classifier.cli evaluate-embeddings --version v0_4 --split test
+python -m docguard_hf_classifier.cli export --version v0_4 --input-mode raw_diff_plus_docs
+python -m docguard_hf_classifier.cli train-embeddings --version v0_4 --model sentence-transformers/all-MiniLM-L6-v2 --input-mode raw_diff_plus_docs
+python -m docguard_hf_classifier.cli evaluate-embeddings --version v0_4 --split validation --input-mode raw_diff_plus_docs
+python -m docguard_hf_classifier.cli evaluate-embeddings --version v0_4 --split test --input-mode raw_diff_plus_docs
 ```
 
 Evaluate the hybrid system with HF embedding predictions as the primary decision source and the router as a guardrail:
 
 ```bash
-python -m docguard_hybrid.cli evaluate --split validation --version v0_4 --decision-source hf_embedding
-python -m docguard_hybrid.cli evaluate --split test --version v0_4 --decision-source hf_embedding
+python -m docguard_hybrid.cli evaluate --split validation --version v0_4 --decision-source hf_embedding --hf-input-mode raw_diff_plus_docs
+python -m docguard_hybrid.cli evaluate --split test --version v0_4 --decision-source hf_embedding --hf-input-mode raw_diff_plus_docs
+```
+
+HF input modes are available for leakage analysis:
+
+- `raw_diff_only`: changed files and code diff only
+- `raw_diff_plus_docs`: changed files, code diff, and previous documentation excerpt
+- `raw_diff_plus_signals`: raw diff plus docs plus extracted signal names
+- `raw_diff_plus_summary`: raw diff plus docs plus generated summaries
+- `full_current`: summary, signals, docs, changed files, and code diff
+
+Use `raw_diff_plus_docs` as the primary fair thesis result. Treat `raw_diff_plus_signals` as assisted and `full_current` as an upper-bound setting because summaries and rule-derived signals can leak label semantics.
+
+Run the input ablation and stress checks:
+
+```bash
+python -m docguard_hf_classifier.cli ablate-inputs --version v0_4 --model sentence-transformers/all-MiniLM-L6-v2
+python -m docguard_hf_classifier.cli stress-test --version v0_4 --input-mode raw_diff_plus_docs
+python -m docguard_hf_classifier.cli leakage-check --version v0_4 --input-mode raw_diff_plus_docs
 ```
 
 Optional slower CPU experiments:

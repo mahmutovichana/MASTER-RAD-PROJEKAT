@@ -487,8 +487,9 @@ def write_v0_4_figures(baseline_metrics: dict) -> None:
         hybrid_metrics, _hybrid_predictions = evaluate_hybrid(hybrid_records)
     except Exception:
         return
-    hf_metrics = read_metrics_report(REPORTS_DIR / "hf_embedding_evaluation_v0_4_validation.md")
-    hybrid_hf_metrics = read_metrics_report(REPORTS_DIR / "hybrid_hf_embedding_evaluation_v0_4_validation.md")
+    hf_metrics = read_metrics_report(REPORTS_DIR / "hf_embedding_evaluation_v0_4_raw_diff_plus_docs_validation.md")
+    full_hf_metrics = read_metrics_report(REPORTS_DIR / "hf_embedding_evaluation_v0_4_full_current_validation.md") or read_metrics_report(REPORTS_DIR / "hf_embedding_evaluation_v0_4_validation.md")
+    hybrid_hf_metrics = read_metrics_report(REPORTS_DIR / "hybrid_hf_embedding_evaluation_v0_4_raw_diff_plus_docs_validation.md") or read_metrics_report(REPORTS_DIR / "hybrid_hf_embedding_evaluation_v0_4_validation.md")
     save_bar(
         FIGURES_DIR / "baseline_vs_ml_vs_hybrid_metrics_v0_4.png",
         ["baseline F1", "ML F1", "hybrid F1"],
@@ -576,6 +577,20 @@ def write_v0_4_figures(baseline_metrics: dict) -> None:
         "HF Latency Comparison v0.4",
         "Seconds",
     )
+    save_bar(
+        FIGURES_DIR / "hf_full_vs_no_leak_comparison_v0_4.png",
+        ["raw_diff_plus_docs F1", "full_current F1", "raw_diff_plus_docs scenario", "full_current scenario"],
+        [
+            hf_metrics.get("docs_update_required_f1", 0.0),
+            full_hf_metrics.get("docs_update_required_f1", 0.0),
+            hf_metrics.get("positive_scenario_type_accuracy", 0.0),
+            full_hf_metrics.get("positive_scenario_type_accuracy", 0.0),
+        ],
+        "HF Full Current vs No-Leak Comparison v0.4",
+        "Score",
+    )
+    write_hf_input_ablation_figures()
+    write_hf_stress_figure()
     write_hf_confusion_figure()
     save_bar(
         FIGURES_DIR / "invalid_source_target_file_count_v0_4.png",
@@ -638,12 +653,16 @@ def read_metrics_report(path: Path) -> dict:
 
 
 def write_hf_confusion_figure() -> None:
-    pred_path = DATA_DIR / "hf_embedding_predictions_v0_4_validation.jsonl"
+    pred_path = DATA_DIR / "hf_embedding_predictions_v0_4_raw_diff_plus_docs_validation.jsonl"
     if not pred_path.exists():
         save_confusion_matrix(FIGURES_DIR / "hf_embedding_confusion_scenarios_v0_4.png", [[0]], ["not run"], "HF Embedding Scenario Confusion v0.4")
         return
-    records = {row["id"]: row for row in read_jsonl(DATA_DIR / "hf_v0_4" / "validation.jsonl")}
+    records = {row["id"]: row for row in read_jsonl(DATA_DIR / "hf_v0_4" / "raw_diff_plus_docs" / "validation.jsonl")}
     predictions = read_jsonl(pred_path)
+    errors = [pred for pred in predictions if records.get(pred["record_id"], {}).get("scenario_type_label") != pred["scenario_type"]]
+    if not errors:
+        save_bar(FIGURES_DIR / "hf_embedding_confusion_scenarios_v0_4.png", ["scenario errors"], [0], "HF Embedding Scenario Confusion v0.4", "Errors")
+        return
     top = [name for name, _count in Counter(row["scenario_type_label"] for row in records.values()).most_common(12)]
     labels = sorted(set(top + ["other"]))
     index = {label: i for i, label in enumerate(labels)}
@@ -656,6 +675,57 @@ def write_hf_confusion_figure() -> None:
         got = pred["scenario_type"] if pred["scenario_type"] in top else "other"
         matrix[index[gold]][index[got]] += 1
     save_confusion_matrix(FIGURES_DIR / "hf_embedding_confusion_scenarios_v0_4.png", matrix, labels, "HF Embedding Scenario Confusion v0.4")
+
+
+def ablation_metrics_by_mode() -> dict[str, dict]:
+    path = REPORTS_DIR / "hf_input_ablation_v0_4.md"
+    if not path.exists():
+        return {}
+    results: dict[str, dict] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.startswith("| `") or "validation" not in line:
+            continue
+        parts = [part.strip() for part in line.strip("|").split("|")]
+        if len(parts) < 15:
+            continue
+        mode = parts[0].strip("`")
+        results[mode] = {
+            "f1": float(parts[4]),
+            "doc_category": float(parts[7]),
+            "scenario": float(parts[9]),
+            "latency": float(parts[13]),
+        }
+    return results
+
+
+def write_hf_input_ablation_figures() -> None:
+    results = ablation_metrics_by_mode()
+    if not results:
+        save_bar(FIGURES_DIR / "hf_input_ablation_binary_f1_v0_4.png", ["not run"], [0], "HF Input Ablation Binary F1 v0.4", "F1")
+        save_bar(FIGURES_DIR / "hf_input_ablation_scenario_accuracy_v0_4.png", ["not run"], [0], "HF Input Ablation Scenario Accuracy v0.4", "Accuracy")
+        save_bar(FIGURES_DIR / "hf_input_ablation_doc_category_accuracy_v0_4.png", ["not run"], [0], "HF Input Ablation Doc Category Accuracy v0.4", "Accuracy")
+        return
+    modes = list(results)
+    save_bar(FIGURES_DIR / "hf_input_ablation_binary_f1_v0_4.png", modes, [results[m]["f1"] for m in modes], "HF Input Ablation Binary F1 v0.4", "F1")
+    save_bar(FIGURES_DIR / "hf_input_ablation_scenario_accuracy_v0_4.png", modes, [results[m]["scenario"] for m in modes], "HF Input Ablation Scenario Accuracy v0.4", "Accuracy")
+    save_bar(FIGURES_DIR / "hf_input_ablation_doc_category_accuracy_v0_4.png", modes, [results[m]["doc_category"] for m in modes], "HF Input Ablation Doc Category Accuracy v0.4", "Accuracy")
+
+
+def write_hf_stress_figure() -> None:
+    metrics = read_metrics_report(REPORTS_DIR / "hf_stress_test_v0_4.md")
+    save_bar(
+        FIGURES_DIR / "hf_stress_test_metrics_v0_4.png",
+        ["F1", "doc category", "target file", "scenario", "negative acc."],
+        [
+            metrics.get("docs_update_required_f1", 0.0),
+            metrics.get("positive_doc_category_accuracy", 0.0),
+            metrics.get("positive_target_doc_file_accuracy", 0.0),
+            metrics.get("positive_scenario_type_accuracy", 0.0),
+            metrics.get("negative_classification_accuracy", 0.0),
+        ],
+        "HF Stress Test Metrics v0.4",
+        "Score",
+    )
 
 
 if __name__ == "__main__":

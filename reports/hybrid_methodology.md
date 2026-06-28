@@ -8,6 +8,8 @@ The ML layer trains with scikit-learn when it is installed. If scikit-learn is u
 
 v0.4.2 adds a Hugging Face classifier track. In `--decision-source hf_embedding` mode, the embedding classifier becomes the primary decision source and the deterministic router becomes a guardrail. This reduces dependence on hardcoded decision logic while preserving interpretable validation rules for invalid target files, no-update records, and low-confidence predictions.
 
+v0.4.3 treats the perfect `full_current` HF result as an assisted upper bound because summaries and extracted signals can leak label semantics. The fair hybrid+HF setting should use `raw_diff_plus_docs` predictions unless the report explicitly states that an assisted representation is being evaluated.
+
 Hybrid evaluation should be reported separately for validation and test splits. The validation split is used for iteration and diagnostics; the test split is reserved for final held-out reporting.
 
 The optional LLM-assisted stage is not part of the default CPU safety check. It remains a small-sample verifier path for compact prompts or future GPU/GGUF runs. The `qwen2_5_coder_0_5b` run remains a real LLM inference proof, not the main classifier path.

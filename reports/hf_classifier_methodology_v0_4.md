@@ -11,3 +11,13 @@ Zero-shot classification is also optional. It can compare DocGuard labels agains
 Sequence classifier fine-tuning is thesis-relevant because it tests whether supervised pretrained models can learn DocGuard labels directly. It is implemented with Hugging Face `Trainer`, but kept optional because CPU fine-tuning can be slow.
 
 The hybrid `--decision-source hf_embedding` mode lets the HF embedding classifier provide the primary prediction. The router remains as a validator and fallback when classifier confidence is low or when a predicted target file violates documentation-file constraints.
+
+v0.4.3 adds no-leak input modes because the original `full_current` representation can be too informative. `change_summary`, `change_intent_summary`, and extracted signal names may encode scenario semantics close to the gold labels. The recommended thesis result is therefore `raw_diff_plus_docs`, which includes changed files, raw code diff, and the existing documentation excerpt only.
+
+Recommended reporting tiers:
+
+- Primary fair HF result: `raw_diff_plus_docs`
+- Assisted HF result: `raw_diff_plus_signals`
+- Upper-bound assisted result: `full_current`
+
+The `full_current` result should be treated as an upper bound, not as the main no-leak learned classifier result.

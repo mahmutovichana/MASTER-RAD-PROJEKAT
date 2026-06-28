@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from docguard_hf_classifier.label_maps import label_for_record, save_label_maps
-from docguard_hf_classifier.text_builder import build_input_text
+from docguard_hf_classifier.text_builder import DEFAULT_INPUT_MODE, build_input_text
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
@@ -20,10 +20,15 @@ def write_jsonl(path: Path, rows: list[dict]) -> None:
     path.write_text("\n".join(json.dumps(row, ensure_ascii=False) for row in rows) + "\n", encoding="utf-8")
 
 
-def export_row(record: dict) -> dict:
+def mode_dir(input_mode: str) -> Path:
+    return HF_DATA_DIR / input_mode
+
+
+def export_row(record: dict, input_mode: str = DEFAULT_INPUT_MODE) -> dict:
     return {
         "id": record["id"],
-        "input_text": build_input_text(record),
+        "input_text": build_input_text(record, input_mode=input_mode),
+        "input_mode": input_mode,
         "docs_update_required_label": label_for_record(record, "docs_update_required"),
         "doc_category_label": label_for_record(record, "doc_category"),
         "target_doc_file_label": label_for_record(record, "target_doc_file"),
@@ -47,15 +52,15 @@ def export_row(record: dict) -> dict:
     }
 
 
-def export(version: str = "v0_4") -> dict:
+def export(version: str = "v0_4", input_mode: str = DEFAULT_INPUT_MODE) -> dict:
     if version != "v0_4":
         raise ValueError("Only v0_4 is supported for HF export.")
     all_records = read_jsonl(DATA_DIR / "docguard_dataset.jsonl")
     save_label_maps(all_records)
-    summary = {"version": version, "splits": {}}
+    summary = {"version": version, "input_mode": input_mode, "splits": {}}
     for split in ["train", "validation", "test"]:
         records = read_jsonl(DATA_DIR / f"{split}.jsonl")
-        rows = [export_row(record) for record in records]
-        write_jsonl(HF_DATA_DIR / f"{split}.jsonl", rows)
+        rows = [export_row(record, input_mode=input_mode) for record in records]
+        write_jsonl(mode_dir(input_mode) / f"{split}.jsonl", rows)
         summary["splits"][split] = len(rows)
     return summary
