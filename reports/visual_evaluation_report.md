@@ -12,6 +12,10 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 
 ![baseline_metrics_v0_1_v0_2_v0_3](figures/baseline_metrics_v0_1_v0_2_v0_3.png)
 
+### baseline_vs_ml_vs_hf_vs_hybrid_metrics_v0_4
+
+![baseline_vs_ml_vs_hf_vs_hybrid_metrics_v0_4](figures/baseline_vs_ml_vs_hf_vs_hybrid_metrics_v0_4.png)
+
 ### baseline_vs_ml_vs_hybrid_metrics_v0_4
 
 ![baseline_vs_ml_vs_hybrid_metrics_v0_4](figures/baseline_vs_ml_vs_hybrid_metrics_v0_4.png)
@@ -39,6 +43,22 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 ### doc_category_distribution_v0_4
 
 ![doc_category_distribution_v0_4](figures/doc_category_distribution_v0_4.png)
+
+### hf_embedding_confusion_scenarios_v0_4
+
+![hf_embedding_confusion_scenarios_v0_4](figures/hf_embedding_confusion_scenarios_v0_4.png)
+
+### hf_embedding_doc_category_accuracy_v0_4
+
+![hf_embedding_doc_category_accuracy_v0_4](figures/hf_embedding_doc_category_accuracy_v0_4.png)
+
+### hf_embedding_vs_ml_scenario_accuracy_v0_4
+
+![hf_embedding_vs_ml_scenario_accuracy_v0_4](figures/hf_embedding_vs_ml_scenario_accuracy_v0_4.png)
+
+### hf_latency_comparison_v0_4
+
+![hf_latency_comparison_v0_4](figures/hf_latency_comparison_v0_4.png)
 
 ### invalid_source_target_file_count_v0_4
 
@@ -91,6 +111,10 @@ Figure generation tries to use matplotlib first. In this local environment matpl
 ### roc_curve_v0_3
 
 ![roc_curve_v0_3](figures/roc_curve_v0_3.png)
+
+### router_vs_hf_agreement_v0_4
+
+![router_vs_hf_agreement_v0_4](figures/router_vs_hf_agreement_v0_4.png)
 
 ### scenario_confusion_matrix_v0_3
 

@@ -1,0 +1,32 @@
+# Hybrid Evaluation v0.4
+
+| Metric | Value |
+| --- | ---: |
+| `total_records` | 1000 |
+| `docs_update_required_precision` | 1.0000 |
+| `docs_update_required_recall` | 1.0000 |
+| `docs_update_required_f1` | 1.0000 |
+| `false_positive_count` | 0 |
+| `false_negative_count` | 0 |
+| `true_positive_count` | 500 |
+| `true_negative_count` | 500 |
+| `positive_doc_category_accuracy` | 1.0000 |
+| `positive_target_doc_file_accuracy` | 1.0000 |
+| `positive_scenario_type_accuracy` | 1.0000 |
+| `positive_patch_fact_coverage` | 1.0000 |
+| `negative_classification_accuracy` | 1.0000 |
+| `false_positive_rate` | 0.0000 |
+| `negative_reason_available_rate` | 1.0000 |
+| `macro_scenario_f1` | 1.0000 |
+| `macro_doc_category_f1` | 1.0000 |
+| `average_latency_seconds` | 0.0213 |
+| `p50_latency_seconds` | 0.0213 |
+| `p95_latency_seconds` | 0.0213 |
+| `router_llm_agreement_rate` | 1.0000 |
+| `router_ml_agreement_rate` | 0.0000 |
+| `router_hf_agreement_rate` | 0.9830 |
+| `corrected_target_doc_file_count` | 0 |
+| `invalid_source_file_target_count` | 0 |
+| `deterministic_patch_used_count` | 500 |
+| `llm_patch_rewrite_used_count` | 0 |
+| `decision_source` | hf_embedding |

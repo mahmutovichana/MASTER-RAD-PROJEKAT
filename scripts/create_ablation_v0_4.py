@@ -12,6 +12,7 @@ from docguard_ml.evaluate import evaluate as evaluate_ml
 
 
 REPORT = ROOT / "reports" / "ablation_v0_4.md"
+REPORTS_DIR = ROOT / "reports"
 
 
 def fmt(value) -> str:
@@ -35,11 +36,30 @@ def row(name: str, metrics: dict) -> str:
     )
 
 
+def read_metrics_report(path: Path) -> dict:
+    metrics = {}
+    if not path.exists():
+        return metrics
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("| `"):
+            parts = [part.strip() for part in line.strip("|").split("|")]
+            if len(parts) >= 2:
+                key = parts[0].strip("`")
+                try:
+                    metrics[key] = float(parts[1])
+                except ValueError:
+                    metrics[key] = parts[1]
+    return metrics
+
+
 def main() -> int:
     baseline, _ = evaluate_split("test")
     ml = evaluate_ml("test")
     test_records = read_jsonl(DATA_DIR / "test.jsonl")
     hybrid, _ = evaluate_records(test_records)
+    hf_embedding = read_metrics_report(REPORTS_DIR / "hf_embedding_evaluation_v0_4_test.md")
+    hf_sequence = read_metrics_report(REPORTS_DIR / "hf_sequence_evaluation_v0_4_scenario_type.md")
+    hybrid_hf = read_metrics_report(REPORTS_DIR / "hybrid_hf_embedding_evaluation_v0_4_test.md")
     lines = [
         "# Ablation v0.4",
         "",
@@ -47,7 +67,10 @@ def main() -> int:
         "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
         row("rule baseline", baseline),
         row("ML-only", ml),
+        row("HF embedding classifier", hf_embedding) if hf_embedding else "| HF embedding classifier | not run | not run | not run | not run | not run | not run | not run | not run | not run | not run |",
+        row("HF sequence classifier", hf_sequence) if hf_sequence else "| HF sequence classifier | optional | optional | optional | optional | optional | optional | optional | optional | optional | optional |",
         row("deterministic hybrid router", hybrid),
+        row("hybrid + HF embedding classifier", hybrid_hf) if hybrid_hf else "| hybrid + HF embedding classifier | not run | not run | not run | not run | not run | not run | not run | not run | not run | not run |",
         row("optional LLM-assisted hybrid", {"docs_update_required_precision": 0.0, "docs_update_required_recall": 0.0, "docs_update_required_f1": 0.0}),
         "",
         f"ML backend used for this ablation: `{ml.get('ml_backend', 'unknown')}`.",

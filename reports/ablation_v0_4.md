@@ -4,7 +4,10 @@
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | rule baseline | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.2238 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
 | ML-only | 1.0000 | 0.9650 | 0.9822 | 0.9650 | 0.4475 | 0.4450 | 1.0000 | 0.3333 | 0.9444 | 0.0000 |
+| HF embedding classifier | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 0.0000 |
+| HF sequence classifier | optional | optional | optional | optional | optional | optional | optional | optional | optional | optional |
 | deterministic hybrid router | 1.0000 | 0.9650 | 0.9822 | 0.9650 | 0.9650 | 0.9650 | 1.0000 | 0.6905 | 0.9444 | 0.0000 |
+| hybrid + HF embedding classifier | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 0.0280 |
 | optional LLM-assisted hybrid | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
 
 ML backend used for this ablation: `fallback`.

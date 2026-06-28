@@ -267,6 +267,42 @@ python scripts/create_ablation_v0_4.py
 python scripts/generate_figures.py
 ```
 
+## Hugging Face Classifier Experiments
+
+v0.4 also includes a separate HF classifier track. The router remains as an interpretable baseline and guardrail, while the HF embedding classifier is used to reduce hardcoded decision logic.
+
+Install the default classifier dependencies:
+
+```bash
+python -m pip install sentence-transformers scikit-learn joblib
+```
+
+Export the dataset and train/evaluate the CPU-friendly embedding classifier:
+
+```bash
+python -m docguard_hf_classifier.cli export --version v0_4
+python -m docguard_hf_classifier.cli train-embeddings --version v0_4 --model sentence-transformers/all-MiniLM-L6-v2
+python -m docguard_hf_classifier.cli evaluate-embeddings --version v0_4 --split validation
+python -m docguard_hf_classifier.cli evaluate-embeddings --version v0_4 --split test
+```
+
+Evaluate the hybrid system with HF embedding predictions as the primary decision source and the router as a guardrail:
+
+```bash
+python -m docguard_hybrid.cli evaluate --split validation --version v0_4 --decision-source hf_embedding
+python -m docguard_hybrid.cli evaluate --split test --version v0_4 --decision-source hf_embedding
+```
+
+Optional slower CPU experiments:
+
+```bash
+python -m docguard_hf_classifier.cli train-embeddings --version v0_4 --model microsoft/codebert-base --backend transformers
+python -m docguard_hf_classifier.cli evaluate-zero-shot --version v0_4 --split validation --limit 20 --model facebook/bart-large-mnli
+python -m docguard_hf_classifier.cli train-sequence --version v0_4 --task docs_update_required --base-model distilroberta-base --epochs 1 --limit-train 200 --limit-eval 100
+```
+
+The embedding classifier is preferred for CPU-first thesis experiments. CodeBERT, zero-shot, and full sequence fine-tuning are supported as optional comparison tracks. `qwen2_5_coder_0_5b` remains a real LLM inference proof rather than the main classifier.
+
 Use the short hybrid LLM prompt only for small CPU validation runs:
 
 ```powershell

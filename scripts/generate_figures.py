@@ -487,6 +487,8 @@ def write_v0_4_figures(baseline_metrics: dict) -> None:
         hybrid_metrics, _hybrid_predictions = evaluate_hybrid(hybrid_records)
     except Exception:
         return
+    hf_metrics = read_metrics_report(REPORTS_DIR / "hf_embedding_evaluation_v0_4_validation.md")
+    hybrid_hf_metrics = read_metrics_report(REPORTS_DIR / "hybrid_hf_embedding_evaluation_v0_4_validation.md")
     save_bar(
         FIGURES_DIR / "baseline_vs_ml_vs_hybrid_metrics_v0_4.png",
         ["baseline F1", "ML F1", "hybrid F1"],
@@ -496,6 +498,21 @@ def write_v0_4_figures(baseline_metrics: dict) -> None:
             hybrid_metrics.get("docs_update_required_f1", 0.0),
         ],
         "Baseline vs ML vs Hybrid Binary F1 v0.4",
+        "F1",
+    )
+    names = ["baseline", "ML", "HF emb.", "hybrid", "hybrid+HF"]
+    values = [
+        baseline_metrics.get("docs_update_required_f1", 0.0),
+        ml_metrics.get("docs_update_required_f1", 0.0),
+        hf_metrics.get("docs_update_required_f1", 0.0),
+        hybrid_metrics.get("docs_update_required_f1", 0.0),
+        hybrid_hf_metrics.get("docs_update_required_f1", 0.0),
+    ]
+    save_bar(
+        FIGURES_DIR / "baseline_vs_ml_vs_hf_vs_hybrid_metrics_v0_4.png",
+        names,
+        values,
+        "Baseline vs ML vs HF vs Hybrid Binary F1 v0.4",
         "F1",
     )
     save_bar(
@@ -531,6 +548,35 @@ def write_v0_4_figures(baseline_metrics: dict) -> None:
         "Router, ML, and LLM Agreement v0.4",
         "Agreement",
     )
+    save_bar(
+        FIGURES_DIR / "hf_embedding_vs_ml_scenario_accuracy_v0_4.png",
+        ["ML", "HF embedding"],
+        [ml_metrics.get("positive_scenario_type_accuracy", 0.0), hf_metrics.get("positive_scenario_type_accuracy", 0.0)],
+        "HF Embedding vs ML Scenario Accuracy v0.4",
+        "Accuracy",
+    )
+    save_bar(
+        FIGURES_DIR / "hf_embedding_doc_category_accuracy_v0_4.png",
+        ["HF positive category", "HF macro category"],
+        [hf_metrics.get("positive_doc_category_accuracy", 0.0), hf_metrics.get("macro_doc_category_f1", 0.0)],
+        "HF Embedding Doc Category Accuracy v0.4",
+        "Accuracy",
+    )
+    save_bar(
+        FIGURES_DIR / "router_vs_hf_agreement_v0_4.png",
+        ["hybrid router/HF"],
+        [hybrid_hf_metrics.get("router_hf_agreement_rate", 0.0)],
+        "Router vs HF Agreement v0.4",
+        "Agreement",
+    )
+    save_bar(
+        FIGURES_DIR / "hf_latency_comparison_v0_4.png",
+        ["HF embedding", "hybrid+HF"],
+        [hf_metrics.get("average_embedding_inference_latency_seconds", 0.0), hybrid_hf_metrics.get("average_latency_seconds", 0.0)],
+        "HF Latency Comparison v0.4",
+        "Seconds",
+    )
+    write_hf_confusion_figure()
     save_bar(
         FIGURES_DIR / "invalid_source_target_file_count_v0_4.png",
         ["invalid source targets", "corrected targets"],
@@ -573,6 +619,43 @@ def write_v0_4_figures(baseline_metrics: dict) -> None:
         list(negative_scenarios.values()),
         "Negative Scenario Distribution v0.4",
     )
+
+
+def read_metrics_report(path: Path) -> dict:
+    metrics = {}
+    if not path.exists():
+        return metrics
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("| `"):
+            parts = [part.strip() for part in line.strip("|").split("|")]
+            if len(parts) >= 2:
+                key = parts[0].strip("`")
+                try:
+                    metrics[key] = float(parts[1])
+                except ValueError:
+                    metrics[key] = parts[1]
+    return metrics
+
+
+def write_hf_confusion_figure() -> None:
+    pred_path = DATA_DIR / "hf_embedding_predictions_v0_4_validation.jsonl"
+    if not pred_path.exists():
+        save_confusion_matrix(FIGURES_DIR / "hf_embedding_confusion_scenarios_v0_4.png", [[0]], ["not run"], "HF Embedding Scenario Confusion v0.4")
+        return
+    records = {row["id"]: row for row in read_jsonl(DATA_DIR / "hf_v0_4" / "validation.jsonl")}
+    predictions = read_jsonl(pred_path)
+    top = [name for name, _count in Counter(row["scenario_type_label"] for row in records.values()).most_common(12)]
+    labels = sorted(set(top + ["other"]))
+    index = {label: i for i, label in enumerate(labels)}
+    matrix = [[0 for _ in labels] for _ in labels]
+    for pred in predictions:
+        row = records.get(pred["record_id"])
+        if not row:
+            continue
+        gold = row["scenario_type_label"] if row["scenario_type_label"] in top else "other"
+        got = pred["scenario_type"] if pred["scenario_type"] in top else "other"
+        matrix[index[gold]][index[got]] += 1
+    save_confusion_matrix(FIGURES_DIR / "hf_embedding_confusion_scenarios_v0_4.png", matrix, labels, "HF Embedding Scenario Confusion v0.4")
 
 
 if __name__ == "__main__":

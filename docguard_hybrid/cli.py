@@ -10,11 +10,23 @@ def evaluate_command(args: argparse.Namespace) -> int:
     records = read_jsonl(DATA_DIR / f"{args.split}.jsonl")
     if args.limit:
         records = records[: args.limit]
-    metrics, _predictions = evaluate_records(records)
+    hf_predictions = None
+    if args.decision_source == "hf_embedding":
+        try:
+            from docguard_hf_classifier.embedding_classifier import load_predictions_by_id
+        except ModuleNotFoundError:
+            print("HF classifier package is unavailable.")
+            return 2
+        hf_predictions = load_predictions_by_id(args.split)
+        if not hf_predictions:
+            print("HF embedding predictions are unavailable. Run `python -m docguard_hf_classifier.cli evaluate-embeddings --version v0_4 --split " + args.split + "` first.")
+            return 2
+    metrics, _predictions = evaluate_records(records, decision_source=args.decision_source, hf_predictions_by_id=hf_predictions)
     suffix = f"_{args.split}" if not args.limit else ""
-    write_report(REPORTS_DIR / f"hybrid_evaluation_v0_4{suffix}.md", metrics)
+    prefix = "hybrid_hf_embedding_evaluation_v0_4" if args.decision_source == "hf_embedding" else "hybrid_evaluation_v0_4"
+    write_report(REPORTS_DIR / f"{prefix}{suffix}.md", metrics)
     if args.limit:
-        write_report(REPORTS_DIR / "hybrid_evaluation_v0_4.md", metrics)
+        write_report(REPORTS_DIR / f"{prefix}.md", metrics)
     print(json.dumps(metrics, indent=2, ensure_ascii=False, default=dict))
     return 0
 
@@ -26,6 +38,7 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate.add_argument("--split", choices=["train", "validation", "test"], required=True)
     evaluate.add_argument("--version", default="v0_4")
     evaluate.add_argument("--limit", type=int)
+    evaluate.add_argument("--decision-source", choices=["router", "hf_embedding"], default="router")
     evaluate.set_defaults(func=evaluate_command)
     return parser
 

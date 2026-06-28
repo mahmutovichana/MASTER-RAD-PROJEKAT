@@ -14,8 +14,63 @@ def compose_patch(record: dict, category: str, target_file: str, scenario: str) 
     return f"@@ {section}\n+{fact}."
 
 
-def predict(record: dict, ml_prediction: dict | None = None, llm_prediction: dict | None = None) -> dict:
+def prediction_from_hf(record: dict, hf_prediction: dict, routed: dict, confidence_threshold: float = 0.45) -> dict:
+    if float(hf_prediction.get("confidence") or 0.0) < confidence_threshold:
+        return predict(record)
+    docs_required = bool(hf_prediction.get("docs_update_required"))
+    if not docs_required:
+        return {
+            "record_id": record["id"],
+            "docs_update_required": False,
+            "scenario_type": str(hf_prediction.get("scenario_type") or (routed.get("candidate_scenario_types") or ["unknown_change"])[0]),
+            "doc_category": "no_update",
+            "target_doc_file": "",
+            "generated_doc_patch": None,
+            "router_output": routed,
+            "router_hf_agree": not routed["docs_update_required"],
+            "router_ml_agree": False,
+            "router_llm_agree": True,
+            "deterministic_patch_used": False,
+            "llm_patch_rewrite_used": False,
+            "corrected_target_doc_file": False,
+            "invalid_source_file_target": False,
+            "latency_seconds": float(hf_prediction.get("latency_seconds") or 0.0),
+            "decision_source": "hf_embedding",
+            "hf_confidence": hf_prediction.get("confidence"),
+        }
+    category = str(hf_prediction.get("doc_category") or routed["candidate_doc_categories"][0])
+    if category == "no_update":
+        category = routed["candidate_doc_categories"][0]
+    target = str(hf_prediction.get("target_doc_file") or routed["candidate_target_doc_files"][0])
+    corrected = target not in DOC_FILES
+    if corrected:
+        target = routed["candidate_target_doc_files"][0]
+    scenario = str(hf_prediction.get("scenario_type") or routed["candidate_scenario_types"][0])
+    return {
+        "record_id": record["id"],
+        "docs_update_required": True,
+        "scenario_type": scenario,
+        "doc_category": category,
+        "target_doc_file": target,
+        "generated_doc_patch": compose_patch(record, category, target, scenario),
+        "router_output": routed,
+        "router_hf_agree": category in routed["candidate_doc_categories"] and scenario in routed["candidate_scenario_types"],
+        "router_ml_agree": False,
+        "router_llm_agree": True,
+        "deterministic_patch_used": True,
+        "llm_patch_rewrite_used": False,
+        "corrected_target_doc_file": corrected,
+        "invalid_source_file_target": target not in DOC_FILES,
+        "latency_seconds": float(hf_prediction.get("latency_seconds") or 0.0),
+        "decision_source": "hf_embedding",
+        "hf_confidence": hf_prediction.get("confidence"),
+    }
+
+
+def predict(record: dict, ml_prediction: dict | None = None, llm_prediction: dict | None = None, hf_prediction: dict | None = None) -> dict:
     routed = route(record)
+    if hf_prediction is not None:
+        return prediction_from_hf(record, hf_prediction, routed)
     docs_required = bool(routed["docs_update_required"])
     if ml_prediction and ml_prediction.get("docs_update_required") is not None:
         docs_required = bool(ml_prediction["docs_update_required"]) if routed["router_confidence"] < 0.9 else docs_required

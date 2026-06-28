@@ -23,15 +23,18 @@ def binary(tp: int, fp: int, fn: int) -> tuple[float, float, float]:
     return p, r, f1
 
 
-def evaluate_records(records: list[dict]) -> tuple[dict, list[dict]]:
-    predictions = [validate_prediction(predict(record)) for record in records]
+def evaluate_records(records: list[dict], decision_source: str = "router", hf_predictions_by_id: dict[str, dict] | None = None) -> tuple[dict, list[dict]]:
+    predictions = [
+        validate_prediction(predict(record, hf_prediction=(hf_predictions_by_id or {}).get(record["id"]) if decision_source == "hf_embedding" else None))
+        for record in records
+    ]
     tp = fp = fn = tn = 0
     pos_total = pos_cat = pos_target = pos_scenario = facts_total = facts_covered = 0
     neg_total = neg_correct = neg_reason = 0
     per_scenario: dict[str, Counter] = defaultdict(Counter)
     per_category: dict[str, Counter] = defaultdict(Counter)
     corrected = invalid = deterministic = llm_rewrite = 0
-    router_ml_agree = router_llm_agree = 0
+    router_ml_agree = router_llm_agree = router_hf_agree = 0
     latencies = []
     for record, pred in zip(records, predictions):
         gold = bool(record["docs_update_required"])
@@ -62,6 +65,7 @@ def evaluate_records(records: list[dict]) -> tuple[dict, list[dict]]:
         llm_rewrite += int(bool(pred.get("llm_patch_rewrite_used")))
         router_ml_agree += int(bool(pred.get("router_ml_agree")))
         router_llm_agree += int(bool(pred.get("router_llm_agree")))
+        router_hf_agree += int(bool(pred.get("router_hf_agree")))
         latencies.append(float(pred.get("latency_seconds") or 0.0))
     precision, recall, f1 = binary(tp, fp, fn)
     sorted_latencies = sorted(latencies)
@@ -94,10 +98,12 @@ def evaluate_records(records: list[dict]) -> tuple[dict, list[dict]]:
         "p95_latency_seconds": pct(0.95),
         "router_llm_agreement_rate": router_llm_agree / len(records) if records else 0.0,
         "router_ml_agreement_rate": router_ml_agree / len(records) if records else 0.0,
+        "router_hf_agreement_rate": router_hf_agree / len(records) if records else 0.0,
         "corrected_target_doc_file_count": corrected,
         "invalid_source_file_target_count": invalid,
         "deterministic_patch_used_count": deterministic,
         "llm_patch_rewrite_used_count": llm_rewrite,
+        "decision_source": decision_source,
     }
     return metrics, predictions
 
