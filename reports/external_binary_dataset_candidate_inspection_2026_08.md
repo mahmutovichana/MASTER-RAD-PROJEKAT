@@ -9,14 +9,14 @@ This inspection is lightweight. It documents candidate datasets and repository i
 - Task type: code-comment inconsistency detection and rectification.
 - Repository/data availability: the repository is public. Its README says pre-training data comes from CodeXGLUE/CodeSearchNet and the Just-In-Time fine-tuning data is downloaded from a Google Drive link. The repository shows examples with `code`, `docstring`, `predict` (`Consistent!` / `Inconsistent!`), and `recommended_docstring`.
 - Expected task: determine whether a comment/docstring is semantically out of sync with the corresponding code function.
-- Explicit binary labels: likely yes for the Just-In-Time / ICCD task, but the downloadable local data must be inspected to confirm exact field names and label encoding.
-- Code before/after: likely static code/comment pairs for inconsistency detection rather than code before/after diffs.
+- Explicit binary labels: confirmed for the local Deep-JIT / Just-In-Time files via the `label` field.
+- Code before/after: confirmed for the local files via `old_code_raw`, `new_code_raw`, `old_comment_raw`, and `new_comment_raw`.
 - Positive label meaning: inconsistent/outdated code-comment pair.
 - Negative label meaning: consistent/up-to-date code-comment pair.
 - Label strength: potentially strong external binary labels if the official Just-In-Time/ICCD labels are available.
 - Mapping feasibility: high for `ExternalDocGuardRecord` as a binary code-comment consistency proxy, using code/comment pair fields.
-- Precision/F1 support: yes, if explicit consistent and inconsistent labels are present in local data.
-- Limitations: code-comment consistency is not identical to project-level Markdown documentation update detection; dataset access appears to require external download and schema inspection.
+- Precision/F1 support: yes for the code-comment inconsistency proxy. A balanced 500-record sample has been prepared and validated.
+- Limitations: code-comment consistency is not identical to project-level Markdown documentation update detection; raw dataset access requires external download and should stay outside git.
 - Priority recommendation: high. This is the strongest next candidate for real external binary validation.
 
 ## 2. Panthaplackel ACL 2020 Comment-Update Dataset
@@ -42,15 +42,15 @@ This inspection is lightweight. It documents candidate datasets and repository i
 - Paper/task: Deep Just-In-Time Inconsistency Detection Between Comments and Source Code.
 - Task type: detect comment/source-code inconsistency, with combined detection/update variants.
 - Repository/data availability: repository points to Google Drive data and model resources.
-- Explicit binary labels: likely yes for the detection task, but local data inspection is required.
-- Code before/after: likely edit-based representations and comment/code context; exact fields need confirmation.
-- Mapping feasibility: high if labels are explicit.
-- Precision/F1 support: likely yes if detection labels are available.
-- Limitations: external download required; schema not confirmed.
+- Explicit binary labels: confirmed in the local data via `label`.
+- Code before/after: confirmed in the local data via raw old/new code and comment fields.
+- Mapping feasibility: implemented as `prepare --dataset docchecker` with `source_dataset="deep_jit_inconsistency"`.
+- Precision/F1 support: confirmed for this external binary proxy.
+- Limitations: external download required; this remains a code-comment inconsistency proxy rather than full project-level Markdown documentation update detection.
 - Priority recommendation: high as an alternative or companion to DocChecker for binary external validation.
 
 ## Overall Recommendation
 
-Implement DocChecker / Just-In-Time inconsistency data first if local labeled files can be obtained. It is the best fit for a defensible external binary proxy: inconsistent comment means update required, consistent comment means no update required. Panthaplackel ACL 2020 should be inspected next, but should be treated as positive-only until non-update labels are verified.
+Deep-JIT / Just-In-Time inconsistency data is now the first implemented external binary proxy. Inconsistent comments map to update required, and consistent comments map to no update required. The first balanced 500-record test-partition evaluation produced 50.40% accuracy, 50.20% precision, 100.00% recall, and 66.84% F1, with a 99.20% false-positive rate on the external consistent-comment negatives. Panthaplackel ACL 2020 should be inspected next, but should be treated as positive-only until non-update labels are verified.
 
 Sources: DocChecker GitHub and EACL page; Panthaplackel ACL 2020 GitHub/ACL page; Deep-JIT GitHub page.

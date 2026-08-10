@@ -50,7 +50,7 @@ def prepare_command(args: argparse.Namespace) -> int:
 
         result = prepare_docchecker(data_dir=Path(args.data_dir) if args.data_dir else None, limit=args.limit, output=output)
         emit(result)
-        return 2
+        return 0 if result.get("status") == "ok" else 2
     emit({"status": "error", "message": f"prepare is not implemented for {args.dataset}"})
     return 2
 
@@ -82,6 +82,12 @@ def validate_command(args: argparse.Namespace) -> int:
         result = validate_codocbench_sample(path)
         emit(result)
         return 0 if result.get("status") == "ok" else 1
+    if "docchecker" in path.name or "deep_jit" in path.name:
+        from docguard_external.docchecker_adapter import validate_docchecker_binary_sample
+
+        result = validate_docchecker_binary_sample(path)
+        emit(result)
+        return 0 if result.get("status") == "ok" else 1
     if not path.exists():
         emit({"status": "error", "message": f"input not found: {path}"})
         return 2
@@ -109,6 +115,45 @@ def evaluate_synthetic_negatives_command(args: argparse.Namespace) -> int:
     from docguard_external.synthetic_negative_control import evaluate_synthetic_negatives
 
     result = evaluate_synthetic_negatives(args.limit, args.external_input_mode, Path(args.output))
+    emit(result)
+    return 0 if result.get("status") == "ok" else 2
+
+
+def evaluate_existing_binary_command(args: argparse.Namespace) -> int:
+    from docguard_external.evaluate_binary import evaluate_existing_binary
+
+    result = evaluate_existing_binary(Path(args.input), Path(args.output))
+    emit(result)
+    return 0 if result.get("status") == "ok" else 2
+
+
+def deep_jit_split_audit_command(args: argparse.Namespace) -> int:
+    from docguard_external.deep_jit_binary import split_audit
+
+    result = split_audit(Path(args.data_dir))
+    emit(result)
+    return 0 if result.get("status") == "ok" else 2
+
+
+def export_deep_jit_binary_command(args: argparse.Namespace) -> int:
+    from docguard_external.deep_jit_binary import export_normalized
+
+    result = export_normalized(Path(args.data_dir), Path(args.output_dir))
+    emit(result)
+    return 0 if result.get("status") == "ok" else 2
+
+
+def train_binary_command(args: argparse.Namespace) -> int:
+    from docguard_external.train_binary_classifier import train_and_evaluate
+
+    result = train_and_evaluate(
+        Path(args.train),
+        Path(args.validation),
+        Path(args.test),
+        Path(args.model_output),
+        Path(args.report),
+        include_sentence_embeddings=args.include_sentence_embeddings,
+    )
     emit(result)
     return 0 if result.get("status") == "ok" else 2
 
@@ -155,6 +200,25 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate_negatives.add_argument("--external-input-mode", choices=["code_diff_only", "code_diff_plus_doc_before"], default="code_diff_only")
     evaluate_negatives.add_argument("--output", required=True)
     evaluate_negatives.set_defaults(func=evaluate_synthetic_negatives_command)
+    evaluate_binary = sub.add_parser("evaluate-existing-binary")
+    evaluate_binary.add_argument("--input", required=True)
+    evaluate_binary.add_argument("--output", required=True)
+    evaluate_binary.set_defaults(func=evaluate_existing_binary_command)
+    split_audit = sub.add_parser("deep-jit-split-audit")
+    split_audit.add_argument("--data-dir", required=True)
+    split_audit.set_defaults(func=deep_jit_split_audit_command)
+    export_deep_jit = sub.add_parser("export-deep-jit-binary")
+    export_deep_jit.add_argument("--data-dir", required=True)
+    export_deep_jit.add_argument("--output-dir", required=True)
+    export_deep_jit.set_defaults(func=export_deep_jit_binary_command)
+    train_binary = sub.add_parser("train-binary")
+    train_binary.add_argument("--train", required=True)
+    train_binary.add_argument("--validation", required=True)
+    train_binary.add_argument("--test", required=True)
+    train_binary.add_argument("--model-output", required=True)
+    train_binary.add_argument("--report", required=True)
+    train_binary.add_argument("--include-sentence-embeddings", action="store_true")
+    train_binary.set_defaults(func=train_binary_command)
     return parser
 
 

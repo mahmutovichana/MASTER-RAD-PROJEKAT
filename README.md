@@ -65,7 +65,7 @@ python -m docguard_external.cli evaluate-existing --input data/external/codocben
 python -m docguard_external.cli evaluate-existing --input data/external/codocbench_sample_500.jsonl --output reports/external_codocbench_positive_recall_doc_diff_upper_bound_2026_08.md --external-input-mode code_diff_plus_doc_diff_upper_bound --diagnostics
 ```
 
-External negative labels are still required before reporting precision, F1, false-positive rate, or negative classification quality.
+External negative labels are still required before reporting precision, F1, false-positive rate, or negative classification quality for the full project-level Markdown documentation task.
 
 Run synthetic negative sanity controls to check for constant-positive behavior:
 
@@ -76,7 +76,7 @@ python -m docguard_external.cli evaluate-synthetic-negatives --limit 500 --exter
 
 These controls use synthetic negatives only. They are not a substitute for a real external negative set.
 
-The synthetic negative controls passed with 0/500 false positives in both `code_diff_only` and `code_diff_plus_doc_before` modes, so the model does not appear constant-positive under this control. The next research step is external binary dataset inspection, especially DocChecker / Just-In-Time code-comment inconsistency data. Do not report external F1 until explicit external negative labels are available.
+The synthetic negative controls passed with 0/500 false positives in both `code_diff_only` and `code_diff_plus_doc_before` modes, so the model does not appear constant-positive under this control.
 
 Inspect local DocChecker / Deep-JIT data after manually downloading it:
 
@@ -84,6 +84,26 @@ Inspect local DocChecker / Deep-JIT data after manually downloading it:
 python -m docguard_external.cli inspect --dataset docchecker --data-dir data/external/raw/docchecker --limit 10
 python -m docguard_external.cli inspect --dataset docchecker --data-dir data/external/raw/deep_jit_inconsistency --limit 10
 ```
+
+The Deep-JIT / DocChecker-style local inspection confirmed explicit binary labels and old/new code/comment fields in the Just-In-Time inconsistency data. A balanced 500-record external binary proxy sample can be prepared, validated, and evaluated with:
+
+```bash
+python -m docguard_external.cli prepare --dataset docchecker --data-dir data/external/raw/deep_jit_inconsistency --limit 500 --output data/external/docchecker_binary_sample_500.jsonl
+python -m docguard_external.cli validate --input data/external/docchecker_binary_sample_500.jsonl
+python -m docguard_external.cli evaluate-existing-binary --input data/external/docchecker_binary_sample_500.jsonl --output reports/external_docchecker_existing_docguard_binary_evaluation_2026_08.md
+```
+
+The first 500-record external binary proxy evaluation uses Deep-JIT `test` partition records only, balanced across `Return/test` and `Summary/test`. It produced 50.40% accuracy, 50.20% precision, 100.00% recall, and 66.84% F1, with 248/250 negatives predicted as update-required. This is useful evidence that the current model is highly sensitive on real inconsistent comments, but poorly calibrated for external consistent comments in this proxy setting. It is not deployment-ready and motivates external binary adaptation/calibration. It should be reported as code-comment inconsistency proxy evidence, not final system performance and not full Markdown API documentation update performance.
+
+Run the separate Deep-JIT task-specific adaptation experiment:
+
+```bash
+python -m docguard_external.cli deep-jit-split-audit --data-dir data/external/raw/deep_jit_inconsistency
+python -m docguard_external.cli export-deep-jit-binary --data-dir data/external/raw/deep_jit_inconsistency --output-dir data/external/deep_jit_binary
+python -m docguard_external.cli train-binary --train data/external/deep_jit_binary/train.jsonl --validation data/external/deep_jit_binary/validation.jsonl --test data/external/deep_jit_binary/test.jsonl --model-output models/external_deep_jit/binary_tfidf_logreg.joblib --report reports/external_deep_jit_binary_classifier_evaluation_2026_08.md
+```
+
+The normalized Deep-JIT export keeps original split boundaries and excludes `new_comment_raw`, `doc_after`, and `doc_diff` from classifier inputs. The first lightweight external classifier run found `tfidf_logreg` with `code_diff_only` input as the best trained model by F1: 68.58% accuracy, 72.17% precision, 60.50% recall, 65.82% F1, and 23.33% FPR. This greatly improves specificity compared with the zero-shot DocGuard FPR of 99.20%, but it does not turn Deep-JIT into project-level Markdown documentation evidence. Deep-JIT label polarity remains `plausible_manual_verification_needed` until confirmed from original dataset documentation or preprocessing code.
 
 Large raw external downloads should stay under `data/external/raw/`, which is ignored by git.
 
