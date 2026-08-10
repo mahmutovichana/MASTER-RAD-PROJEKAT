@@ -1,0 +1,79 @@
+{
+  "name": "docguard",
+  "displayName": "DocGuard",
+  "description": "Detects when code changes require documentation updates and proposes patches.",
+  "version": "0.5.0",
+  "publisher": "docguard",
+  "engines": {
+    "vscode": "^1.86.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onCommand:docguard.analyzeWorkspace",
+    "onView:docguard.panel"
+  ],
+  "main": "./out/extension.js",
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.86.0",
+    "typescript": "^5.3.3"
+  },
+  "contributes": {
+    "commands": [
+      {"command": "docguard.analyzeWorkspace", "title": "DocGuard: Analyze Workspace Changes"},
+      {"command": "docguard.analyzeCurrentFile", "title": "DocGuard: Analyze Current File"},
+      {"command": "docguard.openPanel", "title": "DocGuard: Open Panel"},
+      {"command": "docguard.applyPatch", "title": "DocGuard: Apply Suggested Documentation Patch"},
+      {"command": "docguard.ignoreSuggestion", "title": "DocGuard: Ignore Suggestion"},
+      {"command": "docguard.startRuntime", "title": "DocGuard: Start Runtime"},
+      {"command": "docguard.stopRuntime", "title": "DocGuard: Stop Runtime"}
+    ],
+    "configuration": {
+      "title": "DocGuard",
+      "properties": {
+        "docguard.pythonPath": {"type": "string", "default": "python", "description": "Python executable used to run the DocGuard runtime."},
+        "docguard.runtimeMode": {"type": "string", "default": "cli", "enum": ["cli", "daemon"], "description": "Runtime communication mode. CLI is used by the MVP."},
+        "docguard.autoAnalyzeOnSave": {"type": "boolean", "default": false, "description": "Analyze workspace changes after saving a file."},
+        "docguard.modelInputMode": {"type": "string", "default": "raw_diff_plus_docs", "description": "HF classifier input mode."},
+        "docguard.classifierArchitecture": {"type": "string", "default": "staged", "description": "HF classifier architecture."},
+        "docguard.showDiagnostics": {"type": "boolean", "default": true, "description": "Show runtime diagnostics in the panel."}
+      }
+    },
+    "viewsContainers": {
+      "panel": [
+        {"id": "docguard", "title": "DocGuard", "icon": "$(book)"}
+      ]
+    },
+    "views": {
+  "docguard": [
+    {
+      "id": "docguard.panel",
+      "name": "DocGuard",
+      "type": "webview"
+    }
+    ]
+  },
+    "menus": {
+      "commandPalette": [
+        {"command": "docguard.analyzeWorkspace"},
+        {"command": "docguard.analyzeCurrentFile"},
+        {"command": "docguard.openPanel"}
+      ],
+      "editor/context": [
+        {"command": "docguard.analyzeCurrentFile", "group": "navigation@8"},
+        {"command": "docguard.analyzeWorkspace", "group": "navigation@9"}
+      ],
+      "explorer/context": [
+        {"command": "docguard.analyzeWorkspace", "group": "navigation@9"}
+      ],
+      "editor/title/context": [
+        {"command": "docguard.analyzeCurrentFile", "group": "navigation@9"}
+      ]
+    }
+  }
+}
+

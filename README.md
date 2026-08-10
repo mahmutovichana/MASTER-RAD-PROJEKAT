@@ -6,6 +6,20 @@ Synthetic dataset factory for the MSc thesis project:
 
 DocGuard analyzes REST API code diffs, detects whether API documentation is missing or outdated, and proposes a precise documentation patch.
 
+## Project Recovery and Real-Data Validation
+
+As of the August 2026 recovery audit, DocGuard should not be restarted from scratch. The existing synthetic v0.4 dataset, HF embedding classifier, hybrid validator, runtime, and VS Code MVP should be preserved as a controlled prototype and developer workflow demo.
+
+Synthetic v0.4 results should not be treated as final thesis-level evidence by themselves. The next research step is external real-world validation, preferably a small CoDocBench pilot mapped through `docguard_external/`.
+
+Key recovery reports:
+
+- `reports/project_recovery_audit_2026_08.md`
+- `reports/synthetic_dataset_risk_assessment_2026_08.md`
+- `reports/external_dataset_research_plan_2026_08.md`
+- `reports/research_reframing_2026_08.md`
+- `reports/synthetic_vs_real_evaluation_design_2026_08.md`
+
 This repository currently contains a reusable synthetic dataset generator:
 
 - 10 generated TypeScript + Express REST API projects
@@ -323,6 +337,38 @@ python -m docguard_hf_classifier.cli train-sequence --version v0_4 --task docs_u
 ```
 
 The embedding classifier is preferred for CPU-first thesis experiments. CodeBERT, zero-shot, and full sequence fine-tuning are supported as optional comparison tracks. `qwen2_5_coder_0_5b` remains a real LLM inference proof rather than the main classifier.
+
+## VS Code Extension MVP
+
+DocGuard v0.5 adds a practical VS Code workflow:
+
+- run DocGuard from the Command Palette, editor context menu, explorer context menu, or status bar
+- analyze current git changes through the Python runtime
+- show a bottom-panel patch preview when documentation should change
+- apply documentation patches only after user confirmation
+- fall back to the deterministic hybrid router if the HF model is unavailable
+
+Train the recommended local classifier:
+
+```bash
+python -m docguard_hf_classifier.cli train-embeddings --version v0_4 --model sentence-transformers/all-MiniLM-L6-v2 --input-mode raw_diff_plus_docs --classifier-architecture staged
+```
+
+Run the Python runtime directly:
+
+```bash
+python -m docguard_runtime.runtime_cli analyze-workspace --workspace examples/vscode_demo --format json
+```
+
+Run the extension:
+
+```bash
+cd vscode-docguard
+npm install
+npm run compile
+```
+
+Then open `vscode-docguard` in VS Code and press `F5` to launch an Extension Development Host. For a hands-on demo, open `examples/vscode_demo`, make a small config or API change, and run `DocGuard: Analyze Workspace Changes`.
 
 Use the short hybrid LLM prompt only for small CPU validation runs:
 
