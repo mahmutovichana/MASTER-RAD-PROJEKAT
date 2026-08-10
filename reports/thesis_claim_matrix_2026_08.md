@@ -1,0 +1,16 @@
+# Thesis Claim Matrix 2026-08
+
+| Claim | Supported by | Strength of evidence | Allowed wording | Forbidden overclaim |
+| --- | --- | --- | --- | --- |
+| DocGuard works on the synthetic controlled benchmark. | Synthetic v0.4 dataset, validation reports, hybrid/HF reports | strong | DocGuard performs very well on a controlled synthetic benchmark designed for the target workflow. | DocGuard is proven to work perfectly in the real world. |
+| Synthetic v0.4 proves the full system generalizes. | Synthetic v0.4 only | limitation | Synthetic results demonstrate controlled feasibility but may overestimate real-world performance. | Synthetic v0.4 proves deployment readiness. |
+| DocGuard generalizes to real positive code-doc co-change examples. | CoDocBench 500 positive sample | moderate | DocGuard shows high positive recall on real code-doc/comment co-change examples. | CoDocBench proves external precision/F1 or negative handling. |
+| DocGuard is production-ready. | No current evidence | weak/unsupported | DocGuard is a research prototype and developer-workflow demo. | DocGuard is production-ready. |
+| DocGuard generates reliable real-world documentation patches. | Synthetic patch reports only | weak/limitation | Patch generation is demonstrated in the controlled prototype. | External validation proves reliable real-world Markdown patch generation. |
+| Zero-shot DocGuard handles external binary consistency well. | Deep-JIT zero-shot binary proxy | limitation | Zero-shot DocGuard has high recall but very poor specificity on external binary proxy data. | Zero-shot DocGuard is a good external binary classifier. |
+| Zero-shot F1 on Deep-JIT is competitive. | Deep-JIT zero-shot metrics | risky | Zero-shot F1 is misleading because the model is near always-positive. | Zero-shot F1 alone shows strong binary performance. |
+| External task-specific adaptation improves specificity. | Deep-JIT TF-IDF classifier reports | strong for proxy | External training substantially improves specificity and MCC on the Deep-JIT code-comment proxy. | External TF-IDF classifier solves project-level documentation patching. |
+| Deep-JIT is equivalent to project-level Markdown documentation update detection. | No current evidence | unsupported | Deep-JIT is a relevant code-comment consistency proxy. | Deep-JIT is the same as the full DocGuard Markdown documentation task. |
+| Label polarity is fully confirmed. | Deep-JIT code and manual examples | limitation | Label polarity is plausible and manually audited; code confirms label 1 is positive class, but no explicit numeric legend was found. | Label polarity is fully documented as 1=inconsistent, 0=consistent. |
+| CoDocBench leakage is controlled. | Leakage audit and input-mode implementation | strong for current runs | Primary CoDocBench runs avoid future doc changes; upper-bound mode is explicitly separated. | All possible CoDocBench mappings are leakage-free by default. |
+| Deep-JIT trained model selection is fully representative. | Return-only validation, Return+Summary test | moderate/limitation | Model selection used available validation data, but Summary is not represented in validation. | Validation selection is fully representative of combined Return+Summary behavior. |

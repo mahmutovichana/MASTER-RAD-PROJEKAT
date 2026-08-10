@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from collections import Counter
+from math import sqrt
 from pathlib import Path
 from statistics import mean, median
 from typing import Any
@@ -29,6 +30,9 @@ ZERO_SHOT = {
     "recall": 1.0,
     "f1": 0.6684491978609626,
     "false_positive_rate": 0.992,
+    "specificity": 0.008,
+    "balanced_accuracy": 0.504,
+    "mcc": 0.06350006350009525,
 }
 
 
@@ -90,8 +94,22 @@ def scores_for_model(model: Pipeline, model_name: str, texts: list[str]) -> tupl
     return preds, [0.0 for _ in preds], "confidence unavailable"
 
 
+def positive_scores_for_model(model: Pipeline, model_name: str, texts: list[str]) -> tuple[list[float], str]:
+    classifier = model.named_steps["classifier"]
+    if model_name == "tfidf_logreg" and hasattr(classifier, "predict_proba"):
+        probabilities = model.predict_proba(texts)
+        return [float(row[1]) for row in probabilities], "positive-class LogisticRegression probability; not externally calibrated"
+    margins = model.decision_function(texts)
+    if hasattr(margins, "tolist"):
+        margins = margins.tolist()
+    return [float(value) for value in margins], "LinearSVC positive-class decision margin; not calibrated probability"
+
+
 def metric_values(y_true: list[int], y_pred: list[int], confidences: list[float] | None = None) -> dict[str, Any]:
     tn, fp, fn, tp = confusion_matrix(y_true, y_pred, labels=[0, 1]).ravel()
+    specificity = tn / (tn + fp) if tn + fp else 0.0
+    recall = recall_score(y_true, y_pred, zero_division=0) if y_true else 0.0
+    mcc_denominator = sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
     values = {
         "tp": int(tp),
         "fp": int(fp),
@@ -99,10 +117,13 @@ def metric_values(y_true: list[int], y_pred: list[int], confidences: list[float]
         "fn": int(fn),
         "accuracy": accuracy_score(y_true, y_pred) if y_true else 0.0,
         "precision": precision_score(y_true, y_pred, zero_division=0) if y_true else 0.0,
-        "recall": recall_score(y_true, y_pred, zero_division=0) if y_true else 0.0,
+        "recall": recall,
         "f1": f1_score(y_true, y_pred, zero_division=0) if y_true else 0.0,
         "false_positive_rate": fp / (fp + tn) if fp + tn else 0.0,
         "false_negative_rate": fn / (fn + tp) if fn + tp else 0.0,
+        "specificity": specificity,
+        "balanced_accuracy": (recall + specificity) / 2,
+        "mcc": ((tp * tn) - (fp * fn)) / mcc_denominator if mcc_denominator else 0.0,
     }
     if confidences is not None and confidences:
         values["median_confidence_or_margin"] = median(confidences)
@@ -170,9 +191,11 @@ def train_and_evaluate(
     all_results: list[dict[str, Any]] = []
     trained_models: list[dict[str, Any]] = []
     y_test = labels(test_rows)
+    y_validation = labels(validation_rows)
     y_train = labels(train_rows)
     for mode in INPUT_MODES:
         test_texts = [input_text(row, mode) for row in test_rows]
+        validation_texts = [input_text(row, mode) for row in validation_rows]
         for baseline in ["always_positive", "always_negative", "majority"]:
             y_pred = baseline_predictions(baseline, train_rows, test_rows)
             confidences = [1.0 for _ in y_pred]
@@ -190,9 +213,23 @@ def train_and_evaluate(
             model.fit([input_text(row, mode) for row in train_rows], y_train)
             y_pred, confidences, confidence_rule = scores_for_model(model, model_name, test_texts)
             metrics = metric_values(y_test, y_pred, confidences)
+            if validation_rows:
+                validation_pred, validation_confidences, _validation_rule = scores_for_model(model, model_name, validation_texts)
+                validation_metrics = metric_values(y_validation, validation_pred, validation_confidences)
+            else:
+                validation_metrics = metrics
             row = result_row(model_name, mode, f"default classifier decision; {confidence_rule}", metrics, evaluate_by_subset(test_rows, y_pred, confidences))
             all_results.append(row)
-            trained_models.append({"model": model, "model_name": model_name, "input_mode": mode, "metrics": metrics, "confidence_rule": confidence_rule})
+            trained_models.append(
+                {
+                    "model": model,
+                    "model_name": model_name,
+                    "input_mode": mode,
+                    "metrics": metrics,
+                    "validation_metrics": validation_metrics,
+                    "confidence_rule": confidence_rule,
+                }
+            )
     if include_sentence_embeddings:
         all_results.append(
             result_row(
@@ -203,7 +240,7 @@ def train_and_evaluate(
                 {},
             )
         )
-    best = max(trained_models, key=lambda item: item["metrics"]["f1"])
+    best = max(trained_models, key=lambda item: (item["validation_metrics"]["f1"], item["validation_metrics"]["balanced_accuracy"]))
     model_output.parent.mkdir(parents=True, exist_ok=True)
     joblib.dump(
         {
@@ -211,15 +248,18 @@ def train_and_evaluate(
             "model_name": best["model_name"],
             "input_mode": best["input_mode"],
             "metrics": best["metrics"],
+            "validation_metrics": best["validation_metrics"],
             "label_polarity_status": "plausible_manual_verification_needed",
             "leakage_note": "Model inputs exclude new_comment_raw, doc_after, and doc_diff.",
         },
         model_output,
     )
     write_model_comparison(report_path, train_rows, validation_rows, test_rows, all_results, best, model_output, include_sentence_embeddings)
+    write_validation_threshold_tuning(best, validation_rows, test_rows)
     write_zero_shot_comparison(best)
     write_best_model_error_analysis(best, test_rows)
     write_adaptation_interpretation(best)
+    write_thesis_evidence_map(best)
     return {
         "status": "ok",
         "train_records": len(train_rows),
@@ -234,6 +274,10 @@ def train_and_evaluate(
         "best_recall": best["metrics"]["recall"],
         "best_f1": best["metrics"]["f1"],
         "best_false_positive_rate": best["metrics"]["false_positive_rate"],
+        "best_specificity": best["metrics"]["specificity"],
+        "best_balanced_accuracy": best["metrics"]["balanced_accuracy"],
+        "best_mcc": best["metrics"]["mcc"],
+        "best_validation_f1": best["validation_metrics"]["f1"],
     }
 
 
@@ -247,7 +291,8 @@ def table_line(result: dict[str, Any]) -> str:
     return (
         f"| `{result['system']}` | `{result['input_mode']}` | {metrics['tp']} | {metrics['fp']} | {metrics['tn']} | {metrics['fn']} | "
         f"{pct(metrics['accuracy'])} | {pct(metrics['precision'])} | {pct(metrics['recall'])} | {pct(metrics['f1'])} | "
-        f"{pct(metrics['false_positive_rate'])} | {pct(metrics['false_negative_rate'])} | {metrics['median_confidence_or_margin']:.4f} |"
+        f"{pct(metrics['false_positive_rate'])} | {pct(metrics['false_negative_rate'])} | {pct(metrics['specificity'])} | "
+        f"{pct(metrics['balanced_accuracy'])} | {metrics['mcc']:.4f} | {metrics['median_confidence_or_margin']:.4f} |"
     )
 
 
@@ -256,7 +301,8 @@ def subset_lines(result: dict[str, Any]) -> list[str]:
     for subset_name, metrics in result["by_subset"].items():
         lines.append(
             f"| `{result['system']}` | `{result['input_mode']}` | `{subset_name}` | {metrics['tp']} | {metrics['fp']} | {metrics['tn']} | {metrics['fn']} | "
-            f"{pct(metrics['accuracy'])} | {pct(metrics['precision'])} | {pct(metrics['recall'])} | {pct(metrics['f1'])} | {pct(metrics['false_positive_rate'])} |"
+            f"{pct(metrics['accuracy'])} | {pct(metrics['precision'])} | {pct(metrics['recall'])} | {pct(metrics['f1'])} | "
+            f"{pct(metrics['false_positive_rate'])} | {pct(metrics['specificity'])} | {pct(metrics['balanced_accuracy'])} | {metrics['mcc']:.4f} |"
         )
     return lines
 
@@ -284,13 +330,15 @@ def write_model_comparison(
         f"- Best saved model: `{model_output}`",
         f"- Best model: `{best['model_name']}`",
         f"- Best input mode: `{best['input_mode']}`",
+        "- Best model selection: validation F1, with validation balanced accuracy as tie-breaker.",
+        f"- Best validation F1: `{best['validation_metrics']['f1']:.4f}`",
         "- Label polarity status: `plausible_manual_verification_needed`",
         "- Leakage rule: model inputs exclude `new_comment_raw`, `doc_after`, and `doc_diff`.",
         "",
         "## Combined Test Metrics",
         "",
-        "| System | Input mode | TP | FP | TN | FN | Accuracy | Precision | Recall | F1 | FPR | FNR | Median confidence/margin |",
-        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        "| System | Input mode | TP | FP | TN | FN | Accuracy | Precision | Recall | F1 | FPR | FNR | Specificity | Balanced accuracy | MCC | Median confidence/margin |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     lines.extend(table_line(result) for result in results)
     lines.extend(
@@ -298,8 +346,8 @@ def write_model_comparison(
             "",
             "## Per-Subset Test Metrics",
             "",
-            "| System | Input mode | Subset | TP | FP | TN | FN | Accuracy | Precision | Recall | F1 | FPR |",
-            "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+            "| System | Input mode | Subset | TP | FP | TN | FN | Accuracy | Precision | Recall | F1 | FPR | Specificity | Balanced accuracy | MCC |",
+            "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
     for result in results:
@@ -325,13 +373,90 @@ def write_zero_shot_comparison(best: dict[str, Any]) -> None:
     lines = [
         "# External Deep-JIT Zero-Shot vs Trained Classifier 2026-08",
         "",
-        "| System | Accuracy | Precision | Recall | F1 | FPR |",
-        "| --- | ---: | ---: | ---: | ---: | ---: |",
-        f"| Existing synthetic-trained DocGuard zero-shot | {pct(ZERO_SHOT['accuracy'])} | {pct(ZERO_SHOT['precision'])} | {pct(ZERO_SHOT['recall'])} | {pct(ZERO_SHOT['f1'])} | {pct(ZERO_SHOT['false_positive_rate'])} |",
-        f"| Best external-trained lightweight classifier (`{best['model_name']}`, `{best['input_mode']}`) | {pct(trained['accuracy'])} | {pct(trained['precision'])} | {pct(trained['recall'])} | {pct(trained['f1'])} | {pct(trained['false_positive_rate'])} |",
+        "| System | Accuracy | Precision | Recall | F1 | FPR | Specificity | Balanced accuracy | MCC |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        f"| Existing synthetic-trained DocGuard zero-shot | {pct(ZERO_SHOT['accuracy'])} | {pct(ZERO_SHOT['precision'])} | {pct(ZERO_SHOT['recall'])} | {pct(ZERO_SHOT['f1'])} | {pct(ZERO_SHOT['false_positive_rate'])} | {pct(ZERO_SHOT['specificity'])} | {pct(ZERO_SHOT['balanced_accuracy'])} | {ZERO_SHOT['mcc']:.4f} |",
+        f"| Best external-trained lightweight classifier (`{best['model_name']}`, `{best['input_mode']}`) | {pct(trained['accuracy'])} | {pct(trained['precision'])} | {pct(trained['recall'])} | {pct(trained['f1'])} | {pct(trained['false_positive_rate'])} | {pct(trained['specificity'])} | {pct(trained['balanced_accuracy'])} | {trained['mcc']:.4f} |",
         "",
-        "Zero-shot transfer exposes a domain/task shift. External training should be kept separate from the project-level synthetic DocGuard benchmark and interpreted as a code-comment consistency proxy adaptation.",
+        "Zero-shot transfer exposes a domain/task shift. The trained classifier may have similar or slightly lower F1, but its specificity, balanced accuracy, and MCC show a much healthier binary classifier. External training should be kept separate from the project-level synthetic DocGuard benchmark and interpreted as a code-comment consistency proxy adaptation.",
     ]
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def threshold_candidates(model_name: str, scores: list[float]) -> list[float]:
+    if model_name == "tfidf_logreg":
+        return [0.10, 0.20, 0.30, 0.40, 0.45, 0.50, 0.55, 0.60, 0.70, 0.80, 0.90]
+    return [-1.0, -0.75, -0.50, -0.25, 0.0, 0.25, 0.50, 0.75, 1.0]
+
+
+def predictions_at_threshold(scores: list[float], threshold: float) -> list[int]:
+    return [1 if score >= threshold else 0 for score in scores]
+
+
+def threshold_row(threshold: float, y_true: list[int], scores: list[float]) -> dict[str, Any]:
+    y_pred = predictions_at_threshold(scores, threshold)
+    values = metric_values(y_true, y_pred, [abs(score) for score in scores])
+    values["threshold"] = threshold
+    values["predicted_positive_count"] = sum(y_pred)
+    values["predicted_negative_count"] = len(y_pred) - sum(y_pred)
+    return values
+
+
+def write_validation_threshold_tuning(best: dict[str, Any], validation_rows: list[dict[str, Any]], test_rows: list[dict[str, Any]]) -> None:
+    path = REPORTS_DIR / "external_deep_jit_validation_threshold_tuning_2026_08.md"
+    if not validation_rows:
+        path.write_text(
+            "# External Deep-JIT Validation Threshold Tuning 2026-08\n\nValidation split unavailable. No threshold tuning was performed on test.\n",
+            encoding="utf-8",
+        )
+        return
+    model = best["model"]
+    mode = best["input_mode"]
+    model_name = best["model_name"]
+    validation_scores, score_rule = positive_scores_for_model(model, model_name, [input_text(row, mode) for row in validation_rows])
+    y_validation = labels(validation_rows)
+    candidates = threshold_candidates(model_name, validation_scores)
+    validation_results = [threshold_row(threshold, y_validation, validation_scores) for threshold in candidates]
+    selected = max(validation_results, key=lambda item: (item["balanced_accuracy"], item["f1"]))
+    test_scores, _test_score_rule = positive_scores_for_model(model, model_name, [input_text(row, mode) for row in test_rows])
+    test_result = threshold_row(selected["threshold"], labels(test_rows), test_scores)
+    lines = [
+        "# External Deep-JIT Validation Threshold Tuning 2026-08",
+        "",
+        f"- Model: `{model_name}`",
+        f"- Input mode: `{mode}`",
+        f"- Score rule: {score_rule}",
+        "- Selection rule: choose threshold on validation by balanced accuracy, with F1 as tie-breaker.",
+        f"- Selected validation threshold: `{selected['threshold']:.2f}`",
+        "- Test set is used once after threshold selection; no threshold is tuned on test.",
+        "",
+        "## Validation Sweep",
+        "",
+        "| Threshold | Pred + | Pred - | TP | FP | TN | FN | Accuracy | Precision | Recall | F1 | FPR | Specificity | Balanced accuracy | MCC |",
+        "| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    for row in validation_results:
+        lines.append(
+            f"| {row['threshold']:.2f} | {row['predicted_positive_count']} | {row['predicted_negative_count']} | {row['tp']} | {row['fp']} | {row['tn']} | {row['fn']} | "
+            f"{pct(row['accuracy'])} | {pct(row['precision'])} | {pct(row['recall'])} | {pct(row['f1'])} | {pct(row['false_positive_rate'])} | "
+            f"{pct(row['specificity'])} | {pct(row['balanced_accuracy'])} | {row['mcc']:.4f} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Test Result At Validation-Selected Threshold",
+            "",
+            "| Threshold | Pred + | Pred - | TP | FP | TN | FN | Accuracy | Precision | Recall | F1 | FPR | Specificity | Balanced accuracy | MCC |",
+            "| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+            f"| {test_result['threshold']:.2f} | {test_result['predicted_positive_count']} | {test_result['predicted_negative_count']} | {test_result['tp']} | {test_result['fp']} | {test_result['tn']} | {test_result['fn']} | "
+            f"{pct(test_result['accuracy'])} | {pct(test_result['precision'])} | {pct(test_result['recall'])} | {pct(test_result['f1'])} | {pct(test_result['false_positive_rate'])} | "
+            f"{pct(test_result['specificity'])} | {pct(test_result['balanced_accuracy'])} | {test_result['mcc']:.4f} |",
+            "",
+            "## Interpretation",
+            "",
+            "Threshold tuning is diagnostic because the score is not calibrated as a production probability. It is still useful for showing whether validation-set thresholding can trade recall for specificity without touching test labels.",
+        ]
+    )
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -361,6 +486,9 @@ def write_best_model_error_analysis(best: dict[str, Any], test_rows: list[dict[s
         f"- FP: `{metrics['fp']}`",
         f"- TN: `{metrics['tn']}`",
         f"- FN: `{metrics['fn']}`",
+        f"- Specificity: `{pct(metrics['specificity'])}`",
+        f"- Balanced accuracy: `{pct(metrics['balanced_accuracy'])}`",
+        f"- MCC: `{metrics['mcc']:.4f}`",
         "",
         "## Error Counts By Subset",
         "",
@@ -415,8 +543,47 @@ def write_adaptation_interpretation(best: dict[str, Any]) -> None:
         "",
         "Existing DocGuard generalizes as a high-recall detector but not as a binary consistency classifier on Deep-JIT. External task-specific training is necessary for specificity.",
         "",
-        f"The best lightweight external classifier is `{best['model_name']}` with `{best['input_mode']}` input. It reaches {pct(metrics['accuracy'])} accuracy, {pct(metrics['precision'])} precision, {pct(metrics['recall'])} recall, {pct(metrics['f1'])} F1, and {pct(metrics['false_positive_rate'])} FPR on the Deep-JIT test split.",
+        f"The best lightweight external classifier is `{best['model_name']}` with `{best['input_mode']}` input. It reaches {pct(metrics['accuracy'])} accuracy, {pct(metrics['precision'])} precision, {pct(metrics['recall'])} recall, {pct(metrics['f1'])} F1, {pct(metrics['false_positive_rate'])} FPR, {pct(metrics['specificity'])} specificity, {pct(metrics['balanced_accuracy'])} balanced accuracy, and MCC {metrics['mcc']:.4f} on the Deep-JIT test split.",
         "",
         "Deep-JIT remains a proxy for code-comment consistency, not full Markdown documentation patching. This strengthens the thesis by showing why external validation matters: synthetic-only and positive-only evidence did not reveal the specificity problem.",
+    ]
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def write_thesis_evidence_map(best: dict[str, Any]) -> None:
+    path = REPORTS_DIR / "thesis_evidence_map_2026_08.md"
+    metrics = best["metrics"]
+    lines = [
+        "# Thesis Evidence Map 2026-08",
+        "",
+        "This document separates the evidence streams for the DocGuard MSc thesis so results are not overclaimed across tasks.",
+        "",
+        "| Evidence stream | Dataset | What it supports | Key result | What not to claim |",
+        "| --- | --- | --- | --- | --- |",
+        "| Controlled synthetic benchmark | DocGuard synthetic v0.4 | End-to-end DocGuard pipeline on controlled REST API documentation scenarios | Hybrid/HF embedding reports show perfect synthetic test performance | Do not treat this alone as real-world generalization because generator/template bias is possible. |",
+        "| Real positive sensitivity | CoDocBench positive sample | The zero-shot model detects real code-doc/comment co-change positives | `code_diff_only` positive recall 100.00% on 500 positives | Do not report precision/F1/FPR because the sample is positive-only. |",
+        "| Synthetic negative sanity | Synthetic no-update controls | The model is not constant-positive on in-domain synthetic negatives | 0/500 false positives in both tested input modes | Do not treat this as external negative evidence. |",
+        "| External binary proxy zero-shot | Deep-JIT / DocChecker-style code-comment consistency | External binary proxy exposes domain/task shift | Accuracy 50.40%, recall 100.00%, FPR 99.20%, specificity 0.80%, MCC 0.0635 | Do not call this deployment-ready or project-level Markdown documentation performance. |",
+        f"| External task-specific adaptation | Deep-JIT TF-IDF classifier | External training improves binary specificity on code-comment consistency | Accuracy {pct(metrics['accuracy'])}, precision {pct(metrics['precision'])}, recall {pct(metrics['recall'])}, FPR {pct(metrics['false_positive_rate'])}, specificity {pct(metrics['specificity'])}, MCC {metrics['mcc']:.4f} | Do not merge this into the main DocGuard synthetic benchmark or claim Markdown patch generation. |",
+        "",
+        "## Thesis-Safe Claims",
+        "",
+        "- DocGuard is a prototype NLP agent for code/documentation consistency analysis.",
+        "- The controlled synthetic benchmark demonstrates that the pipeline can learn the intended detection, routing, categorization, and patch-targeting structure.",
+        "- External positive validation shows strong sensitivity to real code-documentation co-change signals.",
+        "- External binary proxy validation reveals that synthetic-trained zero-shot DocGuard over-predicts update needs on real consistent comments.",
+        "- Task-specific external adaptation substantially improves specificity, showing that external calibration/training is necessary for practical binary consistency detection.",
+        "",
+        "## Claims To Avoid",
+        "",
+        "- Do not claim production readiness.",
+        "- Do not report synthetic v0.4 metrics as final real-world performance.",
+        "- Do not report CoDocBench positive recall as precision or F1.",
+        "- Do not report Deep-JIT as full project-level Markdown API documentation evaluation.",
+        "- Do not call Deep-JIT numeric label polarity fully confirmed until original documentation or preprocessing code explicitly confirms it.",
+        "",
+        "## Remaining Methodological Caveat",
+        "",
+        "Deep-JIT numeric label polarity remains `plausible_manual_verification_needed`. The current mapping is supported by sampled examples and task framing, but final thesis text should either cite an explicit polarity source or describe the mapping as manually audited and plausible.",
     ]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
