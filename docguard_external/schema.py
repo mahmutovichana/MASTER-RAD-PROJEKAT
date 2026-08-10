@@ -41,10 +41,13 @@ def validate_record(row: dict[str, Any]) -> list[str]:
         errors.append("docs_update_required must be true, false, or null")
     if row.get("label_source") not in {
         "strong_paired_code_doc_change",
+        "strong_positive_code_doc_cochange",
+        "strong_external_inconsistent_comment",
+        "strong_external_consistent_comment",
+        "incomplete_mapping",
         "strong_dataset_negative",
         "weak_negative_sampling",
         "unknown",
     }:
         errors.append("label_source should explicitly distinguish strong and weak labels")
     return errors
-

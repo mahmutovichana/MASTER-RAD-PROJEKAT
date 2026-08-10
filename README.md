@@ -20,6 +20,75 @@ Key recovery reports:
 - `reports/research_reframing_2026_08.md`
 - `reports/synthetic_vs_real_evaluation_design_2026_08.md`
 
+## External Real-World Validation Pilot
+
+Synthetic-only evaluation is not enough for final thesis evidence because the v0.4 dataset is generated inside this project and may contain template/generator bias. CoDocBench is introduced as the first real-world validation pilot for code-documentation or code-docstring co-change behavior.
+
+The pilot intentionally maps only positive code-doc co-change examples first. It does **not** create negative labels automatically from code-only commits.
+
+Install optional external dataset dependencies if needed:
+
+```bash
+python -m pip install datasets huggingface_hub pandas pyarrow
+```
+
+Inspect, prepare, and validate a small CoDocBench sample:
+
+```bash
+python -m docguard_external.cli inspect --dataset codocbench --limit 5
+python -m docguard_external.cli prepare --dataset codocbench --limit 100 --output data/external/codocbench_sample.jsonl
+python -m docguard_external.cli validate --input data/external/codocbench_sample.jsonl
+```
+
+The first 100-record CoDocBench pilot has been completed and validated. To create a stronger stratified positive sample:
+
+```bash
+python -m docguard_external.cli prepare --dataset codocbench --limit 500 --output data/external/codocbench_sample_500.jsonl --exclude-whitespace-only --max-per-project 50 --shuffle --seed 42
+python -m docguard_external.cli validate --input data/external/codocbench_sample_500.jsonl
+```
+
+To evaluate whether existing DocGuard predictors recognize those real external positives:
+
+```bash
+python -m docguard_external.cli evaluate-existing --input data/external/codocbench_sample_500.jsonl --output reports/external_codocbench_existing_docguard_positive_recall_2026_08.md
+```
+
+This positive-only external evaluation can report positive recall and false negatives. It cannot report precision, F1, false-positive rate, or negative classification quality until a defensible external negative set is added.
+
+The 500-record CoDocBench positive pilot is now leakage-audited. The strict `code_diff_only` mode achieved 100.00% positive recall on 500 positives. The assisted `code_diff_plus_doc_before` mode achieved 99.80% positive recall. Confidence remains low, so this is evidence of high sensitivity to real code-doc co-changes, not complete external generalization. The `code_diff_plus_doc_diff_upper_bound` mode includes future documentation changes and is useful only as an upper-bound diagnostic, not final thesis evidence.
+
+Run fair and upper-bound external input modes explicitly:
+
+```bash
+python -m docguard_external.cli evaluate-existing --input data/external/codocbench_sample_500.jsonl --output reports/external_codocbench_positive_recall_code_diff_only_2026_08.md --external-input-mode code_diff_only --diagnostics
+python -m docguard_external.cli evaluate-existing --input data/external/codocbench_sample_500.jsonl --output reports/external_codocbench_positive_recall_code_diff_plus_doc_before_2026_08.md --external-input-mode code_diff_plus_doc_before --diagnostics
+python -m docguard_external.cli evaluate-existing --input data/external/codocbench_sample_500.jsonl --output reports/external_codocbench_positive_recall_doc_diff_upper_bound_2026_08.md --external-input-mode code_diff_plus_doc_diff_upper_bound --diagnostics
+```
+
+External negative labels are still required before reporting precision, F1, false-positive rate, or negative classification quality.
+
+Run synthetic negative sanity controls to check for constant-positive behavior:
+
+```bash
+python -m docguard_external.cli evaluate-synthetic-negatives --limit 500 --external-input-mode code_diff_only --output reports/synthetic_negative_control_code_diff_only_2026_08.md
+python -m docguard_external.cli evaluate-synthetic-negatives --limit 500 --external-input-mode code_diff_plus_doc_before --output reports/synthetic_negative_control_code_diff_plus_doc_before_2026_08.md
+```
+
+These controls use synthetic negatives only. They are not a substitute for a real external negative set.
+
+The synthetic negative controls passed with 0/500 false positives in both `code_diff_only` and `code_diff_plus_doc_before` modes, so the model does not appear constant-positive under this control. The next research step is external binary dataset inspection, especially DocChecker / Just-In-Time code-comment inconsistency data. Do not report external F1 until explicit external negative labels are available.
+
+Inspect local DocChecker / Deep-JIT data after manually downloading it:
+
+```bash
+python -m docguard_external.cli inspect --dataset docchecker --data-dir data/external/raw/docchecker --limit 10
+python -m docguard_external.cli inspect --dataset docchecker --data-dir data/external/raw/deep_jit_inconsistency --limit 10
+```
+
+Large raw external downloads should stay under `data/external/raw/`, which is ignored by git.
+
+CoDocBench should be reported as real-world code-doc/comment validation, not as a direct replacement for project-level Markdown documentation update detection.
+
 This repository currently contains a reusable synthetic dataset generator:
 
 - 10 generated TypeScript + Express REST API projects

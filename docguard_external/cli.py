@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from docguard_external.codocbench_adapter import prepare_codocbench
+from docguard_external.codocbench_adapter import inspect_codocbench, prepare_codocbench, validate_codocbench_sample
 from docguard_external.comment_update_adapter import prepare_comment_update
 from docguard_external.dataset_card import describe_candidate, list_candidates
 from docguard_external.schema import validate_record
@@ -31,17 +31,57 @@ def describe_command(args: argparse.Namespace) -> int:
 def prepare_command(args: argparse.Namespace) -> int:
     output = Path(args.output)
     if args.dataset == "codocbench":
-        emit(prepare_codocbench(args.limit, output))
-        return 2
+        result = prepare_codocbench(
+            args.limit,
+            output,
+            split=args.split,
+            exclude_whitespace_only=args.exclude_whitespace_only,
+            max_per_project=args.max_per_project,
+            seed=args.seed,
+            shuffle=args.shuffle,
+        )
+        emit(result)
+        return 0 if result.get("status") == "ok" else 2
     if args.dataset == "comment_update":
         emit(prepare_comment_update(args.limit, output))
+        return 2
+    if args.dataset == "docchecker":
+        from docguard_external.docchecker_adapter import prepare_docchecker
+
+        result = prepare_docchecker(data_dir=Path(args.data_dir) if args.data_dir else None, limit=args.limit, output=output)
+        emit(result)
         return 2
     emit({"status": "error", "message": f"prepare is not implemented for {args.dataset}"})
     return 2
 
 
+def inspect_command(args: argparse.Namespace) -> int:
+    if args.dataset == "codocbench":
+        result = inspect_codocbench(args.limit)
+        emit(result)
+        return 0 if result.get("status") in {"ok", "fallback"} else 2
+    if args.dataset == "docchecker":
+        from docguard_external.docchecker_adapter import inspect_docchecker
+
+        result = inspect_docchecker(Path(args.data_dir) if args.data_dir else None, args.limit)
+        emit(result)
+        return 0 if result.get("status") in {"needs_local_data", "local_files_inspected"} else 2
+    if args.dataset == "panthaplackel_comment_update":
+        from docguard_external.panthaplackel_adapter import inspect_panthaplackel
+
+        result = inspect_panthaplackel(Path(args.data_dir) if args.data_dir else None, args.limit)
+        emit(result)
+        return 0 if result.get("status") in {"needs_local_data", "local_files_inspected"} else 2
+    emit({"status": "error", "message": f"inspect is not implemented for {args.dataset}"})
+    return 2
+
+
 def validate_command(args: argparse.Namespace) -> int:
     path = Path(args.input)
+    if "codocbench" in path.name:
+        result = validate_codocbench_sample(path)
+        emit(result)
+        return 0 if result.get("status") == "ok" else 1
     if not path.exists():
         emit({"status": "error", "message": f"input not found: {path}"})
         return 2
@@ -57,6 +97,22 @@ def validate_command(args: argparse.Namespace) -> int:
     return 0 if not errors else 1
 
 
+def evaluate_existing_command(args: argparse.Namespace) -> int:
+    from docguard_external.evaluate_existing_docguard import evaluate_existing_docguard
+
+    result = evaluate_existing_docguard(Path(args.input), Path(args.output), external_input_mode=args.external_input_mode)
+    emit(result)
+    return 0 if result.get("status") == "ok" else 2
+
+
+def evaluate_synthetic_negatives_command(args: argparse.Namespace) -> int:
+    from docguard_external.synthetic_negative_control import evaluate_synthetic_negatives
+
+    result = evaluate_synthetic_negatives(args.limit, args.external_input_mode, Path(args.output))
+    emit(result)
+    return 0 if result.get("status") == "ok" else 2
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="docguard_external")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -65,14 +121,40 @@ def build_parser() -> argparse.ArgumentParser:
     describe = sub.add_parser("describe")
     describe.add_argument("--dataset", required=True)
     describe.set_defaults(func=describe_command)
+    inspect = sub.add_parser("inspect")
+    inspect.add_argument("--dataset", required=True)
+    inspect.add_argument("--limit", type=int, default=5)
+    inspect.add_argument("--data-dir")
+    inspect.set_defaults(func=inspect_command)
     prepare = sub.add_parser("prepare")
     prepare.add_argument("--dataset", required=True)
     prepare.add_argument("--limit", type=int, default=100)
     prepare.add_argument("--output", required=True)
+    prepare.add_argument("--data-dir")
+    prepare.add_argument("--exclude-whitespace-only", action="store_true")
+    prepare.add_argument("--max-per-project", type=int)
+    prepare.add_argument("--split", default="train")
+    prepare.add_argument("--seed", type=int, default=42)
+    prepare.add_argument("--shuffle", action="store_true")
     prepare.set_defaults(func=prepare_command)
     validate = sub.add_parser("validate")
     validate.add_argument("--input", required=True)
     validate.set_defaults(func=validate_command)
+    evaluate_existing = sub.add_parser("evaluate-existing")
+    evaluate_existing.add_argument("--input", required=True)
+    evaluate_existing.add_argument("--output", required=True)
+    evaluate_existing.add_argument("--diagnostics", action="store_true", help="Accepted for compatibility; diagnostics are always written.")
+    evaluate_existing.add_argument(
+        "--external-input-mode",
+        choices=["code_diff_only", "code_diff_plus_doc_before", "code_diff_plus_doc_diff_upper_bound"],
+        default="code_diff_plus_doc_before",
+    )
+    evaluate_existing.set_defaults(func=evaluate_existing_command)
+    evaluate_negatives = sub.add_parser("evaluate-synthetic-negatives")
+    evaluate_negatives.add_argument("--limit", type=int, default=500)
+    evaluate_negatives.add_argument("--external-input-mode", choices=["code_diff_only", "code_diff_plus_doc_before"], default="code_diff_only")
+    evaluate_negatives.add_argument("--output", required=True)
+    evaluate_negatives.set_defaults(func=evaluate_synthetic_negatives_command)
     return parser
 
 
