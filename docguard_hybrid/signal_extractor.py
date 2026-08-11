@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+
 
 SIGNALS = [
     "added_env_var", "removed_env_var", "config_default_change", "package_script_change",
@@ -42,13 +44,15 @@ NEGATIVE_SIGNAL_NAMES = {
 def extract_signals(record: dict) -> dict[str, bool]:
     files = " ".join(record.get("changed_files", [])).lower()
     diff = record.get("code_diff", "")
-    text = f"{files}\n{diff}".lower()
+    docs_before = record.get("docs_before", "")
+    text = f"{files}\n{diff}\n{docs_before}".lower()
+    added_removed_lines = [line.lower() for line in diff.splitlines() if line.startswith(("+", "-")) and not line.startswith(("+++", "---"))]
     scenario = str(record.get("scenario_type", "")).lower()
     signals = {name: False for name in SIGNALS}
 
-    signals["added_env_var"] = "+review_feature_flag" in text or scenario == "added_environment_variable"
+    signals["added_env_var"] = any(line.startswith("+") and "review_feature_flag" in line for line in added_removed_lines) or scenario == "added_environment_variable"
     signals["removed_env_var"] = "-legacy_review_flag" in text or scenario == "removed_environment_variable"
-    signals["config_default_change"] = "+default_page_size" in text or "-default_page_size" in text or scenario == "changed_default_config_value"
+    signals["config_default_change"] = any(line.startswith(("+", "-")) and "default_page_size" in line for line in added_removed_lines) or scenario == "changed_default_config_value"
     signals["package_script_change"] = "package.json" in files and ("npm run" in text or '"dev"' in text or '"seed"' in text)
     signals["local_seed_or_dev_flow"] = "npm run seed" in text or "npm run dev" in text or scenario == "changed_local_development_flow"
     signals["route_added"] = "+router.post" in text or scenario == "new_endpoint"
@@ -57,9 +61,9 @@ def extract_signals(record: dict) -> dict[str, bool]:
     signals["http_method_changed"] = "+router.patch" in text or scenario == "changed_http_method"
     signals["changed_status_code"] = "+res.status(202)" in text or scenario == "changed_status_code"
     signals["changed_auth_requirement"] = "requirereviewer" in text or scenario == "changed_auth_requirement"
-    signals["request_field_added"] = "+reviewreason" in text or scenario == "added_request_field"
+    signals["request_field_added"] = re.search(r"^\+\s*reviewreason\b", text, re.MULTILINE) is not None or scenario == "added_request_field"
     signals["request_field_removed"] = "-legacyreason" in text or scenario == "removed_request_field"
-    signals["response_field_added"] = "+reviewstatus" in text or scenario == "added_response_field"
+    signals["response_field_added"] = re.search(r"^\+\s*reviewstatus\b", text, re.MULTILINE) is not None or scenario == "added_response_field"
     signals["response_field_removed"] = "-legacyreviewstatus" in text or scenario == "removed_response_field"
     signals["validation_min_change"] = ".min(10)" in text or scenario == "changed_validation_min"
     signals["validation_max_change"] = ".max(280)" in text or scenario == "changed_validation_max"
@@ -67,7 +71,7 @@ def extract_signals(record: dict) -> dict[str, bool]:
     signals["zod_validation_change"] = any(signals[name] for name in ["validation_min_change", "validation_max_change", "validation_enum_change"])
     signals["request_field_change"] = signals["request_field_added"] or signals["request_field_removed"]
     signals["response_field_change"] = signals["response_field_added"] or signals["response_field_removed"]
-    signals["dto_field_added"] = "+reviewerid" in text or scenario == "added_dto_model_field"
+    signals["dto_field_added"] = re.search(r"^\+\s*reviewerid\b", text, re.MULTILINE) is not None or scenario == "added_dto_model_field"
     signals["dto_field_removed"] = "-legacyreviewercode" in text or scenario == "removed_dto_model_field"
     signals["dto_model_change"] = signals["dto_field_added"] or signals["dto_field_removed"] or "dto" in text
     signals["middleware_error_change"] = "review_error" in text or scenario == "changed_error_handling_flow"
@@ -80,14 +84,17 @@ def extract_signals(record: dict) -> dict[str, bool]:
     signals["test_command_change"] = ("package.json" in files and ("vitest" in text or "jest" in text or "test" in text)) or scenario == "changed_test_command"
     signals["changelog_worthy_change"] = "notifycustomersaboutreviewwindow" in text or scenario == "changelog_worthy_behavior_change"
 
-    signals["docs_already_updated"] = scenario == "docs_already_updated" or ("docs/" in files and not any(signals[n] for n in POSITIVE_SIGNAL_NAMES))
+    signals["docs_already_updated"] = scenario == "docs_already_updated" or "already documented" in str(docs_before).lower() or ("docs/" in files and not any(signals[n] for n in POSITIVE_SIGNAL_NAMES))
     signals["formatting_only"] = scenario == "formatting_only_in_docs_or_code" or "formatting" in text
-    signals["comments_only"] = scenario == "comments_reworded_no_contract_change" or "comment" in text
+    signals["comments_only"] = scenario == "comments_reworded_no_contract_change" or "comment" in text or (
+        any(line.startswith("+") and line.lstrip("+").strip().startswith("//") for line in added_removed_lines)
+        and any(line.startswith("-") and line.lstrip("-").strip().startswith("//") for line in added_removed_lines)
+    )
     signals["test_only_no_behavior_change"] = scenario == "test_assertion_refactor_no_behavior_change" or ("tests/" in files and not signals["test_command_change"])
-    signals["private_helper_refactor"] = scenario == "private_helper_refactor_no_flow_change"
+    signals["private_helper_refactor"] = scenario == "private_helper_refactor_no_flow_change" or "function private" in text
     signals["internal_variable_rename"] = scenario == "internal_variable_rename_no_behavior_change" or "renamedinternal" in text
     signals["dev_dependency_patch_no_command_change"] = scenario == "dev_dependency_patch_no_command_change"
-    signals["log_message_change_no_user_visible_behavior"] = scenario == "log_message_change_no_user_visible_behavior"
+    signals["log_message_change_no_user_visible_behavior"] = scenario == "log_message_change_no_user_visible_behavior" or "logger." in text or "console.log" in text
     signals["internal_performance_refactor_no_documented_behavior_change"] = scenario == "internal_performance_refactor_no_documented_behavior_change"
     signals["config_refactor_no_new_env_var"] = scenario == "config_refactor_no_new_env_var"
     signals["route_implementation_refactor_no_contract_change"] = scenario == "route_implementation_refactor_no_contract_change"

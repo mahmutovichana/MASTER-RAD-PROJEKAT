@@ -51,6 +51,7 @@ POSITIVE_SIGNAL_TO_ROUTE = [
     ("route_removed", "api_reference", "removed_endpoint"),
     ("route_path_changed", "api_reference", "changed_endpoint_path"),
     ("http_method_changed", "api_reference", "changed_http_method"),
+    ("route_added", "api_reference", "new_endpoint"),
     ("changed_status_code", "api_reference", "changed_status_code"),
     ("changed_auth_requirement", "api_reference", "changed_auth_requirement"),
     ("request_field_added", "api_reference", "added_request_field"),
@@ -60,7 +61,6 @@ POSITIVE_SIGNAL_TO_ROUTE = [
     ("validation_min_change", "api_reference", "changed_validation_min"),
     ("validation_max_change", "api_reference", "changed_validation_max"),
     ("validation_enum_change", "api_reference", "changed_enum_values"),
-    ("route_added", "api_reference", "new_endpoint"),
 ]
 
 

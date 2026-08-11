@@ -184,6 +184,18 @@ python -m docguard_demo.run_live_flow --output-dir reports/live_flow
 
 Current live-flow output is in `reports/live_flow/docguard_live_flow_evaluation_2026_08.md`. The demo covers API reference, model contract, configuration, testing instructions, workflow documentation, architecture flow, developer setup, changelog, and no-update cases.
 
+### Project evolution live demo
+
+The repository also includes a stronger synthetic project-evolution demo. It generates three invented projects, `atlas_review_api`, `beacon_billing_service`, and `nova_task_platform`, each with baseline source files, baseline docs, and an `evolution_log.md`. The runner simulates 24 PR-like changes and passes only sanitized prediction input to `docguard_hybrid.predict()`: project id, case id, code-side changed files, code diff, and docs-before excerpt.
+
+Run it with:
+
+```bash
+python -m docguard_demo.run_project_evolution_flow --output-dir reports/live_flow/project_evolution
+```
+
+The current project-evolution output is in `reports/live_flow/project_evolution/docguard_project_evolution_evaluation_2026_08.md`. A human-readable walkthrough is in `reports/live_flow/project_evolution/docguard_project_evolution_walkthrough_2026_08.md`; it shows the code change, docs before, what DocGuard understood, where it wanted to write, the generated patch, and why it made that decision. This supports implementation sanity and explainability only. It is synthetic demo evidence, not an external benchmark or production-readiness claim.
+
 Large raw external downloads should stay under `data/external/raw/`, which is ignored by git.
 
 CoDocBench should be reported as real-world code-doc/comment validation, not as a direct replacement for project-level Markdown documentation update detection.
