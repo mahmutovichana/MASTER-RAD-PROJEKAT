@@ -72,3 +72,5 @@ The default project-evolution runner still uses the legacy rule-based patch gene
 This remains architecture and optional-inference evidence only. It should not be reported as real LLM patch-quality performance unless an explicit HF smoke/evaluation run is executed and documented.
 
 The first Qwen 1.5B smoke run exposed unsupported patch details, so the LLM patch path now includes allowed-fact extraction, stricter prompts, and a stronger verifier. This is a methodological hardening step, not a new performance benchmark.
+
+Patch-quality evaluation has also been added as a heuristic/safety-oriented layer. It scores groundedness, minimality, readability, usefulness, and hallucination risk for generated patches. These scores support patch-quality analysis and backend comparison, but they are not human gold labels and should not be used as a production-readiness claim.

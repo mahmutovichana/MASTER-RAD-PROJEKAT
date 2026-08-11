@@ -59,7 +59,7 @@ This is still not a production guarantee. It is a lightweight rule-based guardra
 Use the same 1.5B model with lower generation entropy:
 
 ```bash
-python scripts/smoke_hf_patch_generation.py --model Qwen/Qwen2.5-1.5B-Instruct --case-limit 3 --max-new-tokens 256 --temperature 0.1
+python scripts/smoke_hf_patch_generation.py --model Qwen/Qwen2.5-1.5B-Instruct --case-limit 5 --max-new-tokens 192 --temperature 0.1
 ```
 
 Do not run Qwen 3B or 7B locally in this grounding-audit step.

@@ -57,7 +57,7 @@ The prompt builder does not accept:
 Recommended grounded smoke command:
 
 ```bash
-python scripts/smoke_hf_patch_generation.py --model Qwen/Qwen2.5-1.5B-Instruct --case-limit 3 --max-new-tokens 256 --temperature 0.1
+python scripts/smoke_hf_patch_generation.py --model Qwen/Qwen2.5-1.5B-Instruct --case-limit 5 --max-new-tokens 192 --temperature 0.1
 ```
 
 Recommended first model: `Qwen/Qwen2.5-1.5B-Instruct`.
@@ -69,6 +69,20 @@ Use 7B models only for cheap GPU/Colab if needed.
 No model is downloaded, trained, or executed unless the HF command is explicitly run. This is a zero-shot/few-shot inference phase, not fine-tuning.
 
 After the first Qwen 1.5B smoke test, the patch pipeline was hardened with an allowed-fact extractor and stricter verifier. This prevents a patch from getting a clean pass simply because it includes one grounded token while also inventing unsupported fields or examples.
+
+## Patch Quality Evaluation
+
+`docguard_llm.patch_quality.evaluate_patch_quality(...)` adds a model-agnostic heuristic scoring layer for generated patches. It uses verifier status, verifier warnings, allowed facts, grounded token coverage, patch length, genericness, and readability cues to produce:
+
+- groundedness score
+- minimality score
+- readability score
+- usefulness score
+- hallucination risk
+- quality label
+- quality reasons
+
+These metrics are safety-oriented and comparative. They are not human gold labels and should not be presented as final patch-quality truth. They help show that legacy patches are often safe but generic, while LLM patches can be richer but must remain grounded and reviewed.
 
 ## Current Limitation
 

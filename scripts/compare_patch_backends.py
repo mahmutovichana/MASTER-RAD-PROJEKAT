@@ -11,6 +11,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from docguard_demo.run_project_evolution_flow import run
+from docguard_llm.patch_quality import evaluate_patch_quality
 
 
 def read_jsonl(path: Path) -> list[dict]:
@@ -18,6 +19,16 @@ def read_jsonl(path: Path) -> list[dict]:
 
 
 def observation(row: dict) -> str:
+    quality_label = row.get("quality_label")
+    if quality_label:
+        if quality_label == "rejected":
+            return "Quality evaluator rejected the patch or marked high hallucination risk."
+        if quality_label == "needs_review":
+            return "Patch needs review because it is generic, weakly grounded, or verifier warnings remain."
+        if quality_label == "usable":
+            return "Patch is usable under heuristic quality checks."
+        if quality_label == "excellent":
+            return "Patch is strong under heuristic quality checks."
     if row.get("llm_generation_status") == "error":
         return "HF generation did not run successfully; inspect the dependency/model error."
     if row.get("patch_verifier_status") == "pass":
@@ -31,27 +42,44 @@ def preview(value: str) -> str:
     return " ".join((value or "n/a").replace("`", "").split())[:140]
 
 
+def add_quality(row: dict) -> dict:
+    verifier_result = {
+        "verifier_status": row.get("patch_verifier_status"),
+        "warnings": row.get("patch_verifier_warnings") or [],
+        "grounded_tokens_found": row.get("grounded_tokens_found") or [],
+    }
+    quality = evaluate_patch_quality(
+        patch_text=row.get("generated_doc_patch"),
+        code_diff=row.get("code_diff_excerpt") or "",
+        docs_before=row.get("docs_before_excerpt") or "",
+        target_doc_file=row.get("predicted_target_doc_file") or "",
+        doc_category=row.get("predicted_doc_category") or "",
+        scenario_type=row.get("predicted_scenario_type") or "",
+        verifier_result=verifier_result,
+    )
+    return {**row, **quality}
+
+
 def write_report(path: Path, grouped: dict[str, dict[str, dict]], hf_note: str) -> None:
     lines = [
         "# DocGuard Patch Backend Comparison 2026-08",
         "",
         hf_note,
         "",
-        "| Case | Target doc | Legacy patch | LLM mock patch | LLM HF patch | Verifier | Grounded tokens | Observation |",
-        "| --- | --- | --- | --- | --- | --- | --- | --- |",
+        "| Case | Target doc | Backend | Patch preview | Verifier | Warnings | Grounded tokens | Quality | Groundedness | Usefulness | Hallucination risk | Observation |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- | ---: | ---: | --- | --- |",
     ]
     for case_id, rows in grouped.items():
-        base = rows.get("legacy") or rows.get("llm-mock") or rows.get("llm-hf") or {}
-        legacy = preview((rows.get("legacy") or {}).get("generated_doc_patch") or "n/a")
-        mock = preview((rows.get("llm-mock") or {}).get("generated_doc_patch") or "n/a")
-        hf = preview((rows.get("llm-hf") or {}).get("generated_doc_patch") or "not run")
-        verifier = " / ".join(f"{name}:{row.get('patch_verifier_status')}" for name, row in rows.items())
-        tokens = " / ".join(f"{name}:{','.join(row.get('grounded_tokens_found') or [])}" for name, row in rows.items())
-        obs = " ".join(observation(row) for row in rows.values())
-        lines.append(
-            f"| `{case_id}` | `{base.get('predicted_target_doc_file', '')}` | `{legacy}` | "
-            f"`{mock}` | `{hf}` | `{verifier}` | `{tokens}` | {obs} |"
-        )
+        for backend, row in rows.items():
+            warnings = "; ".join(row.get("patch_verifier_warnings") or [])
+            tokens = ", ".join(row.get("grounded_tokens_found") or [])
+            lines.append(
+                f"| `{case_id}` | `{row.get('predicted_target_doc_file', '')}` | `{backend}` | "
+                f"`{preview(row.get('generated_doc_patch') or 'n/a')}` | `{row.get('patch_verifier_status')}` | "
+                f"`{warnings}` | `{tokens}` | `{row.get('quality_label')}` | "
+                f"{row.get('groundedness_score'):.2f} | {row.get('usefulness_score'):.2f} | "
+                f"`{row.get('hallucination_risk')}` | {observation(row)} |"
+            )
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -60,6 +88,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--case-limit", type=int, default=5)
     parser.add_argument("--hf-model")
+    parser.add_argument("--include-hf", action="store_true")
     parser.add_argument("--max-new-tokens", type=int, default=384)
     parser.add_argument("--temperature", type=float, default=0.2)
     parser.add_argument("--device-map")
@@ -77,8 +106,8 @@ def main() -> int:
         "legacy": legacy_dir / "docguard_project_evolution_predictions.jsonl",
         "llm-mock": mock_dir / "docguard_project_evolution_predictions.jsonl",
     }
-    hf_note = "HF backend was not run; pass `--hf-model` to compare a real HuggingFace model."
-    if args.hf_model:
+    hf_note = "HF backend was not run; pass both `--include-hf` and `--hf-model` to compare a real HuggingFace model."
+    if args.include_hf and args.hf_model:
         hf_dir = output_dir / "llm_hf"
         run(
             hf_dir,
@@ -96,7 +125,7 @@ def main() -> int:
     grouped: dict[str, dict[str, dict]] = {}
     for backend, path in paths.items():
         for row in read_jsonl(path):
-            grouped.setdefault(row["case_id"], {})[backend] = row
+            grouped.setdefault(row["case_id"], {})[backend] = add_quality(row)
     write_report(output_dir / "docguard_patch_backend_comparison_2026_08.md", grouped, hf_note)
     print(json.dumps({"status": "ok", "report": str(output_dir / "docguard_patch_backend_comparison_2026_08.md"), "hf_model": args.hf_model}, indent=2))
     return 0
