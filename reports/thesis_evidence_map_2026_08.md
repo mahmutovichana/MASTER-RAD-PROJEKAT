@@ -9,7 +9,7 @@ This document separates the evidence streams for the DocGuard MSc thesis so resu
 | Synthetic negative sanity | Synthetic no-update controls | The model is not constant-positive on in-domain synthetic negatives | 0/500 false positives in both tested input modes | Do not treat this as external negative evidence. |
 | External binary proxy zero-shot | Deep-JIT / DocChecker-style code-comment consistency | External binary proxy exposes domain/task shift | Accuracy 50.40%, recall 100.00%, FPR 99.20%, specificity 0.80%, MCC 0.0635 | Do not call this deployment-ready or project-level Markdown documentation performance. |
 | External task-specific adaptation | Deep-JIT classical v2 classifier | External training improves binary specificity on code-comment consistency | Current best: accuracy 75.60%, precision 78.84%, recall 69.99%, F1 74.15%, FPR 18.79%, specificity 81.21%, MCC 0.5153 | Do not merge this into the main DocGuard synthetic benchmark or claim Markdown patch generation. |
-| Project-level real case study | Manually labeled GitHub commits/PRs | Directly evaluates the DocGuard agent workflow on real software-project documentation cases | Framework and validator added; target 15-30 real cases | Do not report placeholder template records as results or treat the small study as a large benchmark. |
+| Project-level real case study | Manually labeled GitHub commits/PRs | Directly evaluates the DocGuard agent workflow on real software-project documentation cases | 20 real public GitHub PR cases collected, hardened, and validator passed; runner deferred pending adapter | Do not report this small study as a large benchmark or use audit-only fields as model input. |
 
 ## Thesis-Safe Claims
 
@@ -44,4 +44,6 @@ The older combined-validation result remains a historical baseline: 66.41% accur
 
 ## Project-Level Case Study Update
 
-A project-level case-study schema and validator have been added to keep DocGuard aligned with the thesis title. This study should use 15-30 manually labeled real GitHub commits/PRs and evaluate binary update detection, documentation category, target documentation file, and human patch usefulness. It is the next DocGuard-agent-centered evidence stream; Deep-JIT remains supporting proxy evidence only.
+A project-level case-study schema and validator have been added to keep DocGuard aligned with the thesis title. The first real file contains 20 public GitHub PR cases: 15 positive documentation-update cases and 5 negative no-update cases. Methodology hardening lowered three weaker negative cases to low confidence, leaving 15 high, 2 medium, and 3 low confidence labels. Validation passed. This is the next DocGuard-agent-centered evidence stream; Deep-JIT remains supporting proxy evidence only.
+
+The automatic case-study runner is deferred because the current DocGuard runtime expects synthetic records and synthetic REST route patterns. Safe automatic inputs are limited to `language`, `code_changed_files`, `code_diff_excerpt`, and `docs_before_excerpt`. Documentation-file presence (`changed_files`/`docs_changed_files`), manually assigned `change_type`, docs-after text, and gold/manual fields are audit-only. A real-case adapter should be added before computing automatic case-study scores.

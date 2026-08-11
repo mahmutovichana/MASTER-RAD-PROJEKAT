@@ -162,7 +162,15 @@ Validate the starter template:
 python -m docguard_external.cli validate-project-cases --input data/external/project_case_study/manual_cases_template.jsonl --report reports/docguard_project_case_study_template_validation_2026_08.md
 ```
 
-For thesis evidence, replace the placeholder template with 15-30 manually labeled real GitHub cases. Evaluate binary `docs_update_required`, documentation category, target documentation file, and human patch usefulness. Placeholder records are examples only and must not be reported as results.
+The first real case-study file now contains 20 public GitHub PR cases: 15 positive documentation-update cases and 5 negative no-update cases. After methodology hardening, confidence distribution is 15 high, 2 medium, and 3 low. Validation passed:
+
+```bash
+python -m docguard_external.cli validate-project-cases --input data/external/project_case_study/manual_cases.jsonl --report reports/docguard_project_case_study_validation_2026_08.md
+```
+
+This case study should evaluate binary `docs_update_required`, documentation category, target documentation file, and human patch usefulness. Placeholder records are examples only and must not be reported as results.
+
+The automatic case-study runner is deferred for now because the current DocGuard runtime expects synthetic records and synthetic REST route patterns. A real-case adapter is needed before reporting automatic case-study scores. Safe automatic inputs are limited to `language`, `code_changed_files`, `code_diff_excerpt`, and `docs_before_excerpt`. `changed_files`, `docs_changed_files`, manually assigned `change_type`, `docs_after_excerpt`, and gold/manual fields are audit-only.
 
 Large raw external downloads should stay under `data/external/raw/`, which is ignored by git.
 

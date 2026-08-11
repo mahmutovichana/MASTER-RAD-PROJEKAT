@@ -8,8 +8,9 @@
 
 ## Leakage Policy
 
-- Allowed model input fields: `['change_type', 'changed_files', 'code_diff_excerpt', 'docs_before_excerpt', 'language']`
-- Audit-only fields: `['docs_after_excerpt', 'gold_doc_category', 'gold_docs_update_required', 'gold_patch_summary', 'gold_target_doc_file', 'gold_target_section', 'label_confidence', 'manual_label_notes']`
+- Allowed model input fields: `['code_changed_files', 'code_diff_excerpt', 'docs_before_excerpt', 'language']`
+- Audit-only fields: `['change_type', 'changed_files', 'docs_after_excerpt', 'docs_changed_files', 'gold_doc_category', 'gold_docs_update_required', 'gold_patch_summary', 'gold_target_doc_file', 'gold_target_section', 'label_confidence', 'manual_label_notes']`
+- Documentation file policy: docs_changed_files and changed_files are audit-only; code_changed_files is the only file-list input allowed for future runners.
 
 ## Errors
 

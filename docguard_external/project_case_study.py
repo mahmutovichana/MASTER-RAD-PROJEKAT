@@ -13,7 +13,8 @@ REQUIRED_FIELDS = {
     "commit_or_pr",
     "language",
     "change_type",
-    "changed_files",
+    "code_changed_files",
+    "docs_changed_files",
     "code_diff_excerpt",
     "docs_before_excerpt",
     "gold_docs_update_required",
@@ -24,7 +25,7 @@ REQUIRED_FIELDS = {
     "allowed_model_input_fields",
     "audit_only_fields",
 }
-OPTIONAL_FIELDS = {"docs_after_excerpt", "gold_target_section", "gold_patch_summary"}
+OPTIONAL_FIELDS = {"changed_files", "docs_after_excerpt", "gold_target_section", "gold_patch_summary"}
 CHANGE_TYPES = {
     "api_endpoint_change",
     "validation_change",
@@ -48,8 +49,11 @@ DOC_CATEGORIES = {
     "uncertain",
 }
 LABEL_CONFIDENCE = {"high", "medium", "low"}
-MODEL_INPUT_FIELDS = {"code_diff_excerpt", "docs_before_excerpt", "changed_files", "language", "change_type"}
+MODEL_INPUT_FIELDS = {"code_changed_files", "code_diff_excerpt", "docs_before_excerpt", "language"}
 AUDIT_ONLY_FIELDS = {
+    "change_type",
+    "changed_files",
+    "docs_changed_files",
     "docs_after_excerpt",
     "gold_docs_update_required",
     "gold_doc_category",
@@ -59,6 +63,27 @@ AUDIT_ONLY_FIELDS = {
     "manual_label_notes",
     "label_confidence",
 }
+DOCS_BEFORE_LEAKAGE_PHRASES = [
+    "no markdown/rst/openapi documentation file was present",
+    "no documentation files were present",
+    "no documentation file was present",
+    "no docs changed",
+]
+
+
+def is_documentation_file(path: str) -> bool:
+    normalized = path.replace("\\", "/").lower()
+    name = normalized.rsplit("/", 1)[-1]
+    return (
+        name in {"readme.md", "readme.rst", "changelog.md", "changes.md"}
+        or normalized.endswith((".md", ".rst"))
+        or normalized.startswith("docs/")
+        or "/docs/" in normalized
+        or "openapi" in normalized
+        or "swagger" in normalized
+        or "api_contract" in normalized
+        or "architecture" in normalized
+    )
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -97,8 +122,20 @@ def validate_record(row: dict[str, Any]) -> list[str]:
         errors.append(f"invalid label_confidence: {row.get('label_confidence')!r}")
     if not isinstance(row.get("gold_docs_update_required"), bool):
         errors.append("gold_docs_update_required must be boolean")
-    if not isinstance(row.get("changed_files"), list) or not all(isinstance(item, str) and item for item in row.get("changed_files", [])):
-        errors.append("changed_files must be a non-empty list of strings")
+    if not isinstance(row.get("code_changed_files"), list) or not all(isinstance(item, str) and item for item in row.get("code_changed_files", [])):
+        errors.append("code_changed_files must be a non-empty list of strings")
+    if not isinstance(row.get("docs_changed_files"), list) or not all(isinstance(item, str) and item for item in row.get("docs_changed_files", [])):
+        errors.append("docs_changed_files must be a list of strings")
+    if "changed_files" in row and (
+        not isinstance(row.get("changed_files"), list) or not all(isinstance(item, str) and item for item in row.get("changed_files", []))
+    ):
+        errors.append("changed_files must be a list of strings when present")
+    misplaced_docs = [path for path in row.get("code_changed_files", []) if is_documentation_file(path)]
+    if misplaced_docs:
+        errors.append(f"code_changed_files contains documentation-looking files: {misplaced_docs}")
+    misplaced_code = [path for path in row.get("docs_changed_files", []) if not is_documentation_file(path)]
+    if misplaced_code:
+        errors.append(f"docs_changed_files contains non-documentation-looking files: {misplaced_code}")
     if not isinstance(row.get("allowed_model_input_fields"), list):
         errors.append("allowed_model_input_fields must be a list")
     if not isinstance(row.get("audit_only_fields"), list):
@@ -111,12 +148,27 @@ def validate_record(row: dict[str, Any]) -> list[str]:
     leakage_inputs = sorted(allowed_inputs & (AUDIT_ONLY_FIELDS | audit_only))
     if leakage_inputs:
         errors.append(f"allowed_model_input_fields contains audit-only/leakage fields: {leakage_inputs}")
+    required_audit_fields = {"changed_files", "docs_changed_files", "change_type"} if "changed_files" in row else {"docs_changed_files", "change_type"}
+    missing_audit_fields = sorted(required_audit_fields - audit_only)
+    if missing_audit_fields:
+        errors.append(f"audit_only_fields missing required audit-only fields: {missing_audit_fields}")
+    if "change_type" not in audit_only:
+        errors.append("change_type is manually assigned and must be listed in audit_only_fields")
+    for blocked in ["changed_files", "docs_changed_files", "change_type", "docs_after_excerpt"]:
+        if blocked in allowed_inputs:
+            errors.append(f"{blocked} must not be allowed as model input")
+    gold_inputs = sorted(field for field in allowed_inputs if field.startswith("gold_"))
+    if gold_inputs:
+        errors.append(f"gold fields must not be allowed as model input: {gold_inputs}")
+    docs_before = str(row.get("docs_before_excerpt") or "").lower()
+    if any(phrase in docs_before for phrase in DOCS_BEFORE_LEAKAGE_PHRASES):
+        errors.append("docs_before_excerpt contains audit/leakage text about missing documentation files")
     if row.get("docs_after_excerpt"):
         if "docs_after_excerpt" not in audit_only:
             errors.append("docs_after_excerpt is present but not listed in audit_only_fields")
         if "docs_after_excerpt" in allowed_inputs:
             errors.append("docs_after_excerpt must not be allowed as model input")
-    for field in ["case_id", "source_project", "source_url", "commit_or_pr", "language", "code_diff_excerpt", "docs_before_excerpt", "manual_label_notes"]:
+    for field in ["case_id", "source_project", "source_url", "commit_or_pr", "language", "code_diff_excerpt", "manual_label_notes"]:
         if field in row and not str(row.get(field) or "").strip():
             errors.append(f"{field} must not be empty")
     if row.get("gold_docs_update_required") is False:
@@ -160,6 +212,7 @@ def validate_project_cases(path: Path, report_path: Path | None = None) -> dict[
         "label_distribution": dict(Counter(str(row.get("gold_docs_update_required")) for row in rows if "__json_error__" not in row)),
         "allowed_model_input_fields": sorted(MODEL_INPUT_FIELDS),
         "audit_only_fields": sorted(AUDIT_ONLY_FIELDS),
+        "documentation_file_policy": "docs_changed_files and changed_files are audit-only; code_changed_files is the only file-list input allowed for future runners.",
     }
     if report_path:
         write_validation_report(report_path, result)
@@ -181,6 +234,7 @@ def write_validation_report(path: Path, result: dict[str, Any]) -> None:
         "",
         f"- Allowed model input fields: `{result.get('allowed_model_input_fields')}`",
         f"- Audit-only fields: `{result.get('audit_only_fields')}`",
+        f"- Documentation file policy: {result.get('documentation_file_policy')}",
         "",
         "## Errors",
         "",
