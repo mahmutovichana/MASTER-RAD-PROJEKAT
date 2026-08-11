@@ -12,6 +12,7 @@ This document separates the evidence streams for the DocGuard MSc thesis so resu
 | Project-level real case study | Manually labeled GitHub commits/PRs | Directly evaluates the DocGuard agent workflow on real software-project documentation cases | 20 real public GitHub PR cases collected, hardened, and validator passed; runner deferred pending adapter | Do not report this small study as a large benchmark or use audit-only fields as model input. |
 | Live flow playground | Invented `atlas_review_api` mini project | End-to-end implementation sanity/demo for DocGuard agent flow across documentation classes | 15 synthetic live cases generated and run through `docguard_hybrid.predict()` | Do not report as benchmark performance or real-world evidence. |
 | Project evolution live demo | Three invented evolving projects | Explains the end-to-end DocGuard workflow across realistic PR-like synthetic changes | 24 synthetic PR-like changes; binary/category/target/scenario accuracy 95.83%; walkthrough report generated | Do not report as external benchmark evidence or production readiness. |
+| Optional LLM patch-generation architecture | Project evolution mock backend | Prepares richer grounded documentation patch drafting after routing | Mock backend, postprocessor, and verifier implemented; no model downloaded or run | Do not report as real LLM performance or patch-quality benchmark. |
 
 ## Thesis-Safe Claims
 
@@ -61,3 +62,9 @@ A stronger synthetic project-evolution demo now generates `atlas_review_api`, `b
 The runner uses sanitized prediction input only: project id, case id, code-side changed files, code diff, and docs-before excerpt. It does not pass docs-after text, gold labels, expected facts, manually assigned scenario type, manually assigned category, or target doc file into `docguard_hybrid.predict()`.
 
 Current project-evolution metrics are 95.83% binary accuracy, 94.44% precision, 100.00% recall, 97.14% F1, 95.83% category accuracy, 95.83% target file accuracy, and 95.83% scenario accuracy. One hard false positive remains visible where docs-before already says the endpoint is documented but the positive route-added signal wins. The walkthrough report is useful for thesis/demo screenshots because it shows the code change, documentation before, DocGuard's interpretation, target document, generated patch, and routing reason.
+
+## LLM Patch-Generation Architecture Update
+
+An optional LLM documentation patch-generation layer has been prepared in `docguard_llm/`. It keeps detection and routing separate in `docguard_hybrid`, then builds a patch prompt using only sanitized runtime inputs: code diff, docs-before excerpt, predicted category, predicted target file, router signals, router reason, and project id. Gold labels, expected facts, expected patch summaries, docs-after text, and manual notes are excluded.
+
+The default project-evolution runner still uses the legacy rule-based patch generator. The `llm-mock` backend exercises prompt building, mock generation, postprocessing, and lightweight verifier checks without downloading a model, training, or requiring GPU. This is architecture evidence only; real HuggingFace patch-generation quality should be evaluated later as a separate experiment.

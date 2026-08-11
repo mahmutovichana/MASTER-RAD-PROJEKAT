@@ -7,6 +7,11 @@ from pathlib import Path
 from typing import Any
 
 from docguard_hybrid.hybrid_agent import predict
+from docguard_llm.evaluation import write_llm_mock_patch_report
+from docguard_llm.llm_generator import generate_documentation_patch
+from docguard_llm.patch_postprocessor import postprocess_patch
+from docguard_llm.patch_verifier import verify_patch
+from docguard_llm.prompt_builder import build_patch_prompt
 
 from docguard_demo.project_evolution_scenarios import BASE_DIR, generate_project_evolution_cases
 
@@ -25,7 +30,66 @@ def prediction_input(record: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def evaluate(records: list[dict[str, Any]]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+def generate_patch_with_backend(record: dict[str, Any], pred: dict[str, Any], patch_backend: str) -> dict[str, Any]:
+    if patch_backend == "legacy":
+        verifier = verify_patch(
+            pred.get("generated_doc_patch"),
+            bool(pred["docs_update_required"]),
+            pred.get("target_doc_file") or "",
+            record["code_diff"],
+            record["docs_before"],
+        )
+        return {
+            "patch_backend": "legacy",
+            "llm_prompt": "",
+            "llm_patch_raw": "",
+            "generated_doc_patch": pred.get("generated_doc_patch"),
+            "patch_verifier_status": verifier["verifier_status"],
+            "patch_verifier_warnings": verifier["warnings"],
+            "grounded_tokens_found": verifier["grounded_tokens_found"],
+        }
+    if patch_backend != "llm-mock":
+        raise ValueError(f"Unsupported patch backend: {patch_backend}")
+    if not pred["docs_update_required"]:
+        verifier = verify_patch(None, False, "", record["code_diff"], record["docs_before"])
+        return {
+            "patch_backend": "llm-mock",
+            "llm_prompt": "",
+            "llm_patch_raw": "",
+            "generated_doc_patch": None,
+            "patch_verifier_status": verifier["verifier_status"],
+            "patch_verifier_warnings": verifier["warnings"],
+            "grounded_tokens_found": verifier["grounded_tokens_found"],
+        }
+    router = pred.get("router_output") or {}
+    prompt, _metadata = build_patch_prompt(
+        code_diff=record["code_diff"],
+        docs_before=record["docs_before"],
+        target_doc_file=pred["target_doc_file"],
+        doc_category=pred["doc_category"],
+        scenario_type=pred["scenario_type"],
+        signals=router.get("signals") or [],
+        router_reason=router.get("router_reason") or "",
+        project_id=record["project_id"],
+        target_section=None,
+    )
+    generated = generate_documentation_patch(prompt, backend="mock")
+    postprocessed = postprocess_patch(generated.get("patch_text"), pred["target_doc_file"], None)
+    patch_text = postprocessed.get("patch_text")
+    verifier = verify_patch(patch_text, True, pred["target_doc_file"], record["code_diff"], record["docs_before"])
+    warnings = list(postprocessed.get("warnings") or []) + list(verifier.get("warnings") or [])
+    return {
+        "patch_backend": "llm-mock",
+        "llm_prompt": prompt,
+        "llm_patch_raw": generated.get("patch_text") or "",
+        "generated_doc_patch": patch_text,
+        "patch_verifier_status": verifier["verifier_status"] if postprocessed["postprocess_status"] == "ok" else "fail",
+        "patch_verifier_warnings": warnings,
+        "grounded_tokens_found": verifier["grounded_tokens_found"],
+    }
+
+
+def evaluate(records: list[dict[str, Any]], patch_backend: str = "legacy") -> tuple[dict[str, Any], list[dict[str, Any]]]:
     rows = []
     by_project: dict[str, Counter] = defaultdict(Counter)
     by_category: dict[str, Counter] = defaultdict(Counter)
@@ -34,6 +98,8 @@ def evaluate(records: list[dict[str, Any]]) -> tuple[dict[str, Any], list[dict[s
     patch_positive = positive_total = unknown = 0
     for record in records:
         pred = predict(prediction_input(record))
+        patch_result = generate_patch_with_backend(record, pred, patch_backend)
+        pred["generated_doc_patch"] = patch_result["generated_doc_patch"]
         router = pred.get("router_output") or {}
         gold_required = bool(record["gold_docs_update_required"])
         predicted_required = bool(pred["docs_update_required"])
@@ -76,6 +142,12 @@ def evaluate(records: list[dict[str, Any]]) -> tuple[dict[str, Any], list[dict[s
                 "gold_target_doc_file": record["gold_target_doc_file"],
                 "predicted_target_doc_file": pred["target_doc_file"],
                 "generated_doc_patch": pred.get("generated_doc_patch"),
+                "patch_backend": patch_result["patch_backend"],
+                "llm_prompt": patch_result["llm_prompt"],
+                "llm_patch_raw": patch_result["llm_patch_raw"],
+                "patch_verifier_status": patch_result["patch_verifier_status"],
+                "patch_verifier_warnings": patch_result["patch_verifier_warnings"],
+                "grounded_tokens_found": patch_result["grounded_tokens_found"],
                 "expected_patch_summary": record["expected_patch_summary"],
                 "router_reason": router.get("router_reason"),
                 "signals_detected": router.get("signals") or [],
@@ -138,11 +210,13 @@ def table(lines: list[str], title: str, rows: dict[str, dict[str, Any]]) -> None
         )
 
 
-def write_report(path: Path, metrics: dict[str, Any], predictions: list[dict[str, Any]]) -> None:
+def write_report(path: Path, metrics: dict[str, Any], predictions: list[dict[str, Any]], patch_backend: str) -> None:
     lines = [
         "# DocGuard Project Evolution Evaluation 2026-08",
         "",
         "This is a synthetic project-evolution live demo. It simulates multiple PR-like changes across invented projects and runs `docguard_hybrid.predict()` with sanitized input only: code-side changed files, code diff, docs-before excerpt, project id, and case id.",
+        "",
+        f"- Patch backend: `{patch_backend}`",
         "",
         "## Summary Metrics",
         "",
@@ -190,6 +264,9 @@ def case_markdown(item: dict[str, Any]) -> list[str]:
         f"- Expected patch summary: {item['expected_patch_summary']}",
         f"- Router reason: {item['router_reason']}",
         f"- Signals: `{', '.join(item['signals_detected'])}`",
+        f"- Patch backend/verifier: `{item['patch_backend']}` / `{item['patch_verifier_status']}`",
+        f"- Grounded tokens found: `{', '.join(item['grounded_tokens_found'])}`",
+        f"- Patch verifier warnings: `{'; '.join(item['patch_verifier_warnings'])}`",
         f"- Interpretation: {interpretation}",
         "",
         "Code diff:",
@@ -316,23 +393,26 @@ def update_evolution_logs(predictions: list[dict[str, Any]]) -> None:
         path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def run(output_dir: Path) -> dict[str, Any]:
+def run(output_dir: Path, patch_backend: str = "legacy") -> dict[str, Any]:
     records = generate_project_evolution_cases()
-    metrics, predictions = evaluate(records)
+    metrics, predictions = evaluate(records, patch_backend=patch_backend)
     output_dir.mkdir(parents=True, exist_ok=True)
     write_jsonl(output_dir / "docguard_project_evolution_predictions.jsonl", predictions)
-    write_report(output_dir / "docguard_project_evolution_evaluation_2026_08.md", metrics, predictions)
+    write_report(output_dir / "docguard_project_evolution_evaluation_2026_08.md", metrics, predictions, patch_backend)
     write_failure_analysis(output_dir / "docguard_project_evolution_failure_analysis_2026_08.md", predictions)
     write_walkthrough(output_dir / "docguard_project_evolution_walkthrough_2026_08.md", predictions)
+    if patch_backend == "llm-mock":
+        write_llm_mock_patch_report(output_dir / "docguard_llm_mock_patch_generation_report_2026_08.md", predictions, len(records))
     update_evolution_logs(predictions)
-    return {"status": "ok", "output_dir": str(output_dir), **{k: v for k, v in metrics.items() if not k.startswith("by_")}}
+    return {"status": "ok", "output_dir": str(output_dir), "patch_backend": patch_backend, **{k: v for k, v in metrics.items() if not k.startswith("by_")}}
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", default="reports/live_flow/project_evolution")
+    parser.add_argument("--patch-backend", choices=["legacy", "llm-mock"], default="legacy")
     args = parser.parse_args()
-    print(json.dumps(run(Path(args.output_dir)), indent=2, ensure_ascii=False))
+    print(json.dumps(run(Path(args.output_dir), patch_backend=args.patch_backend), indent=2, ensure_ascii=False))
     return 0
 
 

@@ -86,3 +86,14 @@ Baseline purpose: TypeScript/Express-like review management API.
 - `ATLAS-REVIEW-API-PR-06`: docs `False`, category `no_update`, target `none`.
 - `ATLAS-REVIEW-API-PR-07`: docs `True`, category `testing_instructions`, target `docs/testing.md`.
 - `ATLAS-REVIEW-API-PR-08`: docs `True`, category `api_reference`, target `docs/api.md`.
+
+## DocGuard Runner Results
+
+- `ATLAS-REVIEW-API-PR-01`: docs `True`, category `api_reference`, target `docs/api.md`.
+- `ATLAS-REVIEW-API-PR-02`: docs `True`, category `api_reference`, target `docs/api.md`.
+- `ATLAS-REVIEW-API-PR-03`: docs `True`, category `model_contract`, target `docs/models.md`.
+- `ATLAS-REVIEW-API-PR-04`: docs `True`, category `configuration`, target `docs/configuration.md`.
+- `ATLAS-REVIEW-API-PR-05`: docs `True`, category `workflow_documentation`, target `docs/workflows.md`.
+- `ATLAS-REVIEW-API-PR-06`: docs `False`, category `no_update`, target `none`.
+- `ATLAS-REVIEW-API-PR-07`: docs `True`, category `testing_instructions`, target `docs/testing.md`.
+- `ATLAS-REVIEW-API-PR-08`: docs `True`, category `api_reference`, target `docs/api.md`.

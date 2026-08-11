@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
+
+from docguard_llm.config import PATCH_DOC_CATEGORIES, PATCH_TARGET_FILES
+from docguard_llm.prompt_templates import get_patch_template
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -240,3 +244,85 @@ def build_sanity_prompt() -> list[dict]:
         {"role": "system", "content": "Return JSON only."},
         {"role": "user", "content": 'Return only this JSON: {"ok": true}'},
     ]
+
+
+def _extract_prompt_tokens(code_diff: str) -> list[str]:
+    tokens: list[str] = []
+    patterns = [
+        r"['\"](/[A-Za-z0-9_:{}/-]+)['\"]",
+        r"\b([A-Z][A-Z0-9_]{3,})\b",
+        r"\b(npm run [A-Za-z0-9:_-]+)\b",
+        r"^\+\s*([A-Za-z_][A-Za-z0-9_]*Id)\b",
+        r"['\"](\*/\d+ \* \* \* \*)['\"]",
+        r"res\.status\((\d{3})\)",
+        r"requireRole\(['\"]([^'\"]+)['\"]\)",
+    ]
+    for pattern in patterns:
+        for match in re.finditer(pattern, code_diff, flags=re.MULTILINE):
+            token = match.group(1)
+            if token not in tokens:
+                tokens.append(token)
+    return tokens
+
+
+def build_patch_prompt(
+    *,
+    code_diff: str,
+    docs_before: str,
+    target_doc_file: str,
+    doc_category: str,
+    scenario_type: str,
+    signals: list[str],
+    router_reason: str,
+    project_id: str,
+    target_section: str | None = None,
+) -> tuple[str, dict]:
+    if doc_category not in PATCH_DOC_CATEGORIES:
+        raise ValueError(f"Unsupported patch doc_category: {doc_category}")
+    if target_doc_file not in PATCH_TARGET_FILES:
+        raise ValueError(f"Unsupported patch target_doc_file: {target_doc_file}")
+    tokens = _extract_prompt_tokens(code_diff)
+    metadata = {
+        "project_id": project_id,
+        "target_doc_file": target_doc_file,
+        "doc_category": doc_category,
+        "scenario_type": scenario_type,
+        "signals": list(signals),
+        "router_reason": router_reason,
+        "target_section": target_section or "",
+        "grounding_tokens": tokens,
+        "forbidden_inputs_excluded": [
+            "gold labels",
+            "expected facts",
+            "expected patch summary",
+            "docs-after text",
+            "manual notes",
+        ],
+    }
+    prompt = "\n".join(
+        [
+            get_patch_template(doc_category),
+            "",
+            f"Project id: {project_id}",
+            f"Target document: {target_doc_file}",
+            f"Target section: {target_section or target_doc_file}",
+            f"Documentation category: {doc_category}",
+            f"Router scenario hint: {scenario_type}",
+            f"Detected signals: {', '.join(signals) or 'none'}",
+            f"Router reason: {router_reason}",
+            f"Concrete tokens extracted from diff: {', '.join(tokens) or 'none'}",
+            "",
+            "Current documentation:",
+            "```md",
+            docs_before.strip(),
+            "```",
+            "",
+            "Code diff:",
+            "```diff",
+            code_diff.strip(),
+            "```",
+            "",
+            "Return only the Markdown patch.",
+        ]
+    )
+    return prompt, metadata

@@ -86,3 +86,14 @@ Baseline purpose: Billing and invoice service with REST-style routes and backgro
 - `BEACON-BILLING-SERVICE-PR-06`: docs `False`, category `no_update`, target `none`.
 - `BEACON-BILLING-SERVICE-PR-07`: docs `True`, category `changelog`, target `CHANGELOG.md`.
 - `BEACON-BILLING-SERVICE-PR-08`: docs `False`, category `no_update`, target `none`.
+
+## DocGuard Runner Results
+
+- `BEACON-BILLING-SERVICE-PR-01`: docs `True`, category `api_reference`, target `docs/api.md`.
+- `BEACON-BILLING-SERVICE-PR-02`: docs `True`, category `model_contract`, target `docs/models.md`.
+- `BEACON-BILLING-SERVICE-PR-03`: docs `True`, category `configuration`, target `docs/configuration.md`.
+- `BEACON-BILLING-SERVICE-PR-04`: docs `True`, category `architecture_flow`, target `docs/architecture.md`.
+- `BEACON-BILLING-SERVICE-PR-05`: docs `True`, category `developer_setup`, target `docs/developer-setup.md`.
+- `BEACON-BILLING-SERVICE-PR-06`: docs `False`, category `no_update`, target `none`.
+- `BEACON-BILLING-SERVICE-PR-07`: docs `True`, category `changelog`, target `CHANGELOG.md`.
+- `BEACON-BILLING-SERVICE-PR-08`: docs `False`, category `no_update`, target `none`.

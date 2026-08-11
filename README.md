@@ -196,6 +196,24 @@ python -m docguard_demo.run_project_evolution_flow --output-dir reports/live_flo
 
 The current project-evolution output is in `reports/live_flow/project_evolution/docguard_project_evolution_evaluation_2026_08.md`. A human-readable walkthrough is in `reports/live_flow/project_evolution/docguard_project_evolution_walkthrough_2026_08.md`; it shows the code change, docs before, what DocGuard understood, where it wanted to write, the generated patch, and why it made that decision. This supports implementation sanity and explainability only. It is synthetic demo evidence, not an external benchmark or production-readiness claim.
 
+### Optional LLM patch-generation layer
+
+An optional model-agnostic LLM patch-generation layer has been prepared in `docguard_llm/`. It keeps detection and routing in `docguard_hybrid`, then builds a safe patch-generation prompt from sanitized runtime inputs only: code diff, docs-before excerpt, predicted category, predicted target file, router signals, and router reason. It does not use gold labels, expected facts, expected patch summaries, docs-after text, or manual notes.
+
+The legacy rule-based patch generator remains the default fallback:
+
+```bash
+python -m docguard_demo.run_project_evolution_flow --output-dir reports/live_flow/project_evolution --patch-backend legacy
+```
+
+The new mock LLM path exercises prompt building, mock generation, postprocessing, and verification without downloading a model or requiring GPU:
+
+```bash
+python -m docguard_demo.run_project_evolution_flow --output-dir reports/live_flow/project_evolution_llm_mock --patch-backend llm-mock
+```
+
+Architecture notes are in `reports/llm_patch_generation_architecture_2026_08.md`. Mock patch-generation output is in `reports/live_flow/project_evolution_llm_mock/docguard_llm_mock_patch_generation_report_2026_08.md`. Future work is to plug in an explicit HuggingFace instruction model through the lazy `hf` backend.
+
 Large raw external downloads should stay under `data/external/raw/`, which is ignored by git.
 
 CoDocBench should be reported as real-world code-doc/comment validation, not as a direct replacement for project-level Markdown documentation update detection.
