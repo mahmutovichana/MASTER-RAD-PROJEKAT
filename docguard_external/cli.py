@@ -171,6 +171,46 @@ def train_binary_command(args: argparse.Namespace) -> int:
     return 0 if result.get("status") == "ok" else 2
 
 
+def train_binary_v2_command(args: argparse.Namespace) -> int:
+    from docguard_external.train_binary_classifier_v2 import train_and_evaluate_v2
+
+    input_modes = args.input_modes.split(",") if args.input_modes else None
+    feature_sets = args.feature_sets.split(",") if args.feature_sets else None
+    models = args.models.split(",") if args.models else None
+    result = train_and_evaluate_v2(
+        Path(args.train),
+        Path(args.validation),
+        Path(args.test),
+        Path(args.model_output),
+        Path(args.report),
+        max_features=args.max_features,
+        include_calibrated_svc=args.include_calibrated_svc,
+        limit_train=args.limit_train,
+        input_modes=input_modes,
+        feature_sets=feature_sets,
+        model_names=models,
+    )
+    emit(result)
+    return 0 if result.get("status") == "ok" else 2
+
+
+def train_code_encoder_binary_command(args: argparse.Namespace) -> int:
+    from docguard_external.train_code_encoder_binary import train_code_encoder_binary
+
+    result = train_code_encoder_binary(
+        Path(args.train),
+        Path(args.validation),
+        Path(args.test),
+        Path(args.model_output),
+        Path(args.report),
+        Path(args.cache_dir),
+        batch_size=args.batch_size,
+        encoder_name=args.encoder,
+    )
+    emit(result)
+    return 0 if result.get("status") == "ok" else 2
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="docguard_external")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -238,6 +278,29 @@ def build_parser() -> argparse.ArgumentParser:
     train_binary.add_argument("--report", required=True)
     train_binary.add_argument("--include-sentence-embeddings", action="store_true")
     train_binary.set_defaults(func=train_binary_command)
+    train_binary_v2 = sub.add_parser("train-binary-v2")
+    train_binary_v2.add_argument("--train", required=True)
+    train_binary_v2.add_argument("--validation", required=True)
+    train_binary_v2.add_argument("--test", required=True)
+    train_binary_v2.add_argument("--model-output", required=True)
+    train_binary_v2.add_argument("--report", required=True)
+    train_binary_v2.add_argument("--max-features", type=int, default=120_000)
+    train_binary_v2.add_argument("--include-calibrated-svc", action="store_true")
+    train_binary_v2.add_argument("--limit-train", type=int)
+    train_binary_v2.add_argument("--input-modes", help="Comma-separated subset for smoke tests.")
+    train_binary_v2.add_argument("--feature-sets", help="Comma-separated subset for smoke tests.")
+    train_binary_v2.add_argument("--models", help="Comma-separated subset for smoke tests.")
+    train_binary_v2.set_defaults(func=train_binary_v2_command)
+    train_code_encoder = sub.add_parser("train-code-encoder-binary")
+    train_code_encoder.add_argument("--train", required=True)
+    train_code_encoder.add_argument("--validation", required=True)
+    train_code_encoder.add_argument("--test", required=True)
+    train_code_encoder.add_argument("--model-output", required=True)
+    train_code_encoder.add_argument("--report", required=True)
+    train_code_encoder.add_argument("--cache-dir", default="data/external/embedding_cache")
+    train_code_encoder.add_argument("--batch-size", type=int, default=8)
+    train_code_encoder.add_argument("--encoder")
+    train_code_encoder.set_defaults(func=train_code_encoder_binary_command)
     return parser
 
 

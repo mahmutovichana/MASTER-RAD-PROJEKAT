@@ -116,6 +116,30 @@ python -m docguard_external.cli train-binary --train data/external/deep_jit_bina
 
 The combined-validation split contains 23,508 train records, 2,630 validation records, and the same untouched 2,906-record test split. Validation now includes Return 1,790 + Summary 840 records. This changed model selection to `tfidf_linear_svc` with `old_comment_plus_code_diff`: 66.41% accuracy, 68.82% precision, 60.01% recall, 64.12% F1, 27.19% FPR, 72.81% specificity, 66.41% balanced accuracy, and MCC 0.3310. The conclusion remains the same but more conservative: task-specific adaptation greatly improves specificity over zero-shot, while model selection is somewhat sensitive to validation subset composition. The combined-validation result should be treated as the cleaner thesis result; the Return-only validation result remains a historical baseline. Generated `data/external/deep_jit_binary_combined_validation/` and `models/external_deep_jit_combined_validation/` are ignored and should not be committed.
 
+### Next improvement phase
+
+The current combined-validation Deep-JIT result is not final. It is methodologically cleaner than the earlier Return-only validation run, but its accuracy, F1, and MCC are still modest for the desired thesis evidence package.
+
+The next implementation phase keeps DocGuard as the central thesis artifact and treats Deep-JIT as an external binary proxy benchmark, not as the full Markdown documentation task. Planned improvements:
+
+- stronger classical Deep-JIT baseline with word/char TF-IDF, manual code/comment features, and validation-MCC model selection
+- optional frozen pretrained code-encoder baseline using UniXcoder or CodeBERT embeddings if dependencies and hardware allow
+- small project-level real-world case study to evaluate DocGuard detection, category/target routing, and documentation patch usefulness
+
+Run the stronger classical baseline:
+
+```bash
+python -m docguard_external.cli train-binary-v2 --train data/external/deep_jit_binary_combined_validation/train.jsonl --validation data/external/deep_jit_binary_combined_validation/validation.jsonl --test data/external/deep_jit_binary_combined_validation/test.jsonl --model-output models/external_deep_jit_classical_v2/binary_classical_v2.joblib --report reports/external_deep_jit_classical_v2_model_comparison_2026_08.md
+```
+
+The full classical v2 run selected `logreg_balanced` with `word_char_tfidf_plus_manual_features` and `old_comment_plus_code_diff`: 75.60% accuracy, 78.84% precision, 69.99% recall, 74.15% F1, 18.79% FPR, 81.21% specificity, 75.60% balanced accuracy, and MCC 0.5153 on the untouched combined-validation Deep-JIT test split. This improves over the previous combined-validation best while remaining an external code-comment proxy result.
+
+Run the optional frozen code-encoder baseline:
+
+```bash
+python -m docguard_external.cli train-code-encoder-binary --train data/external/deep_jit_binary_combined_validation/train.jsonl --validation data/external/deep_jit_binary_combined_validation/validation.jsonl --test data/external/deep_jit_binary_combined_validation/test.jsonl --model-output models/external_deep_jit_code_encoder/binary_code_encoder.joblib --report reports/external_deep_jit_frozen_code_encoder_comparison_2026_08.md --cache-dir data/external/embedding_cache
+```
+
 Large raw external downloads should stay under `data/external/raw/`, which is ignored by git.
 
 CoDocBench should be reported as real-world code-doc/comment validation, not as a direct replacement for project-level Markdown documentation update detection.
