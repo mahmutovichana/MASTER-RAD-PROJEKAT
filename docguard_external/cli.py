@@ -211,6 +211,14 @@ def train_code_encoder_binary_command(args: argparse.Namespace) -> int:
     return 0 if result.get("status") == "ok" else 2
 
 
+def validate_project_cases_command(args: argparse.Namespace) -> int:
+    from docguard_external.project_case_study import validate_project_cases
+
+    result = validate_project_cases(Path(args.input), Path(args.report) if args.report else None)
+    emit(result)
+    return 0 if result.get("status") == "ok" else 1
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="docguard_external")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -301,6 +309,10 @@ def build_parser() -> argparse.ArgumentParser:
     train_code_encoder.add_argument("--batch-size", type=int, default=8)
     train_code_encoder.add_argument("--encoder")
     train_code_encoder.set_defaults(func=train_code_encoder_binary_command)
+    validate_project_cases = sub.add_parser("validate-project-cases")
+    validate_project_cases.add_argument("--input", required=True)
+    validate_project_cases.add_argument("--report")
+    validate_project_cases.set_defaults(func=validate_project_cases_command)
     return parser
 
 

@@ -144,6 +144,26 @@ python -m docguard_external.cli train-code-encoder-binary --train data/external/
 
 The frozen pretrained encoder baseline is implemented but deferred locally because CUDA is unavailable. It should be treated as an optional GPU/Colab experiment. DocGuard remains the central thesis artifact; Deep-JIT is only an external proxy benchmark for code-comment consistency, not the full Markdown DocGuard benchmark.
 
+### Project-level DocGuard case study
+
+The next required alignment step is a small manually labeled project-level case study. This keeps DocGuard as the central thesis artifact: code diff -> update-required detection -> routing/category -> documentation patch suggestion -> developer workflow.
+
+The case-study framework lives in:
+
+- `docguard_external/project_case_study.py`
+- `data/external/project_case_study/manual_cases_template.jsonl`
+- `reports/docguard_project_case_study_labeling_template_2026_08.md`
+- `reports/docguard_project_level_real_case_study_plan_2026_08.md`
+- `reports/docguard_project_case_study_runner_plan_2026_08.md`
+
+Validate the starter template:
+
+```bash
+python -m docguard_external.cli validate-project-cases --input data/external/project_case_study/manual_cases_template.jsonl --report reports/docguard_project_case_study_template_validation_2026_08.md
+```
+
+For thesis evidence, replace the placeholder template with 15-30 manually labeled real GitHub cases. Evaluate binary `docs_update_required`, documentation category, target documentation file, and human patch usefulness. Placeholder records are examples only and must not be reported as results.
+
 Large raw external downloads should stay under `data/external/raw/`, which is ignored by git.
 
 CoDocBench should be reported as real-world code-doc/comment validation, not as a direct replacement for project-level Markdown documentation update detection.
