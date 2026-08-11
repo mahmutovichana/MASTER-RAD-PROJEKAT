@@ -48,7 +48,7 @@ def extract_signals(record: dict) -> dict[str, bool]:
 
     signals["added_env_var"] = "+review_feature_flag" in text or scenario == "added_environment_variable"
     signals["removed_env_var"] = "-legacy_review_flag" in text or scenario == "removed_environment_variable"
-    signals["config_default_change"] = "default_page_size" in text or scenario == "changed_default_config_value"
+    signals["config_default_change"] = "+default_page_size" in text or "-default_page_size" in text or scenario == "changed_default_config_value"
     signals["package_script_change"] = "package.json" in files and ("npm run" in text or '"dev"' in text or '"seed"' in text)
     signals["local_seed_or_dev_flow"] = "npm run seed" in text or "npm run dev" in text or scenario == "changed_local_development_flow"
     signals["route_added"] = "+router.post" in text or scenario == "new_endpoint"

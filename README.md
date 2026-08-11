@@ -172,6 +172,18 @@ This case study should evaluate binary `docs_update_required`, documentation cat
 
 The automatic case-study runner is deferred for now because the current DocGuard runtime expects synthetic records and synthetic REST route patterns. A real-case adapter is needed before reporting automatic case-study scores. Safe automatic inputs are limited to `language`, `code_changed_files`, `code_diff_excerpt`, and `docs_before_excerpt`. `changed_files`, `docs_changed_files`, manually assigned `change_type`, `docs_after_excerpt`, and gold/manual fields are audit-only.
 
+### DocGuard live flow playground
+
+The repository includes a small synthetic live-flow playground for final implementation sanity checks. It creates an invented `atlas_review_api` mini project, generates 15 live demo cases, and runs `docguard_hybrid.predict()` across the main documentation classes. This is an on-the-spot demo layer, not a benchmark and not a replacement for the real case study or Deep-JIT proxy evidence.
+
+Run it with:
+
+```bash
+python -m docguard_demo.run_live_flow --output-dir reports/live_flow
+```
+
+Current live-flow output is in `reports/live_flow/docguard_live_flow_evaluation_2026_08.md`. The demo covers API reference, model contract, configuration, testing instructions, workflow documentation, architecture flow, developer setup, changelog, and no-update cases.
+
 Large raw external downloads should stay under `data/external/raw/`, which is ignored by git.
 
 CoDocBench should be reported as real-world code-doc/comment validation, not as a direct replacement for project-level Markdown documentation update detection.

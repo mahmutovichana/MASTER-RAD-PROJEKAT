@@ -10,6 +10,7 @@ This document separates the evidence streams for the DocGuard MSc thesis so resu
 | External binary proxy zero-shot | Deep-JIT / DocChecker-style code-comment consistency | External binary proxy exposes domain/task shift | Accuracy 50.40%, recall 100.00%, FPR 99.20%, specificity 0.80%, MCC 0.0635 | Do not call this deployment-ready or project-level Markdown documentation performance. |
 | External task-specific adaptation | Deep-JIT classical v2 classifier | External training improves binary specificity on code-comment consistency | Current best: accuracy 75.60%, precision 78.84%, recall 69.99%, F1 74.15%, FPR 18.79%, specificity 81.21%, MCC 0.5153 | Do not merge this into the main DocGuard synthetic benchmark or claim Markdown patch generation. |
 | Project-level real case study | Manually labeled GitHub commits/PRs | Directly evaluates the DocGuard agent workflow on real software-project documentation cases | 20 real public GitHub PR cases collected, hardened, and validator passed; runner deferred pending adapter | Do not report this small study as a large benchmark or use audit-only fields as model input. |
+| Live flow playground | Invented `atlas_review_api` mini project | End-to-end implementation sanity/demo for DocGuard agent flow across documentation classes | 15 synthetic live cases generated and run through `docguard_hybrid.predict()` | Do not report as benchmark performance or real-world evidence. |
 
 ## Thesis-Safe Claims
 
@@ -47,3 +48,7 @@ The older combined-validation result remains a historical baseline: 66.41% accur
 A project-level case-study schema and validator have been added to keep DocGuard aligned with the thesis title. The first real file contains 20 public GitHub PR cases: 15 positive documentation-update cases and 5 negative no-update cases. Methodology hardening lowered three weaker negative cases to low confidence, leaving 15 high, 2 medium, and 3 low confidence labels. Validation passed. This is the next DocGuard-agent-centered evidence stream; Deep-JIT remains supporting proxy evidence only.
 
 The automatic case-study runner is deferred because the current DocGuard runtime expects synthetic records and synthetic REST route patterns. Safe automatic inputs are limited to `language`, `code_changed_files`, `code_diff_excerpt`, and `docs_before_excerpt`. Documentation-file presence (`changed_files`/`docs_changed_files`), manually assigned `change_type`, docs-after text, and gold/manual fields are audit-only. A real-case adapter should be added before computing automatic case-study scores.
+
+## Live Flow Playground Update
+
+A small synthetic live-flow playground was added under `docguard_demo/`. It generates an invented `atlas_review_api` mini project and 15 live demo cases covering API reference, model contract, configuration, testing instructions, workflow documentation, architecture flow, developer setup, changelog, and no-update categories. It is useful as a final implementation sanity/demo layer before thesis writing, but it is not a benchmark and should not be used as real-world performance evidence.
