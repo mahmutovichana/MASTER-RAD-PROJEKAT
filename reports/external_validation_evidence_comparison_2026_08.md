@@ -6,4 +6,4 @@
 | Real positive sensitivity evidence | CoDocBench | complete | 100.00% code_diff_only positive recall on 500 positives | Positive-only, no precision/F1. |
 | Sanity-control evidence | Synthetic negatives | complete | 0/500 false positives in two modes | Not constant-positive under synthetic control. |
 | True external binary proxy evidence | Deep-JIT / DocChecker-style sample | complete | F1 66.84%, precision 50.20%, recall 100.00%, FPR 99.20% | Code-comment consistency proxy; high recall but near always-positive behavior. |
-| External task-specific adaptation evidence | Deep-JIT / DocChecker-style sample | complete | accuracy 68.72%, specificity 78.73%, MCC 0.3821, FPR 21.27% | External TF-IDF classifier improves binary specificity; separate proxy benchmark, not Markdown doc patching. |
+| External task-specific adaptation evidence | Deep-JIT / DocChecker-style sample | complete | combined-validation accuracy 66.41%, specificity 72.81%, MCC 0.3310, FPR 27.19% | External TF-IDF classifier improves binary specificity; combined-validation is cleaner but slightly weaker than the earlier Return-only validation result. |

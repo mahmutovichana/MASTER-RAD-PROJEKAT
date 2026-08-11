@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import difflib
 import json
+import random
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -217,6 +218,126 @@ def export_normalized(data_dir: Path, output_dir: Path) -> dict[str, Any]:
     }
     write_export_report(result)
     return result
+
+
+def export_combined_validation(data_dir: Path, output_dir: Path, seed: int = 42, summary_validation_per_label: int = 420) -> dict[str, Any]:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    records_by_split: dict[str, list[dict[str, Any]]] = {"train": [], "validation": [], "test": []}
+    summary_train_by_label: dict[bool, list[dict[str, Any]]] = {True: [], False: []}
+    skipped_files: list[str] = []
+    summary_test_source_count = 0
+    for path in raw_data_files(data_dir):
+        subset = subset_for(path, data_dir)
+        split = split_for(path)
+        if subset == "Param":
+            skipped_files.append(str(path))
+            continue
+        if subset not in EVALUATED_SUBSETS or split not in records_by_split:
+            skipped_files.append(str(path))
+            continue
+        normalized = [record for row in read_raw_json(path) if (record := normalize_record(row, path, data_dir)) is not None]
+        if subset == "Summary" and split == "train":
+            for record in normalized:
+                summary_train_by_label[bool(record["docs_update_required"])].append(record)
+            continue
+        if subset == "Summary" and split == "test":
+            summary_test_source_count = len(normalized)
+        records_by_split[split].extend(normalized)
+    rng = random.Random(seed)
+    carve_out: list[dict[str, Any]] = []
+    remaining_summary_train: list[dict[str, Any]] = []
+    for label_value, records in summary_train_by_label.items():
+        ordered = sorted(records, key=lambda row: row["record_id"])
+        selected_ids = {row["record_id"] for row in rng.sample(ordered, min(summary_validation_per_label, len(ordered)))}
+        for record in ordered:
+            if record["record_id"] in selected_ids:
+                record = dict(record)
+                record["split"] = "validation"
+                record["metadata"] = dict(record.get("metadata") or {})
+                record["metadata"]["validation_carve_out"] = "summary_train_seed_42_balanced"
+                carve_out.append(record)
+            else:
+                remaining_summary_train.append(record)
+    records_by_split["train"].extend(remaining_summary_train)
+    records_by_split["validation"].extend(sorted(carve_out, key=lambda row: row["record_id"]))
+    written = {}
+    for split, records in records_by_split.items():
+        records = sorted(records, key=lambda row: (str(row.get("subset")), str(row.get("record_id"))))
+        out = output_dir / f"{split}.jsonl"
+        out.write_text("\n".join(json.dumps(row, ensure_ascii=True) for row in records) + ("\n" if records else ""), encoding="utf-8")
+        written[split] = {
+            "path": str(out),
+            "records": len(records),
+            "label_distribution": dict(Counter(str(row["docs_update_required"]) for row in records)),
+            "subset_distribution": dict(Counter(str(row.get("subset") or (row.get("metadata") or {}).get("subset")) for row in records)),
+        }
+    result = {
+        "status": "ok",
+        "data_dir": str(data_dir),
+        "output_dir": str(output_dir),
+        "seed": seed,
+        "summary_validation_per_label": summary_validation_per_label,
+        "written": written,
+        "skipped_files": skipped_files,
+        "summary_validation_source": "Summary/train.json",
+        "summary_test_source": "Summary/test.json",
+        "summary_test_records_preserved": summary_test_source_count,
+        "label_polarity_status": LABEL_POLARITY_STATUS,
+    }
+    write_combined_validation_split_audit(result)
+    return result
+
+
+def write_combined_validation_split_audit(result: dict[str, Any]) -> None:
+    REPORTS_DIR.mkdir(exist_ok=True)
+    path = REPORTS_DIR / "external_deep_jit_combined_validation_split_audit_2026_08.md"
+    lines = [
+        "# External Deep-JIT Combined-Validation Split Audit 2026-08",
+        "",
+        "## Reason",
+        "",
+        "The previous Deep-JIT model-selection setup used Return validation only while the combined test set contained Return and Summary. This robustness export adds a deterministic balanced Summary validation carve-out from Summary train while keeping Summary test untouched.",
+        "",
+        "## Old Split Setup",
+        "",
+        "- Train: Return train + Summary train",
+        "- Validation: Return validation only",
+        "- Test: Return test + Summary test",
+        "- Param: excluded/audit-only",
+        "",
+        "## New Split Setup",
+        "",
+        f"- Seed: `{result['seed']}`",
+        f"- Summary validation carve-out: `{result['summary_validation_per_label']}` positive + `{result['summary_validation_per_label']}` negative from Summary train",
+        "- Return train/validation/test preserved exactly as before.",
+        "- Summary test preserved untouched.",
+        "- Param remains excluded/audit-only.",
+        "",
+        "## Written Files",
+        "",
+        "| Split | Path | Records | Label distribution | Subset distribution |",
+        "| --- | --- | ---: | --- | --- |",
+    ]
+    for split, info in result["written"].items():
+        lines.append(
+            f"| `{split}` | `{info['path']}` | {info['records']} | `{info['label_distribution']}` | `{info['subset_distribution']}` |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Confirmations",
+            "",
+            f"- Summary validation came only from `{result['summary_validation_source']}`.",
+            f"- Summary test source `{result['summary_test_source']}` remains untouched with `{result['summary_test_records_preserved']}` records.",
+            "- No Summary test records were used for train or validation.",
+            "- No Param records were used in the classifier benchmark.",
+            "",
+            "## Skipped Files",
+            "",
+            *([f"- `{item}`" for item in result["skipped_files"]] or ["None."]),
+        ]
+    )
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def write_export_report(result: dict[str, Any]) -> None:

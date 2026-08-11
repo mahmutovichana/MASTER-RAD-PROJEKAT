@@ -33,3 +33,16 @@ For the thesis, report current results as:
 > The lightweight classifier was selected using the available Deep-JIT validation split. Because the official validation file is available for Return but not Summary, validation-based model selection may be biased toward Return-style examples. Per-subset test metrics are therefore reported separately, and constructing a small deterministic validation split from Summary train is left as a recommended robustness improvement.
 
 If one more small implementation step is allowed before thesis freeze, create a deterministic Summary validation carve-out from `Summary/train.json`, keep `Summary/test.json` untouched, and rerun model selection. Do not replace current results silently; report both or document the updated split clearly.
+
+## Robustness Experiment Added
+
+A deterministic Summary validation carve-out experiment was implemented after this audit.
+
+- New train split: 23,508 records, Return 15,950 + Summary 7,558.
+- New validation split: 2,630 records, Return 1,790 + Summary 840.
+- New test split: 2,906 records, Return 1,840 + Summary 1,066.
+- Seed: 42.
+- Summary validation source: `Summary/train.json`.
+- Summary test remained untouched.
+
+The model selected by combined validation changed from `tfidf_logreg + old_comment_plus_code_diff` to `tfidf_linear_svc + old_comment_plus_code_diff`. This confirms that Return-only validation introduced some model-selection sensitivity. The combined-validation setup should be treated as the cleaner robustness result, while the Return-only validation result remains a historical baseline.

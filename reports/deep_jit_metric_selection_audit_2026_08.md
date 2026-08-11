@@ -49,3 +49,20 @@ Interpretation: threshold tuning improves recall/F1 but sacrifices specificity. 
 ## Recommended Future Improvement
 
 Rerun selection with MCC or balanced accuracy as the primary validation criterion after adding Summary validation coverage. This is not required to keep current results, but it would make the model-selection story cleaner.
+
+## Robustness Experiment Added
+
+The Summary validation carve-out was implemented and the combined-validation run selected `tfidf_linear_svc + old_comment_plus_code_diff` by validation F1. Its default test metrics were:
+
+- Accuracy: 66.41%
+- Precision: 68.82%
+- Recall: 60.01%
+- F1: 64.12%
+- FPR: 27.19%
+- Specificity: 72.81%
+- Balanced accuracy: 66.41%
+- MCC: 0.3310
+
+This is slightly weaker than the previous Return-only-validation selected model. The change confirms that model selection is sensitive to validation subset composition. The combined-validation result should be preferred methodologically because Summary appears in validation, even though it is not the most favorable result numerically.
+
+Note: within the combined-validation test table, `tfidf_logreg + old_comment_plus_code_diff` has stronger test metrics than the selected SVC model, but it was not selected by validation F1. It should not replace the selected model unless the model-selection criterion is changed and rerun on validation only.

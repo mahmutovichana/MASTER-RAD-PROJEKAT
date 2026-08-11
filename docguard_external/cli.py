@@ -143,6 +143,19 @@ def export_deep_jit_binary_command(args: argparse.Namespace) -> int:
     return 0 if result.get("status") == "ok" else 2
 
 
+def export_deep_jit_combined_validation_command(args: argparse.Namespace) -> int:
+    from docguard_external.deep_jit_binary import export_combined_validation
+
+    result = export_combined_validation(
+        Path(args.data_dir),
+        Path(args.output_dir),
+        seed=args.seed,
+        summary_validation_per_label=args.summary_validation_per_label,
+    )
+    emit(result)
+    return 0 if result.get("status") == "ok" else 2
+
+
 def train_binary_command(args: argparse.Namespace) -> int:
     from docguard_external.train_binary_classifier import train_and_evaluate
 
@@ -211,6 +224,12 @@ def build_parser() -> argparse.ArgumentParser:
     export_deep_jit.add_argument("--data-dir", required=True)
     export_deep_jit.add_argument("--output-dir", required=True)
     export_deep_jit.set_defaults(func=export_deep_jit_binary_command)
+    export_deep_jit_combined = sub.add_parser("export-deep-jit-combined-validation")
+    export_deep_jit_combined.add_argument("--data-dir", required=True)
+    export_deep_jit_combined.add_argument("--output-dir", required=True)
+    export_deep_jit_combined.add_argument("--seed", type=int, default=42)
+    export_deep_jit_combined.add_argument("--summary-validation-per-label", type=int, default=420)
+    export_deep_jit_combined.set_defaults(func=export_deep_jit_combined_validation_command)
     train_binary = sub.add_parser("train-binary")
     train_binary.add_argument("--train", required=True)
     train_binary.add_argument("--validation", required=True)

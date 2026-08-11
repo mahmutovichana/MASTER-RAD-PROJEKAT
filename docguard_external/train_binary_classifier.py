@@ -254,12 +254,15 @@ def train_and_evaluate(
         },
         model_output,
     )
-    write_model_comparison(report_path, train_rows, validation_rows, test_rows, all_results, best, model_output, include_sentence_embeddings)
-    write_validation_threshold_tuning(best, validation_rows, test_rows)
-    write_zero_shot_comparison(best)
-    write_best_model_error_analysis(best, test_rows)
-    write_adaptation_interpretation(best)
-    write_thesis_evidence_map(best)
+    variant = report_variant(report_path)
+    write_model_comparison(report_path, train_rows, validation_rows, test_rows, all_results, best, model_output, include_sentence_embeddings, variant)
+    threshold_result = write_validation_threshold_tuning(best, validation_rows, test_rows, variant)
+    write_zero_shot_comparison(best, variant)
+    write_best_model_error_analysis(best, test_rows, variant)
+    write_adaptation_interpretation(best, variant)
+    write_thesis_evidence_map(best, variant)
+    if variant == "combined_validation":
+        write_validation_strategy_comparison(best, threshold_result)
     return {
         "status": "ok",
         "train_records": len(train_rows),
@@ -279,6 +282,14 @@ def train_and_evaluate(
         "best_mcc": best["metrics"]["mcc"],
         "best_validation_f1": best["validation_metrics"]["f1"],
     }
+
+
+def report_variant(report_path: Path) -> str:
+    return "combined_validation" if "combined_validation" in report_path.stem else "default"
+
+
+def variant_report_path(variant: str, default_name: str, combined_name: str) -> Path:
+    return REPORTS_DIR / (combined_name if variant == "combined_validation" else default_name)
 
 
 def write_blocked_report(path: Path, result: dict[str, Any]) -> None:
@@ -316,6 +327,7 @@ def write_model_comparison(
     best: dict[str, Any],
     model_output: Path,
     include_sentence_embeddings: bool,
+    variant: str = "default",
 ) -> None:
     report_path.parent.mkdir(parents=True, exist_ok=True)
     lines = [
@@ -364,11 +376,20 @@ def write_model_comparison(
     )
     content = "\n".join(lines) + "\n"
     report_path.write_text(content, encoding="utf-8")
-    (REPORTS_DIR / "external_deep_jit_model_comparison_2026_08.md").write_text(content, encoding="utf-8")
+    comparison_path = variant_report_path(
+        variant,
+        "external_deep_jit_model_comparison_2026_08.md",
+        "external_deep_jit_combined_validation_model_comparison_2026_08.md",
+    )
+    comparison_path.write_text(content, encoding="utf-8")
 
 
-def write_zero_shot_comparison(best: dict[str, Any]) -> None:
-    path = REPORTS_DIR / "external_deep_jit_zero_shot_vs_trained_2026_08.md"
+def write_zero_shot_comparison(best: dict[str, Any], variant: str = "default") -> None:
+    path = variant_report_path(
+        variant,
+        "external_deep_jit_zero_shot_vs_trained_2026_08.md",
+        "external_deep_jit_combined_validation_zero_shot_vs_trained_2026_08.md",
+    )
     trained = best["metrics"]
     lines = [
         "# External Deep-JIT Zero-Shot vs Trained Classifier 2026-08",
@@ -402,14 +423,18 @@ def threshold_row(threshold: float, y_true: list[int], scores: list[float]) -> d
     return values
 
 
-def write_validation_threshold_tuning(best: dict[str, Any], validation_rows: list[dict[str, Any]], test_rows: list[dict[str, Any]]) -> None:
-    path = REPORTS_DIR / "external_deep_jit_validation_threshold_tuning_2026_08.md"
+def write_validation_threshold_tuning(best: dict[str, Any], validation_rows: list[dict[str, Any]], test_rows: list[dict[str, Any]], variant: str = "default") -> dict[str, Any] | None:
+    path = variant_report_path(
+        variant,
+        "external_deep_jit_validation_threshold_tuning_2026_08.md",
+        "external_deep_jit_combined_validation_threshold_tuning_2026_08.md",
+    )
     if not validation_rows:
         path.write_text(
             "# External Deep-JIT Validation Threshold Tuning 2026-08\n\nValidation split unavailable. No threshold tuning was performed on test.\n",
             encoding="utf-8",
         )
-        return
+        return None
     model = best["model"]
     mode = best["input_mode"]
     model_name = best["model_name"]
@@ -458,10 +483,15 @@ def write_validation_threshold_tuning(best: dict[str, Any], validation_rows: lis
         ]
     )
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return {"selected_threshold": selected["threshold"], "validation": selected, "test": test_result}
 
 
-def write_best_model_error_analysis(best: dict[str, Any], test_rows: list[dict[str, Any]]) -> None:
-    path = REPORTS_DIR / "external_deep_jit_best_model_error_analysis_2026_08.md"
+def write_best_model_error_analysis(best: dict[str, Any], test_rows: list[dict[str, Any]], variant: str = "default") -> None:
+    path = variant_report_path(
+        variant,
+        "external_deep_jit_best_model_error_analysis_2026_08.md",
+        "external_deep_jit_combined_validation_best_model_error_analysis_2026_08.md",
+    )
     mode = best["input_mode"]
     model = best["model"]
     texts = [input_text(row, mode) for row in test_rows]
@@ -535,8 +565,12 @@ def write_best_model_error_analysis(best: dict[str, Any], test_rows: list[dict[s
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def write_adaptation_interpretation(best: dict[str, Any]) -> None:
-    path = REPORTS_DIR / "external_deep_jit_adaptation_interpretation_2026_08.md"
+def write_adaptation_interpretation(best: dict[str, Any], variant: str = "default") -> None:
+    path = variant_report_path(
+        variant,
+        "external_deep_jit_adaptation_interpretation_2026_08.md",
+        "external_deep_jit_combined_validation_adaptation_interpretation_2026_08.md",
+    )
     metrics = best["metrics"]
     lines = [
         "# External Deep-JIT Adaptation Interpretation 2026-08",
@@ -550,7 +584,7 @@ def write_adaptation_interpretation(best: dict[str, Any]) -> None:
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def write_thesis_evidence_map(best: dict[str, Any]) -> None:
+def write_thesis_evidence_map(best: dict[str, Any], variant: str = "default") -> None:
     path = REPORTS_DIR / "thesis_evidence_map_2026_08.md"
     metrics = best["metrics"]
     lines = [
@@ -586,4 +620,60 @@ def write_thesis_evidence_map(best: dict[str, Any]) -> None:
         "",
         "Deep-JIT numeric label polarity remains `plausible_manual_verification_needed`. The current mapping is supported by sampled examples and task framing, but final thesis text should either cite an explicit polarity source or describe the mapping as manually audited and plausible.",
     ]
+    if variant == "combined_validation":
+        lines.extend(
+            [
+                "",
+                "## Robustness Update",
+                "",
+                "A deterministic Summary validation carve-out robustness experiment was added to reduce Return-only validation bias. The combined-validation result should be considered the cleaner Deep-JIT model-selection setup if it remains consistent with the earlier Return-only-validation conclusion.",
+            ]
+        )
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def write_validation_strategy_comparison(best: dict[str, Any], threshold_result: dict[str, Any] | None) -> None:
+    path = REPORTS_DIR / "external_deep_jit_validation_strategy_comparison_2026_08.md"
+    metrics = best["metrics"]
+    lines = [
+        "# External Deep-JIT Validation Strategy Comparison 2026-08",
+        "",
+        "## Compared Setups",
+        "",
+        "| Setup | Validation composition | Best model | Accuracy | Precision | Recall | F1 | FPR | Specificity | Balanced accuracy | MCC |",
+        "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        "| Previous Return-only validation | Return valid only | `tfidf_logreg + old_comment_plus_code_diff` | 68.72% | 73.41% | 58.71% | 65.24% | 21.27% | 78.73% | 68.72% | 0.3821 |",
+        f"| Combined validation robustness | Return valid + deterministic Summary train carve-out | `{best['model_name']} + {best['input_mode']}` | {pct(metrics['accuracy'])} | {pct(metrics['precision'])} | {pct(metrics['recall'])} | {pct(metrics['f1'])} | {pct(metrics['false_positive_rate'])} | {pct(metrics['specificity'])} | {pct(metrics['balanced_accuracy'])} | {metrics['mcc']:.4f} |",
+        "",
+        "## Interpretation",
+        "",
+    ]
+    previous_key = ("tfidf_logreg", "old_comment_plus_code_diff")
+    if (best["model_name"], best["input_mode"]) == previous_key:
+        lines.append("Model choice did not change. This suggests the previous conclusion is stable under the combined-validation robustness setup.")
+    else:
+        lines.append("Model choice changed. This indicates the earlier Return-only validation setup was sensitive to subset composition and the combined-validation result should be preferred.")
+    lines.extend(
+        [
+            "",
+            "The old Return-only validation result should be kept as a historical baseline. The combined-validation setup should become the cleaner thesis result because it includes Summary examples during validation while keeping Summary test untouched.",
+        ]
+    )
+    if threshold_result:
+        test = threshold_result["test"]
+        lines.extend(
+            [
+                "",
+                "## Combined-Validation Threshold Result",
+                "",
+                f"- Selected threshold: `{threshold_result['selected_threshold']:.2f}`",
+                f"- Test accuracy: `{pct(test['accuracy'])}`",
+                f"- Test precision: `{pct(test['precision'])}`",
+                f"- Test recall: `{pct(test['recall'])}`",
+                f"- Test F1: `{pct(test['f1'])}`",
+                f"- Test FPR: `{pct(test['false_positive_rate'])}`",
+                f"- Test specificity: `{pct(test['specificity'])}`",
+                f"- Test MCC: `{test['mcc']:.4f}`",
+            ]
+        )
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")

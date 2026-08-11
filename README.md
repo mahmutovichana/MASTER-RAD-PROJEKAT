@@ -105,6 +105,17 @@ python -m docguard_external.cli train-binary --train data/external/deep_jit_bina
 
 The normalized Deep-JIT export keeps original split boundaries and excludes `new_comment_raw`, `doc_after`, and `doc_diff` from classifier inputs. With best model selection based on validation F1, the lightweight external classifier run selected `tfidf_logreg` with `old_comment_plus_code_diff` input: 68.72% accuracy, 73.41% precision, 58.71% recall, 65.24% F1, 21.27% FPR, 78.73% specificity, 68.72% balanced accuracy, and MCC 0.3821 on the test split. This greatly improves specificity compared with the zero-shot DocGuard FPR of 99.20% and specificity of 0.80%, but it does not turn Deep-JIT into project-level Markdown documentation evidence. Validation-set threshold tuning selected threshold `0.45`; applied once to test, it produced 67.65% accuracy, 68.03% precision, 66.62% recall, 67.32% F1, and 31.31% FPR. Deep-JIT label polarity remains `plausible_manual_verification_needed` until confirmed from original dataset documentation or preprocessing code.
 
+### Deep-JIT combined-validation robustness experiment
+
+The first Deep-JIT adaptation used the available official Return validation split, while the test set included both Return and Summary. To reduce this Return-only validation bias, a robustness export adds a deterministic balanced Summary validation carve-out from `Summary/train.json` while keeping `Summary/test.json` untouched:
+
+```bash
+python -m docguard_external.cli export-deep-jit-combined-validation --data-dir data/external/raw/deep_jit_inconsistency --output-dir data/external/deep_jit_binary_combined_validation --seed 42 --summary-validation-per-label 420
+python -m docguard_external.cli train-binary --train data/external/deep_jit_binary_combined_validation/train.jsonl --validation data/external/deep_jit_binary_combined_validation/validation.jsonl --test data/external/deep_jit_binary_combined_validation/test.jsonl --model-output models/external_deep_jit_combined_validation/binary_tfidf_logreg.joblib --report reports/external_deep_jit_combined_validation_classifier_evaluation_2026_08.md
+```
+
+The combined-validation split contains 23,508 train records, 2,630 validation records, and the same untouched 2,906-record test split. Validation now includes Return 1,790 + Summary 840 records. This changed model selection to `tfidf_linear_svc` with `old_comment_plus_code_diff`: 66.41% accuracy, 68.82% precision, 60.01% recall, 64.12% F1, 27.19% FPR, 72.81% specificity, 66.41% balanced accuracy, and MCC 0.3310. The conclusion remains the same but more conservative: task-specific adaptation greatly improves specificity over zero-shot, while model selection is somewhat sensitive to validation subset composition. The combined-validation result should be treated as the cleaner thesis result; the Return-only validation result remains a historical baseline. Generated `data/external/deep_jit_binary_combined_validation/` and `models/external_deep_jit_combined_validation/` are ignored and should not be committed.
+
 Large raw external downloads should stay under `data/external/raw/`, which is ignored by git.
 
 CoDocBench should be reported as real-world code-doc/comment validation, not as a direct replacement for project-level Markdown documentation update detection.
