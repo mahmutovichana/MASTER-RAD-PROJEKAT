@@ -21,7 +21,10 @@ def test_patch_prompt_contains_safe_runtime_inputs() -> None:
     assert "api_reference" in prompt
     assert "docs/api.md" in prompt
     assert "route_added" in prompt
+    assert "Allowed facts extracted from the diff" in prompt
+    assert "Do not add response fields unless they appear in allowed facts." in prompt
     assert "/reviews" in metadata["grounding_tokens"]
+    assert "/reviews" in metadata["allowed_facts"]["route_paths"]
 
 
 def test_patch_prompt_signature_rejects_forbidden_inputs() -> None:

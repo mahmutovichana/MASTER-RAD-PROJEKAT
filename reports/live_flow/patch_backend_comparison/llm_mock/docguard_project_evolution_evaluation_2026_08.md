@@ -69,7 +69,7 @@ This is a synthetic project-evolution live demo. It simulates multiple PR-like c
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: `/reviews`
+- Grounded tokens found: `POST`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -92,7 +92,7 @@ Generated patch:
 
 ```diff
 @@ docs/api.md
-+Mock LLM patch: document `/reviews` based on the supplied code diff.
++Mock LLM patch: document `POST` based on the supplied code diff.
 ```
 
 ### `ATLAS-REVIEW-API-PR-02` Tighten review comment validation
@@ -109,7 +109,7 @@ Generated patch:
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: ``
+- Grounded tokens found: `3`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -132,7 +132,7 @@ Generated patch:
 
 ```diff
 @@ docs/api.md
-+Mock LLM patch: document `/api` based on the supplied code diff.
++Mock LLM patch: document `3` based on the supplied code diff.
 ```
 
 ### `ATLAS-REVIEW-API-PR-03` Expose reviewer id in review DTO
@@ -149,7 +149,7 @@ Generated patch:
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: `reviewerId`
+- Grounded tokens found: `ReviewDto`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -175,7 +175,7 @@ Generated patch:
 
 ```diff
 @@ docs/models.md
-+Mock LLM patch: document `reviewerId` based on the supplied code diff.
++Mock LLM patch: document `ReviewDto` based on the supplied code diff.
 ```
 
 ### `ATLAS-REVIEW-API-PR-04` Add review feature flag
@@ -231,7 +231,7 @@ Generated patch:
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: `*/15 * * * *`
+- Grounded tokens found: `0 * * * *`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -254,6 +254,6 @@ Generated patch:
 
 ```diff
 @@ docs/workflows.md
-+Mock LLM patch: document `*/15 * * * *` based on the supplied code diff.
++Mock LLM patch: document `0 * * * *` based on the supplied code diff.
 ```
 

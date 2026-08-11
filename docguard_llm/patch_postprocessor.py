@@ -7,6 +7,9 @@ from docguard_llm.config import PATCH_TARGET_FILES
 
 
 ROLE_PREFIX_RE = re.compile(r"^(assistant|user|system)\s*:\s*", re.IGNORECASE)
+NOISY_HEADING_RE = re.compile(r"^\s*(?:patch|documentation patch|markdown patch)\s*:?\s*$", re.IGNORECASE)
+TARGET_LABEL_RE = re.compile(r"^\s*(?:docs/[A-Za-z0-9_.-]+\.md|CHANGELOG\.md|README\.md)\s*:?\s*$")
+TABLE_SEPARATOR_RE = re.compile(r"^\s*\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?\s*$")
 
 
 def _strip_markdown_fences(text: str) -> str:
@@ -28,7 +31,25 @@ def postprocess_patch(
     if target_doc_file and target_doc_file not in allowed:
         return {"patch_text": None, "postprocess_status": "fail", "warnings": [f"unsupported target file: {target_doc_file}"]}
     text = _strip_markdown_fences(raw_patch or "")
-    text = "\n".join(ROLE_PREFIX_RE.sub("", line).rstrip() for line in text.splitlines()).strip()
+    cleaned_lines: list[str] = []
+    previous_heading = ""
+    for raw_line in text.splitlines():
+        line = ROLE_PREFIX_RE.sub("", raw_line).rstrip()
+        stripped = line.strip()
+        if not stripped:
+            if cleaned_lines and cleaned_lines[-1] != "":
+                cleaned_lines.append("")
+            continue
+        if NOISY_HEADING_RE.match(stripped) or TARGET_LABEL_RE.match(stripped) or TABLE_SEPARATOR_RE.match(stripped):
+            warnings.append("removed noisy model output line")
+            continue
+        if stripped.startswith("###") and stripped == previous_heading:
+            warnings.append("removed duplicated heading")
+            continue
+        if stripped.startswith("###"):
+            previous_heading = stripped
+        cleaned_lines.append(line)
+    text = "\n".join(cleaned_lines).strip()
     if not text:
         return {"patch_text": None, "postprocess_status": "fail", "warnings": ["empty patch"]}
     mentioned_files = {match for match in re.findall(r"(?:docs/[A-Za-z0-9_.-]+\.md|CHANGELOG\.md|README\.md)", text)}
@@ -41,7 +62,30 @@ def postprocess_patch(
         }
     if not text.startswith("@@"):
         section = target_section or target_doc_file or "Documentation"
-        content = "\n".join(line if line.startswith("+") else f"+{line}" for line in text.splitlines() if line.strip())
+        content_lines = []
+        for line in text.splitlines():
+            if not line.strip():
+                continue
+            if line.lstrip().startswith("|"):
+                warnings.append("converted table-like row into bullet")
+                content_lines.append("+ - " + " ".join(part.strip() for part in line.strip("| ").split("|") if part.strip()))
+                continue
+            content_lines.append(line if line.startswith("+") else f"+{line}")
+        content = "\n".join(content_lines)
         text = f"@@ {section}\n{content}"
         warnings.append("normalized patch into lightweight diff form")
+    else:
+        lines = text.splitlines()
+        normalized = [lines[0]]
+        for line in lines[1:]:
+            if not line.strip():
+                continue
+            if line.lstrip().startswith("|"):
+                warnings.append("converted table-like row into bullet")
+                normalized.append("+ - " + " ".join(part.strip() for part in line.strip("| ").split("|") if part.strip()))
+            elif line.startswith(("+", "-")):
+                normalized.append(line)
+            else:
+                normalized.append(f"+{line}")
+        text = "\n".join(normalized)
     return {"patch_text": text.strip(), "postprocess_status": "ok", "warnings": warnings}

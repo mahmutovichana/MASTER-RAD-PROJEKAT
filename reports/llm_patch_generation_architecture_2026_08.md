@@ -54,10 +54,10 @@ The prompt builder does not accept:
 
 `docguard_llm.llm_generator.generate_documentation_patch()` includes an optional `hf` backend for HuggingFace causal instruction models such as Qwen, Mistral, or Llama variants. Imports for `torch` and `transformers` are lazy and occur only when `backend="hf"` is explicitly requested with a model name.
 
-Recommended first smoke command:
+Recommended grounded smoke command:
 
 ```bash
-python -m docguard_demo.run_project_evolution_flow --output-dir reports/live_flow/project_evolution_hf_smoke --patch-backend llm-hf --patch-model Qwen/Qwen2.5-1.5B-Instruct --case-limit 5 --max-new-tokens 384 --temperature 0.2
+python scripts/smoke_hf_patch_generation.py --model Qwen/Qwen2.5-1.5B-Instruct --case-limit 3 --max-new-tokens 256 --temperature 0.1
 ```
 
 Recommended first model: `Qwen/Qwen2.5-1.5B-Instruct`.
@@ -67,6 +67,8 @@ Optional stronger model: `Qwen/Qwen2.5-3B-Instruct`.
 Use 7B models only for cheap GPU/Colab if needed.
 
 No model is downloaded, trained, or executed unless the HF command is explicitly run. This is a zero-shot/few-shot inference phase, not fine-tuning.
+
+After the first Qwen 1.5B smoke test, the patch pipeline was hardened with an allowed-fact extractor and stricter verifier. This prevents a patch from getting a clean pass simply because it includes one grounded token while also inventing unsupported fields or examples.
 
 ## Current Limitation
 

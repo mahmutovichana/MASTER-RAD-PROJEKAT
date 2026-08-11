@@ -96,7 +96,7 @@ This is a synthetic project-evolution live demo. It simulates multiple PR-like c
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: `/reviews`
+- Grounded tokens found: `POST`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -119,7 +119,7 @@ Generated patch:
 
 ```diff
 @@ docs/api.md
-+Mock LLM patch: document `/reviews` based on the supplied code diff.
++Mock LLM patch: document `POST` based on the supplied code diff.
 ```
 
 ### `ATLAS-REVIEW-API-PR-02` Tighten review comment validation
@@ -136,7 +136,7 @@ Generated patch:
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: ``
+- Grounded tokens found: `3`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -159,7 +159,7 @@ Generated patch:
 
 ```diff
 @@ docs/api.md
-+Mock LLM patch: document `/api` based on the supplied code diff.
++Mock LLM patch: document `3` based on the supplied code diff.
 ```
 
 ### `ATLAS-REVIEW-API-PR-03` Expose reviewer id in review DTO
@@ -176,7 +176,7 @@ Generated patch:
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: `reviewerId`
+- Grounded tokens found: `ReviewDto`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -202,7 +202,7 @@ Generated patch:
 
 ```diff
 @@ docs/models.md
-+Mock LLM patch: document `reviewerId` based on the supplied code diff.
++Mock LLM patch: document `ReviewDto` based on the supplied code diff.
 ```
 
 ### `ATLAS-REVIEW-API-PR-04` Add review feature flag
@@ -258,7 +258,7 @@ Generated patch:
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: `*/15 * * * *`
+- Grounded tokens found: `0 * * * *`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -281,7 +281,7 @@ Generated patch:
 
 ```diff
 @@ docs/workflows.md
-+Mock LLM patch: document `*/15 * * * *` based on the supplied code diff.
++Mock LLM patch: document `0 * * * *` based on the supplied code diff.
 ```
 
 ### `ATLAS-REVIEW-API-PR-06` Rename local accumulator
@@ -337,7 +337,7 @@ not_applicable
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: ``
+- Grounded tokens found: `jest`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -361,7 +361,7 @@ Generated patch:
 
 ```diff
 @@ docs/testing.md
-+Mock LLM patch: document `/testing` based on the supplied code diff.
++Mock LLM patch: document `jest` based on the supplied code diff.
 ```
 
 ### `ATLAS-REVIEW-API-PR-08` Documented endpoint already updated
@@ -378,7 +378,7 @@ Generated patch:
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: `/reviews`
+- Grounded tokens found: `POST`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard missed at least one expected dimension; inspect router reason and signals.
 
@@ -399,7 +399,7 @@ Generated patch:
 
 ```diff
 @@ docs/api.md
-+Mock LLM patch: document `/reviews` based on the supplied code diff.
++Mock LLM patch: document `POST` based on the supplied code diff.
 ```
 
 ### `BEACON-BILLING-SERVICE-PR-01` Add invoice payment endpoint
@@ -416,7 +416,7 @@ Generated patch:
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: `/invoices/:id/payments`
+- Grounded tokens found: `POST`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -439,7 +439,7 @@ Generated patch:
 
 ```diff
 @@ docs/api.md
-+Mock LLM patch: document `/invoices/:id/payments` based on the supplied code diff.
++Mock LLM patch: document `POST` based on the supplied code diff.
 ```
 
 ### `BEACON-BILLING-SERVICE-PR-02` Add invoice reviewer field
@@ -456,7 +456,7 @@ Generated patch:
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: `reviewerId`
+- Grounded tokens found: `InvoiceDto`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -482,7 +482,7 @@ Generated patch:
 
 ```diff
 @@ docs/models.md
-+Mock LLM patch: document `reviewerId` based on the supplied code diff.
++Mock LLM patch: document `InvoiceDto` based on the supplied code diff.
 ```
 
 ### `BEACON-BILLING-SERVICE-PR-03` Change billing page size default
@@ -499,7 +499,7 @@ Generated patch:
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: ``
+- Grounded tokens found: `default_page_size`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -522,7 +522,7 @@ Generated patch:
 
 ```diff
 @@ docs/configuration.md
-+Mock LLM patch: document `/configuration` based on the supplied code diff.
++Mock LLM patch: document `default_page_size` based on the supplied code diff.
 ```
 
 ### `BEACON-BILLING-SERVICE-PR-04` Require billing role on invoice routes
@@ -539,7 +539,7 @@ Generated patch:
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: `/invoices/:id/payments`
+- Grounded tokens found: `POST`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -562,7 +562,7 @@ Generated patch:
 
 ```diff
 @@ docs/architecture.md
-+Mock LLM patch: document `/invoices/:id/payments` based on the supplied code diff.
++Mock LLM patch: document `POST` based on the supplied code diff.
 ```
 
 ### `BEACON-BILLING-SERVICE-PR-05` Add invoice export seed command
@@ -684,7 +684,7 @@ Generated patch:
 
 ```diff
 @@ CHANGELOG.md
-+Mock LLM patch: document `CHANGELOG` based on the supplied code diff.
++Mock LLM patch: document `/status` based on the supplied code diff.
 ```
 
 ### `BEACON-BILLING-SERVICE-PR-08` Clean up log message
@@ -740,7 +740,7 @@ not_applicable
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: `/tasks/:id/archive`
+- Grounded tokens found: `POST`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -763,7 +763,7 @@ Generated patch:
 
 ```diff
 @@ docs/api.md
-+Mock LLM patch: document `/tasks/:id/archive` based on the supplied code diff.
++Mock LLM patch: document `POST` based on the supplied code diff.
 ```
 
 ### `NOVA-TASK-PLATFORM-PR-02` Add task reviewer field
@@ -780,7 +780,7 @@ Generated patch:
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: `reviewerId`
+- Grounded tokens found: `TaskDto`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -806,7 +806,7 @@ Generated patch:
 
 ```diff
 @@ docs/models.md
-+Mock LLM patch: document `reviewerId` based on the supplied code diff.
++Mock LLM patch: document `TaskDto` based on the supplied code diff.
 ```
 
 ### `NOVA-TASK-PLATFORM-PR-03` Add task queue env var
@@ -885,7 +885,7 @@ Generated patch:
 
 ```diff
 @@ docs/workflows.md
-+Mock LLM patch: document `/workflows` based on the supplied code diff.
++Mock LLM patch: document `/status` based on the supplied code diff.
 ```
 
 ### `NOVA-TASK-PLATFORM-PR-05` Add route rate limit
@@ -902,7 +902,7 @@ Generated patch:
 - Patch backend/verifier: `llm-mock` / `pass`
 - Patch model/generation: `none` / `ok`
 - LLM error: ``
-- Grounded tokens found: `/tasks/:id/archive`
+- Grounded tokens found: `POST`
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
 
@@ -925,7 +925,7 @@ Generated patch:
 
 ```diff
 @@ docs/architecture.md
-+Mock LLM patch: document `/tasks/:id/archive` based on the supplied code diff.
++Mock LLM patch: document `POST` based on the supplied code diff.
 ```
 
 ### `NOVA-TASK-PLATFORM-PR-06` Reword internal comments

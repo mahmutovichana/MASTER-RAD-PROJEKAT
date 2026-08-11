@@ -5,11 +5,13 @@ from docguard_llm.patch_verifier import verify_patch
 
 def test_verifier_passes_grounded_patch() -> None:
     result = verify_patch(
-        "@@ API\n+Document POST `/reviews`.",
+        "@@ docs/api.md\n+### POST /reviews\n+Creates a review and returns `201`.\n+Response fields visible in the implementation: `id`, `reviewStatus`.",
         True,
         "docs/api.md",
-        "+router.post('/reviews', createReview);",
+        "+router.post('/reviews', createReview);\n+res.status(201).json({ id: saved.id, reviewStatus: saved.status });",
         "# API",
+        "api_reference",
+        "new_endpoint",
     )
     assert result["verifier_status"] == "pass"
     assert "/reviews" in result["grounded_tokens_found"]
@@ -22,6 +24,22 @@ def test_verifier_fails_hallucinated_security_claim() -> None:
         "docs/api.md",
         "+router.post('/reviews', createReview);",
         "# API",
+        "api_reference",
+        "new_endpoint",
     )
     assert result["verifier_status"] == "fail"
     assert result["warnings"]
+
+
+def test_verifier_rejects_old_hallucinated_reviews_patch() -> None:
+    result = verify_patch(
+        "@@ docs/api.md\n+### POST /reviews\n+Creates a review with request field `title`.\n+Returns `201` with `id`, `status`.\n+Status values: \"pending\", \"approved\".",
+        True,
+        "docs/api.md",
+        "+router.post('/reviews', createReview);\n+res.status(201).json({ id: saved.id, reviewStatus: saved.status });",
+        "# API",
+        "api_reference",
+        "new_endpoint",
+    )
+    assert result["verifier_status"] == "fail"
+    assert any("title" in warning or "pending" in warning or "status" in warning for warning in result["warnings"])

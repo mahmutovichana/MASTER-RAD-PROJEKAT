@@ -70,3 +70,5 @@ An optional LLM documentation patch-generation layer has been prepared in `docgu
 The default project-evolution runner still uses the legacy rule-based patch generator. The `llm-mock` backend exercises prompt building, mock generation, postprocessing, and lightweight verifier checks without downloading a model, training, or requiring GPU. The optional `llm-hf` backend is now wired for explicit HuggingFace zero-shot/few-shot patch generation with a user-provided model name, but it is not run during normal validation. Recommended first models are `Qwen/Qwen2.5-1.5B-Instruct` and, if resources allow, `Qwen/Qwen2.5-3B-Instruct`; 7B models should be reserved for cheap GPU/Colab.
 
 This remains architecture and optional-inference evidence only. It should not be reported as real LLM patch-quality performance unless an explicit HF smoke/evaluation run is executed and documented.
+
+The first Qwen 1.5B smoke run exposed unsupported patch details, so the LLM patch path now includes allowed-fact extraction, stricter prompts, and a stronger verifier. This is a methodological hardening step, not a new performance benchmark.

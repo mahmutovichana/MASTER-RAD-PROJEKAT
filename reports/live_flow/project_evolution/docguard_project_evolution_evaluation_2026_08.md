@@ -133,11 +133,11 @@ Generated patch:
 - Expected patch summary: Update documented review comment validation.
 - Router reason: Matched positive signal `validation_min_change` from: validation_min_change, validation_max_change, zod_validation_change, comments_only
 - Signals: `validation_min_change, validation_max_change, zod_validation_change, comments_only`
-- Patch backend/verifier: `legacy` / `pass`
+- Patch backend/verifier: `legacy` / `warn`
 - Patch model/generation: `none` / `not_applicable`
 - LLM error: ``
 - Grounded tokens found: ``
-- Patch verifier warnings: ``
+- Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
 
 Code diff:
@@ -334,11 +334,11 @@ not_applicable
 - Expected patch summary: Update test command documentation.
 - Router reason: Matched positive signal `test_command_change` from: test_command_change
 - Signals: `test_command_change`
-- Patch backend/verifier: `legacy` / `pass`
+- Patch backend/verifier: `legacy` / `warn`
 - Patch model/generation: `none` / `not_applicable`
 - LLM error: ``
 - Grounded tokens found: ``
-- Patch verifier warnings: ``
+- Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
 
 Code diff:
@@ -496,11 +496,11 @@ Generated patch:
 - Expected patch summary: Update default page size docs.
 - Router reason: Matched positive signal `config_default_change` from: config_default_change
 - Signals: `config_default_change`
-- Patch backend/verifier: `legacy` / `pass`
+- Patch backend/verifier: `legacy` / `warn`
 - Patch model/generation: `none` / `not_applicable`
 - LLM error: ``
 - Grounded tokens found: ``
-- Patch verifier warnings: ``
+- Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
 
 Code diff:

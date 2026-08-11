@@ -25,46 +25,87 @@ Avoid placeholders such as new_endpoint, added_environment_variable, or changed_
 Do not mention internal gold labels, scenario labels, router labels, or evaluation metadata in the final patch.
 Focus on API paths, HTTP methods, request fields, response fields, status codes, validation rules, and auth requirements that are directly visible in the diff.
 
-Project id: atlas_review_api
-Target document: docs/api.md
-Target section: docs/api.md
-Documentation category: api_reference
-Router scenario hint: new_endpoint
-Detected signals: route_added
-Router reason: Matched positive signal `route_added` from: route_added
-Concrete tokens extracted from diff: /reviews, 201
+Allowed facts extracted from the diff:
+{
+  "allowed_tokens": [
+    "POST",
+    "/reviews",
+    "201",
+    "id",
+    "reviewStatus"
+  ],
+  "allowed_facts": {
+    "http_methods": [
+      "POST"
+    ],
+    "route_paths": [
+      "/reviews"
+    ],
+    "status_codes": [
+      "201"
+    ],
+    "response_fields": [
+      "id",
+      "reviewStatus"
+    ],
+    "request_fields": [],
+    "auth_roles": [],
+    "validation_min_values": [],
+    "validation_max_values": [],
+    "interface_or_class_names": [],
+    "added_fields": [],
+    "field_types": [],
+    "env_vars": [],
+    "config_variables": [],
+    "default_values": [],
+    "test_commands": [],
+    "frameworks": [],
+    "cron_expressions": [],
+    "job_or_function_names": [
+      "post"
+    ],
+    "rate_limit_values": [],
+    "middleware_names": [],
+    "behavior_tokens": [
+      "reviews",
+      "createReview",
+      "reviewStatus"
+    ]
+  },
+  "blocked_terms_hint": [
+    "Do not mention request fields unless listed in allowed_facts.request_fields.",
+    "Do not mention response fields unless listed in allowed_facts.response_fields.",
+    "Do not mention enum/status values unless listed in allowed_tokens.",
+    "Do not mention auth mechanisms, roles, or security behavior unless listed in allowed_facts.auth_roles or visible in docs_before."
+  ],
+  "missing_context_notes": [
+    "request fields are not visible"
+  ]
+}
 
-Current documentation:
-```md
-# API Reference
-
-Existing endpoints are documented here.
-```
-
-Code diff:
-```diff
-+router.post('/reviews', createReview);
-+res.status(201).json({ id: saved.id, reviewStatus: saved.status });
-```
-
-Return only the Markdown patch.
+You may only write documentation statements supported by these allowed facts.
+Do not add request fields unless they appear in allowed facts.
+Do not add response fields unless they appear in allowed facts.
+Do not add example enum/status values unless visible in allowed facts.
+Do not invent authentication/security behavior.
+Do not rewrite the whole doc
 ```
 
 Raw mock patch:
 
 ```diff
 @@ docs/api.md
-+Mock LLM patch: document `/reviews` based on the supplied code diff.
++Mock LLM patch: document `POST` based on the supplied code diff.
 ```
 
 Postprocessed patch:
 
 ```diff
 @@ docs/api.md
-+Mock LLM patch: document `/reviews` based on the supplied code diff.
++Mock LLM patch: document `POST` based on the supplied code diff.
 ```
 
-Verifier: `pass`; warnings: `[]`; grounded tokens: `['/reviews']`
+Verifier: `pass`; warnings: `[]`; grounded tokens: `['POST']`
 
 ### `ATLAS-REVIEW-API-PR-02`
 
@@ -81,46 +122,90 @@ Avoid placeholders such as new_endpoint, added_environment_variable, or changed_
 Do not mention internal gold labels, scenario labels, router labels, or evaluation metadata in the final patch.
 Focus on API paths, HTTP methods, request fields, response fields, status codes, validation rules, and auth requirements that are directly visible in the diff.
 
-Project id: atlas_review_api
-Target document: docs/api.md
-Target section: docs/api.md
-Documentation category: api_reference
-Router scenario hint: changed_validation_min
-Detected signals: validation_min_change, validation_max_change, zod_validation_change, comments_only
-Router reason: Matched positive signal `validation_min_change` from: validation_min_change, validation_max_change, zod_validation_change, comments_only
-Concrete tokens extracted from diff: none
+Allowed facts extracted from the diff:
+{
+  "allowed_tokens": [
+    "3",
+    "10",
+    "500",
+    "280",
+    "comment",
+    "z"
+  ],
+  "allowed_facts": {
+    "http_methods": [],
+    "route_paths": [],
+    "status_codes": [],
+    "response_fields": [],
+    "request_fields": [],
+    "auth_roles": [],
+    "validation_min_values": [
+      "3",
+      "10"
+    ],
+    "validation_max_values": [
+      "500",
+      "280"
+    ],
+    "interface_or_class_names": [],
+    "added_fields": [
+      "comment"
+    ],
+    "field_types": [
+      "z"
+    ],
+    "env_vars": [],
+    "config_variables": [],
+    "default_values": [],
+    "test_commands": [],
+    "frameworks": [],
+    "cron_expressions": [],
+    "job_or_function_names": [
+      "string",
+      "min",
+      "max"
+    ],
+    "rate_limit_values": [],
+    "middleware_names": [],
+    "behavior_tokens": [
+      "comment"
+    ]
+  },
+  "blocked_terms_hint": [
+    "Do not mention request fields unless listed in allowed_facts.request_fields.",
+    "Do not mention response fields unless listed in allowed_facts.response_fields.",
+    "Do not mention enum/status values unless listed in allowed_tokens.",
+    "Do not mention auth mechanisms, roles, or security behavior unless listed in allowed_facts.auth_roles or visible in docs_before."
+  ],
+  "missing_context_notes": [
+    "request fields are not visible",
+    "response fields are not visible"
+  ]
+}
 
-Current documentation:
-```md
-# API Reference
-
-Existing endpoints are documented here.
-```
-
-Code diff:
-```diff
--comment: z.string().min(3).max(500)
-+comment: z.string().min(10).max(280)
-```
-
-Return only the Markdown patch.
+You may only write documentation statements supported by these allowed facts.
+Do not add request fields unless they appear in allowed facts.
+Do not add response fields unless they appear in allowed facts.
+Do not add example enum/status values unless visible in allowed facts.
+Do not invent authentication/security behavior.
+Do not rewr
 ```
 
 Raw mock patch:
 
 ```diff
 @@ docs/api.md
-+Mock LLM patch: document `/api` based on the supplied code diff.
++Mock LLM patch: document `3` based on the supplied code diff.
 ```
 
 Postprocessed patch:
 
 ```diff
 @@ docs/api.md
-+Mock LLM patch: document `/api` based on the supplied code diff.
++Mock LLM patch: document `3` based on the supplied code diff.
 ```
 
-Verifier: `pass`; warnings: `[]`; grounded tokens: `[]`
+Verifier: `pass`; warnings: `[]`; grounded tokens: `['3']`
 
 ### `ATLAS-REVIEW-API-PR-03`
 
@@ -137,47 +222,82 @@ Avoid placeholders such as new_endpoint, added_environment_variable, or changed_
 Do not mention internal gold labels, scenario labels, router labels, or evaluation metadata in the final patch.
 Focus on DTOs, schemas, model fields, field types, and response contract changes that are directly visible in the diff.
 
+Allowed facts extracted from the diff:
+{
+  "allowed_tokens": [
+    "ReviewDto",
+    "reviewerId",
+    "string"
+  ],
+  "allowed_facts": {
+    "http_methods": [],
+    "route_paths": [],
+    "status_codes": [],
+    "response_fields": [],
+    "request_fields": [],
+    "auth_roles": [],
+    "validation_min_values": [],
+    "validation_max_values": [],
+    "interface_or_class_names": [
+      "ReviewDto"
+    ],
+    "added_fields": [
+      "reviewerId"
+    ],
+    "field_types": [
+      "string"
+    ],
+    "env_vars": [],
+    "config_variables": [],
+    "default_values": [],
+    "test_commands": [],
+    "frameworks": [],
+    "cron_expressions": [],
+    "job_or_function_names": [],
+    "rate_limit_values": [],
+    "middleware_names": [],
+    "behavior_tokens": [
+      "interface",
+      "ReviewDto",
+      "reviewerId"
+    ]
+  },
+  "blocked_terms_hint": [
+    "Do not mention request fields unless listed in allowed_facts.request_fields.",
+    "Do not mention response fields unless listed in allowed_facts.response_fields.",
+    "Do not mention enum/status values unless listed in allowed_tokens.",
+    "Do not mention auth mechanisms, roles, or security behavior unless listed in allowed_facts.auth_roles or visible in docs_before."
+  ],
+  "missing_context_notes": []
+}
+
+You may only write documentation statements supported by these allowed facts.
+Do not add request fields unless they appear in allowed facts.
+Do not add response fields unless they appear in allowed facts.
+Do not add example enum/status values unless visible in allowed facts.
+Do not invent authentication/security behavior.
+Do not rewrite the whole document.
+Generate a minimal patch only.
+
 Project id: atlas_review_api
 Target document: docs/models.md
 Target section: docs/models.md
-Documentation category: model_contract
-Router scenario hint: added_dto_model_field
-Detected signals: dto_model_change, dto_field_added
-Router reason: Matched positive signal `dto_field_added` from: dto_model_change, dto_field_added
-Concrete tokens extracted from diff: reviewerId
-
-Current documentation:
-```md
-# Models
-
-Core DTOs and response contracts are documented here.
-```
-
-Code diff:
-```diff
-export interface ReviewDto {
-   id: string;
-+reviewerId: string;
-   status: string;
- }
-```
-
-Return only the Markdown patch.
+Documentation cate
 ```
 
 Raw mock patch:
 
 ```diff
 @@ docs/models.md
-+Mock LLM patch: document `reviewerId` based on the supplied code diff.
++Mock LLM patch: document `ReviewDto` based on the supplied code diff.
 ```
 
 Postprocessed patch:
 
 ```diff
 @@ docs/models.md
-+Mock LLM patch: document `reviewerId` based on the supplied code diff.
++Mock LLM patch: document `ReviewDto` based on the supplied code diff.
 ```
 
-Verifier: `pass`; warnings: `[]`; grounded tokens: `['reviewerId']`
+Verifier: `pass`; warnings: `[]`; grounded tokens: `['ReviewDto']`
 

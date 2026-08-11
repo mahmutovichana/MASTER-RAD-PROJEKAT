@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 
 from docguard_llm.config import PATCH_DOC_CATEGORIES, PATCH_TARGET_FILES
+from docguard_llm.fact_extractor import extract_allowed_facts
 from docguard_llm.prompt_templates import get_patch_template
 
 
@@ -281,7 +282,8 @@ def build_patch_prompt(
         raise ValueError(f"Unsupported patch doc_category: {doc_category}")
     if target_doc_file not in PATCH_TARGET_FILES:
         raise ValueError(f"Unsupported patch target_doc_file: {target_doc_file}")
-    tokens = _extract_prompt_tokens(code_diff)
+    allowed = extract_allowed_facts(code_diff, docs_before, doc_category, scenario_type)
+    tokens = allowed["allowed_tokens"] or _extract_prompt_tokens(code_diff)
     metadata = {
         "project_id": project_id,
         "target_doc_file": target_doc_file,
@@ -291,6 +293,9 @@ def build_patch_prompt(
         "router_reason": router_reason,
         "target_section": target_section or "",
         "grounding_tokens": tokens,
+        "allowed_facts": allowed["allowed_facts"],
+        "blocked_terms_hint": allowed["blocked_terms_hint"],
+        "missing_context_notes": allowed["missing_context_notes"],
         "forbidden_inputs_excluded": [
             "gold labels",
             "expected facts",
@@ -299,9 +304,32 @@ def build_patch_prompt(
             "manual notes",
         ],
     }
+    api_rules = []
+    if doc_category == "api_reference":
+        api_rules = [
+            "API grounding rules:",
+            "- If request fields are not visible in allowed facts, do not include a Request Fields section.",
+            "- If response fields are visible, include only those response fields.",
+            "- If a status code is visible, include only that status code.",
+            "- If endpoint path/method is visible, include that endpoint path/method.",
+            "- Do not add example enum/status values unless they appear in allowed facts.",
+            "",
+        ]
     prompt = "\n".join(
         [
             get_patch_template(doc_category),
+            "",
+            "Allowed facts extracted from the diff:",
+            json.dumps(allowed, indent=2, ensure_ascii=False),
+            "",
+            "You may only write documentation statements supported by these allowed facts.",
+            "Do not add request fields unless they appear in allowed facts.",
+            "Do not add response fields unless they appear in allowed facts.",
+            "Do not add example enum/status values unless visible in allowed facts.",
+            "Do not invent authentication/security behavior.",
+            "Do not rewrite the whole document.",
+            "Generate a minimal patch only.",
+            *api_rules,
             "",
             f"Project id: {project_id}",
             f"Target document: {target_doc_file}",

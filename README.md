@@ -218,7 +218,13 @@ Real HuggingFace patch generation is available as an explicit opt-in path. It ma
 python -m docguard_demo.run_project_evolution_flow --output-dir reports/live_flow/project_evolution_hf_smoke --patch-backend llm-hf --patch-model Qwen/Qwen2.5-1.5B-Instruct --case-limit 5 --max-new-tokens 384 --temperature 0.2
 ```
 
-For the first smoke test, use `Qwen/Qwen2.5-1.5B-Instruct`. A stronger optional CPU/GPU candidate is `Qwen/Qwen2.5-3B-Instruct`; 7B models should be reserved for cheap GPU/Colab runs if needed. This is zero-shot/few-shot inference only; no fine-tuning is performed.
+For the first smoke test, use `Qwen/Qwen2.5-1.5B-Instruct`. After the initial 1.5B smoke run, the patch pipeline was hardened with allowed-fact extraction and stricter verification because the model could hallucinate unsupported fields or enum examples. The recommended controlled smoke command is now:
+
+```bash
+python scripts/smoke_hf_patch_generation.py --model Qwen/Qwen2.5-1.5B-Instruct --case-limit 3 --max-new-tokens 256 --temperature 0.1
+```
+
+A stronger optional CPU/GPU candidate is `Qwen/Qwen2.5-3B-Instruct`; 7B models should be reserved for cheap GPU/Colab runs if needed. This is zero-shot/few-shot inference only; no fine-tuning is performed.
 
 Architecture notes are in `reports/llm_patch_generation_architecture_2026_08.md`. Mock patch-generation output is in `reports/live_flow/project_evolution_llm_mock/docguard_llm_mock_patch_generation_report_2026_08.md`. A backend comparison report can be generated with:
 

@@ -33,7 +33,7 @@ Generated patch:
 
 ```diff
 @@ docs/api.md
-+Mock LLM patch: document `/reviews` based on the supplied code diff.
++Mock LLM patch: document `POST` based on the supplied code diff.
 ```
 
 Patch usefulness: useful as a concise starting patch. The patch is intentionally generic and should be reviewed by a developer before applying.
@@ -104,7 +104,7 @@ Generated patch:
 
 ```diff
 @@ docs/workflows.md
-+Mock LLM patch: document `*/15 * * * *` based on the supplied code diff.
++Mock LLM patch: document `0 * * * *` based on the supplied code diff.
 ```
 
 Patch usefulness: useful as a concise starting patch. The patch is intentionally generic and should be reviewed by a developer before applying.
@@ -143,7 +143,7 @@ Generated patch:
 
 ```diff
 @@ docs/models.md
-+Mock LLM patch: document `reviewerId` based on the supplied code diff.
++Mock LLM patch: document `ReviewDto` based on the supplied code diff.
 ```
 
 Patch usefulness: useful as a concise starting patch. The patch is intentionally generic and should be reviewed by a developer before applying.

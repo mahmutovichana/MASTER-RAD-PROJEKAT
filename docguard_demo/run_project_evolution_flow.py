@@ -51,6 +51,8 @@ def generate_patch_with_backend(record: dict[str, Any], pred: dict[str, Any], op
             pred.get("target_doc_file") or "",
             record["code_diff"],
             record["docs_before"],
+            pred.get("doc_category"),
+            pred.get("scenario_type"),
         )
         return {
             "patch_backend": "legacy",
@@ -70,7 +72,7 @@ def generate_patch_with_backend(record: dict[str, Any], pred: dict[str, Any], op
     if options.backend == "llm-hf" and not options.model_name:
         raise ValueError("--patch-model is required when --patch-backend llm-hf")
     if not pred["docs_update_required"]:
-        verifier = verify_patch(None, False, "", record["code_diff"], record["docs_before"])
+        verifier = verify_patch(None, False, "", record["code_diff"], record["docs_before"], pred.get("doc_category"), pred.get("scenario_type"))
         return {
             "patch_backend": options.backend,
             "patch_model": options.model_name or "",
@@ -108,7 +110,7 @@ def generate_patch_with_backend(record: dict[str, Any], pred: dict[str, Any], op
     )
     postprocessed = postprocess_patch(generated.get("patch_text"), pred["target_doc_file"], None)
     patch_text = postprocessed.get("patch_text")
-    verifier = verify_patch(patch_text, True, pred["target_doc_file"], record["code_diff"], record["docs_before"])
+    verifier = verify_patch(patch_text, True, pred["target_doc_file"], record["code_diff"], record["docs_before"], pred.get("doc_category"), pred.get("scenario_type"))
     warnings = list(postprocessed.get("warnings") or []) + list(verifier.get("warnings") or [])
     return {
         "patch_backend": options.backend,
