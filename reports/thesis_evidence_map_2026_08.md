@@ -8,7 +8,7 @@ This document separates the evidence streams for the DocGuard MSc thesis so resu
 | Real positive sensitivity | CoDocBench positive sample | The zero-shot model detects real code-doc/comment co-change positives | `code_diff_only` positive recall 100.00% on 500 positives | Do not report precision/F1/FPR because the sample is positive-only. |
 | Synthetic negative sanity | Synthetic no-update controls | The model is not constant-positive on in-domain synthetic negatives | 0/500 false positives in both tested input modes | Do not treat this as external negative evidence. |
 | External binary proxy zero-shot | Deep-JIT / DocChecker-style code-comment consistency | External binary proxy exposes domain/task shift | Accuracy 50.40%, recall 100.00%, FPR 99.20%, specificity 0.80%, MCC 0.0635 | Do not call this deployment-ready or project-level Markdown documentation performance. |
-| External task-specific adaptation | Deep-JIT TF-IDF classifier | External training improves binary specificity on code-comment consistency | Accuracy 66.41%, precision 68.82%, recall 60.01%, FPR 27.19%, specificity 72.81%, MCC 0.3310 | Do not merge this into the main DocGuard synthetic benchmark or claim Markdown patch generation. |
+| External task-specific adaptation | Deep-JIT classical v2 classifier | External training improves binary specificity on code-comment consistency | Current best: accuracy 75.60%, precision 78.84%, recall 69.99%, F1 74.15%, FPR 18.79%, specificity 81.21%, MCC 0.5153 | Do not merge this into the main DocGuard synthetic benchmark or claim Markdown patch generation. |
 
 ## Thesis-Safe Claims
 
@@ -33,3 +33,9 @@ Deep-JIT numeric label polarity remains `plausible_manual_verification_needed`. 
 ## Robustness Update
 
 A deterministic Summary validation carve-out robustness experiment was added to reduce Return-only validation bias. The model choice changed and test metrics became slightly weaker, which shows that the earlier Return-only validation setup was sensitive to subset composition. The combined-validation result should be considered the cleaner Deep-JIT model-selection setup, while the older Return-only result remains a useful historical baseline.
+
+## Classical V2 Update
+
+The stronger classical v2 Deep-JIT proxy baseline now supersedes the earlier combined-validation TF-IDF baseline as the primary Deep-JIT proxy result. It uses `logreg_balanced` with `word_char_tfidf_plus_manual_features` and `old_comment_plus_code_diff`, selected by validation MCC. On the untouched combined-validation test split it reaches 75.60% accuracy, 78.84% precision, 69.99% recall, 74.15% F1, 18.79% FPR, 81.21% specificity, and MCC 0.5153.
+
+The older combined-validation result remains a historical baseline: 66.41% accuracy, 68.82% precision, 60.01% recall, 64.12% F1, 27.19% FPR, 72.81% specificity, and MCC 0.3310.

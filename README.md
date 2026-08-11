@@ -132,13 +132,17 @@ Run the stronger classical baseline:
 python -m docguard_external.cli train-binary-v2 --train data/external/deep_jit_binary_combined_validation/train.jsonl --validation data/external/deep_jit_binary_combined_validation/validation.jsonl --test data/external/deep_jit_binary_combined_validation/test.jsonl --model-output models/external_deep_jit_classical_v2/binary_classical_v2.joblib --report reports/external_deep_jit_classical_v2_model_comparison_2026_08.md
 ```
 
-The full classical v2 run selected `logreg_balanced` with `word_char_tfidf_plus_manual_features` and `old_comment_plus_code_diff`: 75.60% accuracy, 78.84% precision, 69.99% recall, 74.15% F1, 18.79% FPR, 81.21% specificity, 75.60% balanced accuracy, and MCC 0.5153 on the untouched combined-validation Deep-JIT test split. This improves over the previous combined-validation best while remaining an external code-comment proxy result.
+The full classical v2 run is the current best Deep-JIT proxy result. It selected `logreg_balanced` with `word_char_tfidf_plus_manual_features` and `old_comment_plus_code_diff`: 75.60% accuracy, 78.84% precision, 69.99% recall, 74.15% F1, 18.79% FPR, 81.21% specificity, 75.60% balanced accuracy, and MCC 0.5153 on the untouched combined-validation Deep-JIT test split. This improves over the previous combined-validation best while remaining an external code-comment proxy result.
+
+The v2 safety and ablation audit confirms that the primary v2 model excludes future documentation fields (`new_comment_raw`, `doc_after`, `doc_diff`) and is selected by validation only. Manual features are useful but not the sole driver: word+char TF-IDF provides the main lift, and manual features add a smaller improvement.
 
 Run the optional frozen code-encoder baseline:
 
 ```bash
 python -m docguard_external.cli train-code-encoder-binary --train data/external/deep_jit_binary_combined_validation/train.jsonl --validation data/external/deep_jit_binary_combined_validation/validation.jsonl --test data/external/deep_jit_binary_combined_validation/test.jsonl --model-output models/external_deep_jit_code_encoder/binary_code_encoder.joblib --report reports/external_deep_jit_frozen_code_encoder_comparison_2026_08.md --cache-dir data/external/embedding_cache
 ```
+
+The frozen pretrained encoder baseline is implemented but deferred locally because CUDA is unavailable. It should be treated as an optional GPU/Colab experiment. DocGuard remains the central thesis artifact; Deep-JIT is only an external proxy benchmark for code-comment consistency, not the full Markdown DocGuard benchmark.
 
 Large raw external downloads should stay under `data/external/raw/`, which is ignored by git.
 

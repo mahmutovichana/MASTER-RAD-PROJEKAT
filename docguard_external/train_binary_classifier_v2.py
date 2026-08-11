@@ -25,7 +25,7 @@ from docguard_external.evaluate_existing_docguard import pct
 
 REPORTS_DIR = Path(__file__).resolve().parents[1] / "reports"
 INPUT_MODES = ["old_comment_plus_code_diff", "code_diff_only", "old_comment_plus_old_new_code"]
-FEATURE_SETS = ["word_tfidf", "char_tfidf", "word_char_tfidf", "word_char_tfidf_plus_manual_features"]
+FEATURE_SETS = ["word_tfidf", "char_tfidf", "word_char_tfidf", "manual_features_only", "word_char_tfidf_plus_manual_features"]
 BASE_MODELS = ["logreg_balanced", "linear_svc_balanced", "sgd_log_loss_balanced", "sgd_modified_huber_balanced", "complement_nb"]
 PREVIOUS_COMBINED = {
     "accuracy": 0.6641,
@@ -184,7 +184,7 @@ def feature_union(mode: str, feature_set: str, max_features: int) -> FeatureUnio
                 ),
             )
         )
-    if feature_set == "word_char_tfidf_plus_manual_features":
+    if feature_set in {"manual_features_only", "word_char_tfidf_plus_manual_features"}:
         parts.append(("manual", Pipeline([("manual", ManualFeatureExtractor(mode)), ("scale", MaxAbsScaler())])))
     if not parts:
         raise ValueError(f"unknown feature set: {feature_set}")
