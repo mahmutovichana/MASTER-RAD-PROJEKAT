@@ -22,6 +22,7 @@ The old deterministic patch generator remains the default `legacy` backend. The 
 
 - `--patch-backend legacy`
 - `--patch-backend llm-mock`
+- `--patch-backend llm-hf --patch-model <model-name>`
 
 The mock backend exercises prompt construction, postprocessing, and verification without loading any model.
 
@@ -51,10 +52,24 @@ The prompt builder does not accept:
 
 ## HuggingFace Plan
 
-`docguard_llm.llm_generator.generate_documentation_patch()` includes an optional `hf` backend for future HuggingFace causal instruction models such as Qwen, Mistral, or Llama variants. Imports for `torch` and `transformers` are lazy and occur only when `backend="hf"` is explicitly requested with a model name.
+`docguard_llm.llm_generator.generate_documentation_patch()` includes an optional `hf` backend for HuggingFace causal instruction models such as Qwen, Mistral, or Llama variants. Imports for `torch` and `transformers` are lazy and occur only when `backend="hf"` is explicitly requested with a model name.
 
-No model is downloaded, trained, or executed in this step.
+Recommended first smoke command:
+
+```bash
+python -m docguard_demo.run_project_evolution_flow --output-dir reports/live_flow/project_evolution_hf_smoke --patch-backend llm-hf --patch-model Qwen/Qwen2.5-1.5B-Instruct --case-limit 5 --max-new-tokens 384 --temperature 0.2
+```
+
+Recommended first model: `Qwen/Qwen2.5-1.5B-Instruct`.
+
+Optional stronger model: `Qwen/Qwen2.5-3B-Instruct`.
+
+Use 7B models only for cheap GPU/Colab if needed.
+
+No model is downloaded, trained, or executed unless the HF command is explicitly run. This is a zero-shot/few-shot inference phase, not fine-tuning.
 
 ## Current Limitation
 
 The `llm-mock` backend returns clearly marked mock patches. It validates architecture and safety, but it is not a real patch-quality result. A real CPU/GPU HuggingFace experiment should be reported separately once a model is explicitly selected and run.
+
+If dependencies are missing, the HF path records a clear error asking for `transformers`, `torch`, and optionally `accelerate` for `--device-map auto`. Legacy and mock runs do not require those packages.

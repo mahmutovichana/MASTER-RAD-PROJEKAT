@@ -212,7 +212,19 @@ The new mock LLM path exercises prompt building, mock generation, postprocessing
 python -m docguard_demo.run_project_evolution_flow --output-dir reports/live_flow/project_evolution_llm_mock --patch-backend llm-mock
 ```
 
-Architecture notes are in `reports/llm_patch_generation_architecture_2026_08.md`. Mock patch-generation output is in `reports/live_flow/project_evolution_llm_mock/docguard_llm_mock_patch_generation_report_2026_08.md`. Future work is to plug in an explicit HuggingFace instruction model through the lazy `hf` backend.
+Real HuggingFace patch generation is available as an explicit opt-in path. It may download the selected model only when this command is run:
+
+```bash
+python -m docguard_demo.run_project_evolution_flow --output-dir reports/live_flow/project_evolution_hf_smoke --patch-backend llm-hf --patch-model Qwen/Qwen2.5-1.5B-Instruct --case-limit 5 --max-new-tokens 384 --temperature 0.2
+```
+
+For the first smoke test, use `Qwen/Qwen2.5-1.5B-Instruct`. A stronger optional CPU/GPU candidate is `Qwen/Qwen2.5-3B-Instruct`; 7B models should be reserved for cheap GPU/Colab runs if needed. This is zero-shot/few-shot inference only; no fine-tuning is performed.
+
+Architecture notes are in `reports/llm_patch_generation_architecture_2026_08.md`. Mock patch-generation output is in `reports/live_flow/project_evolution_llm_mock/docguard_llm_mock_patch_generation_report_2026_08.md`. A backend comparison report can be generated with:
+
+```bash
+python scripts/compare_patch_backends.py --case-limit 5
+```
 
 Large raw external downloads should stay under `data/external/raw/`, which is ignored by git.
 

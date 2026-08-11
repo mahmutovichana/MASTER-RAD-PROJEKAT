@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 from collections import Counter, defaultdict
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -14,6 +15,18 @@ from docguard_llm.patch_verifier import verify_patch
 from docguard_llm.prompt_builder import build_patch_prompt
 
 from docguard_demo.project_evolution_scenarios import BASE_DIR, generate_project_evolution_cases
+
+
+@dataclass
+class PatchBackendOptions:
+    backend: str = "legacy"
+    model_name: str | None = None
+    max_new_tokens: int = 512
+    temperature: float = 0.2
+    device_map: str | None = None
+    torch_dtype: str | None = None
+    trust_remote_code: bool = False
+    save_prompts: bool = True
 
 
 def pct(value: float) -> str:
@@ -30,8 +43,8 @@ def prediction_input(record: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def generate_patch_with_backend(record: dict[str, Any], pred: dict[str, Any], patch_backend: str) -> dict[str, Any]:
-    if patch_backend == "legacy":
+def generate_patch_with_backend(record: dict[str, Any], pred: dict[str, Any], options: PatchBackendOptions) -> dict[str, Any]:
+    if options.backend == "legacy":
         verifier = verify_patch(
             pred.get("generated_doc_patch"),
             bool(pred["docs_update_required"]),
@@ -41,21 +54,31 @@ def generate_patch_with_backend(record: dict[str, Any], pred: dict[str, Any], pa
         )
         return {
             "patch_backend": "legacy",
+            "patch_model": "",
             "llm_prompt": "",
             "llm_patch_raw": "",
+            "llm_generation_status": "not_applicable",
+            "llm_error_message": "",
+            "llm_latency_seconds": None,
             "generated_doc_patch": pred.get("generated_doc_patch"),
             "patch_verifier_status": verifier["verifier_status"],
             "patch_verifier_warnings": verifier["warnings"],
             "grounded_tokens_found": verifier["grounded_tokens_found"],
         }
-    if patch_backend != "llm-mock":
-        raise ValueError(f"Unsupported patch backend: {patch_backend}")
+    if options.backend not in {"llm-mock", "llm-hf"}:
+        raise ValueError(f"Unsupported patch backend: {options.backend}")
+    if options.backend == "llm-hf" and not options.model_name:
+        raise ValueError("--patch-model is required when --patch-backend llm-hf")
     if not pred["docs_update_required"]:
         verifier = verify_patch(None, False, "", record["code_diff"], record["docs_before"])
         return {
-            "patch_backend": "llm-mock",
+            "patch_backend": options.backend,
+            "patch_model": options.model_name or "",
             "llm_prompt": "",
             "llm_patch_raw": "",
+            "llm_generation_status": "not_applicable",
+            "llm_error_message": "",
+            "llm_latency_seconds": None,
             "generated_doc_patch": None,
             "patch_verifier_status": verifier["verifier_status"],
             "patch_verifier_warnings": verifier["warnings"],
@@ -73,15 +96,28 @@ def generate_patch_with_backend(record: dict[str, Any], pred: dict[str, Any], pa
         project_id=record["project_id"],
         target_section=None,
     )
-    generated = generate_documentation_patch(prompt, backend="mock")
+    generated = generate_documentation_patch(
+        prompt,
+        backend="mock" if options.backend == "llm-mock" else "hf",
+        model_name=options.model_name,
+        max_new_tokens=options.max_new_tokens,
+        temperature=options.temperature,
+        device_map=options.device_map,
+        torch_dtype=options.torch_dtype,
+        trust_remote_code=options.trust_remote_code,
+    )
     postprocessed = postprocess_patch(generated.get("patch_text"), pred["target_doc_file"], None)
     patch_text = postprocessed.get("patch_text")
     verifier = verify_patch(patch_text, True, pred["target_doc_file"], record["code_diff"], record["docs_before"])
     warnings = list(postprocessed.get("warnings") or []) + list(verifier.get("warnings") or [])
     return {
-        "patch_backend": "llm-mock",
-        "llm_prompt": prompt,
+        "patch_backend": options.backend,
+        "patch_model": options.model_name or "",
+        "llm_prompt": prompt if options.save_prompts else "",
         "llm_patch_raw": generated.get("patch_text") or "",
+        "llm_generation_status": generated.get("generation_status") or "unknown",
+        "llm_error_message": generated.get("error_message") or "",
+        "llm_latency_seconds": generated.get("latency_seconds"),
         "generated_doc_patch": patch_text,
         "patch_verifier_status": verifier["verifier_status"] if postprocessed["postprocess_status"] == "ok" else "fail",
         "patch_verifier_warnings": warnings,
@@ -89,7 +125,8 @@ def generate_patch_with_backend(record: dict[str, Any], pred: dict[str, Any], pa
     }
 
 
-def evaluate(records: list[dict[str, Any]], patch_backend: str = "legacy") -> tuple[dict[str, Any], list[dict[str, Any]]]:
+def evaluate(records: list[dict[str, Any]], patch_options: PatchBackendOptions | None = None) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    options = patch_options or PatchBackendOptions()
     rows = []
     by_project: dict[str, Counter] = defaultdict(Counter)
     by_category: dict[str, Counter] = defaultdict(Counter)
@@ -98,7 +135,7 @@ def evaluate(records: list[dict[str, Any]], patch_backend: str = "legacy") -> tu
     patch_positive = positive_total = unknown = 0
     for record in records:
         pred = predict(prediction_input(record))
-        patch_result = generate_patch_with_backend(record, pred, patch_backend)
+        patch_result = generate_patch_with_backend(record, pred, options)
         pred["generated_doc_patch"] = patch_result["generated_doc_patch"]
         router = pred.get("router_output") or {}
         gold_required = bool(record["gold_docs_update_required"])
@@ -143,8 +180,12 @@ def evaluate(records: list[dict[str, Any]], patch_backend: str = "legacy") -> tu
                 "predicted_target_doc_file": pred["target_doc_file"],
                 "generated_doc_patch": pred.get("generated_doc_patch"),
                 "patch_backend": patch_result["patch_backend"],
+                "patch_model": patch_result["patch_model"],
                 "llm_prompt": patch_result["llm_prompt"],
                 "llm_patch_raw": patch_result["llm_patch_raw"],
+                "llm_generation_status": patch_result["llm_generation_status"],
+                "llm_error_message": patch_result["llm_error_message"],
+                "llm_latency_seconds": patch_result["llm_latency_seconds"],
                 "patch_verifier_status": patch_result["patch_verifier_status"],
                 "patch_verifier_warnings": patch_result["patch_verifier_warnings"],
                 "grounded_tokens_found": patch_result["grounded_tokens_found"],
@@ -265,6 +306,8 @@ def case_markdown(item: dict[str, Any]) -> list[str]:
         f"- Router reason: {item['router_reason']}",
         f"- Signals: `{', '.join(item['signals_detected'])}`",
         f"- Patch backend/verifier: `{item['patch_backend']}` / `{item['patch_verifier_status']}`",
+        f"- Patch model/generation: `{item['patch_model'] or 'none'}` / `{item['llm_generation_status']}`",
+        f"- LLM error: `{item['llm_error_message']}`",
         f"- Grounded tokens found: `{', '.join(item['grounded_tokens_found'])}`",
         f"- Patch verifier warnings: `{'; '.join(item['patch_verifier_warnings'])}`",
         f"- Interpretation: {interpretation}",
@@ -326,7 +369,9 @@ def write_walkthrough(path: Path, predictions: list[dict[str, Any]]) -> None:
     selected_categories = ["api_reference", "configuration", "workflow_documentation", "model_contract", "no_update"]
     selected = []
     for category in selected_categories:
-        selected.append(next(item for item in predictions if item["gold_doc_category"] == category))
+        item = next((item for item in predictions if item["gold_doc_category"] == category), None)
+        if item is not None:
+            selected.append(item)
     lines = [
         "# DocGuard Project Evolution Walkthrough 2026-08",
         "",
@@ -393,9 +438,32 @@ def update_evolution_logs(predictions: list[dict[str, Any]]) -> None:
         path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def run(output_dir: Path, patch_backend: str = "legacy") -> dict[str, Any]:
+def run(
+    output_dir: Path,
+    patch_backend: str = "legacy",
+    patch_model: str | None = None,
+    case_limit: int | None = None,
+    max_new_tokens: int = 512,
+    temperature: float = 0.2,
+    device_map: str | None = None,
+    torch_dtype: str | None = None,
+    trust_remote_code: bool = False,
+    save_prompts: bool = True,
+) -> dict[str, Any]:
     records = generate_project_evolution_cases()
-    metrics, predictions = evaluate(records, patch_backend=patch_backend)
+    if case_limit is not None:
+        records = records[:case_limit]
+    patch_options = PatchBackendOptions(
+        backend=patch_backend,
+        model_name=patch_model,
+        max_new_tokens=max_new_tokens,
+        temperature=temperature,
+        device_map=device_map,
+        torch_dtype=torch_dtype,
+        trust_remote_code=trust_remote_code,
+        save_prompts=save_prompts,
+    )
+    metrics, predictions = evaluate(records, patch_options=patch_options)
     output_dir.mkdir(parents=True, exist_ok=True)
     write_jsonl(output_dir / "docguard_project_evolution_predictions.jsonl", predictions)
     write_report(output_dir / "docguard_project_evolution_evaluation_2026_08.md", metrics, predictions, patch_backend)
@@ -404,15 +472,34 @@ def run(output_dir: Path, patch_backend: str = "legacy") -> dict[str, Any]:
     if patch_backend == "llm-mock":
         write_llm_mock_patch_report(output_dir / "docguard_llm_mock_patch_generation_report_2026_08.md", predictions, len(records))
     update_evolution_logs(predictions)
-    return {"status": "ok", "output_dir": str(output_dir), "patch_backend": patch_backend, **{k: v for k, v in metrics.items() if not k.startswith("by_")}}
+    return {"status": "ok", "output_dir": str(output_dir), "patch_backend": patch_backend, "patch_model": patch_model, **{k: v for k, v in metrics.items() if not k.startswith("by_")}}
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", default="reports/live_flow/project_evolution")
-    parser.add_argument("--patch-backend", choices=["legacy", "llm-mock"], default="legacy")
+    parser.add_argument("--patch-backend", choices=["legacy", "llm-mock", "llm-hf"], default="legacy")
+    parser.add_argument("--patch-model")
+    parser.add_argument("--case-limit", type=int)
+    parser.add_argument("--max-new-tokens", type=int, default=512)
+    parser.add_argument("--temperature", type=float, default=0.2)
+    parser.add_argument("--device-map")
+    parser.add_argument("--torch-dtype")
+    parser.add_argument("--trust-remote-code", action="store_true")
+    parser.add_argument("--save-prompts", action=argparse.BooleanOptionalAction, default=True)
     args = parser.parse_args()
-    print(json.dumps(run(Path(args.output_dir), patch_backend=args.patch_backend), indent=2, ensure_ascii=False))
+    print(json.dumps(run(
+        Path(args.output_dir),
+        patch_backend=args.patch_backend,
+        patch_model=args.patch_model,
+        case_limit=args.case_limit,
+        max_new_tokens=args.max_new_tokens,
+        temperature=args.temperature,
+        device_map=args.device_map,
+        torch_dtype=args.torch_dtype,
+        trust_remote_code=args.trust_remote_code,
+        save_prompts=args.save_prompts,
+    ), indent=2, ensure_ascii=False))
     return 0
 
 

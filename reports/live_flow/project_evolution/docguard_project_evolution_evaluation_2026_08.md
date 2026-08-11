@@ -94,6 +94,8 @@ This is a synthetic project-evolution live demo. It simulates multiple PR-like c
 - Router reason: Matched positive signal `route_added` from: route_added
 - Signals: `route_added`
 - Patch backend/verifier: `legacy` / `warn`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
@@ -132,6 +134,8 @@ Generated patch:
 - Router reason: Matched positive signal `validation_min_change` from: validation_min_change, validation_max_change, zod_validation_change, comments_only
 - Signals: `validation_min_change, validation_max_change, zod_validation_change, comments_only`
 - Patch backend/verifier: `legacy` / `pass`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
@@ -170,6 +174,8 @@ Generated patch:
 - Router reason: Matched positive signal `dto_field_added` from: dto_model_change, dto_field_added
 - Signals: `dto_model_change, dto_field_added`
 - Patch backend/verifier: `legacy` / `warn`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
@@ -211,6 +217,8 @@ Generated patch:
 - Router reason: Matched positive signal `added_env_var` from: added_env_var
 - Signals: `added_env_var`
 - Patch backend/verifier: `legacy` / `warn`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
@@ -248,6 +256,8 @@ Generated patch:
 - Router reason: Matched positive signal `changed_background_job_schedule` from: schedule_job_change, changed_background_job_schedule
 - Signals: `schedule_job_change, changed_background_job_schedule`
 - Patch backend/verifier: `legacy` / `warn`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
@@ -286,6 +296,8 @@ Generated patch:
 - Router reason: Matched no-update signal `internal_variable_rename` from: internal_variable_rename, source_only_refactor
 - Signals: `internal_variable_rename, source_only_refactor`
 - Patch backend/verifier: `legacy` / `pass`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
@@ -323,6 +335,8 @@ not_applicable
 - Router reason: Matched positive signal `test_command_change` from: test_command_change
 - Signals: `test_command_change`
 - Patch backend/verifier: `legacy` / `pass`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
@@ -362,6 +376,8 @@ Generated patch:
 - Router reason: Matched positive signal `route_added` from: route_added, docs_already_updated
 - Signals: `route_added, docs_already_updated`
 - Patch backend/verifier: `legacy` / `warn`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard missed at least one expected dimension; inspect router reason and signals.
@@ -398,6 +414,8 @@ Generated patch:
 - Router reason: Matched positive signal `route_added` from: route_added, changed_status_code
 - Signals: `route_added, changed_status_code`
 - Patch backend/verifier: `legacy` / `warn`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
@@ -436,6 +454,8 @@ Generated patch:
 - Router reason: Matched positive signal `dto_field_added` from: dto_model_change, dto_field_added
 - Signals: `dto_model_change, dto_field_added`
 - Patch backend/verifier: `legacy` / `warn`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
@@ -477,6 +497,8 @@ Generated patch:
 - Router reason: Matched positive signal `config_default_change` from: config_default_change
 - Signals: `config_default_change`
 - Patch backend/verifier: `legacy` / `pass`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
@@ -515,6 +537,8 @@ Generated patch:
 - Router reason: Matched positive signal `auth_middleware_change` from: route_added, auth_middleware_change
 - Signals: `route_added, auth_middleware_change`
 - Patch backend/verifier: `legacy` / `warn`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
@@ -553,6 +577,8 @@ Generated patch:
 - Router reason: Matched positive signal `local_seed_or_dev_flow` from: package_script_change, local_seed_or_dev_flow, log_message_change_no_user_visible_behavior
 - Signals: `package_script_change, local_seed_or_dev_flow, log_message_change_no_user_visible_behavior`
 - Patch backend/verifier: `legacy` / `warn`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
@@ -591,6 +617,8 @@ Generated patch:
 - Router reason: Matched no-update signal `private_helper_refactor` from: private_helper_refactor, source_only_refactor
 - Signals: `private_helper_refactor, source_only_refactor`
 - Patch backend/verifier: `legacy` / `pass`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
@@ -628,6 +656,8 @@ not_applicable
 - Router reason: Matched positive signal `changelog_worthy_change` from: changelog_worthy_change
 - Signals: `changelog_worthy_change`
 - Patch backend/verifier: `legacy` / `pass`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
@@ -669,6 +699,8 @@ Generated patch:
 - Router reason: Matched no-update signal `log_message_change_no_user_visible_behavior` from: log_message_change_no_user_visible_behavior, source_only_refactor
 - Signals: `log_message_change_no_user_visible_behavior, source_only_refactor`
 - Patch backend/verifier: `legacy` / `pass`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
@@ -706,6 +738,8 @@ not_applicable
 - Router reason: Matched positive signal `route_added` from: route_added, changed_status_code
 - Signals: `route_added, changed_status_code`
 - Patch backend/verifier: `legacy` / `warn`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
@@ -744,6 +778,8 @@ Generated patch:
 - Router reason: Matched positive signal `dto_field_added` from: dto_model_change, dto_field_added
 - Signals: `dto_model_change, dto_field_added`
 - Patch backend/verifier: `legacy` / `warn`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
@@ -785,6 +821,8 @@ Generated patch:
 - Router reason: Matched positive signal `added_env_var` from: added_env_var
 - Signals: `added_env_var`
 - Patch backend/verifier: `legacy` / `warn`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
@@ -822,6 +860,8 @@ Generated patch:
 - Router reason: Matched positive signal `service_orchestration_change` from: service_orchestration_change
 - Signals: `service_orchestration_change`
 - Patch backend/verifier: `legacy` / `pass`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
@@ -860,6 +900,8 @@ Generated patch:
 - Router reason: Matched positive signal `rate_limit_or_cache_change` from: route_added, auth_middleware_change, rate_limit_or_cache_change
 - Signals: `route_added, auth_middleware_change, rate_limit_or_cache_change`
 - Patch backend/verifier: `legacy` / `warn`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
 - Interpretation: DocGuard matched the intended route.
@@ -898,6 +940,8 @@ Generated patch:
 - Router reason: Matched no-update signal `comments_only` from: dto_model_change, comments_only
 - Signals: `dto_model_change, comments_only`
 - Patch backend/verifier: `legacy` / `pass`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
@@ -935,6 +979,8 @@ not_applicable
 - Router reason: Matched no-update signal `test_only_no_behavior_change` from: test_only_no_behavior_change, source_only_refactor
 - Signals: `test_only_no_behavior_change, source_only_refactor`
 - Patch backend/verifier: `legacy` / `pass`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.
@@ -972,6 +1018,8 @@ not_applicable
 - Router reason: Matched no-update signal `formatting_only` from: formatting_only, source_only_refactor
 - Signals: `formatting_only, source_only_refactor`
 - Patch backend/verifier: `legacy` / `pass`
+- Patch model/generation: `none` / `not_applicable`
+- LLM error: ``
 - Grounded tokens found: ``
 - Patch verifier warnings: ``
 - Interpretation: DocGuard matched the intended route.

@@ -41,13 +41,24 @@ def generate_documentation_patch(
     model_name: str | None = None,
     max_new_tokens: int = DEFAULT_PATCH_MAX_NEW_TOKENS,
     temperature: float = DEFAULT_PATCH_TEMPERATURE,
+    device_map: str | None = None,
+    torch_dtype: str | None = None,
+    trust_remote_code: bool = False,
 ) -> dict[str, Any]:
     start = time.perf_counter()
     try:
         if backend == "mock":
             patch_text = _mock_generate(prompt)
         elif backend == "hf":
-            patch_text = _generate_hf(prompt, model_name, max_new_tokens, temperature)
+            patch_text = _generate_hf(
+                prompt,
+                model_name,
+                max_new_tokens,
+                temperature,
+                device_map=device_map,
+                torch_dtype=torch_dtype,
+                trust_remote_code=trust_remote_code,
+            )
         else:
             raise ValueError(f"Unsupported documentation patch backend: {backend}")
         return {
@@ -69,23 +80,69 @@ def generate_documentation_patch(
         }
 
 
-def _generate_hf(prompt: str, model_name: str | None, max_new_tokens: int, temperature: float) -> str:
+def _resolve_torch_dtype(torch_module: Any, torch_dtype: str | None) -> Any:
+    if not torch_dtype:
+        return None
+    if torch_dtype == "auto":
+        return "auto"
+    try:
+        return getattr(torch_module, torch_dtype)
+    except AttributeError as exc:
+        raise RuntimeError(f"Unsupported torch dtype: {torch_dtype}") from exc
+
+
+def _generate_hf(
+    prompt: str,
+    model_name: str | None,
+    max_new_tokens: int,
+    temperature: float,
+    *,
+    device_map: str | None = None,
+    torch_dtype: str | None = None,
+    trust_remote_code: bool = False,
+) -> str:
     if not model_name:
         raise RuntimeError("backend='hf' requires an explicit model_name. No model is mandatory or downloaded by default.")
     try:
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
     except ModuleNotFoundError as exc:
-        raise RuntimeError("backend='hf' requires optional dependencies: torch and transformers.") from exc
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModelForCausalLM.from_pretrained(model_name)
-    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+        raise RuntimeError(
+            "backend='hf' requires optional dependencies. Install transformers and torch; "
+            "install accelerate as well if using --device-map auto."
+        ) from exc
+    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=trust_remote_code)
+    model_kwargs: dict[str, Any] = {"trust_remote_code": trust_remote_code}
+    resolved_dtype = _resolve_torch_dtype(torch, torch_dtype)
+    if resolved_dtype is not None:
+        try:
+            model_kwargs["torch_dtype"] = resolved_dtype
+        except TypeError:
+            model_kwargs["dtype"] = resolved_dtype
+    if device_map:
+        model_kwargs["device_map"] = device_map
+    try:
+        model = AutoModelForCausalLM.from_pretrained(model_name, **model_kwargs)
+    except ImportError as exc:
+        raise RuntimeError(
+            "HuggingFace loading failed. If you used --device-map auto, install accelerate. "
+            "Otherwise verify that torch and transformers are installed."
+        ) from exc
+    model.eval()
+    inputs = tokenizer(prompt, return_tensors="pt")
+    if not device_map:
+        device = next(model.parameters()).device
+        inputs = inputs.to(device)
     with torch.no_grad():
+        generation_kwargs: dict[str, Any] = {
+            "max_new_tokens": max_new_tokens,
+            "do_sample": temperature > 0,
+        }
+        if temperature > 0:
+            generation_kwargs["temperature"] = temperature
         outputs = model.generate(
             **inputs,
-            max_new_tokens=max_new_tokens,
-            do_sample=temperature > 0,
-            temperature=temperature if temperature > 0 else None,
+            **generation_kwargs,
         )
     generated = outputs[0][inputs["input_ids"].shape[-1]:]
     return tokenizer.decode(generated, skip_special_tokens=True)
