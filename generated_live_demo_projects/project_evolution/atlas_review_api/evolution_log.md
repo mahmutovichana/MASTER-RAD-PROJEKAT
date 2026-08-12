@@ -11,7 +11,7 @@ Baseline purpose: TypeScript/Express-like review management API.
 - Docs update required: `True`
 - Expected target doc: `docs/api.md`
 - Change: Document new POST /reviews endpoint.
-- DocGuard prediction: pending runner execution
+- DocGuard prediction: see generated results below
 
 ### 2. Tighten review comment validation
 
@@ -20,7 +20,7 @@ Baseline purpose: TypeScript/Express-like review management API.
 - Docs update required: `True`
 - Expected target doc: `docs/api.md`
 - Change: Update documented review comment validation.
-- DocGuard prediction: pending runner execution
+- DocGuard prediction: see generated results below
 
 ### 3. Expose reviewer id in review DTO
 
@@ -29,7 +29,7 @@ Baseline purpose: TypeScript/Express-like review management API.
 - Docs update required: `True`
 - Expected target doc: `docs/models.md`
 - Change: Document reviewerId in model contract.
-- DocGuard prediction: pending runner execution
+- DocGuard prediction: see generated results below
 
 ### 4. Add review feature flag
 
@@ -38,7 +38,7 @@ Baseline purpose: TypeScript/Express-like review management API.
 - Docs update required: `True`
 - Expected target doc: `docs/configuration.md`
 - Change: Document REVIEW_FEATURE_FLAG.
-- DocGuard prediction: pending runner execution
+- DocGuard prediction: see generated results below
 
 ### 5. Run review scheduler every fifteen minutes
 
@@ -47,7 +47,7 @@ Baseline purpose: TypeScript/Express-like review management API.
 - Docs update required: `True`
 - Expected target doc: `docs/workflows.md`
 - Change: Update scheduler workflow frequency.
-- DocGuard prediction: pending runner execution
+- DocGuard prediction: see generated results below
 
 ### 6. Rename local accumulator
 
@@ -56,7 +56,7 @@ Baseline purpose: TypeScript/Express-like review management API.
 - Docs update required: `False`
 - Expected target doc: `none`
 - Change: Internal variable rename only.
-- DocGuard prediction: pending runner execution
+- DocGuard prediction: see generated results below
 
 ### 7. Switch tests to Vitest
 
@@ -65,7 +65,7 @@ Baseline purpose: TypeScript/Express-like review management API.
 - Docs update required: `True`
 - Expected target doc: `docs/testing.md`
 - Change: Update test command documentation.
-- DocGuard prediction: pending runner execution
+- DocGuard prediction: see generated results below
 
 ### 8. Documented endpoint already updated
 
@@ -74,4 +74,10 @@ Baseline purpose: TypeScript/Express-like review management API.
 - Docs update required: `False`
 - Expected target doc: `none`
 - Change: Docs already aligned for the endpoint change.
-- DocGuard prediction: pending runner execution
+- DocGuard prediction: see generated results below
+
+## DocGuard Runner Results
+
+- `ATLAS-REVIEW-API-PR-01`: docs `True`, category `api_reference`, target `docs/api.md`.
+- `ATLAS-REVIEW-API-PR-02`: docs `True`, category `api_reference`, target `docs/api.md`.
+- `ATLAS-REVIEW-API-PR-03`: docs `True`, category `model_contract`, target `docs/models.md`.

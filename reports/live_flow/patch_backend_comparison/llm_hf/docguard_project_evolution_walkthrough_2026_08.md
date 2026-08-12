@@ -33,7 +33,16 @@ Generated patch:
 
 ```diff
 @@ docs/api.md
-+Mock LLM patch: document `POST` based on the supplied code diff.
++---
++# API Reference
++### Endpoints
++- **/reviews**
++  - **HTTP Method**: POST
++  - **Response Status Code**: 201
++  - **Response Fields**:
++    - `id`
++    - `reviewStatus`
++---
 ```
 
 Patch usefulness: useful as a concise starting patch. The patch is intentionally generic and should be reviewed by a developer before applying.
@@ -72,7 +81,18 @@ Generated patch:
 
 ```diff
 @@ docs/models.md
-+Mock LLM patch: document `ReviewDto` based on the supplied code diff.
++- # Models
++ # Models
++
++## ReviewDto
++
++**DTO Model Contract**
++
++| Field | Type |
++|-------|------|
++| id | string |
++| reviewerId | string |
++| status | string |
 ```
 
 Patch usefulness: useful as a concise starting patch. The patch is intentionally generic and should be reviewed by a developer before applying.

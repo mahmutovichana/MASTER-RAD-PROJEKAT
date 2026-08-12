@@ -2,7 +2,7 @@
 
 This is a synthetic project-evolution live demo. It simulates multiple PR-like changes across invented projects and runs `docguard_hybrid.predict()` with sanitized input only: code-side changed files, code diff, docs-before excerpt, project id, and case id.
 
-- Patch backend: `legacy`
+- Patch backend: `llm-hf`
 
 ## Summary Metrics
 
@@ -62,11 +62,11 @@ This is a synthetic project-evolution live demo. It simulates multiple PR-like c
 - Expected patch summary: Document new POST /reviews endpoint.
 - Router reason: Matched positive signal `route_added` from: route_added
 - Signals: `route_added`
-- Patch backend/verifier: `legacy` / `warn`
-- Patch model/generation: `none` / `not_applicable`
+- Patch backend/verifier: `llm-hf` / `pass`
+- Patch model/generation: `Qwen/Qwen2.5-1.5B-Instruct` / `ok`
 - LLM error: ``
-- Grounded tokens found: ``
-- Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
+- Grounded tokens found: `POST, /reviews, 201, id, reviewStatus`
+- Patch verifier warnings: `removed noisy model output line; removed noisy model output line; normalized patch into lightweight diff form`
 - Interpretation: DocGuard matched the intended route.
 
 Code diff:
@@ -87,8 +87,17 @@ Existing endpoints are documented here.
 Generated patch:
 
 ```diff
-@@ Documentation
-+new_endpoint.
+@@ docs/api.md
++---
++# API Reference
++### Endpoints
++- **/reviews**
++  - **HTTP Method**: POST
++  - **Response Status Code**: 201
++  - **Response Fields**:
++    - `id`
++    - `reviewStatus`
++---
 ```
 
 ### `ATLAS-REVIEW-API-PR-02` Tighten review comment validation
@@ -102,11 +111,11 @@ Generated patch:
 - Expected patch summary: Update documented review comment validation.
 - Router reason: Matched positive signal `validation_min_change` from: validation_min_change, validation_max_change, zod_validation_change, comments_only
 - Signals: `validation_min_change, validation_max_change, zod_validation_change, comments_only`
-- Patch backend/verifier: `legacy` / `warn`
-- Patch model/generation: `none` / `not_applicable`
+- Patch backend/verifier: `llm-hf` / `fail`
+- Patch model/generation: `Qwen/Qwen2.5-1.5B-Instruct` / `ok`
 - LLM error: ``
 - Grounded tokens found: ``
-- Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
+- Patch verifier warnings: `normalized patch into lightweight diff form; unsupported quoted/example values: GET; patch includes request fields although none are visible in allowed facts; patch does not include any concrete token extracted from the diff; patch is large for a minimal documentation patch`
 - Interpretation: DocGuard matched the intended route.
 
 Code diff:
@@ -127,8 +136,26 @@ Existing endpoints are documented here.
 Generated patch:
 
 ```diff
-@@ Documentation
-+changed_validation_min.
+@@ docs/api.md
++# API Reference
++The existing endpoints are documented here.
++## Endpoints
++### `/api/v1/endpoint`
++#### GET /api/v1/endpoint
++Get an endpoint's details.
++**Request Fields**
++- **path**: The path to the endpoint (e.g., "/api/v1/endpoint").
++- **method**: The HTTP method used for the request ("GET").
++**Response Fields**
++- **id**: A unique identifier for the endpoint.
++- **name**: The name of the endpoint.
++- **description**: A brief description of the endpoint.
++- **path**: The path to the endpoint.
++- **method**: The HTTP method used for the request.
++**Status Codes**
++- **200 OK**
++- **400 Bad Request**
++- **40
 ```
 
 ### `ATLAS-REVIEW-API-PR-03` Expose reviewer id in review DTO
@@ -142,11 +169,11 @@ Generated patch:
 - Expected patch summary: Document reviewerId in model contract.
 - Router reason: Matched positive signal `dto_field_added` from: dto_model_change, dto_field_added
 - Signals: `dto_model_change, dto_field_added`
-- Patch backend/verifier: `legacy` / `warn`
-- Patch model/generation: `none` / `not_applicable`
+- Patch backend/verifier: `llm-hf` / `pass`
+- Patch model/generation: `Qwen/Qwen2.5-1.5B-Instruct` / `ok`
 - LLM error: ``
-- Grounded tokens found: ``
-- Patch verifier warnings: `patch does not include any concrete token extracted from the diff`
+- Grounded tokens found: `ReviewDto, reviewerId, string`
+- Patch verifier warnings: `removed noisy model output line; removed noisy model output line; normalized patch into lightweight diff form`
 - Interpretation: DocGuard matched the intended route.
 
 Code diff:
@@ -170,7 +197,18 @@ Core DTOs and response contracts are documented here.
 Generated patch:
 
 ```diff
-@@ Documentation
-+added_dto_model_field.
+@@ docs/models.md
++- # Models
++ # Models
++
++## ReviewDto
++
++**DTO Model Contract**
++
++| Field | Type |
++|-------|------|
++| id | string |
++| reviewerId | string |
++| status | string |
 ```
 
