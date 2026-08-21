@@ -16,7 +16,7 @@ This is a synthetic project-evolution live demo. It simulates multiple PR-like c
 | `category_accuracy` | 100.00% |
 | `target_file_accuracy` | 100.00% |
 | `scenario_accuracy` | 100.00% |
-| `patch_non_empty_rate_for_positive_cases` | 100.00% |
+| `patch_non_empty_rate_for_positive_cases` | 66.67% |
 | `false_positives` | 0 |
 | `false_negatives` | 0 |
 | `unknown_scenarios` | 0 |
@@ -62,11 +62,11 @@ This is a synthetic project-evolution live demo. It simulates multiple PR-like c
 - Expected patch summary: Document new POST /reviews endpoint.
 - Router reason: Matched positive signal `route_added` from: route_added
 - Signals: `route_added`
-- Patch backend/verifier: `llm-hf` / `pass`
+- Patch backend/verifier: `llm-hf` / `fail`
 - Patch model/generation: `Qwen/Qwen2.5-1.5B-Instruct` / `ok`
 - LLM error: ``
 - Grounded tokens found: `POST, /reviews, 201, id, reviewStatus`
-- Patch verifier warnings: `removed noisy model output line; removed noisy model output line; normalized patch into lightweight diff form`
+- Patch verifier warnings: `removed noisy model output line; removed noisy model output line; normalized patch into lightweight diff form; patch includes request fields although none are visible in allowed facts`
 - Interpretation: DocGuard matched the intended route.
 
 Code diff:
@@ -89,15 +89,16 @@ Generated patch:
 ```diff
 @@ docs/api.md
 +---
-+# API Reference
-+### Endpoints
-+- **/reviews**
-+  - **HTTP Method**: POST
-+  - **Response Status Code**: 201
-+  - **Response Fields**:
-+    - `id`
-+    - `reviewStatus`
++Request Fields:
 +---
++Response Fields:
++- id
++- reviewStatus
++Status Codes:
++- 201
++Endpoint Path/Method:
++- /reviews
++- POST
 ```
 
 ### `ATLAS-REVIEW-API-PR-02` Tighten review comment validation
@@ -115,7 +116,7 @@ Generated patch:
 - Patch model/generation: `Qwen/Qwen2.5-1.5B-Instruct` / `ok`
 - LLM error: ``
 - Grounded tokens found: ``
-- Patch verifier warnings: `normalized patch into lightweight diff form; unsupported quoted/example values: GET; patch includes request fields although none are visible in allowed facts; patch does not include any concrete token extracted from the diff; patch is large for a minimal documentation patch`
+- Patch verifier warnings: `normalized patch into lightweight diff form; unsupported field/identifier claims: GET, POST; unsupported quoted/example values: GET, description, id, method, name; patch includes request fields although none are visible in allowed facts; patch does not include any concrete token extracted from the diff; patch is large for a minimal documentation patch`
 - Interpretation: DocGuard matched the intended route.
 
 Code diff:
@@ -144,18 +145,24 @@ Generated patch:
 +#### GET /api/v1/endpoint
 +Get an endpoint's details.
 +**Request Fields**
-+- **path**: The path to the endpoint (e.g., "/api/v1/endpoint").
-+- **method**: The HTTP method used for the request ("GET").
++- **path**: The path to the endpoint (e.g., `/api/v1/endpoint`).
 +**Response Fields**
-+- **id**: A unique identifier for the endpoint.
++- **id**: The unique identifier for the endpoint.
 +- **name**: The name of the endpoint.
 +- **description**: A brief description of the endpoint.
-+- **path**: The path to the endpoint.
-+- **method**: The HTTP method used for the request.
++- **method**: The HTTP method used for this endpoint (`GET`, `POST`, etc.).
 +**Status Codes**
 +- **200 OK**
 +- **400 Bad Request**
-+- **40
++- **404 Not Found**
++**Example Response**
++```json
++{
++  "id": 1,
++  "name": "Endpoint Name",
++  "description": "This is an example endpoint.",
++  "method": "GET"
++}
 ```
 
 ### `ATLAS-REVIEW-API-PR-03` Expose reviewer id in review DTO
@@ -169,11 +176,11 @@ Generated patch:
 - Expected patch summary: Document reviewerId in model contract.
 - Router reason: Matched positive signal `dto_field_added` from: dto_model_change, dto_field_added
 - Signals: `dto_model_change, dto_field_added`
-- Patch backend/verifier: `llm-hf` / `pass`
-- Patch model/generation: `Qwen/Qwen2.5-1.5B-Instruct` / `ok`
-- LLM error: ``
-- Grounded tokens found: `ReviewDto, reviewerId, string`
-- Patch verifier warnings: `removed noisy model output line; removed noisy model output line; normalized patch into lightweight diff form`
+- Patch backend/verifier: `llm-hf` / `fail`
+- Patch model/generation: `Qwen/Qwen2.5-1.5B-Instruct` / `error`
+- LLM error: `(MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /api/models/Qwen/Qwen2.5-1.5B-Instruct (Caused by NameResolutionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to resolve \'huggingface.co\' ([Errno 11001] getaddrinfo failed)"))'), '(Request ID: 4ea58343-196e-40db-8f58-e83d69eaadfd)')`
+- Grounded tokens found: ``
+- Patch verifier warnings: `empty patch; positive prediction has empty patch`
 - Interpretation: DocGuard matched the intended route.
 
 Code diff:
@@ -197,18 +204,6 @@ Core DTOs and response contracts are documented here.
 Generated patch:
 
 ```diff
-@@ docs/models.md
-+- # Models
-+ # Models
-+
-+## ReviewDto
-+
-+**DTO Model Contract**
-+
-+| Field | Type |
-+|-------|------|
-+| id | string |
-+| reviewerId | string |
-+| status | string |
+not_applicable
 ```
 

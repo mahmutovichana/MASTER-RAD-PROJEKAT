@@ -2,9 +2,9 @@
 
 This report exercises the optional LLM patch-generation architecture with the mock backend. No HuggingFace model is downloaded or executed.
 
-- cases evaluated: 3
+- cases evaluated: 5
 - patch backend: `llm-mock`
-- verifier status counts: `{"pass": 3}`
+- verifier status counts: `{"pass": 5}`
 
 When a real HuggingFace instruction model is plugged in, the same prompt builder, postprocessor, and verifier remain in place. Only the generation backend changes from `mock` to `hf`.
 

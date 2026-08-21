@@ -11,6 +11,12 @@ COMMON_MARKDOWN_WORDS = {
     "creates", "create", "returns", "visible", "implementation", "document", "based", "supplied",
     "diff", "patch", "configuration", "workflow", "model", "testing", "command", "default",
 }
+NO_UPDATE_PHRASES = {
+    "no additional content is required",
+    "no documentation update is required",
+    "no update is required",
+    "nothing needs to be changed",
+}
 
 
 def extract_grounding_tokens(code_diff: str) -> list[str]:
@@ -58,6 +64,31 @@ def _quoted_example_values(patch_text: str) -> set[str]:
     }
 
 
+def _required_added_env_vars(code_diff: str, docs_before: str) -> set[str]:
+    docs = docs_before.lower()
+    required: set[str] = set()
+    for line in code_diff.splitlines():
+        if not line.startswith("+") or line.startswith("+++"):
+            continue
+        for env_var in re.findall(r"process\.env\.([A-Z][A-Z0-9_]*)", line):
+            if env_var.lower() not in docs:
+                required.add(env_var)
+    return required
+
+
+def _required_added_routes(code_diff: str, docs_before: str) -> set[str]:
+    docs = docs_before.lower()
+    required: set[str] = set()
+    for line in code_diff.splitlines():
+        if not line.startswith("+") or line.startswith("+++"):
+            continue
+        for method, route in re.findall(r"(?:router|app)\.(get|post|put|patch|delete)\(['\"]([^'\"]+)", line, flags=re.IGNORECASE):
+            token = f"{method.upper()} {route}"
+            if method.lower() not in docs or route.lower() not in docs:
+                required.add(token)
+    return required
+
+
 def verify_patch(
     patch_text: str | None,
     docs_update_required: bool,
@@ -82,6 +113,8 @@ def verify_patch(
         warnings.append(f"patch mentions filenames outside target: {', '.join(outside)}")
     context = f"{code_diff}\n{docs_before}".lower()
     patch_lower = patch_text.lower()
+    if any(phrase in patch_lower for phrase in NO_UPDATE_PHRASES):
+        warnings.append("positive documentation update patch claims no content is required")
     for claim in sorted(UNSUPPORTED_CLAIMS):
         if claim in patch_lower and claim not in context:
             warnings.append(f"unsupported security/role claim: {claim}")
@@ -108,6 +141,16 @@ def verify_patch(
         warnings.append(f"unsupported quoted/example values: {', '.join(unsupported_examples)}")
     if "request fields" in patch_lower and not (facts.get("allowed_facts", {}).get("request_fields") or []):
         warnings.append("patch includes request fields although none are visible in allowed facts")
+    missing_required = []
+    for env_var in sorted(_required_added_env_vars(code_diff, docs_before)):
+        if env_var.lower() not in patch_lower:
+            missing_required.append(env_var)
+    for route in sorted(_required_added_routes(code_diff, docs_before)):
+        method, route_path = route.split(" ", 1)
+        if method.lower() not in patch_lower or route_path.lower() not in patch_lower:
+            missing_required.append(route)
+    if missing_required:
+        warnings.append(f"patch misses required visible change tokens: {', '.join(missing_required)}")
     if doc_category == "api_reference" or target_doc_file.endswith("api.md"):
         response_fields = {str(value).lower() for value in facts.get("allowed_facts", {}).get("response_fields", [])}
         if response_fields:
@@ -125,6 +168,8 @@ def verify_patch(
     status = "fail" if any(
         "outside target" in item
         or "unsupported" in item
+        or "claims no content" in item
+        or "misses required" in item
         or "request fields although none" in item
         or "fields not visible" in item
         for item in warnings

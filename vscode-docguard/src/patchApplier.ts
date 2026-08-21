@@ -25,9 +25,7 @@ export async function applyPatch(workspace: vscode.WorkspaceFolder, patch: DocGu
     const insertAt = nextHeading < 0 ? content.length : start + nextHeading;
     next = `${content.slice(0, insertAt).trimEnd()}\n${patch.text}\n\n${content.slice(insertAt).trimStart()}`;
   }
-  const edit = new vscode.WorkspaceEdit();
-  edit.replace(uri, new vscode.Range(0, 0, Number.MAX_SAFE_INTEGER, 0), next);
-  await vscode.workspace.applyEdit(edit);
+  await vscode.workspace.fs.writeFile(uri, Buffer.from(next, 'utf8'));
   const doc = await vscode.workspace.openTextDocument(uri);
   await doc.save();
 }
@@ -35,4 +33,3 @@ export async function applyPatch(workspace: vscode.WorkspaceFolder, patch: DocGu
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
-

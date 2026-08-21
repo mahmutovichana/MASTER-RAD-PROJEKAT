@@ -9,15 +9,15 @@ This is a synthetic project-evolution live demo. It simulates multiple PR-like c
 | Metric | Value |
 | --- | ---: |
 | `total_cases` | 24 |
-| `binary_accuracy` | 95.83% |
-| `precision` | 94.44% |
+| `binary_accuracy` | 100.00% |
+| `precision` | 100.00% |
 | `recall` | 100.00% |
-| `f1` | 97.14% |
-| `category_accuracy` | 95.83% |
-| `target_file_accuracy` | 95.83% |
-| `scenario_accuracy` | 95.83% |
+| `f1` | 100.00% |
+| `category_accuracy` | 100.00% |
+| `target_file_accuracy` | 100.00% |
+| `scenario_accuracy` | 100.00% |
 | `patch_non_empty_rate_for_positive_cases` | 100.00% |
-| `false_positives` | 1 |
+| `false_positives` | 0 |
 | `false_negatives` | 0 |
 | `unknown_scenarios` | 0 |
 
@@ -25,7 +25,7 @@ This is a synthetic project-evolution live demo. It simulates multiple PR-like c
 
 | Name | Total | Binary | Category | Target | Scenario |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `atlas_review_api` | 8 | 87.50% | 87.50% | 87.50% | 87.50% |
+| `atlas_review_api` | 8 | 100.00% | 100.00% | 100.00% | 100.00% |
 | `beacon_billing_service` | 8 | 100.00% | 100.00% | 100.00% | 100.00% |
 | `nova_task_platform` | 8 | 100.00% | 100.00% | 100.00% | 100.00% |
 
@@ -39,7 +39,7 @@ This is a synthetic project-evolution live demo. It simulates multiple PR-like c
 | `configuration` | 3 | 100.00% | 100.00% | 100.00% | 100.00% |
 | `developer_setup` | 1 | 100.00% | 100.00% | 100.00% | 100.00% |
 | `model_contract` | 3 | 100.00% | 100.00% | 100.00% | 100.00% |
-| `no_update` | 7 | 85.71% | 85.71% | 85.71% | 85.71% |
+| `no_update` | 7 | 100.00% | 100.00% | 100.00% | 100.00% |
 | `testing_instructions` | 1 | 100.00% | 100.00% | 100.00% | 100.00% |
 | `workflow_documentation` | 2 | 100.00% | 100.00% | 100.00% | 100.00% |
 
@@ -48,7 +48,7 @@ This is a synthetic project-evolution live demo. It simulates multiple PR-like c
 | Name | Total | Binary | Category | Target | Scenario |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | `easy` | 13 | 100.00% | 100.00% | 100.00% | 100.00% |
-| `hard` | 2 | 50.00% | 50.00% | 50.00% | 50.00% |
+| `hard` | 2 | 100.00% | 100.00% | 100.00% | 100.00% |
 | `medium` | 9 | 100.00% | 100.00% | 100.00% | 100.00% |
 
 ## Per-Case Walkthrough Table
@@ -62,7 +62,7 @@ This is a synthetic project-evolution live demo. It simulates multiple PR-like c
 | `ATLAS-REVIEW-API-PR-05` | `atlas_review_api` | `medium` | `True` | `True` | `True` | `True` | `docs/workflows.md` | `docs/workflows.md` | `schedule_job_change, changed_background_job_schedule` |
 | `ATLAS-REVIEW-API-PR-06` | `atlas_review_api` | `easy` | `True` | `True` | `True` | `True` | `` | `` | `internal_variable_rename, source_only_refactor` |
 | `ATLAS-REVIEW-API-PR-07` | `atlas_review_api` | `easy` | `True` | `True` | `True` | `True` | `docs/testing.md` | `docs/testing.md` | `test_command_change` |
-| `ATLAS-REVIEW-API-PR-08` | `atlas_review_api` | `hard` | `False` | `False` | `False` | `False` | `` | `docs/api.md` | `route_added, docs_already_updated` |
+| `ATLAS-REVIEW-API-PR-08` | `atlas_review_api` | `hard` | `True` | `True` | `True` | `True` | `` | `` | `route_added, docs_already_updated` |
 | `BEACON-BILLING-SERVICE-PR-01` | `beacon_billing_service` | `medium` | `True` | `True` | `True` | `True` | `docs/api.md` | `docs/api.md` | `route_added, changed_status_code` |
 | `BEACON-BILLING-SERVICE-PR-02` | `beacon_billing_service` | `easy` | `True` | `True` | `True` | `True` | `docs/models.md` | `docs/models.md` | `dto_model_change, dto_field_added` |
 | `BEACON-BILLING-SERVICE-PR-03` | `beacon_billing_service` | `medium` | `True` | `True` | `True` | `True` | `docs/configuration.md` | `docs/configuration.md` | `config_default_change` |
@@ -368,19 +368,19 @@ Generated patch:
 
 - Project: `atlas_review_api`
 - Difficulty: `hard`
-- Gold/pred docs update: `False` / `True`
-- Gold/pred category: `no_update` / `api_reference`
-- Gold/pred scenario: `docs_already_updated` / `new_endpoint`
-- Gold/pred target: `` / `docs/api.md`
+- Gold/pred docs update: `False` / `False`
+- Gold/pred category: `no_update` / `no_update`
+- Gold/pred scenario: `docs_already_updated` / `docs_already_updated`
+- Gold/pred target: `` / ``
 - Expected patch summary: Docs already aligned for the endpoint change.
-- Router reason: Matched positive signal `route_added` from: route_added, docs_already_updated
+- Router reason: Matched no-update signal `docs_already_updated` from: route_added, docs_already_updated
 - Signals: `route_added, docs_already_updated`
 - Patch backend/verifier: `llm-mock` / `pass`
-- Patch model/generation: `none` / `ok`
+- Patch model/generation: `none` / `not_applicable`
 - LLM error: ``
-- Grounded tokens found: `POST`
+- Grounded tokens found: ``
 - Patch verifier warnings: ``
-- Interpretation: DocGuard missed at least one expected dimension; inspect router reason and signals.
+- Interpretation: DocGuard matched the intended route.
 
 Code diff:
 
@@ -398,8 +398,7 @@ POST /reviews is already documented with request and response examples.
 Generated patch:
 
 ```diff
-@@ docs/api.md
-+Mock LLM patch: document `POST` based on the supplied code diff.
+not_applicable
 ```
 
 ### `BEACON-BILLING-SERVICE-PR-01` Add invoice payment endpoint

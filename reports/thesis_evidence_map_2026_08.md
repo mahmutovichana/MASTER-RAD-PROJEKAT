@@ -11,8 +11,9 @@ This document separates the evidence streams for the DocGuard MSc thesis so resu
 | External task-specific adaptation | Deep-JIT classical v2 classifier | External training improves binary specificity on code-comment consistency | Current best: accuracy 75.60%, precision 78.84%, recall 69.99%, F1 74.15%, FPR 18.79%, specificity 81.21%, MCC 0.5153 | Do not merge this into the main DocGuard synthetic benchmark or claim Markdown patch generation. |
 | Project-level real case study | Manually labeled GitHub commits/PRs | Directly evaluates the DocGuard agent workflow on real software-project documentation cases | 20 real public GitHub PR cases collected, hardened, and validator passed; runner deferred pending adapter | Do not report this small study as a large benchmark or use audit-only fields as model input. |
 | Live flow playground | Invented `atlas_review_api` mini project | End-to-end implementation sanity/demo for DocGuard agent flow across documentation classes | 15 synthetic live cases generated and run through `docguard_hybrid.predict()` | Do not report as benchmark performance or real-world evidence. |
-| Project evolution live demo | Three invented evolving projects | Explains the end-to-end DocGuard workflow across realistic PR-like synthetic changes | 24 synthetic PR-like changes; binary/category/target/scenario accuracy 95.83%; walkthrough report generated | Do not report as external benchmark evidence or production readiness. |
+| Project evolution live demo | Three invented evolving projects | Explains the end-to-end DocGuard workflow across realistic PR-like synthetic changes | 24 synthetic PR-like changes; binary/category/target/scenario accuracy 100.00%; walkthrough report generated | Do not report as external benchmark evidence or production readiness. |
 | Optional LLM patch-generation architecture | Project evolution mock backend | Prepares richer grounded documentation patch drafting after routing | Mock backend, postprocessor, and verifier implemented; no model downloaded or run | Do not report as real LLM performance or patch-quality benchmark. |
+| VS Code real LLM patch runtime | Live workspace diff in `examples/vscode_demo` | Shows the practical IDE path for real LLM patch drafting with guardrails | `llm-hf` runtime path implemented; Qwen 0.5B local CPU output was rejected by verifier; safe fallback exposed | Do not claim current local CPU LLM is high-quality or production-ready. |
 
 ## Thesis-Safe Claims
 
@@ -61,7 +62,7 @@ A stronger synthetic project-evolution demo now generates `atlas_review_api`, `b
 
 The runner uses sanitized prediction input only: project id, case id, code-side changed files, code diff, and docs-before excerpt. It does not pass docs-after text, gold labels, expected facts, manually assigned scenario type, manually assigned category, or target doc file into `docguard_hybrid.predict()`.
 
-Current project-evolution metrics are 95.83% binary accuracy, 94.44% precision, 100.00% recall, 97.14% F1, 95.83% category accuracy, 95.83% target file accuracy, and 95.83% scenario accuracy. One hard false positive remains visible where docs-before already says the endpoint is documented but the positive route-added signal wins. The walkthrough report is useful for thesis/demo screenshots because it shows the code change, documentation before, DocGuard's interpretation, target document, generated patch, and routing reason.
+Current project-evolution metrics are 100.00% binary accuracy, 100.00% precision, 100.00% recall, 100.00% F1, 100.00% category accuracy, 100.00% target file accuracy, and 100.00% scenario accuracy, with 0 false positives and 0 false negatives. The latest router hardening treats explicit docs-before coverage as a high-confidence no-update signal, so a positive code-change signal does not force a patch when the current documentation already describes the visible change. The walkthrough report is useful for thesis/demo screenshots because it shows the code change, documentation before, DocGuard's interpretation, target document, generated patch, and routing reason.
 
 ## LLM Patch-Generation Architecture Update
 
@@ -74,3 +75,11 @@ This remains architecture and optional-inference evidence only. It should not be
 The first Qwen 1.5B smoke run exposed unsupported patch details, so the LLM patch path now includes allowed-fact extraction, stricter prompts, and a stronger verifier. This is a methodological hardening step, not a new performance benchmark.
 
 Patch-quality evaluation has also been added as a heuristic/safety-oriented layer. It scores groundedness, minimality, readability, usefulness, and hallucination risk for generated patches. These scores support patch-quality analysis and backend comparison, but they are not human gold labels and should not be used as a production-readiness claim.
+
+The latest explicit Qwen 1.5B backend comparison ran on 3 synthetic project-evolution cases. All 3 HF patches were labeled `rejected` with `high` hallucination risk by the guardrail/evaluation layer. This shows that the current small local HF patch generator is not reliable enough to report as patch-quality success, while also showing that verifier and quality checks can surface unsafe outputs. The mock backend remains architecture sanity evidence only and is excluded from real LLM quality conclusions.
+
+## VS Code Real LLM Patch Runtime Update
+
+The VS Code extension now has a real LLM patch command, `DocGuard: Analyze Workspace Changes with LLM Patch`. It uses the current workspace git diff and docs-before text, routes the change through DocGuard, builds a grounded LLM prompt, calls the configured Hugging Face model, postprocesses the patch, runs verifier and patch-quality checks, and blocks automatic application when the patch is rejected.
+
+On the live `examples/vscode_demo` config-change diff, `Qwen/Qwen2.5-Coder-0.5B-Instruct` completed on CPU but produced rejected output. `Qwen/Qwen2.5-Coder-1.5B-Instruct` was too slow for practical local CPU use and was stopped. This is implementation evidence for the real IDE LLM path and guardrail design, not evidence that the current local CPU LLM produces human-quality documentation patches.

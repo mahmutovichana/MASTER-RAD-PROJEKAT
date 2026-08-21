@@ -32,9 +32,9 @@ NEGATIVE_SIGNAL_TO_SCENARIO = [
 ]
 
 POSITIVE_SIGNAL_TO_ROUTE = [
+    ("config_default_change", "configuration", "changed_default_config_value"),
     ("added_env_var", "configuration", "added_environment_variable"),
     ("removed_env_var", "configuration", "removed_environment_variable"),
-    ("config_default_change", "configuration", "changed_default_config_value"),
     ("local_seed_or_dev_flow", "developer_setup", "changed_local_development_flow"),
     ("package_script_change", "developer_setup", "changed_seed_or_setup_flow"),
     ("changed_background_job_schedule", "workflow_documentation", "changed_background_job_schedule"),
@@ -64,9 +64,23 @@ POSITIVE_SIGNAL_TO_ROUTE = [
 ]
 
 
+def _no_update_result(signal: str, scenario: str, names: list[str]) -> dict:
+    return {
+        "docs_update_required": False,
+        "candidate_doc_categories": ["no_update"],
+        "candidate_target_doc_files": [],
+        "candidate_scenario_types": [scenario],
+        "router_confidence": 0.94,
+        "router_reason": f"Matched no-update signal `{signal}` from: {', '.join(names)}",
+        "signals": names,
+    }
+
+
 def route(record: dict) -> dict:
     signals = extract_signals(record)
     names = signal_names(signals)
+    if signals.get("docs_already_updated"):
+        return _no_update_result("docs_already_updated", "docs_already_updated", names)
     for signal, category, scenario in POSITIVE_SIGNAL_TO_ROUTE:
         if signals.get(signal):
             return {
@@ -80,15 +94,7 @@ def route(record: dict) -> dict:
             }
     for signal, scenario in NEGATIVE_SIGNAL_TO_SCENARIO:
         if signals.get(signal):
-            return {
-                "docs_update_required": False,
-                "candidate_doc_categories": ["no_update"],
-                "candidate_target_doc_files": [],
-                "candidate_scenario_types": [scenario],
-                "router_confidence": 0.94,
-                "router_reason": f"Matched no-update signal `{signal}` from: {', '.join(names)}",
-                "signals": names,
-            }
+            return _no_update_result(signal, scenario, names)
     return {
         "docs_update_required": False,
         "candidate_doc_categories": ["no_update"],

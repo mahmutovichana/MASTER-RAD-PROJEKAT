@@ -6,6 +6,17 @@ export interface DocGuardPatch {
   section: string;
   text: string;
   preview: string;
+  backend?: string;
+  model_name?: string;
+  generation_status?: string;
+  generation_error?: string;
+  postprocess_status?: string;
+  verifier_status?: string;
+  quality_label?: string;
+  hallucination_risk?: string;
+  grounded_tokens_found?: string[];
+  warnings?: string[];
+  fallback_patch?: DocGuardPatch;
 }
 
 export interface DocGuardResult {
@@ -23,8 +34,14 @@ export interface DocGuardResult {
     model_used: string;
     classifier_architecture: string;
     input_mode: string;
+    patch_backend?: string;
+    patch_model?: string;
+    analysis_backend?: string;
+    analysis_model?: string;
+    analysis_status?: string;
+    analysis_error?: string;
+    analysis_raw_decision?: string;
     runtime_ms: number;
   };
   error_message: string | null;
 }
-

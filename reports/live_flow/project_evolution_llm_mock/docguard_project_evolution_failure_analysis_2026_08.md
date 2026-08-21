@@ -1,11 +1,13 @@
 # DocGuard Project Evolution Failure Analysis 2026-08
 
-Failures are kept visible; gold labels were not changed.
+No current failures were found after the latest project-evolution run.
 
-## `ATLAS-REVIEW-API-PR-08` Documented endpoint already updated
+- Patch backend: `llm-mock`
+- Total cases: 24
+- False positives: 0
+- False negatives: 0
+- Category mismatches: 0
+- Target-file mismatches: 0
+- Scenario mismatches: 0
 
-- Project: `atlas_review_api`
-- Failed binary/category/target/scenario: `True` / `True` / `True` / `True`
-- Router reason: Matched positive signal `route_added` from: route_added, docs_already_updated
-- Signals: `route_added, docs_already_updated`
-- Likely cause: router priority issue: a no-update docs-already-aligned signal was present, but the positive route signal won.
+The mock backend validates prompt, postprocess, and verifier flow only. It is not real model-quality evidence.

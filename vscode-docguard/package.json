@@ -10,6 +10,14 @@
   "categories": ["Other"],
   "activationEvents": [
     "onCommand:docguard.analyzeWorkspace",
+    "onCommand:docguard.analyzeWorkspaceWithLlm",
+    "onCommand:docguard.analyzeCurrentFile",
+    "onCommand:docguard.openPanel",
+    "onCommand:docguard.applyPatch",
+    "onCommand:docguard.applyFallbackPatch",
+    "onCommand:docguard.ignoreSuggestion",
+    "onCommand:docguard.startRuntime",
+    "onCommand:docguard.stopRuntime",
     "onView:docguard.panel"
   ],
   "main": "./out/extension.js",
@@ -25,9 +33,11 @@
   "contributes": {
     "commands": [
       {"command": "docguard.analyzeWorkspace", "title": "DocGuard: Analyze Workspace Changes"},
+      {"command": "docguard.analyzeWorkspaceWithLlm", "title": "DocGuard: Analyze Workspace Changes with LLM Patch"},
       {"command": "docguard.analyzeCurrentFile", "title": "DocGuard: Analyze Current File"},
       {"command": "docguard.openPanel", "title": "DocGuard: Open Panel"},
       {"command": "docguard.applyPatch", "title": "DocGuard: Apply Suggested Documentation Patch"},
+      {"command": "docguard.applyFallbackPatch", "title": "DocGuard: Apply Safe Fallback Documentation Patch"},
       {"command": "docguard.ignoreSuggestion", "title": "DocGuard: Ignore Suggestion"},
       {"command": "docguard.startRuntime", "title": "DocGuard: Start Runtime"},
       {"command": "docguard.stopRuntime", "title": "DocGuard: Stop Runtime"}
@@ -39,7 +49,18 @@
         "docguard.runtimeMode": {"type": "string", "default": "cli", "enum": ["cli", "daemon"], "description": "Runtime communication mode. CLI is used by the MVP."},
         "docguard.autoAnalyzeOnSave": {"type": "boolean", "default": false, "description": "Analyze workspace changes after saving a file."},
         "docguard.modelInputMode": {"type": "string", "default": "raw_diff_plus_docs", "description": "HF classifier input mode."},
-        "docguard.classifierArchitecture": {"type": "string", "default": "staged", "description": "HF classifier architecture."},
+        "docguard.classifierArchitecture": {"type": "string", "default": "hybrid_router", "enum": ["hybrid_router", "staged", "single"], "description": "Decision architecture. Use hybrid_router for the fast VS Code demo; staged/single opt into the HF classifier when available."},
+        "docguard.analysisBackend": {"type": "string", "default": "hybrid", "enum": ["hybrid", "llm-hf", "llm-openai-compatible", "llm-ollama", "llm-mock"], "description": "Documentation update decision backend. Use llm-openai-compatible for an LLM-first live demo; hybrid keeps the measured guardrail/router path."},
+        "docguard.analysisModel": {"type": "string", "default": "Qwen/Qwen2.5-Coder-32B-Instruct", "description": "Model name for LLM-first documentation update analysis."},
+        "docguard.analysisMaxNewTokens": {"type": "number", "default": 256, "description": "Maximum new tokens for LLM analysis JSON generation."},
+        "docguard.analysisTemperature": {"type": "number", "default": 0.0, "description": "Sampling temperature for LLM analysis JSON generation."},
+        "docguard.patchBackend": {"type": "string", "default": "deterministic", "enum": ["deterministic", "llm-hf", "llm-openai-compatible", "llm-ollama", "llm-mock"], "description": "Documentation patch generator. Use llm-openai-compatible or llm-ollama for stronger external/local model servers with verifier metadata."},
+        "docguard.patchModel": {"type": "string", "default": "Qwen/Qwen2.5-1.5B-Instruct", "description": "Patch-generation model name for the selected LLM backend."},
+        "docguard.patchMaxNewTokens": {"type": "number", "default": 192, "description": "Maximum new tokens for LLM patch generation."},
+        "docguard.patchTemperature": {"type": "number", "default": 0.1, "description": "Sampling temperature for LLM patch generation."},
+        "docguard.llmBaseUrl": {"type": "string", "default": "", "description": "Optional OpenAI-compatible LLM base URL passed to the Python runtime when DOCGUARD_LLM_BASE_URL is not set in the VS Code process."},
+        "docguard.llmApiKeyEnvironmentVariable": {"type": "string", "default": "DOCGUARD_LLM_API_KEY", "description": "Name of the environment variable that contains the LLM API key. Keep the key in your shell environment, not in repository files."},
+        "docguard.runtimeTimeoutSeconds": {"type": "number", "default": 240, "description": "Maximum time to wait for the Python runtime before terminating the process."},
         "docguard.showDiagnostics": {"type": "boolean", "default": true, "description": "Show runtime diagnostics in the panel."}
       }
     },
@@ -60,6 +81,7 @@
     "menus": {
       "commandPalette": [
         {"command": "docguard.analyzeWorkspace"},
+        {"command": "docguard.analyzeWorkspaceWithLlm"},
         {"command": "docguard.analyzeCurrentFile"},
         {"command": "docguard.openPanel"}
       ],
@@ -76,4 +98,3 @@
     }
   }
 }
-

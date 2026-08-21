@@ -38,6 +38,77 @@ Generated patch:
 
 Patch usefulness: useful as a concise starting patch. The patch is intentionally generic and should be reviewed by a developer before applying.
 
+## `ATLAS-REVIEW-API-PR-04` Add review feature flag
+
+Simulated developer change: Document REVIEW_FEATURE_FLAG.
+
+Relevant code diff:
+
+```diff
++export const REVIEW_FEATURE_FLAG = process.env.REVIEW_FEATURE_FLAG === 'enabled';
+```
+
+Documentation before:
+
+```md
+# Configuration
+
+DATABASE_URL and service-specific queue names are required.
+```
+
+What DocGuard understood: docs update `True`, category `configuration`, scenario `added_environment_variable`.
+
+DocGuard detected signals: `added_env_var`.
+
+Where DocGuard wanted to write: `docs/configuration.md`.
+
+Why DocGuard decided that: Matched positive signal `added_env_var` from: added_env_var
+
+Generated patch:
+
+```diff
+@@ Documentation
++added_environment_variable.
+```
+
+Patch usefulness: useful as a concise starting patch. The patch is intentionally generic and should be reviewed by a developer before applying.
+
+## `ATLAS-REVIEW-API-PR-05` Run review scheduler every fifteen minutes
+
+Simulated developer change: Update scheduler workflow frequency.
+
+Relevant code diff:
+
+```diff
+-scheduleJob('0 * * * *', runReviewScheduler);
++scheduleJob('*/15 * * * *', runReviewScheduler);
+```
+
+Documentation before:
+
+```md
+# Workflows
+
+Background jobs run on the default hourly schedule.
+```
+
+What DocGuard understood: docs update `True`, category `workflow_documentation`, scenario `changed_background_job_schedule`.
+
+DocGuard detected signals: `schedule_job_change, changed_background_job_schedule`.
+
+Where DocGuard wanted to write: `docs/workflows.md`.
+
+Why DocGuard decided that: Matched positive signal `changed_background_job_schedule` from: schedule_job_change, changed_background_job_schedule
+
+Generated patch:
+
+```diff
+@@ Documentation
++changed_background_job_schedule.
+```
+
+Patch usefulness: useful as a concise starting patch. The patch is intentionally generic and should be reviewed by a developer before applying.
+
 ## `ATLAS-REVIEW-API-PR-03` Expose reviewer id in review DTO
 
 Simulated developer change: Document reviewerId in model contract.

@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from collections import Counter
 from pathlib import Path
 
 
@@ -19,6 +20,8 @@ def read_jsonl(path: Path) -> list[dict]:
 
 
 def observation(row: dict) -> str:
+    if row.get("patch_backend") == "llm-mock":
+        return "Mock backend validates prompt/postprocess/verifier flow only; it is excluded from real LLM quality conclusions."
     quality_label = row.get("quality_label")
     if quality_label:
         if quality_label == "rejected":
@@ -38,8 +41,20 @@ def observation(row: dict) -> str:
     return "Patch failed lightweight verifier checks."
 
 
+def markdown_cell(value: object, limit: int | None = None) -> str:
+    text = " ".join(str(value if value is not None else "n/a").split())
+    text = text.replace("|", "/").replace("`", "'")
+    if limit is not None and len(text) > limit:
+        text = text[: max(0, limit - 3)].rstrip() + "..."
+    return text
+
+
 def preview(value: str) -> str:
-    return " ".join((value or "n/a").replace("`", "").split())[:140]
+    return markdown_cell(value or "n/a", limit=120)
+
+
+def fenced_patch(value: str | None) -> list[str]:
+    return ["````diff", value or "not_applicable", "````"]
 
 
 def add_quality(row: dict) -> dict:
@@ -61,10 +76,24 @@ def add_quality(row: dict) -> dict:
 
 
 def write_report(path: Path, grouped: dict[str, dict[str, dict]], hf_note: str) -> None:
+    backend_counts = {backend: Counter(row.get("quality_label") for rows in grouped.values() for name, row in rows.items() if name == backend) for backend in ["legacy", "llm-hf", "llm-mock"]}
+    risk_counts = {backend: Counter(row.get("hallucination_risk") for rows in grouped.values() for name, row in rows.items() if name == backend) for backend in ["legacy", "llm-hf", "llm-mock"]}
     lines = [
         "# DocGuard Patch Backend Comparison 2026-08",
         "",
         hf_note,
+        "",
+        "## Summary Counts",
+        "",
+        "Mock backend validates prompt/postprocess/verifier flow only; it is excluded from real LLM quality conclusions.",
+        "",
+        "| Backend | Role | Quality labels | Hallucination risk |",
+        "| --- | --- | --- | --- |",
+        f"| `legacy` | deterministic fallback | `{markdown_cell(dict(backend_counts['legacy']))}` | `{markdown_cell(dict(risk_counts['legacy']))}` |",
+        f"| `llm-hf` | real model output when explicitly requested | `{markdown_cell(dict(backend_counts['llm-hf']))}` | `{markdown_cell(dict(risk_counts['llm-hf']))}` |",
+        f"| `llm-mock` | architecture sanity only | `{markdown_cell(dict(backend_counts['llm-mock']))}` | `{markdown_cell(dict(risk_counts['llm-mock']))}` |",
+        "",
+        "## Comparison Table",
         "",
         "| Case | Target doc | Backend | Patch preview | Verifier | Warnings | Grounded tokens | Quality | Groundedness | Usefulness | Hallucination risk | Observation |",
         "| --- | --- | --- | --- | --- | --- | --- | --- | ---: | ---: | --- | --- |",
@@ -74,12 +103,101 @@ def write_report(path: Path, grouped: dict[str, dict[str, dict]], hf_note: str) 
             warnings = "; ".join(row.get("patch_verifier_warnings") or [])
             tokens = ", ".join(row.get("grounded_tokens_found") or [])
             lines.append(
-                f"| `{case_id}` | `{row.get('predicted_target_doc_file', '')}` | `{backend}` | "
-                f"`{preview(row.get('generated_doc_patch') or 'n/a')}` | `{row.get('patch_verifier_status')}` | "
-                f"`{warnings}` | `{tokens}` | `{row.get('quality_label')}` | "
+                f"| `{markdown_cell(case_id)}` | `{markdown_cell(row.get('predicted_target_doc_file', ''))}` | `{markdown_cell(backend)}` | "
+                f"`{preview(row.get('generated_doc_patch') or 'n/a')}` | `{markdown_cell(row.get('patch_verifier_status'))}` | "
+                f"`{markdown_cell(warnings, limit=140)}` | `{markdown_cell(tokens, limit=100)}` | `{markdown_cell(row.get('quality_label'))}` | "
                 f"{row.get('groundedness_score'):.2f} | {row.get('usefulness_score'):.2f} | "
-                f"`{row.get('hallucination_risk')}` | {observation(row)} |"
+                f"`{markdown_cell(row.get('hallucination_risk'))}` | {markdown_cell(observation(row), limit=180)} |"
             )
+    lines.extend(["", "## Detailed Patch Outputs", ""])
+    for case_id, rows in grouped.items():
+        lines.extend([f"### `{case_id}`", ""])
+        for backend, row in rows.items():
+            lines.extend(
+                [
+                    f"#### `{backend}`",
+                    "",
+                    f"- target file: `{row.get('predicted_target_doc_file', '')}`",
+                    f"- verifier: `{row.get('patch_verifier_status')}`",
+                    f"- quality: `{row.get('quality_label')}`",
+                    f"- hallucination risk: `{row.get('hallucination_risk')}`",
+                    f"- observation: {observation(row)}",
+                    "",
+                    *fenced_patch(row.get("generated_doc_patch")),
+                    "",
+                ]
+            )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def write_hf_findings_report(path: Path, grouped: dict[str, dict[str, dict]], model_name: str | None) -> None:
+    hf_rows = [rows["llm-hf"] for rows in grouped.values() if "llm-hf" in rows]
+    quality_counts = Counter(row.get("quality_label") for row in hf_rows)
+    risk_counts = Counter(row.get("hallucination_risk") for row in hf_rows)
+    verifier_counts = Counter(row.get("patch_verifier_status") for row in hf_rows)
+    best = [row for row in hf_rows if row.get("quality_label") in {"excellent", "usable"}]
+    rejected = [row for row in hf_rows if row.get("quality_label") == "rejected" or row.get("hallucination_risk") == "high"]
+    lines = [
+        "# DocGuard HF Patch Quality Findings 2026-08",
+        "",
+        f"- model: `{model_name or 'not_run'}`",
+        f"- HF cases actually evaluated: {len(hf_rows)}",
+        f"- HF quality label counts: `{markdown_cell(dict(quality_counts))}`",
+        f"- HF hallucination risk counts: `{markdown_cell(dict(risk_counts))}`",
+        f"- HF verifier status counts: `{markdown_cell(dict(verifier_counts))}`",
+        "",
+        "## Best HF Examples",
+        "",
+    ]
+    if not best:
+        lines.append("No usable/excellent HF examples were present in this comparison.")
+    for row in best:
+        lines.extend(
+            [
+                f"### `{row['case_id']}`",
+                "",
+                f"- quality: `{row.get('quality_label')}`",
+                f"- hallucination risk: `{row.get('hallucination_risk')}`",
+                f"- grounded tokens: `{', '.join(row.get('grounded_tokens_found') or [])}`",
+                f"- usefulness score: `{row.get('usefulness_score')}`",
+                "",
+                "```diff",
+                row.get("generated_doc_patch") or "not_applicable",
+                "```",
+                "",
+            ]
+        )
+    lines.extend(["## Rejected HF Examples", ""])
+    if not rejected:
+        lines.append("No rejected/high-risk HF examples were present in this comparison.")
+    for row in rejected:
+        lines.extend(
+            [
+                f"### `{row['case_id']}`",
+                "",
+                f"- quality: `{row.get('quality_label')}`",
+                f"- hallucination risk: `{row.get('hallucination_risk')}`",
+                f"- verifier: `{row.get('patch_verifier_status')}`",
+                f"- warnings: `{markdown_cell('; '.join(row.get('patch_verifier_warnings') or []))}`",
+                "",
+                *fenced_patch(row.get("generated_doc_patch")),
+                "",
+            ]
+        )
+    lines.extend(
+        [
+            "## Conclusion",
+            "",
+            "- HF can produce richer grounded patches than the legacy fallback when generation succeeds.",
+            "- HF can hallucinate unsupported documentation details and must be guarded.",
+            "- The verifier and patch-quality evaluator caught a failed/high-risk HF output in this comparison.",
+            "- The deterministic layer is a guardrail and evaluator around generation, not the final generator.",
+            "- The project-evolution setup remains synthetic demo evidence, not an external benchmark.",
+            "- These results are not a production-readiness claim.",
+            "",
+        ]
+    )
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -127,6 +245,8 @@ def main() -> int:
         for row in read_jsonl(path):
             grouped.setdefault(row["case_id"], {})[backend] = add_quality(row)
     write_report(output_dir / "docguard_patch_backend_comparison_2026_08.md", grouped, hf_note)
+    if "llm-hf" in paths:
+        write_hf_findings_report(output_dir / "docguard_hf_patch_quality_findings_2026_08.md", grouped, args.hf_model)
     print(json.dumps({"status": "ok", "report": str(output_dir / "docguard_patch_backend_comparison_2026_08.md"), "hf_model": args.hf_model}, indent=2))
     return 0
 

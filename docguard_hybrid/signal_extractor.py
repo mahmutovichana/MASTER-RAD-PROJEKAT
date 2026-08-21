@@ -41,21 +41,80 @@ NEGATIVE_SIGNAL_NAMES = {
 }
 
 
+def _added_env_vars(added_removed_lines: list[str]) -> list[str]:
+    env_vars: list[str] = []
+    for line in added_removed_lines:
+        if not line.startswith("+"):
+            continue
+        for match in re.finditer(r"\b[A-Z][A-Z0-9_]{3,}\b", line):
+            name = match.group(0)
+            if name not in env_vars:
+                env_vars.append(name)
+    return env_vars
+
+
+def _added_env_defaults(added_removed_lines: list[str]) -> dict[str, str]:
+    defaults: dict[str, str] = {}
+    for line in added_removed_lines:
+        if not line.startswith("+"):
+            continue
+        for match in re.finditer(r"process\.env\.([A-Z][A-Z0-9_]*)\s*(?:\|\||\?\?)\s*['\"]([^'\"]+)['\"]", line):
+            defaults[match.group(1)] = match.group(2)
+    return defaults
+
+
+def _added_routes(added_removed_lines: list[str]) -> list[tuple[str, str]]:
+    routes: list[tuple[str, str]] = []
+    for line in added_removed_lines:
+        if not line.startswith("+"):
+            continue
+        for match in re.finditer(r"(?:router|app)\.(get|post|put|patch|delete)\(['\"]([^'\"]+)", line):
+            route = (match.group(1).upper(), match.group(2))
+            if route not in routes:
+                routes.append(route)
+    return routes
+
+
+def _docs_cover_visible_addition(docs_before: str, added_removed_lines: list[str]) -> bool:
+    docs = docs_before.lower()
+    env_vars = _added_env_vars(added_removed_lines)
+    env_defaults = _added_env_defaults(added_removed_lines)
+    if env_vars and all(env_var.lower() in docs and (env_var not in env_defaults or env_defaults[env_var].lower() in docs) for env_var in env_vars):
+        return True
+    for method, path in _added_routes(added_removed_lines):
+        if method.lower() in docs and path.lower() in docs:
+            return True
+    return False
+
+
+def _docs_have_env_default_mismatch(docs_before: str, added_removed_lines: list[str]) -> bool:
+    docs = docs_before.lower()
+    for env_var, default in _added_env_defaults(added_removed_lines).items():
+        if env_var.lower() in docs and default.lower() not in docs:
+            return True
+    return False
+
+
 def extract_signals(record: dict) -> dict[str, bool]:
     files = " ".join(record.get("changed_files", [])).lower()
     diff = record.get("code_diff", "")
     docs_before = record.get("docs_before", "")
     text = f"{files}\n{diff}\n{docs_before}".lower()
-    added_removed_lines = [line.lower() for line in diff.splitlines() if line.startswith(("+", "-")) and not line.startswith(("+++", "---"))]
+    added_removed_lines_raw = [line for line in diff.splitlines() if line.startswith(("+", "-")) and not line.startswith(("+++", "---"))]
+    added_removed_lines = [line.lower() for line in added_removed_lines_raw]
     scenario = str(record.get("scenario_type", "")).lower()
     signals = {name: False for name in SIGNALS}
 
-    signals["added_env_var"] = any(line.startswith("+") and "review_feature_flag" in line for line in added_removed_lines) or scenario == "added_environment_variable"
+    signals["added_env_var"] = bool(_added_env_vars(added_removed_lines_raw)) or scenario == "added_environment_variable"
     signals["removed_env_var"] = "-legacy_review_flag" in text or scenario == "removed_environment_variable"
-    signals["config_default_change"] = any(line.startswith(("+", "-")) and "default_page_size" in line for line in added_removed_lines) or scenario == "changed_default_config_value"
+    signals["config_default_change"] = (
+        any(line.startswith(("+", "-")) and "default_page_size" in line for line in added_removed_lines)
+        or _docs_have_env_default_mismatch(str(docs_before), added_removed_lines_raw)
+        or scenario == "changed_default_config_value"
+    )
     signals["package_script_change"] = "package.json" in files and ("npm run" in text or '"dev"' in text or '"seed"' in text)
     signals["local_seed_or_dev_flow"] = "npm run seed" in text or "npm run dev" in text or scenario == "changed_local_development_flow"
-    signals["route_added"] = "+router.post" in text or scenario == "new_endpoint"
+    signals["route_added"] = bool(_added_routes(added_removed_lines_raw)) or scenario == "new_endpoint"
     signals["route_removed"] = "-router.get" in text and "legacy" in text or scenario == "removed_endpoint"
     signals["route_path_changed"] = "-router.get('/review')" in text or '-router.get("/review")' in text or scenario == "changed_endpoint_path"
     signals["http_method_changed"] = "+router.patch" in text or scenario == "changed_http_method"
@@ -84,7 +143,7 @@ def extract_signals(record: dict) -> dict[str, bool]:
     signals["test_command_change"] = ("package.json" in files and ("vitest" in text or "jest" in text or "test" in text)) or scenario == "changed_test_command"
     signals["changelog_worthy_change"] = "notifycustomersaboutreviewwindow" in text or scenario == "changelog_worthy_behavior_change"
 
-    signals["docs_already_updated"] = scenario == "docs_already_updated" or "already documented" in str(docs_before).lower() or ("docs/" in files and not any(signals[n] for n in POSITIVE_SIGNAL_NAMES))
+    signals["docs_already_updated"] = scenario == "docs_already_updated" or "already documented" in str(docs_before).lower() or _docs_cover_visible_addition(str(docs_before), added_removed_lines_raw) or ("docs/" in files and not any(signals[n] for n in POSITIVE_SIGNAL_NAMES))
     signals["formatting_only"] = scenario == "formatting_only_in_docs_or_code" or "formatting" in text
     signals["comments_only"] = scenario == "comments_reworded_no_contract_change" or "comment" in text or (
         any(line.startswith("+") and line.lstrip("+").strip().startswith("//") for line in added_removed_lines)
@@ -94,7 +153,9 @@ def extract_signals(record: dict) -> dict[str, bool]:
     signals["private_helper_refactor"] = scenario == "private_helper_refactor_no_flow_change" or "function private" in text
     signals["internal_variable_rename"] = scenario == "internal_variable_rename_no_behavior_change" or "renamedinternal" in text
     signals["dev_dependency_patch_no_command_change"] = scenario == "dev_dependency_patch_no_command_change"
-    signals["log_message_change_no_user_visible_behavior"] = scenario == "log_message_change_no_user_visible_behavior" or "logger." in text or "console.log" in text
+    signals["log_message_change_no_user_visible_behavior"] = scenario == "log_message_change_no_user_visible_behavior" or any(
+        line.startswith(("+", "-")) and ("logger." in line or "console.log" in line) for line in added_removed_lines
+    )
     signals["internal_performance_refactor_no_documented_behavior_change"] = scenario == "internal_performance_refactor_no_documented_behavior_change"
     signals["config_refactor_no_new_env_var"] = scenario == "config_refactor_no_new_env_var"
     signals["route_implementation_refactor_no_contract_change"] = scenario == "route_implementation_refactor_no_contract_change"

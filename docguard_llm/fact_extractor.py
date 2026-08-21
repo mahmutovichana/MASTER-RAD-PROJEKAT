@@ -72,7 +72,7 @@ def extract_allowed_facts(
         "behavior_tokens": [],
     }
 
-    for method, route in re.findall(r"router\.(get|post|put|patch|delete)\(['\"]([^'\"]+)['\"]", code_diff, flags=re.IGNORECASE):
+    for method, route in re.findall(r"(?:router|app)\.(get|post|put|patch|delete)\(['\"]([^'\"]+)['\"]", code_diff, flags=re.IGNORECASE):
         method_upper = method.upper()
         _add_unique(allowed_facts["http_methods"], method_upper)
         _add_unique(allowed_tokens, method_upper)
@@ -122,6 +122,9 @@ def extract_allowed_facts(
     for env_var in re.findall(r"process\.env\.([A-Z][A-Z0-9_]*)", code_diff):
         _add_unique(allowed_facts["env_vars"], env_var)
         _add_unique(allowed_tokens, env_var)
+    for value in re.findall(r"process\.env\.[A-Z][A-Z0-9_]*\s*(?:\|\||\?\?)\s*['\"]([^'\"]+)['\"]", code_diff):
+        _add_unique(allowed_facts["default_values"], value)
+        _add_unique(allowed_tokens, value)
     for variable in re.findall(r"(?:const|let|var|export const)\s+([A-Za-z_][A-Za-z0-9_]*)\s*=", code_diff):
         _add_unique(allowed_facts["config_variables"], variable)
         _add_unique(allowed_tokens, variable)

@@ -84,6 +84,8 @@ After the first Qwen 1.5B smoke test, the patch pipeline was hardened with an al
 
 These metrics are safety-oriented and comparative. They are not human gold labels and should not be presented as final patch-quality truth. They help show that legacy patches are often safe but generic, while LLM patches can be richer but must remain grounded and reviewed.
 
+The latest explicit Qwen 1.5B comparison evaluated 3 synthetic project-evolution cases. All 3 HF patches were rejected with high hallucination risk. This does not invalidate the architecture; it shows why the LLM generator needs fact extraction, verification, quality scoring, and human review before generated documentation patches can be trusted.
+
 ## Current Limitation
 
 The `llm-mock` backend returns clearly marked mock patches. It validates architecture and safety, but it is not a real patch-quality result. A real CPU/GPU HuggingFace experiment should be reported separately once a model is explicitly selected and run.

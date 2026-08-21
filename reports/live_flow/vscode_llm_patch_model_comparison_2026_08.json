@@ -1,0 +1,126 @@
+{
+  "status": "ok",
+  "workspace": "examples\\vscode_demo",
+  "patch_backend": "llm-openai-compatible",
+  "models": [
+    "Qwen/Qwen2.5-Coder-32B-Instruct",
+    "Qwen/Qwen2.5-Coder-7B-Instruct",
+    "meta-llama/Llama-3.1-8B-Instruct"
+  ],
+  "preflight": [
+    {
+      "model": "Qwen/Qwen2.5-Coder-32B-Instruct",
+      "ok": true,
+      "status": 200,
+      "error": ""
+    },
+    {
+      "model": "Qwen/Qwen2.5-Coder-7B-Instruct",
+      "ok": true,
+      "status": 200,
+      "error": ""
+    },
+    {
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "ok": true,
+      "status": 200,
+      "error": ""
+    }
+  ],
+  "recommended_model": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "results": [
+    {
+      "model": "Qwen/Qwen2.5-Coder-32B-Instruct",
+      "status": "ok",
+      "docs_update_required": true,
+      "target_doc_file": "docs/configuration.md",
+      "target_section": "Environment Variables",
+      "scenario_type": "added_environment_variable",
+      "doc_category": "configuration",
+      "confidence": 0.9,
+      "generation_status": "ok",
+      "postprocess_status": "ok",
+      "verifier_status": "pass",
+      "quality_label": "excellent",
+      "hallucination_risk": "low",
+      "grounded_tokens_found": [
+        "REVIEW_WINDOW",
+        "7d",
+        "env"
+      ],
+      "warnings": [
+        "normalized patch into lightweight diff form",
+        "patch is grounded, minimal, and readable under lightweight heuristic checks"
+      ],
+      "patch_preview": "## Environment Variables\n- `REVIEW_WINDOW` sets the review window and defaults to `7d`.",
+      "raw_patch_preview": "```md\n- `REVIEW_WINDOW` sets the review window and defaults to `7d`.\n```",
+      "fallback_preview": "",
+      "runtime_ms": 1386.45,
+      "error_message": ""
+    },
+    {
+      "model": "Qwen/Qwen2.5-Coder-7B-Instruct",
+      "status": "ok",
+      "docs_update_required": true,
+      "target_doc_file": "docs/configuration.md",
+      "target_section": "Environment Variables",
+      "scenario_type": "added_environment_variable",
+      "doc_category": "configuration",
+      "confidence": 0.9,
+      "generation_status": "ok",
+      "postprocess_status": "ok",
+      "verifier_status": "pass",
+      "quality_label": "excellent",
+      "hallucination_risk": "low",
+      "grounded_tokens_found": [
+        "REVIEW_WINDOW",
+        "7d",
+        "env"
+      ],
+      "warnings": [
+        "normalized patch into lightweight diff form",
+        "patch is grounded, minimal, and readable under lightweight heuristic checks"
+      ],
+      "patch_preview": "## Environment Variables\n## Environment Variables\n- `REVIEW_WINDOW` sets the review window and defaults to `7d`.",
+      "raw_patch_preview": "```markdown\n## Environment Variables\n\n- `REVIEW_WINDOW` sets the review window and defaults to `7d`.\n```",
+      "fallback_preview": "",
+      "runtime_ms": 1185.98,
+      "error_message": ""
+    },
+    {
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "status": "ok",
+      "docs_update_required": true,
+      "target_doc_file": "docs/configuration.md",
+      "target_section": "Environment Variables",
+      "scenario_type": "added_environment_variable",
+      "doc_category": "configuration",
+      "confidence": 0.9,
+      "generation_status": "ok",
+      "postprocess_status": "ok",
+      "verifier_status": "pass",
+      "quality_label": "excellent",
+      "hallucination_risk": "low",
+      "grounded_tokens_found": [
+        "reviewMode",
+        "reviewWindow",
+        "process",
+        "PORT",
+        "REVIEW_MODE",
+        "REVIEW_WINDOW",
+        "standard",
+        "7d",
+        "env"
+      ],
+      "warnings": [
+        "normalized patch into lightweight diff form",
+        "patch is longer than a minimal documentation update"
+      ],
+      "patch_preview": "## Environment Variables\n## Environment Variables\n- `REVIEW_WINDOW` sets the review window and defaults to `7d`.\n- `REVIEW_MODE` controls the default ticket review mode.\n- `process` is a field type.\n- `env` is a config variable.\n- `PORT` is an environment variable.\n- `standard` is a default value.\n- `7d` is a default value.\n- `reviewMode` is an added field.\n- `reviewWindow` is an added field.",
+      "raw_patch_preview": "## Environment Variables\n\n- `REVIEW_WINDOW` sets the review window and defaults to `7d`.\n- `REVIEW_MODE` controls the default ticket review mode.\n- `process` is a field type.\n- `env` is a config variable.\n- `PORT` is an environment variable.\n- `standard` is a default value.\n- `7d` is a default value.\n- `reviewMode` is an added field.\n- `reviewWindow` is an added field.",
+      "fallback_preview": "",
+      "runtime_ms": 9441.66,
+      "error_message": ""
+    }
+  ]
+}

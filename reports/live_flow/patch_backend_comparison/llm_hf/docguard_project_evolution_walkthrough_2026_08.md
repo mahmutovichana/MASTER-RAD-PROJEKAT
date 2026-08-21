@@ -34,15 +34,16 @@ Generated patch:
 ```diff
 @@ docs/api.md
 +---
-+# API Reference
-+### Endpoints
-+- **/reviews**
-+  - **HTTP Method**: POST
-+  - **Response Status Code**: 201
-+  - **Response Fields**:
-+    - `id`
-+    - `reviewStatus`
++Request Fields:
 +---
++Response Fields:
++- id
++- reviewStatus
++Status Codes:
++- 201
++Endpoint Path/Method:
++- /reviews
++- POST
 ```
 
 Patch usefulness: useful as a concise starting patch. The patch is intentionally generic and should be reviewed by a developer before applying.
@@ -80,19 +81,7 @@ Why DocGuard decided that: Matched positive signal `dto_field_added` from: dto_m
 Generated patch:
 
 ```diff
-@@ docs/models.md
-+- # Models
-+ # Models
-+
-+## ReviewDto
-+
-+**DTO Model Contract**
-+
-+| Field | Type |
-+|-------|------|
-+| id | string |
-+| reviewerId | string |
-+| status | string |
+not_applicable
 ```
 
-Patch usefulness: useful as a concise starting patch. The patch is intentionally generic and should be reviewed by a developer before applying.
+Patch usefulness: not applicable because DocGuard predicted no update. The patch is intentionally generic and should be reviewed by a developer before applying.

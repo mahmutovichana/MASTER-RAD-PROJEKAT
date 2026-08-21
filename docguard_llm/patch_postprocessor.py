@@ -10,6 +10,13 @@ ROLE_PREFIX_RE = re.compile(r"^(assistant|user|system)\s*:\s*", re.IGNORECASE)
 NOISY_HEADING_RE = re.compile(r"^\s*(?:patch|documentation patch|markdown patch)\s*:?\s*$", re.IGNORECASE)
 TARGET_LABEL_RE = re.compile(r"^\s*(?:docs/[A-Za-z0-9_.-]+\.md|CHANGELOG\.md|README\.md)\s*:?\s*$")
 TABLE_SEPARATOR_RE = re.compile(r"^\s*\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?\s*$")
+MARKDOWN_HEADING_RE = re.compile(r"^\s{0,3}#{1,6}\s+(.+?)\s*$")
+PROMPT_LEAK_MARKERS = [
+    "Use this draft only if it is supported by the diff",
+    "Current documentation:",
+    "Code diff:",
+    "Allowed facts extracted from the diff:",
+]
 
 
 def _strip_markdown_fences(text: str) -> str:
@@ -31,6 +38,11 @@ def postprocess_patch(
     if target_doc_file and target_doc_file not in allowed:
         return {"patch_text": None, "postprocess_status": "fail", "warnings": [f"unsupported target file: {target_doc_file}"]}
     text = _strip_markdown_fences(raw_patch or "")
+    for marker in PROMPT_LEAK_MARKERS:
+        if marker in text:
+            text = text.split(marker, 1)[0].strip()
+            warnings.append("truncated prompt leakage after generated patch")
+            break
     cleaned_lines: list[str] = []
     previous_heading = ""
     for raw_line in text.splitlines():
@@ -66,6 +78,10 @@ def postprocess_patch(
         for line in text.splitlines():
             if not line.strip():
                 continue
+            heading = MARKDOWN_HEADING_RE.match(line)
+            if heading and heading.group(1).strip().lower() == section.lower():
+                warnings.append("removed target section heading from patch body")
+                continue
             if line.lstrip().startswith("|"):
                 warnings.append("converted table-like row into bullet")
                 content_lines.append("+ - " + " ".join(part.strip() for part in line.strip("| ").split("|") if part.strip()))
@@ -77,8 +93,14 @@ def postprocess_patch(
     else:
         lines = text.splitlines()
         normalized = [lines[0]]
+        section_name = lines[0].lstrip("@").strip().lower()
         for line in lines[1:]:
             if not line.strip():
+                continue
+            candidate = line[1:] if line.startswith("+") else line
+            heading = MARKDOWN_HEADING_RE.match(candidate)
+            if heading and heading.group(1).strip().lower() == section_name:
+                warnings.append("removed target section heading from patch body")
                 continue
             if line.lstrip().startswith("|"):
                 warnings.append("converted table-like row into bullet")

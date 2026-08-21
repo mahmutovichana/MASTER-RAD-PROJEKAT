@@ -15,7 +15,7 @@ export function activate(context: vscode.ExtensionContext): void {
   const status = new DocGuardStatusBar();
   context.subscriptions.push(status, vscode.window.registerWebviewViewProvider('docguard.panel', panel));
 
-  async function analyze(): Promise<void> {
+  async function analyze(patchBackendOverride?: string): Promise<void> {
     const folder = vscode.workspace.workspaceFolders?.[0];
     if (!folder) {
       void vscode.window.showWarningMessage('Open a workspace folder before running DocGuard.');
@@ -25,7 +25,7 @@ export function activate(context: vscode.ExtensionContext): void {
     status.setAnalyzing();
     try {
       await client.checkRuntime(folder);
-      lastResult = await client.analyzeWorkspace(folder);
+      lastResult = await client.analyzeWorkspace(folder, patchBackendOverride);
       panel.showResult(lastResult);
       if (lastResult.status === 'error') {
         status.setError();
@@ -55,6 +55,7 @@ export function activate(context: vscode.ExtensionContext): void {
 
   context.subscriptions.push(
     vscode.commands.registerCommand('docguard.analyzeWorkspace', analyze),
+    vscode.commands.registerCommand('docguard.analyzeWorkspaceWithLlm', () => analyze()),
     vscode.commands.registerCommand('docguard.analyzeCurrentFile', analyze),
     vscode.commands.registerCommand('docguard.openPanel', () => panel.reveal()),
     vscode.commands.registerCommand('docguard.startRuntime', () => vscode.window.showInformationMessage('DocGuard CLI runtime is ready.')),
@@ -69,12 +70,30 @@ export function activate(context: vscode.ExtensionContext): void {
       if (!folder || !lastResult?.patch) {
         return;
       }
+      if (lastResult.patch.verifier_status === 'fail' || lastResult.patch.quality_label === 'rejected') {
+        void vscode.window.showWarningMessage('DocGuard will not apply this patch because the verifier rejected it.');
+        return;
+      }
       const confirm = await vscode.window.showWarningMessage('Apply DocGuard documentation patch?', { modal: true }, 'Apply Patch');
       if (confirm !== 'Apply Patch') {
         return;
       }
       await applyPatch(folder, lastResult.patch);
       void vscode.window.showInformationMessage(`DocGuard updated ${lastResult.patch.file}.`);
+      await analyze();
+    }),
+    vscode.commands.registerCommand('docguard.applyFallbackPatch', async () => {
+      const folder = vscode.workspace.workspaceFolders?.[0];
+      const fallback = lastResult?.patch?.fallback_patch;
+      if (!folder || !fallback) {
+        return;
+      }
+      const confirm = await vscode.window.showWarningMessage('Apply DocGuard safe fallback documentation patch?', { modal: true }, 'Apply Fallback');
+      if (confirm !== 'Apply Fallback') {
+        return;
+      }
+      await applyPatch(folder, fallback);
+      void vscode.window.showInformationMessage(`DocGuard updated ${fallback.file} with the safe fallback patch.`);
       await analyze();
     })
   );
@@ -99,4 +118,3 @@ export function activate(context: vscode.ExtensionContext): void {
 }
 
 export function deactivate(): void {}
-

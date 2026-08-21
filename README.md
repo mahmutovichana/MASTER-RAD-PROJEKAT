@@ -196,6 +196,8 @@ python -m docguard_demo.run_project_evolution_flow --output-dir reports/live_flo
 
 The current project-evolution output is in `reports/live_flow/project_evolution/docguard_project_evolution_evaluation_2026_08.md`. A human-readable walkthrough is in `reports/live_flow/project_evolution/docguard_project_evolution_walkthrough_2026_08.md`; it shows the code change, docs before, what DocGuard understood, where it wanted to write, the generated patch, and why it made that decision. This supports implementation sanity and explainability only. It is synthetic demo evidence, not an external benchmark or production-readiness claim.
 
+After the latest router hardening pass, this synthetic project-evolution flow reaches 100.00% binary accuracy, precision, recall, F1, category accuracy, target-file accuracy, and scenario accuracy across 24 PR-like cases, with 0 false positives and 0 false negatives. The improvement comes from treating explicit docs-before coverage as a high-confidence no-update signal, so DocGuard does not propose a documentation patch when the current docs already describe the visible change.
+
 ### Optional LLM patch-generation layer
 
 An optional model-agnostic LLM patch-generation layer has been prepared in `docguard_llm/`. It keeps detection and routing in `docguard_hybrid`, then builds a safe patch-generation prompt from sanitized runtime inputs only: code diff, docs-before excerpt, predicted category, predicted target file, router signals, and router reason. It does not use gold labels, expected facts, expected patch summaries, docs-after text, or manual notes.
@@ -227,6 +229,8 @@ python scripts/smoke_hf_patch_generation.py --model Qwen/Qwen2.5-1.5B-Instruct -
 A stronger optional CPU/GPU candidate is `Qwen/Qwen2.5-3B-Instruct`; 7B models should be reserved for cheap GPU/Colab runs if needed. This is zero-shot/few-shot inference only; no fine-tuning is performed.
 
 Patch quality is evaluated with heuristic, safety-oriented scores for groundedness, minimality, readability, usefulness, and hallucination risk. These scores help compare `legacy`, `llm-mock`, and optional `llm-hf` patches, but they are not human gold labels. Legacy patches may be safe but generic; LLM patches may be richer but require grounding, verification, and human review.
+
+The latest explicit Qwen 1.5B backend comparison used `Qwen/Qwen2.5-1.5B-Instruct` on 3 project-evolution cases. The quality evaluator marked all 3 HF patches as `rejected` with `high` hallucination risk, while keeping the failed outputs visible in `reports/live_flow/patch_backend_comparison/docguard_hf_patch_quality_findings_2026_08.md`. This is useful negative evidence for the guardrail layer, not a production-readiness result. The mock backend remains architecture-only and is not counted as real model-quality evidence.
 
 Architecture notes are in `reports/llm_patch_generation_architecture_2026_08.md`. Mock patch-generation output is in `reports/live_flow/project_evolution_llm_mock/docguard_llm_mock_patch_generation_report_2026_08.md`. A backend comparison report can be generated with:
 
@@ -570,9 +574,17 @@ DocGuard v0.5 adds a practical VS Code workflow:
 - analyze current git changes through the Python runtime
 - show a bottom-panel patch preview when documentation should change
 - apply documentation patches only after user confirmation
-- fall back to the deterministic hybrid router if the HF model is unavailable
+- use the fast deterministic hybrid router by default for live demos, with the HF classifier available as an explicit optional path
 
-Train the recommended local classifier:
+Prepare the reproducible VS Code demo workspace:
+
+```bash
+python scripts/prepare_vscode_demo.py --scenario config-env
+```
+
+This leaves an intentional uncommitted change in `examples/vscode_demo/src/config.ts`. DocGuard should detect the new `REVIEW_WINDOW` environment variable, target `docs/configuration.md`, and preview a documentation patch. After applying the patch, a second analysis should report no documentation update required.
+
+Train the recommended local classifier only for the optional HF path:
 
 ```bash
 python -m docguard_hf_classifier.cli train-embeddings --version v0_4 --model sentence-transformers/all-MiniLM-L6-v2 --input-mode raw_diff_plus_docs --classifier-architecture staged
@@ -593,6 +605,27 @@ npm run compile
 ```
 
 Then open `vscode-docguard` in VS Code and press `F5` to launch an Extension Development Host. For a hands-on demo, open `examples/vscode_demo`, make a small config or API change, and run `DocGuard: Analyze Workspace Changes`.
+
+The extension also includes a real LLM patch command:
+
+```text
+DocGuard: Analyze Workspace Changes with LLM Patch
+```
+
+This command uses the live workspace diff and docs-before text, asks the configured LLM backend to draft the documentation patch, then runs postprocessing, verification, and patch-quality checks. Rejected LLM outputs remain visible and are not applied automatically; the panel can show a safe grounded fallback patch. Supported real patch backends now include local Hugging Face, OpenAI-compatible chat-completions servers such as vLLM or LM Studio, and Ollama.
+
+Local CPU smoke result: `Qwen/Qwen2.5-Coder-0.5B-Instruct` ran on the live VS Code demo diff but produced rejected patch output, while `Qwen/Qwen2.5-Coder-1.5B-Instruct` was too slow for practical local CPU use. This supports the architecture and guardrail story, but high-quality LLM patch drafting should use a stronger GPU, quantized, or remote backend.
+
+For a Hugging Face Router backed VS Code demo, keep the API key only in the current shell environment, then check available chat models and compare patch quality on the live demo workspace:
+
+```powershell
+$env:DOCGUARD_LLM_BASE_URL="https://router.huggingface.co/v1"
+$env:DOCGUARD_LLM_API_KEY="<hugging-face-token>"
+python scripts/check_hf_router_models.py
+python scripts/compare_live_llm_patch_models.py --models "Qwen/Qwen2.5-Coder-32B-Instruct" "Qwen/Qwen2.5-Coder-7B-Instruct" "meta-llama/Llama-3.1-8B-Instruct" --max-new-tokens 384 --temperature 0.1
+```
+
+The comparison writes `reports/live_flow/vscode_llm_patch_model_comparison_2026_08.md` and `.json`. It does not treat fallback patches as model quality; a model is useful only when its generated patch passes the verifier and receives a usable or excellent quality label.
 
 Use the short hybrid LLM prompt only for small CPU validation runs:
 

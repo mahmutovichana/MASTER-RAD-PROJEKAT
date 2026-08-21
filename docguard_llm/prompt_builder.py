@@ -277,6 +277,7 @@ def build_patch_prompt(
     router_reason: str,
     project_id: str,
     target_section: str | None = None,
+    grounded_draft: str | None = None,
 ) -> tuple[str, dict]:
     if doc_category not in PATCH_DOC_CATEGORIES:
         raise ValueError(f"Unsupported patch doc_category: {doc_category}")
@@ -296,6 +297,7 @@ def build_patch_prompt(
         "allowed_facts": allowed["allowed_facts"],
         "blocked_terms_hint": allowed["blocked_terms_hint"],
         "missing_context_notes": allowed["missing_context_notes"],
+        "grounded_draft_supplied": bool(grounded_draft),
         "forbidden_inputs_excluded": [
             "gold labels",
             "expected facts",
@@ -329,6 +331,8 @@ def build_patch_prompt(
             "Do not invent authentication/security behavior.",
             "Do not rewrite the whole document.",
             "Generate a minimal patch only.",
+            "For positive documentation updates, the patch must mention the concrete visible changed token(s) from the diff, such as new environment variable names, endpoint paths, methods, status codes, fields, defaults, or commands.",
+            "If a default value is visible in allowed facts, include it in the patch.",
             *api_rules,
             "",
             f"Project id: {project_id}",
@@ -339,6 +343,10 @@ def build_patch_prompt(
             f"Detected signals: {', '.join(signals) or 'none'}",
             f"Router reason: {router_reason}",
             f"Concrete tokens extracted from diff: {', '.join(tokens) or 'none'}",
+            "",
+            "Grounded factual draft from deterministic extraction:",
+            grounded_draft.strip() if grounded_draft else "none",
+            "Use this draft only if it is supported by the diff and current documentation. You may improve wording, but keep the same grounded facts.",
             "",
             "Current documentation:",
             "```md",

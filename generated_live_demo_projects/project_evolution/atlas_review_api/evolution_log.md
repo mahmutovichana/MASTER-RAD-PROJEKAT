@@ -79,5 +79,3 @@ Baseline purpose: TypeScript/Express-like review management API.
 ## DocGuard Runner Results
 
 - `ATLAS-REVIEW-API-PR-01`: docs `True`, category `api_reference`, target `docs/api.md`.
-- `ATLAS-REVIEW-API-PR-02`: docs `True`, category `api_reference`, target `docs/api.md`.
-- `ATLAS-REVIEW-API-PR-03`: docs `True`, category `model_contract`, target `docs/models.md`.

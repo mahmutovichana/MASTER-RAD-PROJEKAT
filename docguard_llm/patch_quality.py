@@ -30,6 +30,18 @@ def _positive_lines(patch_text: str | None) -> list[str]:
     return [line for line in patch_text.splitlines() if line.startswith("+")]
 
 
+def _redundant_existing_doc_tokens(patch_text: str | None, docs_before: str) -> list[str]:
+    if not patch_text or not docs_before:
+        return []
+    docs_lower = docs_before.lower()
+    redundant: list[str] = []
+    for line in _positive_lines(patch_text):
+        for token in re.findall(r"`([^`]+)`", line):
+            if token.lower() in docs_lower and token not in redundant:
+                redundant.append(token)
+    return redundant
+
+
 def _is_generic_patch(patch_text: str | None, grounded_tokens: list[str]) -> bool:
     if not patch_text:
         return False
@@ -85,6 +97,7 @@ def evaluate_patch_quality(
     line_count = len(_positive_lines(patch_text))
     word_count = len(re.findall(r"\b\w+\b", patch_text))
     generic = _is_generic_patch(patch_text, grounded_tokens)
+    redundant_tokens = _redundant_existing_doc_tokens(patch_text, docs_before)
     unsupported_warning_count = sum(1 for warning in warnings if "unsupported" in warning or "not visible" in warning)
 
     groundedness = 0.45
@@ -111,6 +124,9 @@ def evaluate_patch_quality(
     if re.search(r"\|.+\|", patch_text):
         minimality -= 0.15
         reasons.append("patch uses table-like structure that may be too heavy for a minimal patch")
+    if redundant_tokens:
+        minimality -= min(0.3, len(redundant_tokens) * 0.1)
+        reasons.append(f"patch repeats already documented tokens: {', '.join(redundant_tokens[:5])}")
 
     readability = 0.7
     if patch_text.startswith("@@") and _positive_lines(patch_text):
@@ -127,6 +143,8 @@ def evaluate_patch_quality(
     if generic:
         usefulness = min(usefulness, 0.45)
         reasons.append("patch is technically safe but too generic")
+    if len(redundant_tokens) >= 2:
+        usefulness = min(usefulness, 0.78)
     if verifier_status == "fail":
         usefulness = min(usefulness, 0.25)
     elif verifier_status == "warn":
@@ -136,6 +154,8 @@ def evaluate_patch_quality(
     if verifier_status == "fail" or unsupported_warning_count:
         hallucination_risk = "high"
     elif verifier_status == "warn" or warnings:
+        hallucination_risk = "medium"
+    elif len(redundant_tokens) >= 2:
         hallucination_risk = "medium"
 
     groundedness = _clamp(groundedness)

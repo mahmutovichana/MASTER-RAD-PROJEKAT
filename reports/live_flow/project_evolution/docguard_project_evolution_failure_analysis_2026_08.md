@@ -1,11 +1,13 @@
 # DocGuard Project Evolution Failure Analysis 2026-08
 
-Failures are kept visible; gold labels were not changed.
+No current failures were found after the latest project-evolution run.
 
-## `ATLAS-REVIEW-API-PR-08` Documented endpoint already updated
+- Patch backend: `legacy`
+- Total cases: 24
+- False positives: 0
+- False negatives: 0
+- Category mismatches: 0
+- Target-file mismatches: 0
+- Scenario mismatches: 0
 
-- Project: `atlas_review_api`
-- Failed binary/category/target/scenario: `True` / `True` / `True` / `True`
-- Router reason: Matched positive signal `route_added` from: route_added, docs_already_updated
-- Signals: `route_added, docs_already_updated`
-- Likely cause: router priority issue: a no-update docs-already-aligned signal was present, but the positive route signal won.
+Historical note: the previous hard false positive was caused by `route_added` winning over `docs_already_updated`. The router now treats explicit docs-before coverage as a high-confidence no-update signal.

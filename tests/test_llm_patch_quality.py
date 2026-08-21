@@ -56,3 +56,29 @@ def test_no_update_empty_patch_is_excellent() -> None:
     )
     assert result["quality_label"] == "excellent"
     assert result["hallucination_risk"] == "low"
+
+
+def test_repeating_existing_documented_tokens_is_not_excellent() -> None:
+    diff = "+reviewWindow: process.env.REVIEW_WINDOW || '7d'"
+    docs_before = "# Configuration\n\n- `PORT` controls the HTTP port.\n- `REVIEW_MODE` controls the default ticket review mode."
+    patch = (
+        "@@ Environment Variables\n"
+        "+- `REVIEW_WINDOW` sets the review window and defaults to `7d`.\n"
+        "+- `REVIEW_MODE` controls the default ticket review mode.\n"
+        "+- `PORT` is an environment variable."
+    )
+    verifier = verify_patch(patch, True, "docs/configuration.md", diff, docs_before, "configuration", "added_environment_variable")
+
+    result = evaluate_patch_quality(
+        patch_text=patch,
+        code_diff=diff,
+        docs_before=docs_before,
+        target_doc_file="docs/configuration.md",
+        doc_category="configuration",
+        scenario_type="added_environment_variable",
+        verifier_result=verifier,
+    )
+
+    assert result["quality_label"] != "excellent"
+    assert result["hallucination_risk"] in {"medium", "high"}
+    assert any("already documented" in reason for reason in result["quality_reasons"])
