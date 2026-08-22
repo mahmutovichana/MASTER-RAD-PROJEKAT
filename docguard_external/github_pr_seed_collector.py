@@ -19,13 +19,20 @@ from docguard_external.github_pr_dataset_builder import (
     unique_preserve_order,
 )
 
+from docguard_external.github_api_cache import GitHubApiCache
 
 class GitHubSeedCollectorClient:
-    def __init__(self, token: str | None = None, timeout_seconds: int = 30) -> None:
+    def __init__(
+        self,
+        token: str | None = None,
+        timeout_seconds: int = 30,
+        cache: GitHubApiCache | None = None,
+    ) -> None:
         self.token = token
         self.timeout_seconds = timeout_seconds
+        self.cache = cache
 
-    def _request_json(self, url: str) -> Any:
+    def _request_json_uncached(self, url: str) -> Any:
         headers = {
             "Accept": "application/vnd.github+json",
             "User-Agent": "DocGuard-Real-PR-Seed-Collector",
@@ -45,6 +52,21 @@ class GitHubSeedCollectorClient:
             raise GitHubApiError(f"HTTP {exc.code} from {url}: {body[:1000]}") from exc
         except Exception as exc:
             raise GitHubApiError(f"Failed GitHub request {url}: {exc}") from exc
+
+    def _request_json(self, url: str) -> Any:
+        accept = "application/vnd.github+json"
+
+        if self.cache is not None:
+            cached = self.cache.get_json(url, accept=accept)
+            if cached is not None:
+                return cached
+
+        data = self._request_json_uncached(url)
+
+        if self.cache is not None:
+            self.cache.set_json(url, data, accept=accept)
+
+        return data
 
     def get_closed_pulls_page(self, repo: str, *, page: int, per_page: int = 100) -> list[dict[str, Any]]:
         encoded_repo = urllib.parse.quote(repo, safe="/")
@@ -432,6 +454,12 @@ def main() -> int:
     parser.add_argument("--sleep-seconds", type=float, default=0.0)
     parser.add_argument("--github-token-env", default="GITHUB_TOKEN")
     parser.add_argument("--timeout-seconds", type=int, default=30)
+    parser.add_argument(
+        "--cache-dir",
+        default="data/external/project_case_study/cache/github_api",
+        help="Filesystem cache directory for GitHub API JSON responses.",
+    )
+    parser.add_argument("--no-cache", action="store_true", help="Disable GitHub API response cache.")
     args = parser.parse_args()
 
     repo_path = Path(args.repos)
@@ -441,7 +469,8 @@ def main() -> int:
 
     repos = load_repo_records(repo_path)
     token = os.getenv(args.github_token_env) or None
-    client = GitHubSeedCollectorClient(token=token, timeout_seconds=args.timeout_seconds)
+    cache = None if args.no_cache else GitHubApiCache(Path(args.cache_dir))
+    client = GitHubSeedCollectorClient(token=token, timeout_seconds=args.timeout_seconds, cache=cache)
 
     seeds, rejects = collect_seed_records(
         repos=repos,
@@ -472,6 +501,8 @@ def main() -> int:
         "collector_bucket_counts": count_values(seeds, "collector_bucket"),
         "language_hint_counts": count_values(seeds, "language_hint"),
         "reject_reason_counts": count_values(rejects, "reject_reason"),
+        "cache_dir": None if cache is None else str(cache.cache_dir),
+        "cache_stats": None if cache is None else cache.stats()
     }
 
     print(json.dumps(result, indent=2, ensure_ascii=False))

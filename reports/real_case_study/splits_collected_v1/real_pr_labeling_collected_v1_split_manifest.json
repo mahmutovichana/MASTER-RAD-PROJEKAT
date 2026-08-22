@@ -1,0 +1,103 @@
+{
+  "input": "data\\external\\project_case_study\\real_pr_labeling_pack_collected_v1.jsonl",
+  "interpretation": {
+    "model_input_boundary": "Only language, code_changed_files, code_diff_excerpt, and docs_before_excerpt are model-facing fields.",
+    "note": "Splitting candidate/unlabeled records validates infrastructure. Model training/evaluation should use gold-labeled high-confidence records only."
+  },
+  "output_dir": "reports\\real_case_study\\splits_collected_v1",
+  "overall_summary": {
+    "candidate_types": {
+      "code_and_docs_changed_needs_manual_validation": 23,
+      "code_only_needs_manual_validation": 7
+    },
+    "gold_docs_update_required": {
+      "None": 30
+    },
+    "label_confidence": {
+      "needs_manual_review": 30
+    },
+    "languages": {
+      "python": 4,
+      "typescript": 26
+    },
+    "records": 30,
+    "repositories": {
+      "d-hinders/Haven-AI": 10,
+      "eclipsefdn-ai-registry/ai-registry-core": 10,
+      "ragpark/controltower": 6,
+      "torbido-hq/cicerone": 4
+    }
+  },
+  "repository_overlap": {
+    "has_repository_overlap": false,
+    "overlaps": []
+  },
+  "split_fractions": {
+    "locked_test": 0.15,
+    "train": 0.7,
+    "validation": 0.15
+  },
+  "split_seed": 42,
+  "split_strategy": "repository_group",
+  "split_summary": {
+    "locked_test": {
+      "candidate_types": {
+        "code_and_docs_changed_needs_manual_validation": 3,
+        "code_only_needs_manual_validation": 3
+      },
+      "gold_docs_update_required": {
+        "None": 6
+      },
+      "label_confidence": {
+        "needs_manual_review": 6
+      },
+      "languages": {
+        "typescript": 6
+      },
+      "records": 6,
+      "repositories": {
+        "ragpark/controltower": 6
+      }
+    },
+    "train": {
+      "candidate_types": {
+        "code_and_docs_changed_needs_manual_validation": 16,
+        "code_only_needs_manual_validation": 4
+      },
+      "gold_docs_update_required": {
+        "None": 20
+      },
+      "label_confidence": {
+        "needs_manual_review": 20
+      },
+      "languages": {
+        "typescript": 20
+      },
+      "records": 20,
+      "repositories": {
+        "d-hinders/Haven-AI": 10,
+        "eclipsefdn-ai-registry/ai-registry-core": 10
+      }
+    },
+    "validation": {
+      "candidate_types": {
+        "code_and_docs_changed_needs_manual_validation": 4
+      },
+      "gold_docs_update_required": {
+        "None": 4
+      },
+      "label_confidence": {
+        "needs_manual_review": 4
+      },
+      "languages": {
+        "python": 4
+      },
+      "records": 4,
+      "repositories": {
+        "torbido-hq/cicerone": 4
+      }
+    }
+  },
+  "status": "ok",
+  "total_records": 30
+}
