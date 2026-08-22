@@ -242,4 +242,19 @@ def main() -> int:
     write_csv(Path(args.output_csv), rows)
     write_markdown(Path(args.output_md), rows)
 
-    result = {r
+    result = {
+        "status": "ok",
+        "records": len(rows),
+        "false_positives": sum(1 for row in rows if row["classifier_error_type"] == "FP"),
+        "false_negatives": sum(1 for row in rows if row["classifier_error_type"] == "FN"),
+        "correct": sum(1 for row in rows if row["classifier_error_type"] == "correct"),
+        "output_csv": args.output_csv,
+        "output_md": args.output_md,
+    }
+
+    print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
