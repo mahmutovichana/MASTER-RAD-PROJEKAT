@@ -89,6 +89,10 @@ def get_gold_required(row: dict[str, Any]) -> str:
 
 
 def get_candidate_type(row: dict[str, Any]) -> str:
+    root_value = row.get("candidate_type")
+    if root_value:
+        return str(root_value)
+
     evidence = row.get("candidate_evidence")
     if isinstance(evidence, dict) and evidence.get("candidate_type"):
         return str(evidence["candidate_type"])
