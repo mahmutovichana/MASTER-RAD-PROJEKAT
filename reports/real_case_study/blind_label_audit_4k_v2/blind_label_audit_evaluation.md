@@ -15,8 +15,8 @@
 ```json
 {
   "binary": {
-    "True": 102,
-    "unknown": 131
+    "False": 131,
+    "True": 102
   },
   "category": {
     "api_reference": 19,
@@ -38,8 +38,8 @@
 ```json
 {
   "binary": {
-    "True": 120,
-    "unknown": 113
+    "False": 113,
+    "True": 120
   },
   "category": {
     "api_reference": 42,

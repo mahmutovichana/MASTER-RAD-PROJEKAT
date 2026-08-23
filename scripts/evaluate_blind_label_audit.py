@@ -303,7 +303,20 @@ def merge_review_and_key(
 
 
 def count_by(rows: list[dict[str, Any]], key: str) -> dict[str, int]:
-    return dict(Counter(str(row.get(key) or "unknown") for row in rows))
+    values: list[str] = []
+
+    for row in rows:
+        value = row.get(key)
+
+        if value is None:
+            values.append("unknown")
+        elif isinstance(value, bool):
+            values.append(str(value))
+        else:
+            text = str(value).strip()
+            values.append(text if text else "unknown")
+
+    return dict(Counter(values))
 
 
 def nested_disagreement_counts(rows: list[dict[str, Any]], group_key: str) -> dict[str, dict[str, int]]:
