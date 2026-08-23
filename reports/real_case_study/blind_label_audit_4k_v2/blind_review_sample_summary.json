@@ -1,0 +1,44 @@
+{
+  "blind_review_policy": {
+    "key_file_must_not_be_used_during_review": true,
+    "review_csv_excludes": [
+      "gold_docs_update_required",
+      "pred_docs_update_required",
+      "pred_probability",
+      "error_type",
+      "candidate_type",
+      "label_confidence",
+      "label_source",
+      "manual_label_notes"
+    ]
+  },
+  "cases": "data\\external\\project_case_study\\generated\\real_pr_gold_4k_v1_protocol_labeled.jsonl",
+  "outputs": {
+    "key_jsonl": "reports\\real_case_study\\blind_label_audit_4k_v2\\blind_review_key.jsonl",
+    "review_csv": "reports\\real_case_study\\blind_label_audit_4k_v2\\blind_review_sample.csv",
+    "summary_json": "reports\\real_case_study\\blind_label_audit_4k_v2\\blind_review_sample_summary.json"
+  },
+  "per_error_type": 60,
+  "predictions": "reports\\real_case_study\\generated\\real_gold_classifier_4k_v2\\best_model_predictions.jsonl",
+  "seed": 42,
+  "selected_candidate_type_counts": {
+    "code_and_docs_changed_needs_manual_validation": 43,
+    "code_only_needs_manual_validation": 153,
+    "code_only_test_or_fixture_candidate_negative_review": 37
+  },
+  "selected_error_type_counts": {
+    "FN": 60,
+    "FP": 53,
+    "TN": 60,
+    "TP": 60
+  },
+  "selected_language_counts": {
+    "go": 4,
+    "python": 23,
+    "typescript": 206
+  },
+  "selected_rows": 233,
+  "split": "all",
+  "status": "ok",
+  "total_available_rows": 4138
+}
