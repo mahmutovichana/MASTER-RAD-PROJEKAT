@@ -150,8 +150,12 @@ def path_flags(path: str) -> list[str]:
 
     return flags
 
-
-def build_path_text(row: dict[str, Any], *, heavy: bool = False) -> str:
+def build_path_text(
+    row: dict[str, Any],
+    *,
+    heavy: bool = False,
+    include_manual_flags: bool = True,
+) -> str:
     language = normalize_text(row.get("language")).lower().strip() or "unknown"
     files = safe_list(row.get("code_changed_files"))
 
@@ -168,8 +172,9 @@ def build_path_text(row: dict[str, Any], *, heavy: bool = False) -> str:
         for token in path_tokens:
             tokens.append(f"path_token_{token}")
 
-        for flag in path_flags(normalized):
-            tokens.append(flag)
+        if include_manual_flags:
+            for flag in path_flags(normalized):
+                tokens.append(flag)
 
         directories = normalized.split("/")[:-1]
         for directory in directories:
@@ -182,7 +187,6 @@ def build_path_text(row: dict[str, Any], *, heavy: bool = False) -> str:
         return " ".join([text, text, text])
 
     return text
-
 
 def build_full_text(row: dict[str, Any]) -> str:
     language = normalize_text(row.get("language")).lower().strip() or "unknown"
@@ -255,6 +259,18 @@ class RowTextTransformer(BaseEstimator, TransformerMixin):
 
         if self.mode == "path_heavy":
             return [build_path_text(row, heavy=True) for row in X]
+    
+        if self.mode == "path_raw":
+            return [
+                build_path_text(row, heavy=False, include_manual_flags=False)
+                for row in X
+            ]
+
+        if self.mode == "path_raw_heavy":
+            return [
+                build_path_text(row, heavy=True, include_manual_flags=False)
+                for row in X
+            ]
 
         raise ValueError(f"Unsupported text transformer mode: {self.mode}")
 
@@ -297,10 +313,24 @@ def char_tfidf(mode: str = "full", *, max_features: int = 100_000) -> Pipeline:
     )
 
 
-def path_tfidf(*, heavy: bool = False, max_features: int = 40_000) -> Pipeline:
+def path_tfidf(
+    *,
+    heavy: bool = False,
+    raw_only: bool = False,
+    max_features: int = 40_000,
+) -> Pipeline:
+    if raw_only and heavy:
+        mode = "path_raw_heavy"
+    elif raw_only:
+        mode = "path_raw"
+    elif heavy:
+        mode = "path_heavy"
+    else:
+        mode = "path"
+
     return Pipeline(
         [
-            ("text", RowTextTransformer(mode="path_heavy" if heavy else "path")),
+            ("text", RowTextTransformer(mode=mode)),
             (
                 "tfidf",
                 TfidfVectorizer(
@@ -382,6 +412,36 @@ def make_model_candidates(seed: int) -> dict[str, Pipeline]:
                         [
                             ("word", word_tfidf("full", max_features=70_000)),
                             ("char", char_tfidf("full", max_features=80_000)),
+                        ]
+                    ),
+                ),
+                ("classifier", make_logreg(class_weight="balanced", seed=seed)),
+            ]
+        ),
+        "path_raw_word_char_logreg": Pipeline(
+    [
+        (
+            "features",
+            FeatureUnion(
+                [
+                    ("word", word_tfidf("full", max_features=60_000)),
+                    ("char", char_tfidf("full", max_features=70_000)),
+                    ("path_raw", path_tfidf(raw_only=True, heavy=True, max_features=40_000)),
+                ]
+            ),
+        ),
+        ("classifier", make_logreg(seed=seed)),
+    ]
+        ),
+        "path_raw_word_char_logreg_balanced": Pipeline(
+            [
+                (
+                    "features",
+                    FeatureUnion(
+                        [
+                            ("word", word_tfidf("full", max_features=60_000)),
+                            ("char", char_tfidf("full", max_features=70_000)),
+                            ("path_raw", path_tfidf(raw_only=True, heavy=True, max_features=40_000)),
                         ]
                     ),
                 ),
