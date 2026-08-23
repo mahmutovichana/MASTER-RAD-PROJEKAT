@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import random
 from collections import Counter
 from pathlib import Path
@@ -10,40 +11,63 @@ from typing import Any
 
 def load_jsonl(path: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
+
     with path.open("r", encoding="utf-8") as handle:
         for line_number, line in enumerate(handle, start=1):
             stripped = line.strip()
+
             if not stripped:
                 continue
+
             try:
                 row = json.loads(stripped)
             except json.JSONDecodeError as exc:
                 raise ValueError(f"Invalid JSONL at {path}:{line_number}: {exc}") from exc
+
             if not isinstance(row, dict):
                 raise ValueError(f"JSONL row must be an object at {path}:{line_number}")
+
             rows.append(row)
+
     return rows
 
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
 
 
 def bool_value(value: Any) -> bool:
     if isinstance(value, bool):
         return value
+
+    if value is None:
+        return False
+
     return str(value).strip().lower() in {"true", "1", "yes", "y"}
 
 
 def pred_value(row: dict[str, Any]) -> bool:
     if "swept_pred_docs_update_required" in row:
         return bool_value(row["swept_pred_docs_update_required"])
+
     return bool_value(row.get("pred_docs_update_required"))
 
 
 def safe_div(num: int | float, den: int | float) -> float:
     return float(num) / float(den) if den else 0.0
+
+
+def matthews_corrcoef_binary(tp: int, fp: int, tn: int, fn: int) -> float:
+    denominator = math.sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
+
+    if denominator == 0:
+        return 0.0
+
+    return ((tp * tn) - (fp * fn)) / denominator
 
 
 def compute_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -66,6 +90,8 @@ def compute_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
     recall = safe_div(tp, tp + fn)
     f1 = safe_div(2 * precision * recall, precision + recall)
     specificity = safe_div(tn, tn + fp)
+    false_positive_rate = safe_div(fp, fp + tn)
+    balanced_accuracy = (recall + specificity) / 2
 
     return {
         "total_cases": len(rows),
@@ -78,29 +104,45 @@ def compute_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "recall": recall,
         "f1": f1,
         "specificity": specificity,
-        "false_positive_rate": safe_div(fp, fp + tn),
+        "false_positive_rate": false_positive_rate,
+        "balanced_accuracy": balanced_accuracy,
+        "mcc": matthews_corrcoef_binary(tp=tp, fp=fp, tn=tn, fn=fn),
     }
 
 
 def percentile(values: list[float], q: float) -> float:
     if not values:
         return 0.0
+
     sorted_values = sorted(values)
     index = (len(sorted_values) - 1) * q
     lower = int(index)
     upper = min(lower + 1, len(sorted_values) - 1)
     weight = index - lower
+
     return sorted_values[lower] * (1 - weight) + sorted_values[upper] * weight
 
 
 def bootstrap(rows: list[dict[str, Any]], *, iterations: int, seed: int) -> dict[str, Any]:
     rng = random.Random(seed)
-    metric_keys = ["accuracy", "precision", "recall", "f1", "specificity", "false_positive_rate"]
+
+    metric_keys = [
+        "accuracy",
+        "precision",
+        "recall",
+        "f1",
+        "specificity",
+        "false_positive_rate",
+        "balanced_accuracy",
+        "mcc",
+    ]
+
     samples: dict[str, list[float]] = {key: [] for key in metric_keys}
 
     for _ in range(iterations):
         sample = [rows[rng.randrange(len(rows))] for _ in rows]
         metrics = compute_metrics(sample)
+
         for key in metric_keys:
             samples[key].append(float(metrics[key]))
 
@@ -115,6 +157,13 @@ def bootstrap(rows: list[dict[str, Any]], *, iterations: int, seed: int) -> dict
     }
 
 
+def build_warning(total_cases: int) -> str:
+    if total_cases < 100:
+        return "Confidence intervals on very small splits are diagnostic only."
+
+    return "Bootstrap confidence intervals estimate sampling uncertainty for this locked-test split."
+
+
 def write_markdown(path: Path, report: dict[str, Any]) -> None:
     lines = [
         "# Real Case Metrics Bootstrap Confidence Intervals",
@@ -123,6 +172,7 @@ def write_markdown(path: Path, report: dict[str, Any]) -> None:
         f"- Split: `{report['split']}`",
         f"- Cases: `{report['metrics']['total_cases']}`",
         f"- Bootstrap iterations: `{report['bootstrap_iterations']}`",
+        f"- Warning: {report['warning']}",
         "",
         "## Point Metrics",
         "",
@@ -146,8 +196,9 @@ def write_markdown(path: Path, report: dict[str, Any]) -> None:
             "",
             "## Interpretation",
             "",
-            "- Wide intervals indicate that the evaluation split is too small for a stable final claim.",
-            "- This script should be run again on the large-scale labeled/reviewed locked-test split.",
+            "- Bootstrap intervals show how much the measured result can vary due to the sampled locked-test split.",
+            "- Wider intervals mean that the locked-test estimate is less stable.",
+            "- These intervals do not prove external generalization by themselves; they quantify uncertainty on the evaluated split.",
             "",
         ]
     )
@@ -164,33 +215,40 @@ def main() -> int:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--output-json", required=True)
     parser.add_argument("--output-md", required=True)
+
     args = parser.parse_args()
 
     rows = [
-        row for row in load_jsonl(Path(args.predictions))
+        row
+        for row in load_jsonl(Path(args.predictions))
         if str(row.get("dataset_split")) == args.split
     ]
 
     if not rows:
         raise ValueError(f"No rows found for split: {args.split}")
 
+    metrics = compute_metrics(rows)
+
     report = {
         "status": "ok",
         "prediction_file": args.predictions,
         "split": args.split,
-        "metrics": compute_metrics(rows),
-        "gold_distribution": dict(Counter(str(bool_value(row.get("gold_docs_update_required"))) for row in rows)),
+        "metrics": metrics,
+        "gold_distribution": dict(
+            Counter(str(bool_value(row.get("gold_docs_update_required"))) for row in rows)
+        ),
         "pred_distribution": dict(Counter(str(pred_value(row)) for row in rows)),
         "bootstrap_iterations": args.iterations,
         "bootstrap_seed": args.seed,
         "bootstrap_ci": bootstrap(rows, iterations=args.iterations, seed=args.seed),
-        "warning": "Confidence intervals on very small splits are diagnostic only.",
+        "warning": build_warning(metrics["total_cases"]),
     }
 
     write_json(Path(args.output_json), report)
     write_markdown(Path(args.output_md), report)
 
     print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
+
     return 0
 
 
