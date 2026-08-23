@@ -1,0 +1,54 @@
+# Real Case Study Evaluation Figures
+
+This report visualizes real GitHub PR classifier predictions.
+
+## Summary
+
+- Prediction file: `reports\real_case_study\generated\real_gold_classifier_300_v1\threshold_sweep_balanced_accuracy_predictions.jsonl`
+- Primary split: `locked_test`
+- Primary cases: `34`
+- Accuracy: `0.6471`
+- Precision: `0.6667`
+- Recall: `0.7368`
+- F1: `0.7000`
+- Specificity: `0.5333`
+- ROC AUC: `0.7298`
+- Average precision: `0.7951`
+
+## Figures
+
+### confusion_matrix_locked_test
+
+![confusion_matrix_locked_test](confusion_matrix_locked_test.png)
+
+### confusion_matrix_locked_test_normalized
+
+![confusion_matrix_locked_test_normalized](confusion_matrix_locked_test_normalized.png)
+
+### roc_curve_locked_test
+
+![roc_curve_locked_test](roc_curve_locked_test.png)
+
+### precision_recall_curve_locked_test
+
+![precision_recall_curve_locked_test](precision_recall_curve_locked_test.png)
+
+### probability_distribution_locked_test
+
+![probability_distribution_locked_test](probability_distribution_locked_test.png)
+
+### threshold_metrics_curve_validation
+
+![threshold_metrics_curve_validation](threshold_metrics_curve_validation.png)
+
+### metrics_by_split
+
+![metrics_by_split](metrics_by_split.png)
+
+### metrics_by_language_locked_test
+
+![metrics_by_language_locked_test](metrics_by_language_locked_test.png)
+
+### metrics_by_candidate_type_locked_test
+
+![metrics_by_candidate_type_locked_test](metrics_by_candidate_type_locked_test.png)
