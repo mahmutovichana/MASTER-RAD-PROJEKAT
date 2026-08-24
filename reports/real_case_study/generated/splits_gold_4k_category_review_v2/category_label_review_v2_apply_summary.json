@@ -1,0 +1,87 @@
+{
+  "methodology": {
+    "default_policy": "Locked test remains unchanged. Category review is applied only to train/validation.",
+    "locked_test_modified": false,
+    "model_input_policy": "This script changes target labels only. It does not add prediction rules or model input features."
+  },
+  "outputs": {
+    "locked_test": "reports\\real_case_study\\generated\\splits_gold_4k_category_review_v2\\real_pr_gold_4k_category_v2_locked_test.jsonl",
+    "train": "reports\\real_case_study\\generated\\splits_gold_4k_category_review_v2\\real_pr_gold_4k_category_v2_train.jsonl",
+    "validation": "reports\\real_case_study\\generated\\splits_gold_4k_category_review_v2\\real_pr_gold_4k_category_v2_validation.jsonl"
+  },
+  "review_csv": "reports\\real_case_study\\generated\\category_label_review_v2\\category_review_sheet_filled.csv",
+  "review_decision_counts": {
+    "keep": 424,
+    "no_update": 27,
+    "update": 63
+  },
+  "split_summaries": {
+    "locked_test": {
+      "category_after": {
+        "api_reference": 219,
+        "configuration": 116,
+        "developer_setup": 51,
+        "model_contract": 107
+      },
+      "category_before": {
+        "api_reference": 219,
+        "configuration": 116,
+        "developer_setup": 51,
+        "model_contract": 107
+      },
+      "input_rows": 620,
+      "output_rows": 620,
+      "split": "locked_test",
+      "stats": {
+        "kept_locked_unchanged": 620
+      }
+    },
+    "train": {
+      "category_after": {
+        "api_reference": 819,
+        "configuration": 584,
+        "developer_setup": 362,
+        "model_contract": 616
+      },
+      "category_before": {
+        "api_reference": 854,
+        "configuration": 571,
+        "developer_setup": 363,
+        "model_contract": 611
+      },
+      "input_rows": 2899,
+      "output_rows": 2899,
+      "split": "train",
+      "stats": {
+        "changed_to_no_update": 18,
+        "kept_no_review": 2646,
+        "kept_reviewed": 212,
+        "updated_category": 23
+      }
+    },
+    "validation": {
+      "category_after": {
+        "api_reference": 163,
+        "configuration": 201,
+        "developer_setup": 73,
+        "model_contract": 73
+      },
+      "category_before": {
+        "api_reference": 191,
+        "configuration": 162,
+        "developer_setup": 74,
+        "model_contract": 92
+      },
+      "input_rows": 619,
+      "output_rows": 619,
+      "split": "validation",
+      "stats": {
+        "changed_to_no_update": 9,
+        "kept_no_review": 358,
+        "kept_reviewed": 212,
+        "updated_category": 40
+      }
+    }
+  },
+  "status": "ok"
+}
