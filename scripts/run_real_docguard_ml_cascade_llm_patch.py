@@ -40,6 +40,177 @@ from scripts.run_real_docguard_ml_cascade import (
 def safe_div(num: int | float, den: int | float) -> float:
     return float(num) / float(den) if den else 0.0
 
+def safe_mean(values: list[float]) -> float:
+    return float(sum(values) / len(values)) if values else 0.0
+
+
+def candidate_is_acceptable(
+    verifier_status: str | None,
+    quality_label: str | None,
+    hallucination_risk: str | None,
+) -> bool:
+    return bool(
+        verifier_status in {"pass", "warn"}
+        and quality_label != "rejected"
+        and hallucination_risk in {"low", "medium"}
+    )
+
+
+def candidate_metrics(
+    rows: list[dict[str, Any]],
+    prefix: str,
+) -> dict[str, Any]:
+    positive_rows = [
+        row
+        for row in rows
+        if row.get("pred_docs_update_required")
+    ]
+
+    verifier_key = f"{prefix}_verifier_status"
+    quality_key = f"{prefix}_quality_label"
+    risk_key = f"{prefix}_hallucination_risk"
+
+    groundedness_key = f"{prefix}_groundedness_score"
+    minimality_key = f"{prefix}_minimality_score"
+    readability_key = f"{prefix}_readability_score"
+    usefulness_key = f"{prefix}_usefulness_score"
+
+    acceptable = [
+        row
+        for row in positive_rows
+        if candidate_is_acceptable(
+            row.get(verifier_key),
+            row.get(quality_key),
+            row.get(risk_key),
+        )
+    ]
+
+    def numeric_values(key: str) -> list[float]:
+        values: list[float] = []
+        for row in positive_rows:
+            value = row.get(key)
+            if value is not None:
+                values.append(float(value))
+        return values
+
+    return {
+        "evaluated_cases": len(positive_rows),
+        "verifier_status_counts": dict(
+            Counter(
+                str(row.get(verifier_key))
+                for row in positive_rows
+                if row.get(verifier_key) is not None
+            )
+        ),
+        "quality_label_counts": dict(
+            Counter(
+                str(row.get(quality_key))
+                for row in positive_rows
+                if row.get(quality_key) is not None
+            )
+        ),
+        "hallucination_risk_counts": dict(
+            Counter(
+                str(row.get(risk_key))
+                for row in positive_rows
+                if row.get(risk_key) is not None
+            )
+        ),
+        "acceptable_rate": safe_div(
+            len(acceptable),
+            len(positive_rows),
+        ),
+        "mean_groundedness_score": safe_mean(
+            numeric_values(groundedness_key)
+        ),
+        "mean_minimality_score": safe_mean(
+            numeric_values(minimality_key)
+        ),
+        "mean_readability_score": safe_mean(
+            numeric_values(readability_key)
+        ),
+        "mean_usefulness_score": safe_mean(
+            numeric_values(usefulness_key)
+        ),
+    }
+
+
+def paired_candidate_metrics(
+    rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    positive_rows = [
+        row
+        for row in rows
+        if row.get("pred_docs_update_required")
+    ]
+
+    llm_wins = 0
+    grounded_wins = 0
+    ties = 0
+
+    grounded_unacceptable_to_llm_acceptable = 0
+    grounded_acceptable_to_llm_unacceptable = 0
+    both_acceptable = 0
+    both_unacceptable = 0
+
+    usefulness_deltas: list[float] = []
+
+    for row in positive_rows:
+        llm_usefulness = float(
+            row.get("llm_usefulness_score") or 0.0
+        )
+        grounded_usefulness = float(
+            row.get("grounded_usefulness_score") or 0.0
+        )
+
+        delta = llm_usefulness - grounded_usefulness
+        usefulness_deltas.append(delta)
+
+        if delta > 1e-9:
+            llm_wins += 1
+        elif delta < -1e-9:
+            grounded_wins += 1
+        else:
+            ties += 1
+
+        llm_ok = candidate_is_acceptable(
+            row.get("llm_verifier_status"),
+            row.get("llm_quality_label"),
+            row.get("llm_hallucination_risk"),
+        )
+
+        grounded_ok = candidate_is_acceptable(
+            row.get("grounded_verifier_status"),
+            row.get("grounded_quality_label"),
+            row.get("grounded_hallucination_risk"),
+        )
+
+        if llm_ok and grounded_ok:
+            both_acceptable += 1
+        elif llm_ok and not grounded_ok:
+            grounded_unacceptable_to_llm_acceptable += 1
+        elif grounded_ok and not llm_ok:
+            grounded_acceptable_to_llm_unacceptable += 1
+        else:
+            both_unacceptable += 1
+
+    return {
+        "evaluated_cases": len(positive_rows),
+        "llm_usefulness_wins": llm_wins,
+        "grounded_usefulness_wins": grounded_wins,
+        "usefulness_ties": ties,
+        "mean_llm_minus_grounded_usefulness": safe_mean(
+            usefulness_deltas
+        ),
+        "grounded_unacceptable_to_llm_acceptable": (
+            grounded_unacceptable_to_llm_acceptable
+        ),
+        "grounded_acceptable_to_llm_unacceptable": (
+            grounded_acceptable_to_llm_unacceptable
+        ),
+        "both_acceptable": both_acceptable,
+        "both_unacceptable": both_unacceptable,
+    }
 
 def add_llm_metrics(metrics: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str, Any]:
     enriched = dict(metrics)
@@ -71,6 +242,20 @@ def add_llm_metrics(metrics: dict[str, Any], rows: list[dict[str, Any]]) -> dict
     enriched["acceptable_patch_rate_for_predicted_positive"] = safe_div(
         len(acceptable_rows),
         len(predicted_positive),
+    )
+    
+    enriched["grounded_candidate_metrics"] = candidate_metrics(
+        rows,
+        "grounded",
+    )
+
+    enriched["llm_candidate_metrics"] = candidate_metrics(
+        rows,
+        "llm",
+    )
+
+    enriched["paired_candidate_comparison"] = paired_candidate_metrics(
+        rows
     )
 
     return enriched
@@ -146,6 +331,12 @@ def run_one_case_llm(
 
     verifier = patch_result["verifier"]
     quality = patch_result["quality"]
+    
+    llm_verifier = patch_result.get("llm_verifier") or {}
+    llm_quality = patch_result.get("llm_quality") or {}
+
+    grounded_verifier = patch_result.get("grounded_verifier") or {}
+    grounded_quality = patch_result.get("grounded_quality") or {}
 
     evaluation = evaluate_prediction(
         case,
@@ -225,6 +416,41 @@ def run_one_case_llm(
             "source_url_used_for_prediction": False,
             "llm_decides_binary_or_category": False,
         },
+        
+        "llm_verifier_status": llm_verifier.get("verifier_status"),
+        "llm_verifier_warnings": llm_verifier.get("warnings") or [],
+        "llm_quality_label": llm_quality.get("quality_label"),
+        "llm_hallucination_risk": llm_quality.get("hallucination_risk"),
+        "llm_groundedness_score": llm_quality.get("groundedness_score"),
+        "llm_minimality_score": llm_quality.get("minimality_score"),
+        "llm_readability_score": llm_quality.get("readability_score"),
+        "llm_usefulness_score": llm_quality.get("usefulness_score"),
+        "llm_quality_reasons": llm_quality.get("quality_reasons") or [],
+        "grounded_verifier_status": grounded_verifier.get(
+            "verifier_status"
+        ),
+        "grounded_verifier_warnings": grounded_verifier.get(
+            "warnings"
+        ) or [],
+        "grounded_quality_label": grounded_quality.get("quality_label"),
+        "grounded_hallucination_risk": grounded_quality.get(
+            "hallucination_risk"
+        ),
+        "grounded_groundedness_score": grounded_quality.get(
+            "groundedness_score"
+        ),
+        "grounded_minimality_score": grounded_quality.get(
+            "minimality_score"
+        ),
+        "grounded_readability_score": grounded_quality.get(
+            "readability_score"
+        ),
+        "grounded_usefulness_score": grounded_quality.get(
+            "usefulness_score"
+        ),
+        "grounded_quality_reasons": grounded_quality.get(
+            "quality_reasons"
+        ) or [],
     }
 
 
@@ -298,6 +524,16 @@ def run(
         "save_prompts": save_prompts,
         "metrics": metrics,
         "methodology": {
+            "patch_candidate_comparison": (
+                "grounded deterministic candidate versus LLM candidate "
+                "before final fallback selection"
+            ),
+            "patch_sample_classification_metrics_primary": False,
+            "patch_sample_classification_metrics_note": (
+                "Binary/category metrics produced on the patch-evaluation "
+                "sample are diagnostic only. Primary classifier results "
+                "remain the previously frozen full locked-test metrics."
+            ),
             "cascade": [
                 "binary_v3_strict_raw",
                 "category_v7_reviewed",
