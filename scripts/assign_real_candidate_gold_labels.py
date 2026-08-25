@@ -1,5 +1,16 @@
 from __future__ import annotations
 
+"""
+LEGACY PREFILL/PROTOCOL EXPERIMENT ONLY.
+
+This script is NOT AUTHORIZED TO PRODUCE FINAL V2 GOLD LABELS.
+Final V2 gold labels must be produced only through the human-reviewed
+workflow implemented by prefill_human_label_sheet_v2.py and
+finalize_human_gold_v2.py.
+
+Historical behavior is intentionally preserved for reproducibility.
+"""
+
 import argparse
 import csv
 import json

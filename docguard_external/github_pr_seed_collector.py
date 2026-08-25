@@ -163,6 +163,51 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
             handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
 
 
+def parse_minimum_language_counts(values: list[str]) -> dict[str, int]:
+    parsed: dict[str, int] = {}
+    for value in values:
+        if "=" not in value:
+            raise ValueError(f"Invalid --minimum-language-count value: {value}. Expected language=count.")
+        language, count_text = value.split("=", 1)
+        language_key = language.strip().lower()
+        count = int(count_text)
+        if not language_key or count < 0:
+            raise ValueError(f"Invalid --minimum-language-count value: {value}")
+        parsed[language_key] = count
+    return parsed
+
+
+def language_key(repo_record: dict[str, Any]) -> str:
+    return str(repo_record.get("language_hint") or "unknown").strip().lower() or "unknown"
+
+
+def language_counts(rows: list[dict[str, Any]]) -> Counter:
+    return Counter(str(row.get("language_hint") or "unknown").strip().lower() or "unknown" for row in rows)
+
+
+def acquisition_complete(seeds: list[dict[str, Any]], target_total: int | None, minimum_language_counts: dict[str, int]) -> bool:
+    if target_total is None and not minimum_language_counts:
+        return False
+    if target_total is not None and len(seeds) < target_total:
+        return False
+    counts = language_counts(seeds)
+    return all(counts.get(language, 0) >= minimum for language, minimum in minimum_language_counts.items())
+
+
+def language_aware_repo_order(repos: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    groups: dict[str, list[dict[str, Any]]] = {}
+    for repo in repos:
+        groups.setdefault(language_key(repo), []).append(repo)
+    ordered: list[dict[str, Any]] = []
+    languages = sorted(groups)
+    max_len = max((len(group) for group in groups.values()), default=0)
+    for index in range(max_len):
+        for language in languages:
+            if index < len(groups[language]):
+                ordered.append(groups[language][index])
+    return ordered
+
+
 def classify_pr_files(files: list[dict[str, Any]]) -> dict[str, Any]:
     changed_files = unique_preserve_order([str(item.get("filename") or "") for item in files])
     code_files = unique_preserve_order([path for path in changed_files if is_code_path(path)])
@@ -241,17 +286,20 @@ def collect_seed_records(
     max_changed_files: int,
     max_total_patch_lines: int,
     sleep_seconds: float,
+    minimum_language_counts: dict[str, int] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     seeds: list[dict[str, Any]] = []
     rejects: list[dict[str, Any]] = []
+    minimum_language_counts = minimum_language_counts or {}
+    scan_repos = language_aware_repo_order(repos) if minimum_language_counts else repos
 
-    for repo_record in repos:
+    for repo_record in scan_repos:
         repo = repo_record["repo"]
         language_hint = repo_record.get("language_hint") or ""
         kept_for_repo = 0
 
         for page in range(1, max_pages_per_repo + 1):
-            if target_total is not None and len(seeds) >= target_total:
+            if acquisition_complete(seeds, target_total, minimum_language_counts):
                 return seeds, rejects
 
             try:
@@ -270,7 +318,7 @@ def collect_seed_records(
                 break
 
             for pull in pulls:
-                if target_total is not None and len(seeds) >= target_total:
+                if acquisition_complete(seeds, target_total, minimum_language_counts):
                     return seeds, rejects
 
                 if kept_for_repo >= max_prs_per_repo:
@@ -361,6 +409,13 @@ def write_report(path: Path, *, repos: list[dict[str, Any]], seeds: list[dict[st
 
     bucket_counts = count_values(seeds, "collector_bucket")
     language_counts = count_values(seeds, "language_hint")
+    repo_counts_per_language = {
+        language: len({str(row.get("repo") or "") for row in seeds if str(row.get("language_hint") or "") == language})
+        for language in language_counts
+    }
+    bucket_counts_per_language: dict[str, dict[str, int]] = {}
+    for language in language_counts:
+        bucket_counts_per_language[language] = dict(Counter(str(row.get("collector_bucket") or "") for row in seeds if str(row.get("language_hint") or "") == language))
     reject_counts = count_values(rejects, "reject_reason")
 
     lines: list[str] = [
@@ -376,6 +431,8 @@ def write_report(path: Path, *, repos: list[dict[str, Any]], seeds: list[dict[st
         f"- Rejected/skipped PRs: `{len(rejects)}`",
         f"- Collector bucket counts: `{bucket_counts}`",
         f"- Language hint counts: `{language_counts}`",
+        f"- Repository counts per language: `{repo_counts_per_language}`",
+        f"- Candidate bucket counts per language: `{bucket_counts_per_language}`",
         f"- Reject reason counts: `{reject_counts}`",
         "",
         "## Methodological Boundary",
@@ -452,6 +509,7 @@ def main() -> int:
     parser.add_argument("--include-docs-only", action="store_true")
     parser.add_argument("--include-other", action="store_true")
     parser.add_argument("--sleep-seconds", type=float, default=0.0)
+    parser.add_argument("--minimum-language-count", action="append", default=[], help="Require at least language=count accepted seeds, e.g. python=6000. May be repeated.")
     parser.add_argument("--github-token-env", default="GITHUB_TOKEN")
     parser.add_argument("--timeout-seconds", type=int, default=30)
     parser.add_argument(
@@ -468,6 +526,7 @@ def main() -> int:
     report_path = Path(args.report)
 
     repos = load_repo_records(repo_path)
+    minimum_language_counts = parse_minimum_language_counts(args.minimum_language_count)
     token = os.getenv(args.github_token_env) or None
     cache = None if args.no_cache else GitHubApiCache(Path(args.cache_dir))
     client = GitHubSeedCollectorClient(token=token, timeout_seconds=args.timeout_seconds, cache=cache)
@@ -483,6 +542,7 @@ def main() -> int:
         max_changed_files=args.max_changed_files,
         max_total_patch_lines=args.max_total_patch_lines,
         sleep_seconds=args.sleep_seconds,
+        minimum_language_counts=minimum_language_counts,
     )
 
     write_jsonl(output_path, seeds)
@@ -500,6 +560,8 @@ def main() -> int:
         "rejected_or_skipped": len(rejects),
         "collector_bucket_counts": count_values(seeds, "collector_bucket"),
         "language_hint_counts": count_values(seeds, "language_hint"),
+        "minimum_language_counts": minimum_language_counts,
+        "repo_order_mode": "language_aware_round_robin" if minimum_language_counts else "sequential",
         "reject_reason_counts": count_values(rejects, "reject_reason"),
         "cache_dir": None if cache is None else str(cache.cache_dir),
         "cache_stats": None if cache is None else cache.stats()
