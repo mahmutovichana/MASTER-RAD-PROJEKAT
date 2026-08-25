@@ -1,0 +1,454 @@
+{
+  "backend": "huggingface_openai_compatible",
+  "evaluation_version": "llm_patch_eval_v1_final",
+  "max_new_tokens": 512,
+  "merge_info": {
+    "final_cases": 100,
+    "final_successful_generations": 100,
+    "initial_successful_generations": 18,
+    "original_cases": 100,
+    "retry_cases": 82,
+    "successful_retry_replacements": 82
+  },
+  "methodology": {
+    "classification_metrics_on_patch_sample_primary": false,
+    "docs_after_used_for_generation": false,
+    "gold_used_for_generation": false,
+    "gold_used_for_sampling": false,
+    "manual_notes_used_for_generation": false,
+    "primary_binary_and_category_metrics": "previously frozen full locked-test evaluations",
+    "retry_changed_model": false,
+    "retry_changed_prompt": false,
+    "retry_changed_sample": false,
+    "retry_changed_temperature": false,
+    "retry_reason": "Hugging Face HTTP 402 monthly included credit exhaustion",
+    "sample_frozen_before_final_generation": true
+  },
+  "model": "Qwen/Qwen2.5-Coder-7B-Instruct",
+  "outputs": {
+    "predictions": "reports\\real_case_study\\generated\\llm_patch_eval_v1_qwen_final_100\\final_llm_patch_eval_predictions_100.jsonl",
+    "report": "reports\\real_case_study\\generated\\llm_patch_eval_v1_qwen_final_100\\final_llm_patch_eval_report.md",
+    "summary": "reports\\real_case_study\\generated\\llm_patch_eval_v1_qwen_final_100\\final_llm_patch_eval_summary.json"
+  },
+  "overall_metrics": {
+    "acceptable_patch_rate_for_predicted_positive": 0.87,
+    "binary_accuracy": 0.88,
+    "binary_evaluated_cases": 100,
+    "binary_f1": 0.9361702127659575,
+    "binary_false_positive_rate": 1.0,
+    "binary_precision": 0.88,
+    "binary_recall": 1.0,
+    "binary_specificity": 0.0,
+    "category_accuracy_conditioned_on_true_positive": 0.47126436781609193,
+    "category_correct": 41,
+    "category_evaluated_cases": 87,
+    "false_negatives": 0,
+    "false_positives": 12,
+    "gold_category_counts": {
+      "api_reference": 22,
+      "configuration": 23,
+      "developer_setup": 16,
+      "model_contract": 26,
+      "no_update": 12,
+      "security": 1
+    },
+    "grounded_candidate_metrics": {
+      "acceptable_rate": 0.76,
+      "evaluated_cases": 100,
+      "hallucination_risk_counts": {
+        "high": 24,
+        "low": 64,
+        "medium": 12
+      },
+      "mean_groundedness_score": 0.5985710000000001,
+      "mean_minimality_score": 0.9740000000000001,
+      "mean_readability_score": 1.0,
+      "mean_usefulness_score": 0.648332,
+      "quality_label_counts": {
+        "excellent": 33,
+        "needs_review": 9,
+        "rejected": 24,
+        "usable": 34
+      },
+      "verifier_status_counts": {
+        "fail": 24,
+        "pass": 67,
+        "warn": 9
+      }
+    },
+    "grounded_fallback_rate_for_predicted_positive": 0.2,
+    "hallucination_risk_counts": {
+      "high": 13,
+      "low": 66,
+      "medium": 21
+    },
+    "language_counts": {
+      "typescript": 100
+    },
+    "llm_candidate_metrics": {
+      "acceptable_rate": 0.67,
+      "evaluated_cases": 100,
+      "hallucination_risk_counts": {
+        "high": 33,
+        "low": 46,
+        "medium": 21
+      },
+      "mean_groundedness_score": 0.550649,
+      "mean_minimality_score": 0.7528,
+      "mean_readability_score": 0.932,
+      "mean_usefulness_score": 0.5835670000000001,
+      "quality_label_counts": {
+        "excellent": 25,
+        "needs_review": 11,
+        "rejected": 33,
+        "usable": 31
+      },
+      "verifier_status_counts": {
+        "fail": 33,
+        "pass": 53,
+        "warn": 14
+      }
+    },
+    "llm_final_rate_for_predicted_positive": 0.67,
+    "llm_generation_status_counts": {
+      "ok": 100
+    },
+    "llm_postprocess_status_counts": {
+      "ok": 100
+    },
+    "paired_candidate_comparison": {
+      "both_acceptable": 56,
+      "both_unacceptable": 13,
+      "evaluated_cases": 100,
+      "grounded_acceptable_to_llm_unacceptable": 20,
+      "grounded_unacceptable_to_llm_acceptable": 11,
+      "grounded_usefulness_wins": 47,
+      "llm_usefulness_wins": 16,
+      "mean_llm_minus_grounded_usefulness": -0.064765,
+      "usefulness_ties": 37
+    },
+    "patch_final_source_counts": {
+      "grounded_fallback": 20,
+      "llm": 67,
+      "llm_rejected_no_acceptable_fallback": 13
+    },
+    "patch_generated_for_predicted_positive": 100,
+    "patch_generation_rate_for_predicted_positive": 1.0,
+    "pred_category_counts": {
+      "api_reference": 28,
+      "configuration": 25,
+      "developer_setup": 21,
+      "model_contract": 26
+    },
+    "predicted_positive_cases": 100,
+    "quality_label_counts": {
+      "excellent": 31,
+      "needs_review": 11,
+      "rejected": 13,
+      "usable": 45
+    },
+    "total_cases": 100,
+    "true_negatives": 0,
+    "true_positives": 88,
+    "verifier_status_counts": {
+      "fail": 13,
+      "pass": 73,
+      "warn": 14
+    }
+  },
+  "provider_reliability": {
+    "final_cases": 100,
+    "final_generation_success_rate": 1.0,
+    "final_successful_generations": 100,
+    "initial_cases": 100,
+    "initial_provider_failures": 82,
+    "initial_successful_generations": 18,
+    "mean_latency_seconds": 1.9258408100000814,
+    "median_latency_seconds": 1.7158153999989736,
+    "p95_latency_seconds": 3.2962089000029664,
+    "retry_cases": 82,
+    "successful_retries": 82
+  },
+  "sample_size": 100,
+  "sampling_seed": 42,
+  "scopes": {
+    "all_predicted_positive": {
+      "cases": 100,
+      "final_cascade": {
+        "acceptable_cases": 87,
+        "acceptable_rate": 0.87,
+        "evaluated_cases": 100,
+        "hallucination_risk_counts": {
+          "high": 13,
+          "low": 66,
+          "medium": 21
+        },
+        "mean_groundedness_score": 0.6461490000000001,
+        "mean_minimality_score": 0.8177,
+        "mean_readability_score": 0.95,
+        "mean_usefulness_score": 0.691942,
+        "patch_final_source_counts": {
+          "grounded_fallback": 20,
+          "llm": 67,
+          "llm_rejected_no_acceptable_fallback": 13
+        },
+        "quality_label_counts": {
+          "excellent": 31,
+          "needs_review": 11,
+          "rejected": 13,
+          "usable": 45
+        },
+        "verifier_status_counts": {
+          "fail": 13,
+          "pass": 73,
+          "warn": 14
+        }
+      },
+      "grounded_candidate": {
+        "acceptable_rate": 0.76,
+        "evaluated_cases": 100,
+        "hallucination_risk_counts": {
+          "high": 24,
+          "low": 64,
+          "medium": 12
+        },
+        "mean_groundedness_score": 0.5985710000000001,
+        "mean_minimality_score": 0.9740000000000001,
+        "mean_readability_score": 1.0,
+        "mean_usefulness_score": 0.648332,
+        "quality_label_counts": {
+          "excellent": 33,
+          "needs_review": 9,
+          "rejected": 24,
+          "usable": 34
+        },
+        "verifier_status_counts": {
+          "fail": 24,
+          "pass": 67,
+          "warn": 9
+        }
+      },
+      "paired_grounded_vs_qwen": {
+        "both_acceptable": 56,
+        "both_unacceptable": 13,
+        "evaluated_cases": 100,
+        "grounded_acceptable_to_llm_unacceptable": 20,
+        "grounded_unacceptable_to_llm_acceptable": 11,
+        "grounded_usefulness_wins": 47,
+        "llm_usefulness_wins": 16,
+        "mean_llm_minus_grounded_usefulness": -0.064765,
+        "usefulness_ties": 37
+      },
+      "qwen_candidate": {
+        "acceptable_rate": 0.67,
+        "evaluated_cases": 100,
+        "hallucination_risk_counts": {
+          "high": 33,
+          "low": 46,
+          "medium": 21
+        },
+        "mean_groundedness_score": 0.550649,
+        "mean_minimality_score": 0.7528,
+        "mean_readability_score": 0.932,
+        "mean_usefulness_score": 0.5835670000000001,
+        "quality_label_counts": {
+          "excellent": 25,
+          "needs_review": 11,
+          "rejected": 33,
+          "usable": 31
+        },
+        "verifier_status_counts": {
+          "fail": 33,
+          "pass": 53,
+          "warn": 14
+        }
+      }
+    },
+    "binary_and_category_correct": {
+      "cases": 41,
+      "final_cascade": {
+        "acceptable_cases": 34,
+        "acceptable_rate": 0.8292682926829268,
+        "evaluated_cases": 41,
+        "hallucination_risk_counts": {
+          "high": 7,
+          "low": 25,
+          "medium": 9
+        },
+        "mean_groundedness_score": 0.5789365853658537,
+        "mean_minimality_score": 0.8563414634146341,
+        "mean_readability_score": 0.9524390243902439,
+        "mean_usefulness_score": 0.6626926829268293,
+        "patch_final_source_counts": {
+          "grounded_fallback": 7,
+          "llm": 27,
+          "llm_rejected_no_acceptable_fallback": 7
+        },
+        "quality_label_counts": {
+          "excellent": 14,
+          "needs_review": 6,
+          "rejected": 7,
+          "usable": 14
+        },
+        "verifier_status_counts": {
+          "fail": 7,
+          "pass": 27,
+          "warn": 7
+        }
+      },
+      "grounded_candidate": {
+        "acceptable_rate": 0.7560975609756098,
+        "evaluated_cases": 41,
+        "hallucination_risk_counts": {
+          "high": 10,
+          "low": 25,
+          "medium": 6
+        },
+        "mean_groundedness_score": 0.5682926829268293,
+        "mean_minimality_score": 0.9707317073170731,
+        "mean_readability_score": 1.0,
+        "mean_usefulness_score": 0.6377439024390245,
+        "quality_label_counts": {
+          "excellent": 15,
+          "needs_review": 5,
+          "rejected": 10,
+          "usable": 11
+        },
+        "verifier_status_counts": {
+          "fail": 10,
+          "pass": 26,
+          "warn": 5
+        }
+      },
+      "paired_grounded_vs_qwen": {
+        "both_acceptable": 24,
+        "both_unacceptable": 7,
+        "evaluated_cases": 41,
+        "grounded_acceptable_to_llm_unacceptable": 7,
+        "grounded_unacceptable_to_llm_acceptable": 3,
+        "grounded_usefulness_wins": 14,
+        "llm_usefulness_wins": 5,
+        "mean_llm_minus_grounded_usefulness": -0.06834390243902438,
+        "usefulness_ties": 22
+      },
+      "qwen_candidate": {
+        "acceptable_rate": 0.6585365853658537,
+        "evaluated_cases": 41,
+        "hallucination_risk_counts": {
+          "high": 14,
+          "low": 18,
+          "medium": 9
+        },
+        "mean_groundedness_score": 0.5008878048780487,
+        "mean_minimality_score": 0.7873170731707317,
+        "mean_readability_score": 0.9353658536585366,
+        "mean_usefulness_score": 0.5694,
+        "quality_label_counts": {
+          "excellent": 11,
+          "needs_review": 6,
+          "rejected": 14,
+          "usable": 10
+        },
+        "verifier_status_counts": {
+          "fail": 14,
+          "pass": 20,
+          "warn": 7
+        }
+      }
+    },
+    "gold_true_positive": {
+      "cases": 88,
+      "final_cascade": {
+        "acceptable_cases": 75,
+        "acceptable_rate": 0.8522727272727273,
+        "evaluated_cases": 88,
+        "hallucination_risk_counts": {
+          "high": 13,
+          "low": 55,
+          "medium": 20
+        },
+        "mean_groundedness_score": 0.6263056818181818,
+        "mean_minimality_score": 0.8017045454545454,
+        "mean_readability_score": 0.953409090909091,
+        "mean_usefulness_score": 0.6801727272727273,
+        "patch_final_source_counts": {
+          "grounded_fallback": 16,
+          "llm": 59,
+          "llm_rejected_no_acceptable_fallback": 13
+        },
+        "quality_label_counts": {
+          "excellent": 28,
+          "needs_review": 11,
+          "rejected": 13,
+          "usable": 36
+        },
+        "verifier_status_counts": {
+          "fail": 13,
+          "pass": 61,
+          "warn": 14
+        }
+      },
+      "grounded_candidate": {
+        "acceptable_rate": 0.7272727272727273,
+        "evaluated_cases": 88,
+        "hallucination_risk_counts": {
+          "high": 24,
+          "low": 53,
+          "medium": 11
+        },
+        "mean_groundedness_score": 0.5722397727272728,
+        "mean_minimality_score": 0.9738636363636364,
+        "mean_readability_score": 1.0,
+        "mean_usefulness_score": 0.6282465909090909,
+        "quality_label_counts": {
+          "excellent": 30,
+          "needs_review": 9,
+          "rejected": 24,
+          "usable": 25
+        },
+        "verifier_status_counts": {
+          "fail": 24,
+          "pass": 55,
+          "warn": 9
+        }
+      },
+      "paired_grounded_vs_qwen": {
+        "both_acceptable": 48,
+        "both_unacceptable": 13,
+        "evaluated_cases": 88,
+        "grounded_acceptable_to_llm_unacceptable": 16,
+        "grounded_unacceptable_to_llm_acceptable": 11,
+        "grounded_usefulness_wins": 37,
+        "llm_usefulness_wins": 16,
+        "mean_llm_minus_grounded_usefulness": -0.049068181818181816,
+        "usefulness_ties": 35
+      },
+      "qwen_candidate": {
+        "acceptable_rate": 0.6704545454545454,
+        "evaluated_cases": 88,
+        "hallucination_risk_counts": {
+          "high": 29,
+          "low": 39,
+          "medium": 20
+        },
+        "mean_groundedness_score": 0.5382375,
+        "mean_minimality_score": 0.7336363636363636,
+        "mean_readability_score": 0.9357954545454544,
+        "mean_usefulness_score": 0.5791784090909091,
+        "quality_label_counts": {
+          "excellent": 22,
+          "needs_review": 11,
+          "rejected": 29,
+          "usable": 26
+        },
+        "verifier_status_counts": {
+          "fail": 29,
+          "pass": 45,
+          "warn": 14
+        }
+      }
+    }
+  },
+  "status": "ok",
+  "temperature": 0.1
+}
