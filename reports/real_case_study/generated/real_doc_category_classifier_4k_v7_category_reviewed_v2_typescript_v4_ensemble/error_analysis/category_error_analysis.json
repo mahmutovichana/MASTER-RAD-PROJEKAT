@@ -1,0 +1,2695 @@
+{
+  "input_predictions": "reports\\real_case_study\\generated\\real_doc_category_classifier_4k_v7_category_reviewed_v2_typescript_v4_ensemble\\category_predictions.jsonl",
+  "note": "This is diagnostic analysis only. It does not alter labels, predictions, or model selection.",
+  "splits": {
+    "locked_test": {
+      "accuracy": 0.6835443037974683,
+      "confidence_buckets": {
+        "0.00-0.40": 25,
+        "0.40-0.50": 48,
+        "0.50-0.60": 53,
+        "0.60-0.70": 76,
+        "0.70-0.80": 51,
+        "0.80-1.00": 142,
+        "missing": 0
+      },
+      "confusion_pairs": {
+        "api_reference -> configuration": 10,
+        "api_reference -> developer_setup": 8,
+        "api_reference -> model_contract": 9,
+        "configuration -> api_reference": 16,
+        "configuration -> developer_setup": 9,
+        "configuration -> model_contract": 18,
+        "developer_setup -> api_reference": 5,
+        "developer_setup -> configuration": 8,
+        "developer_setup -> model_contract": 12,
+        "model_contract -> api_reference": 17,
+        "model_contract -> configuration": 4,
+        "model_contract -> developer_setup": 9
+      },
+      "correct": 270,
+      "error_confidence_buckets": {
+        "0.00-0.40": 19,
+        "0.40-0.50": 22,
+        "0.50-0.60": 26,
+        "0.60-0.70": 27,
+        "0.70-0.80": 15,
+        "0.80-1.00": 16,
+        "missing": 0
+      },
+      "errors": 125,
+      "gold_distribution": {
+        "api_reference": 134,
+        "configuration": 108,
+        "developer_setup": 63,
+        "model_contract": 90
+      },
+      "high_confidence_errors": [
+        {
+          "case_id": "GH-CAND-0622",
+          "code_changed_files": [
+            "src/compiler/checker.ts",
+            "src/services/stringCompletions.ts",
+            "tests/cases/conformance/es6/yieldExpressions/generatorTypeCheck64.ts",
+            "tests/cases/fourslash/stringLiteralCompletionsWithinInferredObjectWhenItsKeysAreUsedOutsideOfIt.ts",
+            "tests/cases/fourslash/typeErrorAfterStringCompletionsInNestedCall.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.9097023489472389,
+          "pred_doc_category": "model_contract",
+          "repository": "microsoft/TypeScript",
+          "source_url": "https://github.com/microsoft/TypeScript/pull/56182",
+          "top2": [
+            "model_contract",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-7985",
+          "code_changed_files": [
+            "packages/router-core/src/router.ts",
+            "packages/router-core/tests/build-location.test.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.9077376173084688,
+          "pred_doc_category": "api_reference",
+          "repository": "TanStack/router",
+          "source_url": "https://github.com/TanStack/router/pull/8110",
+          "top2": [
+            "api_reference",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-1014",
+          "code_changed_files": [
+            "change/@fluentui-web-components-66ae5150-e0b3-4a9f-a60f-82d4d6fbf79c.json"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.9048681501308115,
+          "pred_doc_category": "model_contract",
+          "repository": "microsoft/fluentui",
+          "source_url": "https://github.com/microsoft/fluentui/pull/36367",
+          "top2": [
+            "model_contract",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5585",
+          "code_changed_files": [
+            "test/CodeSizeTestCases.size.js"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.8973058274213389,
+          "pred_doc_category": "api_reference",
+          "repository": "webpack/webpack",
+          "source_url": "https://github.com/webpack/webpack/pull/21749",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4843",
+          "code_changed_files": [
+            "packages/vite/src/plugins/public-dirs.ts",
+            "packages/vite/src/plugins/ssr-styles.ts",
+            "packages/vite/src/utils/inline-styles.test.ts",
+            "packages/vite/src/utils/inline-styles.ts",
+            "test/dynamic-paths.test.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.8887849970955982,
+          "pred_doc_category": "api_reference",
+          "repository": "nuxt/nuxt",
+          "source_url": "https://github.com/nuxt/nuxt/pull/36137",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0983",
+          "code_changed_files": [
+            ".github/dependabot.yml"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.8753955705604234,
+          "pred_doc_category": "configuration",
+          "repository": "microsoft/fluentui",
+          "source_url": "https://github.com/microsoft/fluentui/pull/36455",
+          "top2": [
+            "configuration",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-1031",
+          "code_changed_files": [
+            "change/@fluentui-web-components-0cc7cb7d-11d6-4f62-ac35-d648276e84e1.json",
+            "packages/web-components/package.json"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.8454100285174362,
+          "pred_doc_category": "model_contract",
+          "repository": "microsoft/fluentui",
+          "source_url": "https://github.com/microsoft/fluentui/pull/36329",
+          "top2": [
+            "model_contract",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5946",
+          "code_changed_files": [
+            "src/language-markdown/print/mdast.js"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.8407198483535622,
+          "pred_doc_category": "model_contract",
+          "repository": "prettier/prettier",
+          "source_url": "https://github.com/prettier/prettier/pull/19482",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4855",
+          "code_changed_files": [
+            "packages/nitro-server/src/runtime/handlers/error.ts",
+            "packages/nitro-server/test/early-404.test.ts",
+            "packages/nitro-server/test/error-vary.test.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.8402979201340157,
+          "pred_doc_category": "api_reference",
+          "repository": "nuxt/nuxt",
+          "source_url": "https://github.com/nuxt/nuxt/pull/36121",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4599",
+          "code_changed_files": [
+            "packages/runtime-vapor/__tests__/components/Teleport.spec.ts",
+            "packages/runtime-vapor/__tests__/for.spec.ts",
+            "packages/runtime-vapor/src/apiCreateFor.ts",
+            "packages/runtime-vapor/src/block.ts",
+            "packages/runtime-vapor/src/directives/vModel.ts",
+            "packages/runtime-vapor/src/dom/event.ts",
+            "packages/runtime-vapor/src/fragment.ts",
+            "packages/runtime-vapor/src/renderEffect.ts"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.8217993486014232,
+          "pred_doc_category": "model_contract",
+          "repository": "vuejs/core",
+          "source_url": "https://github.com/vuejs/core/pull/15329",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4958",
+          "code_changed_files": [
+            "packages/kit/src/module/define.ts",
+            "packages/kit/src/module/install.ts",
+            "packages/nuxt/src/app/plugins/dev-server-logs.ts",
+            "packages/nuxt/src/core/schema.ts",
+            "packages/nuxt/src/pages/module.ts"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.8197974058541655,
+          "pred_doc_category": "api_reference",
+          "repository": "nuxt/nuxt",
+          "source_url": "https://github.com/nuxt/nuxt/pull/35901",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4953",
+          "code_changed_files": [
+            "packages/nuxt/src/components/module.ts",
+            "packages/nuxt/src/core/app.ts",
+            "packages/nuxt/src/core/builder.ts",
+            "packages/nuxt/test/app.test.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.816160370754341,
+          "pred_doc_category": "api_reference",
+          "repository": "nuxt/nuxt",
+          "source_url": "https://github.com/nuxt/nuxt/pull/35912",
+          "top2": [
+            "api_reference",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8534",
+          "code_changed_files": [
+            "apps/v4/registry/directory.json"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.8079652354648035,
+          "pred_doc_category": "developer_setup",
+          "repository": "shadcn-ui/ui",
+          "source_url": "https://github.com/shadcn-ui/ui/pull/11290",
+          "top2": [
+            "developer_setup",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0512",
+          "code_changed_files": [
+            ".azure-pipelines/publish.yml"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.8077604084565501,
+          "pred_doc_category": "developer_setup",
+          "repository": "microsoft/playwright",
+          "source_url": "https://github.com/microsoft/playwright/pull/42144",
+          "top2": [
+            "developer_setup",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8498",
+          "code_changed_files": [
+            "apps/v4/registry/directory.json"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.8045691907148763,
+          "pred_doc_category": "developer_setup",
+          "repository": "shadcn-ui/ui",
+          "source_url": "https://github.com/shadcn-ui/ui/pull/11367",
+          "top2": [
+            "developer_setup",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4653",
+          "code_changed_files": [
+            "packages/runtime-dom/__tests__/customElement.spec.ts",
+            "packages/runtime-dom/src/apiCustomElement.ts"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.8020483440401273,
+          "pred_doc_category": "model_contract",
+          "repository": "vuejs/core",
+          "source_url": "https://github.com/vuejs/core/pull/15154",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6291",
+          "code_changed_files": [
+            ".yarn/versions/a46c1d8d.yml",
+            "packages/acceptance-tests/pkg-tests-fixtures/packages/one-dep-alias-bins-1.0.0/package.json",
+            "packages/acceptance-tests/pkg-tests-specs/sources/node-modules.test.ts",
+            "packages/plugin-nm/sources/NodeModulesLinker.ts"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.7957649393924398,
+          "pred_doc_category": "configuration",
+          "repository": "yarnpkg/berry",
+          "source_url": "https://github.com/yarnpkg/berry/pull/7216",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4626",
+          "code_changed_files": [
+            ".vscode/settings.json"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.7850788819681479,
+          "pred_doc_category": "developer_setup",
+          "repository": "vuejs/core",
+          "source_url": "https://github.com/vuejs/core/pull/15250",
+          "top2": [
+            "developer_setup",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5563",
+          "code_changed_files": [
+            "lib/html/syntax.js",
+            "test/HtmlSyntax.unittest.js",
+            "types.d.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.780283169010247,
+          "pred_doc_category": "model_contract",
+          "repository": "webpack/webpack",
+          "source_url": "https://github.com/webpack/webpack/pull/21787",
+          "top2": [
+            "model_contract",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0485",
+          "code_changed_files": [
+            "packages/playwright-core/src/cli/installActions.ts",
+            "packages/playwright-core/src/cli/program.ts",
+            "tests/installation/playwright-cli-install-should-work.spec.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.7715781848346267,
+          "pred_doc_category": "api_reference",
+          "repository": "microsoft/playwright",
+          "source_url": "https://github.com/microsoft/playwright/pull/42222",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6232",
+          "code_changed_files": [
+            "pnpm11/installing/commands/src/update/index.ts",
+            "pnpm11/pnpm/test/update.ts"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.7702945148262176,
+          "pred_doc_category": "configuration",
+          "repository": "pnpm/pnpm",
+          "source_url": "https://github.com/pnpm/pnpm/pull/13826",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0877",
+          "code_changed_files": [
+            "common/changes/eslint-plugin-tsdoc/octogonz-publish-eslint-plugin-tsdoc_2019-11-05-18-08.json",
+            "eslint-plugin/package.json",
+            "eslint-plugin/src/index.ts",
+            "eslint-plugin/src/tests/index.ts",
+            "rush.json"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.7680258808933499,
+          "pred_doc_category": "configuration",
+          "repository": "microsoft/tsdoc",
+          "source_url": "https://github.com/microsoft/tsdoc/pull/192",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8194",
+          "code_changed_files": [
+            "src/react.ts",
+            "src/vanilla.ts"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.7633928628978346,
+          "pred_doc_category": "api_reference",
+          "repository": "pmndrs/zustand",
+          "source_url": "https://github.com/pmndrs/zustand/pull/2935",
+          "top2": [
+            "api_reference",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0836",
+          "code_changed_files": [
+            "common/changes/@microsoft/tsdoc-config/master-to-main_2022-04-09-02-15.json",
+            "common/changes/@microsoft/tsdoc/master-to-main_2022-04-09-02-15.json",
+            "common/changes/eslint-plugin-tsdoc/master-to-main_2022-04-09-02-15.json",
+            "common/config/rush/command-line.json",
+            "eslint-plugin/package.json",
+            "rush.json",
+            "tsdoc-config/package.json",
+            "tsdoc/package.json"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.7546996945915632,
+          "pred_doc_category": "configuration",
+          "repository": "microsoft/tsdoc",
+          "source_url": "https://github.com/microsoft/tsdoc/pull/319",
+          "top2": [
+            "configuration",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5960",
+          "code_changed_files": [
+            "package.json",
+            "scripts/build/hacks/build-oxc-wasm-parser.js"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.745968520524388,
+          "pred_doc_category": "developer_setup",
+          "repository": "prettier/prettier",
+          "source_url": "https://github.com/prettier/prettier/pull/19830",
+          "top2": [
+            "developer_setup",
+            "model_contract"
+          ]
+        }
+      ],
+      "low_confidence_correct": [
+        {
+          "case_id": "GH-CAND-6317",
+          "code_changed_files": [
+            ".yarn/versions/73a88def.yml",
+            "packages/plugin-pnp/sources/PnpLinker.ts",
+            "packages/yarnpkg-core/sources/MessageName.ts"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.34946746240936155,
+          "pred_doc_category": "api_reference",
+          "repository": "yarnpkg/berry",
+          "source_url": "https://github.com/yarnpkg/berry/pull/7069",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5789",
+          "code_changed_files": [
+            "packages/babel-parser/src/parse-error/pipeline-operator-errors.ts",
+            "packages/babel-parser/typings/babel-parser.d.ts"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.36398239293468265,
+          "pred_doc_category": "model_contract",
+          "repository": "babel/babel",
+          "source_url": "https://github.com/babel/babel/pull/17764",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5780",
+          "code_changed_files": [
+            "packages/babel-standalone/src/transformScriptTags.ts",
+            "packages/babel-standalone/test/transform-script-tags.test.js"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.3799892222544665,
+          "pred_doc_category": "configuration",
+          "repository": "babel/babel",
+          "source_url": "https://github.com/babel/babel/pull/17771",
+          "top2": [
+            "configuration",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8858",
+          "code_changed_files": [
+            "packages/core/core/src/Strapi.ts"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.3852060931067576,
+          "pred_doc_category": "model_contract",
+          "repository": "strapi/strapi",
+          "source_url": "https://github.com/strapi/strapi/pull/27143",
+          "top2": [
+            "model_contract",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4493",
+          "code_changed_files": [
+            "package.json",
+            "pnpm-lock.yaml"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.39241444904643347,
+          "pred_doc_category": "api_reference",
+          "repository": "angular/angular-cli",
+          "source_url": "https://github.com/angular/angular-cli/pull/33607",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4529",
+          "code_changed_files": [
+            "packages/angular/build/package.json",
+            "pnpm-lock.yaml"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.3985192334903446,
+          "pred_doc_category": "api_reference",
+          "repository": "angular/angular-cli",
+          "source_url": "https://github.com/angular/angular-cli/pull/33591",
+          "top2": [
+            "api_reference",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8402",
+          "code_changed_files": [
+            "package.json"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.4032053505617992,
+          "pred_doc_category": "developer_setup",
+          "repository": "ant-design/ant-design",
+          "source_url": "https://github.com/ant-design/ant-design/pull/58935",
+          "top2": [
+            "developer_setup",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6374",
+          "code_changed_files": [
+            ".yarn/versions/d5e5a3b6.yml",
+            "packages/plugin-compat/extra/typescript/gen-typescript-patch.js",
+            "packages/plugin-compat/sources/patches/typescript.patch.ts"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.41465581569724647,
+          "pred_doc_category": "developer_setup",
+          "repository": "yarnpkg/berry",
+          "source_url": "https://github.com/yarnpkg/berry/pull/6591",
+          "top2": [
+            "developer_setup",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6509",
+          "code_changed_files": [
+            "workspaces/arborist/lib/arborist/rebuild.js",
+            "workspaces/arborist/test/arborist/reify.js"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.42760685076619764,
+          "pred_doc_category": "configuration",
+          "repository": "npm/cli",
+          "source_url": "https://github.com/npm/cli/pull/9551",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6288",
+          "code_changed_files": [
+            ".yarn/versions/e378878b.yml",
+            "packages/yarnpkg-nm/sources/buildPackageMap.ts"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.4345572888111809,
+          "pred_doc_category": "developer_setup",
+          "repository": "yarnpkg/berry",
+          "source_url": "https://github.com/yarnpkg/berry/pull/7223",
+          "top2": [
+            "developer_setup",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4688",
+          "code_changed_files": [
+            "packages/runtime-vapor/__tests__/vdomInterop.spec.ts",
+            "packages/runtime-vapor/src/vdomInterop.ts"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.4415615845103587,
+          "pred_doc_category": "developer_setup",
+          "repository": "vuejs/core",
+          "source_url": "https://github.com/vuejs/core/pull/15140",
+          "top2": [
+            "developer_setup",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6630",
+          "code_changed_files": [
+            "src/env-inl.h",
+            "src/env.cc",
+            "src/env.h",
+            "src/inspector_agent.cc",
+            "src/inspector_agent.h",
+            "test/parallel/test-inspector-async-hook-after-done.js"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.4416893724548571,
+          "pred_doc_category": "configuration",
+          "repository": "nodejs/node",
+          "source_url": "https://github.com/nodejs/node/pull/65028",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6510",
+          "code_changed_files": [
+            "workspaces/arborist/lib/arborist/reify.js",
+            "workspaces/arborist/test/arborist/reify.js"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.4420310424894214,
+          "pred_doc_category": "api_reference",
+          "repository": "npm/cli",
+          "source_url": "https://github.com/npm/cli/pull/9577",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8428",
+          "code_changed_files": [
+            "components/config-provider/__tests__/popup.test.tsx",
+            "components/config-provider/context.ts",
+            "components/popconfirm/index.tsx",
+            "components/popover/index.tsx",
+            "components/tooltip/index.tsx"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.44295769777160127,
+          "pred_doc_category": "configuration",
+          "repository": "ant-design/ant-design",
+          "source_url": "https://github.com/ant-design/ant-design/pull/58892",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6585",
+          "code_changed_files": [
+            "src/permission/permission.h",
+            "test/parallel/test-permission-audit-fs-does-not-deny.js",
+            "test/parallel/test-permission-audit-net-does-not-deny.js"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.4475638636862241,
+          "pred_doc_category": "configuration",
+          "repository": "nodejs/node",
+          "source_url": "https://github.com/nodejs/node/pull/64426",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0841",
+          "code_changed_files": [
+            "playground/src/DocHtmlView.tsx",
+            "playground/src/PlaygroundView.tsx",
+            "playground/src/SyntaxStyler/DocNodeSyntaxStylerTheme.ts"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.44880782073019504,
+          "pred_doc_category": "developer_setup",
+          "repository": "microsoft/tsdoc",
+          "source_url": "https://github.com/microsoft/tsdoc/pull/303",
+          "top2": [
+            "developer_setup",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5962",
+          "code_changed_files": [
+            "package.json"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.45975665329015647,
+          "pred_doc_category": "model_contract",
+          "repository": "prettier/prettier",
+          "source_url": "https://github.com/prettier/prettier/pull/19836",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4474",
+          "code_changed_files": [
+            "packages/core/src/render3/reactivity/effect.ts"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.45997539891771994,
+          "pred_doc_category": "developer_setup",
+          "repository": "angular/angular",
+          "source_url": "https://github.com/angular/angular/pull/70052",
+          "top2": [
+            "developer_setup",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6394",
+          "code_changed_files": [
+            ".yarn/versions/a0ea31c2.yml",
+            "packages/yarnpkg-core/sources/Configuration.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.4618348754512788,
+          "pred_doc_category": "configuration",
+          "repository": "yarnpkg/berry",
+          "source_url": "https://github.com/yarnpkg/berry/pull/6676",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8804",
+          "code_changed_files": [
+            "packages/providers/upload-aws-s3/jest.config.js",
+            "packages/providers/upload-aws-s3/package.json",
+            "packages/providers/upload-aws-s3/src/__tests__/is-url-from-bucket.vitest.test.ts",
+            "packages/providers/upload-aws-s3/src/__tests__/upload-aws-s3.vitest.test.ts",
+            "packages/providers/upload-aws-s3/src/__tests__/utils.vitest.test.ts",
+            "packages/providers/upload-aws-s3/tsconfig.json",
+            "packages/providers/upload-aws-s3/vitest.config.ts"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.46719923012979636,
+          "pred_doc_category": "api_reference",
+          "repository": "strapi/strapi",
+          "source_url": "https://github.com/strapi/strapi/pull/27216",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8822",
+          "code_changed_files": [
+            "packages/core/content-type-builder/admin/src/components/FormModal/reducer.ts",
+            "packages/core/content-type-builder/admin/src/components/FormModal/tests/reducer.test.ts"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.46974554523619394,
+          "pred_doc_category": "api_reference",
+          "repository": "strapi/strapi",
+          "source_url": "https://github.com/strapi/strapi/pull/27222",
+          "top2": [
+            "api_reference",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-1017",
+          "code_changed_files": [
+            "change/@fluentui-web-components-baaa98fd-7a14-4318-9cdb-133c1e6c1f2a.json",
+            "packages/web-components/package.json",
+            "packages/web-components/src/accordion-item/index.ts",
+            "packages/web-components/src/accordion/index.ts",
+            "packages/web-components/src/index.ts"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.47060853616328235,
+          "pred_doc_category": "api_reference",
+          "repository": "microsoft/fluentui",
+          "source_url": "https://github.com/microsoft/fluentui/pull/36356",
+          "top2": [
+            "api_reference",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4916",
+          "code_changed_files": [
+            "packages/nuxt/package.json",
+            "pnpm-lock.yaml",
+            "pnpm-workspace.yaml"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.4706323274081687,
+          "pred_doc_category": "configuration",
+          "repository": "nuxt/nuxt",
+          "source_url": "https://github.com/nuxt/nuxt/pull/35981",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8403",
+          "code_changed_files": [
+            "package.json"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.4711865836643191,
+          "pred_doc_category": "configuration",
+          "repository": "ant-design/ant-design",
+          "source_url": "https://github.com/ant-design/ant-design/pull/58929",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6320",
+          "code_changed_files": [
+            ".yarn/versions/c071c1e5.yml",
+            "packages/yarnpkg-pnp/sources/hook.js",
+            "packages/yarnpkg-pnp/sources/loader/makeApi.ts",
+            "packages/yarnpkg-pnp/sources/loader/nodeUtils.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.4714311840770344,
+          "pred_doc_category": "configuration",
+          "repository": "yarnpkg/berry",
+          "source_url": "https://github.com/yarnpkg/berry/pull/7077",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        }
+      ],
+      "per_class": {
+        "api_reference": {
+          "f1": 0.7670250896057349,
+          "fn": 27,
+          "fp": 38,
+          "precision": 0.7379310344827587,
+          "predicted": 145,
+          "recall": 0.7985074626865671,
+          "support": 134,
+          "tp": 107
+        },
+        "configuration": {
+          "f1": 0.6666666666666667,
+          "fn": 43,
+          "fp": 22,
+          "precision": 0.7471264367816092,
+          "predicted": 87,
+          "recall": 0.6018518518518519,
+          "support": 108,
+          "tp": 65
+        },
+        "developer_setup": {
+          "f1": 0.5984251968503936,
+          "fn": 25,
+          "fp": 26,
+          "precision": 0.59375,
+          "predicted": 64,
+          "recall": 0.6031746031746031,
+          "support": 63,
+          "tp": 38
+        },
+        "model_contract": {
+          "f1": 0.6349206349206349,
+          "fn": 30,
+          "fp": 39,
+          "precision": 0.6060606060606061,
+          "predicted": 99,
+          "recall": 0.6666666666666666,
+          "support": 90,
+          "tp": 60
+        }
+      },
+      "pred_distribution": {
+        "api_reference": 145,
+        "configuration": 87,
+        "developer_setup": 64,
+        "model_contract": 99
+      },
+      "split": "locked_test",
+      "top2_accuracy": 0.8658227848101265,
+      "total": 395
+    },
+    "train": {
+      "accuracy": 0.9962080173347779,
+      "confidence_buckets": {
+        "0.00-0.40": 1,
+        "0.40-0.50": 18,
+        "0.50-0.60": 38,
+        "0.60-0.70": 139,
+        "0.70-0.80": 324,
+        "0.80-1.00": 1326,
+        "missing": 0
+      },
+      "confusion_pairs": {
+        "api_reference -> developer_setup": 1,
+        "configuration -> api_reference": 1,
+        "configuration -> developer_setup": 3,
+        "configuration -> model_contract": 2
+      },
+      "correct": 1839,
+      "error_confidence_buckets": {
+        "0.00-0.40": 1,
+        "0.40-0.50": 5,
+        "0.50-0.60": 0,
+        "0.60-0.70": 1,
+        "0.70-0.80": 0,
+        "0.80-1.00": 0,
+        "missing": 0
+      },
+      "errors": 7,
+      "gold_distribution": {
+        "api_reference": 625,
+        "configuration": 507,
+        "developer_setup": 290,
+        "model_contract": 424
+      },
+      "high_confidence_errors": [
+        {
+          "case_id": "GH-CAND-4631",
+          "code_changed_files": [
+            "pnpm-workspace.yaml"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.6020481329463792,
+          "pred_doc_category": "developer_setup",
+          "repository": "vuejs/core",
+          "source_url": "https://github.com/vuejs/core/pull/15243",
+          "top2": [
+            "developer_setup",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8476",
+          "code_changed_files": [
+            "apps/v4/package.json",
+            "packages/shadcn/package.json",
+            "pnpm-lock.yaml"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.4909835935235882,
+          "pred_doc_category": "developer_setup",
+          "repository": "shadcn-ui/ui",
+          "source_url": "https://github.com/shadcn-ui/ui/pull/11286",
+          "top2": [
+            "developer_setup",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5012",
+          "code_changed_files": [
+            "packages/svelte/package.json",
+            "packages/svelte/src/version.js"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.47446012348745603,
+          "pred_doc_category": "model_contract",
+          "repository": "sveltejs/svelte",
+          "source_url": "https://github.com/sveltejs/svelte/pull/18560",
+          "top2": [
+            "model_contract",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4782",
+          "code_changed_files": [
+            "packages/router/src/router.ts"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.46678463257736375,
+          "pred_doc_category": "developer_setup",
+          "repository": "vuejs/router",
+          "source_url": "https://github.com/vuejs/router/pull/1910",
+          "top2": [
+            "developer_setup",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8175",
+          "code_changed_files": [
+            "src/traditional.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.4414745359753547,
+          "pred_doc_category": "model_contract",
+          "repository": "pmndrs/zustand",
+          "source_url": "https://github.com/pmndrs/zustand/pull/3116",
+          "top2": [
+            "model_contract",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8473",
+          "code_changed_files": [
+            "apps/v4/registry/directory.json"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.4154077318904431,
+          "pred_doc_category": "developer_setup",
+          "repository": "shadcn-ui/ui",
+          "source_url": "https://github.com/shadcn-ui/ui/pull/11516",
+          "top2": [
+            "developer_setup",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8110",
+          "code_changed_files": [
+            "src/middleware/devtools.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.33384909047370326,
+          "pred_doc_category": "api_reference",
+          "repository": "pmndrs/zustand",
+          "source_url": "https://github.com/pmndrs/zustand/pull/3414",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        }
+      ],
+      "low_confidence_correct": [
+        {
+          "case_id": "GH-CAND-5979",
+          "code_changed_files": [
+            "package.json"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.42238617821789104,
+          "pred_doc_category": "api_reference",
+          "repository": "prettier/prettier",
+          "source_url": "https://github.com/prettier/prettier/pull/19773",
+          "top2": [
+            "api_reference",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8084",
+          "code_changed_files": [
+            "packages/history/src/index.ts",
+            "packages/router-core/src/router.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.44393761084129113,
+          "pred_doc_category": "configuration",
+          "repository": "TanStack/router",
+          "source_url": "https://github.com/TanStack/router/pull/7582",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6023",
+          "code_changed_files": [
+            "package.json"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.45968625106842054,
+          "pred_doc_category": "model_contract",
+          "repository": "prettier/prettier",
+          "source_url": "https://github.com/prettier/prettier/pull/19685",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6030",
+          "code_changed_files": [
+            "website/package.json"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.4604178523321821,
+          "pred_doc_category": "api_reference",
+          "repository": "prettier/prettier",
+          "source_url": "https://github.com/prettier/prettier/pull/19679",
+          "top2": [
+            "api_reference",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5893",
+          "code_changed_files": [
+            "package.json"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.4646682198605332,
+          "pred_doc_category": "configuration",
+          "repository": "eslint/eslint",
+          "source_url": "https://github.com/eslint/eslint/pull/21042",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4554",
+          "code_changed_files": [
+            "package.json"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.46820867192601406,
+          "pred_doc_category": "configuration",
+          "repository": "angular/angular-cli",
+          "source_url": "https://github.com/angular/angular-cli/pull/33858",
+          "top2": [
+            "configuration",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4622",
+          "code_changed_files": [
+            "packages/runtime-vapor/__tests__/vdomInterop.spec.ts",
+            "packages/runtime-vapor/src/vdomInterop.ts"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.46822234086181197,
+          "pred_doc_category": "api_reference",
+          "repository": "vuejs/core",
+          "source_url": "https://github.com/vuejs/core/pull/15261",
+          "top2": [
+            "api_reference",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6596",
+          "code_changed_files": [
+            "typings/globals.d.ts",
+            "typings/internalBinding/diagnostics_channel.d.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.47555052364853667,
+          "pred_doc_category": "configuration",
+          "repository": "nodejs/node",
+          "source_url": "https://github.com/nodejs/node/pull/65227",
+          "top2": [
+            "configuration",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8529",
+          "code_changed_files": [
+            "apps/v4/package.json",
+            "packages/shadcn/package.json",
+            "pnpm-lock.yaml"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.48436325334772956,
+          "pred_doc_category": "configuration",
+          "repository": "shadcn-ui/ui",
+          "source_url": "https://github.com/shadcn-ui/ui/pull/11306",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5869",
+          "code_changed_files": [
+            "package.json"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.48671859581856086,
+          "pred_doc_category": "configuration",
+          "repository": "eslint/eslint",
+          "source_url": "https://github.com/eslint/eslint/pull/21076",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6007",
+          "code_changed_files": [
+            "website/package.json"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.4922751433011306,
+          "pred_doc_category": "api_reference",
+          "repository": "prettier/prettier",
+          "source_url": "https://github.com/prettier/prettier/pull/19715",
+          "top2": [
+            "api_reference",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4824",
+          "code_changed_files": [
+            "packages/router/src/utils/env.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.49388031670897253,
+          "pred_doc_category": "configuration",
+          "repository": "vuejs/router",
+          "source_url": "https://github.com/vuejs/router/pull/2042",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5961",
+          "code_changed_files": [
+            "package.json",
+            "tests/integration/__tests__/config-invalid.js"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.4960368109716813,
+          "pred_doc_category": "configuration",
+          "repository": "prettier/prettier",
+          "source_url": "https://github.com/prettier/prettier/pull/19834",
+          "top2": [
+            "configuration",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8379",
+          "code_changed_files": [
+            "package.json"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.5032166978278839,
+          "pred_doc_category": "configuration",
+          "repository": "ant-design/ant-design",
+          "source_url": "https://github.com/ant-design/ant-design/pull/58993",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4390",
+          "code_changed_files": [
+            ".github/actions/deploy-docs-site/main.js",
+            "adev/package.json",
+            "integration/animations/package.json",
+            "integration/animations/pnpm-lock.yaml",
+            "package.json",
+            "pnpm-lock.yaml"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.505426747919563,
+          "pred_doc_category": "configuration",
+          "repository": "angular/angular",
+          "source_url": "https://github.com/angular/angular/pull/69804",
+          "top2": [
+            "configuration",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4817",
+          "code_changed_files": [
+            "packages/docs/.vitepress/config/zh.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.5092419845463317,
+          "pred_doc_category": "configuration",
+          "repository": "vuejs/router",
+          "source_url": "https://github.com/vuejs/router/pull/2105",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5929",
+          "code_changed_files": [
+            "src/language-js/comments/handle-comments.js",
+            "tests/config/format-test/failed-format-tests.js"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.5134219400746473,
+          "pred_doc_category": "configuration",
+          "repository": "prettier/prettier",
+          "source_url": "https://github.com/prettier/prettier/pull/19894",
+          "top2": [
+            "configuration",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0910",
+          "code_changed_files": [
+            "playground/src/PlaygroundView.tsx"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.5159517782489756,
+          "pred_doc_category": "configuration",
+          "repository": "microsoft/tsdoc",
+          "source_url": "https://github.com/microsoft/tsdoc/pull/106",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8474",
+          "code_changed_files": [
+            "apps/v4/registry/directory.json"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.5175500288915819,
+          "pred_doc_category": "api_reference",
+          "repository": "shadcn-ui/ui",
+          "source_url": "https://github.com/shadcn-ui/ui/pull/10998",
+          "top2": [
+            "api_reference",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4375",
+          "code_changed_files": [
+            "packages/core/src/render3/instructions/styling.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.5201563240558014,
+          "pred_doc_category": "configuration",
+          "repository": "angular/angular",
+          "source_url": "https://github.com/angular/angular/pull/70322",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6542",
+          "code_changed_files": [
+            "src/node.cc"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.5346050408752633,
+          "pred_doc_category": "configuration",
+          "repository": "nodejs/node",
+          "source_url": "https://github.com/nodejs/node/pull/65396",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5814",
+          "code_changed_files": [
+            "package.json"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.5415903459545357,
+          "pred_doc_category": "configuration",
+          "repository": "eslint/eslint",
+          "source_url": "https://github.com/eslint/eslint/pull/21077",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4733",
+          "code_changed_files": [
+            "packages/router/tsconfig.json"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.543707396189307,
+          "pred_doc_category": "configuration",
+          "repository": "vuejs/router",
+          "source_url": "https://github.com/vuejs/router/pull/2761",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8081",
+          "code_changed_files": [
+            "packages/react-router/src/useMatch.tsx",
+            "packages/react-router/tests/useMatch.test.tsx"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.5458628018257917,
+          "pred_doc_category": "configuration",
+          "repository": "TanStack/router",
+          "source_url": "https://github.com/TanStack/router/pull/7595",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8238",
+          "code_changed_files": [
+            "apps/www/components/announcement.tsx",
+            "apps/www/components/site/hero.section.tsx"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.5462995544890202,
+          "pred_doc_category": "api_reference",
+          "repository": "chakra-ui/chakra-ui",
+          "source_url": "https://github.com/chakra-ui/chakra-ui/pull/10849",
+          "top2": [
+            "api_reference",
+            "developer_setup"
+          ]
+        }
+      ],
+      "per_class": {
+        "api_reference": {
+          "f1": 0.9984,
+          "fn": 1,
+          "fp": 1,
+          "precision": 0.9984,
+          "predicted": 625,
+          "recall": 0.9984,
+          "support": 625,
+          "tp": 624
+        },
+        "configuration": {
+          "f1": 0.9940476190476192,
+          "fn": 6,
+          "fp": 0,
+          "precision": 1.0,
+          "predicted": 501,
+          "recall": 0.9881656804733728,
+          "support": 507,
+          "tp": 501
+        },
+        "developer_setup": {
+          "f1": 0.9931506849315068,
+          "fn": 0,
+          "fp": 4,
+          "precision": 0.9863945578231292,
+          "predicted": 294,
+          "recall": 1.0,
+          "support": 290,
+          "tp": 290
+        },
+        "model_contract": {
+          "f1": 0.9976470588235293,
+          "fn": 0,
+          "fp": 2,
+          "precision": 0.9953051643192489,
+          "predicted": 426,
+          "recall": 1.0,
+          "support": 424,
+          "tp": 424
+        }
+      },
+      "pred_distribution": {
+        "api_reference": 625,
+        "configuration": 501,
+        "developer_setup": 294,
+        "model_contract": 426
+      },
+      "split": "train",
+      "top2_accuracy": 1.0,
+      "total": 1846
+    },
+    "validation": {
+      "accuracy": 0.7070707070707071,
+      "confidence_buckets": {
+        "0.00-0.40": 25,
+        "0.40-0.50": 49,
+        "0.50-0.60": 51,
+        "0.60-0.70": 54,
+        "0.70-0.80": 74,
+        "0.80-1.00": 143,
+        "missing": 0
+      },
+      "confusion_pairs": {
+        "api_reference -> configuration": 7,
+        "api_reference -> developer_setup": 4,
+        "api_reference -> model_contract": 10,
+        "configuration -> api_reference": 15,
+        "configuration -> developer_setup": 9,
+        "configuration -> model_contract": 14,
+        "developer_setup -> api_reference": 5,
+        "developer_setup -> configuration": 9,
+        "developer_setup -> model_contract": 12,
+        "model_contract -> api_reference": 15,
+        "model_contract -> configuration": 9,
+        "model_contract -> developer_setup": 7
+      },
+      "correct": 280,
+      "error_confidence_buckets": {
+        "0.00-0.40": 16,
+        "0.40-0.50": 24,
+        "0.50-0.60": 28,
+        "0.60-0.70": 21,
+        "0.70-0.80": 18,
+        "0.80-1.00": 9,
+        "missing": 0
+      },
+      "errors": 116,
+      "gold_distribution": {
+        "api_reference": 134,
+        "configuration": 109,
+        "developer_setup": 62,
+        "model_contract": 91
+      },
+      "high_confidence_errors": [
+        {
+          "case_id": "GH-CAND-0625",
+          "code_changed_files": [
+            "src/compiler/checker.ts",
+            "tests/cases/compiler/reverseMappedTypeInferenceWidening1.ts",
+            "tests/cases/compiler/reverseMappedTypeInferenceWidening2.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.9434346482223483,
+          "pred_doc_category": "model_contract",
+          "repository": "microsoft/TypeScript",
+          "source_url": "https://github.com/microsoft/TypeScript/pull/62722",
+          "top2": [
+            "model_contract",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8009",
+          "code_changed_files": [
+            "packages/router-core/src/searchParams.ts",
+            "packages/router-core/tests/searchParams.bench.ts",
+            "packages/router-core/tests/searchParams.test.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.9318072181219045,
+          "pred_doc_category": "api_reference",
+          "repository": "TanStack/router",
+          "source_url": "https://github.com/TanStack/router/pull/8006",
+          "top2": [
+            "api_reference",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-2719",
+          "code_changed_files": [
+            "test/regressions/a11y/axe.test.ts",
+            "test/regressions/a11y/axe.ts",
+            "test/regressions/demoMeta.ts",
+            "test/regressions/index.test.js"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.9276016427753884,
+          "pred_doc_category": "api_reference",
+          "repository": "mui/material-ui",
+          "source_url": "https://github.com/mui/material-ui/pull/48915",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8328",
+          "code_changed_files": [
+            "package.json",
+            "pnpm-lock.yaml"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.8764619686782972,
+          "pred_doc_category": "configuration",
+          "repository": "chakra-ui/chakra-ui",
+          "source_url": "https://github.com/chakra-ui/chakra-ui/pull/10494",
+          "top2": [
+            "configuration",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8240",
+          "code_changed_files": [
+            "apps/compositions/src/examples/splitter-css-units.tsx",
+            "apps/compositions/src/examples/splitter-resize-behavior.tsx"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.8723699447268852,
+          "pred_doc_category": "api_reference",
+          "repository": "chakra-ui/chakra-ui",
+          "source_url": "https://github.com/chakra-ui/chakra-ui/pull/10848",
+          "top2": [
+            "api_reference",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0610",
+          "code_changed_files": [
+            "src/lib/es2020.string.d.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.8547674542757663,
+          "pred_doc_category": "model_contract",
+          "repository": "microsoft/TypeScript",
+          "source_url": "https://github.com/microsoft/TypeScript/pull/62885",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0611",
+          "code_changed_files": [
+            "src/lib/es2020.string.d.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.8546160162227309,
+          "pred_doc_category": "model_contract",
+          "repository": "microsoft/TypeScript",
+          "source_url": "https://github.com/microsoft/TypeScript/pull/62873",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8052",
+          "code_changed_files": [
+            "pnpm-workspace.yaml"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.8431566924290501,
+          "pred_doc_category": "developer_setup",
+          "repository": "TanStack/router",
+          "source_url": "https://github.com/TanStack/router/pull/7810",
+          "top2": [
+            "developer_setup",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6222",
+          "code_changed_files": [
+            ".github/actions/binstall/action.yml",
+            ".github/workflows/docker.yml",
+            ".github/workflows/pacquet-cargo-unused.yml",
+            ".github/workflows/pacquet-ci.yml",
+            ".github/workflows/pacquet-codecov.yml",
+            ".github/workflows/pacquet-integrated-benchmark.yml",
+            ".github/workflows/pacquet-micro-benchmark.yml",
+            ".github/workflows/release.yml",
+            "package.json",
+            "pnpm-lock.yaml",
+            "pnpm-workspace.yaml"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.8384981157118467,
+          "pred_doc_category": "configuration",
+          "repository": "pnpm/pnpm",
+          "source_url": "https://github.com/pnpm/pnpm/pull/14006",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0636",
+          "code_changed_files": [
+            "src/compiler/binder.ts",
+            "tests/cases/fourslash/unreachableCodeAfterEdit.ts",
+            "tests/cases/fourslash/unusedLabelAfterEdit.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.7970040887013056,
+          "pred_doc_category": "model_contract",
+          "repository": "microsoft/TypeScript",
+          "source_url": "https://github.com/microsoft/TypeScript/pull/62783",
+          "top2": [
+            "model_contract",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5013",
+          "code_changed_files": [
+            "packages/svelte/src/compiler/print/index.js",
+            "packages/svelte/src/compiler/print/types.d.ts",
+            "packages/svelte/types/index.d.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.7920213632419034,
+          "pred_doc_category": "model_contract",
+          "repository": "sveltejs/svelte",
+          "source_url": "https://github.com/sveltejs/svelte/pull/18474",
+          "top2": [
+            "model_contract",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4715",
+          "code_changed_files": [
+            "packages/runtime-dom/__tests__/directives/vModel.spec.ts",
+            "packages/runtime-dom/src/directives/vModel.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.7887412932165259,
+          "pred_doc_category": "model_contract",
+          "repository": "vuejs/core",
+          "source_url": "https://github.com/vuejs/core/pull/15010",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0571",
+          "code_changed_files": [
+            "src/lib/es5.d.ts"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.78765642325461,
+          "pred_doc_category": "model_contract",
+          "repository": "microsoft/TypeScript",
+          "source_url": "https://github.com/microsoft/TypeScript/pull/62971",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4490",
+          "code_changed_files": [
+            "packages/angular/build/src/builders/application/inject-debug-ids.ts",
+            "packages/angular/build/src/utils/debug-id.ts",
+            "packages/angular/build/src/utils/debug-id_spec.ts"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.7862418751864799,
+          "pred_doc_category": "model_contract",
+          "repository": "angular/angular-cli",
+          "source_url": "https://github.com/angular/angular-cli/pull/33572",
+          "top2": [
+            "model_contract",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4606",
+          "code_changed_files": [
+            "packages/runtime-core/src/apiCreateApp.ts",
+            "packages/runtime-core/src/hydration.ts",
+            "packages/runtime-core/src/renderer.ts",
+            "packages/runtime-core/src/vnode.ts",
+            "packages/runtime-vapor/__tests__/hydration.spec.ts",
+            "packages/runtime-vapor/__tests__/scopeId.spec.ts",
+            "packages/runtime-vapor/src/apiCreateFor.ts",
+            "packages/runtime-vapor/src/component.ts",
+            "packages/runtime-vapor/src/componentSlots.ts",
+            "packages/runtime-vapor/src/dom/hydration.ts",
+            "packages/runtime-vapor/src/dom/template.ts",
+            "packages/runtime-vapor/src/fragment.ts",
+            "packages/runtime-vapor/src/fragmentFlags.ts",
+            "packages/runtime-vapor/src/hmr.ts",
+            "packages/runtime-vapor/src/scopeId.ts",
+            "packages/runtime-vapor/src/slotBoundary.ts",
+            "packages/runtime-vapor/src/slotFragment.ts",
+            "packages/runtime-vapor/src/vdomInterop.ts"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.7760659080023868,
+          "pred_doc_category": "model_contract",
+          "repository": "vuejs/core",
+          "source_url": "https://github.com/vuejs/core/pull/15311",
+          "top2": [
+            "model_contract",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0498",
+          "code_changed_files": [
+            "packages/playwright/src/isomorphic/testServerInterface.ts",
+            "packages/playwright/src/plugins/index.ts",
+            "packages/playwright/src/runner/tasks.ts",
+            "packages/playwright/src/runner/testRunner.ts",
+            "packages/playwright/src/runner/watchMode.ts",
+            "packages/playwright/src/transform/compilationCache.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.772249559428672,
+          "pred_doc_category": "api_reference",
+          "repository": "microsoft/playwright",
+          "source_url": "https://github.com/microsoft/playwright/pull/42200",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8338",
+          "code_changed_files": [
+            ".dumi/theme/builtins/ComponentMeta/index.tsx",
+            ".dumi/theme/common/styles/Demo.tsx",
+            "components/descriptions/Row.tsx",
+            "components/descriptions/__tests__/index.test.tsx",
+            "components/list/index.tsx"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.7694889142331873,
+          "pred_doc_category": "configuration",
+          "repository": "ant-design/ant-design",
+          "source_url": "https://github.com/ant-design/ant-design/pull/59067",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0139",
+          "code_changed_files": [
+            "src/skill-source.test.ts",
+            "src/skill-source.ts"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.7650613714899543,
+          "pred_doc_category": "configuration",
+          "repository": "eclipsefdn-ai-registry/ai-registry-core",
+          "source_url": "https://github.com/eclipsefdn-ai-registry/ai-registry-core/pull/38",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4840",
+          "code_changed_files": [
+            "packages/vite/src/plugins/public-dirs.ts",
+            "packages/vite/test/public-dirs.test.ts"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.7566843259431068,
+          "pred_doc_category": "api_reference",
+          "repository": "nuxt/nuxt",
+          "source_url": "https://github.com/nuxt/nuxt/pull/36143",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6638",
+          "code_changed_files": [
+            "benchmark/sqlite/sqlite-is-transaction.js"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.743692344727346,
+          "pred_doc_category": "developer_setup",
+          "repository": "nodejs/node",
+          "source_url": "https://github.com/nodejs/node/pull/65218",
+          "top2": [
+            "developer_setup",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8319",
+          "code_changed_files": [
+            "packages/react/src/components/image/image.tsx"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.7409115239212234,
+          "pred_doc_category": "developer_setup",
+          "repository": "chakra-ui/chakra-ui",
+          "source_url": "https://github.com/chakra-ui/chakra-ui/pull/10541",
+          "top2": [
+            "developer_setup",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0496",
+          "code_changed_files": [
+            "packages/isomorphic/trace/entries.ts",
+            "packages/isomorphic/trace/snapshotRenderer.ts",
+            "packages/isomorphic/trace/snapshotServer.ts",
+            "packages/isomorphic/trace/traceLoader.ts",
+            "packages/isomorphic/trace/traceModernizer.ts",
+            "packages/playwright-core/src/server/har/harRecorder.ts",
+            "packages/playwright-core/src/server/har/harTracer.ts",
+            "packages/playwright-core/src/server/localUtils.ts",
+            "packages/playwright-core/src/server/trace/recorder/snapshotter.ts",
+            "packages/playwright-core/src/server/trace/recorder/tracing.ts",
+            "packages/playwright-core/src/server/trace/viewer/traceViewer.ts",
+            "packages/playwright-core/src/tools/trace/traceAttachments.ts",
+            "packages/playwright-core/src/tools/trace/traceRequests.ts",
+            "packages/playwright-core/src/tools/trace/traceScreenshot.ts",
+            "packages/playwright-core/src/tools/trace/traceSnapshot.ts",
+            "packages/playwright/src/worker/testTracing.ts",
+            "packages/trace-viewer/src/sw/main.ts",
+            "packages/trace-viewer/src/third_party/devtools.ts",
+            "packages/trace-viewer/src/ui/attachmentsTab.tsx",
+            "packages/trace-viewer/src/ui/filmStrip.tsx",
+            "packages/trace-viewer/src/ui/networkResourceDetails.tsx",
+            "packages/trace-viewer/src/ui/sourceTab.tsx",
+            "packages/trace/src/har.ts",
+            "packages/trace/src/snapshot.ts",
+            "packages/trace/src/trace.ts",
+            "tests/library/browsertype-connect.spec.ts",
+            "tests/library/har.spec.ts",
+            "tests/library/tracing.spec.ts",
+            "tests/library/video.spec.ts",
+            "tests/mcp/tracing.spec.ts",
+            "tests/playwright-test/playwright.trace.spec.ts"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.7323348486539637,
+          "pred_doc_category": "api_reference",
+          "repository": "microsoft/playwright",
+          "source_url": "https://github.com/microsoft/playwright/pull/42192",
+          "top2": [
+            "api_reference",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8554",
+          "code_changed_files": [
+            "apps/v4/app/(app)/(create)/components/accent-picker.tsx",
+            "apps/v4/app/(app)/(create)/components/base-color-picker.tsx",
+            "apps/v4/app/(app)/(create)/components/chart-color-picker.tsx",
+            "apps/v4/app/(app)/(create)/components/font-picker.tsx",
+            "apps/v4/app/(app)/(create)/components/icon-library-picker.tsx",
+            "apps/v4/app/(app)/(create)/components/menu-picker.tsx",
+            "apps/v4/app/(app)/(create)/components/picker.tsx",
+            "apps/v4/app/(app)/(create)/components/preview-override.tsx",
+            "apps/v4/app/(app)/(create)/components/preview.tsx",
+            "apps/v4/app/(app)/(create)/components/radius-picker.tsx",
+            "apps/v4/app/(app)/(create)/components/style-picker.tsx",
+            "apps/v4/app/(app)/(create)/components/theme-picker.tsx",
+            "apps/v4/app/(app)/(create)/create/page.tsx",
+            "apps/v4/app/(app)/(typeset)/components/font-picker.tsx",
+            "apps/v4/app/(app)/(typeset)/components/option-picker.tsx",
+            "apps/v4/app/(app)/(typeset)/components/picker.tsx",
+            "apps/v4/app/(app)/(typeset)/components/preview-override.tsx",
+            "apps/v4/app/(app)/(typeset)/components/preview.tsx",
+            "apps/v4/app/(app)/(typeset)/typeset/page.tsx"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.7281842212505453,
+          "pred_doc_category": "api_reference",
+          "repository": "shadcn-ui/ui",
+          "source_url": "https://github.com/shadcn-ui/ui/pull/11207",
+          "top2": [
+            "api_reference",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8810",
+          "code_changed_files": [
+            "packages/plugins/sentry/jest.config.js",
+            "packages/plugins/sentry/package.json",
+            "packages/plugins/sentry/server/src/services/__tests__/sentry.vitest.test.ts",
+            "packages/plugins/sentry/server/tsconfig.json",
+            "packages/plugins/sentry/vitest.config.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.7179686580868873,
+          "pred_doc_category": "api_reference",
+          "repository": "strapi/strapi",
+          "source_url": "https://github.com/strapi/strapi/pull/27252",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0627",
+          "code_changed_files": [
+            "src/compiler/checker.ts"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.7156153936201339,
+          "pred_doc_category": "model_contract",
+          "repository": "microsoft/TypeScript",
+          "source_url": "https://github.com/microsoft/TypeScript/pull/61560",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        }
+      ],
+      "low_confidence_correct": [
+        {
+          "case_id": "GH-CAND-4374",
+          "code_changed_files": [
+            "packages/common/upgrade/src/location_shim.ts",
+            "packages/core/src/sanitization/html_sanitizer.ts"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.2812120810611695,
+          "pred_doc_category": "model_contract",
+          "repository": "angular/angular",
+          "source_url": "https://github.com/angular/angular/pull/70273",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4581",
+          "code_changed_files": [
+            "packages/schematics/angular/ai-config/index.ts",
+            "packages/schematics/angular/ai-config/index_spec.ts",
+            "packages/schematics/angular/ai-config/schema.json",
+            "packages/schematics/angular/ng-new/index_spec.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.31089137876576406,
+          "pred_doc_category": "configuration",
+          "repository": "angular/angular-cli",
+          "source_url": "https://github.com/angular/angular-cli/pull/33818",
+          "top2": [
+            "configuration",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8455",
+          "code_changed_files": [
+            "apps/v4/package.json",
+            "packages/shadcn/package.json",
+            "pnpm-lock.yaml"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.3440590714704267,
+          "pred_doc_category": "developer_setup",
+          "repository": "shadcn-ui/ui",
+          "source_url": "https://github.com/shadcn-ui/ui/pull/11567",
+          "top2": [
+            "developer_setup",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5777",
+          "code_changed_files": [
+            "Makefile.js",
+            "Makefile.source.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.3598378140868468,
+          "pred_doc_category": "configuration",
+          "repository": "babel/babel",
+          "source_url": "https://github.com/babel/babel/pull/17982",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5574",
+          "code_changed_files": [
+            "lib/optimize/ConcatenatedModule.js"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.37618229899778494,
+          "pred_doc_category": "model_contract",
+          "repository": "webpack/webpack",
+          "source_url": "https://github.com/webpack/webpack/pull/21768",
+          "top2": [
+            "model_contract",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0902",
+          "code_changed_files": [
+            "playground/package.json",
+            "rush.json"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.37991111577312725,
+          "pred_doc_category": "configuration",
+          "repository": "microsoft/tsdoc",
+          "source_url": "https://github.com/microsoft/tsdoc/pull/121",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5876",
+          "code_changed_files": [
+            "package.json"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.3858198439141366,
+          "pred_doc_category": "developer_setup",
+          "repository": "eslint/eslint",
+          "source_url": "https://github.com/eslint/eslint/pull/21068",
+          "top2": [
+            "developer_setup",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0541",
+          "code_changed_files": [
+            "packages/playwright-core/src/server/bidi/bidiConnection.ts"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.3862490321414215,
+          "pred_doc_category": "model_contract",
+          "repository": "microsoft/playwright",
+          "source_url": "https://github.com/microsoft/playwright/pull/42118",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6475",
+          "code_changed_files": [
+            "workspaces/arborist/lib/arborist/reify.js",
+            "workspaces/arborist/lib/shrinkwrap.js",
+            "workspaces/arborist/test/arborist/reify-npm-extension.js",
+            "workspaces/arborist/test/arborist/reify.js"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.39508671909986903,
+          "pred_doc_category": "developer_setup",
+          "repository": "npm/cli",
+          "source_url": "https://github.com/npm/cli/pull/9630",
+          "top2": [
+            "developer_setup",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4387",
+          "code_changed_files": [
+            "pnpm-lock.yaml"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.4133080079441249,
+          "pred_doc_category": "api_reference",
+          "repository": "angular/angular",
+          "source_url": "https://github.com/angular/angular/pull/69854",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6387",
+          "code_changed_files": [
+            ".yarn/sdks/typescript/package.json",
+            ".yarn/versions/cab716b2.yml",
+            "package.json",
+            "packages/docusaurus/package.json",
+            "packages/plugin-compat/extra/typescript/gen-typescript-patch.js",
+            "packages/plugin-compat/sources/patches/typescript.patch.ts",
+            "packages/yarnpkg-builder/package.json",
+            "packages/yarnpkg-doctor/package.json"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.41345908984173063,
+          "pred_doc_category": "api_reference",
+          "repository": "yarnpkg/berry",
+          "source_url": "https://github.com/yarnpkg/berry/pull/6349",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0870",
+          "code_changed_files": [
+            "common/changes/@microsoft/tsdoc/octogonz-param-tag-fixes_2020-02-22-05-41.json",
+            "tsdoc/src/nodes/DocExcerpt.ts",
+            "tsdoc/src/nodes/DocParamBlock.ts",
+            "tsdoc/src/parser/NodeParser.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.41429282358315245,
+          "pred_doc_category": "configuration",
+          "repository": "microsoft/tsdoc",
+          "source_url": "https://github.com/microsoft/tsdoc/pull/218",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8366",
+          "code_changed_files": [
+            "components/menu/MenuItem.tsx",
+            "components/menu/__tests__/index.test.tsx"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.41665228336809035,
+          "pred_doc_category": "model_contract",
+          "repository": "ant-design/ant-design",
+          "source_url": "https://github.com/ant-design/ant-design/pull/58865",
+          "top2": [
+            "model_contract",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0447",
+          "code_changed_files": [
+            "packages/injected/src/ariaSnapshot.ts",
+            "packages/isomorphic/ariaSnapshot.ts",
+            "packages/isomorphic/ariaSnapshotRenderer.ts",
+            "tests/page/page-aria-snapshot-ai.spec.ts"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.44294650566010213,
+          "pred_doc_category": "model_contract",
+          "repository": "microsoft/playwright",
+          "source_url": "https://github.com/microsoft/playwright/pull/42268",
+          "top2": [
+            "model_contract",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8558",
+          "code_changed_files": [
+            "packages/shadcn/src/utils/updaters/update-dependencies.ts",
+            "packages/shadcn/test/utils/updaters/update-dependencies.test.ts"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.44387921583671597,
+          "pred_doc_category": "configuration",
+          "repository": "shadcn-ui/ui",
+          "source_url": "https://github.com/shadcn-ui/ui/pull/11195",
+          "top2": [
+            "configuration",
+            "api_reference"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-4680",
+          "code_changed_files": [
+            "packages/runtime-core/src/apiCreateApp.ts",
+            "packages/runtime-core/src/renderer.ts",
+            "packages/runtime-vapor/__tests__/components/Suspense.spec.ts",
+            "packages/runtime-vapor/src/apiTemplateRef.ts",
+            "packages/runtime-vapor/src/block.ts",
+            "packages/runtime-vapor/src/component.ts",
+            "packages/runtime-vapor/src/components/KeepAlive.ts",
+            "packages/runtime-vapor/src/components/Teleport.ts",
+            "packages/runtime-vapor/src/components/Transition.ts",
+            "packages/runtime-vapor/src/components/TransitionGroup.ts",
+            "packages/runtime-vapor/src/fragment.ts",
+            "packages/runtime-vapor/src/renderEffect.ts",
+            "packages/runtime-vapor/src/vdomInterop.ts"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.4534940021453102,
+          "pred_doc_category": "model_contract",
+          "repository": "vuejs/core",
+          "source_url": "https://github.com/vuejs/core/pull/15144",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-0879",
+          "code_changed_files": [
+            "api-demo/build.js",
+            "api-demo/package.json",
+            "common/changes/@microsoft/tsdoc/octogonz-fix-eslint-cli_2019-10-22-22-32.json",
+            "playground/package.json",
+            "tsdoc/build.js",
+            "tsdoc/package.json"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.45675402057498043,
+          "pred_doc_category": "api_reference",
+          "repository": "microsoft/tsdoc",
+          "source_url": "https://github.com/microsoft/tsdoc/pull/189",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6525",
+          "code_changed_files": [
+            "benchmark/http/bench-parser.js",
+            "src/node_http_parser.cc",
+            "test/parallel/test-http-parser-max-header-pairs-cache.js"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.45796456531123353,
+          "pred_doc_category": "configuration",
+          "repository": "nodejs/node",
+          "source_url": "https://github.com/nodejs/node/pull/64988",
+          "top2": [
+            "configuration",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8393",
+          "code_changed_files": [
+            "package.json"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.45862189092679523,
+          "pred_doc_category": "developer_setup",
+          "repository": "ant-design/ant-design",
+          "source_url": "https://github.com/ant-design/ant-design/pull/58958",
+          "top2": [
+            "developer_setup",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5795",
+          "code_changed_files": [
+            "eslint/babel-eslint-parser/package.json",
+            "eslint/babel-eslint-parser/src/analyze-scope.ts",
+            "eslint/babel-eslint-parser/src/ast-info.ts",
+            "eslint/babel-eslint-parser/src/client.ts",
+            "eslint/babel-eslint-parser/src/configuration.ts",
+            "eslint/babel-eslint-parser/src/convert/convertAST.ts",
+            "eslint/babel-eslint-parser/src/convert/convertComments.ts",
+            "eslint/babel-eslint-parser/src/convert/convertTokens.ts",
+            "eslint/babel-eslint-parser/src/convert/index.ts",
+            "eslint/babel-eslint-parser/src/index.ts",
+            "eslint/babel-eslint-parser/src/parse.ts",
+            "eslint/babel-eslint-parser/src/types.d.ts",
+            "eslint/babel-eslint-parser/src/utils/eslint-version.ts",
+            "eslint/babel-eslint-parser/src/worker/configuration.ts",
+            "eslint/babel-eslint-parser/src/worker/extract-parser-options-plugin.ts",
+            "eslint/babel-eslint-parser/src/worker/handle-message.ts",
+            "eslint/babel-eslint-parser/src/worker/index.ts",
+            "eslint/babel-eslint-parser/src/worker/maybeParse.ts",
+            "eslint/babel-eslint-parser/test/index.js",
+            "eslint/babel-eslint-parser/test/typescript-estree.test.js",
+            "eslint/babel-eslint-tests/test/fixtures/mjs-babel-plugin-eslint-8/.eslintrc.js",
+            "eslint/babel-eslint-tests/test/fixtures/mjs-babel-plugin/eslint.config.js",
+            "eslint/babel-eslint-tests/test/fixtures/mjs-config-file-eslint-8/.eslintrc.js",
+            "eslint/babel-eslint-tests/test/fixtures/mjs-config-file/eslint.config.js",
+            "eslint/babel-eslint-tests/test/helpers/verifyAndAssertMessages.js",
+            "eslint/babel-eslint-tests/test/integration/eslint/rules/strict.js",
+            "eslint/babel-eslint-tests/test/integration/parser-override.js",
+            "tsconfig.paths.json"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.46237724915700945,
+          "pred_doc_category": "api_reference",
+          "repository": "babel/babel",
+          "source_url": "https://github.com/babel/babel/pull/17755",
+          "top2": [
+            "api_reference",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8283",
+          "code_changed_files": [
+            "apps/compositions/src/examples/client-only-basic.tsx",
+            "apps/compositions/src/examples/client-only-render-prop.tsx",
+            "apps/compositions/src/examples/client-only-with-fallback.tsx"
+          ],
+          "gold_doc_category": "api_reference",
+          "language": "typescript",
+          "pred_confidence": 0.46248996304862455,
+          "pred_doc_category": "api_reference",
+          "repository": "chakra-ui/chakra-ui",
+          "source_url": "https://github.com/chakra-ui/chakra-ui/pull/10642",
+          "top2": [
+            "api_reference",
+            "developer_setup"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-8396",
+          "code_changed_files": [
+            "components/tree/__tests__/index.test.tsx",
+            "components/tree/style/index.ts",
+            "package.json"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.4736688681408771,
+          "pred_doc_category": "model_contract",
+          "repository": "ant-design/ant-design",
+          "source_url": "https://github.com/ant-design/ant-design/pull/58906",
+          "top2": [
+            "model_contract",
+            "configuration"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6508",
+          "code_changed_files": [
+            "workspaces/arborist/lib/arborist/rebuild.js",
+            "workspaces/arborist/test/arborist/reify.js"
+          ],
+          "gold_doc_category": "configuration",
+          "language": "typescript",
+          "pred_confidence": 0.47468254298316626,
+          "pred_doc_category": "configuration",
+          "repository": "npm/cli",
+          "source_url": "https://github.com/npm/cli/pull/9578",
+          "top2": [
+            "configuration",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-5821",
+          "code_changed_files": [
+            "package.json"
+          ],
+          "gold_doc_category": "developer_setup",
+          "language": "typescript",
+          "pred_confidence": 0.4752975544815465,
+          "pred_doc_category": "developer_setup",
+          "repository": "eslint/eslint",
+          "source_url": "https://github.com/eslint/eslint/pull/21172",
+          "top2": [
+            "developer_setup",
+            "model_contract"
+          ]
+        },
+        {
+          "case_id": "GH-CAND-6037",
+          "code_changed_files": [
+            "src/language-yaml/printer-yaml.js"
+          ],
+          "gold_doc_category": "model_contract",
+          "language": "typescript",
+          "pred_confidence": 0.475982025916016,
+          "pred_doc_category": "model_contract",
+          "repository": "prettier/prettier",
+          "source_url": "https://github.com/prettier/prettier/pull/19599",
+          "top2": [
+            "model_contract",
+            "developer_setup"
+          ]
+        }
+      ],
+      "per_class": {
+        "api_reference": {
+          "f1": 0.801418439716312,
+          "fn": 21,
+          "fp": 35,
+          "precision": 0.7635135135135135,
+          "predicted": 148,
+          "recall": 0.8432835820895522,
+          "support": 134,
+          "tp": 113
+        },
+        "configuration": {
+          "f1": 0.6926829268292682,
+          "fn": 38,
+          "fp": 25,
+          "precision": 0.7395833333333334,
+          "predicted": 96,
+          "recall": 0.6513761467889908,
+          "support": 109,
+          "tp": 71
+        },
+        "developer_setup": {
+          "f1": 0.6101694915254238,
+          "fn": 26,
+          "fp": 20,
+          "precision": 0.6428571428571429,
+          "predicted": 56,
+          "recall": 0.5806451612903226,
+          "support": 62,
+          "tp": 36
+        },
+        "model_contract": {
+          "f1": 0.6417112299465241,
+          "fn": 31,
+          "fp": 36,
+          "precision": 0.625,
+          "predicted": 96,
+          "recall": 0.6593406593406593,
+          "support": 91,
+          "tp": 60
+        }
+      },
+      "pred_distribution": {
+        "api_reference": 148,
+        "configuration": 96,
+        "developer_setup": 56,
+        "model_contract": 96
+      },
+      "split": "validation",
+      "top2_accuracy": 0.8560606060606061,
+      "total": 396
+    }
+  },
+  "status": "ok"
+}
