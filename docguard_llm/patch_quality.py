@@ -1,5 +1,15 @@
 from __future__ import annotations
 
+"""
+Historical Stage 3 V1 heuristic quality helper.
+
+This module was used as an internal experimental metric for V1 patch
+generation reports. It is not the primary Final V2 quality metric.
+Final V2 uses a safety-only provenance verifier during generation, and
+final documentation quality is evaluated later with reference-based and
+blind-human evaluation protocols.
+"""
+
 import re
 from typing import Any
 

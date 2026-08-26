@@ -96,6 +96,31 @@ Development repositories are split into `development_train` and `development_val
 
 All random or stable decisions record the seed. JSON and JSONL outputs are UTF-8 without BOM.
 
+## Final V2.1 Acquisition Policy
+
+Final acquisition is repository-diversity oriented. If the current repository universe cannot satisfy the requested total size or language coverage, the correct response is to expand the repository universe, not to deepen a small number of repositories indefinitely.
+
+Language coverage constraints are permitted because language is a pre-existing input/domain property, not a target label. Repository discovery, shard collection, seed merging, repository partitioning, and optional repository-level caps all occur before human labels are created.
+
+No target-label balancing is used at acquisition time or dataset construction time:
+
+NO CLASS BALANCING / OVERSAMPLING / UNDERSAMPLING / SMOTE.
+
+Raw acquisition shards are immutable and retained for audit. Additional collection is performed as separate shards. Shards are merged with deterministic de-duplication by repository plus PR number and source URL before candidate building.
+
+The existing first large acquisition shard is documented as `acquisition_shard_A_existing_universe`: it collected 5619 seeds from the initial 191-repository universe but did not satisfy the requested 18000 total / 6000 Python coverage target. It must remain unchanged and reusable as shard A.
+
+Final V2 GitHub acquisition uses authenticated, serial GitHub API access. Final collection commands should include:
+
+- `--require-authenticated`
+- `--min-request-interval-seconds 0.25`
+
+The collector applies request-level pacing before every uncached outbound GitHub HTTP request. Cache hits do not count as outbound requests and do not trigger pacing. The older `--sleep-seconds` option is retained for backward compatibility only; Final V2 relies on request-level pacing.
+
+Collection stops safely on GitHub primary rate limits, secondary/abuse rate limits, and authentication failures. These API failures are operational acquisition states, not dataset labels. Already collected seeds are preserved in immutable shard outputs, and partial shards are explicitly reported as `status = partial`.
+
+Final V2 does not use concurrency for GitHub acquisition and does not increase `max-prs-per-repository` solely to reach dataset size. Repository diversity should be increased by expanding the repository universe before collecting additional shards.
+
 ## Leak-Free Candidate Builder V2
 
 Candidate construction does not emit any `gold_*` field. Case identity is stable for each GitHub PR and is derived from normalized repository identity plus PR number. Candidate records may include only safe model inputs and audit context.
@@ -108,3 +133,15 @@ Each candidate row records:
 - `docs_before_retrieved_files`
 
 These fields are audit-only provenance, not model input.
+
+## Final Stage 3 V2: Semantic Documentation Generation
+
+Final V2 separates the thesis flow into three stages:
+
+1. Stage 1 predicts whether a documentation update is required.
+2. Stage 2 predicts the broad documentation category for positive cases.
+3. Stage 3 V2 generates the documentation patch with a semantic LLM pipeline.
+
+Stage 3 V2 does not route a category to a hard-coded documentation file and does not use deterministic documentation prose as a final fallback. It analyzes the code change, validates exact evidence quotes, retrieves candidate documentation from pre-change documentation context, asks the LLM to write developer-facing documentation, checks provenance safety, and allows one LLM repair attempt.
+
+If the LLM patch cannot pass the safety verifier after one repair attempt, the final output is `human_review_required`. The old grounded/hybrid patch-generation work remains historical Stage 3 V1 evidence and must be reported as an earlier prototype, not as the Final V2 generation method.

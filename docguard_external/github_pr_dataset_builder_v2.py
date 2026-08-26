@@ -42,6 +42,9 @@ AUDIT_ONLY_FIELDS = [
     "candidate_evidence",
     "docs_before_retrieval_policy",
     "docs_before_retrieved_files",
+    "documentation_context_candidates",
+    "classifier_model_input",
+    "generator_context",
 ]
 FORBIDDEN_GOLD_FIELDS = {
     "gold_docs_update_required",
@@ -71,10 +74,11 @@ def neutral_doc_paths(code_changed_files: list[str], max_files: int) -> list[str
     return unique_preserve_order(paths)[: max(max_files * 3, max_files)]
 
 
-def collect_docs_before_neutral(*, client: Any, repo: str, ref: str, code_changed_files: list[str], max_chars: int, max_files: int) -> tuple[str, list[str], str]:
+def collect_docs_before_neutral(*, client: Any, repo: str, ref: str, code_changed_files: list[str], max_chars: int, max_files: int) -> tuple[str, list[str], str, list[dict[str, str]]]:
     selected_paths = neutral_doc_paths(code_changed_files, max_files)
     chunks: list[str] = []
     retrieved: list[str] = []
+    candidates: list[dict[str, str]] = []
     remaining = max_chars
     for path in selected_paths:
         if remaining <= 0 or len(retrieved) >= max_files:
@@ -88,9 +92,10 @@ def collect_docs_before_neutral(*, client: Any, repo: str, ref: str, code_change
         chunk = truncate_text(text, max(400, remaining))
         chunks.append(f"<!-- {path} @ {ref} -->\n{chunk}")
         retrieved.append(path)
+        candidates.append({"path": path, "excerpt": chunk, "source_ref": ref})
         remaining = max_chars - len("\n\n".join(chunks))
     policy = "base_sha_neutral_known_doc_paths_plus_code_path_hints_no_docs_changed_files"
-    return truncate_text("\n\n".join(chunks), max_chars), retrieved, policy
+    return truncate_text("\n\n".join(chunks), max_chars), retrieved, policy, candidates
 
 
 def collect_docs_after_audit(*, client: Any, repo: str, ref: str, docs_changed_files: list[str], max_chars: int, max_files: int) -> str:
@@ -137,9 +142,9 @@ def build_candidate_case_v2(*, seed: dict[str, Any], client: Any, config: BuildC
     head = pull.get("head") or {}
     base_sha = str(base.get("sha") or "")
     head_sha = str(head.get("sha") or "")
-    docs_before_excerpt, retrieved_files, retrieval_policy = ("", [], "base_sha_missing_no_docs_retrieved")
+    docs_before_excerpt, retrieved_files, retrieval_policy, documentation_context_candidates = ("", [], "base_sha_missing_no_docs_retrieved", [])
     if base_sha:
-        docs_before_excerpt, retrieved_files, retrieval_policy = collect_docs_before_neutral(
+        docs_before_excerpt, retrieved_files, retrieval_policy, documentation_context_candidates = collect_docs_before_neutral(
             client=client,
             repo=repo,
             ref=base_sha,
@@ -166,6 +171,16 @@ def build_candidate_case_v2(*, seed: dict[str, Any], client: Any, config: BuildC
         "docs_before_excerpt": docs_before_excerpt,
         "docs_before_retrieval_policy": retrieval_policy,
         "docs_before_retrieved_files": retrieved_files,
+        "documentation_context_candidates": documentation_context_candidates,
+        "classifier_model_input": {
+            "language": language,
+            "code_changed_files": code_changed_files,
+            "code_diff_excerpt": code_diff_excerpt,
+            "docs_before_excerpt": docs_before_excerpt,
+        },
+        "generator_context": {
+            "documentation_context_candidates": documentation_context_candidates,
+        },
         "changed_files": changed_files,
         "docs_changed_files": docs_changed_files,
         "docs_diff_excerpt": docs_diff_excerpt,
