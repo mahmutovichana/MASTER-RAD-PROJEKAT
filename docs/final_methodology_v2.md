@@ -166,3 +166,9 @@ Final Stage 3 V2 evaluation separates safety/provenance validation from document
 The primary Stage 3 confirmation sample is a natural-distribution random predicted-positive sample. A category-stratified stress sample may be reported as supplementary only. One-shot confirmation aggregation requires a Stage 3 freeze manifest and writes a separate evaluation receipt.
 
 Historical Qwen100 results are retained as V1 internal verifier acceptance rates: grounded 76%, Qwen 67%, and hybrid cascade 87%. These are not accuracy, not human quality, and not Final V2 performance.
+
+## Large-Scale Human Review Workflow
+
+Final V2 human labeling is batched, resumable, and integrity-checked. Automated prefill suggestions remain reviewer assistance only; suggested fields are never copied into gold labels automatically. Reviewer-facing batches hide repository partitions and include deterministic `review_row_hash` values over immutable evidence so accidental evidence edits are detected during merge and completion audit.
+
+The final gold finalizer can assign `label_source = human_reviewed_final_v2` only for approved rows with explicit human fields and valid taxonomy. Second-reviewer subsets and adjudication sheets support reliability analysis, but disagreements require explicit human adjudication and never overwrite primary labels automatically.

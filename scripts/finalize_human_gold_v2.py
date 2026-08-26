@@ -7,6 +7,8 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from scripts.human_review_workflow_v2 import validate_integrity
+
 
 LABEL_SOURCE = "human_reviewed_final_v2"
 PRIMARY_STAGE2 = {"api_reference", "configuration", "developer_setup", "model_contract"}
@@ -72,6 +74,10 @@ def finalize_row(row: dict[str, Any], index: int, partition_assignments: dict[st
     row_id = str(row.get("case_id") or row.get("id") or f"row_{index}")
     if row.get("review_status") != "approved":
         raise ValueError(f"{row_id}: review_status must be approved before finalization")
+    if row.get("review_row_hash"):
+        ok, reason = validate_integrity(row)
+        if not ok:
+            raise ValueError(f"{row_id}: {reason}")
     docs_required = as_bool(row.get("human_docs_update_required"), row_id)
     human_category = str(row.get("human_doc_category") or "").strip()
     if docs_required:
