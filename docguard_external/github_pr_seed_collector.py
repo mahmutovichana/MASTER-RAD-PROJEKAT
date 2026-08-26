@@ -3,11 +3,13 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import socket
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
 from collections import Counter
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -21,16 +23,113 @@ from docguard_external.github_pr_dataset_builder import (
 
 from docguard_external.github_api_cache import GitHubApiCache
 
+
+class GlobalAcquisitionStop(Exception):
+    def __init__(self, stop_reason: str, error: "GitHubRequestError | None" = None) -> None:
+        super().__init__(stop_reason)
+        self.stop_reason = stop_reason
+        self.error = error
+
+
+class GitHubRequestError(Exception):
+    def __init__(self, *, status_code: int | None, url: str, response_body: str, headers: Any | None = None, original_error: Exception | None = None) -> None:
+        super().__init__(f"HTTP {status_code} from {url}: {response_body[:500]}" if status_code else f"GitHub request failed {url}: {response_body}")
+        self.status_code = status_code
+        self.url = url
+        self.response_body = response_body
+        self.original_error = original_error
+        self.retry_after = _int_header(headers, "Retry-After")
+        self.rate_limit_limit = _int_header(headers, "x-ratelimit-limit")
+        self.rate_limit_remaining = _int_header(headers, "x-ratelimit-remaining")
+        self.rate_limit_used = _int_header(headers, "x-ratelimit-used")
+        self.rate_limit_reset = _int_header(headers, "x-ratelimit-reset")
+        self.rate_limit_resource = _str_header(headers, "x-ratelimit-resource")
+        body_lower = response_body.lower()
+        self.is_authentication_failure = status_code == 401
+        self.is_primary_rate_limit = status_code in {403, 429} and self.rate_limit_remaining == 0
+        secondary_terms = ["secondary rate limit", "abuse detection", "abuse rate limit", "abuse rate limits"]
+        self.is_secondary_rate_limit = status_code in {403, 429} and any(term in body_lower for term in secondary_terms) and self.rate_limit_remaining != 0
+        self.is_transient = status_code in {500, 502, 503, 504} or status_code is None
+
+    def snapshot(self) -> dict[str, Any]:
+        return {
+            "status_code": self.status_code,
+            "url": self.url,
+            "retry_after": self.retry_after,
+            "rate_limit_limit": self.rate_limit_limit,
+            "rate_limit_remaining": self.rate_limit_remaining,
+            "rate_limit_used": self.rate_limit_used,
+            "rate_limit_reset": self.rate_limit_reset,
+            "rate_limit_resource": self.rate_limit_resource,
+            "is_primary_rate_limit": self.is_primary_rate_limit,
+            "is_secondary_rate_limit": self.is_secondary_rate_limit,
+            "is_authentication_failure": self.is_authentication_failure,
+            "is_transient": self.is_transient,
+        }
+
+
+def _str_header(headers: Any | None, name: str) -> str | None:
+    if headers is None:
+        return None
+    try:
+        return headers.get(name) or headers.get(name.lower())
+    except Exception:
+        return None
+
+
+def _int_header(headers: Any | None, name: str) -> int | None:
+    value = _str_header(headers, name)
+    if value in {None, ""}:
+        return None
+    try:
+        return int(str(value))
+    except ValueError:
+        return None
+
+
 class GitHubSeedCollectorClient:
     def __init__(
         self,
         token: str | None = None,
         timeout_seconds: int = 30,
         cache: GitHubApiCache | None = None,
+        min_request_interval_seconds: float = 0.25,
+        monotonic: Any = time.monotonic,
+        sleeper: Any = time.sleep,
     ) -> None:
         self.token = token
         self.timeout_seconds = timeout_seconds
         self.cache = cache
+        self.min_request_interval_seconds = min_request_interval_seconds
+        self.monotonic = monotonic
+        self.sleeper = sleeper
+        self.last_outbound_request_monotonic: float | None = None
+        self.outbound_request_count = 0
+        self.cache_hit_count = 0
+        self.request_retry_count = 0
+        self.total_backoff_seconds = 0.0
+        self.api_failure_counts: Counter = Counter()
+        self.stop_reason: str | None = None
+        self.rate_limit_snapshot: dict[str, Any] = {}
+
+    @property
+    def authenticated(self) -> bool:
+        return bool(self.token)
+
+    def _sleep(self, seconds: float) -> None:
+        if seconds > 0:
+            self.total_backoff_seconds += seconds
+            self.sleeper(seconds)
+
+    def _pace_outbound_request(self) -> None:
+        now = float(self.monotonic())
+        if self.last_outbound_request_monotonic is not None:
+            elapsed = now - self.last_outbound_request_monotonic
+            wait = self.min_request_interval_seconds - elapsed
+            if wait > 0:
+                self.sleeper(wait)
+                now = float(self.monotonic())
+        self.last_outbound_request_monotonic = now
 
     def _request_json_uncached(self, url: str) -> Any:
         headers = {
@@ -41,17 +140,57 @@ class GitHubSeedCollectorClient:
         if self.token:
             headers["Authorization"] = f"Bearer {self.token}"
 
-        request = urllib.request.Request(url, headers=headers, method="GET")
-
-        try:
-            with urllib.request.urlopen(request, timeout=self.timeout_seconds) as response:
-                body = response.read().decode("utf-8", errors="replace")
-                return json.loads(body)
-        except urllib.error.HTTPError as exc:
-            body = exc.read().decode("utf-8", errors="replace")
-            raise GitHubApiError(f"HTTP {exc.code} from {url}: {body[:1000]}") from exc
-        except Exception as exc:
-            raise GitHubApiError(f"Failed GitHub request {url}: {exc}") from exc
+        transient_delays = [2, 4, 8]
+        secondary_delays = [None, 120, 240]
+        transient_attempt = 0
+        secondary_attempt = 0
+        while True:
+            request = urllib.request.Request(url, headers=headers, method="GET")
+            self._pace_outbound_request()
+            self.outbound_request_count += 1
+            try:
+                with urllib.request.urlopen(request, timeout=self.timeout_seconds) as response:
+                    body = response.read().decode("utf-8", errors="replace")
+                    return json.loads(body)
+            except urllib.error.HTTPError as exc:
+                body = exc.read().decode("utf-8", errors="replace")
+                error = GitHubRequestError(status_code=exc.code, url=url, response_body=body, headers=exc.headers, original_error=exc)
+                self.api_failure_counts[str(exc.code)] += 1
+                if error.is_authentication_failure:
+                    self.stop_reason = "authentication_failed"
+                    self.rate_limit_snapshot = error.snapshot()
+                    raise GlobalAcquisitionStop(self.stop_reason, error) from exc
+                if error.is_primary_rate_limit:
+                    self.stop_reason = "primary_rate_limit_exhausted"
+                    self.rate_limit_snapshot = error.snapshot()
+                    raise GlobalAcquisitionStop(self.stop_reason, error) from exc
+                if error.is_secondary_rate_limit:
+                    if secondary_attempt >= 3:
+                        self.stop_reason = "secondary_rate_limit_exhausted"
+                        self.rate_limit_snapshot = error.snapshot()
+                        raise GlobalAcquisitionStop(self.stop_reason, error) from exc
+                    delay = error.retry_after if secondary_attempt == 0 and error.retry_after is not None else (secondary_delays[secondary_attempt] or 60)
+                    secondary_attempt += 1
+                    self.request_retry_count += 1
+                    self._sleep(delay)
+                    continue
+                if error.is_transient and transient_attempt < 3:
+                    delay = transient_delays[transient_attempt]
+                    transient_attempt += 1
+                    self.request_retry_count += 1
+                    self._sleep(delay)
+                    continue
+                raise error from exc
+            except (urllib.error.URLError, TimeoutError, socket.timeout) as exc:
+                error = GitHubRequestError(status_code=None, url=url, response_body=str(exc), headers=None, original_error=exc)
+                self.api_failure_counts["network_or_timeout"] += 1
+                if transient_attempt < 3:
+                    delay = transient_delays[transient_attempt]
+                    transient_attempt += 1
+                    self.request_retry_count += 1
+                    self._sleep(delay)
+                    continue
+                raise error from exc
 
     def _request_json(self, url: str) -> Any:
         accept = "application/vnd.github+json"
@@ -59,6 +198,7 @@ class GitHubSeedCollectorClient:
         if self.cache is not None:
             cached = self.cache.get_json(url, accept=accept)
             if cached is not None:
+                self.cache_hit_count += 1
                 return cached
 
         data = self._request_json_uncached(url)
@@ -185,6 +325,47 @@ def language_counts(rows: list[dict[str, Any]]) -> Counter:
     return Counter(str(row.get("language_hint") or "unknown").strip().lower() or "unknown" for row in rows)
 
 
+def seed_pr_key(row: dict[str, Any]) -> tuple[str, int] | None:
+    repo = str(row.get("repo") or row.get("repository") or "").strip().lower()
+    pr_number = row.get("pr_number") or row.get("pull_request") or row.get("pr")
+    if not repo and (row.get("url") or row.get("source_url")):
+        parsed = urllib.parse.urlparse(str(row.get("url") or row.get("source_url")))
+        parts = [part for part in parsed.path.strip("/").split("/") if part]
+        if len(parts) >= 4 and parts[2] == "pull":
+            repo = f"{parts[0]}/{parts[1]}".lower()
+            pr_number = parts[3]
+    if not repo or pr_number is None:
+        return None
+    try:
+        return repo, int(pr_number)
+    except (TypeError, ValueError):
+        return None
+
+
+def seed_source_url(row: dict[str, Any]) -> str:
+    return str(row.get("url") or row.get("source_url") or "").strip().lower()
+
+
+def load_excluded_seed_identity(paths: list[Path]) -> tuple[set[tuple[str, int]], set[str]]:
+    keys: set[tuple[str, int]] = set()
+    urls: set[str] = set()
+    for path in paths:
+        if not path.exists():
+            continue
+        with path.open("r", encoding="utf-8") as handle:
+            for line in handle:
+                if not line.strip():
+                    continue
+                row = json.loads(line)
+                key = seed_pr_key(row)
+                if key:
+                    keys.add(key)
+                url = seed_source_url(row)
+                if url:
+                    urls.add(url)
+    return keys, urls
+
+
 def acquisition_complete(seeds: list[dict[str, Any]], target_total: int | None, minimum_language_counts: dict[str, int]) -> bool:
     if target_total is None and not minimum_language_counts:
         return False
@@ -192,6 +373,55 @@ def acquisition_complete(seeds: list[dict[str, Any]], target_total: int | None, 
         return False
     counts = language_counts(seeds)
     return all(counts.get(language, 0) >= minimum for language, minimum in minimum_language_counts.items())
+
+
+def acquisition_summary(
+    *,
+    seeds: list[dict[str, Any]],
+    repos: list[dict[str, Any]],
+    target_total: int | None,
+    minimum_language_counts: dict[str, int],
+    stop_reason: str | None = None,
+) -> dict[str, Any]:
+    observed_language_counts = dict(language_counts(seeds))
+    minimum_deficits = {
+        language: max(0, requested - int(observed_language_counts.get(language, 0)))
+        for language, requested in minimum_language_counts.items()
+    }
+    target_observed = len(seeds)
+    target_deficit = max(0, (target_total or 0) - target_observed)
+    complete = acquisition_complete(seeds, target_total, minimum_language_counts)
+    repository_universe_exhausted = not complete and stop_reason is None
+    return {
+        "acquisition_complete": complete,
+        "target_total_requested": target_total,
+        "target_total_observed": target_observed,
+        "target_total_deficit": target_deficit,
+        "minimum_language_counts_requested": minimum_language_counts,
+        "minimum_language_counts_observed": observed_language_counts,
+        "minimum_language_deficits": minimum_deficits,
+        "repository_universe_exhausted": repository_universe_exhausted,
+        "requirements_satisfied": complete and stop_reason is None,
+        "stop_reason": stop_reason,
+        "status": "complete" if complete else "partial",
+        "repositories_scanned": len(repos),
+    }
+
+
+def acquisition_exit_code(status: str, allow_partial: bool) -> int:
+    if status == "partial" and not allow_partial:
+        return 2
+    return 0
+
+
+def rate_limit_reset_utc(snapshot: dict[str, Any]) -> str | None:
+    reset = snapshot.get("rate_limit_reset")
+    if reset is None:
+        return None
+    try:
+        return datetime.fromtimestamp(int(reset), UTC).replace(microsecond=0).isoformat()
+    except (TypeError, ValueError, OSError):
+        return None
 
 
 def language_aware_repo_order(repos: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -287,10 +517,16 @@ def collect_seed_records(
     max_total_patch_lines: int,
     sleep_seconds: float,
     minimum_language_counts: dict[str, int] | None = None,
+    excluded_pr_keys: set[tuple[str, int]] | None = None,
+    excluded_source_urls: set[str] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     seeds: list[dict[str, Any]] = []
     rejects: list[dict[str, Any]] = []
     minimum_language_counts = minimum_language_counts or {}
+    excluded_pr_keys = excluded_pr_keys or set()
+    excluded_source_urls = excluded_source_urls or set()
+    seen_pr_keys: set[tuple[str, int]] = set()
+    seen_source_urls: set[str] = set()
     scan_repos = language_aware_repo_order(repos) if minimum_language_counts else repos
 
     for repo_record in scan_repos:
@@ -304,6 +540,8 @@ def collect_seed_records(
 
             try:
                 pulls = client.get_closed_pulls_page(repo, page=page, per_page=100)
+            except GlobalAcquisitionStop:
+                return seeds, rejects
             except Exception as exc:
                 rejects.append(
                     {
@@ -327,6 +565,19 @@ def collect_seed_records(
                 pr_number = int(pull.get("number") or 0)
                 if pr_number <= 0:
                     continue
+                source_url = str(pull.get("html_url") or f"https://github.com/{repo}/pull/{pr_number}")
+                pr_key = (repo.lower(), pr_number)
+                normalized_url = source_url.lower()
+                if pr_key in excluded_pr_keys or normalized_url in excluded_source_urls or pr_key in seen_pr_keys or normalized_url in seen_source_urls:
+                    rejects.append(
+                        {
+                            "repository": repo,
+                            "pr_number": pr_number,
+                            "source_url": source_url,
+                            "reject_reason": "already_collected",
+                        }
+                    )
+                    continue
 
                 merged_at = pull.get("merged_at")
                 if not merged_at:
@@ -334,7 +585,7 @@ def collect_seed_records(
                         {
                             "repository": repo,
                             "pr_number": pr_number,
-                            "source_url": pull.get("html_url"),
+                            "source_url": source_url,
                             "reject_reason": "not_merged",
                         }
                     )
@@ -342,12 +593,14 @@ def collect_seed_records(
 
                 try:
                     files = client.get_pull_files(repo, pr_number)
+                except GlobalAcquisitionStop:
+                    return seeds, rejects
                 except Exception as exc:
                     rejects.append(
                         {
                             "repository": repo,
                             "pr_number": pr_number,
-                            "source_url": pull.get("html_url"),
+                            "source_url": source_url,
                             "reject_reason": "fetch_pr_files_failed",
                             "error": str(exc),
                         }
@@ -368,7 +621,7 @@ def collect_seed_records(
                         {
                             "repository": repo,
                             "pr_number": pr_number,
-                            "source_url": pull.get("html_url"),
+                            "source_url": source_url,
                             "reject_reason": reason,
                             "collector_bucket": classification["bucket"],
                             "collector_evidence": classification,
@@ -378,7 +631,7 @@ def collect_seed_records(
 
                 seeds.append(
                     {
-                        "url": pull.get("html_url") or f"https://github.com/{repo}/pull/{pr_number}",
+                        "url": source_url,
                         "repo": repo,
                         "pr_number": pr_number,
                         "language_hint": language_hint,
@@ -389,6 +642,8 @@ def collect_seed_records(
                         "merged_at": merged_at,
                     }
                 )
+                seen_pr_keys.add(pr_key)
+                seen_source_urls.add(normalized_url)
                 kept_for_repo += 1
 
                 if sleep_seconds > 0:
@@ -404,7 +659,7 @@ def count_values(rows: list[dict[str, Any]], key: str) -> dict[str, int]:
     return dict(Counter(str(row.get(key)) for row in rows))
 
 
-def write_report(path: Path, *, repos: list[dict[str, Any]], seeds: list[dict[str, Any]], rejects: list[dict[str, Any]]) -> None:
+def write_report(path: Path, *, repos: list[dict[str, Any]], seeds: list[dict[str, Any]], rejects: list[dict[str, Any]], summary: dict[str, Any] | None = None) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
 
     bucket_counts = count_values(seeds, "collector_bucket")
@@ -429,6 +684,11 @@ def write_report(path: Path, *, repos: list[dict[str, Any]], seeds: list[dict[st
         f"- Repositories scanned: `{len(repos)}`",
         f"- Seeds accepted: `{len(seeds)}`",
         f"- Rejected/skipped PRs: `{len(rejects)}`",
+        f"- Acquisition status: `{(summary or {}).get('status', 'not_computed')}`",
+        f"- Requirements satisfied: `{(summary or {}).get('requirements_satisfied', False)}`",
+        f"- Target observed/requested: `{(summary or {}).get('target_total_observed', len(seeds))}` / `{(summary or {}).get('target_total_requested')}`",
+        f"- Target deficit: `{(summary or {}).get('target_total_deficit', 0)}`",
+        f"- Minimum language deficits: `{(summary or {}).get('minimum_language_deficits', {})}`",
         f"- Collector bucket counts: `{bucket_counts}`",
         f"- Language hint counts: `{language_counts}`",
         f"- Repository counts per language: `{repo_counts_per_language}`",
@@ -508,8 +768,12 @@ def main() -> int:
     parser.add_argument("--max-total-patch-lines", type=int, default=3000)
     parser.add_argument("--include-docs-only", action="store_true")
     parser.add_argument("--include-other", action="store_true")
-    parser.add_argument("--sleep-seconds", type=float, default=0.0)
+    parser.add_argument("--sleep-seconds", type=float, default=0.0, help="Deprecated for Final V2; sleeps after accepted seeds only. Use --min-request-interval-seconds for request-level pacing.")
     parser.add_argument("--minimum-language-count", action="append", default=[], help="Require at least language=count accepted seeds, e.g. python=6000. May be repeated.")
+    parser.add_argument("--exclude-seed-file", action="append", default=[], help="Existing seed JSONL whose repo+PR/source URLs should be skipped. May be repeated.")
+    parser.add_argument("--allow-partial", action="store_true", help="Return exit code 0 for partial acquisition while keeping JSON status='partial'.")
+    parser.add_argument("--require-authenticated", action="store_true", help="Fail before the first GitHub API request if the configured token environment variable is missing.")
+    parser.add_argument("--min-request-interval-seconds", type=float, default=0.25, help="Minimum spacing between uncached outbound GitHub API requests. Final V2 default is 0.25.")
     parser.add_argument("--github-token-env", default="GITHUB_TOKEN")
     parser.add_argument("--timeout-seconds", type=int, default=30)
     parser.add_argument(
@@ -527,9 +791,13 @@ def main() -> int:
 
     repos = load_repo_records(repo_path)
     minimum_language_counts = parse_minimum_language_counts(args.minimum_language_count)
+    excluded_pr_keys, excluded_source_urls = load_excluded_seed_identity([Path(path) for path in args.exclude_seed_file])
     token = os.getenv(args.github_token_env) or None
+    if args.require_authenticated and not token:
+        print(json.dumps({"status": "partial", "requirements_satisfied": False, "stop_reason": "missing_required_github_token", "authenticated": False, "github_token_env_name": args.github_token_env}, indent=2))
+        return 2
     cache = None if args.no_cache else GitHubApiCache(Path(args.cache_dir))
-    client = GitHubSeedCollectorClient(token=token, timeout_seconds=args.timeout_seconds, cache=cache)
+    client = GitHubSeedCollectorClient(token=token, timeout_seconds=args.timeout_seconds, cache=cache, min_request_interval_seconds=args.min_request_interval_seconds)
 
     seeds, rejects = collect_seed_records(
         repos=repos,
@@ -543,32 +811,54 @@ def main() -> int:
         max_total_patch_lines=args.max_total_patch_lines,
         sleep_seconds=args.sleep_seconds,
         minimum_language_counts=minimum_language_counts,
+        excluded_pr_keys=excluded_pr_keys,
+        excluded_source_urls=excluded_source_urls,
+    )
+    summary = acquisition_summary(
+        seeds=seeds,
+        repos=repos,
+        target_total=args.target_total,
+        minimum_language_counts=minimum_language_counts,
+        stop_reason=client.stop_reason,
     )
 
     write_jsonl(output_path, seeds)
     write_jsonl(rejects_path, rejects)
-    write_report(report_path, repos=repos, seeds=seeds, rejects=rejects)
+    write_report(report_path, repos=repos, seeds=seeds, rejects=rejects, summary=summary)
 
     result = {
-        "status": "ok",
+        **summary,
         "repos": str(repo_path),
         "output": str(output_path),
         "rejects": str(rejects_path),
         "report": str(report_path),
-        "repositories_scanned": len(repos),
         "accepted_seeds": len(seeds),
         "rejected_or_skipped": len(rejects),
         "collector_bucket_counts": count_values(seeds, "collector_bucket"),
         "language_hint_counts": count_values(seeds, "language_hint"),
         "minimum_language_counts": minimum_language_counts,
+        "excluded_seed_files": args.exclude_seed_file,
+        "excluded_pr_keys": len(excluded_pr_keys),
+        "excluded_source_urls": len(excluded_source_urls),
         "repo_order_mode": "language_aware_round_robin" if minimum_language_counts else "sequential",
         "reject_reason_counts": count_values(rejects, "reject_reason"),
         "cache_dir": None if cache is None else str(cache.cache_dir),
-        "cache_stats": None if cache is None else cache.stats()
+        "cache_stats": None if cache is None else cache.stats(),
+        "authenticated": client.authenticated,
+        "github_token_env_name": args.github_token_env,
+        "outbound_request_count": client.outbound_request_count,
+        "cache_hit_count": client.cache_hit_count,
+        "request_retry_count": client.request_retry_count,
+        "total_backoff_seconds": client.total_backoff_seconds,
+        "configured_min_request_interval_seconds": args.min_request_interval_seconds,
+        "api_failure_counts": dict(client.api_failure_counts),
+        "rate_limit_snapshot": client.rate_limit_snapshot,
+        "rate_limit_reset_epoch": client.rate_limit_snapshot.get("rate_limit_reset"),
+        "rate_limit_reset_utc": rate_limit_reset_utc(client.rate_limit_snapshot),
     }
 
     print(json.dumps(result, indent=2, ensure_ascii=False))
-    return 0
+    return acquisition_exit_code(str(result["status"]), args.allow_partial)
 
 
 if __name__ == "__main__":
