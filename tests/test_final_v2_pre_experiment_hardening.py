@@ -9,7 +9,7 @@ import pytest
 
 from docguard_external.github_client_v2 import GitHubClientV2, GlobalGitHubStop
 from docguard_external.github_pr_dataset_builder import BuildConfig
-from docguard_external.github_pr_dataset_builder_v2 import build_dataset_v2, collect_docs_before_neutral, stable_case_id
+from docguard_external.github_pr_dataset_builder_v2 import BuildConfigV2, build_candidate_case_v2, build_dataset_v2, collect_docs_before_neutral, stable_case_id
 from docguard_llm_v2.document_retriever import retrieve_documents
 from docguard_llm_v2.pipeline import generate_semantic_documentation_patch
 from docguard_ml_v2.data_contract import binary_eligible_rows, category_eligible_rows, validate_final_gold_row
@@ -327,3 +327,70 @@ def test_bootstrap_auc_ap_reports_valid_replicates():
 def test_pre_experiment_audit_pass_and_intentional_failures():
     assert audit_pre_experiment()["status"] == "PASS"
     assert audit_pre_experiment({"bad": "router = True"})["status"] == "FAIL"
+
+
+class BroadDocsClient:
+    def get_pull(self, repo, pr):
+        return {"title": "Add auth setup", "base": {"sha": "base-sha"}, "head": {"sha": "head-sha"}}
+
+    def get_pull_files(self, repo, pr):
+        return [
+            {"filename": "packages/server/src/auth.ts", "patch": "+const authWindow = process.env.AUTH_WINDOW || '10m';", "additions": 1, "deletions": 0},
+            {"filename": "docs/outcome.md", "patch": "+outcome docs", "additions": 1, "deletions": 0},
+        ]
+
+    def get_tree_recursive(self, repo, ref):
+        assert ref == "base-sha"
+        return [
+            {"type": "blob", "path": "README.md"},
+            {"type": "blob", "path": "CHANGELOG.md"},
+            {"type": "blob", "path": "packages/server/docs/authentication.mdx"},
+            {"type": "blob", "path": "packages/foo/guides/setup.md"},
+            {"type": "blob", "path": "src/module/documentation/reference.rst"},
+            {"type": "blob", "path": "src/module/notdocs.txt"},
+        ]
+
+    def get_file_text(self, repo, path, ref):
+        assert ref in {"base-sha", "head-sha"}
+        data = {
+            ("README.md", "base-sha"): "README " + ("general " * 500),
+            ("CHANGELOG.md", "base-sha"): "CHANGELOG " + ("release " * 500),
+            ("packages/server/docs/authentication.mdx", "base-sha"): "Authentication docs mention AUTH_WINDOW and server auth configuration.",
+            ("packages/foo/guides/setup.md", "base-sha"): "Setup guide for package foo with local development.",
+            ("src/module/documentation/reference.rst", "base-sha"): "Reference documentation for module API contracts.",
+            ("docs/outcome.md", "head-sha"): "Outcome docs must not affect base candidates.",
+        }
+        return data.get((path, ref))
+
+
+def test_generator_doc_pool_discovers_nested_docs_and_does_not_let_readme_monopolize():
+    case, reject = build_candidate_case_v2(
+        seed={"repo": "org/repo", "pr_number": 1, "url": "https://github.com/org/repo/pull/1"},
+        client=BroadDocsClient(),
+        config=BuildConfigV2(max_docs_chars=120, max_docs_files=1, max_generator_doc_files=4, max_generator_doc_chars_per_file=120, max_generator_doc_total_chars=480),
+    )
+    assert reject is None
+    paths = [item["path"] for item in case["documentation_context_candidates"]]
+    assert "packages/server/docs/authentication.mdx" in paths
+    assert "packages/foo/guides/setup.md" in paths
+    assert "README.md" not in paths[:1]
+    assert len(case["docs_before_excerpt"]) <= 120
+    assert len(case["docs_before_retrieved_files"]) == 1
+    assert len(case["documentation_context_candidates"]) > len(case["docs_before_retrieved_files"])
+    assert all(item["source_ref"] == "base-sha" for item in case["documentation_context_candidates"])
+    assert all("retrieval_provenance" in item for item in case["documentation_context_candidates"])
+
+
+def test_generator_candidates_ignore_docs_changed_docs_diff_and_docs_after_and_are_deterministic():
+    seed = {"repo": "org/repo", "pr_number": 1, "url": "https://github.com/org/repo/pull/1"}
+    config = BuildConfigV2(max_docs_chars=120, max_docs_files=1, max_generator_doc_files=4, max_generator_doc_chars_per_file=120, max_generator_doc_total_chars=480)
+    case_a, _ = build_candidate_case_v2(seed=seed, client=BroadDocsClient(), config=config)
+    case_b, _ = build_candidate_case_v2(seed=seed, client=BroadDocsClient(), config=config)
+    case_b["docs_changed_files"] = ["docs/different.md"]
+    case_b["docs_diff_excerpt"] = "+different"
+    case_b["docs_after_excerpt"] = "different"
+    assert case_a["documentation_context_candidates"] == build_candidate_case_v2(seed=seed, client=BroadDocsClient(), config=config)[0]["documentation_context_candidates"]
+    assert case_a["documentation_context_candidates"] == case_b["documentation_context_candidates"]
+    source = (ROOT / "docguard_external/github_pr_dataset_builder_v2.py").read_text(encoding="utf-8")
+    assert "target_file_for_category" not in source
+    assert "TARGET_FILE_MAPPING" not in source

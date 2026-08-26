@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import dataclass
 import hashlib
 import json
 import os
@@ -53,8 +54,20 @@ FORBIDDEN_GOLD_FIELDS = {
     "gold_patch_summary",
 }
 DOC_EXTENSIONS = {".md", ".mdx", ".rst", ".adoc", ".txt"}
-DOC_LOCATIONS = ("docs/", "doc/", "documentation/", "website/docs/", "website/content/", "guides/", "reference/")
+DOC_COMPONENTS = {"docs", "doc", "documentation", "guides", "reference"}
+DOC_LOCATION_PAIRS = {("website", "docs"), ("website", "content")}
 DOC_PREFIXES = ("readme", "contributing", "changelog")
+
+
+@dataclass(frozen=True)
+class BuildConfigV2:
+    max_code_diff_chars: int = 9000
+    max_docs_chars: int = 5000
+    max_docs_files: int = 3
+    sleep_seconds: float = 0.0
+    max_generator_doc_files: int = 12
+    max_generator_doc_chars_per_file: int = 1500
+    max_generator_doc_total_chars: int = 18000
 
 
 def stable_case_id(repository: str, pr_number: int) -> str:
@@ -80,10 +93,35 @@ def is_candidate_doc_path(path: str) -> bool:
     normalized = path.replace("\\", "/").lower()
     suffix = Path(normalized).suffix
     name = Path(normalized).name.lower()
-    return suffix in DOC_EXTENSIONS and (normalized.startswith(DOC_LOCATIONS) or any(name.startswith(prefix) for prefix in DOC_PREFIXES))
+    if suffix not in DOC_EXTENSIONS:
+        return False
+    if any(name.startswith(prefix) for prefix in DOC_PREFIXES):
+        return True
+    parts = [part for part in normalized.split("/") if part]
+    if any(part in DOC_COMPONENTS for part in parts[:-1]):
+        return True
+    return any(pair[0] in parts and pair[1] in parts for pair in DOC_LOCATION_PAIRS)
 
 
-def discover_base_doc_paths(*, client: Any, repo: str, ref: str, code_changed_files: list[str], max_discovered_paths: int) -> tuple[list[str], dict[str, Any]]:
+def path_tokens(path: str) -> set[str]:
+    normalized = path.replace("\\", "/").lower()
+    return {token for token in normalized.replace(".", "/").replace("-", "/").replace("_", "/").split("/") if token}
+
+
+def doc_path_relevance(path: str, code_changed_files: list[str], code_diff_excerpt: str = "") -> tuple[int, int, str]:
+    tokens = path_tokens(path)
+    code_tokens = set()
+    for code_path in code_changed_files:
+        code_tokens |= path_tokens(code_path)
+    diff_lower = code_diff_excerpt.lower()
+    overlap = len(tokens & code_tokens) + sum(1 for token in tokens if len(token) > 2 and token in diff_lower)
+    parts = [part for part in path.replace("\\", "/").lower().split("/") if part]
+    nested_docs_bonus = 2 if any(part in DOC_COMPONENTS for part in parts[:-1]) and len(parts) > 2 else 0
+    generic_penalty = 2 if Path(path.lower()).name.startswith(("readme", "changelog")) else 0
+    return overlap + nested_docs_bonus - generic_penalty, len(parts), path
+
+
+def discover_base_doc_paths(*, client: Any, repo: str, ref: str, code_changed_files: list[str], code_diff_excerpt: str = "", max_discovered_paths: int) -> tuple[list[str], dict[str, Any]]:
     paths: list[str] = []
     provenance = {"method": "base_sha_tree_documentation_discovery_v2", "tree_ref": ref, "used_docs_changed_files": False, "truncated": False}
     try:
@@ -100,18 +138,21 @@ def discover_base_doc_paths(*, client: Any, repo: str, ref: str, code_changed_fi
             provenance["truncated"] = True
             break
     neutral = neutral_doc_paths(code_changed_files, max_discovered_paths)
-    return unique_preserve_order(neutral + paths)[:max_discovered_paths], provenance
+    combined = unique_preserve_order(paths + neutral)
+    ranked = sorted(combined, key=lambda path: (-doc_path_relevance(path, code_changed_files, code_diff_excerpt)[0], -doc_path_relevance(path, code_changed_files, code_diff_excerpt)[1], path))
+    return ranked[:max_discovered_paths], provenance
 
 
-def collect_docs_before_neutral(*, client: Any, repo: str, ref: str, code_changed_files: list[str], max_chars: int, max_files: int) -> tuple[str, list[str], str, list[dict[str, str]]]:
-    max_discovered_paths = int(getattr(client, "max_discovered_documentation_paths", 80))
-    selected_paths, discovery = discover_base_doc_paths(client=client, repo=repo, ref=ref, code_changed_files=code_changed_files, max_discovered_paths=max_discovered_paths)
+def collect_docs_before_neutral(*, client: Any, repo: str, ref: str, code_changed_files: list[str], max_chars: int, max_files: int, code_diff_excerpt: str = "", max_generator_doc_files: int = 12, max_generator_doc_chars_per_file: int = 1500, max_generator_doc_total_chars: int = 18000) -> tuple[str, list[str], str, list[dict[str, Any]]]:
+    max_discovered_paths = int(getattr(client, "max_discovered_documentation_paths", max(max_generator_doc_files * 8, 80)))
+    selected_paths, discovery = discover_base_doc_paths(client=client, repo=repo, ref=ref, code_changed_files=code_changed_files, code_diff_excerpt=code_diff_excerpt, max_discovered_paths=max_discovered_paths)
     chunks: list[str] = []
     retrieved: list[str] = []
-    candidates: list[dict[str, str]] = []
-    remaining = max_chars
+    candidates: list[dict[str, Any]] = []
+    classifier_remaining = max_chars
+    generator_remaining = max_generator_doc_total_chars
     for path in selected_paths:
-        if remaining <= 0 or len(retrieved) >= max_files:
+        if len(candidates) >= max_generator_doc_files or generator_remaining <= 0:
             break
         try:
             text = client.get_file_text(repo, path, ref)
@@ -119,11 +160,15 @@ def collect_docs_before_neutral(*, client: Any, repo: str, ref: str, code_change
             continue
         if not text:
             continue
-        chunk = truncate_text(text, max(400, remaining))
-        chunks.append(f"<!-- {path} @ {ref} -->\n{chunk}")
-        retrieved.append(path)
-        candidates.append({"path": path, "excerpt": chunk, "source_ref": ref, "retrieval_provenance": {**discovery, "path": path, "truncated_excerpt": len(text) > len(chunk)}})
-        remaining = max_chars - len("\n\n".join(chunks))
+        generator_limit = min(max_generator_doc_chars_per_file, generator_remaining)
+        generator_chunk = truncate_text(text, max(400, generator_limit))
+        candidates.append({"path": path, "excerpt": generator_chunk, "source_ref": ref, "retrieval_provenance": {**discovery, "path": path, "truncated_excerpt": len(text) > len(generator_chunk), "generator_pool_policy": "base_sha_broad_bounded_doc_pool_v2", "max_generator_doc_files": max_generator_doc_files, "max_generator_doc_chars_per_file": max_generator_doc_chars_per_file}})
+        generator_remaining -= len(generator_chunk)
+        if classifier_remaining > 0 and len(retrieved) < max_files:
+            classifier_chunk = truncate_text(text, max(400, classifier_remaining))
+            chunks.append(f"<!-- {path} @ {ref} -->\n{classifier_chunk}")
+            retrieved.append(path)
+            classifier_remaining = max_chars - len("\n\n".join(chunks))
     policy = f"{discovery['method']}_plus_code_path_hints_no_docs_changed_files_no_docs_after"
     return truncate_text("\n\n".join(chunks), max_chars), retrieved, policy, candidates
 
@@ -181,8 +226,12 @@ def build_candidate_case_v2(*, seed: dict[str, Any], client: Any, config: BuildC
             repo=repo,
             ref=base_sha,
             code_changed_files=code_changed_files,
+            code_diff_excerpt=code_diff_excerpt,
             max_chars=config.max_docs_chars,
             max_files=config.max_docs_files,
+            max_generator_doc_files=int(getattr(config, "max_generator_doc_files", 12)),
+            max_generator_doc_chars_per_file=int(getattr(config, "max_generator_doc_chars_per_file", 1500)),
+            max_generator_doc_total_chars=int(getattr(config, "max_generator_doc_total_chars", 18000)),
         )
     docs_after_excerpt = collect_docs_after_audit(client=client, repo=repo, ref=head_sha, docs_changed_files=docs_changed_files, max_chars=config.max_docs_chars, max_files=config.max_docs_files) if head_sha and docs_changed_files else ""
     additions = sum(int(item.get("additions") or 0) for item in files)
@@ -231,6 +280,9 @@ def build_candidate_case_v2(*, seed: dict[str, Any], client: Any, config: BuildC
             "deletions": deletions,
             "has_docs_before_excerpt": bool(docs_before_excerpt.strip()),
             "has_docs_after_excerpt": bool(docs_after_excerpt.strip()),
+            "max_generator_doc_files": int(getattr(config, "max_generator_doc_files", 12)),
+            "max_generator_doc_chars_per_file": int(getattr(config, "max_generator_doc_chars_per_file", 1500)),
+            "generator_documentation_candidate_count": len(documentation_context_candidates),
         },
         "safe_model_input_fields": SAFE_MODEL_INPUT_FIELDS,
         "audit_only_fields": AUDIT_ONLY_FIELDS,
@@ -293,7 +345,7 @@ def count_nested(rows: list[dict[str, Any]], key: str) -> dict[str, int]:
     return dict(Counter(str(row.get(key) or "") for row in rows))
 
 
-def write_report(path: Path, *, cases: list[dict[str, Any]], rejects: list[dict[str, Any]], client_stats: dict[str, Any] | None = None, status: str = "ok") -> None:
+def write_report(path: Path, *, cases: list[dict[str, Any]], rejects: list[dict[str, Any]], client_stats: dict[str, Any] | None = None, status: str = "ok", config: Any | None = None) -> None:
     lines = [
         "# DocGuard GitHub PR Candidate Builder V2 Report",
         "",
@@ -303,6 +355,8 @@ def write_report(path: Path, *, cases: list[dict[str, Any]], rejects: list[dict[
         f"- Accepted candidates: `{len(cases)}`",
         f"- Rejected seeds: `{len(rejects)}`",
         f"- Operational/client stats: `{client_stats or {}}`",
+        f"- Max generator doc files: `{getattr(config, 'max_generator_doc_files', 12) if config is not None else 12}`",
+        f"- Max generator doc chars per file: `{getattr(config, 'max_generator_doc_chars_per_file', 1500) if config is not None else 1500}`",
         f"- Language counts: `{count_nested(cases, 'language')}`",
         "",
         "Candidate records contain no `gold_*` fields. `docs_before_excerpt` is retrieved from `base_sha` using neutral documentation paths and code-path hints only; it never prioritizes `docs_changed_files`, `docs_diff_excerpt`, or `docs_after_excerpt`.",
@@ -320,6 +374,9 @@ def main() -> int:
     parser.add_argument("--max-code-diff-chars", type=int, default=9000)
     parser.add_argument("--max-docs-chars", type=int, default=5000)
     parser.add_argument("--max-docs-files", type=int, default=3)
+    parser.add_argument("--max-generator-doc-files", type=int, default=12)
+    parser.add_argument("--max-generator-doc-chars-per-file", type=int, default=1500)
+    parser.add_argument("--max-generator-doc-total-chars", type=int, default=18000)
     parser.add_argument("--sleep-seconds", type=float, default=0.0)
     parser.add_argument("--github-token-env", default="GITHUB_TOKEN")
     parser.add_argument("--require-authenticated", action="store_true")
@@ -334,14 +391,14 @@ def main() -> int:
         return 2
     cache = None if args.no_cache else GitHubApiCache(Path(args.cache_dir))
     client = GitHubClientV2(token=token, timeout_seconds=args.timeout_seconds, cache=cache, min_request_interval_seconds=args.min_request_interval_seconds)
-    config = BuildConfig(args.max_code_diff_chars, args.max_docs_chars, args.max_docs_files, args.sleep_seconds)
+    config = BuildConfigV2(args.max_code_diff_chars, args.max_docs_chars, args.max_docs_files, args.sleep_seconds, args.max_generator_doc_files, args.max_generator_doc_chars_per_file, args.max_generator_doc_total_chars)
     cases, rejects = build_dataset_v2(seeds=load_seed_records(Path(args.input)), client=client, config=config, max_cases=args.max_cases)
     output = Path(args.output)
     rejects_path = Path(args.rejects) if args.rejects else output.with_suffix(".rejects.jsonl")
     write_jsonl(output, cases)
     write_jsonl(rejects_path, rejects)
     status = "partial" if getattr(client, "stop_reason", None) else "ok"
-    write_report(Path(args.report), cases=cases, rejects=rejects, client_stats=client.stats(), status=status)
+    write_report(Path(args.report), cases=cases, rejects=rejects, client_stats=client.stats(), status=status, config=config)
     print(json.dumps({"status": status, "accepted_candidates": len(cases), "rejected_seeds": len(rejects), "output": str(output), "client_stats": client.stats()}, indent=2))
     return 0 if status == "ok" else 2
 
