@@ -1,0 +1,56 @@
+{
+  "pipeline_version": "category_classifier_v8",
+  "seed": 42,
+  "safe_fields": [
+    "language",
+    "code_changed_files",
+    "code_diff_excerpt",
+    "docs_before_excerpt"
+  ],
+  "allowed_primary_stage2_labels": [
+    "api_reference",
+    "configuration",
+    "developer_setup",
+    "model_contract"
+  ],
+  "candidate_models": [
+    "word_tfidf_multinomial_logistic_regression",
+    "char_tfidf_multinomial_logistic_regression",
+    "word_char_tfidf_multinomial_logistic_regression"
+  ],
+  "hyperparameter_grid": {
+    "C": [
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ],
+    "min_df": [
+      1,
+      2
+    ]
+  },
+  "selection_metric": "macro_f1",
+  "secondary_metrics": [
+    "weighted_f1",
+    "accuracy",
+    "per_class_f1",
+    "balanced_accuracy"
+  ],
+  "vectorizer_settings": {
+    "word_ngram_range": [
+      1,
+      2
+    ],
+    "char_wb_ngram_range": [
+      3,
+      5
+    ],
+    "sublinear_tf": true
+  },
+  "class_balancing": false,
+  "partition_policy": "inherit_final_v2_repository_partitions",
+  "confirmation_access": "forbidden",
+  "ensemble_policy": "disabled_until_predeclared_validation_gain"
+}

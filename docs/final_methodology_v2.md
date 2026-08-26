@@ -145,3 +145,16 @@ Final V2 separates the thesis flow into three stages:
 Stage 3 V2 does not route a category to a hard-coded documentation file and does not use deterministic documentation prose as a final fallback. It analyzes the code change, validates exact evidence quotes, retrieves candidate documentation from pre-change documentation context, asks the LLM to write developer-facing documentation, checks provenance safety, and allows one LLM repair attempt.
 
 If the LLM patch cannot pass the safety verifier after one repair attempt, the final output is `human_review_required`. The old grounded/hybrid patch-generation work remains historical Stage 3 V1 evidence and must be reported as an earlier prototype, not as the Final V2 generation method.
+
+## Final Classifier Infrastructure
+
+Final Binary V4 and Final Category V8 inherit the canonical Final V2 repository partitions. Their training scripts accept only `development_train` and `development_validation`; confirmation evaluation is isolated in separate scripts that require a freeze manifest.
+
+Both classifiers use the same shared safe-input serializer:
+
+- `language`
+- `code_changed_files`
+- `code_diff_excerpt`
+- `docs_before_excerpt`
+
+Binary V4 preserves natural class imbalance and treats `other_documentation` as binary positive. Category V8 trains only on exact primary Stage-2 labels: `api_reference`, `configuration`, `developer_setup`, and `model_contract`. `other_documentation` remains part of the dataset taxonomy but is excluded from primary four-class Stage-2 training and reported through Stage-2 coverage.
