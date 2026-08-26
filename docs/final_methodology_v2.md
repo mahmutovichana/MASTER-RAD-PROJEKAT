@@ -158,3 +158,11 @@ Both classifiers use the same shared safe-input serializer:
 - `docs_before_excerpt`
 
 Binary V4 preserves natural class imbalance and treats `other_documentation` as binary positive. Category V8 trains only on exact primary Stage-2 labels: `api_reference`, `configuration`, `developer_setup`, and `model_contract`. `other_documentation` remains part of the dataset taxonomy but is excluded from primary four-class Stage-2 training and reported through Stage-2 coverage.
+
+## Final Stage 3 Evaluation
+
+Final Stage 3 V2 evaluation separates safety/provenance validation from documentation quality. The safety verifier is not the final quality metric. Final quality evidence comes from blind human review, with post-hoc reference comparison used only as supporting diagnostics where real documentation changes are available.
+
+The primary Stage 3 confirmation sample is a natural-distribution random predicted-positive sample. A category-stratified stress sample may be reported as supplementary only. One-shot confirmation aggregation requires a Stage 3 freeze manifest and writes a separate evaluation receipt.
+
+Historical Qwen100 results are retained as V1 internal verifier acceptance rates: grounded 76%, Qwen 67%, and hybrid cascade 87%. These are not accuracy, not human quality, and not Final V2 performance.
