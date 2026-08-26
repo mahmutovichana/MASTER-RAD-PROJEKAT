@@ -57,6 +57,26 @@ DOC_EXTENSIONS = {".md", ".mdx", ".rst", ".adoc", ".txt"}
 DOC_COMPONENTS = {"docs", "doc", "documentation", "guides", "reference"}
 DOC_LOCATION_PAIRS = {("website", "docs"), ("website", "content")}
 DOC_PREFIXES = ("readme", "contributing", "changelog")
+EXCLUDED_DOC_PATH_COMPONENTS = {
+    "__snapshots__",
+    "baseline",
+    "baselines",
+    "build",
+    "coverage",
+    "dist",
+    "fixture",
+    "fixtures",
+    "generated",
+    "node_modules",
+    "snapshot",
+    "snapshots",
+    "target",
+    "test",
+    "testdata",
+    "tests",
+    "vendor",
+}
+ARTIFACT_DOC_SUFFIXES = (".errors.txt", ".baseline.txt", ".sourcemap.txt", ".snap.txt")
 
 
 @dataclass(frozen=True)
@@ -89,15 +109,30 @@ def neutral_doc_paths(code_changed_files: list[str], max_files: int) -> list[str
     return unique_preserve_order(paths)[: max(max_files * 3, max_files)]
 
 
+def normalized_path_components(path: str) -> list[str]:
+    return [part for part in path.replace("\\", "/").lower().split("/") if part]
+
+
+def is_excluded_doc_artifact_path(path: str) -> bool:
+    normalized = path.replace("\\", "/").lower()
+    name = Path(normalized).name
+    parts = normalized_path_components(path)
+    if any(part in EXCLUDED_DOC_PATH_COMPONENTS for part in parts[:-1]):
+        return True
+    return any(name.endswith(suffix) for suffix in ARTIFACT_DOC_SUFFIXES)
+
+
 def is_candidate_doc_path(path: str) -> bool:
     normalized = path.replace("\\", "/").lower()
     suffix = Path(normalized).suffix
     name = Path(normalized).name.lower()
     if suffix not in DOC_EXTENSIONS:
         return False
+    if is_excluded_doc_artifact_path(path):
+        return False
     if any(name.startswith(prefix) for prefix in DOC_PREFIXES):
         return True
-    parts = [part for part in normalized.split("/") if part]
+    parts = normalized_path_components(path)
     if any(part in DOC_COMPONENTS for part in parts[:-1]):
         return True
     return any(pair[0] in parts and pair[1] in parts for pair in DOC_LOCATION_PAIRS)
@@ -121,48 +156,104 @@ def doc_path_relevance(path: str, code_changed_files: list[str], code_diff_excer
     return overlap + nested_docs_bonus - generic_penalty, len(parts), path
 
 
-def discover_base_doc_paths(*, client: Any, repo: str, ref: str, code_changed_files: list[str], code_diff_excerpt: str = "", max_discovered_paths: int) -> tuple[list[str], dict[str, Any]]:
-    paths: list[str] = []
-    provenance = {"method": "base_sha_tree_documentation_discovery_v2", "tree_ref": ref, "used_docs_changed_files": False, "truncated": False}
+def doc_path_quality(path: str, code_changed_files: list[str], code_diff_excerpt: str = "") -> tuple[int, int, int, int, str]:
+    normalized = path.replace("\\", "/").lower()
+    parts = normalized_path_components(path)
+    name = Path(normalized).name
+    relevance, depth, _ = doc_path_relevance(path, code_changed_files, code_diff_excerpt)
+    if ("website", "docs") in zip(parts, parts[1:]) or ("website", "content") in zip(parts, parts[1:]):
+        family_score = 50
+    elif any(part in {"docs", "doc", "documentation", "guides"} for part in parts[:-1]):
+        family_score = 45
+    elif name.startswith(DOC_PREFIXES):
+        family_score = 40
+    elif "reference" in parts[:-1]:
+        family_score = 35
+    else:
+        family_score = 10
+    first_party_score = 0 if any(part in EXCLUDED_DOC_PATH_COMPONENTS for part in parts[:-1]) else 5
+    return family_score, relevance, first_party_score, depth, path
+
+
+def discover_base_doc_paths(*, client: Any, repo: str, ref: str, code_changed_files: list[str], code_diff_excerpt: str = "", max_discovered_paths: int) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    path_records: list[dict[str, Any]] = []
+    tree_paths: set[str] = set()
+    excluded_artifact_paths = 0
+    discovery_limit = max(max_discovered_paths * 4, max_discovered_paths)
+    provenance = {"method": "base_sha_tree_documentation_discovery_v2", "tree_ref": ref, "used_docs_changed_files": False, "tree_discovery_succeeded": True, "truncated": False}
     try:
         tree = client.get_tree_recursive(repo, ref)
     except AttributeError:
-        return neutral_doc_paths(code_changed_files, max_discovered_paths), {"method": "fallback_neutral_known_paths_client_has_no_tree_api", "tree_ref": ref, "used_docs_changed_files": False, "truncated": False}
+        records = [{"path": path, "blob_sha": None, "discovery_source": "fallback_neutral_probe"} for path in neutral_doc_paths(code_changed_files, max_discovered_paths)]
+        return records, {"method": "fallback_neutral_known_paths_client_has_no_tree_api", "tree_ref": ref, "used_docs_changed_files": False, "tree_discovery_succeeded": False, "truncated": False, "selection_policy": "fallback_probe_neutral_known_paths_because_tree_unavailable"}
+    except GlobalGitHubStop:
+        raise
+    except Exception:
+        records = [{"path": path, "blob_sha": None, "discovery_source": "fallback_neutral_probe"} for path in neutral_doc_paths(code_changed_files, max_discovered_paths)]
+        return records, {"method": "fallback_neutral_known_paths_tree_api_failed", "tree_ref": ref, "used_docs_changed_files": False, "tree_discovery_succeeded": False, "truncated": False, "selection_policy": "fallback_probe_neutral_known_paths_because_tree_failed"}
     for item in tree:
         if item.get("type") != "blob":
             continue
         path = str(item.get("path") or "")
+        tree_paths.add(path.replace("\\", "/").lower())
+        if is_excluded_doc_artifact_path(path):
+            excluded_artifact_paths += 1
+            continue
         if is_candidate_doc_path(path):
-            paths.append(path)
-        if len(paths) >= max_discovered_paths:
+            path_records.append({"path": path, "blob_sha": str(item.get("sha") or "") or None, "discovery_source": "base_sha_tree"})
+        if len(path_records) >= discovery_limit:
             provenance["truncated"] = True
             break
+    provenance["excluded_artifact_paths"] = excluded_artifact_paths
+    provenance["selection_policy"] = "prefer_first_party_human_docs_then_root_project_docs_then_reference_plus_neutral_code_path_affinity"
     neutral = neutral_doc_paths(code_changed_files, max_discovered_paths)
-    combined = unique_preserve_order(paths + neutral)
-    ranked = sorted(combined, key=lambda path: (-doc_path_relevance(path, code_changed_files, code_diff_excerpt)[0], -doc_path_relevance(path, code_changed_files, code_diff_excerpt)[1], path))
+    existing_neutral_records = [
+        {"path": path, "blob_sha": None, "discovery_source": "base_sha_tree_existing_neutral_path"}
+        for path in neutral
+        if path.replace("\\", "/").lower() in tree_paths and path not in {record["path"] for record in path_records}
+    ]
+    by_path: dict[str, dict[str, Any]] = {}
+    for record in path_records + existing_neutral_records:
+        by_path.setdefault(str(record["path"]), record)
+    ranked = sorted(by_path.values(), key=lambda record: tuple(-value if isinstance(value, int) else value for value in doc_path_quality(str(record["path"]), code_changed_files, code_diff_excerpt)))
     return ranked[:max_discovered_paths], provenance
+
+
+def fetch_document_text(*, client: Any, repo: str, ref: str, path: str, blob_sha: str | None, content_cache: dict[tuple[str, str], str | None]) -> str | None:
+    if blob_sha and hasattr(client, "get_blob_text"):
+        cache_key = ("blob", f"{repo}:{blob_sha}")
+        if cache_key not in content_cache:
+            content_cache[cache_key] = client.get_blob_text(repo, blob_sha)
+        return content_cache[cache_key]
+    cache_key = ("path_ref", f"{repo}:{path}:{ref}")
+    if cache_key not in content_cache:
+        content_cache[cache_key] = client.get_file_text(repo, path, ref)
+    return content_cache[cache_key]
 
 
 def collect_docs_before_neutral(*, client: Any, repo: str, ref: str, code_changed_files: list[str], max_chars: int, max_files: int, code_diff_excerpt: str = "", max_generator_doc_files: int = 12, max_generator_doc_chars_per_file: int = 1500, max_generator_doc_total_chars: int = 18000) -> tuple[str, list[str], str, list[dict[str, Any]]]:
     max_discovered_paths = int(getattr(client, "max_discovered_documentation_paths", max(max_generator_doc_files * 8, 80)))
-    selected_paths, discovery = discover_base_doc_paths(client=client, repo=repo, ref=ref, code_changed_files=code_changed_files, code_diff_excerpt=code_diff_excerpt, max_discovered_paths=max_discovered_paths)
+    selected_records, discovery = discover_base_doc_paths(client=client, repo=repo, ref=ref, code_changed_files=code_changed_files, code_diff_excerpt=code_diff_excerpt, max_discovered_paths=max_discovered_paths)
     chunks: list[str] = []
     retrieved: list[str] = []
     candidates: list[dict[str, Any]] = []
     classifier_remaining = max_chars
     generator_remaining = max_generator_doc_total_chars
-    for path in selected_paths:
+    content_cache: dict[tuple[str, str], str | None] = {}
+    for record in selected_records:
         if len(candidates) >= max_generator_doc_files or generator_remaining <= 0:
             break
+        path = str(record.get("path") or "")
+        blob_sha = str(record.get("blob_sha") or "") or None
         try:
-            text = client.get_file_text(repo, path, ref)
+            text = fetch_document_text(client=client, repo=repo, ref=ref, path=path, blob_sha=blob_sha, content_cache=content_cache)
         except Exception:
             continue
         if not text:
             continue
         generator_limit = min(max_generator_doc_chars_per_file, generator_remaining)
         generator_chunk = truncate_text(text, max(400, generator_limit))
-        candidates.append({"path": path, "excerpt": generator_chunk, "source_ref": ref, "retrieval_provenance": {**discovery, "path": path, "truncated_excerpt": len(text) > len(generator_chunk), "generator_pool_policy": "base_sha_broad_bounded_doc_pool_v2", "max_generator_doc_files": max_generator_doc_files, "max_generator_doc_chars_per_file": max_generator_doc_chars_per_file}})
+        candidates.append({"path": path, "excerpt": generator_chunk, "source_ref": ref, "blob_sha": blob_sha, "retrieval_provenance": {**discovery, "path": path, "blob_sha": blob_sha, "discovery_source": record.get("discovery_source"), "selection_rank": len(candidates) + 1, "selection_score": doc_path_quality(path, code_changed_files, code_diff_excerpt), "truncated_excerpt": len(text) > len(generator_chunk), "generator_pool_policy": "base_sha_broad_bounded_doc_pool_v2", "max_generator_doc_files": max_generator_doc_files, "max_generator_doc_chars_per_file": max_generator_doc_chars_per_file}})
         generator_remaining -= len(generator_chunk)
         if classifier_remaining > 0 and len(retrieved) < max_files:
             classifier_chunk = truncate_text(text, max(400, classifier_remaining))
@@ -361,6 +452,7 @@ def write_report(path: Path, *, cases: list[dict[str, Any]], rejects: list[dict[
         "",
         "Candidate records contain no `gold_*` fields. `docs_before_excerpt` is retrieved from `base_sha` using neutral documentation paths and code-path hints only; it never prioritizes `docs_changed_files`, `docs_diff_excerpt`, or `docs_after_excerpt`.",
     ]
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines), encoding="utf-8")
 
 

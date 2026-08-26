@@ -89,6 +89,9 @@ class GitHubClientV2:
         self.outbound_request_count = 0
         self.cache_hit_count = 0
         self.request_retry_count = 0
+        self.tree_request_count = 0
+        self.document_content_request_count = 0
+        self.blob_cache_hit_count = 0
         self.total_backoff_seconds = 0.0
         self.operational_failures: Counter[str] = Counter()
         self.stop_reason: str | None = None
@@ -186,8 +189,42 @@ class GitHubClientV2:
     def get_file_text(self, repo: str, path: str, ref: str) -> str | None:
         encoded_repo = urllib.parse.quote(repo, safe="/")
         encoded_path = urllib.parse.quote(path)
+        before_outbound = self.outbound_request_count
         data = self.request_json(f"https://api.github.com/repos/{encoded_repo}/contents/{encoded_path}?ref={urllib.parse.quote(ref)}")
+        if self.outbound_request_count > before_outbound:
+            self.document_content_request_count += 1
         if not isinstance(data, dict) or data.get("type") != "file":
+            return None
+        import base64
+
+        content = str(data.get("content") or "")
+        encoding = str(data.get("encoding") or "")
+        if encoding == "base64":
+            return base64.b64decode(content).decode("utf-8", errors="replace")
+        return content
+
+    def get_blob_text(self, repo: str, blob_sha: str) -> str | None:
+        encoded_repo = urllib.parse.quote(repo, safe="/")
+        url = f"https://api.github.com/repos/{encoded_repo}/git/blobs/{urllib.parse.quote(blob_sha)}"
+        accept = "application/vnd.github+json"
+        if self.cache is not None:
+            cached = self.cache.get_json(url, accept=accept)
+            if cached is not None:
+                self.cache_hit_count += 1
+                self.blob_cache_hit_count += 1
+                data = cached
+            else:
+                before_outbound = self.outbound_request_count
+                data = self._request_uncached(url)
+                if self.outbound_request_count > before_outbound:
+                    self.document_content_request_count += 1
+                self.cache.set_json(url, data, accept=accept)
+        else:
+            before_outbound = self.outbound_request_count
+            data = self._request_uncached(url)
+            if self.outbound_request_count > before_outbound:
+                self.document_content_request_count += 1
+        if not isinstance(data, dict):
             return None
         import base64
 
@@ -199,13 +236,19 @@ class GitHubClientV2:
 
     def get_tree_recursive(self, repo: str, ref: str) -> list[dict[str, Any]]:
         encoded = urllib.parse.quote(repo, safe="/")
+        before_outbound = self.outbound_request_count
         data = self.request_json(f"https://api.github.com/repos/{encoded}/git/trees/{urllib.parse.quote(ref)}?recursive=1")
+        if self.outbound_request_count > before_outbound:
+            self.tree_request_count += 1
         return list(data.get("tree") or []) if isinstance(data, dict) else []
 
     def stats(self) -> dict[str, Any]:
         return {
             "outbound_request_count": self.outbound_request_count,
             "cache_hit_count": self.cache_hit_count,
+            "blob_cache_hit_count": self.blob_cache_hit_count,
+            "tree_request_count": self.tree_request_count,
+            "document_content_request_count": self.document_content_request_count,
             "request_retry_count": self.request_retry_count,
             "total_backoff_seconds": self.total_backoff_seconds,
             "operational_failures": dict(self.operational_failures),

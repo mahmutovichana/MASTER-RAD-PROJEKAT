@@ -9,7 +9,15 @@ import pytest
 
 from docguard_external.github_client_v2 import GitHubClientV2, GlobalGitHubStop
 from docguard_external.github_pr_dataset_builder import BuildConfig
-from docguard_external.github_pr_dataset_builder_v2 import BuildConfigV2, build_candidate_case_v2, build_dataset_v2, collect_docs_before_neutral, stable_case_id
+from docguard_external.github_pr_dataset_builder_v2 import (
+    BuildConfigV2,
+    build_candidate_case_v2,
+    build_dataset_v2,
+    collect_docs_before_neutral,
+    is_candidate_doc_path,
+    stable_case_id,
+    write_report,
+)
 from docguard_llm_v2.document_retriever import retrieve_documents
 from docguard_llm_v2.pipeline import generate_semantic_documentation_patch
 from docguard_ml_v2.data_contract import binary_eligible_rows, category_eligible_rows, validate_final_gold_row
@@ -394,3 +402,221 @@ def test_generator_candidates_ignore_docs_changed_docs_diff_and_docs_after_and_a
     source = (ROOT / "docguard_external/github_pr_dataset_builder_v2.py").read_text(encoding="utf-8")
     assert "target_file_for_category" not in source
     assert "TARGET_FILE_MAPPING" not in source
+
+
+def test_documentation_artifact_paths_are_excluded_without_overfiltering_legitimate_docs():
+    assert not is_candidate_doc_path("testdata/baselines/reference/compiler/foo.errors.txt")
+    assert not is_candidate_doc_path("testdata/baselines/reference/astnav/foo.baseline.txt")
+    assert not is_candidate_doc_path("packages/app/__snapshots__/reference/foo.snap.txt")
+    assert not is_candidate_doc_path("fixtures/reference/api.txt")
+    assert not is_candidate_doc_path("vendor/README.md")
+    assert not is_candidate_doc_path("docs/app.sourcemap.txt")
+
+    assert is_candidate_doc_path("packages/server/docs/authentication.mdx")
+    assert is_candidate_doc_path("packages/foo/guides/setup.md")
+    assert is_candidate_doc_path("packages/client/reference/api.md")
+    assert is_candidate_doc_path("README.md")
+    assert is_candidate_doc_path("docs/reference-notes.txt")
+
+
+class ArtifactHeavyDocsClient(BroadDocsClient):
+    def get_tree_recursive(self, repo, ref):
+        assert ref == "base-sha"
+        artifacts = [
+            {"type": "blob", "path": f"testdata/baselines/reference/compiler/output-{idx}.errors.txt"}
+            for idx in range(12)
+        ]
+        return artifacts + [
+            {"type": "blob", "path": "vendor/README.md"},
+            {"type": "blob", "path": "snapshots/reference/stale.snap.txt"},
+            {"type": "blob", "path": "fixtures/reference/example.txt"},
+            {"type": "blob", "path": "packages/server/docs/authentication.mdx"},
+            {"type": "blob", "path": "packages/foo/guides/setup.md"},
+            {"type": "blob", "path": "packages/client/reference/api.md"},
+            {"type": "blob", "path": "README.md"},
+            {"type": "blob", "path": "docs/operations.txt"},
+        ]
+
+    def get_file_text(self, repo, path, ref):
+        assert ref in {"base-sha", "head-sha"}
+        if ref == "head-sha":
+            return "Outcome docs must not affect base candidates."
+        valid_base_paths = {
+            "packages/server/docs/authentication.mdx",
+            "packages/foo/guides/setup.md",
+            "packages/client/reference/api.md",
+            "README.md",
+            "docs/operations.txt",
+        }
+        if path not in valid_base_paths:
+            return None
+        return f"# {path}\nFirst-party documentation for AUTH_WINDOW and setup."
+
+
+def test_artifacts_cannot_monopolize_generator_pool_and_all_candidates_are_base_sha_only():
+    seed = {"repo": "org/repo", "pr_number": 1, "url": "https://github.com/org/repo/pull/1"}
+    config = BuildConfigV2(max_docs_chars=160, max_docs_files=2, max_generator_doc_files=5, max_generator_doc_chars_per_file=160, max_generator_doc_total_chars=800)
+    case_a, reject_a = build_candidate_case_v2(seed=seed, client=ArtifactHeavyDocsClient(), config=config)
+    case_b, reject_b = build_candidate_case_v2(seed=seed, client=ArtifactHeavyDocsClient(), config=config)
+
+    assert reject_a is None
+    assert reject_b is None
+    assert case_a["documentation_context_candidates"] == case_b["documentation_context_candidates"]
+    paths = [item["path"] for item in case_a["documentation_context_candidates"]]
+    assert "packages/server/docs/authentication.mdx" in paths
+    assert "packages/foo/guides/setup.md" in paths
+    assert "packages/client/reference/api.md" in paths
+    assert "README.md" in paths
+    assert "docs/operations.txt" in paths
+    assert all("testdata/" not in path for path in paths)
+    assert all("baselines/" not in path for path in paths)
+    assert all("snapshots/" not in path for path in paths)
+    assert all("fixtures/" not in path for path in paths)
+    assert all("vendor/" not in path for path in paths)
+    assert all(item["source_ref"] == "base-sha" for item in case_a["documentation_context_candidates"])
+    assert all(item["retrieval_provenance"]["excluded_artifact_paths"] >= 15 for item in case_a["documentation_context_candidates"])
+
+
+def test_generator_candidate_selection_is_not_altered_by_docs_changed_diff_or_after_fields():
+    seed_a = {"repo": "org/repo", "pr_number": 1, "url": "https://github.com/org/repo/pull/1"}
+    seed_b = {**seed_a, "docs_changed_files": ["docs/tempting.md"], "docs_diff_excerpt": "+Target answer", "docs_after_excerpt": "Target answer"}
+    config = BuildConfigV2(max_docs_chars=160, max_docs_files=2, max_generator_doc_files=5, max_generator_doc_chars_per_file=160, max_generator_doc_total_chars=800)
+    case_a, _ = build_candidate_case_v2(seed=seed_a, client=ArtifactHeavyDocsClient(), config=config)
+    case_b, _ = build_candidate_case_v2(seed=seed_b, client=ArtifactHeavyDocsClient(), config=config)
+
+    assert case_a["documentation_context_candidates"] == case_b["documentation_context_candidates"]
+
+
+def test_write_report_creates_missing_parent_directory(tmp_path):
+    report_path = tmp_path / "reports" / "final_v2" / "smoke" / "candidate_builder_v2_final_50.md"
+
+    write_report(report_path, cases=[], rejects=[], client_stats={"requests": 0}, status="ok", config=BuildConfigV2())
+
+    assert report_path.exists()
+    assert "DocGuard GitHub PR Candidate Builder V2 Report" in report_path.read_text(encoding="utf-8")
+
+
+class TreeIndexedContentClient(BroadDocsClient):
+    def __init__(self):
+        self.tree_calls = 0
+        self.path_fetches: list[str] = []
+        self.blob_fetches: list[str] = []
+
+    def get_tree_recursive(self, repo, ref):
+        self.tree_calls += 1
+        assert ref == "base-sha"
+        return [
+            {"type": "blob", "path": "packages/server/docs/authentication.mdx", "sha": "blob-auth"},
+            {"type": "blob", "path": "README.md", "sha": "blob-readme"},
+        ]
+
+    def get_blob_text(self, repo, blob_sha):
+        self.blob_fetches.append(blob_sha)
+        return {
+            "blob-auth": "Authentication documentation for AUTH_WINDOW.",
+            "blob-readme": "Project README.",
+        }.get(blob_sha)
+
+    def get_file_text(self, repo, path, ref):
+        self.path_fetches.append(path)
+        return None
+
+
+def test_successful_tree_discovery_does_not_probe_nonexistent_default_doc_paths():
+    client = TreeIndexedContentClient()
+
+    _, _, _, candidates = collect_docs_before_neutral(
+        client=client,
+        repo="org/repo",
+        ref="base-sha",
+        code_changed_files=["src/config.ts"],
+        code_diff_excerpt="+process.env.AUTH_WINDOW",
+        max_chars=200,
+        max_files=1,
+        max_generator_doc_files=2,
+        max_generator_doc_chars_per_file=200,
+        max_generator_doc_total_chars=400,
+    )
+
+    assert client.tree_calls == 1
+    assert client.path_fetches == []
+    assert client.blob_fetches == ["blob-auth", "blob-readme"]
+    assert [item["path"] for item in candidates] == ["packages/server/docs/authentication.mdx", "README.md"]
+    assert all(item["source_ref"] == "base-sha" for item in candidates)
+    assert all(item["blob_sha"] in {"blob-auth", "blob-readme"} for item in candidates)
+
+
+class RepeatedBlobCacheClient:
+    def __init__(self):
+        self.max_discovered_documentation_paths = 10
+        self.tree_calls = 0
+        self.blob_fetches: list[tuple[str, str]] = []
+        self._blob_cache: dict[tuple[str, str], str | None] = {}
+
+    def get_tree_recursive(self, repo, ref):
+        self.tree_calls += 1
+        sha = "shared-doc-sha" if ref in {"base-a", "base-b"} else "changed-doc-sha"
+        return [
+            {"type": "blob", "path": "docs/api.md", "sha": sha},
+            {"type": "blob", "path": "README.md", "sha": "readme-sha"},
+        ]
+
+    def get_blob_text(self, repo, blob_sha):
+        key = (repo, blob_sha)
+        if key not in self._blob_cache:
+            self.blob_fetches.append(key)
+            self._blob_cache[key] = f"Documentation content for {blob_sha}."
+        return self._blob_cache[key]
+
+    def get_file_text(self, repo, path, ref):
+        raise AssertionError(f"path/ref contents API should not be used for tree-discovered blob {path}@{ref}")
+
+
+def test_classifier_and_generator_share_tree_and_document_fetch_once_per_case():
+    client = RepeatedBlobCacheClient()
+
+    _, retrieved, _, candidates = collect_docs_before_neutral(
+        client=client,
+        repo="org/repo",
+        ref="base-a",
+        code_changed_files=["src/api.ts"],
+        code_diff_excerpt="+export const api = true",
+        max_chars=200,
+        max_files=1,
+        max_generator_doc_files=2,
+        max_generator_doc_chars_per_file=200,
+        max_generator_doc_total_chars=400,
+    )
+
+    assert client.tree_calls == 1
+    assert retrieved == [candidates[0]["path"]]
+    assert len(client.blob_fetches) == 2
+    assert client.blob_fetches == [("org/repo", "shared-doc-sha"), ("org/repo", "readme-sha")]
+
+
+def test_repeated_blob_sha_reuses_cache_without_changing_provenance_and_changed_sha_fetches_new_content():
+    client = RepeatedBlobCacheClient()
+    kwargs = {
+        "client": client,
+        "repo": "org/repo",
+        "code_changed_files": ["src/api.ts"],
+        "code_diff_excerpt": "+export const api = true",
+        "max_chars": 200,
+        "max_files": 1,
+        "max_generator_doc_files": 1,
+        "max_generator_doc_chars_per_file": 200,
+        "max_generator_doc_total_chars": 200,
+    }
+
+    _, _, _, candidates_a = collect_docs_before_neutral(ref="base-a", **kwargs)
+    _, _, _, candidates_b = collect_docs_before_neutral(ref="base-b", **kwargs)
+    _, _, _, candidates_c = collect_docs_before_neutral(ref="base-c", **kwargs)
+
+    assert client.blob_fetches == [("org/repo", "shared-doc-sha"), ("org/repo", "changed-doc-sha")]
+    assert candidates_a[0]["blob_sha"] == "shared-doc-sha"
+    assert candidates_b[0]["blob_sha"] == "shared-doc-sha"
+    assert candidates_c[0]["blob_sha"] == "changed-doc-sha"
+    assert candidates_a[0]["source_ref"] == "base-a"
+    assert candidates_b[0]["source_ref"] == "base-b"
+    assert candidates_c[0]["source_ref"] == "base-c"
+    assert candidates_a[0]["path"] == candidates_b[0]["path"] == candidates_c[0]["path"] == "docs/api.md"
