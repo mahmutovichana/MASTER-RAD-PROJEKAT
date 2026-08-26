@@ -9,6 +9,7 @@ from typing import Any
 from docguard_llm_v2.change_analyzer import analyze_change
 from docguard_llm_v2.document_retriever import retrieve_documents
 from docguard_llm_v2.documentation_writer import write_documentation
+from docguard_llm_v2.generation_options import options_for_purpose
 from docguard_llm_v2.provenance_verifier import verify_candidate
 from docguard_llm_v2.repair import repair_documentation
 from docguard_llm_v2.schemas import asdict_shallow
@@ -53,7 +54,7 @@ def generate_semantic_documentation_patch(
             "latencies": {"total_seconds": time.perf_counter() - started},
         }
     forbidden = {key: value for key, value in (forbidden_context or {}).items() if key in FORBIDDEN_CONTEXT_KEYS and value}
-    analysis_result = analyze_change(code_diff=code_diff, predicted_category=predicted_category, docs_before=docs_before, llm=llm_backend, model=cfg.get("analysis_model") or llm_model)
+    analysis_result = analyze_change(code_diff=code_diff, predicted_category=predicted_category, docs_before=docs_before, llm=llm_backend, model=cfg.get("analysis_model") or llm_model, generation_options=options_for_purpose(cfg, "analysis"))
     llm_call_count += 1
     analysis_dict = analysis_result["analysis_dict"]
     analysis_dict["supported_inferences"] = [asdict_shallow(item) for item in analysis_result["validated_inferences"]]
@@ -65,7 +66,7 @@ def generate_semantic_documentation_patch(
         top_k=int(cfg.get("top_k_documents") or 3),
     )
     retrieved = candidate_dicts(retrieval["top_k"])
-    writer = write_documentation(code_diff=code_diff, predicted_category=predicted_category, analysis=analysis_dict, retrieved_candidates=retrieved, llm=llm_backend, model=cfg.get("writer_model") or llm_model)
+    writer = write_documentation(code_diff=code_diff, predicted_category=predicted_category, analysis=analysis_dict, retrieved_candidates=retrieved, llm=llm_backend, model=cfg.get("writer_model") or llm_model, generation_options=options_for_purpose(cfg, "writer"))
     llm_call_count += 1
     retrieved_paths = [item["path"] for item in retrieved]
     first_verifier = verify_candidate(
@@ -89,7 +90,7 @@ def generate_semantic_documentation_patch(
         final_patch = None
         if int(cfg.get("max_repair_attempts", 1)) > 0:
             repair_attempted = True
-            repair_result = repair_documentation(original_candidate=writer["candidate"], verifier_result=first_verifier, analysis=analysis_dict, code_diff=code_diff, retrieved_candidates=retrieved, llm=llm_backend, model=cfg.get("repair_model") or llm_model)
+            repair_result = repair_documentation(original_candidate=writer["candidate"], verifier_result=first_verifier, analysis=analysis_dict, code_diff=code_diff, retrieved_candidates=retrieved, llm=llm_backend, model=cfg.get("repair_model") or llm_model, generation_options=options_for_purpose(cfg, "repair"))
             llm_call_count += 1
             repair_verifier = verify_candidate(
                 candidate=repair_result["candidate"],

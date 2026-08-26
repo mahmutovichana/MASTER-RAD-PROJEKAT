@@ -25,7 +25,7 @@ Model development may use only `development_train` and `development_validation`.
 
 ## Binary V4
 
-Binary V4 predicts `gold_docs_update_required`. All eligible human-reviewed rows are included unless explicitly marked excluded or invalid. `other_documentation` remains a positive binary example. Natural class imbalance is preserved; no balancing or label-based resampling is used.
+Binary V4 predicts `gold_docs_update_required`. A row is eligible only after full Final V2 human review: `review_status = approved`, `human_review_complete = true`, `label_source = human_reviewed_final_v2`, valid gold labels, and a canonical repository partition. `other_documentation` remains a positive binary example. Natural class imbalance is preserved; no balancing or label-based resampling is used.
 
 Candidate models are frozen before confirmation:
 
@@ -61,7 +61,7 @@ Confirmation evaluation is separate:
 - `scripts/evaluate_binary_v4_confirmation.py`
 - `scripts/evaluate_category_v8_confirmation.py`
 
-These scripts validate the freeze manifest, refuse inconsistent model hashes, do not tune thresholds or hyperparameters, and can enforce one-shot evaluation receipts.
+These scripts validate the freeze manifest, refuse inconsistent model hashes, validate confirmation partitions when a repository partition manifest is supplied, do not tune thresholds or hyperparameters, and can enforce one-shot evaluation receipts.
 
 ## Reporting
 

@@ -9,11 +9,11 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from scripts.human_review_workflow_v2 import load_jsonl, make_review_row, progress, write_csv, write_json, write_jsonl
+from scripts.human_review_workflow_v2 import deterministic_sample, load_jsonl, make_review_row, progress, write_csv, write_json, write_jsonl
 
 
 def run(input_path: Path, output_dir: Path, *, batch_size: int = 500, seed: int = 42, reviewer_id: str | None = None, partition_manifest: Path | None = None) -> dict:
-    rows = [make_review_row(row) for row in load_jsonl(input_path)]
+    rows = [make_review_row(row) for row in deterministic_sample(load_jsonl(input_path), 10**12, seed)]
     output_dir.mkdir(parents=True, exist_ok=True)
     batches = []
     for index in range(0, len(rows), batch_size):
@@ -31,6 +31,7 @@ def run(input_path: Path, output_dir: Path, *, batch_size: int = 500, seed: int 
         "partition_manifest_supplied_for_audit_only": partition_manifest is not None,
         "partition_manifest": None if partition_manifest is None else str(partition_manifest),
         "partition_blinded_in_outputs": True,
+        "ordering_strategy": "deterministic_repository_aware_interleaving_no_label_or_partition_inputs",
         "total_rows": len(rows),
         "batches": batches,
     }

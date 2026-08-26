@@ -43,6 +43,18 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def validate_completion_audit(audit_path: Path, input_path: Path) -> None:
+    payload = json.loads(audit_path.read_text(encoding="utf-8"))
+    if payload.get("status") != "passed":
+        raise ValueError("Completion audit must have status=passed")
+    if payload.get("input_sha256") != sha256_file(input_path):
+        raise ValueError("Completion audit input hash does not match input being finalized")
+    if int(payload.get("conflict_count") or 0) != 0:
+        raise ValueError("Completion audit contains unresolved conflicts")
+    if int(payload.get("pending_count") or 0) != 0:
+        raise ValueError("Completion audit contains pending rows")
+
+
 def as_bool(value: Any, row_id: str) -> bool:
     if isinstance(value, bool):
         return value
@@ -146,8 +158,14 @@ def main() -> int:
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--partition-manifest")
+    parser.add_argument("--completion-audit")
+    parser.add_argument("--allow-unaudited-fixture", action="store_true")
     args = parser.parse_args()
     out_dir = Path(args.output_dir)
+    if not args.completion_audit and not args.allow_unaudited_fixture:
+        raise SystemExit("--completion-audit is required for canonical Final V2 finalization")
+    if args.completion_audit:
+        validate_completion_audit(Path(args.completion_audit), Path(args.input))
     partition_assignments = load_partition_assignments(Path(args.partition_manifest)) if args.partition_manifest else None
     rows = [finalize_row(row, index, partition_assignments) for index, row in enumerate(load_jsonl(Path(args.input)), 1)]
     output_jsonl = out_dir / "final_human_gold.jsonl"

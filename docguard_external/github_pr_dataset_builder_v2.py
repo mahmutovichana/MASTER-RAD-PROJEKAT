@@ -4,16 +4,15 @@ import argparse
 import hashlib
 import json
 import os
-import time
 from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from docguard_external.github_client_v2 import GitHubClientV2, GlobalGitHubStop
 from docguard_external.github_api_cache import GitHubApiCache
 from docguard_external.github_pr_dataset_builder import (
     DEFAULT_DOC_PATHS,
     BuildConfig,
-    GitHubClient,
     combine_file_patches,
     infer_language_from_files,
     is_code_path,
@@ -53,6 +52,9 @@ FORBIDDEN_GOLD_FIELDS = {
     "gold_target_section",
     "gold_patch_summary",
 }
+DOC_EXTENSIONS = {".md", ".mdx", ".rst", ".adoc", ".txt"}
+DOC_LOCATIONS = ("docs/", "doc/", "documentation/", "website/docs/", "website/content/", "guides/", "reference/")
+DOC_PREFIXES = ("readme", "contributing", "changelog")
 
 
 def stable_case_id(repository: str, pr_number: int) -> str:
@@ -74,8 +76,36 @@ def neutral_doc_paths(code_changed_files: list[str], max_files: int) -> list[str
     return unique_preserve_order(paths)[: max(max_files * 3, max_files)]
 
 
+def is_candidate_doc_path(path: str) -> bool:
+    normalized = path.replace("\\", "/").lower()
+    suffix = Path(normalized).suffix
+    name = Path(normalized).name.lower()
+    return suffix in DOC_EXTENSIONS and (normalized.startswith(DOC_LOCATIONS) or any(name.startswith(prefix) for prefix in DOC_PREFIXES))
+
+
+def discover_base_doc_paths(*, client: Any, repo: str, ref: str, code_changed_files: list[str], max_discovered_paths: int) -> tuple[list[str], dict[str, Any]]:
+    paths: list[str] = []
+    provenance = {"method": "base_sha_tree_documentation_discovery_v2", "tree_ref": ref, "used_docs_changed_files": False, "truncated": False}
+    try:
+        tree = client.get_tree_recursive(repo, ref)
+    except AttributeError:
+        return neutral_doc_paths(code_changed_files, max_discovered_paths), {"method": "fallback_neutral_known_paths_client_has_no_tree_api", "tree_ref": ref, "used_docs_changed_files": False, "truncated": False}
+    for item in tree:
+        if item.get("type") != "blob":
+            continue
+        path = str(item.get("path") or "")
+        if is_candidate_doc_path(path):
+            paths.append(path)
+        if len(paths) >= max_discovered_paths:
+            provenance["truncated"] = True
+            break
+    neutral = neutral_doc_paths(code_changed_files, max_discovered_paths)
+    return unique_preserve_order(neutral + paths)[:max_discovered_paths], provenance
+
+
 def collect_docs_before_neutral(*, client: Any, repo: str, ref: str, code_changed_files: list[str], max_chars: int, max_files: int) -> tuple[str, list[str], str, list[dict[str, str]]]:
-    selected_paths = neutral_doc_paths(code_changed_files, max_files)
+    max_discovered_paths = int(getattr(client, "max_discovered_documentation_paths", 80))
+    selected_paths, discovery = discover_base_doc_paths(client=client, repo=repo, ref=ref, code_changed_files=code_changed_files, max_discovered_paths=max_discovered_paths)
     chunks: list[str] = []
     retrieved: list[str] = []
     candidates: list[dict[str, str]] = []
@@ -92,9 +122,9 @@ def collect_docs_before_neutral(*, client: Any, repo: str, ref: str, code_change
         chunk = truncate_text(text, max(400, remaining))
         chunks.append(f"<!-- {path} @ {ref} -->\n{chunk}")
         retrieved.append(path)
-        candidates.append({"path": path, "excerpt": chunk, "source_ref": ref})
+        candidates.append({"path": path, "excerpt": chunk, "source_ref": ref, "retrieval_provenance": {**discovery, "path": path, "truncated_excerpt": len(text) > len(chunk)}})
         remaining = max_chars - len("\n\n".join(chunks))
-    policy = "base_sha_neutral_known_doc_paths_plus_code_path_hints_no_docs_changed_files"
+    policy = f"{discovery['method']}_plus_code_path_hints_no_docs_changed_files_no_docs_after"
     return truncate_text("\n\n".join(chunks), max_chars), retrieved, policy, candidates
 
 
@@ -124,6 +154,8 @@ def build_candidate_case_v2(*, seed: dict[str, Any], client: Any, config: BuildC
     try:
         pull = client.get_pull(repo, pr_number)
         files = client.get_pull_files(repo, pr_number)
+    except GlobalGitHubStop:
+        raise
     except Exception as exc:
         return None, {"case_id": case_id, "source_url": seed["url"], "repository": repo, "pr_number": pr_number, "reject_reason": "github_fetch_failed", "error": str(exc)}
 
@@ -222,7 +254,11 @@ def build_dataset_v2(*, seeds: list[dict[str, Any]], client: Any, config: BuildC
     for seed in seeds:
         if max_cases is not None and len(cases) >= max_cases:
             break
-        case, reject = build_candidate_case_v2(seed=seed, client=client, config=config)
+        try:
+            case, reject = build_candidate_case_v2(seed=seed, client=client, config=config)
+        except GlobalGitHubStop as exc:
+            rejects.append({"reject_reason": "github_operational_stop", "stop_reason": exc.stop_reason})
+            break
         if reject is not None:
             rejects.append(reject)
         if case is not None:
@@ -243,8 +279,6 @@ def build_dataset_v2(*, seeds: list[dict[str, Any]], client: Any, config: BuildC
                 seen_prs.add(key)
                 seen_urls.add(url)
                 seen_case_ids.add(cid)
-        if config.sleep_seconds > 0:
-            time.sleep(config.sleep_seconds)
     return cases, rejects
 
 
@@ -259,14 +293,16 @@ def count_nested(rows: list[dict[str, Any]], key: str) -> dict[str, int]:
     return dict(Counter(str(row.get(key) or "") for row in rows))
 
 
-def write_report(path: Path, *, cases: list[dict[str, Any]], rejects: list[dict[str, Any]]) -> None:
+def write_report(path: Path, *, cases: list[dict[str, Any]], rejects: list[dict[str, Any]], client_stats: dict[str, Any] | None = None, status: str = "ok") -> None:
     lines = [
         "# DocGuard GitHub PR Candidate Builder V2 Report",
         "",
         "V2 candidate construction is leak-free with respect to final labels and PR outcome documentation routing.",
         "",
+        f"- Status: `{status}`",
         f"- Accepted candidates: `{len(cases)}`",
         f"- Rejected seeds: `{len(rejects)}`",
+        f"- Operational/client stats: `{client_stats or {}}`",
         f"- Language counts: `{count_nested(cases, 'language')}`",
         "",
         "Candidate records contain no `gold_*` fields. `docs_before_excerpt` is retrieved from `base_sha` using neutral documentation paths and code-path hints only; it never prioritizes `docs_changed_files`, `docs_diff_excerpt`, or `docs_after_excerpt`.",
@@ -286,22 +322,28 @@ def main() -> int:
     parser.add_argument("--max-docs-files", type=int, default=3)
     parser.add_argument("--sleep-seconds", type=float, default=0.0)
     parser.add_argument("--github-token-env", default="GITHUB_TOKEN")
+    parser.add_argument("--require-authenticated", action="store_true")
+    parser.add_argument("--min-request-interval-seconds", type=float, default=0.25)
     parser.add_argument("--timeout-seconds", type=int, default=30)
     parser.add_argument("--cache-dir", default="data/external/project_case_study/cache/github_api")
     parser.add_argument("--no-cache", action="store_true")
     args = parser.parse_args()
     token = os.getenv(args.github_token_env) or None
+    if args.require_authenticated and not token:
+        print(json.dumps({"status": "failed", "stop_reason": "missing_required_github_token", "accepted_candidates": 0}, indent=2))
+        return 2
     cache = None if args.no_cache else GitHubApiCache(Path(args.cache_dir))
-    client = GitHubClient(token=token, timeout_seconds=args.timeout_seconds, cache=cache)
+    client = GitHubClientV2(token=token, timeout_seconds=args.timeout_seconds, cache=cache, min_request_interval_seconds=args.min_request_interval_seconds)
     config = BuildConfig(args.max_code_diff_chars, args.max_docs_chars, args.max_docs_files, args.sleep_seconds)
     cases, rejects = build_dataset_v2(seeds=load_seed_records(Path(args.input)), client=client, config=config, max_cases=args.max_cases)
     output = Path(args.output)
     rejects_path = Path(args.rejects) if args.rejects else output.with_suffix(".rejects.jsonl")
     write_jsonl(output, cases)
     write_jsonl(rejects_path, rejects)
-    write_report(Path(args.report), cases=cases, rejects=rejects)
-    print(json.dumps({"status": "ok", "accepted_candidates": len(cases), "rejected_seeds": len(rejects), "output": str(output)}, indent=2))
-    return 0
+    status = "partial" if getattr(client, "stop_reason", None) else "ok"
+    write_report(Path(args.report), cases=cases, rejects=rejects, client_stats=client.stats(), status=status)
+    print(json.dumps({"status": status, "accepted_candidates": len(cases), "rejected_seeds": len(rejects), "output": str(output), "client_stats": client.stats()}, indent=2))
+    return 0 if status == "ok" else 2
 
 
 if __name__ == "__main__":

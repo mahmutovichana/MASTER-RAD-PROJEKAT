@@ -114,3 +114,23 @@ def bootstrap_ci(metric_fn, y_true: list[Any], y_pred_or_score: list[Any], *, se
         return {"low": 0.0, "high": 0.0}
     return {"low": float(np.quantile(values, alpha / 2)), "high": float(np.quantile(values, 1 - alpha / 2))}
 
+
+def bootstrap_metric_ci(metric_fn, y_true: list[Any], values_input: list[Any], *, seed: int = 42, n_bootstrap: int = 200, alpha: float = 0.05) -> dict[str, float | int]:
+    if not y_true:
+        return {"low": 0.0, "high": 0.0, "valid_replicates": 0}
+    rng = np.random.default_rng(seed)
+    values: list[float] = []
+    n = len(y_true)
+    for _ in range(n_bootstrap):
+        indexes = rng.integers(0, n, size=n)
+        yt = [y_true[i] for i in indexes]
+        vi = [values_input[i] for i in indexes]
+        try:
+            if len(set(yt)) < 2:
+                continue
+            values.append(float(metric_fn(yt, vi)))
+        except Exception:
+            continue
+    if not values:
+        return {"low": 0.0, "high": 0.0, "valid_replicates": 0}
+    return {"low": float(np.quantile(values, alpha / 2)), "high": float(np.quantile(values, 1 - alpha / 2)), "valid_replicates": len(values)}

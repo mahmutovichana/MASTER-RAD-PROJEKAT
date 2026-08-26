@@ -9,6 +9,8 @@ SAFE_MODEL_FIELDS = ["language", "code_changed_files", "code_diff_excerpt", "doc
 PRIMARY_STAGE2_LABELS = ["api_reference", "configuration", "developer_setup", "model_contract"]
 OTHER_DOCUMENTATION_LABEL = "other_documentation"
 NO_UPDATE_LABEL = "no_update"
+LABEL_SOURCE = "human_reviewed_final_v2"
+ALLOWED_PARTITIONS = {"development_train", "development_validation", "confirmation"}
 AUDIT_OR_GOLD_ONLY_FIELDS = {
     "source_url",
     "pr_title",
@@ -52,18 +54,37 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
 def bool_value(value: Any) -> bool:
     if isinstance(value, bool):
         return value
-    return str(value).strip().lower() in {"true", "1", "yes", "y"}
+    raise ValueError(f"Expected real boolean value, got {value!r}")
 
 
-def eligible_final_row(row: dict[str, Any]) -> bool:
+def validate_final_gold_row(row: dict[str, Any], *, allowed_partitions: set[str] | None = None) -> None:
+    row_id = str(row.get("case_id") or row.get("id") or "<unknown>")
     status = str(row.get("review_status") or "").strip().lower()
-    if status in {"exclude", "excluded", "invalid"}:
-        return False
-    if row.get("exclude") is True or row.get("invalid") is True:
-        return False
-    if row.get("human_review_complete") is False:
-        return False
-    return "gold_docs_update_required" in row
+    if status != "approved":
+        raise ValueError(f"{row_id}: review_status must be approved")
+    if row.get("human_review_complete") is not True:
+        raise ValueError(f"{row_id}: human_review_complete must be exactly true")
+    if row.get("label_source") != LABEL_SOURCE:
+        raise ValueError(f"{row_id}: label_source must be {LABEL_SOURCE}")
+    if "gold_docs_update_required" not in row or not isinstance(row.get("gold_docs_update_required"), bool):
+        raise ValueError(f"{row_id}: gold_docs_update_required must be a real boolean")
+    category = str(row.get("gold_doc_category") or "")
+    if category not in set(PRIMARY_STAGE2_LABELS) | {OTHER_DOCUMENTATION_LABEL, NO_UPDATE_LABEL}:
+        raise ValueError(f"{row_id}: invalid gold_doc_category {category!r}")
+    if row["gold_docs_update_required"] is False and category != NO_UPDATE_LABEL:
+        raise ValueError(f"{row_id}: negative rows must use no_update")
+    if row["gold_docs_update_required"] is True and category == NO_UPDATE_LABEL:
+        raise ValueError(f"{row_id}: positive rows require a positive category")
+    partition = str(row.get("partition") or "")
+    if partition not in ALLOWED_PARTITIONS:
+        raise ValueError(f"{row_id}: partition must be one of {sorted(ALLOWED_PARTITIONS)}")
+    if allowed_partitions is not None and partition not in allowed_partitions:
+        raise ValueError(f"{row_id}: partition {partition} is not allowed here")
+
+
+def eligible_final_row(row: dict[str, Any], *, allowed_partitions: set[str] | None = None) -> bool:
+    validate_final_gold_row(row, allowed_partitions=allowed_partitions)
+    return True
 
 
 def serialize_model_row(row: dict[str, Any]) -> str:
@@ -95,8 +116,8 @@ def assert_safe_rows_only(rows: list[dict[str, Any]]) -> None:
                 raise ValueError(f"Forbidden field name leaked into serialized model row {index}: {forbidden}")
 
 
-def binary_eligible_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    return [row for row in rows if eligible_final_row(row)]
+def binary_eligible_rows(rows: list[dict[str, Any]], *, allowed_partitions: set[str] | None = None) -> list[dict[str, Any]]:
+    return [row for row in rows if eligible_final_row(row, allowed_partitions=allowed_partitions)]
 
 
 def binary_labels(rows: list[dict[str, Any]]) -> list[int]:
@@ -104,7 +125,8 @@ def binary_labels(rows: list[dict[str, Any]]) -> list[int]:
 
 
 def category_scope_counts(rows: list[dict[str, Any]]) -> dict[str, int | float]:
-    positive = [row for row in rows if eligible_final_row(row) and bool_value(row.get("gold_docs_update_required"))]
+    valid = [row for row in rows if eligible_final_row(row)]
+    positive = [row for row in valid if bool_value(row.get("gold_docs_update_required"))]
     primary = [row for row in positive if str(row.get("gold_doc_category") or "") in PRIMARY_STAGE2_LABELS]
     other = [row for row in positive if str(row.get("gold_doc_category") or "") == OTHER_DOCUMENTATION_LABEL]
     return {
@@ -115,11 +137,11 @@ def category_scope_counts(rows: list[dict[str, Any]]) -> dict[str, int | float]:
     }
 
 
-def category_eligible_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def category_eligible_rows(rows: list[dict[str, Any]], *, allowed_partitions: set[str] | None = None) -> list[dict[str, Any]]:
     return [
         row
         for row in rows
-        if eligible_final_row(row)
+        if eligible_final_row(row, allowed_partitions=allowed_partitions)
         and bool_value(row.get("gold_docs_update_required"))
         and str(row.get("gold_doc_category") or "") in PRIMARY_STAGE2_LABELS
     ]
@@ -138,4 +160,3 @@ def language_bucket(row: dict[str, Any]) -> str:
     if language in {"python", "typescript"}:
         return language
     return "other"
-

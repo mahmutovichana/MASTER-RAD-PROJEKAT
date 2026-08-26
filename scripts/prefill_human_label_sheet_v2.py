@@ -55,30 +55,22 @@ def as_list(value: Any) -> list[str]:
 def text_blob(row: dict[str, Any]) -> str:
     return "\n".join(
         [
-            str(row.get("pr_title") or ""),
             str(row.get("language") or row.get("language_hint") or ""),
             " ".join(as_list(row.get("code_changed_files"))),
-            " ".join(as_list(row.get("docs_changed_files"))),
             str(row.get("code_diff_excerpt") or ""),
-            str(row.get("docs_diff_excerpt") or ""),
+            str(row.get("docs_before_excerpt") or ""),
         ]
     )
 
 
 def suggest(row: dict[str, Any]) -> tuple[bool, str, float, str]:
     blob = text_blob(row)
-    collector_bucket = str(row.get("collector_bucket") or "")
-    if collector_bucket == "code_and_docs":
-        for category, pattern in PUBLIC_PATTERNS:
-            if pattern.search(blob):
-                return True, category, 0.72, f"Prefill: code and docs changed with {category} surface terms."
-        return True, "other_documentation", 0.62, "Prefill: code and docs changed, but primary category is unclear."
-    if collector_bucket == "code_only_tests_or_fixtures" or NEGATIVE_RE.search(blob):
-        return False, "no_update", 0.7, "Prefill: test/fixture/maintenance terms suggest no documentation update."
+    if NEGATIVE_RE.search(blob):
+        return False, "no_update", 0.7, "Prefill: safe pre-outcome code/docs-before terms suggest no documentation update."
     for category, pattern in PUBLIC_PATTERNS:
         if pattern.search(blob):
-            return True, category, 0.58, f"Prefill: public documentation signal suggests {category}."
-    return False, "no_update", 0.52, "Prefill: no strong public documentation signal found."
+            return True, category, 0.58, f"Prefill: safe pre-outcome public documentation signal suggests {category}."
+    return False, "no_update", 0.52, "Prefill: no strong safe pre-outcome documentation signal found."
 
 
 def prefill_row(row: dict[str, Any]) -> dict[str, Any]:

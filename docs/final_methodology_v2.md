@@ -172,3 +172,7 @@ Historical Qwen100 results are retained as V1 internal verifier acceptance rates
 Final V2 human labeling is batched, resumable, and integrity-checked. Automated prefill suggestions remain reviewer assistance only; suggested fields are never copied into gold labels automatically. Reviewer-facing batches hide repository partitions and include deterministic `review_row_hash` values over immutable evidence so accidental evidence edits are detected during merge and completion audit.
 
 The final gold finalizer can assign `label_source = human_reviewed_final_v2` only for approved rows with explicit human fields and valid taxonomy. Second-reviewer subsets and adjudication sheets support reliability analysis, but disagreements require explicit human adjudication and never overwrite primary labels automatically.
+
+## Final Pre-Experiment Hardening
+
+Before the real final experiment, Final V2 includes a read-only pre-experiment audit that checks static/configuration invariants without collecting data, training, calling an LLM, or touching confirmation examples. The hardened candidate builder uses authenticated, paced, fail-closed GitHub access and base-SHA documentation discovery; Stage 3 retrieval uses lightweight TF-IDF semantic IR; and finalization/evaluation scripts require freeze manifests, completion-audit receipts, and one-shot guards where appropriate.

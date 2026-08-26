@@ -77,6 +77,15 @@ def parse_bool(value: Any) -> bool | None:
     return None
 
 
+def normalize_status(value: Any) -> tuple[str, bool]:
+    text = str(value or "").strip().lower()
+    if text == "exclude":
+        return "excluded", True
+    if text in ALLOWED_STATUSES:
+        return text, False
+    return text, False
+
+
 def make_review_row(row: dict[str, Any]) -> dict[str, Any]:
     out = {field: row.get(field) for field in EVIDENCE_FIELDS}
     out["suggested_docs_update_required"] = row.get("suggested_docs_update_required", "")
@@ -111,7 +120,7 @@ def read_review_file(path: Path) -> list[dict[str, Any]]:
 
 
 def validate_taxonomy(row: dict[str, Any]) -> tuple[bool, str]:
-    status = str(row.get("review_status") or "").strip().lower()
+    status, _normalized = normalize_status(row.get("review_status"))
     if status not in ALLOWED_STATUSES:
         return False, "invalid_status"
     if status != "approved":
@@ -145,8 +154,8 @@ def label_tuple(row: dict[str, Any]) -> tuple[Any, str, str]:
 
 def progress(rows: list[dict[str, Any]]) -> dict[str, Any]:
     total = len(rows)
-    statuses = Counter(str(row.get("review_status") or "pending").strip().lower() or "pending" for row in rows)
-    approved = [row for row in rows if str(row.get("review_status") or "").strip().lower() == "approved"]
+    statuses = Counter(normalize_status(row.get("review_status") or "pending")[0] or "pending" for row in rows)
+    approved = [row for row in rows if normalize_status(row.get("review_status"))[0] == "approved"]
     positive_approved = [row for row in approved if parse_bool(row.get("human_docs_update_required")) is True]
     return {
         "total": total,
@@ -188,7 +197,18 @@ def reviewer_overlap_agreement(left: list[dict[str, Any]], right: list[dict[str,
 
 
 def deterministic_sample(rows: list[dict[str, Any]], target: int, seed: int) -> list[dict[str, Any]]:
-    keyed = sorted(rows, key=lambda row: (str(row.get("repository") or ""), str(row.get("case_id") or "")))
     rng = random.Random(seed)
-    rng.shuffle(keyed)
-    return keyed[: min(target, len(keyed))]
+    groups: dict[str, list[dict[str, Any]]] = {}
+    for row in rows:
+        groups.setdefault(str(row.get("repository") or ""), []).append(row)
+    for repo_rows in groups.values():
+        repo_rows.sort(key=lambda row: str(row.get("case_id") or ""))
+        rng.shuffle(repo_rows)
+    repos = sorted(groups)
+    rng.shuffle(repos)
+    ordered: list[dict[str, Any]] = []
+    while any(groups[repo] for repo in repos):
+        for repo in repos:
+            if groups[repo]:
+                ordered.append(groups[repo].pop(0))
+    return ordered[: min(target, len(ordered))]

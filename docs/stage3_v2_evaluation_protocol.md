@@ -8,6 +8,8 @@ Prompt, retrieval, verifier, and repair changes may use only `development_train`
 
 The Stage 3 V2 configuration is stored in `configs/stage3_semantic_generation_v2.json`. The configuration must be frozen before any final confirmation run, and its SHA-256 should be recorded with the evaluation report.
 
+The same frozen settings must be sent to the actual model adapter at runtime. Analysis, writer, and repair calls each receive the configured temperature and their own max-token limits through the Stage 3 generation-options adapter.
+
 ## Architecture Under Test
 
 Stage 3 V2 is evaluated as:

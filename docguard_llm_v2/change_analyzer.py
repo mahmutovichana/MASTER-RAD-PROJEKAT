@@ -4,6 +4,7 @@ import json
 import re
 from typing import Any
 
+from docguard_llm_v2.generation_options import GenerationOptions, call_llm
 from docguard_llm_v2.prompt_templates import analysis_prompt
 from docguard_llm_v2.schemas import ChangeAnalysis, SupportedInference, asdict_shallow
 
@@ -56,8 +57,8 @@ def build_analysis(data: dict[str, Any], *, code_diff: str, docs_before: str) ->
     return analysis, valid, invalid
 
 
-def analyze_change(*, code_diff: str, predicted_category: str, docs_before: str, llm: Any, model: str | None = None) -> dict[str, Any]:
-    raw = llm.generate(analysis_prompt(code_diff=code_diff, predicted_category=predicted_category, docs_before=docs_before), model=model, purpose="analysis")
+def analyze_change(*, code_diff: str, predicted_category: str, docs_before: str, llm: Any, model: str | None = None, generation_options: GenerationOptions | None = None) -> dict[str, Any]:
+    raw = call_llm(llm, analysis_prompt(code_diff=code_diff, predicted_category=predicted_category, docs_before=docs_before), model=model, purpose="analysis", options=generation_options)
     parsed = parse_json(raw)
     analysis, valid, invalid = build_analysis(parsed, code_diff=code_diff, docs_before=docs_before)
     return {
@@ -67,4 +68,3 @@ def analyze_change(*, code_diff: str, predicted_category: str, docs_before: str,
         "invalid_inferences": invalid,
         "analysis_dict": asdict_shallow(analysis),
     }
-

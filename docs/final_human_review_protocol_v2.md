@@ -74,9 +74,9 @@ Partitions are restored later by the finalizer from the frozen partition manifes
 
 ## Completion Audit
 
-`scripts/audit_human_review_complete_v2.py` must pass before final gold finalization. It asserts that every included row is approved, human fields are explicitly populated, review hashes are valid, duplicate cases are absent, conflicts are resolved, and taxonomy is valid.
+`scripts/audit_human_review_complete_v2.py` must pass before final gold finalization. It asserts that every included row is approved, human fields are explicitly populated, review hashes are valid, duplicate cases are absent, conflicts are resolved, and taxonomy is valid. The audit writes a machine-readable receipt with the reviewed input SHA-256, row counts, status counts, conflict count, integrity status, taxonomy status, and audit timestamp.
 
-Only after this audit can `scripts/finalize_human_gold_v2.py` set:
+Only after this audit can `scripts/finalize_human_gold_v2.py --completion-audit ...` set:
 
 ```json
 {

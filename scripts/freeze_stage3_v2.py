@@ -11,6 +11,20 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from docguard_eval_v2.reference_evaluation import sha256_file, write_json
 from docguard_ml_v2.model_manifest import utc_now
+from docguard_llm_v2.generation_options import options_for_purpose
+
+
+REQUIRED_CONFIG_KEYS = {"pipeline_version", "analysis_model", "writer_model", "repair_model", "temperature", "max_tokens_analysis", "max_tokens_writer", "max_tokens_repair", "top_k_documents", "max_repair_attempts"}
+
+
+def validate_config(cfg: dict) -> None:
+    missing = sorted(REQUIRED_CONFIG_KEYS - set(cfg))
+    if missing:
+        raise ValueError(f"Stage 3 config is missing required runtime keys: {missing}")
+    for purpose in ["analysis", "writer", "repair"]:
+        options_for_purpose(cfg, purpose)
+    if int(cfg["max_repair_attempts"]) < 0 or int(cfg["max_repair_attempts"]) > 1:
+        raise ValueError("Final Stage 3 V2 supports at most one repair attempt")
 
 
 def source_hashes(root: Path) -> dict[str, str]:
@@ -20,6 +34,7 @@ def source_hashes(root: Path) -> dict[str, str]:
 
 def run(config: Path, pipeline_source_root: Path, development_summary: Path, output: Path) -> dict:
     cfg = json.loads(config.read_text(encoding="utf-8"))
+    validate_config(cfg)
     manifest = {
         "pipeline_version": cfg.get("pipeline_version"),
         "model_identifiers": {key: cfg.get(key) for key in ["analysis_model", "writer_model", "repair_model"]},
@@ -27,6 +42,8 @@ def run(config: Path, pipeline_source_root: Path, development_summary: Path, out
         "token_settings": {key: cfg.get(key) for key in ["max_tokens_analysis", "max_tokens_writer", "max_tokens_repair"]},
         "top_k": cfg.get("top_k_documents"),
         "repair_attempts": cfg.get("max_repair_attempts"),
+        "runtime_generation_settings_supported": True,
+        "backend_adapter_version": "docguard_llm_v2.generation_options.v1",
         "config_sha256": sha256_file(config),
         "source_file_sha256": source_hashes(pipeline_source_root),
         "development_summary_sha256": sha256_file(development_summary),
@@ -50,4 +67,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

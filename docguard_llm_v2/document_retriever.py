@@ -1,26 +1,16 @@
 from __future__ import annotations
 
-import math
 import re
-from collections import Counter
 from typing import Any
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 from docguard_llm_v2.schemas import DocumentCandidate
 
 
 def tokenize(text: str) -> list[str]:
     return [token.lower() for token in re.findall(r"[A-Za-z0-9_./:-]{2,}", text or "")]
-
-
-def cosine(query: str, document: str) -> float:
-    q = Counter(tokenize(query))
-    d = Counter(tokenize(document))
-    if not q or not d:
-        return 0.0
-    numerator = sum(q[token] * d.get(token, 0) for token in q)
-    q_norm = math.sqrt(sum(value * value for value in q.values()))
-    d_norm = math.sqrt(sum(value * value for value in d.values()))
-    return numerator / (q_norm * d_norm) if q_norm and d_norm else 0.0
 
 
 def build_query(*, predicted_category: str, analysis: dict[str, Any], code_diff: str) -> str:
@@ -39,18 +29,25 @@ def build_query(*, predicted_category: str, analysis: dict[str, Any], code_diff:
 
 def retrieve_documents(*, predicted_category: str, analysis: dict[str, Any], code_diff: str, documentation_context_candidates: list[dict[str, Any]], top_k: int = 3) -> dict[str, Any]:
     query = build_query(predicted_category=predicted_category, analysis=analysis, code_diff=code_diff)
-    candidates: list[DocumentCandidate] = []
+    raw_candidates: list[tuple[str, str, str]] = []
     for item in documentation_context_candidates:
         path = str(item.get("path") or "")
         excerpt = str(item.get("excerpt") or "")
         if not path or not excerpt:
             continue
-        score = cosine(query, path + "\n" + excerpt)
-        candidates.append(DocumentCandidate(path=path, excerpt=excerpt, source_ref=str(item.get("source_ref") or ""), score=score))
+        raw_candidates.append((path, excerpt, str(item.get("source_ref") or "")))
+    if not raw_candidates:
+        return {"top_k": [], "retrieval_method": "tfidf_cosine_semantic_ir_v2", "retrieval_query": query}
+    corpus = [query] + [path + "\n" + excerpt for path, excerpt, _ in raw_candidates]
+    matrix = TfidfVectorizer(analyzer="word", ngram_range=(1, 2), token_pattern=r"(?u)\b[\w./:@+\-#]+\b", sublinear_tf=True).fit_transform(corpus)
+    scores = cosine_similarity(matrix[0], matrix[1:]).ravel()
+    candidates = [
+        DocumentCandidate(path=path, excerpt=excerpt, source_ref=source_ref, score=float(score))
+        for (path, excerpt, source_ref), score in zip(raw_candidates, scores)
+    ]
     ranked = sorted(candidates, key=lambda item: (-item.score, item.path))[:top_k]
     return {
         "top_k": ranked,
-        "retrieval_method": "token_cosine_semantic_ir_v2",
+        "retrieval_method": "tfidf_cosine_semantic_ir_v2",
         "retrieval_query": query,
     }
-

@@ -26,6 +26,8 @@ Before confirmation evaluation, `scripts/freeze_stage3_v2.py` freezes:
 
 The freeze manifest records `confirmation_accessed = false` and does not read confirmation examples.
 
+The frozen confirmation generation runner is separate from reference evaluation. It verifies model/config/source hashes, repository confirmation partitions, one-shot receipts, and generation-safe views before any Stage 3 invocation. Reference-only fields are joined later by case id after generation is complete.
+
 ## Samples
 
 The primary final Stage 3 sample is a natural-distribution random sample of predicted-positive cases. It does not balance by category, language, repository, or label.
