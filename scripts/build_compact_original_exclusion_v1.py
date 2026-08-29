@@ -12,9 +12,12 @@ with source.open(encoding='utf-8') as f:
         repos.add(repo); pairs.add((repo,pr)); rows+=1
 repo_path=out/'original_repositories_normalized.txt'
 pair_path=out/'original_repository_pr_keys.jsonl'
-repo_path.write_text('\n'.join(sorted(repos))+'\n',encoding='utf-8')
-pair_path.write_text(''.join(json.dumps({'repository':r,'pr_number':p},separators=(',',':'))+'\n' for r,p in sorted(pairs)),encoding='utf-8')
+with repo_path.open('w',encoding='utf-8',newline='\n') as f:
+    f.write('\n'.join(sorted(repos))+'\n')
+with pair_path.open('w',encoding='utf-8',newline='\n') as f:
+    f.write(''.join(json.dumps({'repository':r,'pr_number':p},separators=(',',':'))+'\n' for r,p in sorted(pairs)))
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
-manifest={'schema':'docguard_original_17880_compact_exclusion_v1','source_row_count':rows,'normalized_repository_count':len(repos),'repository_pr_key_count':len(pairs),'files':{repo_path.name:{'sha256':sha(repo_path),'bytes':repo_path.stat().st_size},pair_path.name:{'sha256':sha(pair_path),'bytes':pair_path.stat().st_size}}}
-(out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
+manifest={'schema':'docguard_original_17880_compact_exclusion_v1','canonical_line_endings':'LF','encoding':'UTF-8','source_row_count':rows,'normalized_repository_count':len(repos),'repository_pr_key_count':len(pairs),'files':{repo_path.name:{'sha256':sha(repo_path),'bytes':repo_path.stat().st_size},pair_path.name:{'sha256':sha(pair_path),'bytes':pair_path.stat().st_size}}}
+with (out/'manifest.json').open('w',encoding='utf-8',newline='\n') as f:
+    f.write(json.dumps(manifest,indent=2)+'\n')
 print(json.dumps(manifest,indent=2))
