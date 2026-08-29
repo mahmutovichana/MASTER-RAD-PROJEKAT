@@ -1,6 +1,37 @@
-# Targeted enrichment: setup na drugom Windows računaru
+# Targeted enrichment: setup na drugom računaru
 
-## Preduvjeti
+## macOS / MacBook
+
+Instalacija:
+
+```bash
+xcode-select --install
+brew install git git-lfs python@3.12
+git lfs install
+git clone https://github.com/mahmutovichana/MASTER-RAD-PROJEKAT.git
+cd MASTER-RAD-PROJEKAT
+git lfs pull
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -U pip pytest scikit-learn
+```
+
+Token treba postaviti prije ponovnog pokretanja Codexa:
+
+```bash
+read -s GITHUB_TOKEN
+echo
+launchctl setenv GITHUB_TOKEN "$GITHUB_TOKEN"
+unset GITHUB_TOKEN
+```
+
+Potpuno zatvoriti Codex sa `Cmd+Q`, pa ga ponovo otvoriti. Nakon završetka:
+
+```bash
+launchctl unsetenv GITHUB_TOKEN
+```
+
+## Windows preduvjeti
 
 - Git for Windows i Git LFS
 - Python 3.11+ (projekat trenutno radi na Pythonu 3.14)
