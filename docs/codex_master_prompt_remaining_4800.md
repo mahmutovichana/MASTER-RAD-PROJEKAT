@@ -10,7 +10,7 @@ Radi autonomno do završetka. Korisnik želi približno 4.800 novih, stvarnih Gi
 
 2. Zatraži od osobe da lokalno unese VLASTITI GitHub fine-grained token kroz `Read-Host`. Ne traži da token pošalje u chat. Token nikada ne zapisuj u repo, log, manifest ili tracked `.env`. Koristi ga samo kao process environment `GITHUB_TOKEN`.
 
-3. Pokreni `python scripts/prepare_remaining_enrichment_repositories_v1.py`. Validiraj da output kaže 75 selected i 24 rejected protiv originalnih 17.880. Koristi tri liste:
+3. Ne zahtijevaj veliki lokalni `candidate_partitioned_17880.jsonl`. Repo sadrži kompaktni, hashovani exclusion manifest u `data/final_v2/expansion/original_17880_exclusion_v1/`, sa svih 225 normalized repo-a i svih 17.880 `(repository, pr_number)` ključeva. Validiraj njegov `manifest.json`, pa pokreni `python scripts/prepare_remaining_enrichment_repositories_v1.py`. Validiraj da output kaže 75 selected i 24 rejected protiv originalnih 17.880. Koristi tri liste:
    - `remaining_selected_repositories_shard_A.txt`
    - `remaining_selected_repositories_shard_B.txt`
    - `remaining_selected_repositories_shard_C.txt`

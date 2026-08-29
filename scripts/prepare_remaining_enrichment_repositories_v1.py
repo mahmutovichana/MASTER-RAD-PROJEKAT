@@ -5,8 +5,14 @@ root=Path(__file__).resolve().parents[1]
 base=root/'data/final_v2/expansion/targeted_positive_enrichment_v1/repository_discovery'
 original=root/'data/final_v2/human_review/candidate_partitioned_17880.jsonl'
 existing=set()
-with original.open(encoding='utf-8') as f:
-    for line in f: existing.add(json.loads(line)['repository'].strip().lower())
+compact=root/'data/final_v2/expansion/original_17880_exclusion_v1/original_repositories_normalized.txt'
+if original.exists():
+    with original.open(encoding='utf-8') as f:
+        for line in f: existing.add(json.loads(line)['repository'].strip().lower())
+elif compact.exists():
+    existing={x.strip().lower() for x in compact.read_text(encoding='utf-8').splitlines() if x.strip()}
+else:
+    raise SystemExit('Missing both full original dataset and compact original exclusion manifest')
 current={x.strip().lower() for x in (base/'explicit_repository_universe.txt').read_text().splitlines() if x.strip()}
 candidates=[x.strip().lower() for x in (base/'remaining_repository_candidates.txt').read_text().splitlines() if x.strip()]
 selected=[]; rejected=[]
