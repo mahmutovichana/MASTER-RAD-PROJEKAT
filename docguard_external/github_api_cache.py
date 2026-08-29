@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import threading
 import time
 from pathlib import Path
 from typing import Any
@@ -22,6 +23,7 @@ class GitHubApiCache:
     def __init__(self, cache_dir: Path | str) -> None:
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
+        self._lock = threading.Lock()
 
     def _key(self, url: str, *, accept: str) -> str:
         raw = json.dumps(
@@ -60,6 +62,9 @@ class GitHubApiCache:
 
         return payload.get("data")
 
+    def has_json(self, url: str, *, accept: str) -> bool:
+        return self._path(url, accept=accept).exists()
+
     def set_json(self, url: str, data: Any, *, accept: str) -> None:
         path = self._path(url, accept=accept)
 
@@ -71,9 +76,10 @@ class GitHubApiCache:
             "data": data,
         }
 
-        temp_path = path.with_suffix(".tmp")
-        temp_path.write_text(json.dumps(payload, ensure_ascii=False, sort_keys=True), encoding="utf-8")
-        temp_path.replace(path)
+        with self._lock:
+            temp_path = path.with_suffix(f".{threading.get_ident()}.tmp")
+            temp_path.write_text(json.dumps(payload, ensure_ascii=False, sort_keys=True), encoding="utf-8")
+            temp_path.replace(path)
 
     def stats(self) -> dict[str, Any]:
         files = list(self.cache_dir.glob("*/*.json"))

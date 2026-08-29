@@ -1,23 +1,37 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import time
 import urllib.error
 from pathlib import Path
 
 import joblib
 import pytest
 
-from docguard_external.github_client_v2 import GitHubClientV2, GlobalGitHubStop
+from docguard_external.github_client_v2 import GitHubClientV2, GitHubOperationalError, GlobalGitHubStop
 from docguard_external.github_pr_dataset_builder import BuildConfig
 from docguard_external.github_pr_dataset_builder_v2 import (
     BuildConfigV2,
     build_candidate_case_v2,
+    build_dataset_v2_checkpointed,
     build_dataset_v2,
     collect_docs_before_neutral,
+    recover_operational_rejects_from_checkpoints,
     is_candidate_doc_path,
+    load_pending_queue,
+    make_operational_pending,
+    read_jsonl,
+    retry_operational_pending,
+    scientific_config_fingerprint,
+    sha256_file,
     stable_case_id,
+    validate_final_v2_completion_state,
+    write_checkpoint_chunk,
     write_report,
+    write_jsonl,
 )
+from docguard_external.document_retrieval_backends_v2 import AutoDocumentBackendClient, LocalGitBackendError, LocalGitDocumentBackend
 from docguard_llm_v2.document_retriever import retrieve_documents
 from docguard_llm_v2.pipeline import generate_semantic_documentation_patch
 from docguard_ml_v2.data_contract import binary_eligible_rows, category_eligible_rows, validate_final_gold_row
@@ -144,7 +158,7 @@ def test_partial_candidate_output_preserved_and_no_gold_fields():
     seeds = [{"repo": "org/a", "pr_number": 1, "url": "u1"}, {"repo": "org/b", "pr_number": 2, "url": "u2"}]
     cases, rejects = build_dataset_v2(seeds=seeds, client=StopClient(), config=BuildConfig(), max_cases=None)
     assert len(cases) == 1
-    assert rejects[-1]["stop_reason"] == "primary_rate_limit_exhausted"
+    assert rejects == []
     assert not any(key.startswith("gold_") for key in cases[0])
     assert stable_case_id("Org/A", 1) == stable_case_id("org/a", 1)
 
@@ -620,3 +634,544 @@ def test_repeated_blob_sha_reuses_cache_without_changing_provenance_and_changed_
     assert candidates_b[0]["source_ref"] == "base-b"
     assert candidates_c[0]["source_ref"] == "base-c"
     assert candidates_a[0]["path"] == candidates_b[0]["path"] == candidates_c[0]["path"] == "docs/api.md"
+
+
+class CheckpointClient:
+    def get_pull(self, repo, pr):
+        return {"title": f"PR {pr}", "merged_at": "2026-01-01T00:00:00Z", "base": {"sha": f"base-{pr}"}, "head": {"sha": f"head-{pr}"}}
+
+    def get_pull_files(self, repo, pr):
+        if pr == 3:
+            return [{"filename": "README.md", "patch": "+docs only", "additions": 1, "deletions": 0}]
+        return [{"filename": f"src/module{pr}.ts", "patch": f"+export const value{pr} = true", "additions": 1, "deletions": 0}]
+
+    def get_tree_recursive(self, repo, ref):
+        return [{"type": "blob", "path": "docs/api.md", "sha": f"blob-{ref}"}]
+
+    def get_blob_text(self, repo, blob_sha):
+        return f"API documentation for {blob_sha}."
+
+    def stats(self):
+        return {}
+
+
+def checkpoint_seeds():
+    return [{"repo": "org/repo", "pr_number": number, "url": f"https://github.com/org/repo/pull/{number}"} for number in range(1, 6)]
+
+
+def test_checkpoint_resume_matches_uninterrupted_output_and_preserves_order(tmp_path):
+    seeds = checkpoint_seeds()
+    config = BuildConfigV2(max_docs_chars=120, max_docs_files=1, max_generator_doc_files=1, max_generator_doc_chars_per_file=120, max_generator_doc_total_chars=120)
+    input_path = tmp_path / "seeds.jsonl"
+    input_path.write_text("\n".join(json.dumps(seed, sort_keys=True) for seed in seeds) + "\n", encoding="utf-8")
+    input_hash = sha256_file(input_path)
+    fingerprint = scientific_config_fingerprint(config=config)
+
+    uninterrupted_cases, uninterrupted_rejects = build_dataset_v2(seeds=seeds, client=CheckpointClient(), config=config)
+    checkpoint_dir = tmp_path / "checkpoints"
+    with pytest.raises(RuntimeError, match="simulated interruption"):
+        build_dataset_v2_checkpointed(
+            seeds=seeds,
+            client=CheckpointClient(),
+            config=config,
+            input_hash=input_hash,
+            config_fingerprint=fingerprint,
+            checkpoint_dir=checkpoint_dir,
+            checkpoint_every=2,
+            progress_every=99,
+            interrupt_after_seeds=3,
+        )
+
+    resumed_cases, resumed_rejects, stats = build_dataset_v2_checkpointed(
+        seeds=seeds,
+        client=CheckpointClient(),
+        config=config,
+        input_hash=input_hash,
+        config_fingerprint=fingerprint,
+        checkpoint_dir=checkpoint_dir,
+        checkpoint_every=2,
+        progress_every=99,
+        resume=True,
+    )
+
+    assert stats["resume_completed_seed_count"] == 2
+    assert resumed_cases == uninterrupted_cases
+    assert resumed_rejects == uninterrupted_rejects
+    assert [case["pr_number"] for case in resumed_cases] == [1, 2, 4, 5]
+    assert len({case["case_id"] for case in resumed_cases}) == len(resumed_cases)
+    assert len(resumed_rejects) == 1
+
+
+def test_checkpoint_resume_fails_closed_on_input_or_scientific_config_mismatch(tmp_path):
+    seeds = checkpoint_seeds()[:2]
+    config = BuildConfigV2()
+    fingerprint = scientific_config_fingerprint(config=config)
+    checkpoint_dir = tmp_path / "checkpoints"
+    build_dataset_v2_checkpointed(
+        seeds=seeds,
+        client=CheckpointClient(),
+        config=config,
+        input_hash="a" * 64,
+        config_fingerprint=fingerprint,
+        checkpoint_dir=checkpoint_dir,
+        checkpoint_every=1,
+        progress_every=99,
+    )
+
+    with pytest.raises(RuntimeError, match="input hash mismatch"):
+        build_dataset_v2_checkpointed(seeds=seeds, client=CheckpointClient(), config=config, input_hash="b" * 64, config_fingerprint=fingerprint, checkpoint_dir=checkpoint_dir, resume=True)
+    with pytest.raises(RuntimeError, match="scientific config mismatch"):
+        build_dataset_v2_checkpointed(seeds=seeds, client=CheckpointClient(), config=config, input_hash="a" * 64, config_fingerprint="c" * 64, checkpoint_dir=checkpoint_dir, resume=True)
+
+
+class FakeLocalGitBackend(LocalGitDocumentBackend):
+    def __init__(self, cache_dir):
+        super().__init__(cache_dir=cache_dir)
+        self.commands: list[list[str]] = []
+        self.available_after_fetch = False
+
+    def _run_git(self, args, *, cwd=None, timeout_seconds=None):
+        self.commands.append(args)
+        if args[:2] == ["cat-file", "-e"] and not self.available_after_fetch:
+            raise LocalGitBackendError("missing")
+        if args[:2] == ["fetch", "--depth=1"]:
+            self.available_after_fetch = True
+            return subprocess.CompletedProcess(["git", *args], 0, b"", b"")
+        if args[:2] == ["ls-tree", "-r"]:
+            return subprocess.CompletedProcess(["git", *args], 0, b"100644 blob abc123\tREADME.md\x00100644 blob def456\tpackages/server/docs/authentication.mdx\x00", b"")
+        if args[:2] == ["cat-file", "-p"]:
+            return subprocess.CompletedProcess(["git", *args], 0, b"# Docs\nUTF-8 text", b"")
+        if args[0] == "clone":
+            return subprocess.CompletedProcess(["git", *args], 0, b"", b"")
+        return subprocess.CompletedProcess(["git", *args], 0, b"", b"")
+
+
+def test_local_git_backend_path_mapping_tree_blob_fetch_and_safe_remote(tmp_path):
+    backend = FakeLocalGitBackend(cache_dir=tmp_path)
+    assert backend.repo_cache_path("microsoft/TypeScript") == backend.repo_cache_path("microsoft/typescript")
+
+    tree = backend.get_tree_recursive("microsoft/TypeScript", "base-sha")
+    text = backend.get_blob_text("microsoft/TypeScript", "abc123")
+
+    assert tree == [
+        {"mode": "100644", "type": "blob", "sha": "abc123", "path": "README.md"},
+        {"mode": "100644", "type": "blob", "sha": "def456", "path": "packages/server/docs/authentication.mdx"},
+    ]
+    assert text == "# Docs\nUTF-8 text"
+    assert any(command[:3] == ["fetch", "--depth=1", "origin"] and command[3] == "base-sha" for command in backend.commands)
+    clone_command = next(command for command in backend.commands if command and command[0] == "clone")
+    assert "https://github.com/microsoft/TypeScript.git" in clone_command
+    assert "@" not in " ".join(clone_command)
+    assert backend.stats()["git_fetch_count"] == 1
+    assert backend.stats()["git_tree_read_count"] == 1
+    assert backend.stats()["git_blob_read_count"] == 1
+
+
+class CachedRestClient:
+    def __init__(self, cached_tree=None, cached_blob=None):
+        self.cached_tree = cached_tree
+        self.cached_blob = cached_blob
+        self.network_tree_calls = 0
+        self.network_blob_calls = 0
+        self.cache_hit_count = 0
+
+    def get_cached_tree_recursive(self, repo, ref):
+        if self.cached_tree is not None:
+            self.cache_hit_count += 1
+        return self.cached_tree
+
+    def get_tree_recursive(self, repo, ref):
+        self.network_tree_calls += 1
+        return [{"type": "blob", "path": "README.md", "sha": "rest-sha"}]
+
+    def get_cached_blob_text(self, repo, blob_sha):
+        if self.cached_blob is not None:
+            self.cache_hit_count += 1
+        return self.cached_blob
+
+    def get_blob_text(self, repo, blob_sha):
+        self.network_blob_calls += 1
+        return "REST blob"
+
+    def stats(self):
+        return {"cache_hit_count": self.cache_hit_count, "outbound_request_count": self.network_tree_calls + self.network_blob_calls}
+
+
+class TinyLocalBackend:
+    def __init__(self, fail=False):
+        self.fail = fail
+        self.tree_calls = 0
+        self.blob_calls = 0
+
+    def get_tree_recursive(self, repo, ref):
+        self.tree_calls += 1
+        if self.fail:
+            raise LocalGitBackendError("local failed")
+        return [{"type": "blob", "path": "docs/api.md", "sha": "local-sha"}]
+
+    def get_blob_text(self, repo, blob_sha):
+        self.blob_calls += 1
+        if self.fail:
+            raise LocalGitBackendError("local failed")
+        return "Local blob"
+
+    def stats(self):
+        return {"git_tree_read_count": self.tree_calls, "git_blob_read_count": self.blob_calls}
+
+
+def test_auto_backend_prefers_rest_cache_then_local_then_rest_fallback():
+    cached_rest = CachedRestClient(cached_tree=[{"type": "blob", "path": "README.md", "sha": "cached-sha"}], cached_blob="Cached blob")
+    local = TinyLocalBackend()
+    auto = AutoDocumentBackendClient(rest_client=cached_rest, local_backend=local, mode="auto")
+    assert auto.get_tree_recursive("org/repo", "base") == [{"type": "blob", "path": "README.md", "sha": "cached-sha"}]
+    assert auto.get_blob_text("org/repo", "cached-sha") == "Cached blob"
+    assert local.tree_calls == 0
+    assert local.blob_calls == 0
+    assert cached_rest.network_tree_calls == 0
+    assert cached_rest.network_blob_calls == 0
+
+    miss_rest = CachedRestClient()
+    local = TinyLocalBackend()
+    auto = AutoDocumentBackendClient(rest_client=miss_rest, local_backend=local, mode="auto")
+    assert auto.get_tree_recursive("org/repo", "base")[0]["sha"] == "local-sha"
+    assert auto.get_blob_text("org/repo", "local-sha") == "Local blob"
+    assert miss_rest.network_tree_calls == 0
+    assert miss_rest.network_blob_calls == 0
+
+    fallback_rest = CachedRestClient()
+    auto = AutoDocumentBackendClient(rest_client=fallback_rest, local_backend=TinyLocalBackend(fail=True), mode="auto")
+    assert auto.get_tree_recursive("org/repo", "base")[0]["sha"] == "rest-sha"
+    assert auto.get_blob_text("org/repo", "rest-sha") == "REST blob"
+    assert auto.stats()["rest_fallback_count"] == 2
+    assert fallback_rest.network_tree_calls == 1
+    assert fallback_rest.network_blob_calls == 1
+
+
+class OperationalFailureClient(CheckpointClient):
+    def __init__(self, exc):
+        self.exc = exc
+
+    def get_pull(self, repo, pr):
+        raise self.exc
+
+
+def operational_error(status_code=None, body="timeout"):
+    return GitHubOperationalError(status_code=status_code, url="https://api.github.test", body=body)
+
+
+@pytest.mark.parametrize(
+    "exc",
+    [
+        operational_error(None, "network timeout"),
+        operational_error(500, "server error"),
+        operational_error(502, "bad gateway"),
+        operational_error(503, "unavailable"),
+        operational_error(504, "gateway timeout"),
+        operational_error(403, "API rate limit exceeded"),
+        operational_error(403, "secondary rate limit"),
+        operational_error(401, "bad credentials"),
+        TimeoutError("timed out"),
+        OSError("DNS failure"),
+    ],
+)
+def test_operational_failures_do_not_enter_canonical_rejects_and_create_pending(tmp_path, exc):
+    seeds = [checkpoint_seeds()[0]]
+    config = BuildConfigV2()
+    pending_path = tmp_path / "pending.jsonl"
+    cases, rejects, stats = build_dataset_v2_checkpointed(
+        seeds=seeds,
+        client=OperationalFailureClient(exc),
+        config=config,
+        input_hash="a" * 64,
+        config_fingerprint=scientific_config_fingerprint(config=config),
+        checkpoint_dir=tmp_path / "checkpoints",
+        checkpoint_every=1,
+        progress_every=99,
+        operational_pending_path=pending_path,
+    )
+
+    pending = load_pending_queue(pending_path)
+    assert cases == []
+    assert rejects == []
+    assert stats["operational_pending_count"] == 1
+    assert len(pending) == 1
+    assert pending[0]["input_index"] == 0
+    assert pending[0]["seed"] == seeds[0]
+    assert pending[0]["retry_state"] == "pending"
+
+
+def test_global_stop_primary_rate_or_auth_is_pending_not_reject(tmp_path):
+    seed = checkpoint_seeds()[0]
+    config = BuildConfigV2()
+    pending_path = tmp_path / "pending.jsonl"
+    error = operational_error(403, "API rate limit exceeded")
+    cases, rejects, stats = build_dataset_v2_checkpointed(
+        seeds=[seed],
+        client=OperationalFailureClient(GlobalGitHubStop("primary_rate_limit_exhausted", error)),
+        config=config,
+        input_hash="a" * 64,
+        config_fingerprint=scientific_config_fingerprint(config=config),
+        checkpoint_dir=tmp_path / "checkpoints",
+        checkpoint_every=1,
+        progress_every=99,
+        operational_pending_path=pending_path,
+    )
+
+    assert cases == []
+    assert rejects == []
+    assert stats["status"] == "partial"
+    assert load_pending_queue(pending_path)[0]["operational_failure_type"] == "primary_rate_limit_exhausted"
+
+
+def test_retry_pending_success_reject_and_repeat_failure_states(tmp_path):
+    config = BuildConfigV2(max_docs_chars=120, max_docs_files=1, max_generator_doc_files=1, max_generator_doc_chars_per_file=120, max_generator_doc_total_chars=120)
+    pending_path = tmp_path / "pending.jsonl"
+    output_path = tmp_path / "cases.jsonl"
+    rejects_path = tmp_path / "rejects.jsonl"
+    seed_success, seed_reject, seed_fail = checkpoint_seeds()[:3]
+    pending_rows = [
+        make_operational_pending(seed_success, input_index=0, exc=TimeoutError("timeout")),
+        make_operational_pending(seed_reject, input_index=1, exc=TimeoutError("timeout")),
+        make_operational_pending(seed_fail, input_index=2, exc=TimeoutError("timeout")),
+    ]
+    write_jsonl(pending_path, pending_rows)
+    write_jsonl(output_path, [])
+    write_jsonl(rejects_path, [])
+
+    class MixedRetryClient(CheckpointClient):
+        def get_pull(self, repo, pr):
+            if pr == seed_fail["pr_number"]:
+                raise TimeoutError("still down")
+            return super().get_pull(repo, pr)
+
+        def get_pull_files(self, repo, pr):
+            if pr == seed_reject["pr_number"]:
+                return [{"filename": "README.md", "patch": "+docs", "additions": 1, "deletions": 0}]
+            return super().get_pull_files(repo, pr)
+
+    stats = retry_operational_pending(pending_path=pending_path, output_path=output_path, rejects_path=rejects_path, client=MixedRetryClient(), config=config)
+
+    cases = [json.loads(line) for line in output_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    rejects = [json.loads(line) for line in rejects_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    pending = load_pending_queue(pending_path)
+    assert stats["accepted_added"] == 1
+    assert stats["scientific_rejects_added"] == 1
+    assert stats["operational_pending_retry_failure_count"] == 1
+    assert len(cases) == 1
+    assert len(rejects) == 1
+    assert len(pending) == 1
+    assert pending[0]["pr_number"] == seed_fail["pr_number"]
+    assert pending[0]["attempt_count"] == 2
+    accepted_keys = {(row["repository"], row["pr_number"]) for row in cases}
+    rejected_keys = {(row["repository"], row["pr_number"]) for row in rejects}
+    pending_keys = {(row["repository"], row["pr_number"]) for row in pending}
+    assert not (accepted_keys & rejected_keys)
+    assert not (accepted_keys & pending_keys)
+    assert not (rejected_keys & pending_keys)
+
+
+def test_retry_mode_processes_only_pending_and_can_be_bounded(tmp_path):
+    config = BuildConfigV2(max_docs_chars=120, max_docs_files=1, max_generator_doc_files=1, max_generator_doc_chars_per_file=120, max_generator_doc_total_chars=120)
+    seeds = checkpoint_seeds()[:2]
+    pending_path = tmp_path / "pending.jsonl"
+    output_path = tmp_path / "cases.jsonl"
+    rejects_path = tmp_path / "rejects.jsonl"
+    write_jsonl(pending_path, [make_operational_pending(seed, input_index=i, exc=TimeoutError("timeout")) for i, seed in enumerate(seeds)])
+    write_jsonl(output_path, [])
+    write_jsonl(rejects_path, [])
+
+    stats = retry_operational_pending(pending_path=pending_path, output_path=output_path, rejects_path=rejects_path, client=CheckpointClient(), config=config, max_pending_to_process=1)
+
+    assert stats["processed_pending"] == 1
+    assert len(load_pending_queue(pending_path)) == 1
+    assert len(read_jsonl(output_path)) == 1
+
+
+def test_recovery_migrates_historical_operational_rejects_and_is_idempotent(tmp_path):
+    checkpoint_dir = tmp_path / "checkpoints"
+    pending_path = tmp_path / "pending.jsonl"
+    scientific_reject = {"case_id": "DGPR-science", "repository": "org/repo", "pr_number": 2, "source_url": "u2", "reject_reason": "no_code_files_changed"}
+    operational_reject = {"case_id": "DGPR-operational", "repository": "org/repo", "pr_number": 1, "source_url": "u1", "reject_reason": "github_fetch_failed", "error": "network timeout"}
+    write_checkpoint_chunk(
+        checkpoint_dir=checkpoint_dir,
+        start_index=0,
+        end_index=2,
+        cases=[],
+        rejects=[operational_reject, scientific_reject],
+        operational_pending=[],
+        input_hash="a" * 64,
+        config_fingerprint="b" * 64,
+        total_seed_count=2,
+    )
+
+    first = recover_operational_rejects_from_checkpoints(checkpoint_dir=checkpoint_dir, operational_pending_path=pending_path)
+    second = recover_operational_rejects_from_checkpoints(checkpoint_dir=checkpoint_dir, operational_pending_path=pending_path)
+    chunk = json.loads(next(checkpoint_dir.glob("chunk_*.json")).read_text(encoding="utf-8"))
+
+    assert first["migrated_operational_failures"] == 1
+    assert second["migrated_operational_failures"] == 0
+    assert chunk["rejects"] == [scientific_reject]
+    assert len(load_pending_queue(pending_path)) == 1
+
+
+def test_completion_status_and_downstream_guard_with_pending():
+    pending = validate_final_v2_completion_state(total_input_seeds=3, accepted_count=2, scientific_reject_count=1, operational_pending_count=1, visited_count=3)
+    complete = validate_final_v2_completion_state(total_input_seeds=3, accepted_count=2, scientific_reject_count=1, operational_pending_count=0, visited_count=3)
+
+    assert pending["status"] == "complete_with_operational_pending"
+    assert pending["complete"] is False
+    assert complete["status"] == "complete"
+    assert complete["complete"] is True
+
+
+def test_resume_keeps_pending_separate_and_successful_case_schema_unchanged(tmp_path):
+    seeds = checkpoint_seeds()[:2]
+    config = BuildConfigV2(max_docs_chars=120, max_docs_files=1, max_generator_doc_files=1, max_generator_doc_chars_per_file=120, max_generator_doc_total_chars=120)
+    pending_path = tmp_path / "pending.jsonl"
+    uninterrupted_cases, uninterrupted_rejects = build_dataset_v2(seeds=seeds, client=CheckpointClient(), config=config)
+    cases, rejects, stats = build_dataset_v2_checkpointed(
+        seeds=seeds,
+        client=CheckpointClient(),
+        config=config,
+        input_hash="a" * 64,
+        config_fingerprint=scientific_config_fingerprint(config=config),
+        checkpoint_dir=tmp_path / "checkpoints",
+        checkpoint_every=1,
+        progress_every=99,
+        operational_pending_path=pending_path,
+    )
+
+    assert cases == uninterrupted_cases
+    assert rejects == uninterrupted_rejects
+    assert stats["operational_pending_count"] == 0
+    assert load_pending_queue(pending_path) == []
+
+
+class SlowOutOfOrderClient(CheckpointClient):
+    def get_pull(self, repo, pr):
+        time.sleep({1: 0.04, 2: 0.01, 3: 0.03, 4: 0.0, 5: 0.02}.get(pr, 0.0))
+        return super().get_pull(repo, pr)
+
+
+def test_workers_four_matches_workers_one_and_preserves_order(tmp_path):
+    seeds = checkpoint_seeds()
+    config = BuildConfigV2(max_docs_chars=120, max_docs_files=1, max_generator_doc_files=1, max_generator_doc_chars_per_file=120, max_generator_doc_total_chars=120)
+    fingerprint = scientific_config_fingerprint(config=config)
+    cases_one, rejects_one, _ = build_dataset_v2_checkpointed(
+        seeds=seeds,
+        client=SlowOutOfOrderClient(),
+        config=config,
+        input_hash="a" * 64,
+        config_fingerprint=fingerprint,
+        checkpoint_dir=tmp_path / "one",
+        checkpoint_every=5,
+        progress_every=99,
+        workers=1,
+    )
+    cases_four, rejects_four, _ = build_dataset_v2_checkpointed(
+        seeds=seeds,
+        client=SlowOutOfOrderClient(),
+        config=config,
+        input_hash="a" * 64,
+        config_fingerprint=fingerprint,
+        checkpoint_dir=tmp_path / "four",
+        checkpoint_every=5,
+        progress_every=99,
+        workers=4,
+    )
+
+    assert cases_four == cases_one
+    assert rejects_four == rejects_one
+    assert [case["pr_number"] for case in cases_four] == [1, 2, 4, 5]
+
+
+def test_parallel_operational_pending_order_and_no_duplicates(tmp_path):
+    seeds = checkpoint_seeds()[:4]
+    config = BuildConfigV2()
+    pending_path = tmp_path / "pending.jsonl"
+
+    class MixedParallelClient(CheckpointClient):
+        def get_pull(self, repo, pr):
+            if pr in {2, 4}:
+                raise TimeoutError(f"timeout {pr}")
+            return super().get_pull(repo, pr)
+
+    cases, rejects, stats = build_dataset_v2_checkpointed(
+        seeds=seeds,
+        client=MixedParallelClient(),
+        config=config,
+        input_hash="a" * 64,
+        config_fingerprint=scientific_config_fingerprint(config=config),
+        checkpoint_dir=tmp_path / "checkpoints",
+        checkpoint_every=4,
+        progress_every=99,
+        operational_pending_path=pending_path,
+        workers=4,
+    )
+
+    pending = load_pending_queue(pending_path)
+    assert [row["pr_number"] for row in pending] == [2, 4]
+    assert len({row["case_id"] for row in pending}) == 2
+    assert not {(case["repository"], case["pr_number"]) for case in cases} & {(row["repository"], row["pr_number"]) for row in pending}
+    assert rejects == [{"case_id": stable_case_id("org/repo", 3), "source_url": "https://github.com/org/repo/pull/3", "repository": "org/repo", "pr_number": 3, "reject_reason": "no_code_files_changed"}]
+    assert stats["operational_pending_count"] == 2
+
+
+def test_interruption_mid_parallel_checkpoint_resume_matches_uninterrupted(tmp_path):
+    seeds = checkpoint_seeds()
+    config = BuildConfigV2(max_docs_chars=120, max_docs_files=1, max_generator_doc_files=1, max_generator_doc_chars_per_file=120, max_generator_doc_total_chars=120)
+    fingerprint = scientific_config_fingerprint(config=config)
+    uninterrupted_cases, uninterrupted_rejects, _ = build_dataset_v2_checkpointed(
+        seeds=seeds,
+        client=CheckpointClient(),
+        config=config,
+        input_hash="a" * 64,
+        config_fingerprint=fingerprint,
+        checkpoint_dir=tmp_path / "uninterrupted",
+        checkpoint_every=2,
+        progress_every=99,
+        workers=4,
+    )
+    checkpoint_dir = tmp_path / "resumed"
+    with pytest.raises(RuntimeError, match="simulated interruption"):
+        build_dataset_v2_checkpointed(
+            seeds=seeds,
+            client=CheckpointClient(),
+            config=config,
+            input_hash="a" * 64,
+            config_fingerprint=fingerprint,
+            checkpoint_dir=checkpoint_dir,
+            checkpoint_every=2,
+            progress_every=99,
+            interrupt_after_seeds=3,
+            workers=4,
+        )
+    resumed_cases, resumed_rejects, _ = build_dataset_v2_checkpointed(
+        seeds=seeds,
+        client=CheckpointClient(),
+        config=config,
+        input_hash="a" * 64,
+        config_fingerprint=fingerprint,
+        checkpoint_dir=checkpoint_dir,
+        checkpoint_every=2,
+        progress_every=99,
+        resume=True,
+        workers=4,
+    )
+    assert resumed_cases == uninterrupted_cases
+    assert resumed_rejects == uninterrupted_rejects
+
+
+def test_local_git_tree_and_blob_cache_singleflight(tmp_path):
+    backend = FakeLocalGitBackend(cache_dir=tmp_path)
+    tree_a = backend.get_tree_recursive("microsoft/TypeScript", "base-sha")
+    tree_b = backend.get_tree_recursive("microsoft/TypeScript", "base-sha")
+    blob_a = backend.get_blob_text("microsoft/TypeScript", "abc123")
+    blob_b = backend.get_blob_text("microsoft/TypeScript", "abc123")
+
+    assert tree_a == tree_b
+    assert blob_a == blob_b
+    assert backend.stats()["tree_cache_hit_count"] == 1
+    assert backend.stats()["in_memory_blob_cache_hit_count"] == 1
+    assert sum(1 for command in backend.commands if command[:2] == ["ls-tree", "-r"]) == 1
+    assert sum(1 for command in backend.commands if command[:2] == ["cat-file", "-p"]) == 1

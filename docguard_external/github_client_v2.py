@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import json
 import socket
+import threading
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
 from collections import Counter
 from typing import Any
+from docguard_external.operational_profiler_v2 import ThreadSafeLatencyProfiler
 
 
 class GlobalGitHubStop(Exception):
@@ -76,6 +78,8 @@ class GitHubClientV2:
         timeout_seconds: int = 30,
         cache: Any | None = None,
         min_request_interval_seconds: float = 0.25,
+        rest_max_inflight: int = 1,
+        profiler: ThreadSafeLatencyProfiler | None = None,
         monotonic: Any = time.monotonic,
         sleeper: Any = time.sleep,
     ) -> None:
@@ -83,8 +87,12 @@ class GitHubClientV2:
         self.timeout_seconds = timeout_seconds
         self.cache = cache
         self.min_request_interval_seconds = min_request_interval_seconds
+        self.profiler = profiler
         self.monotonic = monotonic
         self.sleeper = sleeper
+        self._pace_lock = threading.Lock()
+        self._stats_lock = threading.Lock()
+        self._request_semaphore = threading.Semaphore(max(int(rest_max_inflight), 1))
         self.last_outbound_request_monotonic: float | None = None
         self.outbound_request_count = 0
         self.cache_hit_count = 0
@@ -103,13 +111,14 @@ class GitHubClientV2:
             self.sleeper(seconds)
 
     def _pace(self) -> None:
-        now = float(self.monotonic())
-        if self.last_outbound_request_monotonic is not None:
-            wait = self.min_request_interval_seconds - (now - self.last_outbound_request_monotonic)
-            if wait > 0:
-                self.sleeper(wait)
-                now = float(self.monotonic())
-        self.last_outbound_request_monotonic = now
+        with self._pace_lock:
+            now = float(self.monotonic())
+            if self.last_outbound_request_monotonic is not None:
+                wait = self.min_request_interval_seconds - (now - self.last_outbound_request_monotonic)
+                if wait > 0:
+                    self.sleeper(wait)
+                    now = float(self.monotonic())
+            self.last_outbound_request_monotonic = now
 
     def _request_uncached(self, url: str) -> Any:
         headers = {"Accept": "application/vnd.github+json", "User-Agent": "DocGuard-FinalV2"}
@@ -120,63 +129,87 @@ class GitHubClientV2:
         transient_attempt = 0
         secondary_attempt = 0
         while True:
-            self._pace()
-            self.outbound_request_count += 1
-            request = urllib.request.Request(url, headers=headers, method="GET")
-            try:
-                with urllib.request.urlopen(request, timeout=self.timeout_seconds) as response:
-                    return json.loads(response.read().decode("utf-8", errors="replace"))
-            except urllib.error.HTTPError as exc:
-                body = exc.read().decode("utf-8", errors="replace")
-                error = GitHubOperationalError(status_code=exc.code, url=url, body=body, headers=exc.headers, original_error=exc)
-                self.operational_failures[str(exc.code)] += 1
-                if error.is_authentication_failure:
-                    self.stop_reason = "authentication_failed"
-                    self.stop_snapshot = error.snapshot()
-                    raise GlobalGitHubStop(self.stop_reason, error) from exc
-                if error.is_primary_rate_limit:
-                    self.stop_reason = "primary_rate_limit_exhausted"
-                    self.stop_snapshot = error.snapshot()
-                    raise GlobalGitHubStop(self.stop_reason, error) from exc
-                if error.is_secondary_rate_limit:
-                    if secondary_attempt >= len(secondary_delays):
-                        self.stop_reason = "secondary_rate_limit_exhausted"
+            with self._request_semaphore:
+                self._pace()
+                with self._stats_lock:
+                    self.outbound_request_count += 1
+                request = urllib.request.Request(url, headers=headers, method="GET")
+                try:
+                    start = time.perf_counter()
+                    with urllib.request.urlopen(request, timeout=self.timeout_seconds) as response:
+                        data = json.loads(response.read().decode("utf-8", errors="replace"))
+                    if self.profiler is not None:
+                        self.profiler.record("rest_network_seconds", time.perf_counter() - start)
+                    return data
+                except urllib.error.HTTPError as exc:
+                    if self.profiler is not None:
+                        self.profiler.record("rest_network_seconds", time.perf_counter() - start)
+                    body = exc.read().decode("utf-8", errors="replace")
+                    error = GitHubOperationalError(status_code=exc.code, url=url, body=body, headers=exc.headers, original_error=exc)
+                    with self._stats_lock:
+                        self.operational_failures[str(exc.code)] += 1
+                    if error.is_authentication_failure:
+                        self.stop_reason = "authentication_failed"
                         self.stop_snapshot = error.snapshot()
                         raise GlobalGitHubStop(self.stop_reason, error) from exc
-                    delay = error.retry_after if error.retry_after is not None and secondary_attempt == 0 else secondary_delays[secondary_attempt]
-                    secondary_attempt += 1
-                    self.request_retry_count += 1
-                    self._sleep(float(delay))
-                    continue
-                if error.is_transient and transient_attempt < len(transient_delays):
-                    delay = transient_delays[transient_attempt]
-                    transient_attempt += 1
-                    self.request_retry_count += 1
-                    self._sleep(float(delay))
-                    continue
-                raise error from exc
-            except (urllib.error.URLError, TimeoutError, socket.timeout) as exc:
-                error = GitHubOperationalError(status_code=None, url=url, body=str(exc), original_error=exc)
-                self.operational_failures["network_or_timeout"] += 1
-                if transient_attempt < len(transient_delays):
-                    delay = transient_delays[transient_attempt]
-                    transient_attempt += 1
-                    self.request_retry_count += 1
-                    self._sleep(float(delay))
-                    continue
-                raise error from exc
+                    if error.is_primary_rate_limit:
+                        self.stop_reason = "primary_rate_limit_exhausted"
+                        self.stop_snapshot = error.snapshot()
+                        raise GlobalGitHubStop(self.stop_reason, error) from exc
+                    if error.is_secondary_rate_limit:
+                        if secondary_attempt >= len(secondary_delays):
+                            self.stop_reason = "secondary_rate_limit_exhausted"
+                            self.stop_snapshot = error.snapshot()
+                            raise GlobalGitHubStop(self.stop_reason, error) from exc
+                        delay = error.retry_after if error.retry_after is not None and secondary_attempt == 0 else secondary_delays[secondary_attempt]
+                        secondary_attempt += 1
+                        with self._stats_lock:
+                            self.request_retry_count += 1
+                        self._sleep(float(delay))
+                        continue
+                    if error.is_transient and transient_attempt < len(transient_delays):
+                        delay = transient_delays[transient_attempt]
+                        transient_attempt += 1
+                        with self._stats_lock:
+                            self.request_retry_count += 1
+                        self._sleep(float(delay))
+                        continue
+                    raise error from exc
+                except (urllib.error.URLError, TimeoutError, socket.timeout) as exc:
+                    if self.profiler is not None:
+                        self.profiler.record("rest_network_seconds", time.perf_counter() - start)
+                    error = GitHubOperationalError(status_code=None, url=url, body=str(exc), original_error=exc)
+                    with self._stats_lock:
+                        self.operational_failures["network_or_timeout"] += 1
+                    if transient_attempt < len(transient_delays):
+                        delay = transient_delays[transient_attempt]
+                        transient_attempt += 1
+                        with self._stats_lock:
+                            self.request_retry_count += 1
+                        self._sleep(float(delay))
+                        continue
+                    raise error from exc
 
     def request_json(self, url: str) -> Any:
         accept = "application/vnd.github+json"
         if self.cache is not None:
+            start = time.perf_counter()
             cached = self.cache.get_json(url, accept=accept)
+            if self.profiler is not None:
+                self.profiler.record("rest_cache_probe_seconds", time.perf_counter() - start)
             if cached is not None:
-                self.cache_hit_count += 1
+                with self._stats_lock:
+                    self.cache_hit_count += 1
                 return cached
         data = self._request_uncached(url)
         if self.cache is not None:
             self.cache.set_json(url, data, accept=accept)
         return data
+
+    def cached_json(self, url: str) -> Any | None:
+        if self.cache is None:
+            return None
+        return self.cache.get_json(url, accept="application/vnd.github+json")
 
     def get_pull(self, repo: str, pr_number: int) -> dict[str, Any]:
         encoded = urllib.parse.quote(repo, safe="/")
@@ -192,7 +225,26 @@ class GitHubClientV2:
         before_outbound = self.outbound_request_count
         data = self.request_json(f"https://api.github.com/repos/{encoded_repo}/contents/{encoded_path}?ref={urllib.parse.quote(ref)}")
         if self.outbound_request_count > before_outbound:
-            self.document_content_request_count += 1
+            with self._stats_lock:
+                self.document_content_request_count += 1
+        if not isinstance(data, dict) or data.get("type") != "file":
+            return None
+        import base64
+
+        content = str(data.get("content") or "")
+        encoding = str(data.get("encoding") or "")
+        if encoding == "base64":
+            return base64.b64decode(content).decode("utf-8", errors="replace")
+        return content
+
+    def get_cached_file_text(self, repo: str, path: str, ref: str) -> str | None:
+        encoded_repo = urllib.parse.quote(repo, safe="/")
+        encoded_path = urllib.parse.quote(path)
+        data = self.cached_json(f"https://api.github.com/repos/{encoded_repo}/contents/{encoded_path}?ref={urllib.parse.quote(ref)}")
+        if data is None:
+            return None
+        with self._stats_lock:
+            self.cache_hit_count += 1
         if not isinstance(data, dict) or data.get("type") != "file":
             return None
         import base64
@@ -210,20 +262,42 @@ class GitHubClientV2:
         if self.cache is not None:
             cached = self.cache.get_json(url, accept=accept)
             if cached is not None:
-                self.cache_hit_count += 1
-                self.blob_cache_hit_count += 1
+                with self._stats_lock:
+                    self.cache_hit_count += 1
+                    self.blob_cache_hit_count += 1
                 data = cached
             else:
                 before_outbound = self.outbound_request_count
                 data = self._request_uncached(url)
                 if self.outbound_request_count > before_outbound:
-                    self.document_content_request_count += 1
+                    with self._stats_lock:
+                        self.document_content_request_count += 1
                 self.cache.set_json(url, data, accept=accept)
         else:
             before_outbound = self.outbound_request_count
             data = self._request_uncached(url)
             if self.outbound_request_count > before_outbound:
-                self.document_content_request_count += 1
+                with self._stats_lock:
+                    self.document_content_request_count += 1
+        if not isinstance(data, dict):
+            return None
+        import base64
+
+        content = str(data.get("content") or "")
+        encoding = str(data.get("encoding") or "")
+        if encoding == "base64":
+            return base64.b64decode(content).decode("utf-8", errors="replace")
+        return content
+
+    def get_cached_blob_text(self, repo: str, blob_sha: str) -> str | None:
+        encoded_repo = urllib.parse.quote(repo, safe="/")
+        url = f"https://api.github.com/repos/{encoded_repo}/git/blobs/{urllib.parse.quote(blob_sha)}"
+        data = self.cached_json(url)
+        if data is None:
+            return None
+        with self._stats_lock:
+            self.cache_hit_count += 1
+            self.blob_cache_hit_count += 1
         if not isinstance(data, dict):
             return None
         import base64
@@ -239,11 +313,22 @@ class GitHubClientV2:
         before_outbound = self.outbound_request_count
         data = self.request_json(f"https://api.github.com/repos/{encoded}/git/trees/{urllib.parse.quote(ref)}?recursive=1")
         if self.outbound_request_count > before_outbound:
-            self.tree_request_count += 1
+            with self._stats_lock:
+                self.tree_request_count += 1
+        return list(data.get("tree") or []) if isinstance(data, dict) else []
+
+    def get_cached_tree_recursive(self, repo: str, ref: str) -> list[dict[str, Any]] | None:
+        encoded = urllib.parse.quote(repo, safe="/")
+        data = self.cached_json(f"https://api.github.com/repos/{encoded}/git/trees/{urllib.parse.quote(ref)}?recursive=1")
+        if data is None:
+            return None
+        with self._stats_lock:
+            self.cache_hit_count += 1
         return list(data.get("tree") or []) if isinstance(data, dict) else []
 
     def stats(self) -> dict[str, Any]:
-        return {
+        with self._stats_lock:
+            return {
             "outbound_request_count": self.outbound_request_count,
             "cache_hit_count": self.cache_hit_count,
             "blob_cache_hit_count": self.blob_cache_hit_count,

@@ -53,6 +53,7 @@ def run(extra_source_checks: dict[str, str] | None = None) -> dict[str, Any]:
     check("stage3_confirmation_runner_exists", (PROJECT_ROOT / "scripts/run_frozen_stage3_v2_confirmation.py").exists())
     check("one_shot_guards_exist", "enforce_one_shot" in read("scripts/run_frozen_stage3_v2_confirmation.py") and "enforce_one_shot" in read("scripts/aggregate_stage3_final_evaluation_v2.py"))
     check("historical_v1_not_dependency", "llm_patch_eval_v1" not in builder + ml_contract + stage3)
+    check("operational_pending_downstream_guard_exists", "validate_final_v2_completion_state" in builder and "operational_pending" in builder)
     for name, source in (extra_source_checks or {}).items():
         check(f"extra_source_{name}_no_router", "router" not in source.lower())
         check(f"extra_source_{name}_safe_prefill", "docs_after_excerpt" not in source and "docs_diff_excerpt" not in source)
