@@ -44,20 +44,35 @@ def train_and_select(train_rows: list[dict[str, Any]], validation_rows: list[dic
     y_val = category_labels(validation_rows)
     results: list[dict[str, Any]] = []
     fitted: dict[str, Pipeline] = {}
-    for name, model in make_candidates(config).items():
-        model.fit(train_rows, y_train)
-        train_pred = [str(item) for item in model.predict(train_rows)]
-        val_pred = [str(item) for item in model.predict(validation_rows)]
-        result = {
-            "model_name": name,
-            "model_selection_split": "development_validation",
-            "metrics_by_split": {
-                "development_train": category_metrics(y_train, train_pred, PRIMARY_STAGE2_LABELS),
-                "development_validation": category_metrics(y_val, val_pred, PRIMARY_STAGE2_LABELS),
-            },
-        }
-        results.append(result)
-        fitted[name] = model
+    seed = int(config["seed"])
+    c_values = [float(value) for value in config["hyperparameter_grid"]["C"]]
+    min_df_values = [int(value) for value in config["hyperparameter_grid"]["min_df"]]
+    feature_factories = {
+        "word_tfidf_logreg": word_tfidf,
+        "char_tfidf_logreg": char_tfidf,
+        "word_char_tfidf_logreg": word_char_tfidf,
+    }
+    for prefix, factory in feature_factories.items():
+        for min_df in min_df_values:
+            features = factory(min_df=min_df)
+            x_train = features.fit_transform(train_rows)
+            x_val = features.transform(validation_rows)
+            for c_value in c_values:
+                name = f"{prefix}_c{c_value}_mindf{min_df}"
+                classifier = make_classifier(c_value, seed)
+                classifier.fit(x_train, y_train)
+                train_pred = [str(item) for item in classifier.predict(x_train)]
+                val_pred = [str(item) for item in classifier.predict(x_val)]
+                result = {
+                    "model_name": name,
+                    "model_selection_split": "development_validation",
+                    "metrics_by_split": {
+                        "development_train": category_metrics(y_train, train_pred, PRIMARY_STAGE2_LABELS),
+                        "development_validation": category_metrics(y_val, val_pred, PRIMARY_STAGE2_LABELS),
+                    },
+                }
+                results.append(result)
+                fitted[name] = Pipeline([("features", features), ("classifier", classifier)])
     best = max(results, key=lambda item: (item["metrics_by_split"]["development_validation"]["macro_f1"], item["metrics_by_split"]["development_validation"]["weighted_f1"], item["metrics_by_split"]["development_validation"]["accuracy"]))
     return fitted[str(best["model_name"])], best, results
 
@@ -66,8 +81,8 @@ def run(*, train: Path, validation: Path, output_dir: Path, model_output: Path, 
     config = load_config(config_path)
     train_source = load_jsonl(train)
     validation_source = load_jsonl(validation)
-    train_rows = category_eligible_rows(train_source)
-    validation_rows = category_eligible_rows(validation_source)
+    train_rows = category_eligible_rows(train_source, allowed_partitions={"development_train"})
+    validation_rows = category_eligible_rows(validation_source, allowed_partitions={"development_validation"})
     assert_safe_rows_only(train_rows + validation_rows)
     model, best, model_results = train_and_select(train_rows, validation_rows, config)
     y_train = category_labels(train_rows)

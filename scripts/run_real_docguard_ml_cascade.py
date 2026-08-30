@@ -173,6 +173,19 @@ def load_category_payload(path: Path) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise ValueError(f"Category model payload must be a dict: {path}")
 
+    # Category V8 stores the selected single pipeline directly, whereas the
+    # older cascade payload stores an ensemble. Normalize V8 into the ensemble
+    # interface so inference remains backward-compatible.
+    if "model" in payload and "labels" in payload and "selected_models" not in payload:
+        categories = [str(item) for item in payload["labels"]]
+        payload = {
+            **payload,
+            "categories": categories,
+            "selected_models": [{"model": payload["model"], "name": payload.get("selected_model")}],
+            "validation_weights": [1.0],
+            "class_multipliers": {category: 1.0 for category in categories},
+        }
+
     required = {"selected_models", "validation_weights", "class_multipliers", "categories"}
     missing = sorted(key for key in required if key not in payload)
 
@@ -761,8 +774,8 @@ def run(
         "metrics": metrics,
         "methodology": {
             "cascade": [
-                "binary_v3_strict_raw",
-                "category_v7_reviewed",
+                str(binary_payload.get("model_type") or "binary_model"),
+                str(category_payload.get("model_type") or "category_model"),
                 "grounded_patch_generator",
                 "postprocess_patch",
                 "verify_patch",

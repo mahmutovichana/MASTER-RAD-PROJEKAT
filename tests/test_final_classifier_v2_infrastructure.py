@@ -41,6 +41,7 @@ def row(case_id: str, repo: str, language: str, label: bool, category: str, text
         "gold_doc_category": category,
         "human_review_complete": True,
         "review_status": "approved",
+        "label_source": "human_reviewed_final_v2",
         "source_url": f"https://example.invalid/{case_id}",
         "pr_title": "must not enter model",
         "docs_after_excerpt": "must not enter model",
@@ -76,7 +77,11 @@ def validation_rows() -> list[dict]:
         row("v7", "org/o", "typescript", True, "other_documentation", "guide"),
         row("v8", "org/p", "python", False, "no_update", "cleanup"),
     ]
-    return rows
+    return [dict(item, partition="development_validation") for item in rows]
+
+
+def confirmation_rows() -> list[dict]:
+    return [dict(item, partition="confirmation") for item in validation_rows()]
 
 
 def tiny_config(path: Path, *, category: bool = False) -> None:
@@ -207,9 +212,11 @@ def test_one_shot_guard_refuses_repeat_for_same_model_and_confirmation(tmp_path:
     freeze = run_freeze(model_file=tmp_path / "binary.joblib", training_summary=tmp_path / "binary_out" / "training_summary.json", config=config_path, dataset_manifest=config_path, repository_partition_manifest=config_path, output=tmp_path / "freeze.json")
     assert freeze["confirmation_accessed"] is False
     out = tmp_path / "confirm"
-    run_binary_confirmation(model_path=tmp_path / "binary.joblib", confirmation=val_path, freeze_manifest=tmp_path / "freeze.json", output_dir=out, enforce_one_shot=True)
+    confirmation_path = tmp_path / "confirmation.jsonl"
+    write_jsonl(confirmation_path, confirmation_rows())
+    run_binary_confirmation(model_path=tmp_path / "binary.joblib", confirmation=confirmation_path, freeze_manifest=tmp_path / "freeze.json", output_dir=out, enforce_one_shot=True)
     with pytest.raises(ValueError):
-        run_binary_confirmation(model_path=tmp_path / "binary.joblib", confirmation=val_path, freeze_manifest=tmp_path / "freeze.json", output_dir=out, enforce_one_shot=True)
+        run_binary_confirmation(model_path=tmp_path / "binary.joblib", confirmation=confirmation_path, freeze_manifest=tmp_path / "freeze.json", output_dir=out, enforce_one_shot=True)
 
 
 def test_runtime_source_contains_no_document_routing_or_gold_consumption():

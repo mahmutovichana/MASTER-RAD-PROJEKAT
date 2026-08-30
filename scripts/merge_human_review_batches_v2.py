@@ -9,15 +9,20 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from scripts.human_review_workflow_v2 import label_tuple, progress, read_review_file, validate_integrity, validate_taxonomy, write_json, write_jsonl
+from scripts.human_review_workflow_v2 import label_tuple, normalize_status, progress, read_review_file, validate_integrity, validate_taxonomy, write_json, write_jsonl
 
 
 def run(paths: list[Path], output_dir: Path) -> dict:
     merged: dict[str, dict] = {}
     conflicts = []
     incomplete = []
+    normalization_count = 0
     for path in paths:
         for row in read_review_file(path):
+            status, normalized = normalize_status(row.get("review_status"))
+            if normalized:
+                row = {**row, "review_status": status}
+                normalization_count += 1
             cid = str(row.get("case_id") or "")
             ok_hash, hash_reason = validate_integrity(row)
             ok_tax, tax_reason = validate_taxonomy(row)
@@ -38,7 +43,7 @@ def run(paths: list[Path], output_dir: Path) -> dict:
     write_jsonl(output_dir / "review_conflicts.jsonl", conflicts)
     write_jsonl(output_dir / "incomplete_reviews.jsonl", incomplete)
     report = progress(rows + incomplete)
-    report.update({"merged_rows": len(rows), "conflicts": len(conflicts), "incomplete_reviews": len(incomplete)})
+    report.update({"merged_rows": len(rows), "conflicts": len(conflicts), "incomplete_reviews": len(incomplete), "legacy_exclude_normalized_to_excluded": normalization_count})
     write_json(output_dir / "review_progress.json", report)
     (output_dir / "review_merge_report.md").write_text(f"# Human Review Merge\n\n- Merged approved rows: `{len(rows)}`\n- Conflicts: `{len(conflicts)}`\n- Incomplete/invalid: `{len(incomplete)}`\n", encoding="utf-8")
     return report
@@ -56,4 +61,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

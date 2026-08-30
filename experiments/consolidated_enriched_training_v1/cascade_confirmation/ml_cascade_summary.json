@@ -1,0 +1,86 @@
+{
+  "binary_model": "experiments\\consolidated_enriched_training_v1\\binary_v4\\binary_v4.joblib",
+  "case_limit": null,
+  "category_model": "experiments\\consolidated_enriched_training_v1\\category_v8\\category_v8.joblib",
+  "input": "experiments\\consolidated_enriched_training_v1\\gold\\confirmation.jsonl",
+  "language_filter": "typescript",
+  "methodology": {
+    "cascade": [
+      "binary_v3_strict_raw",
+      "category_v7_reviewed",
+      "grounded_patch_generator",
+      "postprocess_patch",
+      "verify_patch",
+      "evaluate_patch_quality"
+    ],
+    "docs_after_used_for_prediction": false,
+    "gold_used_for_prediction": false,
+    "manual_notes_used_for_prediction": false,
+    "safe_input_fields": [
+      "language",
+      "code_changed_files",
+      "code_diff_excerpt",
+      "docs_before_excerpt"
+    ],
+    "source_url_used_for_prediction": false
+  },
+  "metrics": {
+    "binary_accuracy": 0.8951396861844623,
+    "binary_evaluated_cases": 2613,
+    "binary_f1": 0.6085714285714285,
+    "binary_false_positive_rate": 0.050044682752457555,
+    "binary_precision": 0.6553846153846153,
+    "binary_recall": 0.568,
+    "binary_specificity": 0.9499553172475425,
+    "category_accuracy_conditioned_on_true_positive": 0.4111111111111111,
+    "category_correct": 74,
+    "category_evaluated_cases": 180,
+    "false_negatives": 162,
+    "false_positives": 112,
+    "gold_category_counts": {
+      "api_reference": 76,
+      "configuration": 106,
+      "developer_setup": 20,
+      "model_contract": 91,
+      "no_update": 2238,
+      "other_documentation": 82
+    },
+    "hallucination_risk_counts": {
+      "high": 97,
+      "low": 2494,
+      "medium": 22
+    },
+    "language_counts": {
+      "typescript": 2613
+    },
+    "patch_generated_for_predicted_positive": 325,
+    "patch_generation_rate_for_predicted_positive": 1.0,
+    "pred_category_counts": {
+      "api_reference": 120,
+      "configuration": 144,
+      "model_contract": 61,
+      "no_update": 2288
+    },
+    "predicted_positive_cases": 325,
+    "quality_label_counts": {
+      "excellent": 2399,
+      "needs_review": 16,
+      "rejected": 97,
+      "usable": 101
+    },
+    "total_cases": 2613,
+    "true_negatives": 2126,
+    "true_positives": 213,
+    "verifier_status_counts": {
+      "fail": 97,
+      "pass": 2500,
+      "warn": 16
+    }
+  },
+  "output_dir": "experiments\\consolidated_enriched_training_v1\\cascade_confirmation",
+  "patch_mode": "grounded",
+  "predictions": "experiments\\consolidated_enriched_training_v1\\cascade_confirmation\\ml_cascade_predictions.jsonl",
+  "report": "experiments\\consolidated_enriched_training_v1\\cascade_confirmation\\ml_cascade_report.md",
+  "status": "ok",
+  "summary": "experiments\\consolidated_enriched_training_v1\\cascade_confirmation\\ml_cascade_summary.json"
+}

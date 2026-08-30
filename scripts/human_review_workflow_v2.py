@@ -20,9 +20,46 @@ EVIDENCE_FIELDS = [
     "code_diff_excerpt",
     "docs_before_excerpt",
 ]
-SUGGESTED_FIELDS = ["suggested_docs_update_required", "suggested_doc_category", "suggested_notes"]
-HUMAN_FIELDS = ["human_docs_update_required", "human_doc_category", "human_label_notes", "review_status"]
-REVIEWER_FIELDS = EVIDENCE_FIELDS + SUGGESTED_FIELDS + HUMAN_FIELDS + ["review_row_hash"]
+
+# Additional PRE-CHANGE documentation context shown only to the human reviewer.
+#
+# IMPORTANT:
+# These fields are NOT model input.
+# They come from the repository base SHA, before the PR change.
+# They are intentionally kept separate from EVIDENCE_FIELDS so the
+# existing review_row_hash remains backward-compatible with batches
+# that were already manually reviewed.
+REVIEW_CONTEXT_FIELDS = [
+    "docs_before_retrieved_files",
+] + [
+    field
+    for index in range(1, 13)
+    for field in (
+        f"doc_context_{index:02d}_path",
+        f"doc_context_{index:02d}_excerpt",
+    )
+]
+
+SUGGESTED_FIELDS = [
+    "suggested_docs_update_required",
+    "suggested_doc_category",
+    "suggested_notes",
+]
+
+HUMAN_FIELDS = [
+    "human_docs_update_required",
+    "human_doc_category",
+    "human_label_notes",
+    "review_status",
+]
+
+REVIEWER_FIELDS = (
+    EVIDENCE_FIELDS
+    + REVIEW_CONTEXT_FIELDS
+    + SUGGESTED_FIELDS
+    + HUMAN_FIELDS
+    + ["review_row_hash", "review_context_hash"]
+)
 ALLOWED_STATUSES = {"pending", "approved", "excluded"}
 POSITIVE_CATEGORIES = {"api_reference", "configuration", "developer_setup", "model_contract", "other_documentation"}
 ALLOWED_CATEGORIES = POSITIVE_CATEGORIES | {"no_update"}
@@ -65,6 +102,17 @@ def review_row_hash(row: dict[str, Any]) -> str:
     payload = json.dumps(normalize_for_hash(row), ensure_ascii=False, sort_keys=True)
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
+def review_context_hash(row: dict[str, Any]) -> str:
+    payload = {
+        field: stringify(row.get(field))
+        for field in REVIEW_CONTEXT_FIELDS
+    }
+    encoded = json.dumps(
+        payload,
+        ensure_ascii=False,
+        sort_keys=True,
+    )
+    return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
 
 def parse_bool(value: Any) -> bool | None:
     if isinstance(value, bool):
@@ -87,15 +135,78 @@ def normalize_status(value: Any) -> tuple[str, bool]:
 
 
 def make_review_row(row: dict[str, Any]) -> dict[str, Any]:
-    out = {field: row.get(field) for field in EVIDENCE_FIELDS}
-    out["suggested_docs_update_required"] = row.get("suggested_docs_update_required", "")
-    out["suggested_doc_category"] = row.get("suggested_doc_category", "")
-    out["suggested_notes"] = row.get("suggested_notes") or row.get("suggested_reason") or ""
+    out = {
+        field: row.get(field)
+        for field in EVIDENCE_FIELDS
+    }
+
+    # ---------------------------------------------------------
+    # PRE-CHANGE DOCUMENTATION CONTEXT FOR HUMAN REVIEW ONLY
+    # ---------------------------------------------------------
+
+    out["docs_before_retrieved_files"] = (
+        row.get("docs_before_retrieved_files") or []
+    )
+
+    candidates = row.get("documentation_context_candidates") or []
+
+    if not isinstance(candidates, list):
+        candidates = []
+
+    # Expose at most the 12 documentation candidates already
+    # collected by the V2 candidate builder from the BASE SHA.
+    for index in range(1, 13):
+        if index <= len(candidates):
+            candidate = candidates[index - 1]
+            if not isinstance(candidate, dict):
+                candidate = {}
+        else:
+            candidate = {}
+
+        out[f"doc_context_{index:02d}_path"] = str(
+            candidate.get("path") or ""
+        )
+
+        out[f"doc_context_{index:02d}_excerpt"] = str(
+            candidate.get("excerpt") or ""
+        )
+
+    # ---------------------------------------------------------
+    # AUTOMATED SUGGESTIONS — REVIEWER AID ONLY
+    # ---------------------------------------------------------
+
+    out["suggested_docs_update_required"] = row.get(
+        "suggested_docs_update_required",
+        "",
+    )
+
+    out["suggested_doc_category"] = row.get(
+        "suggested_doc_category",
+        "",
+    )
+
+    out["suggested_notes"] = (
+        row.get("suggested_notes")
+        or row.get("suggested_reason")
+        or ""
+    )
+
+    # ---------------------------------------------------------
+    # HUMAN FIELDS — ALWAYS START EMPTY
+    # ---------------------------------------------------------
+
     out["human_docs_update_required"] = ""
     out["human_doc_category"] = ""
     out["human_label_notes"] = ""
     out["review_status"] = "pending"
+
+    # Original evidence hash remains backward-compatible.
     out["review_row_hash"] = review_row_hash(out)
+
+    # Additional integrity protection for the new reviewer-only
+    # pre-change documentation context.
+    out["review_context_hash"] = review_context_hash(out)
+
     return out
 
 
@@ -139,12 +250,29 @@ def validate_taxonomy(row: dict[str, Any]) -> tuple[bool, str]:
 
 
 def validate_integrity(row: dict[str, Any]) -> tuple[bool, str]:
+    # Original immutable model/reviewer evidence.
     expected = str(row.get("review_row_hash") or "")
     actual = review_row_hash(row)
+
     if not expected:
         return False, "missing_review_row_hash"
+
     if expected != actual:
         return False, "immutable_evidence_modified"
+
+    # New batches additionally protect the broader pre-change
+    # reviewer documentation context.
+    #
+    # Older already-reviewed batches do not contain this field,
+    # so absence is accepted for backward compatibility.
+    context_expected = str(row.get("review_context_hash") or "")
+
+    if context_expected:
+        context_actual = review_context_hash(row)
+
+        if context_expected != context_actual:
+            return False, "review_context_modified"
+
     return True, "ok"
 
 

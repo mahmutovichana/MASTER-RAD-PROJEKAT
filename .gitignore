@@ -21,6 +21,7 @@ tmp/
 
 # DocGuard real GitHub PR dataset generated artifacts
 data/external/project_case_study/cache/
+data/external/project_case_study/cache/git_repos_final_v2/
 data/external/project_case_study/generated/
 data/external/project_case_study/*_10k*.jsonl
 data/external/project_case_study/*_large*.jsonl
@@ -34,3 +35,46 @@ data/final_v2/**/tmp/
 data/final_v2/**/scratch/
 *.local.json
 *.local.jsonl
+
+# ============================================================
+# DocGuard generated datasets / caches
+# Large reproducible artifacts must stay local
+# ============================================================
+
+# GitHub/Git caches
+data/**/cache/
+data/**/git_repos*/
+data/**/github_api*/
+
+# Candidate builder checkpoints
+data/final_v2/candidates/.checkpoints*/
+
+# Candidate backups
+data/final_v2/candidates/*.bak
+data/final_v2/candidates/*backup*.jsonl
+
+# Canonical large generated candidate datasets
+data/final_v2/candidates/final_v2_candidates_18k.jsonl
+data/final_v2/human_review/human_review_prefilled_17880.jsonl
+data/final_v2/human_review/candidate_partitioned_17880.jsonl
+
+# Large canonical split materializations
+data/final_v2/partitions/canonical_repository_partitions/candidate_train.jsonl
+data/final_v2/partitions/canonical_repository_partitions/candidate_validation.jsonl
+data/final_v2/partitions/canonical_repository_partitions/candidate_confirmation.jsonl
+
+# Large merged human-review materializations
+data/final_v2/human_review/full_manual_review_17880/completed_natural_17880/merged_human_review.jsonl
+
+# Consolidated large training materializations
+data/final_v2/human_review/consolidated_enriched_training_v1/consolidated_human_review.jsonl
+data/final_v2/human_review/consolidated_enriched_training_v1/consolidated_human_review.csv
+data/final_v2/human_review/consolidated_enriched_training_v1/positive_training_pool.jsonl
+data/final_v2/human_review/consolidated_enriched_training_v1/positive_training_pool.csv
+
+experiments/consolidated_enriched_training_v1/gold/*.jsonl
+experiments/consolidated_enriched_training_v1/partitions/candidate_*.jsonl
+
+# Expansion caches
+data/final_v2/expansion/**/cache/
+

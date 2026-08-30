@@ -16,3 +16,4 @@
 - `PASS` stage3_confirmation_runner_exists: 
 - `PASS` one_shot_guards_exist: 
 - `PASS` historical_v1_not_dependency: 
+- `PASS` operational_pending_downstream_guard_exists: 

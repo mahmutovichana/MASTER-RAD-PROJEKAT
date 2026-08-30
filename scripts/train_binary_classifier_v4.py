@@ -66,26 +66,46 @@ def train_and_select(*, train_rows: list[dict[str, Any]], validation_rows: list[
     y_val = binary_labels(validation_rows)
     model_results: list[dict[str, Any]] = []
     fitted: dict[str, Pipeline] = {}
-    for name, model in make_candidates(config).items():
-        model.fit(train_rows, y_train)
-        val_scores = probabilities(model, validation_rows)
-        sweep = [metrics_at_threshold(y_val, val_scores, threshold) for threshold in threshold_grid(config)]
-        best_threshold_result = max(sweep, key=selection_key)
-        train_scores = probabilities(model, train_rows)
-        threshold = float(best_threshold_result["threshold"])
-        result = {
-            "model_name": name,
-            "selected_threshold": threshold,
-            "threshold_selection_split": "development_validation",
-            "model_selection_split": "development_validation",
-            "validation_threshold_sweep": sweep,
-            "metrics_by_split": {
-                "development_train": metrics_at_threshold(y_train, train_scores, threshold),
-                "development_validation": metrics_at_threshold(y_val, val_scores, threshold),
-            },
-        }
-        model_results.append(result)
-        fitted[name] = model
+    seed = int(config["seed"])
+    c_values = [float(value) for value in config["hyperparameter_grid"]["C"]]
+    min_df_values = [int(value) for value in config["hyperparameter_grid"]["min_df"]]
+    feature_factories = {
+        "word_tfidf_logreg": word_tfidf,
+        "char_tfidf_logreg": char_tfidf,
+        "word_char_tfidf_logreg": word_char_tfidf,
+    }
+    # Vectorization dominates runtime for large diffs. For a fixed feature
+    # family/min_df pair the matrix is identical across C values, so fit it
+    # once and evaluate every classifier on the same matrix.
+    for prefix, factory in feature_factories.items():
+        for min_df in min_df_values:
+            features = factory(min_df=min_df)
+            x_train = features.fit_transform(train_rows)
+            x_val = features.transform(validation_rows)
+            for c_value in c_values:
+                name = f"{prefix}_c{c_value}_mindf{min_df}"
+                classifier = make_classifier(c_value, seed)
+                classifier.fit(x_train, y_train)
+                classes = list(classifier.classes_)
+                positive_index = classes.index(1)
+                val_scores = [float(item[positive_index]) for item in classifier.predict_proba(x_val)]
+                train_scores = [float(item[positive_index]) for item in classifier.predict_proba(x_train)]
+                sweep = [metrics_at_threshold(y_val, val_scores, threshold) for threshold in threshold_grid(config)]
+                best_threshold_result = max(sweep, key=selection_key)
+                threshold = float(best_threshold_result["threshold"])
+                result = {
+                    "model_name": name,
+                    "selected_threshold": threshold,
+                    "threshold_selection_split": "development_validation",
+                    "model_selection_split": "development_validation",
+                    "validation_threshold_sweep": sweep,
+                    "metrics_by_split": {
+                        "development_train": metrics_at_threshold(y_train, train_scores, threshold),
+                        "development_validation": metrics_at_threshold(y_val, val_scores, threshold),
+                    },
+                }
+                model_results.append(result)
+                fitted[name] = Pipeline([("features", features), ("classifier", classifier)])
     best = max(model_results, key=lambda item: selection_key(item["metrics_by_split"]["development_validation"]))
     return fitted[str(best["model_name"])], best, model_results
 
@@ -94,8 +114,8 @@ def run(*, train: Path, validation: Path, output_dir: Path, model_output: Path, 
     config = load_config(config_path)
     train_source = load_jsonl(train)
     validation_source = load_jsonl(validation)
-    train_rows = binary_eligible_rows(train_source)
-    validation_rows = binary_eligible_rows(validation_source)
+    train_rows = binary_eligible_rows(train_source, allowed_partitions={"development_train"})
+    validation_rows = binary_eligible_rows(validation_source, allowed_partitions={"development_validation"})
     assert len(train_rows) == len([row for row in train_source if row in train_rows])
     assert_safe_rows_only(train_rows + validation_rows)
     model, best, model_results = train_and_select(train_rows=train_rows, validation_rows=validation_rows, config=config)
@@ -162,4 +182,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
