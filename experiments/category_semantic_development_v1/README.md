@@ -10,6 +10,8 @@ This development-only experiment compares relational semantic, hybrid, and two-c
 - developer_setup F1: **0.0741**
 - Category V8 baseline Macro-F1: **0.3817**
 
+Because controlled-data utility is not supported by the matched paired bootstrap, the recommended natural-only model is `hybrid__natural_only__multinomial_logreg` (Macro-F1 **0.4485**, balanced accuracy **0.4709**). The augmented result above is reported as an experimental upper bound only.
+
 ## Controlled-data utility
 
 - `semantic` Macro-F1 delta (controlled − natural): **-0.0340**

@@ -994,6 +994,10 @@ def main() -> int:
     plot_outputs(output_dir, results, prediction_sets)
 
     best = ordered[0]
+    best_natural_only = max(
+        (item for item in eligible_results if item["training_source"] == "natural_only"),
+        key=lambda item: item["validation"]["macro_f1"],
+    )
     best_predictions = np.asarray([row["prediction"] for row in prediction_sets[best["name"]]])
     semantic_best = next(item for item in results if item["name"] == best_by_family["semantic"])
     lexical_best = next(item for item in results if item["name"] == best_by_family["two_channel_lexical"])
@@ -1009,6 +1013,9 @@ def main() -> int:
     recommendation = {
         "best_model": best["name"],
         "best_validation_macro_f1": best["validation"]["macro_f1"],
+        "recommended_final_model_if_controlled_excluded": best_natural_only["name"],
+        "recommended_final_model_macro_f1": best_natural_only["validation"]["macro_f1"],
+        "recommended_final_model_balanced_accuracy": best_natural_only["validation"]["balanced_accuracy"],
         "semantic_better_than_tfidf_v8": semantic_best["validation"]["macro_f1"] > baseline_metrics["macro_f1"],
         "semantic_docs_relational_better_than_semantic_code_only": semantic_best["validation"]["macro_f1"] > semantic_code_only_best["validation"]["macro_f1"],
         "semantic_docs_relational_macro_f1_delta_vs_code_only": semantic_best["validation"]["macro_f1"] - semantic_code_only_best["validation"]["macro_f1"],
@@ -1050,6 +1057,7 @@ def main() -> int:
         f"- Balanced accuracy: **{best['validation']['balanced_accuracy']:.4f}**",
         f"- developer_setup F1: **{best['validation']['per_class']['developer_setup']['f1']:.4f}**",
         f"- Category V8 baseline Macro-F1: **{baseline_metrics['macro_f1']:.4f}**",
+        f"- Recommended natural-only model: `{best_natural_only['name']}` (Macro-F1 **{best_natural_only['validation']['macro_f1']:.4f}**, balanced accuracy **{best_natural_only['validation']['balanced_accuracy']:.4f}**); augmented best is an experimental upper bound.",
         "",
         "## Controlled-data utility",
         "",
@@ -1091,7 +1099,7 @@ def main() -> int:
         f"2. Two-channel lexical better than concatenated TF-IDF V8: **{'yes' if recommendation['two_channel_better_than_concatenated_tfidf_v8'] else 'no'}**.",
         f"3. Semantically represented docs_before improves over semantic code-only: **{'yes' if recommendation['semantic_docs_relational_better_than_semantic_code_only'] else 'no'}** (Macro-F1 delta **{recommendation['semantic_docs_relational_macro_f1_delta_vs_code_only']:+.4f}**).",
         f"4. Controlled-data deltas are reported in `recommendation.json`; they are retained only if natural-validation generalization improves.",
-        f"5. Controlled examples recommended for final training: **{'yes' if recommendation['controlled_examples_recommended_for_final_training'] else 'no'}** under the predefined matched-family decision rule.",
+        f"5. Controlled examples recommended for final training: **{'yes' if recommendation['controlled_examples_recommended_for_final_training'] else 'no'}** under the predefined matched-family decision rule; recommended natural-only model: `{recommendation['recommended_final_model_if_controlled_excluded']}`.",
         f"6. Best developer_setup F1: **{best['validation']['per_class']['developer_setup']['f1']:.4f}**.",
         f"7. Best API false positives: **{recommendation['api_catchall_best']['total_api_reference_false_positives']}**, versus **{api_payload['tfidf_v8']['total_api_reference_false_positives']}** for TF-IDF V8.",
         "8. Remaining evidence indicates a combination of representation limitations, natural-data scarcity, and controlled-to-natural domain shift.",
