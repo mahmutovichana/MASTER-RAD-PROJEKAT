@@ -520,10 +520,16 @@ def balanced_pair(row: dict, *, max_length: int = 512, code_ratio: float = 0.58)
     if len(docs_ids) > 0 and docs_budget < 1:
         docs_budget = 1
         code_budget = available - docs_budget
-    if len(prefix_ids) >= code_budget:
-        kept_code = head_tail(prefix_ids, code_budget)
+    prefix_budget_cap = max(1, int(code_budget * 0.23))
+    if len(diff_ids) > 0:
+        prefix_budget = min(len(prefix_ids), prefix_budget_cap)
+        diff_budget = max(1, code_budget - prefix_budget)
     else:
-        kept_code = prefix_ids + head_tail(diff_ids, code_budget - len(prefix_ids))
+        prefix_budget = min(len(prefix_ids), code_budget)
+        diff_budget = 0
+    kept_prefix = head_tail(prefix_ids, prefix_budget)
+    kept_diff = head_tail(diff_ids, diff_budget)
+    kept_code = kept_prefix + kept_diff
     kept_docs = head_tail(docs_ids, docs_budget)
     prepared = tokenizer.prepare_for_model(
         kept_code,
@@ -535,10 +541,17 @@ def balanced_pair(row: dict, *, max_length: int = 512, code_ratio: float = 0.58)
     )
     stats = {
         "original_code_tokens": len(prefix_ids) + len(diff_ids),
+        "original_prefix_tokens": len(prefix_ids),
+        "original_diff_tokens": len(diff_ids),
         "original_docs_tokens": len(docs_ids),
         "retained_code_tokens": len(kept_code),
+        "retained_prefix_tokens": len(kept_prefix),
+        "retained_diff_tokens": len(kept_diff),
         "retained_docs_tokens": len(kept_docs),
         "code_truncated": len(prefix_ids) + len(diff_ids) > len(kept_code),
+        "prefix_truncated": len(prefix_ids) > len(kept_prefix),
+        "diff_truncated": len(diff_ids) > len(kept_diff),
+        "diff_became_empty": len(diff_ids) > 0 and len(kept_diff) == 0,
         "docs_truncated": len(docs_ids) > len(kept_docs),
         "docs_became_empty": len(docs_ids) > 0 and len(kept_docs) == 0,
     }
@@ -557,13 +570,21 @@ assert_repository_not_in_model_text(train_rows + validation_rows)"""
     code(
         """def summarize_truncation(rows: list[dict]) -> dict:
     stats = [balanced_pair(row)[1] for row in rows]
+    rows_with_diff = [item for item in stats if item["original_diff_tokens"] > 0]
+    original_diff_tokens = sum(item["original_diff_tokens"] for item in rows_with_diff)
+    retained_diff_tokens = sum(item["retained_diff_tokens"] for item in rows_with_diff)
     return {
         "rows": len(stats),
         "percent_rows_truncated": 100.0 * sum(item["code_truncated"] or item["docs_truncated"] for item in stats) / len(stats),
         "average_original_code_tokens": float(np.mean([item["original_code_tokens"] for item in stats])),
+        "average_original_diff_tokens": float(np.mean([item["original_diff_tokens"] for item in stats])),
         "average_original_docs_tokens": float(np.mean([item["original_docs_tokens"] for item in stats])),
         "average_retained_code_tokens": float(np.mean([item["retained_code_tokens"] for item in stats])),
+        "average_retained_diff_tokens": float(np.mean([item["retained_diff_tokens"] for item in stats])),
         "average_retained_docs_tokens": float(np.mean([item["retained_docs_tokens"] for item in stats])),
+        "rows_with_nonempty_original_diff": len(rows_with_diff),
+        "rows_with_zero_retained_diff": int(sum(item["diff_became_empty"] for item in stats)),
+        "percent_diff_tokens_retained": 100.0 * retained_diff_tokens / original_diff_tokens if original_diff_tokens else 100.0,
         "docs_became_empty": int(sum(item["docs_became_empty"] for item in stats)),
     }
 
@@ -571,10 +592,12 @@ assert_repository_not_in_model_text(train_rows + validation_rows)"""
 truncation_stats = {
     "train": summarize_truncation(train_rows),
     "validation": summarize_truncation(validation_rows),
-    "policy": "Manual pair construction with about 58% non-special tokens for code side and 42% for docs side; file/language prefix is retained before diff head/tail truncation; docs use deterministic head/tail truncation.",
+    "policy": "Manual pair construction with about 58% non-special tokens for code side and 42% for docs side; within code-side budget, language/changed-files prefix is capped near 23% and non-empty code diffs reserve the remaining majority; docs use deterministic head/tail truncation.",
 }
 assert truncation_stats["train"]["docs_became_empty"] == 0
 assert truncation_stats["validation"]["docs_became_empty"] == 0
+assert truncation_stats["train"]["rows_with_zero_retained_diff"] == 0
+assert truncation_stats["validation"]["rows_with_zero_retained_diff"] == 0
 truncation_stats"""
     )
     code(

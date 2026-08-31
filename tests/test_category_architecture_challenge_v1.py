@@ -117,6 +117,15 @@ def test_notebook_is_codebert_joint_experiment_not_old_semantic_pipeline() -> No
     assert "prepare_for_model" in source
     assert "kept_code" in source
     assert "kept_docs" in source
+    assert "prefix_budget_cap = max(1, int(code_budget * 0.23))" in source
+    assert "kept_diff" in source
+    assert "rows_with_nonempty_original_diff" in source
+    assert "rows_with_zero_retained_diff" in source
+    assert "average_original_diff_tokens" in source
+    assert "average_retained_diff_tokens" in source
+    assert "percent_diff_tokens_retained" in source
+    assert 'assert truncation_stats["train"]["rows_with_zero_retained_diff"] == 0' in source
+    assert 'assert truncation_stats["validation"]["rows_with_zero_retained_diff"] == 0' in source
     assert "SentenceTransformer" not in source
     assert "MiniLM" not in source
     assert "ModernBERT" not in source
