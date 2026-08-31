@@ -1,0 +1,125 @@
+{
+  "artifacts": {
+    "natural_train_primary_four.jsonl": {
+      "bytes": 14086385,
+      "path": "data\\final_v2\\architecture_challenge_v1\\natural_train_primary_four.jsonl",
+      "sha256": "9dc1136f1cf695eb69c70b763ad051898aa5fae351fcf028eed97116c8891f99"
+    },
+    "natural_validation_primary_four.jsonl": {
+      "bytes": 4159757,
+      "path": "data\\final_v2\\architecture_challenge_v1\\natural_validation_primary_four.jsonl",
+      "sha256": "1865d6803ac7e57cf38e315789732ee6592ddb6890373afa7fd1f988eb45ba2e"
+    }
+  },
+  "audit": {
+    "confirmation_accessed": false,
+    "controlled_rows_used": false,
+    "errors": [],
+    "forbidden_fields_excluded_from_export": true,
+    "frozen_validation_case_ids_sha256": "aac3384de6d482abefb4201091bf828d6d8c1c91c1ddbdad40a4ec7273051e3e",
+    "refresh_validation_used_for_training": false,
+    "repository_identity_excluded_from_model_text": true,
+    "status": "passed",
+    "train_validation_repository_overlap": [],
+    "validation_case_ids_sha256": "aac3384de6d482abefb4201091bf828d6d8c1c91c1ddbdad40a4ec7273051e3e"
+  },
+  "colab_notebook": "notebooks\\category_codebert_architecture_challenge_v1.ipynb",
+  "confirmation_accessed": false,
+  "controlled_or_synthetic_rows_used": false,
+  "created_at": "2026-08-31T21:12:37+00:00",
+  "expected_output_dir": "experiments\\category_architecture_challenge_v1\\codebert_joint",
+  "forbidden_export_fields": [
+    "controlled_design_label",
+    "controlled_design_supervision",
+    "docs_after",
+    "docs_after_excerpt",
+    "docs_diff",
+    "docs_diff_excerpt",
+    "human_label_notes",
+    "label_source",
+    "provenance_tier",
+    "repository_full_name_for_model",
+    "suggested_doc_category",
+    "suggested_docs_update_required",
+    "suggested_notes",
+    "supervision_source"
+  ],
+  "frozen_benchmark": {
+    "balanced_accuracy": 0.478023538961039,
+    "macro_f1": 0.45628987455472775,
+    "model": "hybrid__natural_only__multinomial_logreg__natural_diversity_expansion_v1",
+    "per_class_f1": {
+      "api_reference": 0.5340314136125655,
+      "configuration": 0.6824324324324325,
+      "developer_setup": 0.0,
+      "model_contract": 0.6086956521739131
+    },
+    "support": 322
+  },
+  "labels": [
+    "api_reference",
+    "configuration",
+    "developer_setup",
+    "model_contract"
+  ],
+  "model_input_policy": {
+    "code_side": [
+      "language",
+      "code_changed_files",
+      "code_diff_excerpt"
+    ],
+    "docs_side": [
+      "docs_before_excerpt"
+    ],
+    "repository": "grouping/audit only, never tokenizer input"
+  },
+  "purpose": "bounded CodeBERT joint classifier architecture challenge",
+  "refresh_validation_used_for_training": false,
+  "safe_export_fields": [
+    "case_id",
+    "repository",
+    "language",
+    "code_changed_files",
+    "code_diff_excerpt",
+    "docs_before_excerpt",
+    "gold_doc_category",
+    "partition"
+  ],
+  "schema": "category_architecture_challenge_v1_export",
+  "seed": 42,
+  "source_hashes": {
+    "data\\final_v2\\natural_diversity_expansion_v1\\human_review\\finalized\\natural_expansion_train_gold.jsonl": "21262481e65d1c1833b3ff782ea5a7ca8466c7554e208cbeb37b147495303904",
+    "experiments\\consolidated_enriched_training_v2\\gold\\train.jsonl": "5fe8f18128c912f59278fe3e0c4623f43aa6abd03a7cfbef5535464defc7ed02",
+    "experiments\\consolidated_enriched_training_v2\\gold\\validation.jsonl": "9a1cc87b231721a92c54fbac8fb2ccc4c77599a00a21aeef4b76faac42946e45"
+  },
+  "train": {
+    "category_counts": {
+      "api_reference": 412,
+      "configuration": 277,
+      "developer_setup": 88,
+      "model_contract": 261
+    },
+    "distinct_repository_count": 79,
+    "language_counts": {
+      "go": 22,
+      "python": 97,
+      "typescript": 907,
+      "unknown": 12
+    },
+    "row_count": 1038
+  },
+  "validation": {
+    "category_counts": {
+      "api_reference": 85,
+      "configuration": 154,
+      "developer_setup": 19,
+      "model_contract": 64
+    },
+    "distinct_repository_count": 11,
+    "language_counts": {
+      "python": 12,
+      "typescript": 310
+    },
+    "row_count": 322
+  }
+}
