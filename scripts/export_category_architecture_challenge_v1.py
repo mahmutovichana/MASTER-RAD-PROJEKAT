@@ -187,6 +187,91 @@ def build_docs_text(row: dict[str, Any]) -> str:
     return sanitize_repository_identity(str(row.get("docs_before_excerpt") or ""), str(row.get("repository") or ""))
 
 
+def head_tail(ids: list[int], budget: int) -> list[int]:
+    if budget <= 0:
+        return []
+    if len(ids) <= budget:
+        return list(ids)
+    head = max(1, budget // 2)
+    tail = budget - head
+    return list(ids[:head]) + list(ids[-tail:])
+
+
+def build_balanced_pair_inputs(
+    tokenizer: Any,
+    row: dict[str, Any],
+    *,
+    max_length: int = 512,
+    code_ratio: float = 0.58,
+) -> tuple[dict[str, list[int]], dict[str, Any]]:
+    repo = str(row.get("repository") or "")
+    prefix = sanitize_repository_identity(
+        "\n".join(
+            [
+                f"language: {str(row.get('language') or 'unknown').lower()}",
+                "changed files:",
+                "\n".join(str(item) for item in list_value(row.get("code_changed_files"))),
+                "code change:",
+            ]
+        ),
+        repo,
+    )
+    diff = sanitize_repository_identity(str(row.get("code_diff_excerpt") or ""), repo)
+    docs = build_docs_text(row)
+    prefix_ids = tokenizer.encode(prefix, add_special_tokens=False)
+    diff_ids = tokenizer.encode(diff, add_special_tokens=False)
+    docs_ids = tokenizer.encode(docs, add_special_tokens=False)
+    special = len(tokenizer.build_inputs_with_special_tokens([], []))
+    available = max_length - special
+    if available <= 0:
+        raise ValueError(f"max_length={max_length} leaves no room after tokenizer special tokens")
+    code_budget = max(8, int(available * code_ratio))
+    docs_budget = max(1, available - code_budget)
+    if len(docs_ids) > 0 and docs_budget < 1:
+        docs_budget = 1
+        code_budget = available - docs_budget
+    prefix_budget_cap = max(1, int(code_budget * 0.23))
+    if diff_ids:
+        prefix_budget = min(len(prefix_ids), prefix_budget_cap)
+        diff_budget = max(1, code_budget - prefix_budget)
+    else:
+        prefix_budget = min(len(prefix_ids), code_budget)
+        diff_budget = 0
+    kept_prefix = head_tail(prefix_ids, prefix_budget)
+    kept_diff = head_tail(diff_ids, diff_budget)
+    kept_docs = head_tail(docs_ids, docs_budget)
+    input_ids = tokenizer.build_inputs_with_special_tokens(kept_prefix + kept_diff, kept_docs)
+    if len(input_ids) > max_length:
+        raise AssertionError(f"Tokenizer pair construction produced {len(input_ids)} tokens")
+    pad_id = tokenizer.pad_token_id
+    if pad_id is None:
+        raise ValueError("Tokenizer must define pad_token_id for fixed-length batching")
+    attention_mask = [1] * len(input_ids)
+    pad_count = max_length - len(input_ids)
+    if pad_count:
+        input_ids = input_ids + [int(pad_id)] * pad_count
+        attention_mask = attention_mask + [0] * pad_count
+    if len(input_ids) != max_length or len(attention_mask) != max_length:
+        raise AssertionError("Balanced pair construction did not produce fixed 512-length inputs")
+    stats = {
+        "original_code_tokens": len(prefix_ids) + len(diff_ids),
+        "original_prefix_tokens": len(prefix_ids),
+        "original_diff_tokens": len(diff_ids),
+        "original_docs_tokens": len(docs_ids),
+        "retained_code_tokens": len(kept_prefix) + len(kept_diff),
+        "retained_prefix_tokens": len(kept_prefix),
+        "retained_diff_tokens": len(kept_diff),
+        "retained_docs_tokens": len(kept_docs),
+        "code_truncated": len(prefix_ids) + len(diff_ids) > len(kept_prefix) + len(kept_diff),
+        "prefix_truncated": len(prefix_ids) > len(kept_prefix),
+        "diff_truncated": len(diff_ids) > len(kept_diff),
+        "diff_became_empty": len(diff_ids) > 0 and len(kept_diff) == 0,
+        "docs_truncated": len(docs_ids) > len(kept_docs),
+        "docs_became_empty": len(docs_ids) > 0 and len(kept_docs) == 0,
+    }
+    return {"input_ids": input_ids, "attention_mask": attention_mask}, stats
+
+
 def export_row(row: dict[str, Any], *, partition: str) -> dict[str, Any]:
     if partition == "development_train" and row.get("partition") not in {"development_train", None, ""}:
         raise ValueError(f"{row.get('case_id')}: non-train row entered training export")
@@ -309,12 +394,13 @@ once on the frozen 322-row natural development validation."""
     )
     code(
         """%pip install -q \\
-  transformers==4.44.2 \\
-  accelerate==0.33.0 \\
-  scikit-learn==1.5.1 \\
-  matplotlib==3.9.2 \\
-  huggingface_hub==0.24.6 \\
-  safetensors==0.4.4"""
+  tokenizers==0.22.0 \\
+  transformers==4.56.2 \\
+  accelerate==1.10.1 \\
+  huggingface_hub==0.34.4 \\
+  safetensors==0.6.2 \\
+  scikit-learn==1.7.2 \\
+  matplotlib==3.10.6"""
     )
     code(
         """from __future__ import annotations
@@ -328,9 +414,13 @@ import time
 from collections import Counter
 from pathlib import Path
 
+import accelerate
+import huggingface_hub
 import matplotlib.pyplot as plt
 import numpy as np
+import tokenizers
 import torch
+import transformers
 from huggingface_hub import HfApi
 from sklearn.metrics import (
     accuracy_score,
@@ -373,10 +463,16 @@ np.random.seed(SEED)
 torch.manual_seed(SEED)
 set_seed(SEED)
 
-print("CUDA available:", torch.cuda.is_available())
+print("Python:", platform.python_version())
+print("torch:", torch.__version__)
+print("CUDA availability:", torch.cuda.is_available())
 if not torch.cuda.is_available():
     raise RuntimeError("This experiment is intended for a Colab GPU runtime. Enable Runtime > Change runtime type > GPU.")
-print("CUDA device:", torch.cuda.get_device_name(0))"""
+print("CUDA device:", torch.cuda.get_device_name(0))
+print("transformers:", transformers.__version__)
+print("tokenizers:", tokenizers.__version__)
+print("accelerate:", accelerate.__version__)
+print("huggingface_hub:", huggingface_hub.__version__)"""
     )
     code(
         """def sha256_file(path: Path) -> str:
@@ -531,14 +627,19 @@ def balanced_pair(row: dict, *, max_length: int = 512, code_ratio: float = 0.58)
     kept_diff = head_tail(diff_ids, diff_budget)
     kept_code = kept_prefix + kept_diff
     kept_docs = head_tail(docs_ids, docs_budget)
-    prepared = tokenizer.prepare_for_model(
-        kept_code,
-        kept_docs,
-        max_length=max_length,
-        padding="max_length",
-        truncation=False,
-        return_attention_mask=True,
-    )
+    input_ids = tokenizer.build_inputs_with_special_tokens(kept_code, kept_docs)
+    if len(input_ids) > max_length:
+        raise AssertionError(f"Tokenizer pair construction produced {len(input_ids)} tokens")
+    pad_id = tokenizer.pad_token_id
+    if pad_id is None:
+        raise ValueError("Tokenizer must define pad_token_id for fixed-length batching")
+    attention_mask = [1] * len(input_ids)
+    pad_count = max_length - len(input_ids)
+    if pad_count:
+        input_ids = input_ids + [int(pad_id)] * pad_count
+        attention_mask = attention_mask + [0] * pad_count
+    if len(input_ids) != max_length or len(attention_mask) != max_length:
+        raise AssertionError("Balanced pair construction did not produce fixed 512-length inputs")
     stats = {
         "original_code_tokens": len(prefix_ids) + len(diff_ids),
         "original_prefix_tokens": len(prefix_ids),
@@ -555,7 +656,7 @@ def balanced_pair(row: dict, *, max_length: int = 512, code_ratio: float = 0.58)
         "docs_truncated": len(docs_ids) > len(kept_docs),
         "docs_became_empty": len(docs_ids) > 0 and len(kept_docs) == 0,
     }
-    return prepared, stats
+    return {"input_ids": input_ids, "attention_mask": attention_mask}, stats
 
 
 def assert_repository_not_in_model_text(rows: list[dict]) -> None:
@@ -668,7 +769,7 @@ training_args = TrainingArguments(
     per_device_train_batch_size=8,
     per_device_eval_batch_size=16,
     gradient_accumulation_steps=2,
-    evaluation_strategy="epoch",
+    eval_strategy="epoch",
     save_strategy="epoch",
     save_total_limit=2,
     load_best_model_at_end=True,
@@ -684,7 +785,7 @@ trainer = Trainer(
     args=training_args,
     train_dataset=train_ds,
     eval_dataset=eval_ds,
-    tokenizer=tokenizer,
+    processing_class=tokenizer,
     compute_metrics=compute_metrics,
 )
 

@@ -12,6 +12,7 @@ from scripts.export_category_architecture_challenge_v1 import (
     LABELS,
     SAFE_EXPORT_FIELDS,
     audit_export_rows,
+    build_balanced_pair_inputs,
     build_code_text,
     build_docs_text,
     export_row,
@@ -114,7 +115,16 @@ def test_notebook_is_codebert_joint_experiment_not_old_semantic_pipeline() -> No
     source = "\n".join("".join(cell.get("source", [])) for cell in notebook["cells"])
 
     assert 'MODEL_NAME = "microsoft/codebert-base"' in source
-    assert "prepare_for_model" in source
+    assert "tokenizers==0.22.0" in source
+    assert "transformers==4.56.2" in source
+    assert "build_inputs_with_special_tokens" in source
+    assert "prepare_for_model" not in source
+    assert "eval_strategy=\"epoch\"" in source
+    assert "evaluation_strategy=\"epoch\"" not in source
+    assert "processing_class=tokenizer" in source
+    assert "tokenizer=tokenizer" not in source
+    assert "CUDA availability:" in source
+    assert "huggingface_hub:" in source
     assert "kept_code" in source
     assert "kept_docs" in source
     assert "prefix_budget_cap = max(1, int(code_budget * 0.23))" in source
@@ -131,3 +141,23 @@ def test_notebook_is_codebert_joint_experiment_not_old_semantic_pipeline() -> No
     assert "ModernBERT" not in source
     assert "UniXcoder" not in source
     assert "Jina" not in source
+
+
+def test_codebert_slow_tokenizer_balanced_pair_smoke() -> None:
+    transformers = pytest.importorskip("transformers")
+    tokenizer = transformers.AutoTokenizer.from_pretrained(
+        "microsoft/codebert-base",
+        use_fast=False,
+    )
+    row = export_row(safe_row(), partition="development_train")
+
+    encoded, stats = build_balanced_pair_inputs(tokenizer, row)
+
+    assert len(encoded["input_ids"]) == 512
+    assert len(encoded["attention_mask"]) == 512
+    assert sum(encoded["attention_mask"]) <= 512
+    assert stats["retained_code_tokens"] > 0
+    assert stats["retained_docs_tokens"] > 0
+    assert stats["original_diff_tokens"] > 0
+    assert stats["retained_diff_tokens"] > 0
+    assert stats["diff_became_empty"] is False

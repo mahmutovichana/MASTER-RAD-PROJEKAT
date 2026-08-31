@@ -11,3 +11,7 @@ natural development validation set and compares against:
 `hybrid__natural_only__multinomial_logreg__natural_diversity_expansion_v1`
 
 No local CPU fine-tuning has been run for this experiment.
+
+The Colab notebook pins a Python 3.13-compatible Hugging Face stack
+(`tokenizers==0.22.0`, `transformers==4.56.2`) and intentionally does not
+reinstall Colab's Torch CUDA build.
