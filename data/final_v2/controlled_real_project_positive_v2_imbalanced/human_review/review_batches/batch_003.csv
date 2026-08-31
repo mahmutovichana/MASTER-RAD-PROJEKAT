@@ -1,0 +1,1901 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP2-JOB-CONFIGURATION-121,controlled-v2/jobfair-platform-copy,9400201,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_03.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_03.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""JOB-CFG-121"",
+-      ""default"": 151,
++      ""default"": 181,
+       ""environmentVariable"": ""JOB_FEATURE_121_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature121.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-121
+- Configuration key: `jobfair_platform.feature121.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_121_TIMEOUT_SECONDS`
+- Documented default: `151`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-121: kod mijenja dokumentovanu konfiguraciju iz '151' u '181' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,df749d40f338213e5df58557ac750f4ebd9ec06b6c3dcfdad25c9ee5e0d4b0f2,1d5f65e7ab196834170389d96d28cdb215c38f21961a86d0157eab26c93e7d01,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-121.patch
+CRPP2-JOB-CONFIGURATION-122,controlled-v2/jobfair-platform-copy,9400202,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_03.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_03.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""JOB-CFG-122"",
+       ""default"": 152,
+-      ""environmentVariable"": ""JOB_FEATURE_122_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_122_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature122.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-122
+- Configuration key: `jobfair_platform.feature122.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_122_TIMEOUT_SECONDS`
+- Documented default: `152`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-122: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_122_TIMEOUT_SECONDS' u 'JOB_FEATURE_122_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f9eac00f03e76f8bf01bfe09fd8beb266d240ad907e04b7b463921710aee24d9,3a41420d0bc199f8da88ab2aa7a46cf9081351791668b8cddc81dc26189dc390,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-122.patch
+CRPP2-JOB-CONFIGURATION-123,controlled-v2/jobfair-platform-copy,9400203,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_03.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_03.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_123_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature123.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-124"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-123
+- Configuration key: `jobfair_platform.feature123.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_123_TIMEOUT_SECONDS`
+- Documented default: `153`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-123: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,855eadda40a512e7fbaf17602731522ce4acf17eee57b4fc69c99aa8d01be201,dc3203c69d92aadc84c70ab03d88ea53e6cc8ceb8af77559ddbf21dfe868c1c6,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-123.patch
+CRPP2-JOB-CONFIGURATION-124,controlled-v2/jobfair-platform-copy,9400204,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_03.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_03.json
+@@ -30,7 +30,7 @@
+       ""default"": 154,
+       ""environmentVariable"": ""JOB_FEATURE_124_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature124.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-124
+- Configuration key: `jobfair_platform.feature124.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_124_TIMEOUT_SECONDS`
+- Documented default: `154`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-124: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,363489522dc76513d0f90f5f8f4dadf6d171b90c74b010042768e5c99916a54c,75908b059bc70284113e3875ec4ca19ea60e6e0947cfe3574fd08a4f4c89edee,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-124.patch
+CRPP2-JOB-CONFIGURATION-125,controlled-v2/jobfair-platform-copy,9400205,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_03.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_03.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-125"",
+-      ""default"": 155,
++      ""default"": 185,
+       ""environmentVariable"": ""JOB_FEATURE_125_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature125.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-125
+- Configuration key: `jobfair_platform.feature125.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_125_TIMEOUT_SECONDS`
+- Documented default: `155`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-125: kod mijenja dokumentovanu konfiguraciju iz '155' u '185' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0c8dad114d68ba3315a2a90dbf0aa7fed72545ca26938bc90f8ba3d87af4dfbb,3bfa7fd7b493262a01f978489d8607c8ecfb3b5979defb995585c8d4ffee5ff3,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-125.patch
+CRPP2-JOB-CONFIGURATION-126,controlled-v2/jobfair-platform-copy,9400206,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_03.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_03.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""JOB-CFG-126"",
+       ""default"": 156,
+-      ""environmentVariable"": ""JOB_FEATURE_126_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_126_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature126.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-126
+- Configuration key: `jobfair_platform.feature126.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_126_TIMEOUT_SECONDS`
+- Documented default: `156`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-126: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_126_TIMEOUT_SECONDS' u 'JOB_FEATURE_126_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,08bc0819388d9cdc8d416ddd5759dc674b7fc7c1a1940a3e01a7572016b0f5ec,ad766df9cfff8acc9348ed47f7cd46fd109cd91636e3a109c9ba46ef9e4e3db5,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-126.patch
+CRPP2-JOB-CONFIGURATION-127,controlled-v2/jobfair-platform-copy,9400207,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_03.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_03.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_127_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature127.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-128"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-127
+- Configuration key: `jobfair_platform.feature127.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_127_TIMEOUT_SECONDS`
+- Documented default: `157`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-127: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4b8179d8509dca966b8b5909de4197f09deb2d9aa7497b8e8f1385b63dbef44e,beb946e0cc550fc81ce5f015ef7584ce0d300843611752a6a5372dcfa9e8e8e7,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-127.patch
+CRPP2-JOB-CONFIGURATION-128,controlled-v2/jobfair-platform-copy,9400208,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_03.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_03.json
+@@ -62,7 +62,7 @@
+       ""default"": 158,
+       ""environmentVariable"": ""JOB_FEATURE_128_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature128.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-128
+- Configuration key: `jobfair_platform.feature128.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_128_TIMEOUT_SECONDS`
+- Documented default: `158`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-128: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d464e60b1f81f1d93647034a2f8bd7142522013447e7408b23b051949a1f140d,ab09c97de7d9b80896032b81a8110cd4648a38bc4da2142826e9337d07fff3a1,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-128.patch
+CRPP2-JOB-CONFIGURATION-129,controlled-v2/jobfair-platform-copy,9400209,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_03.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_03.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-129"",
+-      ""default"": 159,
++      ""default"": 189,
+       ""environmentVariable"": ""JOB_FEATURE_129_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature129.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-129
+- Configuration key: `jobfair_platform.feature129.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_129_TIMEOUT_SECONDS`
+- Documented default: `159`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-129: kod mijenja dokumentovanu konfiguraciju iz '159' u '189' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d647806418086eb5df11951b9fdcf4677ffa2cdcb2f2d8fa9e1f53326d158664,da637fd3a69e46c7d1702a6f708261cd9ddf917c72e27175ef31c40a01b46d3d,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-129.patch
+CRPP2-JOB-CONFIGURATION-130,controlled-v2/jobfair-platform-copy,9400210,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_03.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_03.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""JOB-CFG-130"",
+       ""default"": 160,
+-      ""environmentVariable"": ""JOB_FEATURE_130_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_130_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature130.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-130
+- Configuration key: `jobfair_platform.feature130.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_130_TIMEOUT_SECONDS`
+- Documented default: `160`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-130: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_130_TIMEOUT_SECONDS' u 'JOB_FEATURE_130_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,80762995e3fc75d9e1257746f12abf0e1148933fa41ccc762d9e0d5947be0ad3,4f3efb4ba74e3746d076922649302b987bdbe512f71d4c251b8f47a8ac3ef49f,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-130.patch
+CRPP2-JOB-CONFIGURATION-131,controlled-v2/jobfair-platform-copy,9400211,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_04.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_04.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_131_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature131.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-132"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-131
+- Configuration key: `jobfair_platform.feature131.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_131_TIMEOUT_SECONDS`
+- Documented default: `161`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-131: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,317ebdf0fd8ae5ae7771489c77e1687fdc8fe26f6b3622f6f307a7de9d3caf2f,44317f62a991e0b04bb0167fe44fe853ffd4b48e605994528dd0b2c58ba552f6,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-131.patch
+CRPP2-JOB-CONFIGURATION-132,controlled-v2/jobfair-platform-copy,9400212,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_04.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_04.json
+@@ -14,7 +14,7 @@
+       ""default"": 162,
+       ""environmentVariable"": ""JOB_FEATURE_132_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature132.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-132
+- Configuration key: `jobfair_platform.feature132.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_132_TIMEOUT_SECONDS`
+- Documented default: `162`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-132: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3ed0e252e2d98b371e21ec4477019ab571d90f167c902127eec61c7fe1792a50,bcc02ff9ea6ff37a0dd680aaa2e14c9c434353d50fa9d295f13363ba79a2353d,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-132.patch
+CRPP2-JOB-CONFIGURATION-133,controlled-v2/jobfair-platform-copy,9400213,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_04.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_04.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-133"",
+-      ""default"": 163,
++      ""default"": 193,
+       ""environmentVariable"": ""JOB_FEATURE_133_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature133.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-133
+- Configuration key: `jobfair_platform.feature133.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_133_TIMEOUT_SECONDS`
+- Documented default: `163`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-133: kod mijenja dokumentovanu konfiguraciju iz '163' u '193' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,74c64806fdf4d932df9fcf3782e2f9ac243521a425dc626f1b7805bb57b9697d,72dcbfe90a03a5ded1a566ec63b876c35c98f7603af139d938d463d10231336c,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-133.patch
+CRPP2-JOB-CONFIGURATION-134,controlled-v2/jobfair-platform-copy,9400214,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_04.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_04.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""JOB-CFG-134"",
+       ""default"": 164,
+-      ""environmentVariable"": ""JOB_FEATURE_134_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_134_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature134.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-134
+- Configuration key: `jobfair_platform.feature134.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_134_TIMEOUT_SECONDS`
+- Documented default: `164`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-134: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_134_TIMEOUT_SECONDS' u 'JOB_FEATURE_134_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fe21f01356a802ef4688c45ed387747850a09d73290c06f834145ec250b8351e,11aa2473eccce80ee93c4edf8e7dffeb4e8ff0c5f346eae668ac31598b123933,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-134.patch
+CRPP2-JOB-CONFIGURATION-135,controlled-v2/jobfair-platform-copy,9400215,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_04.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_04.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_135_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature135.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-136"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-135
+- Configuration key: `jobfair_platform.feature135.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_135_TIMEOUT_SECONDS`
+- Documented default: `165`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-135: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,efd4743f27a6a7712e204445cb6a3cd687e1a2916e71994a3f88da3fac2a2b4d,eb152e559e72687ab4802c9a16aeec385d54a489252e5d4dad36b2f1a21c2e5f,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-135.patch
+CRPP2-JOB-CONFIGURATION-136,controlled-v2/jobfair-platform-copy,9400216,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_04.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_04.json
+@@ -46,7 +46,7 @@
+       ""default"": 166,
+       ""environmentVariable"": ""JOB_FEATURE_136_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature136.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-136
+- Configuration key: `jobfair_platform.feature136.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_136_TIMEOUT_SECONDS`
+- Documented default: `166`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-136: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,048ba32d2f4beea3c948610324189fc30a5735af3413e50051513c9180577514,5c47c4ff55d698ac1ce3bbb738f4d2edd0b142df10b1a0acc08cca0ee4abe805,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-136.patch
+CRPP2-JOB-CONFIGURATION-137,controlled-v2/jobfair-platform-copy,9400217,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_04.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_04.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-137"",
+-      ""default"": 167,
++      ""default"": 197,
+       ""environmentVariable"": ""JOB_FEATURE_137_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature137.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-137
+- Configuration key: `jobfair_platform.feature137.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_137_TIMEOUT_SECONDS`
+- Documented default: `167`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-137: kod mijenja dokumentovanu konfiguraciju iz '167' u '197' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1de3c92f627e296664abf2b04edad30c239bbb62cdecaf135147490714482e4f,1b7f1db21fadee43f52d491f1b4a5e76233881128480eacf4c5ab8ce96ff9a54,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-137.patch
+CRPP2-JOB-CONFIGURATION-138,controlled-v2/jobfair-platform-copy,9400218,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_04.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_04.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""JOB-CFG-138"",
+       ""default"": 168,
+-      ""environmentVariable"": ""JOB_FEATURE_138_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_138_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature138.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-138
+- Configuration key: `jobfair_platform.feature138.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_138_TIMEOUT_SECONDS`
+- Documented default: `168`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-138: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_138_TIMEOUT_SECONDS' u 'JOB_FEATURE_138_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b39e2007125fa0a6c2bd89cdd086bb40ab10c9e7ce4bc20a78306ed569038f81,7a2da9cc83f88e5307c1566d26f0a5e7a91c2971ecc543bd0c906de9cb282987,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-138.patch
+CRPP2-JOB-CONFIGURATION-139,controlled-v2/jobfair-platform-copy,9400219,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_04.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_04.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_139_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature139.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-140"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-139
+- Configuration key: `jobfair_platform.feature139.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_139_TIMEOUT_SECONDS`
+- Documented default: `169`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-139: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6d8e4b96b679eaf32e0cf4a304e6233ee6a071eec9e14560ab1a2583dab25950,ca06b48f9abb7cff642b956fe7c4d0eaffbefe27ae6a39408bfe88a8f39c8433,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-139.patch
+CRPP2-JOB-CONFIGURATION-140,controlled-v2/jobfair-platform-copy,9400220,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_04.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_04.json
+@@ -78,7 +78,7 @@
+       ""default"": 170,
+       ""environmentVariable"": ""JOB_FEATURE_140_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature140.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-140
+- Configuration key: `jobfair_platform.feature140.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_140_TIMEOUT_SECONDS`
+- Documented default: `170`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-140: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ecdd8fbed72b63d957d60149a214ff2134d76da47a0d346ed648e4471332e7c1,532fc631ec1b972420034f7aa5f9ede672b3f8b937ac2dc0d860b060f337eae5,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-140.patch
+CRPP2-JOB-CONFIGURATION-141,controlled-v2/jobfair-platform-copy,9400221,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_05.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_05.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""JOB-CFG-141"",
+-      ""default"": 171,
++      ""default"": 201,
+       ""environmentVariable"": ""JOB_FEATURE_141_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature141.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-141
+- Configuration key: `jobfair_platform.feature141.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_141_TIMEOUT_SECONDS`
+- Documented default: `171`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-141: kod mijenja dokumentovanu konfiguraciju iz '171' u '201' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ab6497205edbfdae9493b07884fe77a0d9f6304e823e4d9cc6bb0c7834de050c,d52eb321b26149426b14e2673017bd02e919c73cc5b452b96fb2e66b624b6122,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-141.patch
+CRPP2-JOB-CONFIGURATION-142,controlled-v2/jobfair-platform-copy,9400222,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_05.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_05.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""JOB-CFG-142"",
+       ""default"": 172,
+-      ""environmentVariable"": ""JOB_FEATURE_142_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_142_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature142.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-142
+- Configuration key: `jobfair_platform.feature142.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_142_TIMEOUT_SECONDS`
+- Documented default: `172`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-142: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_142_TIMEOUT_SECONDS' u 'JOB_FEATURE_142_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4a1e165998b92624f35a14bf2cdbf70d1b7185df945480cb719cdf8597f5f035,7f181478f978a1321cb59063bd4ad02a82d62a5648d509425484b19d9f355ef1,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-142.patch
+CRPP2-JOB-CONFIGURATION-143,controlled-v2/jobfair-platform-copy,9400223,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_05.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_05.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_143_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature143.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-144"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-143
+- Configuration key: `jobfair_platform.feature143.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_143_TIMEOUT_SECONDS`
+- Documented default: `173`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-143: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,af9c839484b94632bbdb10bd096cef6fbafdf6ed0e57b71ef7f248dffea57a7f,36b4bef2f1172d940b46d9e8723399e5061eeae47c2eb57331abfe5ab0309fc3,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-143.patch
+CRPP2-JOB-CONFIGURATION-144,controlled-v2/jobfair-platform-copy,9400224,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_05.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_05.json
+@@ -30,7 +30,7 @@
+       ""default"": 174,
+       ""environmentVariable"": ""JOB_FEATURE_144_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature144.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-144
+- Configuration key: `jobfair_platform.feature144.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_144_TIMEOUT_SECONDS`
+- Documented default: `174`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-144: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a5e39e3c09d74391a8397360f02a07485de4de5ba96d645a6724e70452154d26,280b9739ee86c1f7fa075a0f04523843d1c71a5eed4000ba0a2c846ec2c30d0a,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-144.patch
+CRPP2-JOB-CONFIGURATION-145,controlled-v2/jobfair-platform-copy,9400225,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_05.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_05.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-145"",
+-      ""default"": 175,
++      ""default"": 205,
+       ""environmentVariable"": ""JOB_FEATURE_145_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature145.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-145
+- Configuration key: `jobfair_platform.feature145.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_145_TIMEOUT_SECONDS`
+- Documented default: `175`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-145: kod mijenja dokumentovanu konfiguraciju iz '175' u '205' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,05b6831fd684c67def940945da26d6e366380c20d5aa781e413273f13cc2c385,d09c57c9ec4f240ce078885555d950cfa6fdc392a635714df3f02c4d3cc45c0d,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-145.patch
+CRPP2-JOB-CONFIGURATION-146,controlled-v2/jobfair-platform-copy,9400226,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_05.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_05.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""JOB-CFG-146"",
+       ""default"": 176,
+-      ""environmentVariable"": ""JOB_FEATURE_146_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_146_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature146.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-146
+- Configuration key: `jobfair_platform.feature146.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_146_TIMEOUT_SECONDS`
+- Documented default: `176`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-146: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_146_TIMEOUT_SECONDS' u 'JOB_FEATURE_146_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a3198e870aa19076b6d9d2a7a60f6b7fc120f60dc387a6d0c8bb257a34e459e0,91a1102b4efe49378cedc978b338e8189f9570fcf8d678b7e67a318e03843693,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-146.patch
+CRPP2-JOB-CONFIGURATION-147,controlled-v2/jobfair-platform-copy,9400227,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_05.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_05.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_147_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature147.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-148"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-147
+- Configuration key: `jobfair_platform.feature147.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_147_TIMEOUT_SECONDS`
+- Documented default: `177`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-147: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f1f71700d028847815ebf9e0f9c3799bfc53bc022ac28f757097c9e08e5b9607,8ae716200851f43e2e0642ff4a0cd10be8dfe8670c4d88feaae3af6636941ecd,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-147.patch
+CRPP2-JOB-CONFIGURATION-148,controlled-v2/jobfair-platform-copy,9400228,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_05.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_05.json
+@@ -62,7 +62,7 @@
+       ""default"": 178,
+       ""environmentVariable"": ""JOB_FEATURE_148_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature148.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-148
+- Configuration key: `jobfair_platform.feature148.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_148_TIMEOUT_SECONDS`
+- Documented default: `178`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-148: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c22fb4e102c98cd83332877c2af765512e368cf7d88be71c5577d591e40349e6,f02abaeb26b154376c1e10bfd3e33d37944fbaac40b122a896e9741f69d6d795,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-148.patch
+CRPP2-JOB-CONFIGURATION-149,controlled-v2/jobfair-platform-copy,9400229,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_05.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_05.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-149"",
+-      ""default"": 179,
++      ""default"": 209,
+       ""environmentVariable"": ""JOB_FEATURE_149_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature149.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-149
+- Configuration key: `jobfair_platform.feature149.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_149_TIMEOUT_SECONDS`
+- Documented default: `179`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-149: kod mijenja dokumentovanu konfiguraciju iz '179' u '209' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,84251951d99e1b5a1da7d0f830fadefdef4f38c847c42c638448b11de0489342,7b458b16f64a13883271b3ef82880b896fefd75bbdd8b51bb8bd74b99b4fb4cc,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-149.patch
+CRPP2-JOB-CONFIGURATION-150,controlled-v2/jobfair-platform-copy,9400230,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_05.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_05.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""JOB-CFG-150"",
+       ""default"": 180,
+-      ""environmentVariable"": ""JOB_FEATURE_150_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_150_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature150.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-150
+- Configuration key: `jobfair_platform.feature150.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_150_TIMEOUT_SECONDS`
+- Documented default: `180`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-150: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_150_TIMEOUT_SECONDS' u 'JOB_FEATURE_150_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,60c5e1d30e757fdffb19bb34538208ec5494ace92c6ba9b60af8818ecf9b4ab9,7a23a4e5a35fe723b4b005ee3ad275045d1b33919a008b7452b68588144b78d3,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-150.patch
+CRPP2-JOB-CONFIGURATION-151,controlled-v2/jobfair-platform-copy,9400231,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_06.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_06.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_151_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature151.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-152"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-151
+- Configuration key: `jobfair_platform.feature151.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_151_TIMEOUT_SECONDS`
+- Documented default: `181`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-151: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f5b335b7c09e820015fa4d766904fa14a758872e82ef3c12f3a18b4aa1eef709,2bffc09a5991068ac58162fd22727af550407c63595357fe53652f89bdaafccd,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-151.patch
+CRPP2-JOB-CONFIGURATION-152,controlled-v2/jobfair-platform-copy,9400232,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_06.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_06.json
+@@ -14,7 +14,7 @@
+       ""default"": 182,
+       ""environmentVariable"": ""JOB_FEATURE_152_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature152.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-152
+- Configuration key: `jobfair_platform.feature152.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_152_TIMEOUT_SECONDS`
+- Documented default: `182`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-152: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,41e172ca6eb9d3f43405d4d3377cef716b168e2e5ce052df836c89a4403c1f1e,ad1405f78c5eefbfbd0111ed4e789aa05f38a7a76ba8e02093990e0aadd14f88,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-152.patch
+CRPP2-JOB-CONFIGURATION-153,controlled-v2/jobfair-platform-copy,9400233,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_06.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_06.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-153"",
+-      ""default"": 183,
++      ""default"": 213,
+       ""environmentVariable"": ""JOB_FEATURE_153_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature153.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-153
+- Configuration key: `jobfair_platform.feature153.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_153_TIMEOUT_SECONDS`
+- Documented default: `183`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-153: kod mijenja dokumentovanu konfiguraciju iz '183' u '213' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dcec30afefa9584e9de917917372030da5855b8a4d1d9d6e469409b4f1b88975,8f10b7e3cee6c3e87085b17e824dcf4a4ad14e2c2fe7862e675bdf057322cd93,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-153.patch
+CRPP2-JOB-CONFIGURATION-154,controlled-v2/jobfair-platform-copy,9400234,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_06.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_06.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""JOB-CFG-154"",
+       ""default"": 184,
+-      ""environmentVariable"": ""JOB_FEATURE_154_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_154_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature154.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-154
+- Configuration key: `jobfair_platform.feature154.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_154_TIMEOUT_SECONDS`
+- Documented default: `184`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-154: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_154_TIMEOUT_SECONDS' u 'JOB_FEATURE_154_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d3a8bec02e7c5815f08baf35578746b0c0c6a46de3aff84348fdb84e8952c909,7eb8220e7abd6f0f7beeeb91d3a5a2b535b0a7a02dc3ff37e3727a735ad3a5f4,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-154.patch
+CRPP2-JOB-CONFIGURATION-155,controlled-v2/jobfair-platform-copy,9400235,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_06.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_06.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_155_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature155.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-156"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-155
+- Configuration key: `jobfair_platform.feature155.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_155_TIMEOUT_SECONDS`
+- Documented default: `185`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-155: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,39243eb7dba982c5500ceedcce91a7faffd3c19238f54a373be3c8645926df5e,1f1dd16c8752d078db6cafaf1cb4e9645a4d404be305d5d2cf4f02ac765806b8,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-155.patch
+CRPP2-JOB-CONFIGURATION-156,controlled-v2/jobfair-platform-copy,9400236,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_06.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_06.json
+@@ -46,7 +46,7 @@
+       ""default"": 186,
+       ""environmentVariable"": ""JOB_FEATURE_156_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature156.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-156
+- Configuration key: `jobfair_platform.feature156.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_156_TIMEOUT_SECONDS`
+- Documented default: `186`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-156: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,96a1aec690600a06851127c262494a40d60bd046074a46a130dfbdf92f16a246,75c3f2cc624f83267811fb22c522ce5c49b8451d9479087b6acc8c498a4dac65,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-156.patch
+CRPP2-JOB-CONFIGURATION-157,controlled-v2/jobfair-platform-copy,9400237,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_06.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_06.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-157"",
+-      ""default"": 187,
++      ""default"": 217,
+       ""environmentVariable"": ""JOB_FEATURE_157_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature157.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-157
+- Configuration key: `jobfair_platform.feature157.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_157_TIMEOUT_SECONDS`
+- Documented default: `187`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-157: kod mijenja dokumentovanu konfiguraciju iz '187' u '217' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e2f4176eef56242f48662582ec1d251caeab69454d73244cd28b6a5abebabfe2,0d44722fcd61e3477805213349094901599889f89ea8ba540634eaec20507b1d,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-157.patch
+CRPP2-JOB-CONFIGURATION-158,controlled-v2/jobfair-platform-copy,9400238,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_06.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_06.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""JOB-CFG-158"",
+       ""default"": 188,
+-      ""environmentVariable"": ""JOB_FEATURE_158_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_158_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature158.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-158
+- Configuration key: `jobfair_platform.feature158.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_158_TIMEOUT_SECONDS`
+- Documented default: `188`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-158: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_158_TIMEOUT_SECONDS' u 'JOB_FEATURE_158_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,715406198c44b9a9d07a3d125838352e45aa4db0a6ecaab6bd219861883e6c19,767d59655e8a5ac6bbe9ee04d7cba3123f4ca7428e379042ac9a184e51257704,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-158.patch
+CRPP2-JOB-CONFIGURATION-159,controlled-v2/jobfair-platform-copy,9400239,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_06.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_06.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_159_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature159.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-160"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-159
+- Configuration key: `jobfair_platform.feature159.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_159_TIMEOUT_SECONDS`
+- Documented default: `189`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-159: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d4e4dca8eef61c2dc9f1adabf34d29266d4b8301db52d9b185f7a468fff0315c,12049bd5a2837a332ccce7d16a6d73628473ba3451969b7f0183d153787c9091,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-159.patch
+CRPP2-JOB-CONFIGURATION-160,controlled-v2/jobfair-platform-copy,9400240,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_06.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_06.json
+@@ -78,7 +78,7 @@
+       ""default"": 190,
+       ""environmentVariable"": ""JOB_FEATURE_160_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature160.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-160
+- Configuration key: `jobfair_platform.feature160.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_160_TIMEOUT_SECONDS`
+- Documented default: `190`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-160: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0282383fe0ff105353b65e880ec7d647451cda348469300d82c69d80eeed372e,27f74d2d75a6b8ec30dc81727bccc2c94d9b498b61012450bcd5e4332e05f998,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-160.patch
+CRPP2-JOB-CONFIGURATION-161,controlled-v2/jobfair-platform-copy,9400241,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_07.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_07.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""JOB-CFG-161"",
+-      ""default"": 191,
++      ""default"": 221,
+       ""environmentVariable"": ""JOB_FEATURE_161_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature161.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-161
+- Configuration key: `jobfair_platform.feature161.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_161_TIMEOUT_SECONDS`
+- Documented default: `191`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-161: kod mijenja dokumentovanu konfiguraciju iz '191' u '221' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8e1787dc66536f7c038dcb1d1cec9026999668c391af5b02794e17a67785a272,2a5ccea0e070c0f96a3fc1d40d0967f1fb995e307c2a8d318e32e584611703ec,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-161.patch
+CRPP2-JOB-CONFIGURATION-162,controlled-v2/jobfair-platform-copy,9400242,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_07.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_07.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""JOB-CFG-162"",
+       ""default"": 192,
+-      ""environmentVariable"": ""JOB_FEATURE_162_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_162_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature162.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-162
+- Configuration key: `jobfair_platform.feature162.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_162_TIMEOUT_SECONDS`
+- Documented default: `192`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-162: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_162_TIMEOUT_SECONDS' u 'JOB_FEATURE_162_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3f075ec7876b9003876a0755ef0581cdf33b6e83151de24efef09c3230eb052c,13e650d20f745024ad623aab927c5305718ea565c9c3cf0779491137efa6ae25,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-162.patch
+CRPP2-JOB-CONFIGURATION-163,controlled-v2/jobfair-platform-copy,9400243,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_07.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_07.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_163_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature163.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-164"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-163
+- Configuration key: `jobfair_platform.feature163.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_163_TIMEOUT_SECONDS`
+- Documented default: `193`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-163: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,787bd5341fae77087f85247b4a19f60a329421655b11fed581bab9e6b5721d54,f0747fa0098d0c16fa649bdfe150ecdcc80463bb3e13dcc1479064be498dc36d,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-163.patch
+CRPP2-JOB-CONFIGURATION-164,controlled-v2/jobfair-platform-copy,9400244,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_07.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_07.json
+@@ -30,7 +30,7 @@
+       ""default"": 194,
+       ""environmentVariable"": ""JOB_FEATURE_164_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature164.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-164
+- Configuration key: `jobfair_platform.feature164.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_164_TIMEOUT_SECONDS`
+- Documented default: `194`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-164: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f01b8cb541b9578a1c307f9f4b3704ee889c8c7a649b59fbc7bb01ff54906191,d06f4168f7df4b4839dd1a50037dff46446a163eed7b524b3e269a43a9102a47,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-164.patch
+CRPP2-JOB-CONFIGURATION-165,controlled-v2/jobfair-platform-copy,9400245,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_07.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_07.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-165"",
+-      ""default"": 195,
++      ""default"": 225,
+       ""environmentVariable"": ""JOB_FEATURE_165_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature165.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-165
+- Configuration key: `jobfair_platform.feature165.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_165_TIMEOUT_SECONDS`
+- Documented default: `195`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-165: kod mijenja dokumentovanu konfiguraciju iz '195' u '225' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,733ac9d67370c3747b52215a62d605fe1c8b800f2361d98ed09a01b002969fca,fb5b76eaf58dbf1d3a1f3da4a9be2da756bc58c92f586a1c9afc773ff8b17b93,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-165.patch
+CRPP2-JOB-CONFIGURATION-166,controlled-v2/jobfair-platform-copy,9400246,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_07.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_07.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""JOB-CFG-166"",
+       ""default"": 196,
+-      ""environmentVariable"": ""JOB_FEATURE_166_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_166_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature166.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-166
+- Configuration key: `jobfair_platform.feature166.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_166_TIMEOUT_SECONDS`
+- Documented default: `196`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-166: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_166_TIMEOUT_SECONDS' u 'JOB_FEATURE_166_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,29a1f59df2ba8c968e267cc00cab5e0fabd85d6d83743d5f4b7d8607d61b185c,c0e25266498a8e4999c0785c8d5ba7ffc2970467de3f83f46e658d1face47843,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-166.patch
+CRPP2-JOB-CONFIGURATION-167,controlled-v2/jobfair-platform-copy,9400247,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_07.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_07.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_167_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature167.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-168"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-167
+- Configuration key: `jobfair_platform.feature167.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_167_TIMEOUT_SECONDS`
+- Documented default: `197`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-167: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d9b32e724ebc68817776155bc24254fa7879913050081253ba8630758634bae0,312f68b10d2cb4a42b2414520402a4f329e39a4b24c749702a43df6133d5e055,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-167.patch
+CRPP2-JOB-CONFIGURATION-168,controlled-v2/jobfair-platform-copy,9400248,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_07.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_07.json
+@@ -62,7 +62,7 @@
+       ""default"": 198,
+       ""environmentVariable"": ""JOB_FEATURE_168_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature168.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-168
+- Configuration key: `jobfair_platform.feature168.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_168_TIMEOUT_SECONDS`
+- Documented default: `198`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-168: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,520315ca869851c44eeb110b4a1152343e20b74ee375f49b542a25c6d07cf11b,1e748b3464dcf16739a1ee84cba6e046474cf2e87a90013cdde40ac18d46b5c2,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-168.patch
+CRPP2-JOB-CONFIGURATION-169,controlled-v2/jobfair-platform-copy,9400249,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_07.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_07.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-169"",
+-      ""default"": 199,
++      ""default"": 229,
+       ""environmentVariable"": ""JOB_FEATURE_169_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature169.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-169
+- Configuration key: `jobfair_platform.feature169.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_169_TIMEOUT_SECONDS`
+- Documented default: `199`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-169: kod mijenja dokumentovanu konfiguraciju iz '199' u '229' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ff82ec74b450a17d982abe791b4a4cf61b5a0b6c58333a0938f5437a26dc993d,7658ea13d5c01f48214172ef769a074eedd4d80dd293e19a6a24d515be54cef8,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-169.patch
+CRPP2-JOB-CONFIGURATION-170,controlled-v2/jobfair-platform-copy,9400250,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_07.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_07.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""JOB-CFG-170"",
+       ""default"": 200,
+-      ""environmentVariable"": ""JOB_FEATURE_170_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_170_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature170.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-170
+- Configuration key: `jobfair_platform.feature170.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_170_TIMEOUT_SECONDS`
+- Documented default: `200`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-170: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_170_TIMEOUT_SECONDS' u 'JOB_FEATURE_170_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,61bcb8cb8d7b34cd66cd807441c77f1e3fd47de117e22249bd9185830d3bccfa,0d60a54326cb15b0abd89bd975aeed7374b6c0a488e173953b352fe848611e6c,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-170.patch
+CRPP2-JOB-CONFIGURATION-171,controlled-v2/jobfair-platform-copy,9400251,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_08.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_08.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_171_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature171.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-172"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-171
+- Configuration key: `jobfair_platform.feature171.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_171_TIMEOUT_SECONDS`
+- Documented default: `201`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-171: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f6b831c032cfec07a7e3d804c144bcd2fc98437cfa2d9a5665ae7da149a7141f,fee9aa8828a4a2b1d4ed7a0d6e28e82aa28d9ee41aaafa3454a53540c0114691,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-171.patch
+CRPP2-JOB-CONFIGURATION-172,controlled-v2/jobfair-platform-copy,9400252,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_08.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_08.json
+@@ -14,7 +14,7 @@
+       ""default"": 202,
+       ""environmentVariable"": ""JOB_FEATURE_172_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature172.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-172
+- Configuration key: `jobfair_platform.feature172.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_172_TIMEOUT_SECONDS`
+- Documented default: `202`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-172: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,11a92dce18b7605a7d514a83b2875d7d256aa7635d2d878880beaddc60094ce3,01fbb028cd167b0e5bbab63865cb615e41011c032923845ae19794ae825cc7b9,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-172.patch
+CRPP2-JOB-CONFIGURATION-173,controlled-v2/jobfair-platform-copy,9400253,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_08.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_08.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-173"",
+-      ""default"": 203,
++      ""default"": 233,
+       ""environmentVariable"": ""JOB_FEATURE_173_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature173.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-173
+- Configuration key: `jobfair_platform.feature173.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_173_TIMEOUT_SECONDS`
+- Documented default: `203`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-173: kod mijenja dokumentovanu konfiguraciju iz '203' u '233' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8dfb9af466eac2f916ec73ca7e6d6128f60fca8c32f026a4ee04eae197c832c9,8e9cfcb3157531ba7b6b8a41de26424506206c41b577e48f7b85872b3a37a6c3,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-173.patch
+CRPP2-JOB-CONFIGURATION-174,controlled-v2/jobfair-platform-copy,9400254,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_08.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_08.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""JOB-CFG-174"",
+       ""default"": 204,
+-      ""environmentVariable"": ""JOB_FEATURE_174_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_174_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature174.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-174
+- Configuration key: `jobfair_platform.feature174.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_174_TIMEOUT_SECONDS`
+- Documented default: `204`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-174: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_174_TIMEOUT_SECONDS' u 'JOB_FEATURE_174_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c317bbe0eac8444671090fed1fc782ad09a081dedd54c5189fb9e6225d8bfb61,8f768532f6a8b690151ddefbf22f234d9529856f4d513d4b0f3a214eefe72bbc,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-174.patch
+CRPP2-JOB-CONFIGURATION-175,controlled-v2/jobfair-platform-copy,9400255,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_08.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_08.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_175_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature175.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-176"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-175
+- Configuration key: `jobfair_platform.feature175.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_175_TIMEOUT_SECONDS`
+- Documented default: `205`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-175: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e5553baf3431eee4bf00052800813c9acc8d2a185c82ecf86ef4c2331ea63fd7,cde0e3e25c4e1b8bd08f5edb2ecc842c62eaecb642e1fec5af4f116b4c678d8c,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-175.patch
+CRPP2-JOB-CONFIGURATION-176,controlled-v2/jobfair-platform-copy,9400256,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_08.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_08.json
+@@ -46,7 +46,7 @@
+       ""default"": 206,
+       ""environmentVariable"": ""JOB_FEATURE_176_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature176.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-176
+- Configuration key: `jobfair_platform.feature176.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_176_TIMEOUT_SECONDS`
+- Documented default: `206`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-176: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,686f7eb2278b8e14a5016e5f76315fde84148b2b1b93ef40859eb71ef86d5b03,ebb3ecadd4a4905e9e163350b940d080305397f23756ed4f04813b3a271a1cb1,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-176.patch
+CRPP2-JOB-CONFIGURATION-177,controlled-v2/jobfair-platform-copy,9400257,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_08.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_08.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-177"",
+-      ""default"": 207,
++      ""default"": 237,
+       ""environmentVariable"": ""JOB_FEATURE_177_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature177.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-177
+- Configuration key: `jobfair_platform.feature177.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_177_TIMEOUT_SECONDS`
+- Documented default: `207`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-177: kod mijenja dokumentovanu konfiguraciju iz '207' u '237' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f1d932de2006dfb7c04073f7b9834f872fe328e4f451d12eff2f68c177175c2b,fe7fe69b5b68ab29495d4e2a302960f85cc46d21d0a8d67c22d8890d727b3700,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-177.patch
+CRPP2-JOB-CONFIGURATION-178,controlled-v2/jobfair-platform-copy,9400258,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_08.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_08.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""JOB-CFG-178"",
+       ""default"": 208,
+-      ""environmentVariable"": ""JOB_FEATURE_178_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_178_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature178.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-178
+- Configuration key: `jobfair_platform.feature178.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_178_TIMEOUT_SECONDS`
+- Documented default: `208`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-178: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_178_TIMEOUT_SECONDS' u 'JOB_FEATURE_178_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,caa63b692d09603ceeb1c632efdf85d0c0ac6df2ca420011c1ca18cd1fedd07c,eb8a95422f1a54b7ffeb27cb317a70117da8a10f525d0a7caad02c1a3c05c6ff,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-178.patch
+CRPP2-JOB-CONFIGURATION-179,controlled-v2/jobfair-platform-copy,9400259,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_08.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_08.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_179_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature179.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-180"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-179
+- Configuration key: `jobfair_platform.feature179.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_179_TIMEOUT_SECONDS`
+- Documented default: `209`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-179: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8019f118fa16e3d42c03dee5cd3c61e9f79059a0408ce5e9db56652df36cef76,34de6f92a201906372740b8609c20ba1431edba5e28d30bf517a87570c8bc63d,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-179.patch
+CRPP2-JOB-CONFIGURATION-180,controlled-v2/jobfair-platform-copy,9400260,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_08.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_08.json
+@@ -78,7 +78,7 @@
+       ""default"": 210,
+       ""environmentVariable"": ""JOB_FEATURE_180_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature180.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-180
+- Configuration key: `jobfair_platform.feature180.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_180_TIMEOUT_SECONDS`
+- Documented default: `210`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-180: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,afb2dde499fb489e2a314e2d4ed97c235aef3857ee96718ea9c079bbdc11f4d3,a6439f4c0f89fa5bb4f46d710d178d3f0971d87f7b1c48b2fde9014bfd0071ee,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-180.patch
+CRPP2-JOB-CONFIGURATION-181,controlled-v2/jobfair-platform-copy,9400261,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_09.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_09.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""JOB-CFG-181"",
+-      ""default"": 211,
++      ""default"": 241,
+       ""environmentVariable"": ""JOB_FEATURE_181_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature181.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-181
+- Configuration key: `jobfair_platform.feature181.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_181_TIMEOUT_SECONDS`
+- Documented default: `211`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-181: kod mijenja dokumentovanu konfiguraciju iz '211' u '241' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0f9407608928a267e5746a6dffea3f36c72bbcc36b21e4f79c3b3920a4ad1458,f4addbcd6713f1c35d432a790b1d579bffb0bce67d1e1b2be8603189c66ecfe5,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-181.patch
+CRPP2-JOB-CONFIGURATION-182,controlled-v2/jobfair-platform-copy,9400262,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_09.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_09.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""JOB-CFG-182"",
+       ""default"": 212,
+-      ""environmentVariable"": ""JOB_FEATURE_182_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_182_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature182.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-182
+- Configuration key: `jobfair_platform.feature182.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_182_TIMEOUT_SECONDS`
+- Documented default: `212`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-182: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_182_TIMEOUT_SECONDS' u 'JOB_FEATURE_182_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4806500d627ce12433eaa9528c0ca561afa7d58fc4179caed42e9218dc3d4e9d,2c8a07c5168893b19c5cd3c49e5b8f14751ae7e4d67bfe8f6a207b24bee974a8,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-182.patch
+CRPP2-JOB-CONFIGURATION-183,controlled-v2/jobfair-platform-copy,9400263,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_09.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_09.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_183_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature183.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-184"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-183
+- Configuration key: `jobfair_platform.feature183.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_183_TIMEOUT_SECONDS`
+- Documented default: `213`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-183: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7c38fdf543101e2d091f62b6b126dec9a3283730a6bb7c302da5958e61b46cf6,bf30ad46baa70051839835e2e9d5ece1aa644c1645f1d5e1680e03104b823b0e,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-183.patch
+CRPP2-JOB-CONFIGURATION-184,controlled-v2/jobfair-platform-copy,9400264,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_09.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_09.json
+@@ -30,7 +30,7 @@
+       ""default"": 214,
+       ""environmentVariable"": ""JOB_FEATURE_184_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature184.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-184
+- Configuration key: `jobfair_platform.feature184.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_184_TIMEOUT_SECONDS`
+- Documented default: `214`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-184: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,89cf8bbcba010eba0b31aad4c2f861b268775e4fe617c39747a6583654ac7f05,bd1a9c227091d27c8494d055f5385a5690773ceef23ffe0d8bb121b222cdb6d7,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-184.patch
+CRPP2-JOB-CONFIGURATION-185,controlled-v2/jobfair-platform-copy,9400265,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_09.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_09.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-185"",
+-      ""default"": 215,
++      ""default"": 245,
+       ""environmentVariable"": ""JOB_FEATURE_185_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature185.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-185
+- Configuration key: `jobfair_platform.feature185.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_185_TIMEOUT_SECONDS`
+- Documented default: `215`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-185: kod mijenja dokumentovanu konfiguraciju iz '215' u '245' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,110ed983a061f535e7ed8336e02e2074b3d847a8556d194726ba1bc50c54a818,0ee76a68f4e403860008ff18bafb2aa9035b900550d7f723517a2058a173d88e,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-185.patch
+CRPP2-JOB-CONFIGURATION-186,controlled-v2/jobfair-platform-copy,9400266,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_09.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_09.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""JOB-CFG-186"",
+       ""default"": 216,
+-      ""environmentVariable"": ""JOB_FEATURE_186_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_186_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature186.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-186
+- Configuration key: `jobfair_platform.feature186.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_186_TIMEOUT_SECONDS`
+- Documented default: `216`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-186: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_186_TIMEOUT_SECONDS' u 'JOB_FEATURE_186_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6955aef37755ac2b3c48cd189209cb16e47dd2d286ec992c56aa265899a70a5c,326561a8664fcd93bf917f0a4cbc975100591861f6d0f137ccc8e25ab0fd53ae,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-186.patch
+CRPP2-JOB-CONFIGURATION-187,controlled-v2/jobfair-platform-copy,9400267,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_09.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_09.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_187_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature187.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-188"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-187
+- Configuration key: `jobfair_platform.feature187.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_187_TIMEOUT_SECONDS`
+- Documented default: `217`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-187: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,da532df8d3ea1f0f4c078b3afb4f68ebea0a8da8dff7178df02c689a32bbcc79,6e2e66549678ad69cca3f26f308a844a90e6300d8f5aee26feffbba740915bc9,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-187.patch
+CRPP2-JOB-CONFIGURATION-188,controlled-v2/jobfair-platform-copy,9400268,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_09.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_09.json
+@@ -62,7 +62,7 @@
+       ""default"": 218,
+       ""environmentVariable"": ""JOB_FEATURE_188_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature188.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-188
+- Configuration key: `jobfair_platform.feature188.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_188_TIMEOUT_SECONDS`
+- Documented default: `218`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-188: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e2544356ec2d3d8f5adb591388ec991f189773ba14a91b0aea5c667df83c81c6,4f2ace24441b308886d05086f387d74b63cf4eec1cbef7993f6bf7f81c324718,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-188.patch
+CRPP2-JOB-CONFIGURATION-189,controlled-v2/jobfair-platform-copy,9400269,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_09.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_09.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-189"",
+-      ""default"": 219,
++      ""default"": 249,
+       ""environmentVariable"": ""JOB_FEATURE_189_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature189.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-189
+- Configuration key: `jobfair_platform.feature189.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_189_TIMEOUT_SECONDS`
+- Documented default: `219`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-189: kod mijenja dokumentovanu konfiguraciju iz '219' u '249' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,224853f7bb88cc43ba3e1615e311a1a01ce2f945f2690d76c23a8dddefcf3852,1961d3ea833e012b41284abc6caaeacd48ac02b5b8993bcd63fc50fb643c6561,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-189.patch
+CRPP2-JOB-CONFIGURATION-190,controlled-v2/jobfair-platform-copy,9400270,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_09.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_09.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""JOB-CFG-190"",
+       ""default"": 220,
+-      ""environmentVariable"": ""JOB_FEATURE_190_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_190_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature190.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-190
+- Configuration key: `jobfair_platform.feature190.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_190_TIMEOUT_SECONDS`
+- Documented default: `220`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-190: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_190_TIMEOUT_SECONDS' u 'JOB_FEATURE_190_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,03cdce4b7690633c5e65bafa33d9d106cfbf3f1c623000c6a0bc144b6022a1e3,0320e60fd6cb6822aeca54e08fb309781af0dc06f79570b1d47db8074eb314b6,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-190.patch
+CRPP2-JOB-CONFIGURATION-191,controlled-v2/jobfair-platform-copy,9400271,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_10.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_10.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_191_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature191.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-192"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-191
+- Configuration key: `jobfair_platform.feature191.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_191_TIMEOUT_SECONDS`
+- Documented default: `221`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-191: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f526f9a2218db7a4d575adf4ac5c4798bf6842690531abb17582210077c6de35,22a9567ea3159a8a612794a3c3acf0d1d99e10937bba81c3bbe70ad5eab56b4d,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-191.patch
+CRPP2-JOB-CONFIGURATION-192,controlled-v2/jobfair-platform-copy,9400272,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_10.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_10.json
+@@ -14,7 +14,7 @@
+       ""default"": 222,
+       ""environmentVariable"": ""JOB_FEATURE_192_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature192.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-192
+- Configuration key: `jobfair_platform.feature192.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_192_TIMEOUT_SECONDS`
+- Documented default: `222`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-192: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b63b99347d64fe1fba06682b3e0c8ac1dfff7e097d92068f7b588bd18a79905b,6958156ddd70e6dd779d835eb3ab8e14e5c2b44d1fb0a9d55298859fc376106f,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-192.patch
+CRPP2-JOB-CONFIGURATION-193,controlled-v2/jobfair-platform-copy,9400273,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_10.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_10.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-193"",
+-      ""default"": 223,
++      ""default"": 253,
+       ""environmentVariable"": ""JOB_FEATURE_193_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature193.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-193
+- Configuration key: `jobfair_platform.feature193.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_193_TIMEOUT_SECONDS`
+- Documented default: `223`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-193: kod mijenja dokumentovanu konfiguraciju iz '223' u '253' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,69b11c3a9fb482d97e6e82c56e12c0ec331e781cd865e5da51147a2cdc98164b,609c76dab3a55c93a2fa3103dbcda605e15cdd535c5bae7c79929c5bc100420b,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-193.patch
+CRPP2-JOB-CONFIGURATION-194,controlled-v2/jobfair-platform-copy,9400274,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_10.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_10.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""JOB-CFG-194"",
+       ""default"": 224,
+-      ""environmentVariable"": ""JOB_FEATURE_194_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_194_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature194.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-194
+- Configuration key: `jobfair_platform.feature194.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_194_TIMEOUT_SECONDS`
+- Documented default: `224`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-194: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_194_TIMEOUT_SECONDS' u 'JOB_FEATURE_194_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6dbdfdb0efe988c58019c9246cb18dc76140897878d0fb40a949820c4b9821ce,d81e62d838c0b1476c90d86909088fedaeccd153ba41850dc5ff310caaa94cc4,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-194.patch
+CRPP2-JOB-CONFIGURATION-195,controlled-v2/jobfair-platform-copy,9400275,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_10.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_10.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_195_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature195.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-196"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-195
+- Configuration key: `jobfair_platform.feature195.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_195_TIMEOUT_SECONDS`
+- Documented default: `225`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-195: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4988f763c46e5e978c8d00b1c802a90430dd3912af1dfec46df7c60bc3c01d91,56674706b30464f57fb2c5597ed17ffa53300e8a7f437f761da36341c4aff35a,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-195.patch
+CRPP2-JOB-CONFIGURATION-196,controlled-v2/jobfair-platform-copy,9400276,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_10.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_10.json
+@@ -46,7 +46,7 @@
+       ""default"": 226,
+       ""environmentVariable"": ""JOB_FEATURE_196_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature196.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-196
+- Configuration key: `jobfair_platform.feature196.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_196_TIMEOUT_SECONDS`
+- Documented default: `226`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-196: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3d981dd3bb87d9ac49dbb9608b17463e30eba949387065357d27c2fc9705471d,59dc434916d6d8ee2a370d15dc829df908f5d9806bce9c11fb4dc92b88437a2b,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-196.patch
+CRPP2-JOB-CONFIGURATION-197,controlled-v2/jobfair-platform-copy,9400277,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_10.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_10.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-197"",
+-      ""default"": 227,
++      ""default"": 257,
+       ""environmentVariable"": ""JOB_FEATURE_197_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature197.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-197
+- Configuration key: `jobfair_platform.feature197.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_197_TIMEOUT_SECONDS`
+- Documented default: `227`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-197: kod mijenja dokumentovanu konfiguraciju iz '227' u '257' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5041d8e4fcf3bbd1e679e4392f31e917e57c8fc5e59ae735314a514dbd11fb0c,4c0e48b2e9db40d73f315baedb64e1cd3538ac51a6781f7af98618839057f807,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-197.patch
+CRPP2-JOB-CONFIGURATION-198,controlled-v2/jobfair-platform-copy,9400278,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_10.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_10.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""JOB-CFG-198"",
+       ""default"": 228,
+-      ""environmentVariable"": ""JOB_FEATURE_198_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_198_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature198.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-198
+- Configuration key: `jobfair_platform.feature198.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_198_TIMEOUT_SECONDS`
+- Documented default: `228`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-198: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_198_TIMEOUT_SECONDS' u 'JOB_FEATURE_198_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,330f5381a3afa113b031218b22842da2245eaeb8eb73e4b225ee9932d07153e9,6401f64fc95f4ab1d5694f1bbf8c0742e695408dc7f76b21c4d8def29902e366,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-198.patch
+CRPP2-JOB-CONFIGURATION-199,controlled-v2/jobfair-platform-copy,9400279,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_10.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_10.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_199_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature199.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-200"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-199
+- Configuration key: `jobfair_platform.feature199.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_199_TIMEOUT_SECONDS`
+- Documented default: `229`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-199: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b818260cc75af25aa303acfba996b3d5a681f5289ddd8e0a1af008d885ba749f,54f9d5b4788deb304dd5af1063415b49ae846e11dd969e508be2b161e6e6fc03,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-199.patch
+CRPP2-JOB-CONFIGURATION-200,controlled-v2/jobfair-platform-copy,9400280,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_10.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_10.json
+@@ -78,7 +78,7 @@
+       ""default"": 230,
+       ""environmentVariable"": ""JOB_FEATURE_200_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature200.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-200
+- Configuration key: `jobfair_platform.feature200.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_200_TIMEOUT_SECONDS`
+- Documented default: `230`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-200: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,99f481befb3ceb91e76312ed956baf4e6745b8c17e55dea35b64c66aec92b948,fe0dd9e7c06278bd9eadec58e489e64144d056e94da4fb162e84ebe9cd45d237,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-200.patch
+CRPP2-JOB-CONFIGURATION-201,controlled-v2/jobfair-platform-copy,9400281,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_11.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_11.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_11.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""JOB-CFG-201"",
+-      ""default"": 231,
++      ""default"": 261,
+       ""environmentVariable"": ""JOB_FEATURE_201_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature201.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-201
+- Configuration key: `jobfair_platform.feature201.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_201_TIMEOUT_SECONDS`
+- Documented default: `231`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-201: kod mijenja dokumentovanu konfiguraciju iz '231' u '261' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d51c81440e319db0397d847237363bc197afe4391a2f436a09672f41e297ba96,43e1bd49544965cb417568f9c0749f15a78ad0d7bc6b0cc5676f95c18621388e,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-201.patch
+CRPP2-JOB-CONFIGURATION-202,controlled-v2/jobfair-platform-copy,9400282,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_11.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_11.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_11.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""JOB-CFG-202"",
+       ""default"": 232,
+-      ""environmentVariable"": ""JOB_FEATURE_202_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_202_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature202.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-202
+- Configuration key: `jobfair_platform.feature202.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_202_TIMEOUT_SECONDS`
+- Documented default: `232`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-202: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_202_TIMEOUT_SECONDS' u 'JOB_FEATURE_202_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5e514049751f6a45a363f4f7db88cb1d0327e8bcc0f023bad76e733aa1309f55,ae05e3c85523b104159ad12816422f680191970181f24c0a80087b23305b27f2,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-202.patch
+CRPP2-JOB-CONFIGURATION-203,controlled-v2/jobfair-platform-copy,9400283,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_11.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_11.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_11.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_203_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature203.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-204"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-203
+- Configuration key: `jobfair_platform.feature203.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_203_TIMEOUT_SECONDS`
+- Documented default: `233`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-203: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bb5879f1883b79ffb253dbc3e9592bf544fad2337a931de6a9074dba92d15788,0ef7928631eb9b18db99e68126d9543d41cb95791ee83543137f106f4389e89e,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-203.patch
+CRPP2-JOB-CONFIGURATION-204,controlled-v2/jobfair-platform-copy,9400284,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_11.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_11.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_11.json
+@@ -30,7 +30,7 @@
+       ""default"": 234,
+       ""environmentVariable"": ""JOB_FEATURE_204_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature204.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-204
+- Configuration key: `jobfair_platform.feature204.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_204_TIMEOUT_SECONDS`
+- Documented default: `234`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-204: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b8743d9061f2ebc4a2da904bbd2b93774849dba470e26f83d4d57bf61f3f13f7,7a3a6e83562cd1ecd9d8209c4ee77e76090603c787709334ead365efec4d925f,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-204.patch
+CRPP2-JOB-CONFIGURATION-205,controlled-v2/jobfair-platform-copy,9400285,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_11.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_11.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_11.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-205"",
+-      ""default"": 235,
++      ""default"": 265,
+       ""environmentVariable"": ""JOB_FEATURE_205_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature205.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-205
+- Configuration key: `jobfair_platform.feature205.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_205_TIMEOUT_SECONDS`
+- Documented default: `235`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-205: kod mijenja dokumentovanu konfiguraciju iz '235' u '265' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,28361ebee4e5ee93c06d9c313f6ddfd40f887c2ab437f7ba8e73534ab4f3d11f,4b565b72aa0128df274b79097049080c7a362329ae5161148ffc109830f5baea,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-205.patch
+CRPP2-JOB-CONFIGURATION-206,controlled-v2/jobfair-platform-copy,9400286,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_11.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_11.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_11.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""JOB-CFG-206"",
+       ""default"": 236,
+-      ""environmentVariable"": ""JOB_FEATURE_206_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_206_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature206.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-206
+- Configuration key: `jobfair_platform.feature206.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_206_TIMEOUT_SECONDS`
+- Documented default: `236`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-206: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_206_TIMEOUT_SECONDS' u 'JOB_FEATURE_206_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,92ece7dd8562ae6790769105f0f3488aaeaceedfc88bd343386a09ddfe1c9ddd,f13029a7b5977ca2d77ab4eee9eb97225dcb64340ceabdc53a94828c7182cbb7,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-206.patch
+CRPP2-JOB-CONFIGURATION-207,controlled-v2/jobfair-platform-copy,9400287,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_11.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_11.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_11.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_207_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature207.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-208"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-207
+- Configuration key: `jobfair_platform.feature207.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_207_TIMEOUT_SECONDS`
+- Documented default: `237`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-207: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ffab73472360a2e91bc326359f833897da3e28da48b663fd6d7c13dc91030d68,328ecd9eaea89eb544fe2a6ce8372bd0b473613460e49244fdeda9a04540a8c7,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-207.patch
+CRPP2-JOB-CONFIGURATION-208,controlled-v2/jobfair-platform-copy,9400288,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_11.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_11.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_11.json
+@@ -62,7 +62,7 @@
+       ""default"": 238,
+       ""environmentVariable"": ""JOB_FEATURE_208_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature208.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-208
+- Configuration key: `jobfair_platform.feature208.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_208_TIMEOUT_SECONDS`
+- Documented default: `238`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-208: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e92019e039cc289f793156f83cc0c2c048538e7874ca5991ef7b04cfb7fab3e7,e9aefe329e350a523f5e19efdc06d0c36650b9f3c2606a08248938c17bfab229,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-208.patch
+CRPP2-JOB-CONFIGURATION-209,controlled-v2/jobfair-platform-copy,9400289,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_11.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_11.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_11.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-209"",
+-      ""default"": 239,
++      ""default"": 269,
+       ""environmentVariable"": ""JOB_FEATURE_209_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature209.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-209
+- Configuration key: `jobfair_platform.feature209.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_209_TIMEOUT_SECONDS`
+- Documented default: `239`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-209: kod mijenja dokumentovanu konfiguraciju iz '239' u '269' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2d6b8f3af19c94e26fb55cde842006d0273a8e15b15bfa6017bee1d0c9432f28,e1b02f37129f5ee89f01e2ba8121edc635dc0943e3512c83e54a1d5b86c15c83,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-209.patch
+CRPP2-JOB-CONFIGURATION-210,controlled-v2/jobfair-platform-copy,9400290,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_11.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_11.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_11.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""JOB-CFG-210"",
+       ""default"": 240,
+-      ""environmentVariable"": ""JOB_FEATURE_210_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_210_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature210.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-210
+- Configuration key: `jobfair_platform.feature210.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_210_TIMEOUT_SECONDS`
+- Documented default: `240`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-210: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_210_TIMEOUT_SECONDS' u 'JOB_FEATURE_210_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6cd8060576cc05930ca9cb1f63a3a83eb3fed601b30259654ae4e81920e3b1e2,3aeaa91b4d90971fb6837a45c81a9ad995d7cf2c4f4b5760204cd120a3b3a15a,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-210.patch
+CRPP2-JOB-CONFIGURATION-211,controlled-v2/jobfair-platform-copy,9400291,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_12.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_12.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_12.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_211_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature211.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-212"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-211
+- Configuration key: `jobfair_platform.feature211.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_211_TIMEOUT_SECONDS`
+- Documented default: `241`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-211: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,990db61bba0c507a17b54d22572ceaec6eb4708f83ff1f32901d4b6713f4ff18,53e523f94d111416cc1003a2792203f15ae53b33dceb5a1c105b7745c29ee86a,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-211.patch
+CRPP2-JOB-CONFIGURATION-212,controlled-v2/jobfair-platform-copy,9400292,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_12.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_12.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_12.json
+@@ -14,7 +14,7 @@
+       ""default"": 242,
+       ""environmentVariable"": ""JOB_FEATURE_212_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature212.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-212
+- Configuration key: `jobfair_platform.feature212.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_212_TIMEOUT_SECONDS`
+- Documented default: `242`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-212: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ca10946775d31dea697a1b261861a465ca41f3410ddaa6a5291cda1c090f0b55,41cd66b8ac391c71fe0e9abee2547a4470a7343ba489a1d023fa12e4cf3ad96e,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-212.patch
+CRPP2-JOB-CONFIGURATION-213,controlled-v2/jobfair-platform-copy,9400293,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_12.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_12.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_12.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-213"",
+-      ""default"": 243,
++      ""default"": 273,
+       ""environmentVariable"": ""JOB_FEATURE_213_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature213.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-213
+- Configuration key: `jobfair_platform.feature213.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_213_TIMEOUT_SECONDS`
+- Documented default: `243`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-213: kod mijenja dokumentovanu konfiguraciju iz '243' u '273' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ce770de5a312dce3a01fe3cd6d2b64ad823088e1cf33e91c3e55de6b06dd7cff,a89252dbefc992c07a2d983198ce3fbd21c91fead61f8eca05f6dde8ffca9efe,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-213.patch
+CRPP2-JOB-CONFIGURATION-214,controlled-v2/jobfair-platform-copy,9400294,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_12.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_12.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_12.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""JOB-CFG-214"",
+       ""default"": 244,
+-      ""environmentVariable"": ""JOB_FEATURE_214_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_214_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature214.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-214
+- Configuration key: `jobfair_platform.feature214.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_214_TIMEOUT_SECONDS`
+- Documented default: `244`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-214: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_214_TIMEOUT_SECONDS' u 'JOB_FEATURE_214_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,751b4b486fb28bc589a1820d6cab5577202d6d711099724ffa1849fb08434168,c20609e0763d3f281c1ba28defd90f71c2e9e63f5e7d9b2880541d287b355e83,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-214.patch
+CRPP2-JOB-CONFIGURATION-215,controlled-v2/jobfair-platform-copy,9400295,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_12.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_12.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_12.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_215_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature215.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-216"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-215
+- Configuration key: `jobfair_platform.feature215.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_215_TIMEOUT_SECONDS`
+- Documented default: `245`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-215: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6910fbdaced27b911f2d4dc3bf806fe7edb4e5001f7a4068fc56b62cc0d6f57e,a1540db25fe677da4d57896e017f984fa8234426b2ec8fa6caf67c27dd7e8b13,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-215.patch
+CRPP2-JOB-CONFIGURATION-216,controlled-v2/jobfair-platform-copy,9400296,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_12.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_12.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_12.json
+@@ -46,7 +46,7 @@
+       ""default"": 246,
+       ""environmentVariable"": ""JOB_FEATURE_216_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature216.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-216
+- Configuration key: `jobfair_platform.feature216.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_216_TIMEOUT_SECONDS`
+- Documented default: `246`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-216: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d7b6d51a943917238c41cfd440b9d3273b131da77a724c19b112179e13749172,cbc55be77fa1be458a64c781d571488e92af8f5e31172da841e8d73509026133,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-216.patch
+CRPP2-JOB-CONFIGURATION-217,controlled-v2/jobfair-platform-copy,9400297,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_12.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_12.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_12.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""JOB-CFG-217"",
+-      ""default"": 247,
++      ""default"": 277,
+       ""environmentVariable"": ""JOB_FEATURE_217_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature217.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-217
+- Configuration key: `jobfair_platform.feature217.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_217_TIMEOUT_SECONDS`
+- Documented default: `247`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-217: kod mijenja dokumentovanu konfiguraciju iz '247' u '277' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c2a7bd5ddae52038b4c7183c3c8cea1773ea5549f3a8056967a0839cb4cb1473,51eb2a414874f3308e222b75691dfa5ef997529c1b2bbe66fec5c1e72ff5b376,configuration,jobfair_platform,documented_default_change,cases/patches/jobfair_platform/configuration/JOB-CFG-217.patch
+CRPP2-JOB-CONFIGURATION-218,controlled-v2/jobfair-platform-copy,9400298,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_12.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_12.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_12.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""JOB-CFG-218"",
+       ""default"": 248,
+-      ""environmentVariable"": ""JOB_FEATURE_218_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""JOB_FEATURE_218_TIMEOUT_SECONDS_V2"",
+       ""key"": ""jobfair_platform.feature218.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-218
+- Configuration key: `jobfair_platform.feature218.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_218_TIMEOUT_SECONDS`
+- Documented default: `248`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-218: kod mijenja dokumentovanu konfiguraciju iz 'JOB_FEATURE_218_TIMEOUT_SECONDS' u 'JOB_FEATURE_218_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5e4e7a83111ab8acf86e3ddcbd3bf29de1c601322ce5d3e65511cc31e709f9ae,f4a9467133803c05a263faa6d04facf432f420cb0e52bfb8aa60636fe845c852,configuration,jobfair_platform,environment_variable_rename,cases/patches/jobfair_platform/configuration/JOB-CFG-218.patch
+CRPP2-JOB-CONFIGURATION-219,controlled-v2/jobfair-platform-copy,9400299,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_12.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_12.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_12.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""JOB_FEATURE_219_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature219.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""JOB-CFG-220"",
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-219
+- Configuration key: `jobfair_platform.feature219.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_219_TIMEOUT_SECONDS`
+- Documented default: `249`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-219: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8c5eecde9d7aed18ac58b8f20df293d5e7bdb251a6a84bb66229ac17d6330fdc,7dbef7c7b2e3a2851327b57718710ae820b238409376dbdb76c91101db84e578,configuration,jobfair_platform,optional_to_required,cases/patches/jobfair_platform/configuration/JOB-CFG-219.patch
+CRPP2-JOB-CONFIGURATION-220,controlled-v2/jobfair-platform-copy,9400300,typescript,"[""src/docguard-contract-lab-v2/configuration/contracts_12.json""]","--- a/src/docguard-contract-lab-v2/configuration/contracts_12.json
++++ b/src/docguard-contract-lab-v2/configuration/contracts_12.json
+@@ -78,7 +78,7 @@
+       ""default"": 250,
+       ""environmentVariable"": ""JOB_FEATURE_220_TIMEOUT_SECONDS"",
+       ""key"": ""jobfair_platform.feature220.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab-v2/CONFIGURATION.md @ controlled-baseline:71fe0ca693767c4a -->
+### JOB-CFG-220
+- Configuration key: `jobfair_platform.feature220.timeoutSeconds`
+- Environment variable: `JOB_FEATURE_220_TIMEOUT_SECONDS`
+- Documented default: `250`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"JOB-CFG-220: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3c91804e110a2b2980e56c3f8db1e36ba6484f0777309f7f3c8f68a703ff153d,0ee1e72ac6a9fdf845b67dc8124269c20f0d8ba480218d0b873bb2b8fa3ad6ab,configuration,jobfair_platform,configuration_mode_change,cases/patches/jobfair_platform/configuration/JOB-CFG-220.patch

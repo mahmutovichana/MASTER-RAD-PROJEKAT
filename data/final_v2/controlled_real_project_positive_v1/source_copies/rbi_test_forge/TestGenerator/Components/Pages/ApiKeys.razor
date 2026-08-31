@@ -1,0 +1,184 @@
+@page "/api-keys"
+@attribute [Authorize(Roles = AppRoles.Administrator + "," + AppRoles.DevOpsInzenjer)]
+@rendermode InteractiveServer
+@using RBBH.TestAutomation.Api.Services.ApiKeys
+@inject IApiKeyService ApiKeySvc
+@inject IUserContext UserCtx
+@inject ToastService Toast
+@inject IJSRuntime JS
+
+<PageTitle>API Ključevi</PageTitle>
+<PageHeader Title="API Ključevi" Subtitle="Upravljanje ključevima za CI/CD pipeline integraciju" />
+
+@* ── Generisanje novog ključa ──────────────────────────────── *@
+<MudPaper Class="pa-4 mb-4" Elevation="1">
+    <MudText Typo="Typo.h6" Class="mb-3">Generiši novi ključ</MudText>
+    <MudGrid>
+        <MudItem xs="12" sm="5">
+            <MudTextField @bind-Value="_newName" T="string"
+                          Label="Naziv (opis)" Variant="Variant.Outlined"
+                          Placeholder="npr. GitHub Actions - main pipeline" />
+        </MudItem>
+        <MudItem xs="12" sm="4">
+            <MudDatePicker @bind-Date="_newExpiry" Label="Datum isteka (opciono)"
+                           Variant="Variant.Outlined" Clearable="true"
+                           MinDate="DateTime.Today.AddDays(1)" />
+        </MudItem>
+        <MudItem xs="12" sm="3" Class="d-flex align-end">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.Key"
+                       Disabled="@(string.IsNullOrWhiteSpace(_newName) || _isGenerating)"
+                       OnClick="GenerateKey" FullWidth="true">
+                @(_isGenerating ? "Generiše se…" : "Generiši ključ")
+            </MudButton>
+        </MudItem>
+    </MudGrid>
+</MudPaper>
+
+@* ── Prikaz generisanog ključa (samo jednom) ───────────────── *@
+@if (_generatedKey is not null)
+{
+    <MudAlert Severity="Severity.Warning" Class="mb-4" Dense="true"
+              Icon="@Icons.Material.Filled.Warning">
+        <div class="d-flex align-center gap-2 flex-wrap">
+            <MudText><b>Kopiraj ključ sada — neće biti ponovo prikazan:</b></MudText>
+            <MudTextField Value="@_generatedKey" T="string" ReadOnly="true"
+                          Variant="Variant.Outlined" Margin="Margin.Dense"
+                          Style="font-family:monospace; min-width:300px;" />
+            <MudButton StartIcon="@Icons.Material.Filled.ContentCopy"
+                       Variant="Variant.Outlined" Size="Size.Small"
+                       OnClick="CopyKey">Kopiraj</MudButton>
+        </div>
+    </MudAlert>
+}
+
+@* ── Tabela aktivnih ključeva ──────────────────────────────── *@
+<MudPaper Elevation="1">
+    <MudTable Items="@_keys" Dense="true" Hover="true" Loading="@_isLoading"
+              Breakpoint="Breakpoint.Sm" Class="rbi-mobile-cards">
+        <HeaderContent>
+            <MudTh>Naziv</MudTh>
+            <MudTh>Prefix</MudTh>
+            <MudTh>Status</MudTh>
+            <MudTh Style="min-width:100px;">Kreiran</MudTh>
+            <MudTh Style="min-width:100px;">Ističe</MudTh>
+            <MudTh Style="min-width:120px;">Zadnje korišten</MudTh>
+            <MudTh>Akcije</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Naziv">@context.Name</MudTd>
+            <MudTd DataLabel="Prefix"><code>@context.Prefix…</code></MudTd>
+            <MudTd DataLabel="Status">
+                @if (context.IsRevoked)
+                {
+                    <MudChip T="string" Size="Size.Small" Color="Color.Error">Revociran</MudChip>
+                }
+                else if (context.ExpiresAt.HasValue && context.ExpiresAt < DateTime.UtcNow)
+                {
+                    <MudChip T="string" Size="Size.Small" Color="Color.Warning">Istekao</MudChip>
+                }
+                else
+                {
+                    <MudChip T="string" Size="Size.Small" Color="Color.Success">Aktivan</MudChip>
+                }
+            </MudTd>
+            <MudTd DataLabel="Kreiran">@context.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy")</MudTd>
+            <MudTd DataLabel="Ističe">@(context.ExpiresAt?.ToLocalTime().ToString("dd.MM.yyyy") ?? "—")</MudTd>
+            <MudTd DataLabel="Zadnje korišten">@(context.LastUsedAt?.ToLocalTime().ToString("dd.MM.yyyy HH:mm") ?? "Nikada")</MudTd>
+            <MudTd DataLabel="Akcije">
+                @if (!context.IsRevoked)
+                {
+                    <MudButton StartIcon="@Icons.Material.Filled.Block"
+                               Variant="Variant.Outlined" Size="Size.Small"
+                               Color="Color.Error"
+                               OnClick="@(() => RevokeKey(context))">
+                        Revociraj
+                    </MudButton>
+                }
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+</MudPaper>
+
+@* ── Primjeri konfiguracije ────────────────────────────────── *@
+<MudExpansionPanels Class="mt-4">
+    <MudExpansionPanel Text="Primjeri konfiguracije za CI/CD" Icon="@Icons.Material.Filled.Code">
+        <MudText Typo="Typo.subtitle2" Class="mb-2">GitHub Actions</MudText>
+        <MudPaper Class="pa-3 mb-3" Elevation="0" Outlined="true">
+            <pre style="font-size:13px; overflow-x:auto; margin:0;">
+# .github/workflows/test.yml
+- name: Run tests
+  run: |
+    curl -X POST "${{ '{{' }} secrets.TAG_API_URL {{ '}}' }}/api/run/tag/smoke?waitForCompletion=true" \
+      -H "X-Api-Key: ${{ '{{' }} secrets.TAG_API_KEY {{ '}}' }}"
+
+# Repository Settings → Secrets → New:
+#   TAG_API_URL = https://your-server.com
+#   TAG_API_KEY = tag_xxxxxxxxxx...</pre>
+        </MudPaper>
+
+        <MudText Typo="Typo.subtitle2" Class="mb-2">Azure DevOps</MudText>
+        <MudPaper Class="pa-3" Elevation="0" Outlined="true">
+            <pre style="font-size:13px; overflow-x:auto; margin:0;">
+# azure-pipelines.yml
+- script: |
+    curl -X POST "$(TAG_API_URL)/api/run/tag/regression?waitForCompletion=true" \
+      -H "X-Api-Key: $(TAG_API_KEY)"
+
+# Pipelines → Library → Variable Groups → New:
+#   TAG_API_URL = https://your-server.com
+#   TAG_API_KEY = tag_xxxxxxxxxx...</pre>
+        </MudPaper>
+    </MudExpansionPanel>
+</MudExpansionPanels>
+
+@code {
+    private List<ApiKeyDto> _keys = [];
+    private string _newName = "";
+    private DateTime? _newExpiry;
+    private string? _generatedKey;
+    private bool _isLoading = true;
+    private bool _isGenerating;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _keys = [..await ApiKeySvc.GetAllAsync()];
+        _isLoading = false;
+    }
+
+    private async Task GenerateKey()
+    {
+        _isGenerating = true;
+        _generatedKey = null;
+        try
+        {
+            var (dto, rawKey) = await ApiKeySvc.GenerateAsync(
+                _newName.Trim(), _newExpiry, UserCtx.UserId);
+            _generatedKey = rawKey;
+            _newName = "";
+            _newExpiry = null;
+            _keys = [..await ApiKeySvc.GetAllAsync()];
+            Toast.Success("API ključ generisan.");
+        }
+        catch (Exception ex) { Toast.Error(ex.Message); }
+        finally { _isGenerating = false; }
+    }
+
+    private async Task RevokeKey(ApiKeyDto key)
+    {
+        try
+        {
+            await ApiKeySvc.RevokeAsync(key.Id);
+            _keys = [..await ApiKeySvc.GetAllAsync()];
+            Toast.Success($"Ključ \"{key.Name}\" revociran.");
+        }
+        catch (Exception ex) { Toast.Error(ex.Message); }
+    }
+
+    private async Task CopyKey()
+    {
+        if (_generatedKey is null) return;
+        await JS.InvokeVoidAsync("navigator.clipboard.writeText", _generatedKey);
+        Toast.Success("Ključ kopiran u clipboard.");
+    }
+}

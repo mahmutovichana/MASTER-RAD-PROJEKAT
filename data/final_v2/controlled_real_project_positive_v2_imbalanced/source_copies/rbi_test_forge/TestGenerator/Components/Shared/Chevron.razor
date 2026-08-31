@@ -1,0 +1,28 @@
+@* ============================================================
+   Chevron — RBI brand chevron (›) kao čisti SVG
+   ============================================================
+   Upotreba:
+     <Chevron />                          (24px, currentColor)
+     <Chevron Size="48" Color="#FEE600" />
+
+   - Size = visina u px; širina se računa iz omjera (56:88).
+   - Color default "currentColor" → boju nasljeđuje iz roditelja (token/tema),
+     pa ista komponenta radi u AppBar-u, rail footeru i tamnim karticama.
+   - aria-hidden: dekorativni element, screen reader ga preskače.
+   ============================================================ *@
+
+<svg width="@WidthPx" height="@Size" viewBox="0 0 56 88"
+     fill="@Color" xmlns="http://www.w3.org/2000/svg"
+     aria-hidden="true" focusable="false">
+    <path d="M0 0 L56 44 L0 88 L0 66 L34 44 L0 22 Z" />
+</svg>
+
+@code {
+    /// <summary>Visina chevrona u px. Širina se izvodi iz omjera 56:88.</summary>
+    [Parameter] public int Size { get; set; } = 24;
+
+    /// <summary>Boja ispune. Default "currentColor" (nasljeđuje iz roditelja).</summary>
+    [Parameter] public string Color { get; set; } = "currentColor";
+
+    private double WidthPx => Math.Round(Size * 56.0 / 88.0, 2);
+}

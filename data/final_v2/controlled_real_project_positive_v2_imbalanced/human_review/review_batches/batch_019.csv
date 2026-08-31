@@ -1,0 +1,1984 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP2-VAL-DEVELOPER_SETUP-111,controlled-v2/rbi-property-valuation-copy,9401801,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""VAL-SETUP-111"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 111"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 111"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-111"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-111
+- Profile: `developer-profile-111`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 111`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 111`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-111: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7db9329f3156d1f0edc2ff6ff722bdfa03bc1f2909e192f94276e9e38c3d3fa3,df1191ec03e1d33dc0e1a9f0feb90607e20ccef682b24158ce0e943013402d39,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-111.patch
+CRPP2-VAL-DEVELOPER_SETUP-112,controlled-v2/rbi-property-valuation-copy,9401802,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-112"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 112"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 112"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 112 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-112"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-112
+- Profile: `developer-profile-112`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 112`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 112`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-112: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 112' u 'dotnet ef database update --project PropertyValuation --profile 112 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,24b35f36c8735fab066f3dcf3ca22e7332a29ba73d89fee81b37d1ce80d6a4f7,180cd9335f6b19cb29a7c57ce918f965cbe0fd3bae8720e54768494140e04b53,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-112.patch
+CRPP2-VAL-DEVELOPER_SETUP-113,controlled-v2/rbi-property-valuation-copy,9401803,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-113"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-114"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-113
+- Profile: `developer-profile-113`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 113`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 113`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-113: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d290c510272a33e4a965663751b6b4921a5850caadcae34c8242af3030acd4b6,0438d9e2475d2a975268d15f2673fb2f895da9adb77c02da610e7c39b0b47bba,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-113.patch
+CRPP2-VAL-DEVELOPER_SETUP-114,controlled-v2/rbi-property-valuation-copy,9401804,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-114"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 114"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 114 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 114"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-114"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-114
+- Profile: `developer-profile-114`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 114`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 114`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-114: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 114' u 'dotnet run --project PropertyValuation -- --profile 114 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,42bd0c328d188d3be471e160152ab83cd42568449804497ce9ad345163a2b232,c3efd92da655489066307a6643f858852b80585de112c44fb5c7e207055c0c95,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-114.patch
+CRPP2-VAL-DEVELOPER_SETUP-115,controlled-v2/rbi-property-valuation-copy,9401805,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""VAL-SETUP-115"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 115"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 115"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-115"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-115
+- Profile: `developer-profile-115`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 115`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 115`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-115: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c7124690af59b8ad8c3e77463406e407e6db0484f48213d2eaa3387e7c373df4,563dab28f4991503a4df610c1d04d6fbfcf2f197fdc3f32ed9d6a0b9c1ac2dd2,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-115.patch
+CRPP2-VAL-DEVELOPER_SETUP-116,controlled-v2/rbi-property-valuation-copy,9401806,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-116"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 116"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 116"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 116 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-116"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-116
+- Profile: `developer-profile-116`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 116`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 116`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-116: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 116' u 'dotnet ef database update --project PropertyValuation --profile 116 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fa93b458ae32809e8369eaa8c67be9ef047367f973b0241c9685e92a15cd5a3b,3740f2f966752c7d54c697dfdd79b9d8e6544f53a581daae566ac065a2f07125,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-116.patch
+CRPP2-VAL-DEVELOPER_SETUP-117,controlled-v2/rbi-property-valuation-copy,9401807,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-117"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-118"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-117
+- Profile: `developer-profile-117`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 117`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 117`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-117: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,014a1a53950b00728a32250c79f21ac7e3e23cbcbfe831eff45b1311b996777a,640ad908c779838f0c56d7701a0917b60ad1c8c7b4f94f5749459c9659f59f5a,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-117.patch
+CRPP2-VAL-DEVELOPER_SETUP-118,controlled-v2/rbi-property-valuation-copy,9401808,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-118"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 118"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 118 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 118"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-118"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-118
+- Profile: `developer-profile-118`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 118`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 118`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-118: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 118' u 'dotnet run --project PropertyValuation -- --profile 118 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e634cfdba898865caca0adba9d81656d75cf647408eef7904da9271cad64fd9c,441b97b675498d600416d9ab68239a32b01bbb68417f9989e2068b512989a4b4,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-118.patch
+CRPP2-VAL-DEVELOPER_SETUP-119,controlled-v2/rbi-property-valuation-copy,9401809,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""VAL-SETUP-119"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 119"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 119"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-119"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-119
+- Profile: `developer-profile-119`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 119`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 119`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-119: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5e7378770a5bc3fed7a8f74222e4692e121b0d2dab830a61ff73cc22cebebcc7,3ebbab68248e82e6b5f176e313ba73b81515da014c0aff72440e7073aa5b1fd3,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-119.patch
+CRPP2-VAL-DEVELOPER_SETUP-120,controlled-v2/rbi-property-valuation-copy,9401810,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_02.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-120"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 120"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 120"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 120 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-120"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-120
+- Profile: `developer-profile-120`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 120`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 120`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-120: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 120' u 'dotnet ef database update --project PropertyValuation --profile 120 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,065b9bd81ec8505e3b8cc87a18b1db72d53ad8bb2d2367791048d7e497e683ee,2d863708e952a7be5f167e795303b697acdde594f742fe1cda4105a55e58aca3,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-120.patch
+CRPP2-VAL-DEVELOPER_SETUP-121,controlled-v2/rbi-property-valuation-copy,9401811,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-121"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-122"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-121
+- Profile: `developer-profile-121`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 121`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 121`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-121: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c2976bf30422e3d6d61d70d21cfc0609a37de0441e05cc5532dc202ba32b5052,09793a7abbe40fc5a7ef34c338631c93f26d379bde72fe60d688bcce28ccdb8f,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-121.patch
+CRPP2-VAL-DEVELOPER_SETUP-122,controlled-v2/rbi-property-valuation-copy,9401812,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-122"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 122"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 122 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 122"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-122"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-122
+- Profile: `developer-profile-122`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 122`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 122`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-122: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 122' u 'dotnet run --project PropertyValuation -- --profile 122 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7f0affe688c0be2be1d68e1bd9cec915bbe1f12e666e9603840c4220f92c43d8,64cddae944b7103747bc379115f7c3b144ac1a50deac5e4697c5ad8c59c5dd4d,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-122.patch
+CRPP2-VAL-DEVELOPER_SETUP-123,controlled-v2/rbi-property-valuation-copy,9401813,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""VAL-SETUP-123"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 123"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 123"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-123"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-123
+- Profile: `developer-profile-123`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 123`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 123`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-123: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d746e64f790bbb009d57ad895ae04d56234487f77feb2679364b081f1a4c0e4f,d98cd3f2c559a2694adfb6602b87755c595b1199a37182c2e9a5b96e7a4af1eb,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-123.patch
+CRPP2-VAL-DEVELOPER_SETUP-124,controlled-v2/rbi-property-valuation-copy,9401814,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-124"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 124"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 124"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 124 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-124"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-124
+- Profile: `developer-profile-124`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 124`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 124`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-124: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 124' u 'dotnet ef database update --project PropertyValuation --profile 124 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,324752312a70fa84eabbe3d84022638aedb5e1e9430462f422ba26c23fd22592,a3ee5c5b3e69fa6dc4d523f90b1d8fcd0219d2fbf465beee1ce56ef94dc04e54,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-124.patch
+CRPP2-VAL-DEVELOPER_SETUP-125,controlled-v2/rbi-property-valuation-copy,9401815,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-125"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-126"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-125
+- Profile: `developer-profile-125`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 125`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 125`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-125: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,620ab365fae383cf0e82ba483ae15cb067827ca1dd38fb41ab78d42e0c2299f6,448b237384af79d4d2eccca87f3b70ff3bf173dcc9e97a4e051d93295e2b3e85,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-125.patch
+CRPP2-VAL-DEVELOPER_SETUP-126,controlled-v2/rbi-property-valuation-copy,9401816,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-126"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 126"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 126 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 126"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-126"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-126
+- Profile: `developer-profile-126`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 126`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 126`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-126: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 126' u 'dotnet run --project PropertyValuation -- --profile 126 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b6965f312951dd93faeee9ba0798b162eca189b8198af97911b47721b7a6f67c,7752f0932c67404aa1d40f9d70638b3fc9520ae8dc84d4d70827fc3587544acd,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-126.patch
+CRPP2-VAL-DEVELOPER_SETUP-127,controlled-v2/rbi-property-valuation-copy,9401817,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""VAL-SETUP-127"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 127"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 127"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-127"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-127
+- Profile: `developer-profile-127`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 127`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 127`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-127: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,47f6cec7b7fb85374000fc777ce36a5c22eb639ac37e6bbcbcb2d15b11e7234b,4f08301fcef5b3ca7161ec2354b9d7b2b743f1dd81c6d11cd6c1b2c23a7ee7b1,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-127.patch
+CRPP2-VAL-DEVELOPER_SETUP-128,controlled-v2/rbi-property-valuation-copy,9401818,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-128"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 128"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 128"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 128 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-128"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-128
+- Profile: `developer-profile-128`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 128`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 128`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-128: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 128' u 'dotnet ef database update --project PropertyValuation --profile 128 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,956bb2caff906514517c5c8d43f9405bfda9ef0d61d408fb5776864722bb7222,c3e6dfe42666803f5722f1b1e589da8b7d3e60fe67640ebf2eeceb6325ec9ca2,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-128.patch
+CRPP2-VAL-DEVELOPER_SETUP-129,controlled-v2/rbi-property-valuation-copy,9401819,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-129"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-130"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-129
+- Profile: `developer-profile-129`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 129`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 129`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-129: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f374fdef77dd4a4951428296ba8874005999351b460bf85ad7db131ab1279619,0da0f42a356e34ce98b5d27a414d15dd944cdf5e1c00e96cb74edee922cfff4d,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-129.patch
+CRPP2-VAL-DEVELOPER_SETUP-130,controlled-v2/rbi-property-valuation-copy,9401820,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_03.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-130"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 130"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 130 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 130"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-130"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-130
+- Profile: `developer-profile-130`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 130`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 130`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-130: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 130' u 'dotnet run --project PropertyValuation -- --profile 130 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aae50b214deba3bc45afe200ddcf3f0964557e8a38aee8bed763ee9e409b1c71,b665d87384f06159921f00abc77b1c3470a09b3fe0cd9d195f8510739972feac,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-130.patch
+CRPP2-VAL-DEVELOPER_SETUP-131,controlled-v2/rbi-property-valuation-copy,9401821,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""VAL-SETUP-131"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 131"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 131"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-131"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-131
+- Profile: `developer-profile-131`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 131`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 131`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-131: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d9ff13cb6fbd299b4d9be9358faf907e37b38f4f04d4c60d579e1761b3761caa,2fa1561ba01e20a061d56cc0dfa8f36ea03aa29a61b1d44bd974e67fae6246fb,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-131.patch
+CRPP2-VAL-DEVELOPER_SETUP-132,controlled-v2/rbi-property-valuation-copy,9401822,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-132"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 132"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 132"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 132 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-132"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-132
+- Profile: `developer-profile-132`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 132`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 132`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-132: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 132' u 'dotnet ef database update --project PropertyValuation --profile 132 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,11a7b5b632ce0bd9f8b5d28ed25c3320d935d9ebef9703436e16ae9ea137743b,5ab13924bb3fd195e3e9e5bb325f2604bbbaf8a1d5d9d04310613dadbbb58ee5,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-132.patch
+CRPP2-VAL-DEVELOPER_SETUP-133,controlled-v2/rbi-property-valuation-copy,9401823,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-133"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-134"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-133
+- Profile: `developer-profile-133`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 133`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 133`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-133: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6424b6a33b6fb7e25de52e64d6e1718813c2a653cec4055ac837bdcfd9359395,77de6d24eb2299d1a6f411b79fb831164379c1fbb306e98dc7776665e0ed458d,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-133.patch
+CRPP2-VAL-DEVELOPER_SETUP-134,controlled-v2/rbi-property-valuation-copy,9401824,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-134"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 134"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 134 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 134"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-134"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-134
+- Profile: `developer-profile-134`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 134`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 134`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-134: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 134' u 'dotnet run --project PropertyValuation -- --profile 134 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6a482b56b26303e0a50dd1cdbd14862e708f44a74515598bc0f12820cc3d0551,91ebb50096ef059e90ff4e0e7aae7089f3273efec586fc5348cf82121498b3d9,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-134.patch
+CRPP2-VAL-DEVELOPER_SETUP-135,controlled-v2/rbi-property-valuation-copy,9401825,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""VAL-SETUP-135"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 135"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 135"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-135"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-135
+- Profile: `developer-profile-135`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 135`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 135`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-135: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,32b148a295aae93504fb484de51b26704879f11a5e468ff749f5b8c39bc89955,ded5b69cdd33d26ad175b708fb238990ec6e27db40eee041be4f78ab061bfb82,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-135.patch
+CRPP2-VAL-DEVELOPER_SETUP-136,controlled-v2/rbi-property-valuation-copy,9401826,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-136"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 136"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 136"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 136 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-136"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-136
+- Profile: `developer-profile-136`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 136`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 136`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-136: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 136' u 'dotnet ef database update --project PropertyValuation --profile 136 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,24b309f8107287b2db6f78fb61d0b056c73a7ab8ea5a2b7fed2f437d38b5dd65,bd6d43565c6b793cc87635b82c7bc0de65b01606a61af4d3c028b7e8aabb536e,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-136.patch
+CRPP2-VAL-DEVELOPER_SETUP-137,controlled-v2/rbi-property-valuation-copy,9401827,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-137"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-138"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-137
+- Profile: `developer-profile-137`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 137`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 137`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-137: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,de23b2df36e82ee82a067ca97f3caba79d3f20ad3937b25082210b22cbe77a7a,202e300dab2f031d73095cf8ca817abe968ad69eacb05964be094a62789ba734,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-137.patch
+CRPP2-VAL-DEVELOPER_SETUP-138,controlled-v2/rbi-property-valuation-copy,9401828,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-138"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 138"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 138 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 138"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-138"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-138
+- Profile: `developer-profile-138`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 138`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 138`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-138: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 138' u 'dotnet run --project PropertyValuation -- --profile 138 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d0477951094e98be3b9d664349f3cf028a757a24bb337031d8d4f7f09dae5f51,334ac6e9fb701280ea32a164597febaad111413f18b3c56beac3a83b1a2e9c1c,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-138.patch
+CRPP2-VAL-DEVELOPER_SETUP-139,controlled-v2/rbi-property-valuation-copy,9401829,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""VAL-SETUP-139"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 139"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 139"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-139"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-139
+- Profile: `developer-profile-139`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 139`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 139`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-139: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3d76d1db3ba95804dc15721d2c28f77f1362ef85662a95aa4e7a4a89502f2ec5,1ff9ee5e9211e4ab15c3db63bef93a25d0c87804261b324c5b97f337d358e9e7,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-139.patch
+CRPP2-VAL-DEVELOPER_SETUP-140,controlled-v2/rbi-property-valuation-copy,9401830,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_04.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-140"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 140"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 140"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 140 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-140"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-140
+- Profile: `developer-profile-140`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 140`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 140`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-140: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 140' u 'dotnet ef database update --project PropertyValuation --profile 140 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,63b713a2f0634e1d959b53169339fedcf7d3474bd27e52ecd16c37e3a10b1568,46be25a471cd1cca4a22a820ffc33ba0290428dbdf2e10bd8f679b7d260ba189,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-140.patch
+CRPP2-VAL-DEVELOPER_SETUP-141,controlled-v2/rbi-property-valuation-copy,9401831,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-141"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-142"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-141
+- Profile: `developer-profile-141`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 141`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 141`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-141: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e6543c2ba4a84788cdaff70836431f0630782cbfdf74128aba14d78e64bcc35a,c1ada9d01a30adb288dec1564c471caffb5454ab0879855ef4263922a59f1bf7,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-141.patch
+CRPP2-VAL-DEVELOPER_SETUP-142,controlled-v2/rbi-property-valuation-copy,9401832,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-142"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 142"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 142 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 142"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-142"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-142
+- Profile: `developer-profile-142`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 142`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 142`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-142: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 142' u 'dotnet run --project PropertyValuation -- --profile 142 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4ebab4917dd290b5c8a83a01fff010161d5bbcf2d5748a8163acd0ba735bf993,a089c83b9e3fdf1aab81a79cbc4f0b95b3710f519c5db77e8ad8e0adbc14ee21,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-142.patch
+CRPP2-VAL-DEVELOPER_SETUP-143,controlled-v2/rbi-property-valuation-copy,9401833,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""VAL-SETUP-143"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 143"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 143"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-143"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-143
+- Profile: `developer-profile-143`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 143`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 143`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-143: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e5699ff54099cfdbbbc7d0a85e2270ca1cb623d19d5be9453f998533c5136c3b,ae125c7033c3095ec73adacfca74f3d977e96c4393a27daa2c3e5e327830258a,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-143.patch
+CRPP2-VAL-DEVELOPER_SETUP-144,controlled-v2/rbi-property-valuation-copy,9401834,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-144"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 144"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 144"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 144 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-144"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-144
+- Profile: `developer-profile-144`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 144`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 144`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-144: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 144' u 'dotnet ef database update --project PropertyValuation --profile 144 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,45dcecb08b3ae1568ff94c119159069986e71356f435f0a9d338627e6a25cdac,9b19ae810142615d5f88c31eaed2239de3cecaf35e3abb9a6de2e57d532e80c5,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-144.patch
+CRPP2-VAL-DEVELOPER_SETUP-145,controlled-v2/rbi-property-valuation-copy,9401835,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-145"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-146"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-145
+- Profile: `developer-profile-145`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 145`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 145`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-145: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5066532fab628f6b154d0009ac8135a5cda15b0f83a0fa2c06516ae32ecd8d01,690f25baf7ad46c9fca78f06e12ac3ca8154f23ece58446a2ed04fc779f29fb5,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-145.patch
+CRPP2-VAL-DEVELOPER_SETUP-146,controlled-v2/rbi-property-valuation-copy,9401836,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-146"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 146"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 146 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 146"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-146"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-146
+- Profile: `developer-profile-146`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 146`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 146`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-146: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 146' u 'dotnet run --project PropertyValuation -- --profile 146 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,42c6141ab751c04040f54c9e43b221ff4aa91f7ca1c0e825e04c4389f4ae8a1b,b2a93f50f0440d9c9007e3aeb8bdbb6af3795adda8c2f7c6a79156c4fa5c2ae7,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-146.patch
+CRPP2-VAL-DEVELOPER_SETUP-147,controlled-v2/rbi-property-valuation-copy,9401837,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""VAL-SETUP-147"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 147"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 147"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-147"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-147
+- Profile: `developer-profile-147`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 147`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 147`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-147: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,42f8467a800874f2dc484a2714f485be1772e39283a303e8f99325b448000616,cae185c23e81d4498bd03a0e387f04eda5b23e818bbf65d250298847f51bbbad,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-147.patch
+CRPP2-VAL-DEVELOPER_SETUP-148,controlled-v2/rbi-property-valuation-copy,9401838,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-148"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 148"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 148"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 148 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-148"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-148
+- Profile: `developer-profile-148`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 148`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 148`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-148: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 148' u 'dotnet ef database update --project PropertyValuation --profile 148 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fa0ff0ba1d78ecbf1374869fb0bcc0935bc9bc73b27f5411ca17fd1f64bcf6fe,2a37aa550e738c2bc43790825a30edc9ad5c9ff103d281e6cb1ccb01aa9d775b,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-148.patch
+CRPP2-VAL-DEVELOPER_SETUP-149,controlled-v2/rbi-property-valuation-copy,9401839,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-149"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-150"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-149
+- Profile: `developer-profile-149`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 149`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 149`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-149: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1564d3682d8b72625822637fdf98b924bb7c3586e1c52d50b019e753f9c3d64c,ce5f5a19a67c5cfb7251bb9e368abb86b590e6a0727a3604d6fc54cedf84a3b0,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-149.patch
+CRPP2-VAL-DEVELOPER_SETUP-150,controlled-v2/rbi-property-valuation-copy,9401840,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_05.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-150"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 150"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 150 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 150"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-150"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-150
+- Profile: `developer-profile-150`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 150`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 150`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-150: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 150' u 'dotnet run --project PropertyValuation -- --profile 150 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b4a8b5b5ac7d737a8d13924b04aa239247c980f1532ca3a7c3e2fb04d17117a4,4a0ef5fc7c36ebee3b5a0aaae36ad28400bcfd326ab317a09c241061070b1bfd,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-150.patch
+CRPP2-VAL-DEVELOPER_SETUP-151,controlled-v2/rbi-property-valuation-copy,9401841,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""VAL-SETUP-151"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 151"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 151"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-151"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-151
+- Profile: `developer-profile-151`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 151`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 151`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-151: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fff2a2c78bd6f20b70a2f53113f55c5ddc03605c10208965471385120cf041db,fdec8d2556c0f1dffcd23c54e0b37e5b2864ae38f0eb7ccd85a9717735b686ff,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-151.patch
+CRPP2-VAL-DEVELOPER_SETUP-152,controlled-v2/rbi-property-valuation-copy,9401842,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-152"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 152"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 152"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 152 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-152"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-152
+- Profile: `developer-profile-152`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 152`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 152`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-152: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 152' u 'dotnet ef database update --project PropertyValuation --profile 152 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aa83d1f521390313817f0212a1488a9bf45ba6b00f37d1406b0ab18c1a59940f,475899c96bb1ab2197cb3c1963e761f89b73d88fb6c38ad97a880519b6f877d2,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-152.patch
+CRPP2-VAL-DEVELOPER_SETUP-153,controlled-v2/rbi-property-valuation-copy,9401843,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-153"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-154"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-153
+- Profile: `developer-profile-153`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 153`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 153`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-153: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,79e1cb477f23d4bb1ce7d1f156e7a914c4ab2584546816940ff05edd3546e71f,6c2927e4447ce5a748ece2fea55309f13546bfde2d072378e65f93df9a350de2,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-153.patch
+CRPP2-VAL-DEVELOPER_SETUP-154,controlled-v2/rbi-property-valuation-copy,9401844,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-154"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 154"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 154 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 154"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-154"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-154
+- Profile: `developer-profile-154`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 154`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 154`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-154: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 154' u 'dotnet run --project PropertyValuation -- --profile 154 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2c74a5aecc7bf709ae4844a9aa4d90316f8f3043c6976d0c26794ada59fb45b7,413f74b5d7d388dda8d5f95ef912090c6a273e1d5e8f8759dc3a4cecbd8bd027,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-154.patch
+CRPP2-VAL-DEVELOPER_SETUP-155,controlled-v2/rbi-property-valuation-copy,9401845,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""VAL-SETUP-155"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 155"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 155"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-155"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-155
+- Profile: `developer-profile-155`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 155`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 155`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-155: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,12814ab929bc40adca8d6b27539e882c363042e7f84ef1c7bc79d47e2a9de98b,c3b9dacfb80805d74675a53720fb48774ade986a90e4b0e9e8526e34218b7289,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-155.patch
+CRPP2-VAL-DEVELOPER_SETUP-156,controlled-v2/rbi-property-valuation-copy,9401846,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-156"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 156"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 156"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 156 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-156"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-156
+- Profile: `developer-profile-156`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 156`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 156`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-156: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 156' u 'dotnet ef database update --project PropertyValuation --profile 156 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,635df4401ff4ee3506fc7185871f927aa3ee5acdf40c47dbf20af2882e0df8ba,3c385fe943e87aa515923d422f8c4a6e06af80ef8c71bed9113acf4d2aebca63,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-156.patch
+CRPP2-VAL-DEVELOPER_SETUP-157,controlled-v2/rbi-property-valuation-copy,9401847,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-157"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-158"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-157
+- Profile: `developer-profile-157`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 157`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 157`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-157: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,76491a7cf753a8981f9f67c3a0a3f741d209160a1dbca35834d9905acf0dcbf7,4b59d403bb0ed057845fce10efe523ba8f3531be6a4c24c6bec1a51a7f9691d1,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-157.patch
+CRPP2-VAL-DEVELOPER_SETUP-158,controlled-v2/rbi-property-valuation-copy,9401848,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-158"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 158"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 158 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 158"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-158"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-158
+- Profile: `developer-profile-158`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 158`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 158`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-158: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 158' u 'dotnet run --project PropertyValuation -- --profile 158 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,46e76b5245f1af02908697a0daab87b65ffdc9c660da3e255e0184eaeb7e24e8,eef935c950c3ce351d0f0e4f500401cc7a17315df7e04ffa589ac8cb285a7aac,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-158.patch
+CRPP2-VAL-DEVELOPER_SETUP-159,controlled-v2/rbi-property-valuation-copy,9401849,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""VAL-SETUP-159"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 159"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 159"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-159"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-159
+- Profile: `developer-profile-159`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 159`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 159`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-159: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c5fa34e492f68df16f04051cbaff00525b214b0ad67cb46f5c99edbc033011ed,36eb8a3bcd6d280de4952e357e16a08a32dd0af7c54cfcf62680a455397a12fa,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-159.patch
+CRPP2-VAL-DEVELOPER_SETUP-160,controlled-v2/rbi-property-valuation-copy,9401850,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_06.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-160"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 160"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 160"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 160 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-160"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-160
+- Profile: `developer-profile-160`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 160`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 160`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-160: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 160' u 'dotnet ef database update --project PropertyValuation --profile 160 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,40a2a1c1d229e4527b98bd400143e07f3a30ba76486fd449e43d6f01625a0efa,6fc16b1160143e3e7c4588ddd2ee4f6961a1468e5a7844faedc2e8c0620eb8e0,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-160.patch
+CRPP2-VAL-DEVELOPER_SETUP-161,controlled-v2/rbi-property-valuation-copy,9401851,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-161"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-162"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-161
+- Profile: `developer-profile-161`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 161`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 161`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-161: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,84ee20c1d422beaecb3ad8c4232e340a55f33d0c610e6d67602bbc10c5530d23,6c50903d7a7e71e0cba06be168555c51475b9e37f9bf9258a661531afc69d429,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-161.patch
+CRPP2-VAL-DEVELOPER_SETUP-162,controlled-v2/rbi-property-valuation-copy,9401852,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-162"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 162"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 162 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 162"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-162"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-162
+- Profile: `developer-profile-162`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 162`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 162`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-162: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 162' u 'dotnet run --project PropertyValuation -- --profile 162 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,723a041afe8d3a81e796f74ce01d8bfd8436d031d42511e5a193029407d4cc83,ca94d67bb22c01b7ea2491bc403be2e470f4c08055e455fd92bdb92d114e22d0,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-162.patch
+CRPP2-VAL-DEVELOPER_SETUP-163,controlled-v2/rbi-property-valuation-copy,9401853,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""VAL-SETUP-163"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 163"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 163"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-163"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-163
+- Profile: `developer-profile-163`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 163`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 163`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-163: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b4ec53f453b0890612687f4a20d00628b628b3776b44b3b2b8c1344c7066e8fa,346f1b732c9a132a2e202c6cb931fdedc8dabd1b94c706887f530f12b8b8adc9,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-163.patch
+CRPP2-VAL-DEVELOPER_SETUP-164,controlled-v2/rbi-property-valuation-copy,9401854,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-164"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 164"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 164"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 164 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-164"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-164
+- Profile: `developer-profile-164`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 164`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 164`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-164: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 164' u 'dotnet ef database update --project PropertyValuation --profile 164 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f1f4830e44ba4cbc8ec8785e2b0e774bd967687b5c310f703de1e76d32ea9549,e9de1e084f5d456e30d8ec9004b510990ba8f74228b7ae69b9f7854b3bad0185,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-164.patch
+CRPP2-VAL-DEVELOPER_SETUP-165,controlled-v2/rbi-property-valuation-copy,9401855,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-165"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-166"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-165
+- Profile: `developer-profile-165`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 165`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 165`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-165: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0387f1c00ac77954aad54e6d7037874bcb92bc80c267dd74610a3e0017b8818e,b503e78cbb7e0c7cc23a44ff33bfc58246878322a76610078a52ae1d0a957582,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-165.patch
+CRPP2-VAL-DEVELOPER_SETUP-166,controlled-v2/rbi-property-valuation-copy,9401856,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-166"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 166"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 166 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 166"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-166"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-166
+- Profile: `developer-profile-166`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 166`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 166`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-166: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 166' u 'dotnet run --project PropertyValuation -- --profile 166 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9a90e8e36a1f694951c3424c3c20231cc02621fc44a9ca990c1945cdd69c30d2,2578f74513f831ede6e777014bdff0c7527fcafd78fa0cc896339ede5b445666,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-166.patch
+CRPP2-VAL-DEVELOPER_SETUP-167,controlled-v2/rbi-property-valuation-copy,9401857,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""VAL-SETUP-167"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 167"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 167"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-167"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-167
+- Profile: `developer-profile-167`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 167`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 167`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-167: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b53d521b1ee19329cfc6763a28c4eb6662c519430067aacb741b64f769bf62e7,fe0b20d5c04253f58964d2f00526fc1f6f58b90600581e7132dccc237fd75817,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-167.patch
+CRPP2-VAL-DEVELOPER_SETUP-168,controlled-v2/rbi-property-valuation-copy,9401858,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-168"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 168"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 168"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 168 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-168"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-168
+- Profile: `developer-profile-168`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 168`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 168`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-168: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 168' u 'dotnet ef database update --project PropertyValuation --profile 168 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5245ddaa6f14d4ed39a7175523ed461943db4b2bffff0e02e1662a9b4fe4b77a,bb226c0629acba203d101bcbb1070649864a73554f9acf70d2f6b1c6240428c6,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-168.patch
+CRPP2-VAL-DEVELOPER_SETUP-169,controlled-v2/rbi-property-valuation-copy,9401859,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-169"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-170"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-169
+- Profile: `developer-profile-169`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 169`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 169`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-169: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8a691997004713a2e49a1c475332a8a80ff7d2bbda3c20148330fe22c3e8fcc2,c73b545df0003f3c5355939ddda977f59ec4d68d57a5cab86437e19c0450534d,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-169.patch
+CRPP2-VAL-DEVELOPER_SETUP-170,controlled-v2/rbi-property-valuation-copy,9401860,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_07.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-170"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 170"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 170 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 170"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-170"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-170
+- Profile: `developer-profile-170`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 170`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 170`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-170: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 170' u 'dotnet run --project PropertyValuation -- --profile 170 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,db078fa6ff4961bf93afc100415e2c9fe252f79c814de4ca333cd197118661eb,1020ab93a3efaba4d9faca658bb86c096e74e3375c9bfadc53357a95c2960b37,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-170.patch
+CRPP2-VAL-DEVELOPER_SETUP-171,controlled-v2/rbi-property-valuation-copy,9401861,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""VAL-SETUP-171"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 171"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 171"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-171"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-171
+- Profile: `developer-profile-171`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 171`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 171`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-171: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b74f94896d9706db7a8223f1999c805d270af5fcda0e6d3732783d934dc47c30,6cfb9901f31338884a1293832384b5bbcc4e41658df17979c34e06ac238b6417,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-171.patch
+CRPP2-VAL-DEVELOPER_SETUP-172,controlled-v2/rbi-property-valuation-copy,9401862,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-172"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 172"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 172"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 172 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-172"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-172
+- Profile: `developer-profile-172`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 172`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 172`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-172: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 172' u 'dotnet ef database update --project PropertyValuation --profile 172 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6d9245084586058dd2da6b0bacbddc7a5382a9e67b86c57f85884475812abd35,f114d9883d438c2b0f3cd4ac37d47395eb010cb2872402672dfb86ae14d1c252,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-172.patch
+CRPP2-VAL-DEVELOPER_SETUP-173,controlled-v2/rbi-property-valuation-copy,9401863,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-173"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-174"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-173
+- Profile: `developer-profile-173`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 173`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 173`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-173: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2c061b8a28aca02d01f69a8f2daae0239bd4d5f1e6f4f0589a2648ce0811e441,b627e5571a1339ab95cfed033d31cfc7f0093482d00065aadaad259d44611fe1,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-173.patch
+CRPP2-VAL-DEVELOPER_SETUP-174,controlled-v2/rbi-property-valuation-copy,9401864,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-174"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 174"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 174 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 174"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-174"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-174
+- Profile: `developer-profile-174`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 174`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 174`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-174: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 174' u 'dotnet run --project PropertyValuation -- --profile 174 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2cd71a9f48099e72901fb7c02b90d8bd83d7fed4e07f478478c8b4da966f4247,04a7f4f2e981dae6098f85734bb3e57257d9dcc4dd8428f0812785077c1e1d95,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-174.patch
+CRPP2-VAL-DEVELOPER_SETUP-175,controlled-v2/rbi-property-valuation-copy,9401865,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""VAL-SETUP-175"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 175"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 175"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-175"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-175
+- Profile: `developer-profile-175`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 175`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 175`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-175: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,98e7ed17ce47c8f241c427900a22922d751b3c7e3f85a2d9caf8908128b8eb62,c81423f8b40fb46f6ec60105f0b0eb11cc94f2eee1ba262100c70c315df78bef,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-175.patch
+CRPP2-VAL-DEVELOPER_SETUP-176,controlled-v2/rbi-property-valuation-copy,9401866,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-176"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 176"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 176"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 176 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-176"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-176
+- Profile: `developer-profile-176`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 176`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 176`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-176: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 176' u 'dotnet ef database update --project PropertyValuation --profile 176 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3a27a0f947d06faba60be904dc86b10d49c93abb76827f2f34b1f0f52cb4f172,ef429cf3c08601c70d60d1b90a9f5fbb555ea70af50a80431feae351ce506bc7,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-176.patch
+CRPP2-VAL-DEVELOPER_SETUP-177,controlled-v2/rbi-property-valuation-copy,9401867,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-177"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-178"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-177
+- Profile: `developer-profile-177`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 177`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 177`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-177: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5dcdd39a5e0c0de8e723ee2687735a90d200b27205d387fca606805d06dee994,9db19b654d2dea6375f8898bc7584710dd1567c3e76f91caf13bea98a4b108d3,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-177.patch
+CRPP2-VAL-DEVELOPER_SETUP-178,controlled-v2/rbi-property-valuation-copy,9401868,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-178"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 178"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 178 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 178"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-178"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-178
+- Profile: `developer-profile-178`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 178`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 178`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-178: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 178' u 'dotnet run --project PropertyValuation -- --profile 178 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b78e8dc0c4ebbf5416c55e2f498971fdca30aaab258b17575e5f77ede9f4a932,153dc56b9a6f7280b8e6a607fbe32d87a0b4a81b29abe0811f4b407c7615b404,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-178.patch
+CRPP2-VAL-DEVELOPER_SETUP-179,controlled-v2/rbi-property-valuation-copy,9401869,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""VAL-SETUP-179"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 179"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 179"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-179"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-179
+- Profile: `developer-profile-179`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 179`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 179`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-179: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c3f1a332b8244d0b06098cd2484b32535f889246d38e91ff7b7607485ccac650,224c22d6ad669813e7958e48d801d0eb6649fe224f981a63e4c32a232509831c,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-179.patch
+CRPP2-VAL-DEVELOPER_SETUP-180,controlled-v2/rbi-property-valuation-copy,9401870,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_08.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-180"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 180"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 180"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 180 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-180"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-180
+- Profile: `developer-profile-180`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 180`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 180`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-180: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 180' u 'dotnet ef database update --project PropertyValuation --profile 180 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b0a43a9652c330db593ce397e8e2b5db96b9d7b97d760b476e95b5d4f65ac2b1,f0a9f9036e1ee63a2a0af0a56389f7fdd30ec0191d43304f01bc80fac43ba0f7,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-180.patch
+CRPP2-VAL-DEVELOPER_SETUP-181,controlled-v2/rbi-property-valuation-copy,9401871,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-181"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-182"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-181
+- Profile: `developer-profile-181`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 181`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 181`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-181: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,35bb6d5632f832dfa14c4040c938e6caf8a98c800c4d3ffcbef90fd4b2bd2ff5,c98e51597e434e95df367262dac707c03d73f32a94d6a5940b0543b18abb6d40,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-181.patch
+CRPP2-VAL-DEVELOPER_SETUP-182,controlled-v2/rbi-property-valuation-copy,9401872,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-182"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 182"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 182 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 182"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-182"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-182
+- Profile: `developer-profile-182`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 182`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 182`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-182: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 182' u 'dotnet run --project PropertyValuation -- --profile 182 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4b158d72935395b98c0995caa395bc0bdf98c413c18150ebe9eeaf7b91bbcaad,9d5bc69ff6c6d6c2afc8cc96fb2c1f03e003c6462892eae531860182210308b1,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-182.patch
+CRPP2-VAL-DEVELOPER_SETUP-183,controlled-v2/rbi-property-valuation-copy,9401873,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""VAL-SETUP-183"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 183"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 183"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-183"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-183
+- Profile: `developer-profile-183`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 183`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 183`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-183: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bca3391b0c78574bdc88815c53446eac730ff0c76d68111ca0917efa4b6bf840,a2ca951a8e1287c125ffb530189a3ca9aae0e053c5562e099125661f75c83c73,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-183.patch
+CRPP2-VAL-DEVELOPER_SETUP-184,controlled-v2/rbi-property-valuation-copy,9401874,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-184"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 184"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 184"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 184 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-184"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-184
+- Profile: `developer-profile-184`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 184`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 184`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-184: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 184' u 'dotnet ef database update --project PropertyValuation --profile 184 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,62b7d55ca10109fea2765166427186d73e9430263a5072d4aac488bf3eb78db8,e244655e6e801810f39b2eecfe5c02273e7c18e68888836621c3164501b23578,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-184.patch
+CRPP2-VAL-DEVELOPER_SETUP-185,controlled-v2/rbi-property-valuation-copy,9401875,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-185"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-186"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-185
+- Profile: `developer-profile-185`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 185`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 185`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-185: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,04a4ec2116fd47183e209c1ad443733b19382f18f6694a20f76d9c41c6745357,d2cdbf97c18f89baeb6da6dd1a54d1b4cdf5e425e5838bbb8b7ca6d769ed0e33,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-185.patch
+CRPP2-VAL-DEVELOPER_SETUP-186,controlled-v2/rbi-property-valuation-copy,9401876,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-186"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 186"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 186 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 186"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-186"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-186
+- Profile: `developer-profile-186`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 186`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 186`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-186: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 186' u 'dotnet run --project PropertyValuation -- --profile 186 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6e39c6bad3911b244b4f524931b18c57503e9c53d5f260dc393f3d463c981754,8c5ddabfde21a9b710bc2bedd238b50817a6996e1b4f977743bf00557da3c5d2,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-186.patch
+CRPP2-VAL-DEVELOPER_SETUP-187,controlled-v2/rbi-property-valuation-copy,9401877,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""VAL-SETUP-187"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 187"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 187"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-187"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-187
+- Profile: `developer-profile-187`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 187`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 187`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-187: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f5c98a5cf21b7f236e7c01837571d1ad9f9b99d8fb795b59c82f9e1f78e1b4f7,88e90fe205677208f65dcde3c559bc253acc7eb171b09e33ca87b2600279889b,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-187.patch
+CRPP2-VAL-DEVELOPER_SETUP-188,controlled-v2/rbi-property-valuation-copy,9401878,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-188"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 188"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 188"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 188 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-188"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-188
+- Profile: `developer-profile-188`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 188`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 188`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-188: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 188' u 'dotnet ef database update --project PropertyValuation --profile 188 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7a8a20235c298f2964260561d645f134f6d2db6ec62c18119a3516a0b0787b5f,b5ad3d49d8af356d1b340d994cb89c4a4984f28bf5792f7a78d032c0116f4f41,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-188.patch
+CRPP2-VAL-DEVELOPER_SETUP-189,controlled-v2/rbi-property-valuation-copy,9401879,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-189"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-190"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-189
+- Profile: `developer-profile-189`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 189`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 189`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-189: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,54b5cb5fa2ba01b5cb2dc9f43a91e30db88c6e9be3bfd8bfd09ae4fb46bc98b2,b4ffbb64530d5e03b2e4e15a320d4aa8b78e605063308f1c941c1e3def606b2f,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-189.patch
+CRPP2-VAL-DEVELOPER_SETUP-190,controlled-v2/rbi-property-valuation-copy,9401880,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_09.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-190"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 190"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 190 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 190"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-190"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-190
+- Profile: `developer-profile-190`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 190`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 190`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-190: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 190' u 'dotnet run --project PropertyValuation -- --profile 190 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b7103344540ce7be2bc52071d731490f2662da8ffea21319b14e37915c62e7e8,8b1883dd003b8a03c8af2442d8b1a5f6cd4ef092f364d04e834e9d73611dac53,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-190.patch
+CRPP2-VAL-DEVELOPER_SETUP-191,controlled-v2/rbi-property-valuation-copy,9401881,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""VAL-SETUP-191"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 191"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 191"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-191"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-191
+- Profile: `developer-profile-191`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 191`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 191`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-191: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,083ec338158ad8b62ac5514deeff31d524f874225261a6e6b3eada3c23c28c23,1ccb95d48f32cb63ed8c25f293b5bfc891b3259b202174d1087eddfbceb733c7,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-191.patch
+CRPP2-VAL-DEVELOPER_SETUP-192,controlled-v2/rbi-property-valuation-copy,9401882,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""VAL-SETUP-192"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 192"",
+-      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 192"",
++      ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 192 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-192"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-192
+- Profile: `developer-profile-192`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 192`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 192`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-192: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project PropertyValuation --profile 192' u 'dotnet ef database update --project PropertyValuation --profile 192 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,45c4b47e2eafbad6d4ea4c9d2b61d8f0e4000b54e5fe60a3c5ae2a51ffb15ddf,c4a1008a4633a4926b55a9811da3083e559f3ca7f8153b8be4f99aed18e655c4,developer_setup,rbi_property_valuation,migration_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-192.patch
+CRPP2-VAL-DEVELOPER_SETUP-193,controlled-v2/rbi-property-valuation-copy,9401883,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-193"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""VAL-SETUP-194"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-193
+- Profile: `developer-profile-193`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 193`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 193`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-193: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cdd7d7ea775d9b94aa63284673001eda7d7797b58a26cf0d61ee15154490c8e3,a47b35d7ae0fc85992f0a0a9434692f69d57ab9c0be09de80c767401ae1e7846,developer_setup,rbi_property_valuation,runtime_requirement_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-193.patch
+CRPP2-VAL-DEVELOPER_SETUP-194,controlled-v2/rbi-property-valuation-copy,9401884,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""VAL-SETUP-194"",
+-      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 194"",
++      ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 194 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 194"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-194"",
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-194
+- Profile: `developer-profile-194`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 194`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 194`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-194: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project PropertyValuation -- --profile 194' u 'dotnet run --project PropertyValuation -- --profile 194 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,81df96516b8c83c609dddbaa95134ea49c0fc3bb0e091ca45fffd7bc1a0d9102,730275a632219406afc14abe85525dc53b0fd1ce5887d30d6b08e1106600ca88,developer_setup,rbi_property_valuation,local_command_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-194.patch
+CRPP2-VAL-DEVELOPER_SETUP-195,controlled-v2/rbi-property-valuation-copy,9401885,csharp,"[""PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab-v2/developer_setup/contracts_10.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""VAL-SETUP-195"",
+       ""developmentCommand"": ""dotnet run --project PropertyValuation -- --profile 195"",
+       ""migrationCommand"": ""dotnet ef database update --project PropertyValuation --profile 195"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-195"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab-v2/DEVELOPER_SETUP.md @ controlled-baseline:c86ec5d35575197a -->
+### VAL-SETUP-195
+- Profile: `developer-profile-195`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project PropertyValuation -- --profile 195`
+- Migration command: `dotnet ef database update --project PropertyValuation --profile 195`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"VAL-SETUP-195: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e438f0ff8ca011d915f07414aadba78ca37fd14631500b6b15a1a1e5b588092c,4562eb11c870fcef7199ab7bd8e3a63126238e0d9c6c6731e6da8123f9f71278,developer_setup,rbi_property_valuation,package_manager_version_change,cases/patches/rbi_property_valuation/developer_setup/VAL-SETUP-195.patch
+CRPP2-VAL-MODEL_CONTRACT-101,controlled-v2/rbi-property-valuation-copy,9401886,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-101 — `VALPublicContract101`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-101: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f67a0a90c57008ee3260e126193a98e8237b5c241c1e324f72b95987b022f36d,fac2111e79eca7b3e256f67474307beeba479108f14ce1390a9bf29891a2b5e6,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-101.patch
+CRPP2-VAL-MODEL_CONTRACT-102,controlled-v2/rbi-property-valuation-copy,9401887,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract102"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-102 — `VALPublicContract102`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-102: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cd484961926490a4baeed62833e391f2da8f707f1c69adab98ded9041ae235b9,68b4169fe07c7f943d857ffdcbd03a897137e063b0b98031f8fb26441ff25b3e,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-102.patch
+CRPP2-VAL-MODEL_CONTRACT-103,controlled-v2/rbi-property-valuation-copy,9401888,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-103 — `VALPublicContract103`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-103: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e8945964391fe231f04efd2b5f7c23423c2d83ef76b9863a161b70a2300dc701,467669f9c8a07b65ca80e72f5fcb0d8676ca997983a67c2e8dd907faae19d3c6,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-103.patch
+CRPP2-VAL-MODEL_CONTRACT-104,controlled-v2/rbi-property-valuation-copy,9401889,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-104"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-104 — `VALPublicContract104`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-104: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bd7505da8cbbe90a46aed721ea89daf8f05ee3ff2608f18179bd241bf99cfdd4,47ea71f5b5f3439a0b26fc0296dd52c25b946560ab1ed0232a13a4f326e77bb4,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-104.patch
+CRPP2-VAL-MODEL_CONTRACT-105,controlled-v2/rbi-property-valuation-copy,9401890,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-105 — `VALPublicContract105`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-105: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c4807e2b36b45152c686d8b2105cd5833824415b3eebb96e098b0379ba888a5b,248aec899e5c2e84c4bbbfd3e1f39bd1ec6bf93fe94b2632f46d9e6996e23776,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-105.patch
+CRPP2-VAL-MODEL_CONTRACT-106,controlled-v2/rbi-property-valuation-copy,9401891,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract106"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-106 — `VALPublicContract106`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-106: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e7663aff168999c9929eb7d14e3f7b2c4052f373eb8d4c64ab16e352af3b8705,54fd4f17931807399e9567b242a3c406e3509b7fe06357c76d82b5a3bf198597,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-106.patch
+CRPP2-VAL-MODEL_CONTRACT-107,controlled-v2/rbi-property-valuation-copy,9401892,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-107 — `VALPublicContract107`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-107: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e8742ab91a6838ce8bfca7431533bfdc79f781e4328218804817b6465be282c2,7da60855b2a8fa38e12663278d33a18b22a640ad06591110ddb2a5992feae5b8,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-107.patch
+CRPP2-VAL-MODEL_CONTRACT-108,controlled-v2/rbi-property-valuation-copy,9401893,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-108"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-108 — `VALPublicContract108`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-108: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,02140dc4a786a57b66a29388135177138fd4408b4552710934da413e4f820610,e826a6d38d5956967ac65d81dae9622efb4fba53036159a2b87ebdcefa76ce24,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-108.patch
+CRPP2-VAL-MODEL_CONTRACT-109,controlled-v2/rbi-property-valuation-copy,9401894,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-109 — `VALPublicContract109`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-109: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,499138945bf71d81865c5423ff5f02ae542b6d9173f4020c88ac4c571dd7c573,7a9a7b2739b36629e532bc174f448335bf0b5b69c2a562d3ea967a13dd7a97cc,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-109.patch
+CRPP2-VAL-MODEL_CONTRACT-110,controlled-v2/rbi-property-valuation-copy,9401895,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_01.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract110"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-110 — `VALPublicContract110`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-110: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,890da95fc3be6e869218b0cf4aa5431f774b434cf8d46b2f145f8611d283ffd8,a54fb3edafbc99fc3542de2bc5c8c38293a507f39baf53c88ad2d6c10e1f8e26,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-110.patch
+CRPP2-VAL-MODEL_CONTRACT-111,controlled-v2/rbi-property-valuation-copy,9401896,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-111 — `VALPublicContract111`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-111: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3bcf1843b1a65cb904e95a9e0414d18ff05f881f9913b6526546e758f5c983d5,b855a9f66c9812e46c24c63410b7470ea7193f16c7dd353dd02c115cf9206d45,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-111.patch
+CRPP2-VAL-MODEL_CONTRACT-112,controlled-v2/rbi-property-valuation-copy,9401897,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-112"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-112 — `VALPublicContract112`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-112: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4e8bb661f643f03f8360bfbd18c67e0cd15ce4859925ca50591e44a54d1db902,4c480ffb2bd9056c2f25ed328d52df79c141f85e4ff5d61805442f0898dbc172,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-112.patch
+CRPP2-VAL-MODEL_CONTRACT-113,controlled-v2/rbi-property-valuation-copy,9401898,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-113 — `VALPublicContract113`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-113: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,08e59c71a6cd92f83a7b5ec2d5166a68c6916fe834223248091c0f4a284e43a7,21ea2c8e0967afccb1764fab35fe2f0ad80663531a83452587bde70b4fb422af,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-113.patch
+CRPP2-VAL-MODEL_CONTRACT-114,controlled-v2/rbi-property-valuation-copy,9401899,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract114"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-114 — `VALPublicContract114`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-114: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,99e2e4711679cd7a13e0f035a3eab54d6cd27d0c519513aae9168e2bccb148e5,99e158920cd476d603c08655de38dca3dec064231031295944b03787373e8ca7,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-114.patch
+CRPP2-VAL-MODEL_CONTRACT-115,controlled-v2/rbi-property-valuation-copy,9401900,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-115 — `VALPublicContract115`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-115: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,286d32a0dba6d0c7bd303639441c928502aee918e5d591524c57f15f52616dfc,28fdc34cc4bbff751b227fe02fc08e5cd9b996928d737ee5aabf435c902aeafc,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-115.patch

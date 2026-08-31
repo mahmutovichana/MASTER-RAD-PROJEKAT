@@ -1,0 +1,93 @@
+{
+  "all_rows_positive_by_controlled_design": true,
+  "categories": [
+    "api_reference",
+    "configuration",
+    "developer_setup",
+    "model_contract",
+    "other_documentation"
+  ],
+  "category_counts": {
+    "api_reference": 580,
+    "configuration": 520,
+    "developer_setup": 460,
+    "model_contract": 300,
+    "other_documentation": 140
+  },
+  "merge_status": "pending_owner_acceptance",
+  "outputs": {
+    "candidates": "cases/candidates_2000.jsonl",
+    "patches": "cases/patches",
+    "positive_reviewed": "human_review/positive_reviewed.jsonl",
+    "quality_audit": "audits/quality_audit.json",
+    "review_batches": "human_review/review_batches",
+    "reviewed": "human_review/reviewed_2000.jsonl"
+  },
+  "project_counts": {
+    "jobfair_platform": 560,
+    "rbi_property_valuation": 490,
+    "rbi_related_parties_portal": 520,
+    "rbi_test_forge": 430
+  },
+  "projects": [
+    {
+      "code_root": "src/docguard-contract-lab-v2",
+      "dev_command": "npm run dev",
+      "display_name": "JobFAIR Platform controlled copy",
+      "key": "jobfair_platform",
+      "language": "typescript",
+      "migration_command": "npm run supabase:migrate",
+      "package_manager": "npm@10",
+      "prefix": "JOB",
+      "repository": "controlled-v2/jobfair-platform-copy",
+      "runtime": "Node.js",
+      "runtime_version": "20.11",
+      "source_copy": "source_copies/jobfair_platform"
+    },
+    {
+      "code_root": "src/Web/src/docguard-contract-lab-v2",
+      "dev_command": "pnpm dev",
+      "display_name": "RBI Related Parties Portal controlled copy",
+      "key": "rbi_related_parties_portal",
+      "language": "typescript",
+      "migration_command": "pnpm db:migrate",
+      "package_manager": "pnpm@9",
+      "prefix": "RPP",
+      "repository": "controlled-v2/rbi-related-parties-portal-copy",
+      "runtime": "Node.js",
+      "runtime_version": "20.11",
+      "source_copy": "source_copies/rbi_related_parties_portal"
+    },
+    {
+      "code_root": "TestGenerator/DocGuardContractLab-v2",
+      "dev_command": "dotnet run --project TestGenerator",
+      "display_name": "RBI Test Forge controlled copy",
+      "key": "rbi_test_forge",
+      "language": "csharp",
+      "migration_command": "dotnet ef database update --project TestGenerator",
+      "package_manager": "NuGet@6",
+      "prefix": "TFG",
+      "repository": "controlled-v2/rbi-test-forge-copy",
+      "runtime": ".NET SDK",
+      "runtime_version": "8.0",
+      "source_copy": "source_copies/rbi_test_forge"
+    },
+    {
+      "code_root": "PropertyValuation/DocGuardContractLab-v2",
+      "dev_command": "dotnet run --project PropertyValuation",
+      "display_name": "RBI Property Valuation controlled copy",
+      "key": "rbi_property_valuation",
+      "language": "csharp",
+      "migration_command": "dotnet ef database update --project PropertyValuation",
+      "package_manager": "NuGet@6",
+      "prefix": "VAL",
+      "repository": "controlled-v2/rbi-property-valuation-copy",
+      "runtime": ".NET SDK",
+      "runtime_version": "8.0",
+      "source_copy": "source_copies/rbi_property_valuation"
+    }
+  ],
+  "rows": 2000,
+  "training_eligible": false,
+  "version": "controlled_real_project_positive_v2_imbalanced"
+}

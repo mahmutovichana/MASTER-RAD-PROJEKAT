@@ -1,0 +1,355 @@
+@* ============================================================
+   RestScenarioForm — AC2: forma za REST (Microservice) scenarij
+   ============================================================
+   Pokriva AC2: HTTP metoda, URL, headeri, request body (JSON editor),
+   očekivani status, response asserti.
+   Pokriva AC4: VariablePicker ispod URL i body polja.
+   Pokriva AC6: real-time validacija s jasnim porukama.
+
+   Koristi "inicijalizacija jednom" pattern — InitialValue se čita
+   samo pri prvom renderu (flag _initialized) da se izbjegne
+   re-inicijalizacija pri svakom re-renderu roditelja.
+
+   Poziva IsValidChanged kad se validnost promijeni.
+   Vrijednost se čita iz GetCurrentValue() od strane roditelja (ScenarioDialog)
+   na Save akciji — bez round-trip re-render problema.
+   ============================================================ *@
+
+@using System.Text.Json
+
+<div>
+    @* ── HTTP Metoda ──────────────────────────────────────────── *@
+    <MudSelect T="HttpMetoda"
+               Value="@_metoda"
+               ValueChanged="@OnMetodaChanged"
+               Label="HTTP metoda"
+               Variant="Variant.Outlined"
+               Class="mb-3">
+        <MudSelectItem T="HttpMetoda" Value="HttpMetoda.Get">GET</MudSelectItem>
+        <MudSelectItem T="HttpMetoda" Value="HttpMetoda.Post">POST</MudSelectItem>
+        <MudSelectItem T="HttpMetoda" Value="HttpMetoda.Put">PUT</MudSelectItem>
+        <MudSelectItem T="HttpMetoda" Value="HttpMetoda.Patch">PATCH</MudSelectItem>
+        <MudSelectItem T="HttpMetoda" Value="HttpMetoda.Delete">DELETE</MudSelectItem>
+    </MudSelect>
+
+    @* ── URL ──────────────────────────────────────────────────── *@
+    <MudTextField Value="@_url"
+                  ValueChanged="@OnUrlChanged"
+                  T="string"
+                  Label="URL"
+                  Variant="Variant.Outlined"
+                  Placeholder="npr. {{baseUrl}}/api/korisnici"
+                  Immediate="true"
+                  Error="@(_urlTouched && string.IsNullOrWhiteSpace(_url))"
+                  ErrorText="URL je obavezan."
+                  Class="mb-1" />
+    <VariablePicker RunConfig="@RunConfig" OnTokenClicked="@(t => { _url += t; Notify(); })" />
+
+    @* ── Headeri ──────────────────────────────────────────────── *@
+    <div class="d-flex align-center mb-1">
+        <MudText Typo="Typo.subtitle2">Headeri</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Filled.Add"
+                       Size="Size.Small"
+                       Color="Color.Primary"
+                       Title="Dodaj header"
+                       OnClick="AddHeader" />
+    </div>
+
+    @if (_headeri.Count == 0)
+    {
+        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mb-3">
+            Nema headera. Klikni + za dodavanje (npr. Authorization: Bearer {{token}}).
+        </MudText>
+    }
+    else
+    {
+        @foreach (var h in _headeri)
+        {
+            var header = h;
+            <div class="d-flex align-center gap-2 mb-2">
+                <MudTextField Value="@header.Key"
+                              ValueChanged="@((string v) => { header.Key = v; Notify(); })"
+                              T="string"
+                              Label="Naziv headera"
+                              Variant="Variant.Outlined"
+                              Placeholder="Authorization"
+                              Immediate="true"
+                              Error="@(header.Touched && string.IsNullOrWhiteSpace(header.Key))"
+                              ErrorText="Naziv je obavezan."
+                              Style="flex:1" />
+                <MudTextField Value="@header.Val"
+                              ValueChanged="@((string v) => { header.Val = v; Notify(); })"
+                              T="string"
+                              Label="Vrijednost"
+                              Variant="Variant.Outlined"
+                              Placeholder="Bearer {{token}}"
+                              HelperText="Podržava {{varijable}}"
+                              Immediate="true"
+                              Style="flex:1" />
+                <MudIconButton Icon="@Icons.Material.Filled.Close"
+                               Size="Size.Small"
+                               Color="Color.Error"
+                               Title="Ukloni header"
+                               OnClick="@(() => RemoveHeader(header))" />
+            </div>
+        }
+    }
+
+    @* ── Request body (samo za POST/PUT/PATCH) ─────────────────── *@
+    @if (_showBody)
+    {
+        <MudTextField Value="@_body"
+                      ValueChanged="@OnBodyChanged"
+                      T="string"
+                      Label="Request body (JSON)"
+                      Variant="Variant.Outlined"
+                      Lines="6"
+                      Placeholder="{&quot;korisnik&quot;: &quot;test@example.com&quot;}"
+                      Immediate="true"
+                      Error="@(_bodyTouched && _bodyError != null)"
+                      ErrorText="@_bodyError"
+                      Style="font-family: monospace; font-size: 0.85rem;"
+                      Class="mb-1" />
+        <div class="d-flex align-center gap-2 mb-2">
+            <VariablePicker RunConfig="@RunConfig" OnTokenClicked="@(t => { _body += t; Notify(); })" />
+            <MudSpacer />
+            <MudButton Size="Size.Small"
+                       Variant="Variant.Text"
+                       StartIcon="@Icons.Material.Filled.FormatIndentIncrease"
+                       OnClick="FormatJson"
+                       Disabled="@string.IsNullOrWhiteSpace(_body)">
+                Formatiraj JSON
+            </MudButton>
+        </div>
+    }
+
+    @* ── Očekivani status kod ───────────────────────────────────── *@
+    <MudNumericField Value="@_status"
+                     ValueChanged="@OnStatusChanged"
+                     T="int"
+                     Label="Očekivani status kod"
+                     Variant="Variant.Outlined"
+                     Min="100"
+                     Max="599"
+                     Immediate="true"
+                     Error="@(_status < 100 || _status > 599)"
+                     ErrorText="Status mora biti između 100 i 599."
+                     HelperText="npr. 200, 201, 400, 404"
+                     Class="mb-3" />
+
+    @* ── Response asserti ──────────────────────────────────────── *@
+    <div class="d-flex align-center mb-1">
+        <MudText Typo="Typo.subtitle2">Response asserti</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Filled.Add"
+                       Size="Size.Small"
+                       Color="Color.Primary"
+                       Title="Dodaj assert"
+                       OnClick="AddAssert" />
+    </div>
+
+    @if (_asserti.Count == 0)
+    {
+        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mb-2">
+            Nema asserta. Klikni + za provjeru vrijednosti u response body-ju (npr. $.data.id = 42).
+        </MudText>
+    }
+    else
+    {
+        @foreach (var a in _asserti)
+        {
+            var assert = a;
+            <div class="d-flex align-center gap-2 mb-2">
+                <MudTextField Value="@assert.Path"
+                              ValueChanged="@((string v) => { assert.Path = v; Notify(); })"
+                              T="string"
+                              Label="JSON putanja"
+                              Variant="Variant.Outlined"
+                              Placeholder="$.data.id"
+                              Immediate="true"
+                              Error="@(assert.Touched && string.IsNullOrWhiteSpace(assert.Path))"
+                              ErrorText="Putanja je obavezna."
+                              Style="flex:1" />
+                <MudTextField Value="@assert.Expected"
+                              ValueChanged="@((string v) => { assert.Expected = v; Notify(); })"
+                              T="string"
+                              Label="Očekivana vrijednost"
+                              Variant="Variant.Outlined"
+                              Placeholder="42"
+                              Immediate="true"
+                              Style="flex:1" />
+                <MudIconButton Icon="@Icons.Material.Filled.Close"
+                               Size="Size.Small"
+                               Color="Color.Error"
+                               Title="Ukloni assert"
+                               OnClick="@(() => RemoveAssert(assert))" />
+            </div>
+        }
+    }
+</div>
+
+@code {
+    // ── Interne klase za editabilne redove ────────────────────────
+
+    private sealed class HeaderRow
+    {
+        public string Key     = "";
+        public string Val     = "";
+        public bool   Touched;
+    }
+
+    private sealed class AssertRow
+    {
+        public string Path     = "";
+        public string Expected = "";
+        public bool   Touched;
+    }
+
+    // ── Parametri ─────────────────────────────────────────────────
+
+    /// <summary>Početna vrijednost (koristi se samo pri prvom renderu).</summary>
+    [Parameter]
+    public RestScenarioDto? InitialValue { get; set; }
+
+    /// <summary>Run konfiguracija za VariablePicker.</summary>
+    [Parameter, EditorRequired]
+    public RunConfigDto RunConfig { get; set; } = new([]);
+
+    /// <summary>Poziva se kad se validnost forme promijeni.</summary>
+    [Parameter]
+    public EventCallback<bool> IsValidChanged { get; set; }
+
+    // ── Lokalno stanje ────────────────────────────────────────────
+
+    private HttpMetoda       _metoda  = HttpMetoda.Get;
+    private string           _url     = "";
+    private List<HeaderRow>  _headeri = [];
+    private string           _body    = "";
+    private int              _status  = 200;
+    private List<AssertRow>  _asserti = [];
+
+    private bool    _urlTouched;
+    private bool    _bodyTouched;
+    private string? _bodyError;
+    private bool    _lastReportedValid;
+    private bool    _initialized;
+
+    private bool _showBody => _metoda is HttpMetoda.Post or HttpMetoda.Put or HttpMetoda.Patch;
+
+    // ── Lifecycle ─────────────────────────────────────────────────
+
+    protected override void OnParametersSet()
+    {
+        if (_initialized) return;
+        _initialized = true;
+
+        if (InitialValue is not null)
+        {
+            _metoda  = InitialValue.Metoda;
+            _url     = InitialValue.Url;
+            _headeri = InitialValue.Headeri
+                           .Select(h => new HeaderRow { Key = h.Kljuc, Val = h.Vrijednost })
+                           .ToList();
+            _body    = InitialValue.RequestBody ?? "";
+            _status  = InitialValue.OcekivaniStatus;
+            _asserti = InitialValue.ResponseAsserti
+                           .Select(a => new AssertRow { Path = a.JsonPutanja, Expected = a.OcekivanaVrijednost })
+                           .ToList();
+        }
+
+        _lastReportedValid = ComputeIsValid();
+    }
+
+    // ── Javni API (čita ScenarioDialog na Save) ───────────────────
+
+    /// <summary>Vraća trenutni DTO izgrađen iz stanja forme.</summary>
+    public RestScenarioDto GetCurrentValue() => BuildDto();
+
+    // ── Handleri promjena ─────────────────────────────────────────
+
+    private void OnMetodaChanged(HttpMetoda v)  { _metoda = v;  Notify(); }
+    private void OnStatusChanged(int v)         { _status = v;  Notify(); }
+
+    private void OnUrlChanged(string v)
+    {
+        _url = v;
+        _urlTouched = true;
+        Notify();
+    }
+
+    private void OnBodyChanged(string v)
+    {
+        _body = v;
+        _bodyTouched = true;
+        _bodyError = ValidateBody(v);
+        Notify();
+    }
+
+    private void AddHeader()    { _headeri.Add(new HeaderRow()); Notify(); }
+    private void AddAssert()    { _asserti.Add(new AssertRow()); Notify(); }
+
+    private void RemoveHeader(HeaderRow h) { _headeri.Remove(h); Notify(); }
+    private void RemoveAssert(AssertRow a) { _asserti.Remove(a); Notify(); }
+
+    private void FormatJson()
+    {
+        if (string.IsNullOrWhiteSpace(_body)) return;
+        try
+        {
+            using var doc = JsonDocument.Parse(_body);
+            _body = System.Text.Json.JsonSerializer.Serialize(
+                doc.RootElement,
+                new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+            _bodyError = null;
+            Notify();
+        }
+        catch { /* ostavi kako jest */ }
+    }
+
+    // ── Validacija ────────────────────────────────────────────────
+
+    private static string? ValidateBody(string? body)
+    {
+        if (string.IsNullOrWhiteSpace(body)) return null;
+        try { JsonDocument.Parse(body); return null; }
+        catch { return "Nevažeći JSON format."; }
+    }
+
+    private bool ComputeIsValid()
+    {
+        if (string.IsNullOrWhiteSpace(_url))       return false;
+        if (_status < 100 || _status > 599)        return false;
+        if (_showBody && !string.IsNullOrWhiteSpace(_body) && ValidateBody(_body) != null) return false;
+        if (_headeri.Any(h => string.IsNullOrWhiteSpace(h.Key))) return false;
+        if (_asserti.Any(a => string.IsNullOrWhiteSpace(a.Path))) return false;
+        return true;
+    }
+
+    private void Notify()
+    {
+        var valid = ComputeIsValid();
+        if (valid != _lastReportedValid)
+        {
+            _lastReportedValid = valid;
+            _ = IsValidChanged.InvokeAsync(valid);
+        }
+    }
+
+    // ── Izgradnja DTO ─────────────────────────────────────────────
+
+    private RestScenarioDto BuildDto() => new(
+        Metoda:          _metoda,
+        Url:             _url.Trim(),
+        Headeri:         _headeri
+                             .Where(h => !string.IsNullOrWhiteSpace(h.Key))
+                             .Select(h => new HeaderDto(h.Key.Trim(), h.Val.Trim()))
+                             .ToList(),
+        RequestBody:     _showBody && !string.IsNullOrWhiteSpace(_body) ? _body.Trim() : null,
+        OcekivaniStatus: _status,
+        ResponseAsserti: _asserti
+                             .Where(a => !string.IsNullOrWhiteSpace(a.Path))
+                             .Select(a => new ResponseAssertDto(a.Path.Trim(), a.Expected.Trim()))
+                             .ToList()
+    );
+}

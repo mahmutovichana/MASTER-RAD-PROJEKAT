@@ -1,0 +1,63 @@
+@page "/audit-log"
+@attribute [Authorize(Roles = AppRoles.Administrator)]
+@rendermode InteractiveServer
+
+@inject IAuditLogStore AuditStore
+
+<PageTitle>Audit Log</PageTitle>
+
+<div class="page-container">
+
+    <PageHeader Title="Audit Log" Subtitle="Zadnjih 100 sigurnosnih događaja" />
+
+    <MudPaper Class="rbi-paper">
+        <MudButton StartIcon="@Icons.Material.Filled.Refresh"
+                   Variant="Variant.Outlined"
+                   Color="Color.Primary"
+                   OnClick="Refresh"
+                   Class="mb-3">
+            Osvježi
+        </MudButton>
+
+        <MudTable Items="_entries" Hover="true" Dense="true" Striped="true">
+            <HeaderContent>
+                <MudTh>Vrijeme (UTC)</MudTh>
+                <MudTh>Događaj</MudTh>
+                <MudTh>Korisnik</MudTh>
+                <MudTh>IP</MudTh>
+                <MudTh>Razlog</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Vrijeme (UTC)">@context.TimestampUtc.ToString("yyyy-MM-dd HH:mm:ss")</MudTd>
+                <MudTd DataLabel="Događaj">
+                    <StatusBadge Text="@context.EventType" Color="@GetColor(context.EventType)" />
+                </MudTd>
+                <MudTd DataLabel="Korisnik">@context.Username</MudTd>
+                <MudTd DataLabel="IP">@(context.IpAddress ?? "—")</MudTd>
+                <MudTd DataLabel="Razlog">@(context.FailureReason ?? "—")</MudTd>
+            </RowTemplate>
+            <NoRecordsContent>
+                <MudText Typo="Typo.body2" Color="Color.Secondary">
+                    Nema zabilježenih događaja.
+                </MudText>
+            </NoRecordsContent>
+        </MudTable>
+    </MudPaper>
+
+</div>
+
+@code {
+    private IReadOnlyList<AuditLogEntry> _entries = [];
+
+    protected override void OnInitialized() => Refresh();
+
+    private void Refresh() => _entries = AuditStore.GetRecent(100);
+
+    private static Color GetColor(string eventType) => eventType switch
+    {
+        AuditEventTypes.LoginSuccess => Color.Success,
+        AuditEventTypes.LoginFailure => Color.Warning,
+        AuditEventTypes.AccountLocked => Color.Error,
+        _ => Color.Default,
+    };
+}

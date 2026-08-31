@@ -1,0 +1,285 @@
+.breadcrumb {
+    font: 700 11px/1 var(--font-mono);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(20, 16, 46, 0.55);
+    margin: 0 0 10px;
+}
+
+.greeting {
+    font: 800 36px/1 var(--font-sans);
+    letter-spacing: -0.025em;
+    color: #14102E;
+    margin: 6px 0 28px;
+}
+
+.greeting span {
+    color: #0E0F12;
+}
+
+/* ── 3-column card grid (1fr 1fr 280px) ──────────────────────── */
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 280px;
+    gap: 20px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .card-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .greeting {
+        font-size: 26px;
+    }
+}
+
+/* ── CardLight (functional) ──────────────────────────────────── */
+.card {
+    background: #ffffff;
+    border: 1px solid rgba(20, 16, 46, 0.08);
+    border-radius: 14px;
+    padding: 28px;
+    color: #14102E;
+}
+
+.card__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.card__title {
+    font: 700 17px/1 var(--font-sans);
+    letter-spacing: -0.01em;
+    margin: 0;
+}
+
+.card__desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(20, 16, 46, 0.6);
+    margin: 0 0 22px;
+}
+
+.chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* ── Card button ─────────────────────────────────────────────── */
+.card__btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 18px 22px;
+    border-radius: 10px;
+    border: none;
+    font: 700 15px/1 var(--font-sans);
+    letter-spacing: -0.005em;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+
+.card__btn--yellow {
+    background: #FEE600;
+    color: #14102E;
+}
+
+.card__btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.card__btn-arrow {
+    font: 700 14px/1 var(--font-mono);
+}
+
+.card__feedback {
+    margin: 12px 0 0;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.card__feedback--error {
+    color: #C65C4A;
+}
+
+.card__feedback--success {
+    color: #1F8A6A;
+}
+
+/* ── Mascot / Quick-win card (dark) ──────────────────────────── */
+.card--dark {
+    background: #0E0F12;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 240px;
+}
+
+.card--dark .card__eyebrow {
+    font: 700 10px/1 var(--font-mono);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 0 10px;
+}
+
+.card--dark .card__heading {
+    font: 700 18px/1.2 var(--font-sans);
+    letter-spacing: -0.01em;
+    margin: 0 0 10px;
+}
+
+.card--dark .card__body-text {
+    font-size: 13px;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+}
+
+.card__footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 14px;
+}
+
+.card__link {
+    font: 700 12px/1 var(--font-sans);
+    color: #FEE600;
+    border-bottom: 2px solid #FEE600;
+    text-decoration: none;
+    padding-bottom: 1px;
+}
+
+.card__link:hover {
+    opacity: 0.8;
+}
+
+.chevrons-pair {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+/* Skupi dva chevrona u zbijenu » dvojku — drugi SVG navučen na prvi.
+   ::deep jer Chevron renderuje SVG kao child komponenta (van scope-a). */
+.chevrons-pair ::deep svg + svg {
+    margin-left: -10px;
+}
+
+/* ── Link-list (Tvoji moduli) ────────────────────────────────── */
+.link-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.link-list__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 14px;
+    border-radius: 10px;
+    font: 600 14px/1 var(--font-sans);
+    letter-spacing: -0.005em;
+    color: #14102E;
+    text-decoration: none;
+    transition: background 0.15s, transform 0.15s;
+}
+
+.link-list__item:hover {
+    background: rgba(20, 16, 46, 0.04);
+    transform: translateX(2px);
+}
+
+.link-list__arrow {
+    font: 700 14px/1 var(--font-mono);
+    color: rgba(20, 16, 46, 0.35);
+}
+
+.link-list__item:hover .link-list__arrow {
+    color: #14102E;
+}
+
+/* ── Wide card: Grupe testova (at a glance) ──────────────────── */
+.card--wide {
+    grid-column: 1 / -1;
+}
+
+.card__header-link {
+    margin-left: auto;
+    font: 700 12px/1 var(--font-sans);
+    color: #14102E;
+    text-decoration: none;
+    border-bottom: 2px solid #FEE600;
+    padding-bottom: 1px;
+}
+
+.card__header-link:hover {
+    opacity: 0.7;
+}
+
+.group-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.group-tile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid rgba(20, 16, 46, 0.08);
+    border-radius: 12px;
+    text-decoration: none;
+    color: #14102E;
+    transition: border-color 0.15s, transform 0.15s;
+}
+
+.group-tile:hover {
+    border-color: rgba(20, 16, 46, 0.22);
+    transform: translateY(-1px);
+}
+
+.group-tile__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.group-tile__body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.group-tile__name {
+    font: 700 14px/1.1 var(--font-sans);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.group-tile__meta {
+    font: 600 12px/1 var(--font-mono);
+    color: rgba(20, 16, 46, 0.5);
+}

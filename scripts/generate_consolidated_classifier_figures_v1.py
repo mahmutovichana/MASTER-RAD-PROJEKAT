@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
@@ -47,7 +48,7 @@ def save(fig, name: str):
     plt.close(fig)
 
 
-def plot_cm(matrix, labels, title, name, cmap="Blues"):
+def plot_cm(matrix, labels, title, name, cmap="Blues", normalized=False):
     fig, ax = plt.subplots(figsize=(7.2, 6.1))
     image = ax.imshow(matrix, cmap=cmap)
     fig.colorbar(image, ax=ax, fraction=0.046, pad=0.04)
@@ -59,13 +60,23 @@ def plot_cm(matrix, labels, title, name, cmap="Blues"):
     threshold = matrix.max() / 2 if matrix.size else 0
     for row in range(matrix.shape[0]):
         for col in range(matrix.shape[1]):
-            value = int(matrix[row, col])
-            ax.text(col, row, f"{value:,}", ha="center", va="center",
+            value = float(matrix[row, col])
+            label = f"{value:.1%}" if normalized else f"{int(value):,}"
+            ax.text(col, row, label, ha="center", va="center",
                     color="white" if value > threshold else "#102A43", fontweight="bold")
     save(fig, name)
 
 
 def main():
+    global RUN, OUT
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--run", default=str(RUN))
+    parser.add_argument("--display-version", default="v1")
+    parser.add_argument("--comparison-run")
+    args = parser.parse_args()
+    RUN = Path(args.run)
+    OUT = RUN / "figures"
+    display_version = args.display_version
     OUT.mkdir(parents=True, exist_ok=True)
     binary_summary = load_json(RUN / "binary_v4/training_summary.json")
     category_summary = load_json(RUN / "category_v8/training_summary.json")
@@ -82,9 +93,10 @@ def main():
     y_pred = np.array([int(row["prediction"]) for row in binary_rows])
     scores = np.array([float(row["probability"]) for row in binary_rows])
     binary_cm = confusion_matrix(y_true, y_pred, labels=[0, 1])
-    plot_cm(binary_cm, ["No update", "Docs update"],
-            "Binary V4 — Validation Confusion Matrix",
-            "binary_confusion_matrix.png")
+    binary_cm_normalized = binary_cm / binary_cm.sum(axis=1, keepdims=True)
+    plot_cm(binary_cm_normalized, ["No update", "Docs update"],
+            f"Binary V4 — Normalized Validation Confusion Matrix ({display_version})",
+            "binary_confusion_matrix.png", normalized=True)
 
     fpr, tpr, _ = roc_curve(y_true, scores)
     roc_auc = auc(fpr, tpr)
@@ -92,7 +104,7 @@ def main():
     ax.plot(fpr, tpr, color=BLUE, linewidth=2.6, label=f"ROC-AUC = {roc_auc:.3f}")
     ax.plot([0, 1], [0, 1], linestyle="--", color="#7A8793", label="Random classifier")
     ax.fill_between(fpr, tpr, alpha=0.10, color=BLUE)
-    style_axis(ax, "Binary V4 — ROC Curve", "False positive rate", "True positive rate")
+    style_axis(ax, f"Binary V4 — ROC Curve ({display_version})", "False positive rate", "True positive rate")
     ax.legend(loc="lower right", frameon=False)
     save(fig, "binary_roc_curve.png")
 
@@ -103,7 +115,7 @@ def main():
     ax.plot(recall, precision, color=ORANGE, linewidth=2.6, label=f"PR-AUC = {pr_auc:.3f}")
     ax.axhline(prevalence, linestyle="--", color="#7A8793", label=f"Prevalence = {prevalence:.3f}")
     ax.fill_between(recall, precision, alpha=0.10, color=ORANGE)
-    style_axis(ax, "Binary V4 — Precision–Recall Curve", "Recall", "Precision")
+    style_axis(ax, f"Binary V4 — Precision–Recall Curve ({display_version})", "Recall", "Precision")
     ax.legend(loc="lower left", frameon=False)
     save(fig, "binary_precision_recall_curve.png")
 
@@ -119,7 +131,7 @@ def main():
                 linewidth=2, label=metric.replace("_", " ").title(), color=color)
     chosen = float(binary_summary["selected_threshold"])
     ax.axvline(chosen, color="#111111", linestyle="--", linewidth=1.5, label=f"Selected = {chosen:.2f}")
-    style_axis(ax, "Binary V4 — Validation Threshold Sweep", "Decision threshold", "Metric")
+    style_axis(ax, f"Binary V4 — Validation Threshold Sweep ({display_version})", "Decision threshold", "Metric")
     ax.set_ylim(-0.03, 1.03)
     ax.legend(ncol=3, frameon=False, loc="lower center")
     save(fig, "binary_threshold_sweep.png")
@@ -128,9 +140,10 @@ def main():
     cat_true = [str(row["gold"]) for row in category_rows]
     cat_pred = [str(row["prediction"]) for row in category_rows]
     cat_cm = confusion_matrix(cat_true, cat_pred, labels=categories)
-    plot_cm(cat_cm, ["API reference", "Configuration", "Developer setup", "Model contract"],
-            "Category V8 — Validation Confusion Matrix",
-            "category_confusion_matrix.png", cmap="YlGnBu")
+    cat_cm_normalized = cat_cm / cat_cm.sum(axis=1, keepdims=True)
+    plot_cm(cat_cm_normalized, ["API reference", "Configuration", "Developer setup", "Model contract"],
+            f"Category V8 — Normalized Validation Confusion Matrix ({display_version})",
+            "category_confusion_matrix.png", cmap="YlGnBu", normalized=True)
 
     per_class = category_summary["best_metrics"]["development_validation"]["per_class"]
     display = ["API reference", "Configuration", "Developer setup", "Model contract"]
@@ -142,7 +155,7 @@ def main():
         bars = ax.bar(x + offset, values, width, label=metric.title(), color=color)
         ax.bar_label(bars, labels=[f"{value:.2f}" for value in values], padding=3, fontsize=8)
     ax.set_xticks(x, display)
-    style_axis(ax, "Category V8 — Per-Class Validation Metrics", "", "Score")
+    style_axis(ax, f"Category V8 — Per-Class Validation Metrics ({display_version})", "", "Score")
     ax.set_ylim(0, 1.08)
     ax.legend(frameon=False, ncol=3)
     save(fig, "category_per_class_metrics.png")
@@ -162,9 +175,42 @@ def main():
     axes[1].bar_label(bars, labels=[f"{value:.3f}" for value in category_values], padding=4)
     axes[1].set_xlim(0, 1.08)
     style_axis(axes[1], "Category V8 validation", "Score", "")
-    fig.suptitle("Consolidated Enriched Training v1 — Classifier Overview",
+    fig.suptitle(f"Consolidated Enriched Training {display_version} — Classifier Overview",
                  fontsize=16, fontweight="bold", color=NAVY, y=1.02)
     save(fig, "classifier_metrics_overview.png")
+
+    if args.comparison_run:
+        comparison_run = Path(args.comparison_run)
+        old_binary = load_json(comparison_run / "binary_v4/training_summary.json")["best_metrics"]["development_validation"]
+        old_category = load_json(comparison_run / "category_v8/training_summary.json")["best_metrics"]["development_validation"]
+        binary_metric_names = ["F1", "MCC", "ROC-AUC", "Precision", "Recall"]
+        old_binary_values = [old_binary["f1"], old_binary["mcc"], old_binary["roc_auc"], old_binary["precision"], old_binary["recall"]]
+        new_binary_values = [b["f1"], b["mcc"], b["roc_auc"], b["precision"], b["recall"]]
+        category_metric_names = ["Accuracy", "Macro-F1", "Balanced acc.", "Model F1", "Setup F1"]
+        old_category_values = [
+            old_category["accuracy"], old_category["macro_f1"], old_category["balanced_accuracy"],
+            old_category["per_class"]["model_contract"]["f1"], old_category["per_class"]["developer_setup"]["f1"],
+        ]
+        new_category_values = [
+            c["accuracy"], c["macro_f1"], c["balanced_accuracy"],
+            c["per_class"]["model_contract"]["f1"], c["per_class"]["developer_setup"]["f1"],
+        ]
+        fig, axes = plt.subplots(1, 2, figsize=(15, 6.2))
+        for ax, names, old_values, new_values, title in [
+            (axes[0], binary_metric_names, old_binary_values, new_binary_values, "Binary validation"),
+            (axes[1], category_metric_names, old_category_values, new_category_values, "Category validation"),
+        ]:
+            positions = np.arange(len(names))
+            bars_old = ax.bar(positions - 0.19, old_values, 0.38, label="v1", color="#9FBAD0")
+            bars_new = ax.bar(positions + 0.19, new_values, 0.38, label=display_version, color=BLUE)
+            ax.bar_label(bars_old, labels=[f"{value:.3f}" for value in old_values], padding=3, fontsize=8)
+            ax.bar_label(bars_new, labels=[f"{value:.3f}" for value in new_values], padding=3, fontsize=8)
+            ax.set_xticks(positions, names, rotation=20, ha="right")
+            ax.set_ylim(0, 1.08)
+            style_axis(ax, title, "", "Score")
+            ax.legend(frameon=False)
+        fig.suptitle("Natural Validation: v1 vs Train-Only Augmented v2", fontsize=16, fontweight="bold", color=NAVY)
+        save(fig, "v1_vs_v2_validation_comparison.png")
 
     manifest = {
         "output_dir": str(OUT),
@@ -173,6 +219,9 @@ def main():
         "category_validation_rows": len(category_rows),
         "binary_roc_auc": roc_auc,
         "binary_pr_auc": pr_auc,
+        "display_version": display_version,
+        "comparison_run": args.comparison_run,
+        "confusion_matrix_normalization": "true_label_rows_sum_to_1",
     }
     (OUT / "figures_manifest.json").write_text(
         json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8"

@@ -1,0 +1,2951 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,docs_before_retrieved_files,doc_context_01_path,doc_context_01_excerpt,doc_context_02_path,doc_context_02_excerpt,doc_context_03_path,doc_context_03_excerpt,doc_context_04_path,doc_context_04_excerpt,doc_context_05_path,doc_context_05_excerpt,doc_context_06_path,doc_context_06_excerpt,doc_context_07_path,doc_context_07_excerpt,doc_context_08_path,doc_context_08_excerpt,doc_context_09_path,doc_context_09_excerpt,doc_context_10_path,doc_context_10_excerpt,doc_context_11_path,doc_context_11_excerpt,doc_context_12_path,doc_context_12_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash
+synthetic:pallets/flask:developer_setup:1,pallets/flask,900051,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..9c5c8a7 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.12""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,d77936836fe84fb34f81171eb83fa560869e7d9baa3429ed5775eba5123bf27c,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:2,pallets/flask,900052,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..e7b9172 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.13""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,1bdff898c7beca6c70821343b9b265b66dbae4fdcf4d375cc98f9c2b221185b5,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:3,pallets/flask,900053,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..0dee4e3 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.11""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,8fea4ea341680c43c82420bb4c19a41eef7249b98f57ab6765d0062b402f1e82,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:4,pallets/flask,900054,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..9c5c8a7 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.12""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,852c5d496577d8a60e1cf2dfd4b5cf19109bf2db286daf349bdb1d6f0fc7cc62,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:5,pallets/flask,900055,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..e7b9172 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.13""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,c264189f2f017bde3894b7fe7551691333ca2d7355509c5fbb2a0cdc11b76f03,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:6,pallets/flask,900056,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..0dee4e3 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.11""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,77767f2cf7c812fc011427a6e41dd6af4f1d8aeaedc5884d27a5f55fcd0bd356,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:7,pallets/flask,900057,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..9c5c8a7 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.12""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,67a3c73cf8d421219561fcd3d4ebd0b7f82b4d2e2b208042bbb511948f2ea2e2,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:8,pallets/flask,900058,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..e7b9172 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.13""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,25c085fd5e94479817db7ebf2ca03d30d7b8c0a2a06cfc6e25adc4342f0aacbd,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:9,pallets/flask,900059,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..0dee4e3 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.11""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,3109e3a25d3e146313b570470dc881c74beeb2e31f372f6a6d035b759fcbd456,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:10,pallets/flask,900060,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..9c5c8a7 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.12""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,51c152f355aaaeb33630317a7926b24a8994894b0c4c8e7251e056287b395ead,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:11,pallets/flask,900061,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..e7b9172 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.13""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,480f89e1f53571707600f80bdcbde79cf7b64213ed50393c08a244edc3b5d9c5,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:12,pallets/flask,900062,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..0dee4e3 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.11""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,136208b599a6dda4e2ce29aeb6d7e59df2b89fa6ad973c172b13dbe247ef81ff,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:13,pallets/flask,900063,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..9c5c8a7 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.12""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,1cadf0f815a3cc3fff5b03c1a1df16570a6919ccae4144f86ace55457463c520,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:14,pallets/flask,900064,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..e7b9172 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.13""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,e947048b03f43c5c68a71ce5e8efdc22447d36242b744cf7f06d056695c43e3c,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:15,pallets/flask,900065,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..0dee4e3 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.11""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,b5722fee44d9d15e459eaf4fad6dcc532c4b3912a5195aa66ac094f3c1942022,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:16,pallets/flask,900066,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..9c5c8a7 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.12""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,70348dc0f9e74067089a6cf9175be0713bd9a143f73562d7a52cd522f5cb5c3a,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:17,pallets/flask,900067,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..e7b9172 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.13""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,897246a037f2636125ab86ffa3d7d42e9cc365e88b2804063f954d744149ad8f,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:18,pallets/flask,900068,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..0dee4e3 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.11""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,d28f96cc50a28bc59b11caedebe8d563f26544bf9b4cc602d1b61a257db3e877,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:19,pallets/flask,900069,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..9c5c8a7 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.12""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,7cc3991b8ede864dea6cd3afaaaebb90bec976af507ef4eab123eeee1d0bf5d7,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:20,pallets/flask,900070,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..e7b9172 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.13""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,83da277b80c34aef68a0c3cf3ee253a87a940d523dec834435249e52ea736c86,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:21,pallets/flask,900071,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..0dee4e3 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.11""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,70f3fa620f96786e86de10210af3a258b39d31def4eb1b3191d3f0ed31b15256,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:22,pallets/flask,900072,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..9c5c8a7 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.12""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,00d6b01db51919ba7a43d4e1723c93bc6374ce0e0d763627ff9fd5402f2a02ef,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:23,pallets/flask,900073,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..e7b9172 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.13""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,b4d1ec75fc68a8eb4d122f29f05b15dc674bd886b525c35c17dbf6dc9f512a62,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:24,pallets/flask,900074,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..0dee4e3 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.11""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,8de869202126294e6c6cbd8d3fba9645ccd4af103156f3375a5d6c5ea07a44fe,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:pallets/flask:developer_setup:25,pallets/flask,900075,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index ef28fcc..9c5c8a7 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,7 @@ classifiers = [
+     ""Topic :: Software Development :: Libraries :: Application Frameworks"",
+     ""Typing :: Typed"",
+ ]
+-requires-python = "">=3.10""
++requires-python = "">=3.12""
+ dependencies = [
+     ""blinker>=1.9.0"",
+     ""click>=8.1.3"",","
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`","[""CHANGES.rst""]",CHANGES.rst,"
+Unreleased
+
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,d16269ad18d21634a8094ab6808f31e2ae157515802527695b7b2b93849c2b3c,06d2f547a623efab49c629e9a8bb9542af36a893f0845b48887d40f4498bb835
+synthetic:encode/httpx:developer_setup:1,encode/httpx,900126,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..ae7524b 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.11""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,2434277506275670dab51da5a50e2a1ad246e14d986e35582c7a25a67f39e4ff,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:2,encode/httpx,900127,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..41b8a85 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.12""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,194b6a512cd774cee00f4489304b9aff2fe01745a2ef55a4040db4dc7fa2825a,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:3,encode/httpx,900128,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..3532689 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.10""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,8baaf07fad21af212140a994f43479488019b3b91a57d74572bc390c58a7e3e2,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:4,encode/httpx,900129,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..ae7524b 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.11""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,783db2587f30ce606dca79a9c03c6fa3dcbb2a650e822260dd054c5753cc20ea,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:5,encode/httpx,900130,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..41b8a85 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.12""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,677af49d9bd8bee27d87f81838ef8ace36500415eb5855eb53c45cc37a51a7af,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:6,encode/httpx,900131,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..3532689 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.10""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,604e2a937296e00f1be1000c373bb2e634886bd2da30fb211b60b81caf5b1300,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:7,encode/httpx,900132,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..ae7524b 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.11""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,de5ccd8ea3b7e571a8c3ed10eb607f3cb773f2fe83351fdd8fe383858710a688,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:8,encode/httpx,900133,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..41b8a85 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.12""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,7456a3a270350d7c7ca5d3f90cd7dafae6c478f865a779d97ab3d053ce597967,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:9,encode/httpx,900134,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..3532689 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.10""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,d4a6c5ced49dc312a97ffcf8ebfee86f4486e3f4ba447ec632317849454d8133,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:10,encode/httpx,900135,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..ae7524b 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.11""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,f01675bbfba6932eee9d5f3f6eb22addb59d11fdce0ab06e4fa7f255627e009d,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:11,encode/httpx,900136,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..41b8a85 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.12""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,edc4afe59c003c9f7ab89a482b511c3bb5c46014bb0b6de7df02b126ef2d06da,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:12,encode/httpx,900137,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..3532689 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.10""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,a56ee44623860950c80028f21a58ff5cbf28814b4c83f8fdc3e15296ba889ae0,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:13,encode/httpx,900138,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..ae7524b 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.11""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,086824e0fc8fcd6390a0f6f0c6ca30db896d3ec953da28a5b586f4e162a5fe8e,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:14,encode/httpx,900139,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..41b8a85 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.12""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,06aef348515018614cbaafbf4b06feca752fcbf187ba2438960787f8f6114200,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:15,encode/httpx,900140,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..3532689 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.10""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,bc038a14fd057fe065e9cea104757643bf8aa8642faff8b6de4907c33ba6e067,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:16,encode/httpx,900141,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..ae7524b 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.11""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,032c229bf9bdb0b261dbd4c141abb0c6cb526e4bc394c4baf5b0ac8c50ff6060,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:17,encode/httpx,900142,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..41b8a85 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.12""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,e0fc81173f127b0dba20158d5d1c008d67b23849213177be06c79a0773c75384,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:18,encode/httpx,900143,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..3532689 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.10""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,e1571eef87e5cdc0647113f25f2fced421b00d6643578364b9f47c6b9a6206a0,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:19,encode/httpx,900144,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..ae7524b 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.11""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,76e6a06806a2af04bb2438e11f4e5c1a1509938414d8a721eaafdf9a091cb952,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:20,encode/httpx,900145,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..41b8a85 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.12""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,0ebf85d942417725dea7c4af85bd1951cd5cc1dc3655d9c14cb3051fda857dde,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:21,encode/httpx,900146,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..3532689 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.10""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,0a3289094a2888b8ea254b76246d8db81460ac4fcf6fb4e30c9790a1eb066e8e,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:22,encode/httpx,900147,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..ae7524b 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.11""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,6460e18d85413d176f301c74727d6d73467a3f864f6765d56c9926148862c636,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:23,encode/httpx,900148,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..41b8a85 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.12""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,3eb408562ae1442920e1e84df036e53aa419a51f16895016e8036ac5a14f865a,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:24,encode/httpx,900149,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..3532689 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.10""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,ac62551058a90656dadffd4a801b57352693b195c851dd2bdd22c02892a0c948,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:developer_setup:25,encode/httpx,900150,python,"[""pyproject.toml""]","diff --git a/pyproject.toml b/pyproject.toml
+index fc3e95e..ae7524b 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ build-backend = ""hatchling.build""
+ name = ""httpx""
+ description = ""The next generation HTTP client.""
+ license = ""BSD-3-Clause""
+-requires-python = "">=3.9""
++requires-python = "">=3.11""
+ authors = [
+     { name = ""Tom Christie"", email = ""tom@tomchristie.com"" },
+ ]","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,3defa8d432dae9aefffee6ca443ae96f58148adfdca8eb44001b7b394f455162,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1

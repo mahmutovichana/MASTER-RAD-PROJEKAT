@@ -1,0 +1,2344 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP2-VAL-MODEL_CONTRACT-116,controlled-v2/rbi-property-valuation-copy,9401901,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-116"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-116 — `VALPublicContract116`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-116: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aa15ac70cff7b4c8d856433b9896491e03d302af42c203248d83384e69074d36,c82386475887e0ab635f0c5ec1e213c53210e32fb48d81804b1402cd38740bd2,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-116.patch
+CRPP2-VAL-MODEL_CONTRACT-117,controlled-v2/rbi-property-valuation-copy,9401902,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-117 — `VALPublicContract117`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-117: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2e5b98bf8d925a38f06992a2d2495bda9fe5b5be7a62ba29690be186ba662c67,448f30411ba9e9220bd9564e4714e3ae221c355ba5a67a473f000334efbebf53,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-117.patch
+CRPP2-VAL-MODEL_CONTRACT-118,controlled-v2/rbi-property-valuation-copy,9401903,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract118"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-118 — `VALPublicContract118`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-118: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,45dae5e8514929bc0bc9326691a43129bf321adc58258c97cdd01b7a04b79c3f,19c45b7c3128ccfa9532b768956f89dfbeb60f1159e34fce5736fda921699596,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-118.patch
+CRPP2-VAL-MODEL_CONTRACT-119,controlled-v2/rbi-property-valuation-copy,9401904,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-119 — `VALPublicContract119`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-119: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5c305b2c5fa50846e486493272f3e3c14301acf365eefd590dd6ccb88fd12885,6ec327339e2667b1dae544cb23ed1844a21805262447a18b5cafb2a734f47571,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-119.patch
+CRPP2-VAL-MODEL_CONTRACT-120,controlled-v2/rbi-property-valuation-copy,9401905,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_02.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-120"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-120 — `VALPublicContract120`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-120: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7f8c2d38a4e001122794d48a3d889471cedea5033e04ea07c617cd2c0b5a9c62,3545243da14a886f1dffae855eb4d44ce2643e31da2d18b06e6de222913e5dac,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-120.patch
+CRPP2-VAL-MODEL_CONTRACT-121,controlled-v2/rbi-property-valuation-copy,9401906,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-121 — `VALPublicContract121`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-121: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6c04af0cae186cd81e799ecc2da699c3acf4fe923e4a746c96a4cd981b340bce,f2e72ebe7a001a13b2711b58c2c1b51166e5c4af8b23fb8f19e0dbfb789a1961,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-121.patch
+CRPP2-VAL-MODEL_CONTRACT-122,controlled-v2/rbi-property-valuation-copy,9401907,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract122"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-122 — `VALPublicContract122`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-122: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a330ff0bfe20837c59c6b09b9f9d37c5b4b2e52e2501608ef5d9ceb556bd77dc,e859ab96b86b1e49730e86ae2ca67b395674b14bfe8c395c546565ffd78117d2,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-122.patch
+CRPP2-VAL-MODEL_CONTRACT-123,controlled-v2/rbi-property-valuation-copy,9401908,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-123 — `VALPublicContract123`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-123: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9445fceb419948ab7bab33d55b6c0720bff4a1b6118ba4caa0ebd1ff07cb782a,aa9ea0a1b4f5223553d6a792a23e21119dfd3f27d849ed14f83e7020b5f0149c,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-123.patch
+CRPP2-VAL-MODEL_CONTRACT-124,controlled-v2/rbi-property-valuation-copy,9401909,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-124"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-124 — `VALPublicContract124`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-124: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0ec7a181a9012984e85ee60b7c198dd08427b9b7523af8ef7e89d5154892050c,e771d12f4c43f533020223bb4b1db3bf9dc95feb07d4306e03d5f0bb00e92db3,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-124.patch
+CRPP2-VAL-MODEL_CONTRACT-125,controlled-v2/rbi-property-valuation-copy,9401910,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-125 — `VALPublicContract125`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-125: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f00db8867a1cc66f1c229b95567833d7bb304a97022d1d5268d1817e71841829,693edeeb45054bf361324003d5585445faf9a4ce018121ecb862834faa7b6397,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-125.patch
+CRPP2-VAL-MODEL_CONTRACT-126,controlled-v2/rbi-property-valuation-copy,9401911,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract126"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-126 — `VALPublicContract126`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-126: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e3ddec32cd2e6c2b72b605e7524f33f100539c6604b41483c9370adf3e14ed10,89b4210e3a03a062ae56f7476be0942377aa5add3fc0340050b943027cf7504d,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-126.patch
+CRPP2-VAL-MODEL_CONTRACT-127,controlled-v2/rbi-property-valuation-copy,9401912,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-127 — `VALPublicContract127`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-127: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,02c58f3779c5df03245000d6dba02398d59d51f9249358de1dda401945a2af15,6aa837e1bad1b64bae7cbd81a70ae06cd4a4c51f73b13cff1558dab20f658d1e,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-127.patch
+CRPP2-VAL-MODEL_CONTRACT-128,controlled-v2/rbi-property-valuation-copy,9401913,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-128"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-128 — `VALPublicContract128`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-128: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,30a8d4ba92abe91f785e7f72559ddbd5b99aacdfb0f72e4ce747ad62f7a0e286,5fd23f8688a2b2e6d2232270692640121b17fb03b17f37487b21eafbb68076c1,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-128.patch
+CRPP2-VAL-MODEL_CONTRACT-129,controlled-v2/rbi-property-valuation-copy,9401914,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-129 — `VALPublicContract129`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-129: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,75a496ecd6fed6c649d505e38947457590e8bf9d550b75a9df9615416d860849,e3ad7bf15db4fea23fac7b3dcf7998d1614212382e7e4b868c60eac525d1b62a,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-129.patch
+CRPP2-VAL-MODEL_CONTRACT-130,controlled-v2/rbi-property-valuation-copy,9401915,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_03.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract130"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-130 — `VALPublicContract130`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-130: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cb59e273c68bdd2d8582022a373f26f4211988e333107ca17c820e9dd2082aff,5cf95adb86270a797d74e78dfd1e5f827d73f1f4adae7df5066f8106bf93566c,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-130.patch
+CRPP2-VAL-MODEL_CONTRACT-131,controlled-v2/rbi-property-valuation-copy,9401916,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-131 — `VALPublicContract131`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-131: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,700fcce6ea0470a263af5477a04d8c0201bdfc8a8c550ab4b10e3a6d6d84ea87,5bc8dc8a8b4e6534818596a5c3a88044989dd8cd09d69cd21524830edaf6847c,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-131.patch
+CRPP2-VAL-MODEL_CONTRACT-132,controlled-v2/rbi-property-valuation-copy,9401917,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-132"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-132 — `VALPublicContract132`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-132: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bfe4f1ad22f39007a794da6c758459ab9af5ebf65aec563eb305267ff0f940b4,d37a6a265a459ae6ffa25f36845b7dac49698ee180b59e79cf36daf2400e6097,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-132.patch
+CRPP2-VAL-MODEL_CONTRACT-133,controlled-v2/rbi-property-valuation-copy,9401918,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-133 — `VALPublicContract133`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-133: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0f502dca10040273d0937c52eb12e8518a3f4e24548658078dd847ff83b3271f,a6ddeacd4f5bc4bf0fe8f74138c9812a9a40199e1236c74ccaf1353530fedfe9,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-133.patch
+CRPP2-VAL-MODEL_CONTRACT-134,controlled-v2/rbi-property-valuation-copy,9401919,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract134"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-134 — `VALPublicContract134`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-134: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6cc30284212ed50a6006e73fd18cf633afdb679be525bf8c004e7ee84a86d632,567a7d8a3a2788a1970f5141496736b91e56206c91464ca23a53f49a14bf0cb3,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-134.patch
+CRPP2-VAL-MODEL_CONTRACT-135,controlled-v2/rbi-property-valuation-copy,9401920,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-135 — `VALPublicContract135`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-135: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,25c33455348da2b0b734801f116b2273a176abf79776b75efadda5d916ae9e00,e211ff9d2dc9e75a0e57be8b2ff7127c6532c25a87ccb64cedaed87bf7ec267c,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-135.patch
+CRPP2-VAL-MODEL_CONTRACT-136,controlled-v2/rbi-property-valuation-copy,9401921,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-136"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-136 — `VALPublicContract136`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-136: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5c7efb5e68090c51cc0208446d8291a9f3a1ce8853ace955e9f8430462c0478b,39f648a95aa8a0c9f16a3a24f44b56b94cbe029903ca29cd1b127b6067c8f4ed,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-136.patch
+CRPP2-VAL-MODEL_CONTRACT-137,controlled-v2/rbi-property-valuation-copy,9401922,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-137 — `VALPublicContract137`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-137: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,855d5a2d723f16f3414e75d78020441e4ee6ef8e64016144bc0ee35f40e4bfb3,9d727d875987c3ce842925c8ffe8cd2a1ebc56893cb66b39f02286638b2fd9e8,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-137.patch
+CRPP2-VAL-MODEL_CONTRACT-138,controlled-v2/rbi-property-valuation-copy,9401923,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract138"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-138 — `VALPublicContract138`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-138: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7817906b61eb3b9b2dbcaa01ca7e564bc403aaee48cc8d815f9bcdd7343610d3,b77320a8b5e4e9050e3886763d824ef107faa4a76a2bd8222185a369d77447c7,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-138.patch
+CRPP2-VAL-MODEL_CONTRACT-139,controlled-v2/rbi-property-valuation-copy,9401924,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-139 — `VALPublicContract139`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-139: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,66af8f239ebfc6eb626ceaa6b8a2eb5b91efcedf8304dcd543950ecb64107336,fc3c69906929ca4c690c49e023561a2f6a0591705e31a804bf36acce74be99d3,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-139.patch
+CRPP2-VAL-MODEL_CONTRACT-140,controlled-v2/rbi-property-valuation-copy,9401925,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_04.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-140"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-140 — `VALPublicContract140`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-140: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4d7b2e0d01e4e83c3f28852c4e88489f3b5b0ebd6b3aae2b212eb5a875b4e6e1,9bd205480f090110bd7593f31430d1ebc0dd06b8c086e7f77c25436de26b0d04,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-140.patch
+CRPP2-VAL-MODEL_CONTRACT-141,controlled-v2/rbi-property-valuation-copy,9401926,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-141 — `VALPublicContract141`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-141: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,43ac0d7640ebe988027e7e66c029abb303b75ac2c95f229388201d3a43d9e912,fdca105265dce2ac1a42d8de610afc9bda262ea8f69a863a9cdd7eab8f46c9b2,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-141.patch
+CRPP2-VAL-MODEL_CONTRACT-142,controlled-v2/rbi-property-valuation-copy,9401927,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract142"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-142 — `VALPublicContract142`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-142: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,94868818dfd70de62f21dbc53ddf786d596ae212496dee104bb08858185dc5dc,ec405c31039c6c3f914ceb18d3e0b1e92206b4a21f8f8202f335ed1d318e1f53,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-142.patch
+CRPP2-VAL-MODEL_CONTRACT-143,controlled-v2/rbi-property-valuation-copy,9401928,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-143 — `VALPublicContract143`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-143: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,be3ec2b5e8d05921b0f044aad49b5ad5f16da0422a318777c5f138a23f7c0148,f62cdc15eaa6baf82d7a6d6fe79f2aee31d861a4b9159cebe47a2195f0650fa6,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-143.patch
+CRPP2-VAL-MODEL_CONTRACT-144,controlled-v2/rbi-property-valuation-copy,9401929,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-144"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-144 — `VALPublicContract144`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-144: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,add840890f931600c1a5772d263d18af2fbc57514ab53036acc7028b65601e86,e28fe2f223798a5a56ca5cd41527b2c91aa91df5c9fe231defe81b078fa19c2b,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-144.patch
+CRPP2-VAL-MODEL_CONTRACT-145,controlled-v2/rbi-property-valuation-copy,9401930,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-145 — `VALPublicContract145`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-145: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7f9be514729e91e69282d6970d38826deb28d6c4ba176e4a93092b4af702759e,61da34b079f7369da8fd1c268a0e975ac5d4480a69aebb17ffa598de87183b04,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-145.patch
+CRPP2-VAL-MODEL_CONTRACT-146,controlled-v2/rbi-property-valuation-copy,9401931,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract146"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-146 — `VALPublicContract146`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-146: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,56c3a4e2bab718dc084ce85ab4bca897fad82d3e4bdb5e60340fb6ffa46af1ba,b345f2c9c2db80ce4d7ab753b42e9e356c8479f3f66d72f80007c355b34b8093,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-146.patch
+CRPP2-VAL-MODEL_CONTRACT-147,controlled-v2/rbi-property-valuation-copy,9401932,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-147 — `VALPublicContract147`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-147: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0927a5462d5a1fbe3b102593f4f58c7f8fa2bd65c503d1d0b146ae7a13569d50,18921759f61b56b83706f80aefe0d23d16188227488169c5548fb333faffac37,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-147.patch
+CRPP2-VAL-MODEL_CONTRACT-148,controlled-v2/rbi-property-valuation-copy,9401933,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-148"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-148 — `VALPublicContract148`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-148: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,62de42b8093925f0c5cbc69fb6fbc99866aaddcf61727f81f3cb15f7d4ea0741,b23df7371b994bc3373359da1cc401dd5ebea3e931c9472fb2d626133cb0dd3a,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-148.patch
+CRPP2-VAL-MODEL_CONTRACT-149,controlled-v2/rbi-property-valuation-copy,9401934,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-149 — `VALPublicContract149`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-149: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8b5ba410f4d5984a1aeeccce55186fb6208983f07ccd1023641e5e70e89d5a4a,471d543fdcae2335bfcaeb381184c04b902afb2ce4f46d240b01aa433cb0d5de,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-149.patch
+CRPP2-VAL-MODEL_CONTRACT-150,controlled-v2/rbi-property-valuation-copy,9401935,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_05.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract150"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-150 — `VALPublicContract150`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-150: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a3236d69bddcfa61439357628182a35af4b8048c1a8609a92fe24d06332da382,e6e3da3e3c71eab8d96d298d009eef920f8e3d9831b46ebe36b6620d84254217,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-150.patch
+CRPP2-VAL-MODEL_CONTRACT-151,controlled-v2/rbi-property-valuation-copy,9401936,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-151 — `VALPublicContract151`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-151: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dece31482739b6ff82616639d6a4aa21a42b7a50b25c8257a0f2c189637aa076,801881145fbe458ee5a4cbc65ddc451d35eb886380205d7f0223ca0b56fac92e,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-151.patch
+CRPP2-VAL-MODEL_CONTRACT-152,controlled-v2/rbi-property-valuation-copy,9401937,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-152"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-152 — `VALPublicContract152`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-152: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3ff717560d5f6ff12317f1f5713a233ee484f7833c50d86f667fbfcad3033650,92cf7557d20a7b1ab8bf97cd0c1efea9328549d38e7d768185adb8ee498062d3,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-152.patch
+CRPP2-VAL-MODEL_CONTRACT-153,controlled-v2/rbi-property-valuation-copy,9401938,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-153 — `VALPublicContract153`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-153: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,120ac4043768de8d4b39667e73d7049a1089bee30407dc38c4a13d0ea5f5755f,7f41541bd037967fb6c8ce903e36a90845fb574d30694ad88b7af8d899432baa,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-153.patch
+CRPP2-VAL-MODEL_CONTRACT-154,controlled-v2/rbi-property-valuation-copy,9401939,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract154"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-154 — `VALPublicContract154`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-154: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fde503ee02c9b05e7c7df34062fd3a6a2e0069079af13cd6ffeb99da4f7f3abc,aaa8f1f38abd45a5688c507ac96b6ca4df87d5f9aea47c789dfc69437c3341e0,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-154.patch
+CRPP2-VAL-MODEL_CONTRACT-155,controlled-v2/rbi-property-valuation-copy,9401940,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-155 — `VALPublicContract155`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-155: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,707fae8944827b3eb12452d9507a0ff1e2233bc02127702f66d027018eb49adc,fb82506609c6b9dc5a1ff543b9c6c853e8453a428620ba21e1c0e22d933a48c5,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-155.patch
+CRPP2-VAL-MODEL_CONTRACT-156,controlled-v2/rbi-property-valuation-copy,9401941,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-156"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-156 — `VALPublicContract156`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-156: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ceaeccdd57c54e98bc1281e0edee281a7135e5150044ef3eeb7d4d0b43ab4a1e,00ac0ff51dc79cf4778478e1a74327ac9eae4ec90cf58dcb54023e25f3e994a1,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-156.patch
+CRPP2-VAL-MODEL_CONTRACT-157,controlled-v2/rbi-property-valuation-copy,9401942,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-157 — `VALPublicContract157`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-157: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,090c86878994b31e6ac546b52fc5a7d3a04e5f4aee9a96975037f183f7513981,5ffcfe6f504cc3eed9a2339a20503c409b630d96c681e10d90a65fb36e5670fa,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-157.patch
+CRPP2-VAL-MODEL_CONTRACT-158,controlled-v2/rbi-property-valuation-copy,9401943,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract158"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-158 — `VALPublicContract158`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-158: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,91c3348d28ce0bf3a511ca091c4b9fc912c8fcd6bebed9be43d5654efd14a8b7,7f3853239244f9e53ef7d7b09bb4b77afd6325bffec7b27f46bb4db989ec10ad,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-158.patch
+CRPP2-VAL-MODEL_CONTRACT-159,controlled-v2/rbi-property-valuation-copy,9401944,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-159 — `VALPublicContract159`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-159: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4dac56006ef40a89b501b4cd93a1487ee6297e3be9865944eb5aa5e2cd156770,4ec36644698602378ee9ae4564f409fdc131f701efd7b51bae77c4ab3df8cd28,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-159.patch
+CRPP2-VAL-MODEL_CONTRACT-160,controlled-v2/rbi-property-valuation-copy,9401945,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_06.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-160"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-160 — `VALPublicContract160`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-160: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2128ffd6e1b54604b2cec3a9c87cfdb099750b24ba5e5d9e154f282525a4d223,b033a8a9d6becb45adcf076ff52aa267fcf539ba2d52a32cb8ab80934c3b74e2,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-160.patch
+CRPP2-VAL-MODEL_CONTRACT-161,controlled-v2/rbi-property-valuation-copy,9401946,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-161 — `VALPublicContract161`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-161: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aae54364c48ca977c691f492a52f1afbd5103bcc2abc3a0f6c140087dd9a5690,6845d8dc8f4d3af6e204582d32d279c228a21aa3b757d1d7fcd9ac2fc77a1d5e,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-161.patch
+CRPP2-VAL-MODEL_CONTRACT-162,controlled-v2/rbi-property-valuation-copy,9401947,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract162"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-162 — `VALPublicContract162`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-162: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c561d74858c0cf02b24de1356787bdbe5eaeb6932527897fa238d51e5f95f27b,e1d40153cb7e1efb9b1a0fd52cdce0051c4299ab3a1123b0b4ac798e7dd2cdf8,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-162.patch
+CRPP2-VAL-MODEL_CONTRACT-163,controlled-v2/rbi-property-valuation-copy,9401948,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-163 — `VALPublicContract163`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-163: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,62a2c96db98ada10553fa778c38e90d2e6bf04a33082a55be65a6fac70413682,548d26c78ff681a7232719bb53c1b1cdd30825f3c8226ba622175d8c03c7e3a0,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-163.patch
+CRPP2-VAL-MODEL_CONTRACT-164,controlled-v2/rbi-property-valuation-copy,9401949,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-164"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-164 — `VALPublicContract164`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-164: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ff4764f3e27a93dc1365dbccd514f3acd1fbdf89af3bf9861519080e9cdf3ac8,f53121d02e29e1fe3180a2ca0b00fdbde4351edd7ef0f99f03335ea8ec2c8c8a,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-164.patch
+CRPP2-VAL-MODEL_CONTRACT-165,controlled-v2/rbi-property-valuation-copy,9401950,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-165 — `VALPublicContract165`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-165: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0f93900e61c3e285865e335f5e59f6d6711e3baa8a3f9b8e39c7c4c0f487760f,99502fa68549722c5ffc76b2e94cc2793b27ededbee9e294ee5858fd05ed4fa4,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-165.patch
+CRPP2-VAL-MODEL_CONTRACT-166,controlled-v2/rbi-property-valuation-copy,9401951,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract166"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-166 — `VALPublicContract166`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-166: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,203603a2e1a1ed4c1566e85fd719081dd83fd70ffe8af402d10c6c418dc745fe,23935258661fbbc6c4a31fb5d2c5cada2b70057d5a447134792b95fca2de3079,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-166.patch
+CRPP2-VAL-MODEL_CONTRACT-167,controlled-v2/rbi-property-valuation-copy,9401952,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-167 — `VALPublicContract167`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-167: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3b897c29d9beeedfbb8c8b62b1374549144363cc7ad138022d43c23f7d825a3b,2d24920a3cc01c4aca538b6be8e7c70c458e29771f064ca07b8ffe448da66a98,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-167.patch
+CRPP2-VAL-MODEL_CONTRACT-168,controlled-v2/rbi-property-valuation-copy,9401953,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-168"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-168 — `VALPublicContract168`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-168: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8bde27d4ff1f1e52594f0b5f277534c7bd553c430a7b8977bba8ed27f32dd53f,58ee6d368e8847d9bb7375887dbdf20cea7060628cd32b926d979c398d1ce283,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-168.patch
+CRPP2-VAL-MODEL_CONTRACT-169,controlled-v2/rbi-property-valuation-copy,9401954,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-169 — `VALPublicContract169`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-169: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b0390eaa3c14a428146fde952170ab4475e17d352b56f11bca1a772226b29e44,595db0322d2beeee261f7aaa2ec55c5e458f849d664e42280a747f97f703c0e7,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-169.patch
+CRPP2-VAL-MODEL_CONTRACT-170,controlled-v2/rbi-property-valuation-copy,9401955,csharp,"[""PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab-v2/model_contract/contracts_07.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract170"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:f0614d03c7d6277d -->
+### VAL-MODEL-170 — `VALPublicContract170`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-170: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4767f65d694c87865ce07901ea162fd5019f6117edab0e67c6dcc069471d9aa3,e0df306e4792f5ef658db9cc12775e0e7f4bd55b3b7e36ac29063398b10920b1,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-170.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-101,controlled-v2/rbi-property-valuation-copy,9401956,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-101
+- Workflow: `rbi_property_valuation-approval-101`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-101: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9c4961e14080184e512c03a6f8662192a7c4561b8cdefe841a7d7ef1e9bcf9d9,6b4e3a4509d9a85977ca366c828f6a6a8f3b8494317270b07b3af96a8e8073cf,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-101.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-102,controlled-v2/rbi-property-valuation-copy,9401957,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-102"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-102
+- Workflow: `rbi_property_valuation-approval-102`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-102: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a01132db64d29dca1290baa7c0be3f446e17f645aac3638adabaae9144b57766,9d3d380d366df0208ae70055f1cde10483f4ec10b0a565ca78074e2cb3ff83d6,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-102.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-103,controlled-v2/rbi-property-valuation-copy,9401958,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-103"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-103
+- Workflow: `rbi_property_valuation-approval-103`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-103: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b0b843a115aa52865d750873c0da85430df2ddd21bd88b79388dacedcb20a81f,f579a60e16c80754c35ef3edd342dedf10fe8828e65c8b68a679d461beec0c53,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-103.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-104,controlled-v2/rbi-property-valuation-copy,9401959,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-104"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-104
+- Workflow: `rbi_property_valuation-approval-104`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-104: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e39488bf7b6dadf632e131cbc1d9db89db879d510535f5c75a2d129939d2401f,e5442518b951f28ddd3f1a1d9f59d7bcfd58aeba94161c3929765150b49e5e85,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-104.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-105,controlled-v2/rbi-property-valuation-copy,9401960,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-105
+- Workflow: `rbi_property_valuation-approval-105`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-105: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4b47ac6da095d16520ff8f6b932b43f4d2540b947c506b501b7dd30bd117ab32,7feafc7a7a52bf6eba2943738fdef2d694126576be17cf42ad9a3548f6131554,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-105.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-106,controlled-v2/rbi-property-valuation-copy,9401961,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-106"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-106
+- Workflow: `rbi_property_valuation-approval-106`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-106: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0103f96f5ca85083e7f52e21ef69cb45857ec491b1dc0edaa0ff46c67d6da941,b0dd868291f6b80495bd1ed02a30a9c2cfde58c9f14c9c26f9ec950afba07f9c,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-106.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-107,controlled-v2/rbi-property-valuation-copy,9401962,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-107"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-107
+- Workflow: `rbi_property_valuation-approval-107`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-107: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a95602209c350384a9858097ce51e5fb50807d0feb830868fd5f5d9a05bb4116,3228521797d3994d550078d76600d2cf01f3e18125944851d6a82f9ef60ca390,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-107.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-108,controlled-v2/rbi-property-valuation-copy,9401963,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-108"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-108
+- Workflow: `rbi_property_valuation-approval-108`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-108: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,94361db23e524abdb5c5796c83d2cc260179e220f696f1d9e1440b3a293b5152,30409a08f1b75a8921e73d8012fb681ad1efb83f7e8897041e97774750bdc7c0,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-108.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-109,controlled-v2/rbi-property-valuation-copy,9401964,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-109
+- Workflow: `rbi_property_valuation-approval-109`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-109: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,316a1db3b13ba4458762085a7698fbcee5e741737a12e9452e2df85e2b0ede95,07d151c797c5d40975a1b5fcc0a045b1a266bf777bdb54cb4473ad5505911f9f,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-109.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-110,controlled-v2/rbi-property-valuation-copy,9401965,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_01.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-110"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-110
+- Workflow: `rbi_property_valuation-approval-110`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-110: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a30db32acf4fb5345163973e5f201be36c220504e24586d8611a20d009b4b944,aee50f159b52d9b440b0ea9c15888b9b9747e59940b98028e554b84e710433a6,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-110.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-111,controlled-v2/rbi-property-valuation-copy,9401966,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-111"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-111
+- Workflow: `rbi_property_valuation-approval-111`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-111: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3c4cf646f0ecbee1e88f0014df89c5df6c67e45d242b3420f0195caf52befdbe,067fbd1bdea4a4a732cb481249dc59ca1ada0ed782a2d0c4bcbe3280f04528f1,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-111.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-112,controlled-v2/rbi-property-valuation-copy,9401967,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-112"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-112
+- Workflow: `rbi_property_valuation-approval-112`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-112: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9034312397dc18b8f2cb13f223a8deba733e027eeba7cd2847dafdf05ac1814f,e82bfdfb0845cf5f868cc09178e24555c642f89cbdc4fb259f8a73a3513af096,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-112.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-113,controlled-v2/rbi-property-valuation-copy,9401968,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-113
+- Workflow: `rbi_property_valuation-approval-113`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-113: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b56cd94870e04afa9c87029ee62b9abb7dffee1c3b9359f5ff509dffb95215c9,a274ac59b08b339cc8fb6aa2698902af2bd97eea7a9a206a4401ac1dd7675f1a,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-113.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-114,controlled-v2/rbi-property-valuation-copy,9401969,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-114"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-114
+- Workflow: `rbi_property_valuation-approval-114`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-114: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ad078bab4361f4b15cb8075f7401e8efc74c10d835cd2f95f1115c90aaa97d80,7785fed0408f8d3f9cf7d0d4e5a339b8146f114a94ffd3193e1dd22cdae2a704,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-114.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-115,controlled-v2/rbi-property-valuation-copy,9401970,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-115"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-115
+- Workflow: `rbi_property_valuation-approval-115`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-115: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0db578f093f538ee1135fc55cb94f8e68e034f0521767697709d77a8beb7f0d2,6d410b2df17aefe1daa9f8555b71e3c6b6e73bb309887b51e33a336cea2a2ba7,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-115.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-116,controlled-v2/rbi-property-valuation-copy,9401971,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-116"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-116
+- Workflow: `rbi_property_valuation-approval-116`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-116: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,58a9c579ec3dcdb208b530a5429c5457de28d9e0f81e07ec9d9298f2f3e1c46d,834dd02679d23404498b7573c77a01771b1abbd3a2b11c1b90d0de86cb082cc1,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-116.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-117,controlled-v2/rbi-property-valuation-copy,9401972,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-117
+- Workflow: `rbi_property_valuation-approval-117`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-117: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4bd86caa8774e1d0a002ba6abf65fd8d4fce69b8efcb2224f571f704cc973ff9,f26102157086ff1d101b6cc49bf56889ed82ea584efc76702b995fb58e5c5647,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-117.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-118,controlled-v2/rbi-property-valuation-copy,9401973,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-118"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-118
+- Workflow: `rbi_property_valuation-approval-118`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-118: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6a11b8314754b28a4dcdaa64cebfa5ed363229423e7f4b98157850f1ed88f986,ac04c5edf5a63adca19b1b6dc7d3fb7aeafb32da676be2f5ac2ad4df725dfbed,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-118.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-119,controlled-v2/rbi-property-valuation-copy,9401974,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-119"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-119
+- Workflow: `rbi_property_valuation-approval-119`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-119: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,957b7410b612603d511179e04185c65b715ca64f1d7be0504c76730a77adf33c,87068c881cb112ca2f3928abcf72c7e14c0422a5f6cdc54471b02e200a5921b5,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-119.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-120,controlled-v2/rbi-property-valuation-copy,9401975,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-120"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-120
+- Workflow: `rbi_property_valuation-approval-120`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-120: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6bc4b9308e7da0659b274cfc6d1ebf796e2da9fb949a1b456e7c4631abd4f42e,e250f9678dfc1796470cbffa4f29d2432e0ed015fc6c2c2758e917a1f76e71d3,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-120.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-121,controlled-v2/rbi-property-valuation-copy,9401976,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-121
+- Workflow: `rbi_property_valuation-approval-121`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-121: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b7d2facab71933358fd00499407e12a8b2d4486820069cc7fee3b61a0844cef5,f7d554216f948d519a7782609e91039d71e9dd76548c51db4e4310f0cd0cd413,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-121.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-122,controlled-v2/rbi-property-valuation-copy,9401977,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-122"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-122
+- Workflow: `rbi_property_valuation-approval-122`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-122: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,414015db627ddc0a8ae1ee12a871e7df2a34a9dbcd36f04c078d2001c5492f08,c8d6bad6b5b982227c66df7cf32756bdcddb8d58f87d9ce4303290069cc929cd,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-122.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-123,controlled-v2/rbi-property-valuation-copy,9401978,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-123"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-123
+- Workflow: `rbi_property_valuation-approval-123`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-123: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f78c14ad276d940db7960c1aff37ff75427abd3319ed6b277efaf334bb7e0ac1,2b5c1fd431d7c6661b3703f767caae87fd4476eecd512f5cf5bfd735173d9524,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-123.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-124,controlled-v2/rbi-property-valuation-copy,9401979,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-124"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-124
+- Workflow: `rbi_property_valuation-approval-124`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-124: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6e234e11f74b2c30df59d0b4cfcab3227c93abfaecadeaaf9e49a85a90b4ca5a,675e85167b2580f508c7c4918294ae9ef26f38c8a84a240fec030463d197a577,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-124.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-125,controlled-v2/rbi-property-valuation-copy,9401980,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-125
+- Workflow: `rbi_property_valuation-approval-125`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-125: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e80045e3f2878db3e99a0dccf16f6e87d17c57ec272185bf20e161b5ac277b97,615c6f1f3f4085d9c057d36503e7b016831e9b68dbe61163f8dc44f1689532b4,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-125.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-126,controlled-v2/rbi-property-valuation-copy,9401981,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-126"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-126
+- Workflow: `rbi_property_valuation-approval-126`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-126: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5d6a9725d5aeca56a5e1a4f838775927a08572e367b7eb4396996ace8eaaa7b4,5dd1de0e14aa5e8976171a3cdca38ada1d260896228dcb62e21c5ecc47565f49,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-126.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-127,controlled-v2/rbi-property-valuation-copy,9401982,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-127"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-127
+- Workflow: `rbi_property_valuation-approval-127`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-127: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cc701e6209091947306dda9f876edaab40356249a5b6f66e7c752b63f229331a,50f5eba7adc8b4c2e413678f2e3ce9bc1af4c81b453a85ca0a8d07586bcb1f4f,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-127.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-128,controlled-v2/rbi-property-valuation-copy,9401983,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-128"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-128
+- Workflow: `rbi_property_valuation-approval-128`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-128: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,73dcbbf8f4f5acc42c4aaf321defb7d2f4e49a6f35529daf4e50de378afc49f9,2df2eb2510d7cf552e7618509eb3645231f997208fe78521ca2edf80eb9e65a7,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-128.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-129,controlled-v2/rbi-property-valuation-copy,9401984,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-129
+- Workflow: `rbi_property_valuation-approval-129`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-129: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d478d731140bb740b307b0e25c07660ece1646627f33b48f92d81fd13817af52,06703507fb080bac3fb2fb46097edaf9bd81f51119672605a7d18809cb1d7e99,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-129.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-130,controlled-v2/rbi-property-valuation-copy,9401985,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-130"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-130
+- Workflow: `rbi_property_valuation-approval-130`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-130: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,44b46ace6f8cb47c3610e59611ad8573501ac20a953d014970c60b3889d42ba7,f1221d19065b934f4cf937533c603bf57b765ad87321afa24319a07970cb4edf,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-130.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-131,controlled-v2/rbi-property-valuation-copy,9401986,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-131"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-131
+- Workflow: `rbi_property_valuation-approval-131`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-131: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b6e2ebaed7466e3ee0a1cf653c16cf8b0b62ca0d7f2d3f268bf8a33ce94faf29,c0dba8cd2fe2098ade5a27197a89a29777f3da5f24fc654ade5f13aac535f2b0,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-131.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-132,controlled-v2/rbi-property-valuation-copy,9401987,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-132"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-132
+- Workflow: `rbi_property_valuation-approval-132`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-132: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8e3ea76ac430c9f33d4e86e0e2d2e57de632fe8a96cb2b8e7d2f33e6e0036d6c,ea80a197dbffb7e7c1fa203affb1e14fe12dbafadd4c703d3bf7618dcb5d000a,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-132.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-133,controlled-v2/rbi-property-valuation-copy,9401988,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-133
+- Workflow: `rbi_property_valuation-approval-133`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-133: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bf4f59b7b215bca810151c576e76db7235480e2e0f81999dbcb314b741b30e27,f91660d29be09c9b0084675c300b2432b0975d1f10cafd8fc8ec5bca32099f3e,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-133.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-134,controlled-v2/rbi-property-valuation-copy,9401989,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-134"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-134
+- Workflow: `rbi_property_valuation-approval-134`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-134: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1d4ca6f799d132c75448e0ef0478fa81c460b6180546d68170c892d87ac461ca,7ac943555bd5c3e93e42be52681f5be3a873c79fc598299d52ff249e0182e630,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-134.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-135,controlled-v2/rbi-property-valuation-copy,9401990,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-135"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-135
+- Workflow: `rbi_property_valuation-approval-135`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-135: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3badbcdd8a5691256f83dca00dac79ac7d8e28cf2910b090b79f3f2e3ce70f91,0e250922fb481138d36a0f4979e7c8be8d72a4e2f6ed891bb64341b35cacc766,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-135.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-136,controlled-v2/rbi-property-valuation-copy,9401991,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-136"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-136
+- Workflow: `rbi_property_valuation-approval-136`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-136: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d0a8346c59266e94053739ad153b2c67345c8b97e94be9723f81e4139080e8fb,c721397eda5b005f858fc23213c3d3957f90bf711b13124e9316fd7319f78e0f,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-136.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-137,controlled-v2/rbi-property-valuation-copy,9401992,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-137
+- Workflow: `rbi_property_valuation-approval-137`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-137: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,784480b090a96766cf7573a4cab76f82adc30f094c5a153b879e46f65a4d3c4a,3c9d3ed1645034b7a639ad6f202d22ec22b20e638186ce8fbe3bdf60dc33e9e4,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-137.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-138,controlled-v2/rbi-property-valuation-copy,9401993,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-138"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-138
+- Workflow: `rbi_property_valuation-approval-138`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-138: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,65ae803045578dd881a6013c34ecbb09e10a9cb76ad336aced928fb5cdfa44f5,ae080382e49237da222f40c2646927a69a486ab751cdd85407bf74c4e6623609,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-138.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-139,controlled-v2/rbi-property-valuation-copy,9401994,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-139"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-139
+- Workflow: `rbi_property_valuation-approval-139`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-139: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4b53d59a18b5d5f0b35736b4d5629f8d4795baf8159f0f3936735476f10e799d,f99f8c4d4154a744b97e4d62500f84409804e2aea80b3257e0f756150148dd60,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-139.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-140,controlled-v2/rbi-property-valuation-copy,9401995,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_04.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-140"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-140
+- Workflow: `rbi_property_valuation-approval-140`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-140: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9cb7d054f5db7d17ae10c4633430ce183614baf0a15b766a1c502101f0168f39,dcc929467f49bbc0a0440aaa3e2e3c436186f678b03a1950614cd00efd99cb32,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-140.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-141,controlled-v2/rbi-property-valuation-copy,9401996,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-141
+- Workflow: `rbi_property_valuation-approval-141`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-141: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e2d78d5a4d615fb283a34dc35a9a3a714d29e58ab47d01e2c9e7ccfe753b48e8,3cddd59b90e52f660e2b9b2dfedc6f02202234f53539f0c23fe200ce8234ec56,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-141.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-142,controlled-v2/rbi-property-valuation-copy,9401997,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-142"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-142
+- Workflow: `rbi_property_valuation-approval-142`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-142: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eec3a4d26f530a2fe72977213f961caace17bc45b7d4368d66175ce3bd37ea73,c8696f09e61a7c27d8a3fee8d5e3c6331cf2a92afd0709bb5b11137511755886,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-142.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-143,controlled-v2/rbi-property-valuation-copy,9401998,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-143"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-143
+- Workflow: `rbi_property_valuation-approval-143`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-143: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,22f7c30aa85b36148e1ea629c4f95dfe95cf4b4516c25afee5493fb3054ef6c4,f808b4d1a364310daeaa2f6debe71160a1cd9d8805269776efb63f4b5e2a0272,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-143.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-144,controlled-v2/rbi-property-valuation-copy,9401999,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-144"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-144
+- Workflow: `rbi_property_valuation-approval-144`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-144: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4dfedd84a08bf3053652eb861cd8c82e970e1bed3816c8bcd06b4872a37dbf55,104ad3d5352d7ba9ffb69f97ee1a2f7ad6e5253942b767e5fec53c070bc96b12,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-144.patch
+CRPP2-VAL-OTHER_DOCUMENTATION-145,controlled-v2/rbi-property-valuation-copy,9402000,csharp,"[""PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/other_documentation/contracts_05.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:1f57d68c43f1d6c3 -->
+### VAL-FLOW-145
+- Workflow: `rbi_property_valuation-approval-145`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-145: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,047ef1c4e1b2094ca5d7d7220b91ce2fd22f4351f8b50c5b92103dc5146e9690,07ea893ccc447c6a6c2e25598ec1853758caf4f1f2b4e97c976627d17f5a5f59,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-145.patch

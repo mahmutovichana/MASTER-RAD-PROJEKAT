@@ -1,0 +1,2151 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-VAL-OTHER_DOCUMENTATION-001,controlled/rbi-property-valuation-copy,9201901,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-001
+- Workflow: `rbi_property_valuation-approval-001`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-001: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b6ea8f636da08454fc1be4dfa358dbbf2abd2f23c9208a5684cd454c79d7cb1a,a7cde3ca5d874b75a21fb49ebad319eadb7682b71afc68f5d7c56248b9e5f8eb,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-001.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-002,controlled/rbi-property-valuation-copy,9201902,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-002"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-002
+- Workflow: `rbi_property_valuation-approval-002`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-002: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5a775fc5a174367059dbc8c8cb62de71cf6a40c385c6cf8ccf80fd3bf278f716,ab7f8e14481f5d9b0b5cdfba2fc9e715945fec785aeac5396508339add35fdc5,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-002.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-003,controlled/rbi-property-valuation-copy,9201903,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-003"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-003
+- Workflow: `rbi_property_valuation-approval-003`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-003: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a5062a06fb3aee56c8a5b2eec99482183524045b584625717ccc8df926502e4d,df0b1ce9c3bd0b2d4ad865460c6cb732f8cef03d781a50cb18f916645a12667a,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-003.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-004,controlled/rbi-property-valuation-copy,9201904,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-004"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-004
+- Workflow: `rbi_property_valuation-approval-004`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-004: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,354d20e08ef82ca92349aceb3e1edfd0e2ceac6ab233c161fa72587c9320739f,597a093f81fa2e22d05b2e23013e9c7ff806a8dadea6aef243c25db63c6f3b30,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-004.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-005,controlled/rbi-property-valuation-copy,9201905,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-005
+- Workflow: `rbi_property_valuation-approval-005`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-005: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6125236c15d49fb58051ece4cea1d1fbb7ec551af784d9571f9cf04e8d693620,2d506a0dcf7b9cd70c62080ca5b1cd1f323c56258b815503d734f5e62f9837ef,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-005.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-006,controlled/rbi-property-valuation-copy,9201906,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-006"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-006
+- Workflow: `rbi_property_valuation-approval-006`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-006: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f1a25c688d2de6d2f78d45ecea5da8dcbea66e0f6e47177fdbf626ae3a0e624d,0f49bdb48495235f73179b5918d50b59e69841712447c99cb9f5c72fb390f619,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-006.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-007,controlled/rbi-property-valuation-copy,9201907,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-007"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-007
+- Workflow: `rbi_property_valuation-approval-007`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-007: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3224e242c5fb1413e5663269504e95b2deb5a7548bf4b38b7ccd781502b91672,e02fc149da70943db9c6962598b82d3c6add21d85682024d0304df412843eeea,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-007.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-008,controlled/rbi-property-valuation-copy,9201908,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-008"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-008
+- Workflow: `rbi_property_valuation-approval-008`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-008: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a0ee4064a36f56fd93f9317118673cfe5b684eb58208c04cf0df079aed225770,3de981e02edf2fe0d700caaae140a474dd56c9ab4e6668dffa1abf7a16d84120,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-008.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-009,controlled/rbi-property-valuation-copy,9201909,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-009
+- Workflow: `rbi_property_valuation-approval-009`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-009: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2489e4fbb5dcce5d1efdacbe69b5bf59130802e4b32b47cc7b7bb029aa6570db,187acf687df518d35c61ea4da0861de64c7282e8cc4852695fe68e372c0b2ee1,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-009.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-010,controlled/rbi-property-valuation-copy,9201910,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-010"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-010
+- Workflow: `rbi_property_valuation-approval-010`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-010: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,404f0ecd94f3212f9e17d7e4e1b1232bde545e0eeb3cc67cd49430034b181501,7095f255929293aefbab1349bdf75a6248078be2570574e79694e55b2a1fe3ff,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-010.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-011,controlled/rbi-property-valuation-copy,9201911,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-011"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-011
+- Workflow: `rbi_property_valuation-approval-011`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-011: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,884b5f051700fd522e721f6534fae89fca5f8c8d04a6db5061e201fa7cd418db,96421bfe13196e18361b5465e024cb45fe0c2b7662621df902a12b979e445e52,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-011.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-012,controlled/rbi-property-valuation-copy,9201912,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-012"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-012
+- Workflow: `rbi_property_valuation-approval-012`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-012: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dc19391e764c97b4646100964cf022d6a2ba038de9fa13377ad999018cc0a5bd,774f7fab4dd7038a51b58d37f5e176eace4b75dc11da504847e30e9a852963af,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-012.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-013,controlled/rbi-property-valuation-copy,9201913,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-013
+- Workflow: `rbi_property_valuation-approval-013`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-013: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,50e35b230e6f4f0be849a2a9862bfad034fc814c2143bd820078a4742adbc146,fc0c6c4374bd271448396dfea6accb962e65cc566eab9cfcbb8482f99ff0de6b,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-013.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-014,controlled/rbi-property-valuation-copy,9201914,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-014"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-014
+- Workflow: `rbi_property_valuation-approval-014`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-014: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1455d98c53ba91d2b3435f219794c1fcbdf7568592dc7f0806422555def0c347,d47cc6cb347576d022fcdcc85a57179290531f6b3795f9e86f798a06d097c479,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-014.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-015,controlled/rbi-property-valuation-copy,9201915,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-015"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-015
+- Workflow: `rbi_property_valuation-approval-015`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-015: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f664c82913ea2af28a26d17190ff9cc0a3b5e812b87b8e4e0c7579af3ff4bf46,999099cccae5a238a004c2d8edb0384982b7560c191509eaa8003b9b00325355,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-015.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-016,controlled/rbi-property-valuation-copy,9201916,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-016"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-016
+- Workflow: `rbi_property_valuation-approval-016`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-016: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,217c14cf935048a61a0e7abfeed665ef8a1f535d0b1a78f0cb8883f2c7c4bec1,e6178a3d6ff84b1b4607a7f269ec917df03dfe4213c8d2516672529df02e4cae,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-016.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-017,controlled/rbi-property-valuation-copy,9201917,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-017
+- Workflow: `rbi_property_valuation-approval-017`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-017: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,86ba30f9b2aa5e25a86dd89843dd1142ec2dfd501b55d4b1025c0be8863d4cc4,a8f94ebe092d3b4baeb6ff96db5b2fd291b7365cdd6284b5620491fde728b0e0,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-017.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-018,controlled/rbi-property-valuation-copy,9201918,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-018"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-018
+- Workflow: `rbi_property_valuation-approval-018`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-018: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7d5f212a69a7fa5505c789a769b0f82d3b611a7b023be39533415d62a798d308,af26168e49518f85274f5d0d8a1351b383b8d27753697ff993a5ddd962ddd97d,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-018.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-019,controlled/rbi-property-valuation-copy,9201919,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-019"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-019
+- Workflow: `rbi_property_valuation-approval-019`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-019: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e7f9a2e5c9253675c0e04b4adf7146b335a1083e39cdb93549771c79205bfe0d,7ca41eb97ab45c7146761f33def78bbba7bcebffbe722335102ba93cfc690057,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-019.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-020,controlled/rbi-property-valuation-copy,9201920,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-020"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-020
+- Workflow: `rbi_property_valuation-approval-020`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-020: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,74b71c70d007ed40b32c1031135c8267dadc0404fa5a4d739bef2587a7d5193f,2b1e5c9284f5ecbf86348738da94d134f5c369837b5793cdf246a3fe6901fab7,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-020.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-021,controlled/rbi-property-valuation-copy,9201921,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-021
+- Workflow: `rbi_property_valuation-approval-021`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-021: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7b3074725f6e5ebed1455d013d562321288e3b531a76e983bb531bd87bb57a1f,49ffba6cbdd7ac284b6153bcbf6b9ba726b0e5640e54315955fd96a4c8c25ecd,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-021.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-022,controlled/rbi-property-valuation-copy,9201922,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-022"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-022
+- Workflow: `rbi_property_valuation-approval-022`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-022: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1541b605c9a53e524c05712717fa9479211a97b1bfc21aed7e9c9184146170f9,3a7f7b1e7fc922113ef2cd1228b0f601dad53ab11fb1dc9243bec0a9f373cc5b,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-022.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-023,controlled/rbi-property-valuation-copy,9201923,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-023"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-023
+- Workflow: `rbi_property_valuation-approval-023`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-023: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ce12759ab9cbc886279e6aa387b855fc205b87ae38cfb99b0ea4db47abb9e8bd,3c7b22c2cdda1e281c56939e7337640bea5c8de63f6e91a1f0ae1e66915ec01a,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-023.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-024,controlled/rbi-property-valuation-copy,9201924,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-024"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-024
+- Workflow: `rbi_property_valuation-approval-024`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-024: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5bf0eb89661e6c7294fbf0a4a2fb7a69448baa7b360674bbc2122f85e8429711,bc27c6c90979fbe765389b6f5b33ba2db9970fe2103b0a428b7a19e8b2157f99,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-024.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-025,controlled/rbi-property-valuation-copy,9201925,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-025
+- Workflow: `rbi_property_valuation-approval-025`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-025: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a88dff53bc9448efb1d85fa38a091e5cfd551c182d411fc2b8a3827acdfca042,7ea7e7cf894f884c2bdf3491ca1d4372930ad9d9e19c5633edf0d369c98370e3,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-025.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-026,controlled/rbi-property-valuation-copy,9201926,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-026"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-026
+- Workflow: `rbi_property_valuation-approval-026`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-026: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1184febd9ed58281f022667996d7e23cfbe46ea5ed462c012be37ef28dde2082,3600837eab824e046ac6a84716400b942fbc62de247624af9ba1284b196ebe0a,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-026.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-027,controlled/rbi-property-valuation-copy,9201927,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-027"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-027
+- Workflow: `rbi_property_valuation-approval-027`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-027: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c9807d0de999b66d4506b1aafa9202c9de10dc0d80fe4129c2f14fb962d2b691,e443be9f91c6c1a2156af9cec545ceeaec6975afe184af6c5c278d9c5cd09099,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-027.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-028,controlled/rbi-property-valuation-copy,9201928,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-028"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-028
+- Workflow: `rbi_property_valuation-approval-028`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-028: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e5b173e671fe03c5e4a0bfa876c9207b574d390b9ffd761ec3ddd8360117c01a,394465483357adefc0e001870472b04552ada83fb141b5b1cc8cb0c45c666ec6,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-028.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-029,controlled/rbi-property-valuation-copy,9201929,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-029
+- Workflow: `rbi_property_valuation-approval-029`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-029: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,705f00187c2a6acbf9655c46dd137acb5cdec70927bc92cfa80aafe40a4e1bc3,33e6b02c3c1fc43c2402b62197618adc445f198d24ac92e66847fea183d19858,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-029.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-030,controlled/rbi-property-valuation-copy,9201930,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-030"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-030
+- Workflow: `rbi_property_valuation-approval-030`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-030: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,45d79c53dc5fed48d88a6286918b435a8ed5993d0d10bedcd0f0c0d493bec1db,5652170bb3ee3bd78472e31177fc9669354811513989289102edee7a5692acd8,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-030.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-031,controlled/rbi-property-valuation-copy,9201931,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-031"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-031
+- Workflow: `rbi_property_valuation-approval-031`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-031: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2e45d3378ef15cc727118b834543e031f6b9289601c011d551763d9d96b68793,102b447c5239e7d3d23bb7ebb40fc5212afb0ed34fe3d4c2a60abc191467a6a3,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-031.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-032,controlled/rbi-property-valuation-copy,9201932,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-032"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-032
+- Workflow: `rbi_property_valuation-approval-032`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-032: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eaccace0710b6ec76a41ef1a5c642b918ea73eadd995c57d9a79f4fc61f5ec44,e7d05ee469e8e77f6545dbb8195d4c7535f0ee995f4b4b20ac35daa874f4fb61,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-032.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-033,controlled/rbi-property-valuation-copy,9201933,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-033
+- Workflow: `rbi_property_valuation-approval-033`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-033: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1eb4f0da3a6f048cc7215a13aca3daae76f58392128ca4e0f70462d4b4db03ea,8bda399d3a17f25e8bedabe432a3d5978a2df7579f2da72dcd2848368d82765e,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-033.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-034,controlled/rbi-property-valuation-copy,9201934,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-034"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-034
+- Workflow: `rbi_property_valuation-approval-034`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-034: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7929e7f6ad816615405bf4a7a4969b3bba747f7419bacb0611661171cba40692,7914193b1986481c1a4aeeec520b68764c5241015af1d4ac1598112a13ac1bb3,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-034.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-035,controlled/rbi-property-valuation-copy,9201935,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-035"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-035
+- Workflow: `rbi_property_valuation-approval-035`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-035: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f7c284d83f7a98f31f3d6ca20128989d1817d3429fe36008d307d928c010e578,3e19693c3e72f0d8813eeef6c6795f09be49de7b6f0d0ffe26fc8329792a58c9,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-035.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-036,controlled/rbi-property-valuation-copy,9201936,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-036"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-036
+- Workflow: `rbi_property_valuation-approval-036`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-036: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,882814cbc27aa78707da82c84a19a03e9cb4c994c2eda34b808fa77b67c55157,1f8224d5d29a0837d5e857a66964eaeeaac5ba2a30f31216215beaf33fdc19c2,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-036.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-037,controlled/rbi-property-valuation-copy,9201937,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-037
+- Workflow: `rbi_property_valuation-approval-037`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-037: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c046a1676c9cc42d67ff70aa6a96a065dff2f2cd613ca0900c8dc5b83d763913,eef1c51aef7ba0b4fd111a8c76c669389bcabaa4852864ef3521b38b8bc5a131,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-037.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-038,controlled/rbi-property-valuation-copy,9201938,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-038"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-038
+- Workflow: `rbi_property_valuation-approval-038`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-038: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aff772abe117a7cee7452f68dcda2d21ba92760338393251b1efb03d526f7087,4d96eeaa246063e73fd30e21c6f87a0b8ae219fcc6403844dde4d84956991d0c,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-038.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-039,controlled/rbi-property-valuation-copy,9201939,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-039"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-039
+- Workflow: `rbi_property_valuation-approval-039`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-039: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a5ebf8a14a6d8e9d5ba1c79ed36461346dd82c06cf6cf294fa94c9501fb3a068,d14913262eecbbcb83816bbafa55d4326897e055bbe5b000ae9b3b7a746754fe,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-039.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-040,controlled/rbi-property-valuation-copy,9201940,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-040"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-040
+- Workflow: `rbi_property_valuation-approval-040`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-040: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3dbccb300b0abfde45c0882f1b607e99232e049c454395f0c844b3eb1039f64d,25ff4c589c09e99e7d40130d48dc0cee80021c6f6e372e25d4bef440ece0cbd3,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-040.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-041,controlled/rbi-property-valuation-copy,9201941,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-041
+- Workflow: `rbi_property_valuation-approval-041`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-041: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bed8a6e1acba2a24093a3fd25d32fbee794646f5731180c71ed6b60408c1f533,6de78e023d337b6deed3dccb70ea9ff59c3744a8aac1875bde8aeef589784d77,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-041.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-042,controlled/rbi-property-valuation-copy,9201942,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-042"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-042
+- Workflow: `rbi_property_valuation-approval-042`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-042: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3322fc0c7791cc4c725eb6a522a76f2f15fa0ab07d9c647700fc302a74a3f1f9,ed455fc397f3a26b49b8670ab61ad829db83efee7db6e20127bb0acf40239426,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-042.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-043,controlled/rbi-property-valuation-copy,9201943,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-043"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-043
+- Workflow: `rbi_property_valuation-approval-043`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-043: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8acb50ac0983a85a27bc5e3235f94024e1344cb6254c965a426bfa81af8c8bf2,7f90d775ff182f6c926d911018b0a86825c4d4453e17ed60ef7f2a2685dab8b9,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-043.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-044,controlled/rbi-property-valuation-copy,9201944,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-044"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-044
+- Workflow: `rbi_property_valuation-approval-044`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-044: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b257852e61ee531de33110938af67d5fa49e9adc28457c04e9c8e421e31aa933,d008647242ba78f3b2647093b63e4a31908d8fa2dd9a01f066e3514ec4146471,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-044.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-045,controlled/rbi-property-valuation-copy,9201945,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-045
+- Workflow: `rbi_property_valuation-approval-045`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-045: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d39ecc75480f692baaa07515671b3a924c75808e00d1e2b9a6ed88b88b333516,0b6ef98bab24701d07ed69d2db67441f1082e2f95904e81d3d83709e9d6b4fdb,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-045.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-046,controlled/rbi-property-valuation-copy,9201946,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-046"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-046
+- Workflow: `rbi_property_valuation-approval-046`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-046: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3460294920fad8a2d1eb101d14f2998ad1c4ec6c4d87b5486ae28c35827aae5f,dc547aa380cc862c35b3c8e27e936ea81ef6b4750a32cff779be2bbbf159d4df,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-046.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-047,controlled/rbi-property-valuation-copy,9201947,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-047"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-047
+- Workflow: `rbi_property_valuation-approval-047`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-047: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,447a3b9962eac86d2829a96429a71d58035c3888c81a65d88d6ff4ce133fa8d0,0d0d2ab5ba770bae178f061fddcfd72d94f574afcb57b6c871b0f4b7b8054219,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-047.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-048,controlled/rbi-property-valuation-copy,9201948,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-048"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-048
+- Workflow: `rbi_property_valuation-approval-048`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-048: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f68fa938e5dd6dd1b2ac41b96aba16d337849710dfb378746f90e2b61023aaf5,8fd07ba966558824377ff622ea9e2516d4f0eda8c4cbf4635d2ae5aea04303d2,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-048.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-049,controlled/rbi-property-valuation-copy,9201949,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-049
+- Workflow: `rbi_property_valuation-approval-049`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-049: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fb68b34bc018d4878380b6a3203036cbfee0770bffa4cfc9d540a3f5bbf9b25d,ddfc84571c6367a72793e4bcec39e829293ceb972b95ff6b053e3fb8e1537583,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-049.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-050,controlled/rbi-property-valuation-copy,9201950,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-050"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-050
+- Workflow: `rbi_property_valuation-approval-050`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-050: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,02970f872406c25d6a6e30fc1662acca4f69fb9d4fc0885053c22f4a04889a35,de5ec1b10892a3073de649dc98d128883b297f86c32577731c6a59c65846a73d,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-050.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-051,controlled/rbi-property-valuation-copy,9201951,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-051"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-051
+- Workflow: `rbi_property_valuation-approval-051`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-051: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e48dd46e91459a4a8d72050300f72c7fc8cf664e2b5673219cfbd0e6ca9435d7,68c9d64dff218c6e7d9a0bc2731c6fabcaef9d9fa70ae7b0f5485b7ff2c6d5cf,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-051.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-052,controlled/rbi-property-valuation-copy,9201952,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-052"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-052
+- Workflow: `rbi_property_valuation-approval-052`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-052: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a4b341a55caaf113fe5eb893663efba89acfeab040fea4b9a35ff8ce1bcbfa8d,13ffe03e623b27d6beac571fbf38d4930aaf8c8eeb90f0ac4a481ed4e6243cbe,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-052.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-053,controlled/rbi-property-valuation-copy,9201953,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-053
+- Workflow: `rbi_property_valuation-approval-053`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-053: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d241682494a8575950889777dda425ed9e4958a41145f6292f972bbc370a48d8,f670fd0318d74dbe958be4a54bb9356d75161e675f0e1473bed81b3d82d4b541,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-053.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-054,controlled/rbi-property-valuation-copy,9201954,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-054"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-054
+- Workflow: `rbi_property_valuation-approval-054`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-054: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0e0673d8845dc9a7556dad334e4b454fc303bb8ed6f24bc7b98a2c5b5f27f211,252c6da420195e4d97afef0626de3aa8ede658d256631ca3b584d97a512d9972,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-054.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-055,controlled/rbi-property-valuation-copy,9201955,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-055"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-055
+- Workflow: `rbi_property_valuation-approval-055`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-055: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,456410c3ee5d9e3eb7353da4e18ab204c8dd49bf6480976b1e79b7f9483b8949,8aa983cd22fba1828bd933ad48fe13e36b33a78feb5b299dda563161e6ab3174,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-055.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-056,controlled/rbi-property-valuation-copy,9201956,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-056"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-056
+- Workflow: `rbi_property_valuation-approval-056`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-056: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8ac496b1b513a8674c1fbeb0b28a7e96eb86e15d4ce288eb3e89f0ee4fc4d58f,2ab8592a26ab412ac1f710fd83c1aaf9ff9e7f1510dc8440cc8053a14d4b6c55,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-056.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-057,controlled/rbi-property-valuation-copy,9201957,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-057
+- Workflow: `rbi_property_valuation-approval-057`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-057: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bdf8a4f2a730937e20f2c74608cfea1cb9e011d14df65d4d5d69bf0cb5cb17b6,d0e8787c649ac51f455496ce3f1b5d3fa260d3191fbd0ac8545bb60004552521,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-057.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-058,controlled/rbi-property-valuation-copy,9201958,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-058"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-058
+- Workflow: `rbi_property_valuation-approval-058`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-058: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,742cc6064dc81881f30ee112b1a67905d0b082917eed0e3a6c76be33767831cb,197cda3ba40e1a07014d441b5a6b041ecb3374abde9d8585926a8474b285e7a8,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-058.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-059,controlled/rbi-property-valuation-copy,9201959,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-059"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-059
+- Workflow: `rbi_property_valuation-approval-059`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-059: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,21529fc91000e7c61e62cb93521df040e5828371f07672aca79d049f762625f1,99bdee07e4fbb92a94981d24a3bc2c08831364e0edd9c9388df37e1f02d04121,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-059.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-060,controlled/rbi-property-valuation-copy,9201960,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-060"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-060
+- Workflow: `rbi_property_valuation-approval-060`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-060: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4c4f6aa6b8f1b2ddb877fbff80594ebb5600826a77b202f1fce97017d126df78,d02e78e1a18d0b51332ee85093d5cc1d74b31df4e2aa518217f1837942206291,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-060.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-061,controlled/rbi-property-valuation-copy,9201961,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-061
+- Workflow: `rbi_property_valuation-approval-061`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-061: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5bf4dd55f6282c92995c2f6d185de973f9d04e36b20bb65e99aa0b892317edb2,31c787c0547cff25263cc2626d11d489e08598fa05ad25ecaecb07dc6f191529,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-061.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-062,controlled/rbi-property-valuation-copy,9201962,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-062"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-062
+- Workflow: `rbi_property_valuation-approval-062`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-062: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9e5c27bd13b1325b230985ad3dde2403d00e05fd84c17329098162d4c4878ce5,0aea79e65de72b61d4a8c3bc0e082f8669979ba572b1e54de2ee56fca6c75c16,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-062.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-063,controlled/rbi-property-valuation-copy,9201963,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-063"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-063
+- Workflow: `rbi_property_valuation-approval-063`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-063: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9af7384dc4af7aa129eee5d3bf3d263519b2b4ce7ae97d0b0dfcd5b3f73ddaed,ac2ed032f4eb72a8acd4d278d28a142421ffd2370070ee12f62f218feb8846e2,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-063.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-064,controlled/rbi-property-valuation-copy,9201964,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-064"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-064
+- Workflow: `rbi_property_valuation-approval-064`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-064: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,370c1329f88ec03db8da399caeb56f87cb2c0da29cf0fcf26b93c7a72aca2546,afebbed641f2a34d9c224d547a8672c420fc50d0668910501ff57b37cf6d22cd,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-064.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-065,controlled/rbi-property-valuation-copy,9201965,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-065
+- Workflow: `rbi_property_valuation-approval-065`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-065: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,991cd0734b13e32b83bedc7cad09d37cdc7040d2e92947c176e4c13a3dfbbc28,63b960294eee3c4f53e650fd2f9293ace8482c0fb5343b63aebabc0ffd7f6fd6,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-065.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-066,controlled/rbi-property-valuation-copy,9201966,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-066"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-066
+- Workflow: `rbi_property_valuation-approval-066`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-066: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8516642f563f68b808cc9ccd22dd42c57d3bc3899dd68873eb7ab3a3cfd8829c,9e2d0e5c38f01b0aa93e8dceb9f5fa81d84d375734612c54b0d7ceeb2c8d01d9,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-066.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-067,controlled/rbi-property-valuation-copy,9201967,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-067"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-067
+- Workflow: `rbi_property_valuation-approval-067`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-067: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1640abb713b6ecdd320e8d8682e1ccbe145d3b9f310413ee8d555bd6f24be0fd,51354bbe53a29327f4f9090287c883d97eac34e6e13177f1acf791197543526f,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-067.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-068,controlled/rbi-property-valuation-copy,9201968,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-068"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-068
+- Workflow: `rbi_property_valuation-approval-068`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-068: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,37e612c48e3a704c6efc2fd760e4927817258f2b885ccdb75df0320d348a3d2d,9e6f46d786e58e66060b8a00141facb6c106597becf4a93ecdd1fb56df23b191,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-068.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-069,controlled/rbi-property-valuation-copy,9201969,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-069
+- Workflow: `rbi_property_valuation-approval-069`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-069: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,08d4ef9c13bbba5746b8280300e4249b4fa229cd740187775c02645eae71b734,42cab23d3b7e3c6db76b818cbb4b5461430f07829f5ea1b9bbab954457e40f17,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-069.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-070,controlled/rbi-property-valuation-copy,9201970,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-070"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-070
+- Workflow: `rbi_property_valuation-approval-070`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-070: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0cc3ea71b4e83ec12647aca19598a10b887e6a411abcf8669ad9cd04177e4604,539c128429aec25444de9c80eba519abf0d8af38eb89b4f8bbdc70ea770f0283,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-070.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-071,controlled/rbi-property-valuation-copy,9201971,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-071"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-071
+- Workflow: `rbi_property_valuation-approval-071`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-071: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ef50aab54f8ba399e558f67c898db2f1ef47bfaff4d098793b6dc904ac06fe5d,bc13273e4d0231f1c56158d85078f677c869b2b544681158c3836b0e48e72c2a,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-071.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-072,controlled/rbi-property-valuation-copy,9201972,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-072"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-072
+- Workflow: `rbi_property_valuation-approval-072`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-072: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6689b70b7591dce0caf2a6f95b051a78ed1d92c4fdb8e1642f6142f5f5410f5d,f4328cd9d43ffe927f760e69cd55b8e4589794dae1cb052a87da0b100c899fa0,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-072.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-073,controlled/rbi-property-valuation-copy,9201973,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-073
+- Workflow: `rbi_property_valuation-approval-073`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-073: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7a8dc47ad5399120929e610c8ccb36f4b964ea3a45d85af4083211dca7126120,0faceb32e5e21c2ff1c44ec9e00ac64bb5201236fc25f047e4d61a19bbf0bb21,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-073.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-074,controlled/rbi-property-valuation-copy,9201974,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-074"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-074
+- Workflow: `rbi_property_valuation-approval-074`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-074: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4a7608a3ebce6b099eb2cb335c2ae6b59e4c5e2df45e3d48b8642bfb0cd401af,7d8750b80bea35cf8cdad98099454fb21e7db37ae0384187bb20f17543d1960e,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-074.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-075,controlled/rbi-property-valuation-copy,9201975,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-075"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-075
+- Workflow: `rbi_property_valuation-approval-075`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-075: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b0f24d1eb99fab21e0871893ba8710837d6cea09dfa50a1334f9706d18268d8e,09e4262aede510ef3bbb4d1a85af29e004450ee2ff260e858815df1b0d533253,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-075.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-076,controlled/rbi-property-valuation-copy,9201976,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-076"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-076
+- Workflow: `rbi_property_valuation-approval-076`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-076: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,020a7b9180c3c2ce678c456b2f2b119e08d3354005ebd30ace49f1b7924ad315,4c2a3ad6c37aa292ac0dafd367c3c3a345ad49130dc6c933f7746d3bf1f37677,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-076.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-077,controlled/rbi-property-valuation-copy,9201977,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-077
+- Workflow: `rbi_property_valuation-approval-077`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-077: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,49d1c53d96c0018f2a1998a657db2c5cf1708714159b896df9b0a8397095892b,da2d4842be60d68c8df844c89bb9c54e25daea1f662772ec47b3eb016e98f9a0,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-077.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-078,controlled/rbi-property-valuation-copy,9201978,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-078"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-078
+- Workflow: `rbi_property_valuation-approval-078`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-078: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eb5c0569916765aafe9523e1cf703928c37276ed5288d98518d628b86e6c0ee0,fe86e0f9cec2adc777d3289c46edcf5888228e7dc7f154037df26b5c772bf187,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-078.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-079,controlled/rbi-property-valuation-copy,9201979,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-079"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-079
+- Workflow: `rbi_property_valuation-approval-079`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-079: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,de936bcb99c1650ce139b0a0168bcbfbeadfebe724bdc8a701cd22aeaa29c94d,fe65c5bba4dcaa5a92af4b5ccd9f2cf0a2a75644f0f42dca6c281b3f04289398,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-079.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-080,controlled/rbi-property-valuation-copy,9201980,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-080"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-080
+- Workflow: `rbi_property_valuation-approval-080`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-080: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,09f41bc28886269b3525d8c35f93c47e5dda195963740f9ed1f5e5bcfaf25d79,86ef16d262651784d47627ceabc4425ebd2c8154e4bd9e894caeb833113d5a2b,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-080.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-081,controlled/rbi-property-valuation-copy,9201981,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-081
+- Workflow: `rbi_property_valuation-approval-081`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-081: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4434047d851900fa4f6482c17d2c889750e589b14e8a7b73207c3c66eefe91e7,2164524ca6b34bffbf7fbdc997e9b909b167fb8c7eefd8d629888382c4e90abe,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-081.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-082,controlled/rbi-property-valuation-copy,9201982,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-082"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-082
+- Workflow: `rbi_property_valuation-approval-082`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-082: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,66ff274aa484e8a60aed1a7ed6a9dd9a60ebcc1a05ca44563c295f8161cf3960,6299474b6988df375645b6d7802018589b7659e3b46544bf253b2758b33563c2,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-082.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-083,controlled/rbi-property-valuation-copy,9201983,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-083"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-083
+- Workflow: `rbi_property_valuation-approval-083`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-083: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,beb60e170f85037134a2b809dab296346e1ad9616bdc4209856de9c52d95f90c,290aef5df8206ab35ceb213acf92572f2e61eda8247ae7aa1158e31c2c36673d,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-083.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-084,controlled/rbi-property-valuation-copy,9201984,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-084"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-084
+- Workflow: `rbi_property_valuation-approval-084`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-084: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,115513c6f66e2a2cd7b394dfc8bcb7796dacacd3746072f81ad8f163e513c768,6627679039d40a1a75d4c0e6a66718a9273d1a8ac4d509490a3a702dcfbb8d77,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-084.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-085,controlled/rbi-property-valuation-copy,9201985,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-085
+- Workflow: `rbi_property_valuation-approval-085`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-085: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,210a8ec4f634a4cc13e292f80cb3309af5d5766bd33a30403741d747c2498cb8,62634828aaa77e0478786e66b64ecf196efdda128a78f9417b27144d96ed1bed,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-085.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-086,controlled/rbi-property-valuation-copy,9201986,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-086"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-086
+- Workflow: `rbi_property_valuation-approval-086`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-086: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5bda1f2d4bfef6c38a71778986769e8bcf6d51a7b98abc7c344751c308cf3627,de3819b2334a857452dbd6701a5a9c08d2c3a8965bcb31456f5b64a93829a002,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-086.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-087,controlled/rbi-property-valuation-copy,9201987,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-087"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-087
+- Workflow: `rbi_property_valuation-approval-087`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-087: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3bfdc1aaf6e9c90c093f10399c6e8ce443986393e39469b2b198a0605373a165,39dc6ee79752db4f1666fa13adfaf442fbbe7d013b935dc1694269a54b34690b,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-087.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-088,controlled/rbi-property-valuation-copy,9201988,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-088"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-088
+- Workflow: `rbi_property_valuation-approval-088`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-088: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a3b83a900ba1b89a67124cc218b0d7f231890704532b0d301d44cedbfc1749f9,5ee12715a802bd934d882edee2365f6fa40a7b8cb2f81d172cf23fbdce55746e,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-088.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-089,controlled/rbi-property-valuation-copy,9201989,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-089
+- Workflow: `rbi_property_valuation-approval-089`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-089: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,90b11815d0d404c8b5e6190324c51d54d69ffb8bdfa5ca2d5b1588d6c997750e,30658f1815e963d7fc22ee66ae81edcdc172d25e97a3565600d57a04daf6d538,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-089.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-090,controlled/rbi-property-valuation-copy,9201990,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-090"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-090
+- Workflow: `rbi_property_valuation-approval-090`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-090: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0531b58181c59b1b089cda16b313af5eeb17f5a6e818d6829e9e05a74f534c61,a78463bb8d36c380e5d675bc5f11721ee563035eb8e77954eb20c5c50d580fa1,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-090.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-091,controlled/rbi-property-valuation-copy,9201991,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-091"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-091
+- Workflow: `rbi_property_valuation-approval-091`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-091: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4fb6412b272607b5779d34245f20fa17807aa0ca0a4702d22c70bb1fd8c6bd5b,1cf4f6e07f33badd63d6ba435bacfc41d1452ea0ce13ff30f3bd424c60606542,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-091.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-092,controlled/rbi-property-valuation-copy,9201992,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-092"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-092
+- Workflow: `rbi_property_valuation-approval-092`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-092: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a362bfd0f1c88c0aacc47c34914269434650fff5368764077c69759c16edfc9a,9bc8e177a508fb4cf0366fa583d4b023ba54af69378b1da43e08945bd09a7d22,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-092.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-093,controlled/rbi-property-valuation-copy,9201993,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-093
+- Workflow: `rbi_property_valuation-approval-093`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-093: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,70d83cf63ab78aa136214074c6a1cea558b31965b8189fe019bd0bde26c646d9,037ebb15f26b10cf5ee87a8abf12878b3e01e5878589a4e4695a1e402fad186c,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-093.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-094,controlled/rbi-property-valuation-copy,9201994,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-094"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-094
+- Workflow: `rbi_property_valuation-approval-094`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-094: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c2d77f95dd2cc3639f1fdb28cb7f413198100b70dd2271ff153afe91a0f91007,83a6ddc3cb1ff904b0536afd690341b955c5a1628dc41a52e70ba767995cab45,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-094.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-095,controlled/rbi-property-valuation-copy,9201995,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-095"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-095
+- Workflow: `rbi_property_valuation-approval-095`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-095: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,255e110378dd22786cc6b7d324c7cf2f6d09010d510379606beb23e34c2a2514,2d156eec7002d40bafb137344bd622e865071df76a9ca8b2d9cd233933c9d140,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-095.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-096,controlled/rbi-property-valuation-copy,9201996,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-096"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-096
+- Workflow: `rbi_property_valuation-approval-096`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-096: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0374941c80f35a5b478c0f665a8a89f6058458c5cce66c5728aa2b32cb3b0fa4,0595042c2bc39fe000dca3f283c1d521ec2844d8e4735a5a3bd96134d33316a1,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-096.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-097,controlled/rbi-property-valuation-copy,9201997,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-097
+- Workflow: `rbi_property_valuation-approval-097`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-097: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d7f33933f15700bff65f239a810eaf92a95cfdade1abeda97d9aed402a020b78,4419a8eca01d0bac817847963a94c176b4d167d9a1972bcc61967b11f2c498b2,other_documentation,rbi_property_valuation,business_workflow_step_added,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-097.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-098,controlled/rbi-property-valuation-copy,9201998,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-098"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-098
+- Workflow: `rbi_property_valuation-approval-098`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-098: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,37f24c25c035c62399108c4046caf4fe9b241d5d7e887fec20b5476c80bfd81a,e499334562d75d3dc987db012f05010e7a0452777b36403ac952b526aa8a4d38,other_documentation,rbi_property_valuation,architecture_path_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-098.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-099,controlled/rbi-property-valuation-copy,9201999,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-099"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-099
+- Workflow: `rbi_property_valuation-approval-099`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-099: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6b11aea5e4751dea8c6374f3d498ac2968a118f0fe2702b8e065da4faef214b0,07fb2737af169888978b8bc7d4a3a02bebfa964d2de1520ea9d32f254ba9721f,other_documentation,rbi_property_valuation,operations_retry_policy_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-099.patch
+CRPP1-VAL-OTHER_DOCUMENTATION-100,controlled/rbi-property-valuation-copy,9202000,csharp,"[""PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""VAL-FLOW-100"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d3ef81fafb17cd8b -->
+### VAL-FLOW-100
+- Workflow: `rbi_property_valuation-approval-100`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"VAL-FLOW-100: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0b356141f91bf1f96d2650d4c0203f3deafd4a18a08c0bcc9682a0ef17291549,e154b81362f618c605f1a8879a67d870b7527834322a2815784dd9a833b0d403,other_documentation,rbi_property_valuation,security_approval_flow_change,cases/patches/rbi_property_valuation/other_documentation/VAL-FLOW-100.patch

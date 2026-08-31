@@ -1,0 +1,534 @@
+@page "/grupe"
+@attribute [Authorize(Roles = AppRoles.Administrator + "," + AppRoles.QALead + "," + AppRoles.QAInzenjer)]
+@rendermode InteractiveServer
+@implements IDisposable
+@using RBBH.TestAutomation.Api.Services.Run
+@inject IGroupService GroupSvc
+@inject TestRunStateService RunState
+@inject IGroupTestExecutor GroupExecutor
+@inject IUserContext UserCtx
+@inject ToastService Toast
+@inject IDialogService DialogService
+
+<PageTitle>Grupe testova</PageTitle>
+
+@if (!UserCtx.CanAccess(AppModules.Grupe))
+{
+    <MudAlert Severity="Severity.Warning" Class="ma-4">
+        Nemate pristup ovom modulu. Potrebna rola: Administrator, QA Lead ili QA Inženjer.
+    </MudAlert>
+    return;
+}
+
+<PageHeader Title="Grupe testova" Subtitle="Organizacija i kontrola izvršavanja testova" />
+
+<div class="d-flex justify-end mb-3">
+    <MudButton StartIcon="@Icons.Material.Filled.Add"
+               Variant="Variant.Filled"
+               Color="Color.Primary"
+               OnClick="@(() => OpenCreateDialog(null))">
+        Nova grupa
+    </MudButton>
+</div>
+
+@if (_isLoading)
+{
+    <MudProgressLinear Indeterminate="true" Color="Color.Primary" Class="mb-4" />
+}
+else if (_loadError is not null)
+{
+    <ErrorAlert Message="@_loadError" />
+}
+else if (_tree.Count == 0)
+{
+    <MudText Typo="Typo.body2" Color="Color.Secondary" Class="pa-4">
+        Nema grupa. Kreirajte prvu klikom na „Nova grupa".
+    </MudText>
+}
+else
+{
+    <MudPaper Class="d-flex align-center flex-wrap gap-3 pa-3 mb-3" Elevation="0" Outlined="true">
+        <MudSwitch T="bool" @bind-Value="_runInParallel" Color="Color.Primary" Label="Paralelno" />
+        <MudNumericField T="int"
+                         @bind-Value="_maxParallelThreads"
+                         Min="1"
+                         Max="32"
+                         Disabled="@(!_runInParallel)"
+                         Label="Max threadova"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Style="width:150px" />
+        <MudSwitch T="bool" @bind-Value="_stopOnFirstFailure" Color="Color.Warning" Label="Stop na prvoj gresci" />
+        @if (_activeProgress is not null)
+        {
+            <MudDivider Vertical="true" FlexItem="true" />
+            <div style="min-width:260px;flex:1 1 320px;">
+                <div class="d-flex justify-space-between align-center mb-1">
+                    <MudText Typo="Typo.body2">
+                        Proslo: <b>@_activeProgress.Passed</b> / Palo: <b>@_activeProgress.Failed</b> / Ukupno: <b>@_activeProgress.Total</b>
+                    </MudText>
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">
+                        @ProgressPercent(_activeProgress)% / @FormatThroughput(_activeProgress.ThroughputPerSecond) test/s
+                    </MudText>
+                </div>
+                <MudProgressLinear Value="@ProgressPercent(_activeProgress)" Color="@ProgressColor(_activeProgress)" />
+                @if (_activeProgress.Results.Count > 0)
+                {
+                    <MudExpansionPanels Dense="true" Class="mt-2">
+                        @foreach (var result in _activeProgress.Results)
+                        {
+                            <MudExpansionPanel>
+                                <TitleContent>
+                                    <div class="d-flex align-center gap-2">
+                                        <MudChip T="string" Size="Size.Small" Color="@ResultColor(result.Status)">
+                                            @result.Status
+                                        </MudChip>
+                                        <MudText Typo="Typo.body2">@result.Naziv</MudText>
+                                        <MudText Typo="Typo.caption" Color="Color.Secondary">@result.DurationMs ms</MudText>
+                                    </div>
+                                </TitleContent>
+                                <ChildContent>
+                                    <MudGrid Spacing="2">
+                                        <MudItem xs="12" md="6">
+                                            <MudText Typo="Typo.caption" Color="Color.Secondary">Request</MudText>
+                                            <MudPaper Class="pa-2 mt-1" Elevation="0" Outlined="true">
+                                                <MudText Typo="Typo.body2" Style="white-space:pre-wrap;font-family:monospace;">@DisplayDetail(result.RequestDetails)</MudText>
+                                            </MudPaper>
+                                        </MudItem>
+                                        <MudItem xs="12" md="6">
+                                            <MudText Typo="Typo.caption" Color="Color.Secondary">Response</MudText>
+                                            <MudPaper Class="pa-2 mt-1" Elevation="0" Outlined="true">
+                                                <MudText Typo="Typo.body2" Style="white-space:pre-wrap;font-family:monospace;">@DisplayDetail(result.ResponseDetails)</MudText>
+                                            </MudPaper>
+                                        </MudItem>
+                                        @if (!string.IsNullOrWhiteSpace(result.FailReason))
+                                        {
+                                            <MudItem xs="12">
+                                                <MudAlert Severity="Severity.Error" Dense="true">@result.FailReason</MudAlert>
+                                            </MudItem>
+                                        }
+                                    </MudGrid>
+                                </ChildContent>
+                            </MudExpansionPanel>
+                        }
+                    </MudExpansionPanels>
+                }
+            </div>
+        }
+    </MudPaper>
+
+    @if (_selektovane.Count > 0)
+    {
+        <MudPaper Class="d-flex align-center gap-2 pa-2 mb-3" Elevation="2">
+            <MudText Typo="Typo.body2">Odabrano grupa: <b>@_selektovane.Count</b></MudText>
+            <MudSpacer />
+            <MudButton StartIcon="@Icons.Material.Filled.PlayArrow" Size="Size.Small"
+                       Variant="Variant.Outlined" OnClick="BulkRun">Pokreni</MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.Pause" Size="Size.Small"
+                       Variant="Variant.Outlined" OnClick="BulkPause">Pauziraj</MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.Delete" Size="Size.Small"
+                       Variant="Variant.Outlined" Color="Color.Error" OnClick="BulkDelete">Obriši</MudButton>
+            <MudButton Variant="Variant.Text" Size="Size.Small" OnClick="ClearSelection">Poništi selekciju</MudButton>
+        </MudPaper>
+    }
+
+    <MudExpansionPanels MultiExpansion="true" Class="mb-6">
+        @foreach (var root in _tree)
+        {
+            <MudExpansionPanel>
+                <TitleContent>
+                    <div class="d-flex align-center gap-2">
+                        <span @onclick:stopPropagation="true">
+                            <MudCheckBox T="bool"
+                                         Value="@_selektovane.Contains(root.Group.Id)"
+                                         ValueChanged="@(v => ToggleSelect(root.Group.Id, v))"
+                                         Dense="true" Size="Size.Small" />
+                        </span>
+                        @ColorDot(root.Group.Boja)
+                        <MudText Typo="Typo.subtitle1">@root.Group.Naziv</MudText>
+                        <MudChip T="string" Size="Size.Small" Variant="Variant.Filled"
+                                 Style="@($"background-color:{TagColor(root.Group.Tag)};color:#fff;")">
+                            @TagLabel(root.Group.Tag)
+                        </MudChip>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="ml-2">
+                            (@root.Summary.ScenarioCount scenarija)
+                        </MudText>
+                    </div>
+                </TitleContent>
+                <ChildContent>
+                    <GroupSummaryCard Summary="root.Summary" />
+
+                    <div class="d-flex justify-end gap-2 my-2">
+                        <MudButton StartIcon="@Icons.Material.Filled.PlayArrow"
+                                   Variant="Variant.Outlined"
+                                   Color="Color.Success"
+                                   Size="Size.Small"
+                                   Disabled="@RunState.IsRunning"
+                                   OnClick="@(() => RunGroup(root.Group.Id))">
+                            Pokreni grupu
+                        </MudButton>
+                        <MudButton StartIcon="@Icons.Material.Filled.Edit"
+                                   Variant="Variant.Text"
+                                   Color="Color.Default"
+                                   Size="Size.Small"
+                                   OnClick="@(() => OpenEditDialog(root.Group))">
+                            Uredi
+                        </MudButton>
+                        <MudButton StartIcon="@Icons.Material.Filled.AccountTree"
+                                   Variant="Variant.Outlined"
+                                   Color="Color.Primary"
+                                   Size="Size.Small"
+                                   Disabled="@(root.Group.ParentGroupId is not null)"
+                                   OnClick="@(() => OpenCreateDialog(root.Group.Id))">
+                            Dodaj podgrupu
+                        </MudButton>
+                    </div>
+
+                    <MudText Typo="Typo.subtitle2" Class="mt-2">Scenariji</MudText>
+                    <ScenarioDropList GroupId="root.Group.Id"
+                                      Items="@(_scenariji.GetValueOrDefault(root.Group.Id) ?? [])"
+                                      AllGroups="@AllGroups()"
+                                      OnChanged="LoadAsync" />
+
+                    @* Podgrupe (nivo 2 — bez daljnjeg nestinga) *@
+                    @foreach (var child in root.Children)
+                    {
+                        <MudPaper Class="pa-3 mt-3" Elevation="0" Outlined="true">
+                            <div class="d-flex align-center gap-2 mb-2">
+                                <MudCheckBox T="bool"
+                                             Value="@_selektovane.Contains(child.Group.Id)"
+                                             ValueChanged="@(v => ToggleSelect(child.Group.Id, v))"
+                                             Dense="true" Size="Size.Small" />
+                                @ColorDot(child.Group.Boja)
+                                <MudText Typo="Typo.subtitle2">@child.Group.Naziv</MudText>
+                                <MudChip T="string" Size="Size.Small" Variant="Variant.Filled"
+                                         Style="@($"background-color:{TagColor(child.Group.Tag)};color:#fff;")">
+                                    @TagLabel(child.Group.Tag)
+                                </MudChip>
+                                <MudSpacer />
+                                <MudTooltip Text="Uredi">
+                                    <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                                   Size="Size.Small"
+                                                   OnClick="@(() => OpenEditDialog(child.Group))" />
+                                </MudTooltip>
+                            </div>
+                            <GroupSummaryCard Summary="child.Summary" />
+                            <MudText Typo="Typo.subtitle2" Class="mt-2">Scenariji</MudText>
+                            <ScenarioDropList GroupId="child.Group.Id"
+                                              Items="@(_scenariji.GetValueOrDefault(child.Group.Id) ?? [])"
+                                              AllGroups="@AllGroups()"
+                                              OnChanged="LoadAsync" />
+                        </MudPaper>
+                    }
+                </ChildContent>
+            </MudExpansionPanel>
+        }
+    </MudExpansionPanels>
+}
+
+@code {
+    // ── State ──────────────────────────────────────────────────────────────────
+
+    private bool _isLoading = true;
+    private string? _loadError;
+    private IReadOnlyList<GroupTreeNodeDto> _tree = [];
+    // groupId → scenariji (učitani po grupi; tree drži samo agregirani sažetak)
+    private readonly Dictionary<Guid, List<ScenarioListItemDto>> _scenariji = new();
+    // Odabrane grupe za bulk akcije (AC6)
+    private readonly HashSet<Guid> _selektovane = new();
+    private readonly CancellationTokenSource _cts = new();
+    private GroupRunProgress? _activeProgress;
+    private bool _runInParallel;
+    private bool _stopOnFirstFailure;
+    private int _maxParallelThreads = RunConfiguration.DefaultMaxParallelThreads;
+
+    // ── Lifecycle ───────────────────────────────────────────────────────────────
+
+    protected override async Task OnInitializedAsync()
+    {
+        RunState.Changed += OnRunStateChanged;
+        GroupExecutor.ProgressChanged += OnGroupProgressChanged;
+        await LoadAsync();
+    }
+
+    private void OnRunStateChanged() => InvokeAsync(StateHasChanged);
+    private void OnGroupProgressChanged(GroupRunProgress progress) =>
+        InvokeAsync(() =>
+        {
+            _activeProgress = progress;
+            StateHasChanged();
+        });
+
+    private async Task LoadAsync()
+    {
+        _isLoading = true;
+        _loadError = null;
+        try
+        {
+            _tree = await GroupSvc.GetGroupsTreeAsync(_cts.Token);
+
+            _scenariji.Clear();
+            foreach (var node in Flatten(_tree))
+            {
+                var scenariji = await GroupSvc.GetScenariosAsync(node.Group.Id, _cts.Token);
+                _scenariji[node.Group.Id] = scenariji.ToList();
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Komponenta se uništava tokom učitavanja — tiho ignoriši.
+        }
+        catch (Exception)
+        {
+            _loadError = "Greška pri učitavanju grupa. Pokušajte ponovo kasnije.";
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    // ── Helpers ───────────────────────────────────────────────────────────────
+
+    private static IEnumerable<GroupTreeNodeDto> Flatten(IEnumerable<GroupTreeNodeDto> nodes)
+    {
+        foreach (var n in nodes)
+        {
+            yield return n;
+            foreach (var c in Flatten(n.Children))
+                yield return c;
+        }
+    }
+
+    private static string TagLabel(TestTag tag) => tag switch
+    {
+        TestTag.Smoke      => "Smoke",
+        TestTag.Regression => "Regression",
+        TestTag.Full       => "Full",
+        _                  => tag.ToString(),
+    };
+
+    // Svaki tip taga dobija svoju jasnu boju (RBI tema je zelenocentrična pa
+    // semantičke MudBlazor boje izgledaju gotovo isto — koristimo fiksne hex boje).
+    private static string TagColor(TestTag tag) => tag switch
+    {
+        TestTag.Smoke      => "#43a047", // zelena
+        TestTag.Regression => "#1e88e5", // plava
+        TestTag.Full       => "#8e24aa", // ljubičasta
+        _                  => "#757575", // siva (fallback)
+    };
+
+    private static RenderFragment ColorDot(string? boja) => builder =>
+    {
+        if (string.IsNullOrWhiteSpace(boja))
+            return;
+
+        builder.OpenElement(0, "span");
+        builder.AddAttribute(1, "style",
+            $"display:inline-block;width:12px;height:12px;border-radius:50%;background:{boja};flex:0 0 auto;");
+        builder.CloseElement();
+    };
+
+    // ── Akcije ─────────────────────────────────────────────────────────────────
+
+    private IReadOnlyList<GroupDto> RootGroups() => _tree.Select(n => n.Group).ToList();
+
+    private IReadOnlyList<GroupDto> AllGroups() => Flatten(_tree).Select(n => n.Group).ToList();
+
+    private async Task OpenCreateDialog(Guid? parentGroupId)
+    {
+        var parameters = new DialogParameters
+        {
+            [nameof(GroupDialog.Existing)]      = (GroupDto?)null,
+            [nameof(GroupDialog.ParentGroupId)] = parentGroupId,
+            [nameof(GroupDialog.RootGroups)]    = RootGroups(),
+        };
+
+        var dialog = await DialogService.ShowAsync<GroupDialog>(
+            parentGroupId is null ? "Nova grupa" : "Nova podgrupa",
+            parameters,
+            new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small, FullWidth = true });
+
+        if (await dialog.Result is { Canceled: false })
+            await LoadAsync();
+    }
+
+    private async Task OpenEditDialog(GroupDto group)
+    {
+        var notifConfig = await GroupSvc.GetNotificationConfigAsync(group.Id);
+        var parameters = new DialogParameters
+        {
+            [nameof(GroupDialog.Existing)]   = group,
+            [nameof(GroupDialog.RootGroups)] = RootGroups(),
+            [nameof(GroupDialog.ExistingNotificationConfig)] = notifConfig,
+        };
+
+        var dialog = await DialogService.ShowAsync<GroupDialog>(
+            "Uredi grupu",
+            parameters,
+            new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Medium, FullWidth = true });
+
+        if (await dialog.Result is { Canceled: false })
+            await LoadAsync();
+    }
+
+    // ── Bulk akcije (AC6) ──────────────────────────────────────────────────────
+
+    private void ToggleSelect(Guid id, bool selected)
+    {
+        if (selected) _selektovane.Add(id);
+        else _selektovane.Remove(id);
+    }
+
+    private void ClearSelection() => _selektovane.Clear();
+
+    // ── Pokretanje testova (kroz dijeljeni TestRunStateService) ──────────────────
+
+    private async Task RunGroup(Guid groupId)
+    {
+        var ids = (_scenariji.GetValueOrDefault(groupId) ?? []).Select(s => s.Id).ToList();
+        if (ids.Count == 0)
+        {
+            Toast.Info("Grupa nema scenarija za pokretanje.");
+            return;
+        }
+
+        _activeProgress = await GroupExecutor.ExecuteGroupAsync(groupId, CurrentRunOptions(), _cts.Token);
+        ToastRunResult(_activeProgress);
+        await LoadAsync();   // osvježi sažetak grupe (zadnji run / pass rate iz baze)
+    }
+
+    private async Task BulkRun()
+    {
+        var groups = _selektovane.ToList();
+        var pokrenuto = 0;
+
+        foreach (var gid in groups)
+        {
+            var ids = (_scenariji.GetValueOrDefault(gid) ?? []).Select(s => s.Id).ToList();
+            if (ids.Count == 0) continue;
+
+            _activeProgress = await GroupExecutor.ExecuteGroupAsync(gid, CurrentRunOptions(), _cts.Token);
+            pokrenuto++;
+        }
+
+        if (pokrenuto == 0)
+        {
+            Toast.Info("Odabrane grupe nemaju scenarija za pokretanje.");
+            return;
+        }
+
+        Toast.Success($"Pokrenuto grupa: {pokrenuto}.");
+        await LoadAsync();
+    }
+
+    private RunOptions CurrentRunOptions() => new(_runInParallel, _stopOnFirstFailure, _maxParallelThreads);
+
+    private static int ProgressPercent(GroupRunProgress progress) =>
+        progress.Total == 0 ? 0 : (int)Math.Round((double)progress.Completed / progress.Total * 100);
+
+    private static Color ProgressColor(GroupRunProgress progress) =>
+        progress.Failed > 0 ? Color.Error :
+        progress.Completed < progress.Total ? Color.Info :
+        Color.Success;
+
+    private static string FormatThroughput(double value) =>
+        value <= 0 ? "0.00" : value.ToString("0.00");
+
+    private static Color ResultColor(ScenarioRunStatus status) => status switch
+    {
+        ScenarioRunStatus.Passed  => Color.Success,
+        ScenarioRunStatus.Failed  => Color.Error,
+        ScenarioRunStatus.Running => Color.Info,
+        ScenarioRunStatus.Skipped => Color.Warning,
+        _                         => Color.Default,
+    };
+
+    private static string DisplayDetail(string? value) =>
+        string.IsNullOrWhiteSpace(value) ? "Nema detalja." : value;
+
+    private void ToastRunResult(GroupRunProgress progress)
+    {
+        if (progress.Failed == 0 && progress.Passed > 0)
+            Toast.Success($"Svi testovi prosli ({progress.Passed}).");
+        else if (progress.Failed > 0)
+            Toast.Error($"{progress.Failed} test(ova) palo, {progress.Passed} proslo.");
+    }
+
+    private async Task BulkPause()
+    {
+        try
+        {
+            foreach (var id in _selektovane.ToList())
+                await GroupSvc.SetScheduleActiveAsync(id, false, _cts.Token);
+
+            Toast.Info("Rasporedi odabranih grupa pauzirani (engine dolazi u Sprint 3).");
+            await LoadAsync();
+        }
+        catch (Exception)
+        {
+            Toast.Error("Greška pri pauziranju rasporeda.");
+        }
+    }
+
+    private async Task BulkDelete()
+    {
+        var odabrane = Flatten(_tree)
+            .Where(n => _selektovane.Contains(n.Group.Id))
+            .Select(n => n.Group)
+            .ToList();
+
+        if (odabrane.Count == 0)
+            return;
+
+        var confirm = await DialogService.ShowMessageBox(
+            "Potvrda brisanja",
+            $"Obrisati {odabrane.Count} {(odabrane.Count == 1 ? "grupu" : "grupa")}? " +
+            "Grupe koje imaju podgrupe biće preskočene. Ova akcija se ne može poništiti.",
+            yesText: "Obriši",
+            cancelText: "Odustani");
+
+        if (confirm != true)
+            return;
+
+        var obrisano = 0;
+        var preskoceno = new List<string>();
+
+        foreach (var g in odabrane)
+        {
+            try
+            {
+                await GroupSvc.DeleteAsync(g.Id, UserCtx.UserId, UserCtx.FullName, _cts.Token);
+                obrisano++;
+            }
+            catch (InvalidOperationException)
+            {
+                // Npr. grupa ima podgrupe — preskoči i prijavi u zbirnom upozorenju.
+                preskoceno.Add(g.Naziv);
+            }
+            catch (Exception)
+            {
+                preskoceno.Add(g.Naziv);
+            }
+        }
+
+        _selektovane.Clear();
+
+        if (obrisano > 0)
+            Toast.Success($"Obrisano grupa: {obrisano}.");
+        if (preskoceno.Count > 0)
+            Toast.Warning($"Preskočeno (imaju podgrupe ili greška): {string.Join(", ", preskoceno)}.");
+
+        await LoadAsync();
+    }
+
+    // ── Cleanup ─────────────────────────────────────────────────────────────────
+
+    public void Dispose()
+    {
+        RunState.Changed -= OnRunStateChanged;
+        GroupExecutor.ProgressChanged -= OnGroupProgressChanged;
+        _cts.Cancel();
+        _cts.Dispose();
+    }
+}

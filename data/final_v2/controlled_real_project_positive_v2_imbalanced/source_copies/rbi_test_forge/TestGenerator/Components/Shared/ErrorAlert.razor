@@ -1,0 +1,44 @@
+@* ============================================================
+   ErrorAlert — Error poruka s glatkom MudCollapse animacijom
+   ============================================================
+   Upotreba:
+     <ErrorAlert Message="@_errorMessage" />
+
+   Kontrola vidljivosti:
+     _errorMessage = null        → alert skriven (animacija)
+     _errorMessage = ""          → alert skriven
+     _errorMessage = "tekst..."  → alert vidljiv (animacija)
+
+   Gdje se koristi:
+   - Login forma — greška prijave
+   - Sve forme za unos podataka — server/validacijska greška
+   - API pozivi koji vrate grešku
+
+   Zašto MudCollapse umjesto @if:
+   - @if uklanja/dodaje element bez animacije → layout "skače"
+   - MudCollapse animira visinu → smooth UX bez iznenađenja
+   ============================================================ *@
+
+<MudCollapse Expanded="@(!string.IsNullOrWhiteSpace(Message))">
+    <MudAlert Severity="Severity.Error"
+              Class="mb-3"
+              Dense="true"
+              ShowCloseIcon="false">
+        @Message
+    </MudAlert>
+</MudCollapse>
+
+@code {
+    /// <summary>
+    /// Poruka greške koja se prikazuje u alert boxu.
+    /// null ili prazan string → alert je skriven (smooth animacija).
+    /// Bilo koji tekst → alert postaje vidljiv (smooth animacija).
+    ///
+    /// Pattern za korištenje u @code bloku:
+    ///   private string? _errorMessage;
+    ///   // Prikaz: _errorMessage = "Neispravni podaci.";
+    ///   // Sakrivanje: _errorMessage = null;
+    /// </summary>
+    [Parameter]
+    public string? Message { get; set; }
+}

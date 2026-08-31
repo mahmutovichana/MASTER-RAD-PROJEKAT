@@ -1,0 +1,323 @@
+@using RBBH.TestAutomation.Api.Services.Schedules
+@inject ToastService Toast
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">@(_isEdit ? "Uredi raspored" : "Novi raspored")</MudText>
+    </TitleContent>
+
+    <DialogContent>
+        <MudForm @ref="_form" @bind-IsValid="_isFormValid">
+
+            @* ── Grupe: multi-select pri kreiranju (isti raspored na više grupa) ── *@
+            @if (_isEdit)
+            {
+                <MudSelect T="Guid" Value="_singleGroupId" Label="Grupa" Variant="Variant.Outlined"
+                           Disabled="true" Class="mb-3">
+                    @foreach (var g in Groups)
+                    {
+                        <MudSelectItem T="Guid" Value="@g.Id">@g.Naziv</MudSelectItem>
+                    }
+                </MudSelect>
+            }
+            else
+            {
+                <MudSelect T="Guid" @bind-SelectedValues="_groupIds" MultiSelection="true"
+                           Label="Grupe (jedna ili više)" Variant="Variant.Outlined"
+                           Required="true" RequiredError="Odaberite bar jednu grupu."
+                           Disabled="@(Groups.Count == 0)" Class="mb-3"
+                           MultiSelectionTextFunc="@(s => $"{s.Count} grupa odabrano")">
+                    @foreach (var g in Groups)
+                    {
+                        <MudSelectItem T="Guid" Value="@g.Id">@g.Naziv</MudSelectItem>
+                    }
+                </MudSelect>
+            }
+
+            @* ── Način unosa: vizuelni builder ili direktan Cron izraz ── *@
+            <MudToggleGroup T="string" Value="_mode" Exclusive
+                            SelectionMode="SelectionMode.SingleSelection"
+                            ValueChanged="@OnModeChanged" Color="Color.Primary" Class="mb-4">
+                <MudToggleItem Value="@("builder")" Text="Vizuelni builder" />
+                <MudToggleItem Value="@("cron")" Text="Cron izraz" />
+            </MudToggleGroup>
+
+            @if (_mode == "builder")
+            {
+                <MudGrid Spacing="2" Class="mb-1">
+                    <MudItem xs="6" sm="4">
+                        <MudSelect T="string" Value="_min" Label="Minuta" Variant="Variant.Outlined"
+                                   Margin="Margin.Dense" ValueChanged="@(v => OnBuilderChanged(min: v))">
+                            @foreach (var o in MinuteOptions)
+                            {
+                                <MudSelectItem T="string" Value="@o.Val">@o.Label</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="6" sm="4">
+                        <MudSelect T="string" Value="_hour" Label="Sat" Variant="Variant.Outlined"
+                                   Margin="Margin.Dense" ValueChanged="@(v => OnBuilderChanged(hour: v))">
+                            @foreach (var o in HourOptions)
+                            {
+                                <MudSelectItem T="string" Value="@o.Val">@o.Label</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="6" sm="4">
+                        <MudSelect T="string" Value="_dow" Label="Dan u sedmici" Variant="Variant.Outlined"
+                                   Margin="Margin.Dense" ValueChanged="@(v => OnBuilderChanged(dow: v))">
+                            @foreach (var o in DowOptions)
+                            {
+                                <MudSelectItem T="string" Value="@o.Val">@o.Label</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="6" sm="4">
+                        <MudSelect T="string" Value="_dom" Label="Dan u mjesecu" Variant="Variant.Outlined"
+                                   Margin="Margin.Dense" ValueChanged="@(v => OnBuilderChanged(dom: v))">
+                            @foreach (var o in DomOptions)
+                            {
+                                <MudSelectItem T="string" Value="@o.Val">@o.Label</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="6" sm="4">
+                        <MudSelect T="string" Value="_mon" Label="Mjesec" Variant="Variant.Outlined"
+                                   Margin="Margin.Dense" ValueChanged="@(v => OnBuilderChanged(mon: v))">
+                            @foreach (var o in MonthOptions)
+                            {
+                                <MudSelectItem T="string" Value="@o.Val">@o.Label</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                </MudGrid>
+            }
+            else
+            {
+                <MudTextField Value="_cronExpression"
+                              Label="Cron izraz (npr. 0 8 * * 1-5)"
+                              Variant="Variant.Outlined"
+                              Required="true"
+                              RequiredError="Cron izraz je obavezan."
+                              Validation="@((Func<string?, string?>)ValidateCron)"
+                              Immediate="true"
+                              ValueChanged="@((string v) => OnCronTyped(v))"
+                              Class="mb-2" />
+            }
+
+            @* ── Live prepis + pregled sljedećih 5 pokretanja ── *@
+            <MudPaper Class="pa-3 mb-3" Elevation="0" Style="background:#F5F2EA;border:1px solid rgba(20,16,46,0.08);">
+                <div class="d-flex align-center mb-1" style="gap:8px;">
+                    <MudIcon Icon="@Icons.Material.Outlined.Schedule" Size="Size.Small" Color="Color.Primary" />
+                    <MudText Typo="Typo.body2" Style="font-weight:600;">@_opis</MudText>
+                </div>
+                <code style="font-size:12px;color:#555;">@(_cronExpression)</code>
+
+                @if (_nextRuns.Count > 0)
+                {
+                    <MudText Typo="Typo.caption" Class="mt-2 mb-1" Style="display:block;font-weight:600;">
+                        Sljedećih @_nextRuns.Count pokretanja:
+                    </MudText>
+                    <ul style="margin:0;padding-left:18px;">
+                        @foreach (var dt in _nextRuns)
+                        {
+                            <li><MudText Typo="Typo.caption">@dt.ToString("ddd dd.MM.yyyy. HH:mm")</MudText></li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <MudText Typo="Typo.caption" Color="Color.Error" Class="mt-1">
+                        Nije moguće izračunati pokretanja (provjerite izraz).
+                    </MudText>
+                }
+            </MudPaper>
+
+            <MudTextField Value="_timezone"
+                          Label="Timezone"
+                          Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="Timezone je obavezan."
+                          ValueChanged="@((string v) => OnTimezoneChanged(v))"
+                          Class="mb-3" />
+
+            <MudSwitch @bind-Value="_isActive" Color="Color.Primary" Class="mb-1">
+                Aktivan raspored
+            </MudSwitch>
+            <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mb-2">
+                Neaktivan raspored se čuva ali se ne izvršava automatski.
+            </MudText>
+
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="Cancel" Variant="Variant.Text">Odustani</MudButton>
+        <LoadingButton IsLoading="@_saving" Text="@(_isEdit ? "Spremi" : "Kreiraj")"
+                       Color="Color.Primary" Variant="Variant.Filled"
+                       OnClick="Submit" Disabled="@(!_canSubmit)" />
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] IMudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter] public ScheduleConfigDto?       Existing { get; set; }
+    [Parameter] public Guid?                    PreselectedGroupId { get; set; }
+    [Parameter] public IReadOnlyList<GroupDto>  Groups { get; set; } = [];
+
+    private static readonly (string Val, string Label)[] MinuteOptions =
+    [
+        ("*/5", "svakih 5 min"), ("*/10", "svakih 10 min"), ("*/15", "svakih 15 min"), ("*/30", "svakih 30 min"),
+        ("*", "svaka minuta"),
+        ("0", "u :00"), ("5", "u :05"), ("10", "u :10"), ("15", "u :15"),
+        ("20", "u :20"), ("30", "u :30"), ("45", "u :45")
+    ];
+
+    private static readonly (string Val, string Label)[] HourOptions =
+        new[] { ("*", "svaki sat") }
+        .Concat(Enumerable.Range(0, 24).Select(h => (h.ToString(), $"u {h:D2}h")))
+        .ToArray();
+
+    private static readonly (string Val, string Label)[] DomOptions =
+        new[] { ("*", "svaki") }
+        .Concat(Enumerable.Range(1, 31).Select(d => (d.ToString(), d.ToString())))
+        .ToArray();
+
+    private static readonly (string Val, string Label)[] MonthOptions =
+    [
+        ("*", "svaki"), ("1", "januar"), ("2", "februar"), ("3", "mart"), ("4", "april"),
+        ("5", "maj"), ("6", "juni"), ("7", "juli"), ("8", "august"), ("9", "septembar"),
+        ("10", "oktobar"), ("11", "novembar"), ("12", "decembar")
+    ];
+
+    private static readonly (string Val, string Label)[] DowOptions =
+    [
+        ("*", "svaki dan"), ("1-5", "radni dani (pon–pet)"), ("6,0", "vikend"),
+        ("1", "ponedjeljak"), ("2", "utorak"), ("3", "srijeda"), ("4", "četvrtak"),
+        ("5", "petak"), ("6", "subota"), ("0", "nedjelja")
+    ];
+
+    private MudForm _form = default!;
+    private bool    _isFormValid;
+    private bool    _saving;
+    private bool    _isEdit => Existing is not null;
+
+    private string            _mode      = "builder";
+    private IEnumerable<Guid>  _groupIds  = [];
+    private Guid              _singleGroupId = Guid.Empty;
+
+    // Builder polja
+    private string _min = "0", _hour = "8", _dom = "*", _mon = "*", _dow = "1-5";
+
+    private string _cronExpression = "0 8 * * 1-5";
+    private string _timezone       = "Europe/Sarajevo";
+    private bool   _isActive       = true;
+
+    private string                  _opis     = "";
+    private IReadOnlyList<DateTime>  _nextRuns = [];
+
+    private bool _canSubmit =>
+        CronUtil.IsValid(_cronExpression)
+        && !string.IsNullOrWhiteSpace(_timezone)
+        && (_isEdit || _groupIds.Any());
+
+    protected override void OnParametersSet()
+    {
+        if (_isEdit)
+        {
+            _singleGroupId  = Existing!.GroupId;
+            _cronExpression = Existing.CronExpression;
+            _timezone       = Existing.Timezone;
+            _isActive       = Existing.IsActive;
+            ParseIntoBuilder(_cronExpression);
+        }
+        else if (PreselectedGroupId.HasValue)
+        {
+            _groupIds = [PreselectedGroupId.Value];
+        }
+
+        RefreshPreview();
+    }
+
+    private void OnModeChanged(string mode)
+    {
+        _mode = mode;
+        if (_mode == "builder")
+            ParseIntoBuilder(_cronExpression);
+        RefreshPreview();
+    }
+
+    private void OnBuilderChanged(string? min = null, string? hour = null,
+                                  string? dom = null, string? mon = null, string? dow = null)
+    {
+        if (min is not null)  _min  = min;
+        if (hour is not null) _hour = hour;
+        if (dom is not null)  _dom  = dom;
+        if (mon is not null)  _mon  = mon;
+        if (dow is not null)  _dow  = dow;
+
+        _cronExpression = $"{_min} {_hour} {_dom} {_mon} {_dow}";
+        RefreshPreview();
+    }
+
+    private void OnCronTyped(string value)
+    {
+        _cronExpression = value;
+        RefreshPreview();
+    }
+
+    private void OnTimezoneChanged(string value)
+    {
+        _timezone = value;
+        RefreshPreview();
+    }
+
+    private void ParseIntoBuilder(string cron)
+    {
+        var parts = (cron ?? "").Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length != 5) return;
+        (_min, _hour, _dom, _mon, _dow) = (parts[0], parts[1], parts[2], parts[3], parts[4]);
+    }
+
+    private void RefreshPreview()
+    {
+        _opis     = CronUtil.Describe(_cronExpression);
+        _nextRuns = CronUtil.NextOccurrences(_cronExpression, _timezone, 5);
+    }
+
+    private static string? ValidateCron(string? value) =>
+        CronUtil.IsValid(value) ? null : "Cron izraz mora imati 5 validnih polja (min sat dan mj dan-sedm).";
+
+    private async Task Submit()
+    {
+        if (!_canSubmit)
+        {
+            Toast.Error("Provjerite Cron izraz i odabir grupe.");
+            return;
+        }
+
+        _saving = true;
+        try
+        {
+            if (_isEdit)
+            {
+                MudDialog.Close(DialogResult.Ok(new UpdateScheduleRequest(
+                    _cronExpression.Trim(), _timezone.Trim(), _isActive)));
+            }
+            else
+            {
+                MudDialog.Close(DialogResult.Ok(new ScheduleCreateDraft(
+                    _groupIds.ToList(), _cronExpression.Trim(), _timezone.Trim(), _isActive)));
+            }
+        }
+        finally
+        {
+            _saving = false;
+        }
+
+        await Task.CompletedTask;
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+}

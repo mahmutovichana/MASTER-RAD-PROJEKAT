@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat code coverage">
+        <Configuration>
+          <Format>cobertura</Format>
+          <!-- EF Core migracije, generisani kod, OpenAPI source generator, options POCO klase -->
+          <Exclude>[RBBH.CollateralAppraisal.Infrastructure]RBBH.CollateralAppraisal.Infrastructure.Migrations.*,[RBBH.CollateralAppraisal.Api]Microsoft.AspNetCore.OpenApi.Generated,[*]System.Text.RegularExpressions.Generated*,[*]System.Runtime.CompilerServices*</Exclude>
+          <ExcludeByFile>**/Migrations/*.Designer.cs,**/Migrations/*ModelSnapshot.cs,**/obj/**/*.cs,**/*.g.cs,**/*.AssemblyInfo.cs</ExcludeByFile>
+          <ExcludeByAttribute>ExcludeFromCodeCoverage,GeneratedCodeAttribute,CompilerGeneratedAttribute</ExcludeByAttribute>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

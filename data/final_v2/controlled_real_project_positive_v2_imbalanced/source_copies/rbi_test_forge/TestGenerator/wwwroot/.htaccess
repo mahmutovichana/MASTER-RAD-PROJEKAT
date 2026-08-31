@@ -1,0 +1,65 @@
+# Performance Optimization - HTTP Caching Headers
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Static assets - cache for 1 year
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType application/x-font-woff "access plus 1 year"
+    ExpiresByType application/x-font-woff2 "access plus 1 year"
+    
+    # CSS and JavaScript - cache for 1 month
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    
+    # HTML - cache for 24 hours
+    ExpiresByType text/html "access plus 24 hours"
+    
+    # Default
+    ExpiresDefault "access plus 2 days"
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Enable gzip compression
+    Header append Vary: Accept-Encoding
+    
+    # Cache control for static assets
+    <FilesMatch "\.(jpg|jpeg|png|gif|ico|woff|woff2|ttf|otf|svg)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    # Cache control for CSS and JS
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "public, max-age=2592000, must-revalidate"
+    </FilesMatch>
+    
+    # Cache control for HTML
+    <FilesMatch "\.html?$">
+        Header set Cache-Control "public, max-age=86400, must-revalidate"
+    </FilesMatch>
+    
+    # Blazor WebAssembly files - cache aggressively with versioning
+    <FilesMatch "\.dll$|\.wasm$|\.js\.map$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+</IfModule>
+
+# Enable gzip compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE font/otf
+    AddOutputFilterByType DEFLATE application/x-font-woff
+    AddOutputFilterByType DEFLATE application/x-font-woff2
+</IfModule>

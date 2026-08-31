@@ -1,0 +1,55 @@
+using RBBH.CollateralAppraisal.Domain.Audit;
+
+namespace RBBH.CollateralAppraisal.Application.Tests.Infrastructure.Audit;
+
+internal static class TestAuditLogData
+{
+    public static AuditLogData Make(
+        DateTime? timestampUtc = null,
+        string    actorUserId = "user-1",
+        string    actorUsername = "ivan",
+        string?   actorEmail = null,
+        string?   actorRole = "AM",
+        string    action = "ORDER_CREATED",
+        string    operationType = "Create",
+        string    module = "Orders",
+        string    entityType = "AppraisalOrder",
+        string?   entityKey = "1",
+        string?   entityDisplayName = null,
+        string    status = "Success",
+        string    severity = "Info",
+        string?   reason = null,
+        string?   correlationId = null) => new(
+        TimestampUtc:            timestampUtc ?? new DateTime(2026, 6, 14, 10, 0, 0, DateTimeKind.Utc),
+        ActorUserId:             actorUserId,
+        ActorUsername:           actorUsername,
+        ActorEmail:              actorEmail,
+        ActorFullName:           null,
+        ActorRole:               actorRole,
+        ActiveRole:              null,
+        Action:                  action,
+        OperationType:           operationType,
+        Module:                  module,
+        SourceSystem:            null,
+        SourceConnectionName:    null,
+        SourceDatabase:          null,
+        SourceSchema:            null,
+        SourceTable:             null,
+        EntityType:              entityType,
+        EntityKey:               entityKey,
+        EntityDisplayName:       entityDisplayName,
+        OldValuesJson:           null,
+        NewValuesJson:           null,
+        ChangedFieldsJson:       null,
+        Status:                  status,
+        Severity:                severity,
+        Reason:                  reason,
+        IntegrationDirection:    null,
+        ExternalRequestId:       null,
+        ExternalResponseStatus:  null,
+        CorrelationId:           correlationId,
+        RequestPath:             null,
+        HttpMethod:              null,
+        IpAddress:               null,
+        UserAgent:               null);
+}

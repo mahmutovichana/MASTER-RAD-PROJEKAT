@@ -1,0 +1,44 @@
+@* ============================================================
+   VariablePicker — AC4: prikaz dostupnih {{varijabli}} iz RunConfig
+   ============================================================
+   Prikazuje varijable kao klikabilne chipove. Klik poziva
+   OnTokenClicked s tokenom u obliku {{naziv}}.
+
+   Upotreba (unutar RestScenarioForm / UiScenarioForm):
+     <VariablePicker RunConfig="@RunConfig"
+                     OnTokenClicked="@(t => { _url += t; Notify(); })" />
+   ============================================================ *@
+
+@if (RunConfig.Varijable.Count > 0)
+{
+    <div class="mb-2">
+        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mb-1">
+            Varijable (klikni za umetanje u polje):
+        </MudText>
+        <div class="d-flex flex-wrap gap-1">
+            @foreach (var v in RunConfig.Varijable)
+            {
+                var token = "{{" + v.Naziv + "}}";
+                <MudTooltip Text="@($"Trenutna vrijednost: {v.Vrijednost}")">
+                    <MudChip T="string"
+                             Size="Size.Small"
+                             Variant="Variant.Outlined"
+                             Color="Color.Primary"
+                             OnClick="@(() => OnTokenClicked.InvokeAsync(token))">
+                        @token
+                    </MudChip>
+                </MudTooltip>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    /// <summary>Run konfiguracija čije se varijable prikazuju kao chipovi.</summary>
+    [Parameter, EditorRequired]
+    public RunConfigDto RunConfig { get; set; } = new([]);
+
+    /// <summary>Poziva se kad korisnik klikne chip — prima token u obliku {{naziv}}.</summary>
+    [Parameter]
+    public EventCallback<string> OnTokenClicked { get; set; }
+}

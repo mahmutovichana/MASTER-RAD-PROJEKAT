@@ -1,0 +1,108 @@
+@* ============================================================
+   LoadingButton — MudButton sa spinner loading stanjem
+   ============================================================
+   Upotreba:
+     <LoadingButton Text="Prijava"
+                    IsLoading="@_isLoading"
+                    OnClick="@HandleSubmit"
+                    FullWidth="true" />
+
+     <LoadingButton Text="Spremi"
+                    LoadingText="Snimanje..."
+                    IsLoading="@_isSaving"
+                    OnClick="@HandleSave"
+                    Color="Color.Secondary" />
+
+   Ponašanje:
+   - IsLoading = true  → dugme disabled + spinner + LoadingText
+   - IsLoading = false → dugme klikabilno (osim ako Disabled=true) + Text
+   - Spinner Color.Inherit → automatski prati boju teksta dugmeta
+   ============================================================ *@
+
+<MudButton Variant="@Variant"
+           Color="@Color"
+           FullWidth="@FullWidth"
+           Class="@Class"
+           Disabled="@(IsLoading || Disabled)"
+           OnClick="@OnClick">
+
+    @if (IsLoading)
+    {
+        <MudProgressCircular Class="mr-2"
+                             Size="Size.Small"
+                             Indeterminate="true"
+                             Color="Color.Inherit" />
+        @LoadingText
+    }
+    else
+    {
+        @Text
+    }
+
+</MudButton>
+
+@code {
+    /// <summary>
+    /// Kad true: dugme je disabled, prikazuje se spinner + LoadingText.
+    /// Tipična upotreba: postaviti na true na početku async operacije,
+    /// na false kad operacija završi (u finally bloku).
+    /// </summary>
+    [Parameter]
+    public bool IsLoading { get; set; }
+
+    /// <summary>
+    /// Tekst dugmeta u normalnom stanju. Obavezan.
+    /// Primjer: "Prijava", "Spremi", "Obriši", "Preuzmi"
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string Text { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Tekst koji se prikazuje dok IsLoading = true.
+    /// Default: "Molimo sačekajte..."
+    /// </summary>
+    [Parameter]
+    public string LoadingText { get; set; } = "Molimo sačekajte...";
+
+    /// <summary>
+    /// Click event handler. Poziva se samo kad IsLoading = false i Disabled = false.
+    /// </summary>
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    /// <summary>
+    /// Dodatno onemogućavanje neovisno od IsLoading.
+    /// Koristiti kada dugme treba biti disabled zbog validacije forme
+    /// (npr. polja nisu popunjena).
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    /// <summary>
+    /// Kad true: dugme zauzima punu širinu roditelja.
+    /// Preporučeno za forme (Login, unos podataka).
+    /// </summary>
+    [Parameter]
+    public bool FullWidth { get; set; }
+
+    /// <summary>
+    /// MudBlazor Variant. Default: Variant.Filled (puna pozadina).
+    /// Koristiti Variant.Outlined za sekundarne akcije.
+    /// </summary>
+    [Parameter]
+    public Variant Variant { get; set; } = Variant.Filled;
+
+    /// <summary>
+    /// MudBlazor Color. Default: Color.Primary (RBI žuta #FEE600).
+    /// Koristiti Color.Secondary za destruktivne ili sekundarne akcije.
+    /// </summary>
+    [Parameter]
+    public Color Color { get; set; } = Color.Primary;
+
+    /// <summary>
+    /// Dodatne CSS klase proslijeđene MudButton-u (npr. ".login-continue" za
+    /// custom izgled dugmeta uz zadržano loading ponašanje).
+    /// </summary>
+    [Parameter]
+    public string? Class { get; set; }
+}

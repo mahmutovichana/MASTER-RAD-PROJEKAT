@@ -1,0 +1,2501 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-TFG-MODEL_CONTRACT-001,controlled/rbi-test-forge-copy,9201301,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-001 — `TFGPublicContract001`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-001: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,82a8cc5a3ca928c54c9178aead066f1ac4e501301c0283b7d061e3c0b54a015a,3cd5fb3f9c710dc88e9de9f63bbb45b3972370efee78b2fae44fdbb881cccce3,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-001.patch
+CRPP1-TFG-MODEL_CONTRACT-002,controlled/rbi-test-forge-copy,9201302,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract002"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-002 — `TFGPublicContract002`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-002: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a3a11c8b6ee8faa47f60927a22ab51d957ab0c42f09bd3fa8fe340f3f6088dd0,9a705b17d7a5dfbe69b9b1915778db63825df4e6507c4af66b6bbcb23fc1964c,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-002.patch
+CRPP1-TFG-MODEL_CONTRACT-003,controlled/rbi-test-forge-copy,9201303,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-003 — `TFGPublicContract003`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-003: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8621067e45553a512b0754489f7ef2d4468a263f5815ea4f5f5c4b0386107ad1,82efb4cec85cf990b0a225c2a1bcfb48798fb7f9e030ca892ec16b2751a6c851,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-003.patch
+CRPP1-TFG-MODEL_CONTRACT-004,controlled/rbi-test-forge-copy,9201304,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-004"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-004 — `TFGPublicContract004`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-004: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ae5767c63e81e69e08913b17925b674d7dcbc146d98bc8d370f8ec3912b11d07,f13a9cee738c768c71e9e3e910398cf895edccea20addc555828c2da66d84b77,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-004.patch
+CRPP1-TFG-MODEL_CONTRACT-005,controlled/rbi-test-forge-copy,9201305,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-005 — `TFGPublicContract005`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-005: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,15a3039737544802651bb9902fa394fb54d65697d6cdc6341cbbed534a387f22,24edac0c0e5f52d4c9e672477011a058c9f20cdf649a1b05b9e6f7c04aef17d4,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-005.patch
+CRPP1-TFG-MODEL_CONTRACT-006,controlled/rbi-test-forge-copy,9201306,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract006"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-006 — `TFGPublicContract006`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-006: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3686a8a2fab720a4368758e378ef25bf0337c8283abea38e8dda837a89f1135b,03e86f199bbe7d429b7e09f6186b7ae4f31d021bd0073ccbdf25da10327f2493,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-006.patch
+CRPP1-TFG-MODEL_CONTRACT-007,controlled/rbi-test-forge-copy,9201307,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-007 — `TFGPublicContract007`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-007: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,840f14b805e05e530642541f209751965dc86b79ac8855802e3dffe7561fe914,71dba10e4db444f939c98f329a892785e7b4c5499a477b4d7107bc3715026aeb,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-007.patch
+CRPP1-TFG-MODEL_CONTRACT-008,controlled/rbi-test-forge-copy,9201308,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-008"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-008 — `TFGPublicContract008`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-008: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,edde9c07e3dea35cb0bf8accd362b5c6b26fb39043611e012426bb06f53a4c83,e1211894b1c2926cc4f9daa3445a138187303d0432ba742fe019a0f1f2efddbd,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-008.patch
+CRPP1-TFG-MODEL_CONTRACT-009,controlled/rbi-test-forge-copy,9201309,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-009 — `TFGPublicContract009`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-009: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1a05fe29ffef28c169d93e9e7ff59924b565465959e70e76167c156d968f0ec1,bcb7ce26137a408b4900216fd23648713903ca95cb9678f9bfcc8f38e058f619,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-009.patch
+CRPP1-TFG-MODEL_CONTRACT-010,controlled/rbi-test-forge-copy,9201310,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract010"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-010 — `TFGPublicContract010`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-010: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,945f0bee2f870e1283af35409882ad95aa01a86261783c8af24446329c58ec28,c4ed3b7412bad0a93d4394f9fd81c50bbf3c8658620065fd1caf7c374371b2ca,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-010.patch
+CRPP1-TFG-MODEL_CONTRACT-011,controlled/rbi-test-forge-copy,9201311,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-011 — `TFGPublicContract011`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-011: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,36312811e9b3c2e5cb5cce0b372323e4550e9cc9ba9f6d8d6cb5d1747d3c3c99,4eecdc88390b3a9a3fed8dc606aae52bdeb6ecaa96c30c40c45a1f2cf7e5b478,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-011.patch
+CRPP1-TFG-MODEL_CONTRACT-012,controlled/rbi-test-forge-copy,9201312,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-012"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-012 — `TFGPublicContract012`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-012: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a4f9c7ae9318c1787ff000017f8f6f268dbee4d56a05dc09b60e0aad50b649f3,ca97f224f57edd85b08c159ea7e430fb9927fc6845bd99b59536dbaf14fbd8fe,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-012.patch
+CRPP1-TFG-MODEL_CONTRACT-013,controlled/rbi-test-forge-copy,9201313,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-013 — `TFGPublicContract013`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-013: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ae347c4ad6b96f223a78c7a3caa2d5f6428c0fe8681053a37fa941d90fc88345,980ede0ccaa232d288c43f66ea16873deb1aa06afdc0540a2fde31c2b445474b,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-013.patch
+CRPP1-TFG-MODEL_CONTRACT-014,controlled/rbi-test-forge-copy,9201314,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract014"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-014 — `TFGPublicContract014`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-014: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b880ff864b9830d67dd892cdcf6e69069049a2f102f3f3c71458563360012009,2751150a82b38167b34fda32d355e589d527549f291a23fdae0846d797d01ad3,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-014.patch
+CRPP1-TFG-MODEL_CONTRACT-015,controlled/rbi-test-forge-copy,9201315,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-015 — `TFGPublicContract015`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-015: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,84dad93366dfa64a6e4b8cc06b7ef5f4b6b3b7bf567ade1d673305fe6a19a520,df999043938b18eee570320026cbe16fc8dc6b00e743d408739eb08bb44b9212,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-015.patch
+CRPP1-TFG-MODEL_CONTRACT-016,controlled/rbi-test-forge-copy,9201316,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-016"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-016 — `TFGPublicContract016`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-016: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,411a2987e0826ec87a2029925d7d73fc2036983e8a115fbf8e70d2618251e5d0,c8e7fa9926a1ed46d0d459ae83ab457195dde06b5b319ccb354b00e63ee94f05,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-016.patch
+CRPP1-TFG-MODEL_CONTRACT-017,controlled/rbi-test-forge-copy,9201317,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-017 — `TFGPublicContract017`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-017: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,44d4599d267132be862732f9b236c2237cdd5baa7059fdb7e82155f75cc7af4a,dfadd27eb4e889843af1a4f2757e93c65be413ecbb6900671f2acb3e386a68f2,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-017.patch
+CRPP1-TFG-MODEL_CONTRACT-018,controlled/rbi-test-forge-copy,9201318,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract018"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-018 — `TFGPublicContract018`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-018: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,53bb629682b7040427f4d95def1cba5e21602694f22ca862f862f20e09549817,03f79e3c7df0342054cbe5bc320b525c813c1e564c465cfadd4ac68b1c562a46,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-018.patch
+CRPP1-TFG-MODEL_CONTRACT-019,controlled/rbi-test-forge-copy,9201319,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-019 — `TFGPublicContract019`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-019: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cb1bf412f0db5eca572e063807bf40dcd6b728903a2e8a286466d31421e2d99a,95fa4c2c85347dab51b5ab9ab1d1b44aaf3bd800e4cca3d26e83989887d60781,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-019.patch
+CRPP1-TFG-MODEL_CONTRACT-020,controlled/rbi-test-forge-copy,9201320,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-020"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-020 — `TFGPublicContract020`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-020: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c744c6d69c1e7cef814c390c4db62f37b65d8c02cca94182929bd49c6f70d1a5,68f24765984eb86613f7d727c23cba122097338ebe7f6d4b26fb4398a30f30a3,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-020.patch
+CRPP1-TFG-MODEL_CONTRACT-021,controlled/rbi-test-forge-copy,9201321,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-021 — `TFGPublicContract021`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-021: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6b2d3e1fea0fc3d44e5d2ae7569140d66627095ccb15a085cf2f95b0ba86e5c2,50193276d5351b7005d903b9f21fa0ec8bfb0305f22ce8141e77757e4a4decd0,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-021.patch
+CRPP1-TFG-MODEL_CONTRACT-022,controlled/rbi-test-forge-copy,9201322,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract022"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-022 — `TFGPublicContract022`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-022: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,61364077920bcdb88e03c1caeaa869f32ca6d7d9f0b9f84c8af0ffbe5cde8b82,41659c3bf151e1ad34b0d74331cbb613de60525b9d246597a91005e6d313ff2a,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-022.patch
+CRPP1-TFG-MODEL_CONTRACT-023,controlled/rbi-test-forge-copy,9201323,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-023 — `TFGPublicContract023`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-023: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0322898bde725ff6774ba3cfd51cfc1668c301ce32416b3381fc75bbfe3522fe,e3c26f0bbea9175a9361c765b92cf5c02d1034241458a9e42b7ddbaea060dda0,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-023.patch
+CRPP1-TFG-MODEL_CONTRACT-024,controlled/rbi-test-forge-copy,9201324,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-024"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-024 — `TFGPublicContract024`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-024: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,79c94b1b079db2f8c4ac52a362d3bc4097f14a00a3acc01f373e2f07c0205efc,9a1773188f09e5771326052220d32b404df6a9f2b3418cac09278937e71a16aa,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-024.patch
+CRPP1-TFG-MODEL_CONTRACT-025,controlled/rbi-test-forge-copy,9201325,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-025 — `TFGPublicContract025`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-025: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e6a47006a23eb06a023abb9522dc83eac7108f039acdfeb9defa6575e4355cb7,1f453e7850170d20f4e0f269af93431e560d84fb309e3c533977df188103a188,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-025.patch
+CRPP1-TFG-MODEL_CONTRACT-026,controlled/rbi-test-forge-copy,9201326,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract026"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-026 — `TFGPublicContract026`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-026: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c5f482b539883a0e3048a251d54cfa9427f3b1c3374c08efb3c50bfd7be3fad2,c9659e85f1909bcd9484c31415a18d2b8b501bdf9082bf704ce117f0032e7069,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-026.patch
+CRPP1-TFG-MODEL_CONTRACT-027,controlled/rbi-test-forge-copy,9201327,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-027 — `TFGPublicContract027`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-027: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d6ee25b369f71f90ad485068656a3aad39131bbb7290ec67b4431df6c9e2743e,e04406d1724f59bd21874e704e77c120feb9af6a4a9b9236d202531228edae13,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-027.patch
+CRPP1-TFG-MODEL_CONTRACT-028,controlled/rbi-test-forge-copy,9201328,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-028"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-028 — `TFGPublicContract028`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-028: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9994988a3fbe6ae86d093ccfaeccdf69c3e4831846fad40d52ca8cd945fbd452,e0b11d5638ef79dba5b6146308629ce660df55bffaa7034e1fc5a43b0f094c6d,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-028.patch
+CRPP1-TFG-MODEL_CONTRACT-029,controlled/rbi-test-forge-copy,9201329,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-029 — `TFGPublicContract029`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-029: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,96c55d485add99c7a72f8cd61974702c0362b998eecff0ad3d065c7d6eccf93c,464362954f38c73a9701473ba8b5938c658017006271a86de1aeb27a080a16b3,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-029.patch
+CRPP1-TFG-MODEL_CONTRACT-030,controlled/rbi-test-forge-copy,9201330,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract030"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-030 — `TFGPublicContract030`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-030: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5d32e23d2d7bcf8b33248ebac9f6dea7cb27d8063604bdf84c8deb93cee354d2,a45d904d28e62af8ff28c9819baacf63dcb8471c0851e006a92217f7c0c3c192,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-030.patch
+CRPP1-TFG-MODEL_CONTRACT-031,controlled/rbi-test-forge-copy,9201331,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-031 — `TFGPublicContract031`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-031: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e41ea77690278ac26df56414448a403c826e84f37ca854b9f7ab4930c70d1272,5a1f4743fa32693dc70845dc5aecdbb8a9fcb375446b6448215f1dc343318db3,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-031.patch
+CRPP1-TFG-MODEL_CONTRACT-032,controlled/rbi-test-forge-copy,9201332,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-032"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-032 — `TFGPublicContract032`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-032: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f3393bbfc1e5126939b77b2371d5cf2b2978f8267965c91f2dfbbc358372253d,ff7035de14b1587d57429880b1183dd42782787f2b69baec434ae3976662a2e0,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-032.patch
+CRPP1-TFG-MODEL_CONTRACT-033,controlled/rbi-test-forge-copy,9201333,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-033 — `TFGPublicContract033`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-033: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1bb9b7eb3dcc421c10b2e475347b22bbe3242fb7ee3157b5e501ebe7148ea7f8,b3e8e6d17cd33579cae661b7a3d70992fec9a7f83880f1c2d1be91cb79b40769,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-033.patch
+CRPP1-TFG-MODEL_CONTRACT-034,controlled/rbi-test-forge-copy,9201334,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract034"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-034 — `TFGPublicContract034`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-034: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,380384cb95496c990b440858de4b9328960af5c3e2579804a27fdc198ffaeded,984a5cc99dcdd4c72d0ba09c001402b3b03cd757cf890a5e1163741ae38d6f04,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-034.patch
+CRPP1-TFG-MODEL_CONTRACT-035,controlled/rbi-test-forge-copy,9201335,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-035 — `TFGPublicContract035`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-035: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,725862a30ee9234ec71461f7c31f3dc09f618f3ba876718d5ff30f741f6da9a4,314206b3b005aca9ab77cee4ade01ac2130d93ac49c0a52aa75563599a4205b7,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-035.patch
+CRPP1-TFG-MODEL_CONTRACT-036,controlled/rbi-test-forge-copy,9201336,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-036"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-036 — `TFGPublicContract036`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-036: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7928b5fede5e5220fccae5bcd3290237f5fbc8ab7da4203dfd3721a315ff3af0,cb1bdc3a37a172f699d3294524bd47c767b3ad6be2de69da1f1656acb8b2681b,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-036.patch
+CRPP1-TFG-MODEL_CONTRACT-037,controlled/rbi-test-forge-copy,9201337,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-037 — `TFGPublicContract037`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-037: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,947d3e5633e7da398df7bd3f401caaef6945bc535f86ddd7fdb6388d8b8510f8,414291d38c6190e1f29bfa756f8f66f5f86ec235b5866026fd7e9d76d610802f,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-037.patch
+CRPP1-TFG-MODEL_CONTRACT-038,controlled/rbi-test-forge-copy,9201338,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract038"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-038 — `TFGPublicContract038`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-038: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0456a84d6f8c32cf59adaf37ec95d15ec23a3bc435521da6b82bc429eaa03865,5264b71555312d0f9b8f67401c7924571d10505689086b8c4e41a0dd1bef2375,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-038.patch
+CRPP1-TFG-MODEL_CONTRACT-039,controlled/rbi-test-forge-copy,9201339,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-039 — `TFGPublicContract039`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-039: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,91e1661c2d5b7866132f7bd648de2f469c11ce03eb7c845c9549cfb71dd0d985,e970d1730eef0e69597106c560814cfdd9ff1f0b7e1a98d56b32c95bf9a25b49,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-039.patch
+CRPP1-TFG-MODEL_CONTRACT-040,controlled/rbi-test-forge-copy,9201340,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-040"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-040 — `TFGPublicContract040`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-040: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0a6a997b5b5a8956c76b67da9620202051eb5a1feca8b3cfed50671b5f918d1f,1528029bbf5f4053e9696997f118f94bfbe3da9800edca976eaf6104451038c9,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-040.patch
+CRPP1-TFG-MODEL_CONTRACT-041,controlled/rbi-test-forge-copy,9201341,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-041 — `TFGPublicContract041`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-041: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,179f1af427ea85d31be4bf6a7d026e8f42d936f360d2ae81061f630f89c0f9a7,7311b68ee5e73f1f6ffdf4b071d80a1a145179de9a19de93ac88dff7402eed3b,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-041.patch
+CRPP1-TFG-MODEL_CONTRACT-042,controlled/rbi-test-forge-copy,9201342,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract042"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-042 — `TFGPublicContract042`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-042: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c8e78a94653095c30d21068e81dde0e2a8753ff46f600534d504a2c1e1f1150a,9447bbd36abd5696d575c578e4923d1a5b841753e7bd209ad366f38979469e4b,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-042.patch
+CRPP1-TFG-MODEL_CONTRACT-043,controlled/rbi-test-forge-copy,9201343,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-043 — `TFGPublicContract043`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-043: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,03bb8f313eb418c9e744f9e94cbcb0eaa0f9d0388523594ab6d0faba7e3fd0be,2754d9c55ccefa99c39c6fe8737821e0495891246b8fe5debdf45a3f0935a735,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-043.patch
+CRPP1-TFG-MODEL_CONTRACT-044,controlled/rbi-test-forge-copy,9201344,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-044"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-044 — `TFGPublicContract044`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-044: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b01f8bf3bee2dadf9c39d6f0149ec7ca25c86ed6778171c6a875e299db33a3d8,80619743a6127aec536d6dc189161c6aa4d5fcc99ad6a9dd9be275328c350e52,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-044.patch
+CRPP1-TFG-MODEL_CONTRACT-045,controlled/rbi-test-forge-copy,9201345,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-045 — `TFGPublicContract045`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-045: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,01aa454c0171512b4e3a2786924775ee558c1ff83e90dbda54f56b59308286d6,023ee7aabb65097b7750c0f0b3665aad7efc791f14de1efbf8f0cd0c2f6206ae,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-045.patch
+CRPP1-TFG-MODEL_CONTRACT-046,controlled/rbi-test-forge-copy,9201346,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract046"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-046 — `TFGPublicContract046`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-046: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e4074e2f183bf1b30847b71cb63e654b0a3040986d7560111b46985766860d63,df6029d5492ff789e7e9f45689cb2bab59c70507e25d16e630a1aa551eac9d62,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-046.patch
+CRPP1-TFG-MODEL_CONTRACT-047,controlled/rbi-test-forge-copy,9201347,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-047 — `TFGPublicContract047`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-047: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7b1066d56815f5ee0e4c55a9462832eed812628604613bf08257ab170e47b5e4,b5485adc82882f7ce2dd0ff69d7d20d82257e6129fbec95895f3b133e5cd4d1f,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-047.patch
+CRPP1-TFG-MODEL_CONTRACT-048,controlled/rbi-test-forge-copy,9201348,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-048"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-048 — `TFGPublicContract048`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-048: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1d7adc5cdfec5356f0e9f84ebf09ad868bc26e9b009667dc40d799fb7959e508,f81f52a6bcabb7e6a7c54b96ca4d8a417b1268648f7c6590c8c810f1876aac04,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-048.patch
+CRPP1-TFG-MODEL_CONTRACT-049,controlled/rbi-test-forge-copy,9201349,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-049 — `TFGPublicContract049`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-049: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a24bc1df1eef46e3e3519a6be3de525c4732627863a70b1c7f9491059bc29000,5c3d65abf5a18ef316dafd4788630c97c94c75683cb0a046a00cc9cf17a987ec,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-049.patch
+CRPP1-TFG-MODEL_CONTRACT-050,controlled/rbi-test-forge-copy,9201350,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract050"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-050 — `TFGPublicContract050`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-050: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b2069e0a23fee786be78be629598329ab63ea4bc91c8a2c17d78db5ff970c95f,6c47846b793ffeef29bc3d89229c519233e6499da57ea9d6668566e1fe9b5d66,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-050.patch
+CRPP1-TFG-MODEL_CONTRACT-051,controlled/rbi-test-forge-copy,9201351,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-051 — `TFGPublicContract051`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-051: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,56a25463898b56904c9fded08f68b6f8687a67e5e6be45c385877accf5d8e2f2,08ba029580e92f80e1243fb08b2bd5d0689204c79781d6d1dd66b186c2e26487,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-051.patch
+CRPP1-TFG-MODEL_CONTRACT-052,controlled/rbi-test-forge-copy,9201352,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-052"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-052 — `TFGPublicContract052`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-052: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,14683b7fe8a7c2d39ff5a5c9cd6b20d6df558cc45cfcac8229006a12525b12d5,ee5af37808b1a7adc5472872cc090903b369eee77bbfef3cf263124b2d8bd56c,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-052.patch
+CRPP1-TFG-MODEL_CONTRACT-053,controlled/rbi-test-forge-copy,9201353,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-053 — `TFGPublicContract053`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-053: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d8ebe477109d8c78f01fae393602cfa6265e3a59c1fbb3976ee2d72cddc80de4,c85421ebe27c739898e9907028768bc6f5e9326d766b8419a22bf0b115565158,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-053.patch
+CRPP1-TFG-MODEL_CONTRACT-054,controlled/rbi-test-forge-copy,9201354,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract054"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-054 — `TFGPublicContract054`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-054: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d4e078146f1188a2cb2a4a1452b70f700fa4c7dc8b38a69e3b7347a405c8bc82,d85a3992079dcefc58b24565031b33d672adf47a594ac21c51613c3db49c75c1,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-054.patch
+CRPP1-TFG-MODEL_CONTRACT-055,controlled/rbi-test-forge-copy,9201355,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-055 — `TFGPublicContract055`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-055: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b3610de534b875dafcab4de5aac54b72f17ee5fc02c3ff8fac03583a0e84ac65,4deb61155e5ee125fe4b46f0e236a58db1dae4617d8d1475c62e445afb5f15ad,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-055.patch
+CRPP1-TFG-MODEL_CONTRACT-056,controlled/rbi-test-forge-copy,9201356,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-056"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-056 — `TFGPublicContract056`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-056: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,feff1dbd9e7ac4e80de5c46283760ac4d889af505064d24b66967cbf4d0a9e1c,cd563e5920bafcb0286100e14e65d14db9ecbe54c261ad06e81178753155411f,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-056.patch
+CRPP1-TFG-MODEL_CONTRACT-057,controlled/rbi-test-forge-copy,9201357,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-057 — `TFGPublicContract057`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-057: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5c9b97a899821bee365513d81d1f5c2149d384f24e185590cff24c00296464c7,9181ceeeae700b5899ce624af546886b2116b52593061b79a58cf81f7f4af97c,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-057.patch
+CRPP1-TFG-MODEL_CONTRACT-058,controlled/rbi-test-forge-copy,9201358,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract058"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-058 — `TFGPublicContract058`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-058: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,53db69476fb7a1309239608beaaaf506076e04677686917174d09c4c67f324d5,8892f074a3c76811fc77b39dc44112c9acca26becc87bd1616e1d7e1a22c042a,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-058.patch
+CRPP1-TFG-MODEL_CONTRACT-059,controlled/rbi-test-forge-copy,9201359,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-059 — `TFGPublicContract059`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-059: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1fe70de18e4dfdeac317ed4e6f635e01a9f2c760181e625bfc6a665506bb05b4,a9d0f8d1d3fda15c70215b6226c15ad46fe6b2fb9605c0e2e224e2418742f80a,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-059.patch
+CRPP1-TFG-MODEL_CONTRACT-060,controlled/rbi-test-forge-copy,9201360,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-060"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-060 — `TFGPublicContract060`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-060: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,212c8bde9971d5e7414efa396c72e9730f16bb7b6de2e44b4a44160c3d54c4a9,b3970d024c9f3f9a8e9238d7459aa04e2b563d7879a632bdf2f971452f5bbc8d,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-060.patch
+CRPP1-TFG-MODEL_CONTRACT-061,controlled/rbi-test-forge-copy,9201361,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-061 — `TFGPublicContract061`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-061: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,228989e616c3accad3e1ea0f90cf65b7549ad0e053cdc1c2692826d0f4e38e0b,ef84791a0092c16e65098be359f43c59306610971f0cc143d453781e1678ebf2,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-061.patch
+CRPP1-TFG-MODEL_CONTRACT-062,controlled/rbi-test-forge-copy,9201362,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract062"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-062 — `TFGPublicContract062`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-062: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c7d10d47ceab4f59440ac2a5c473051e0b1e68a5c0f00623061e25969d06b58d,7aa643bd6df7e2542cda0bb036cdccd966ddd9e69f3ab91850dc6355af054818,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-062.patch
+CRPP1-TFG-MODEL_CONTRACT-063,controlled/rbi-test-forge-copy,9201363,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-063 — `TFGPublicContract063`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-063: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7d0719827fc9f32d2404a1ac888ccfd1dddd4316d7446be65cf6194fbd6bf80a,53ec525017616002d2c8433c4640d1fcb32c989a431ab768de2a00bd065dc918,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-063.patch
+CRPP1-TFG-MODEL_CONTRACT-064,controlled/rbi-test-forge-copy,9201364,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-064"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-064 — `TFGPublicContract064`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-064: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fce010ca39dab405c5bc4d42e69553e40095ad350150859032c19be6d573ebd7,f325472a0bb6a57496b2d73e5a7be6f32b5fd78a4fe40ba10d31d34674eee13a,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-064.patch
+CRPP1-TFG-MODEL_CONTRACT-065,controlled/rbi-test-forge-copy,9201365,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-065 — `TFGPublicContract065`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-065: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,10549457bd181b9cd108854bbfc4bc98a38b3a6d0a084faf2adb0b1fb8128e80,d6fa2537b1fce5fe79c55ebbf786b01dec6dd453fe259696b5ad7529f0f32e73,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-065.patch
+CRPP1-TFG-MODEL_CONTRACT-066,controlled/rbi-test-forge-copy,9201366,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract066"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-066 — `TFGPublicContract066`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-066: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4efbb2146c4dad33f6b02884420f240fb70e876111da45a54c6ece9cb4f2f1ac,de9a255985467a23fcd679bf30a58a6e97ce9300935510cd32569687fa03cf33,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-066.patch
+CRPP1-TFG-MODEL_CONTRACT-067,controlled/rbi-test-forge-copy,9201367,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-067 — `TFGPublicContract067`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-067: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fb14b842e1e69dd280c98d05fce1da4662df40606b721a7308f775eaa1c84616,f0400487454f0dbe49fad9b0f3ba6ebd3551053859485f2b6331140cf9cc6867,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-067.patch
+CRPP1-TFG-MODEL_CONTRACT-068,controlled/rbi-test-forge-copy,9201368,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-068"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-068 — `TFGPublicContract068`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-068: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,87942fc78c705ac6a67e39e55afdab16f5b60eb2bfe5b14a41fe8b029a75d2ab,25e57d915362da1cbce89fc92238fb2795220f43549872e54622f8aedf4eeade,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-068.patch
+CRPP1-TFG-MODEL_CONTRACT-069,controlled/rbi-test-forge-copy,9201369,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-069 — `TFGPublicContract069`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-069: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,40b198183450f93d9787ba61c74d93da177531e6ed1a28e9482998b659293dfd,3043fd1635fb9e1aba0a6a4d1d7fc05f5005aefaba75f5cc9d1cc7bcfcd47887,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-069.patch
+CRPP1-TFG-MODEL_CONTRACT-070,controlled/rbi-test-forge-copy,9201370,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract070"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-070 — `TFGPublicContract070`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-070: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ed89b8d16073d483d84a55bb01316b833760d52a8bac7d02a693e2a66bffc029,2a8da9349161e85b6090f02157ee74c113c2fd0bb18062eab91deb47c32841cd,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-070.patch
+CRPP1-TFG-MODEL_CONTRACT-071,controlled/rbi-test-forge-copy,9201371,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-071 — `TFGPublicContract071`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-071: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,83cd2cc39eeb3601439761c7f2c0bea33d8fd4878178bac350e15e9a2fa4f562,f6288b0632752fe4212034bc596f3928b18d5f03be3ecf01d5c484ead1582a44,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-071.patch
+CRPP1-TFG-MODEL_CONTRACT-072,controlled/rbi-test-forge-copy,9201372,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-072"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-072 — `TFGPublicContract072`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-072: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e8a11a77678543775ccc1cde439632826b9ac58a2fa0bdfdca1fe5f0747fa4dd,eaf465c6a2ba575e2cfc4edbf2014bce55e3dcab2eb7068117dfbb81521420d6,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-072.patch
+CRPP1-TFG-MODEL_CONTRACT-073,controlled/rbi-test-forge-copy,9201373,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-073 — `TFGPublicContract073`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-073: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7f769b0dd17e3ba1f0751372c4250ea99ab5dc39b84c896dac739d217da6eac1,cdefebc708eb30964e8bf5e823dfb7db085f24cc5e4d1a3324cefefcafc3b066,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-073.patch
+CRPP1-TFG-MODEL_CONTRACT-074,controlled/rbi-test-forge-copy,9201374,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract074"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-074 — `TFGPublicContract074`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-074: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,409db926e2c50bd8a779b920f69d5fb28700337008a3a536292b6ad23e7553a1,20f5efb00483f07713b52e47966b0e8cab84b48d9bcf7b7b28c78a692c8108ce,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-074.patch
+CRPP1-TFG-MODEL_CONTRACT-075,controlled/rbi-test-forge-copy,9201375,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-075 — `TFGPublicContract075`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-075: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,870c46b0694de17d09a6523c069db2603b4920665414962ac02b130ca7d02ccf,77ca978d95fd79d91a85be001b7ac42466b190703111fb50708f1aa622b8a7c5,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-075.patch
+CRPP1-TFG-MODEL_CONTRACT-076,controlled/rbi-test-forge-copy,9201376,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-076"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-076 — `TFGPublicContract076`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-076: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f1904b189add9aaf813c0a0e4ea6b94a26672c281f8fb9b9f480a725ae1f006a,d8fadd9462c87db19c726f77ee0f0b493ffecdf6954d6eba1a0a1dee7ced571e,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-076.patch
+CRPP1-TFG-MODEL_CONTRACT-077,controlled/rbi-test-forge-copy,9201377,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-077 — `TFGPublicContract077`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-077: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5738a5b7c4eaf8df686575186e9c17c1d65f64ecedf8a46a0741661f9a01d455,2500dc904178709d5945379f7bdb0555c993e09e971408c0464eeea6a4122a67,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-077.patch
+CRPP1-TFG-MODEL_CONTRACT-078,controlled/rbi-test-forge-copy,9201378,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract078"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-078 — `TFGPublicContract078`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-078: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,44f290db8f7c013990322ac546bc643b7b0b935264e749b4f414debcf891db1f,8bb8e22289cc49d16512a955f9d707a656db72b12835152d59b1cb4b7f1a90d5,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-078.patch
+CRPP1-TFG-MODEL_CONTRACT-079,controlled/rbi-test-forge-copy,9201379,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-079 — `TFGPublicContract079`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-079: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,717f4addf47a6021b251ff3b8edd235a55054b1f1cc9cf99efcd07bff233705f,1e2d03bc1920d08df2b9e9d062ada69bbd736daf29637de01b16db7f08eeb9c1,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-079.patch
+CRPP1-TFG-MODEL_CONTRACT-080,controlled/rbi-test-forge-copy,9201380,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-080"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-080 — `TFGPublicContract080`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-080: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5aeaee531b418ad82f5b47eddbd521ee53949ef3c74d13934a9de01f14a6ab8d,5a47cb112b04ea5ce06a08e9bcdf7671b480226d0e3766e5c19fe55e557cb318,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-080.patch
+CRPP1-TFG-MODEL_CONTRACT-081,controlled/rbi-test-forge-copy,9201381,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-081 — `TFGPublicContract081`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-081: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9ada5d4897623f837085ee8b15c645e5a3412e27395253e8c0c40ea8836abe7b,5adb86d1f80eb92e403fb73c997d6e61b26a2fec56f555c0daecbcbfe364a9f6,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-081.patch
+CRPP1-TFG-MODEL_CONTRACT-082,controlled/rbi-test-forge-copy,9201382,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract082"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-082 — `TFGPublicContract082`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-082: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,96acb78922a043a48e0d6f18ab0a69e9afcca120ac25a5bac58fb58c49ebaf51,47581173579bd46d8c19aa51bb5dc38443265b2e3139bed223faa2f49834219e,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-082.patch
+CRPP1-TFG-MODEL_CONTRACT-083,controlled/rbi-test-forge-copy,9201383,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-083 — `TFGPublicContract083`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-083: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,af5a7b42c87be7182fdeca2fed1b2aafc248b1222f2e752f794bd1f6ec85527e,e01f2b7fff4836c880bca64bd4bb2142b02b3ed861a4a5d3e684c94e1dec05a6,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-083.patch
+CRPP1-TFG-MODEL_CONTRACT-084,controlled/rbi-test-forge-copy,9201384,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-084"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-084 — `TFGPublicContract084`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-084: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5e3fe04ca63bb8ce0073aeea21a73bd22778a3b1ff63befbf5f83c04268325b2,f93b562584f15bd7e2f7d53a2010e72c1cc4e1e7786aea3a916c56cd10dff577,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-084.patch
+CRPP1-TFG-MODEL_CONTRACT-085,controlled/rbi-test-forge-copy,9201385,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-085 — `TFGPublicContract085`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-085: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,68466325ab20e52264dca134d61768fdadb55081c668f461332272b61357c5ad,9cb985d9115b671df7ce50cb68447ea00e63a67d9a7f2531f95e78ebb9a83060,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-085.patch
+CRPP1-TFG-MODEL_CONTRACT-086,controlled/rbi-test-forge-copy,9201386,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract086"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-086 — `TFGPublicContract086`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-086: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0bbbe50fc49411aa996e5305f3d657588ca0236dbba90d4abc4d7230a2f726e1,66a91af35d7d8bd56fcce6fc1d4e769f3ab1fe11eb0da5f5a0330ea64175ec6b,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-086.patch
+CRPP1-TFG-MODEL_CONTRACT-087,controlled/rbi-test-forge-copy,9201387,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-087 — `TFGPublicContract087`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-087: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7fef12bab72ea622ada4a0dda6660b2735e90651d47b5a3ccd8085164508eb3d,615ff25a1680f00cabec516937d106cbbe4dd7ed610424b8e549b0c222e447f5,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-087.patch
+CRPP1-TFG-MODEL_CONTRACT-088,controlled/rbi-test-forge-copy,9201388,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-088"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-088 — `TFGPublicContract088`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-088: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2151c01dbf65e73dbe3da4dea74d76dbdd7441e43de738abf89ce65cfe9d1888,fb499aea94ffc1b3068a2b21d22a5127209a16f62f456f98e60c9d0324fefaf5,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-088.patch
+CRPP1-TFG-MODEL_CONTRACT-089,controlled/rbi-test-forge-copy,9201389,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-089 — `TFGPublicContract089`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-089: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,74b438d31493fe5a0243b258e2ac62237fdca89d0d359816fbaf90f58963f4fe,6571dd0bbee66c45c5734a61d50c4b20f94f1d7f08b1799772f29a736cffcd38,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-089.patch
+CRPP1-TFG-MODEL_CONTRACT-090,controlled/rbi-test-forge-copy,9201390,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract090"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-090 — `TFGPublicContract090`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-090: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,89f4b539549374945f6fd1b67e5f78dd670edd48ef3367b2f8d33d326b05bf6a,e2a548f49acbf66a55f9b376b457e18c6dbc02bae843ce79d21754a00905821f,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-090.patch
+CRPP1-TFG-MODEL_CONTRACT-091,controlled/rbi-test-forge-copy,9201391,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-091 — `TFGPublicContract091`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-091: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d5f7326807b68dc744b1fcdc7b1f8cd2ea39cc4de924d332d6f35f48ac4f492c,9f1ca99898113cc284d0510eedea617b3bf421a05d27f6d33208d050af48b368,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-091.patch
+CRPP1-TFG-MODEL_CONTRACT-092,controlled/rbi-test-forge-copy,9201392,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-092"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-092 — `TFGPublicContract092`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-092: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cbc31cf0509b93483a65c8aebed4bc6f05330d387c809d8323fd89ee1f07db0b,e4826d6153cd57b7b10f038aa43680874d6be4b9aa607d0ccfe783bb1e442c62,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-092.patch
+CRPP1-TFG-MODEL_CONTRACT-093,controlled/rbi-test-forge-copy,9201393,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-093 — `TFGPublicContract093`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-093: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b2092e40bc78efd9cabc6b5ec40f1ba26f1434c61a0d40f827edde0c9cfb1ee3,4fc4624ab7f14d4905a9855ad0679f446e3799cbcd6638a19eb3ccff381c260f,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-093.patch
+CRPP1-TFG-MODEL_CONTRACT-094,controlled/rbi-test-forge-copy,9201394,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract094"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-094 — `TFGPublicContract094`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-094: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f45a48ddbae00c338f7e7102a2c3fe16f2cfcced1888fe7e07b858f6aa99914b,1979ac5e4ad70092da4766b2ad51e3fce95dc007b4043a60a32a5aa88b9b6cf4,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-094.patch
+CRPP1-TFG-MODEL_CONTRACT-095,controlled/rbi-test-forge-copy,9201395,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-095 — `TFGPublicContract095`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-095: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,db1e915803d36fc3fadaf12c194df80932abc19b7dd289d23f28fc74b30cd5ae,9657b8af9e67a36cdd41ee9cbe05b732f69c99d794a0fa38c1cce85df3bbf918,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-095.patch
+CRPP1-TFG-MODEL_CONTRACT-096,controlled/rbi-test-forge-copy,9201396,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-096"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-096 — `TFGPublicContract096`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-096: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5f7ae8c22ae059941ac7de926d8b7ada228ed1eca01ff68db5021d041a22e818,4f8942aa3491292fff511aa1f2a88e2067daffb6e735163e41d1d63e12bcec1f,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-096.patch
+CRPP1-TFG-MODEL_CONTRACT-097,controlled/rbi-test-forge-copy,9201397,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-097 — `TFGPublicContract097`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-097: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e51ec26bc108cd54c715fc6070c61636a4fa04d398cb68fb6d69fe06ff9d84d1,7ab13537c1faacc7ecddd7cf15deff9e29255525a7cf44ddb69195b6686b8b97,model_contract,rbi_test_forge,serialized_field_type_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-097.patch
+CRPP1-TFG-MODEL_CONTRACT-098,controlled/rbi-test-forge-copy,9201398,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""TFGPublicContract098"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-098 — `TFGPublicContract098`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-098: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e2d74f0da428b2432f366b1d5655c02e8d27d1762cdd00007c4525859d6647b3,281d775f9e9e98f91543f79215cafff075e7500d9222f2a97e500d62be4c297a,model_contract,rbi_test_forge,required_field_change,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-098.patch
+CRPP1-TFG-MODEL_CONTRACT-099,controlled/rbi-test-forge-copy,9201399,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-099 — `TFGPublicContract099`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-099: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e09f92cf2479c788e1803f657e9431ae58878c3111b68a93300cf369693456f2,f21d5f515f0e4bbaf1825200416272205690837ee9dc133647e5fcb7bc8ab404,model_contract,rbi_test_forge,serialized_field_added,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-099.patch
+CRPP1-TFG-MODEL_CONTRACT-100,controlled/rbi-test-forge-copy,9201400,csharp,"[""TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/TestGenerator/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""TFG-MODEL-100"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:3e51096a5307cf4e -->
+### TFG-MODEL-100 — `TFGPublicContract100`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"TFG-MODEL-100: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b70b0dc8ee007860f73271cef8cb8d4d73b0f89cd7ed207e5cb7d7b505fc0a8c,f3aed7aae6740a83409f8d1e8b6a7aeb1abc16ae4ece60168629606e82f35de2,model_contract,rbi_test_forge,serialized_field_rename,cases/patches/rbi_test_forge/model_contract/TFG-MODEL-100.patch

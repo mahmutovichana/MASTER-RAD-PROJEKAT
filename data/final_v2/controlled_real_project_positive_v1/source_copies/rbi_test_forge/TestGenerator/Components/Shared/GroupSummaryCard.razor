@@ -1,0 +1,56 @@
+@* ============================================================
+   GroupSummaryCard — sažetak grupe testova (AC5)
+   ============================================================
+   Prikazuje broj scenarija, zadnji run, pass rate (bojom po pragu)
+   i broj aktivnih rasporeda. Grupa bez run-a prikazuje "—" (null-state),
+   nikad 0% ili pad.
+
+   Upotreba:
+     <GroupSummaryCard Summary="node.Summary" />
+   ============================================================ *@
+
+<MudPaper Class="d-flex flex-wrap gap-6 pa-3" Elevation="0" Outlined="true">
+
+    <div>
+        <MudText Typo="Typo.caption" Color="Color.Secondary">Scenarija</MudText>
+        <MudText Typo="Typo.body1">@Summary.ScenarioCount</MudText>
+    </div>
+
+    <div>
+        <MudText Typo="Typo.caption" Color="Color.Secondary">Zadnji run</MudText>
+        <MudText Typo="Typo.body1">@(Summary.LastRunAt?.ToString("dd.MM.yyyy HH:mm") ?? "—")</MudText>
+    </div>
+
+    <div>
+        <MudText Typo="Typo.caption" Color="Color.Secondary">Pass rate</MudText>
+        @if (Summary.LastPassRate is double rate)
+        {
+            <StatusBadge Text="@($"{rate:0.#}%")" Color="@BadgeColor(rate)" />
+        }
+        else
+        {
+            <StatusBadge Text="—" Color="Color.Default" />
+        }
+    </div>
+
+    <div>
+        <MudText Typo="Typo.caption" Color="Color.Secondary">Aktivni rasporedi</MudText>
+        <MudText Typo="Typo.body1">@Summary.ActiveScheduleCount</MudText>
+    </div>
+
+</MudPaper>
+
+@code {
+    /// <summary>Pred-izračunati sažetak grupe (iz <see cref="GroupTreeNodeDto.Summary"/>).</summary>
+    [Parameter, EditorRequired]
+    public GroupSummaryDto Summary { get; set; } = default!;
+
+    /// <summary>
+    /// Boja pass-rate badge-a po pragu: ≥80 % uspjeh (zeleno), ≥50 % upozorenje (žuto), inače greška (crveno).
+    /// Sva logika boje je ovdje (ne u markup-u) radi testabilnosti i čitljivosti.
+    /// </summary>
+    private static Color BadgeColor(double rate) =>
+        rate >= 80 ? Color.Success
+        : rate >= 50 ? Color.Warning
+        : Color.Error;
+}

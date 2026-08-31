@@ -1,0 +1,197 @@
+.top {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    background: var(--header-bg);
+    color: var(--header-fg);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.top__left,
+.top__right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: currentColor;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+
+.icon-btn:hover {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.brand-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-row__mark {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+.top-eyebrow {
+    margin: 0;
+    font: 800 10px/1 var(--font-sans);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(14, 15, 18, 0.65);
+}
+
+.app-title {
+    margin: 3px 0 0;
+    font: 800 17px/1 var(--font-sans);
+    letter-spacing: -0.025em;
+    color: var(--header-fg);
+}
+
+/* Chevron pair — dekorativni, desna strana headera */
+.top__chevrons {
+    position: absolute;
+    right: 470px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* Skupi dvojku chevrona — drugi SVG navučen na prvi (::deep do child SVG-a). */
+.top__chevrons ::deep svg + svg {
+    margin-left: -10px;
+}
+
+@media (max-width: 768px) {
+    .top__chevrons {
+        display: none;
+    }
+}
+
+/* Brze akcije (Pokreni / Novo) — AC zahtjev za header */
+.top__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 6px;
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 34px;
+    padding: 0 14px;
+    border-radius: 7px;
+    font: 700 12.5px/1 var(--font-sans);
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: background 0.12s, border-color 0.12s, opacity 0.12s;
+}
+
+.btn-action--ghost {
+    background: transparent;
+    border-color: rgba(14, 15, 18, 0.25);
+    color: var(--header-fg);
+}
+
+.btn-action--ghost:hover {
+    background: rgba(14, 15, 18, 0.06);
+    border-color: rgba(14, 15, 18, 0.45);
+}
+
+.btn-action--primary {
+    background: #0E0F12;
+    color: #FEE600;
+}
+
+.btn-action--primary:hover {
+    opacity: 0.88;
+}
+
+.btn-action__plus {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+/* Na užim ekranima (tablet) sakrij brze akcije da header ostane čist;
+   akcije su i dalje dostupne unutar stranica (Grupe/Scenariji). */
+@media (max-width: 900px) {
+    .top__actions {
+        display: none;
+    }
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user__name {
+    font: 700 13px/1 var(--font-sans);
+    letter-spacing: -0.01em;
+    color: var(--header-fg);
+}
+
+.user__avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--avatar-bg);
+    color: var(--avatar-fg);
+    font: 700 11px/1 var(--font-sans);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 640px) {
+    .top {
+        padding: 0 16px;
+    }
+
+    .top-eyebrow {
+        display: none;
+    }
+
+    .app-title {
+        font-size: 14px;
+    }
+
+    .user__name {
+        display: none;
+    }
+
+    .brand-row__mark {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* Burger ima smisla samo na mobitelu (overlay sidebar). Na desktopu je rail
+   trajno vidljiv pa burger sakrivamo da ne bude tipka bez efekta. */
+@media (min-width: 1025px) {
+    .icon-btn--burger {
+        display: none;
+    }
+}

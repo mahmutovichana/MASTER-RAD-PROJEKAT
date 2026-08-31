@@ -1,0 +1,82 @@
+@using RBBH.TestAutomation.Api.Services.Run
+@implements IDisposable
+@inject IUserContext UserCtx
+@inject TestRunStateService RunState
+@inject IConfiguration Configuration
+
+@* Rail je uvijek u DOM-u. Vidljivost na desktopu je trajna (sidebar u toku);
+   na mobitelu (<=1024px) je overlay koji se otvara/zatvara preko .app__body.sidebar-open
+   (globalno pravilo u app.css). IsOpen se zadržava radi kompatibilnosti. *@
+<aside class="rail">
+        <nav class="rail__nav">
+            <NavItem Href="/"          Icon="home"     Label="Dashboard"          ExactMatch="true"
+                     HasAccess="true" />
+
+            <p class="rail__group">Test automatizacija</p>
+            <NavItem Href="/projekti"  Icon="folder"   Label="Projekti"
+                     HasAccess="true" />
+            <NavItem Href="/grupe"     Icon="group"    Label="Grupe"
+                     HasAccess="@UserCtx.CanAccess(AppModules.Grupe)" />
+            <NavItem Href="/scenariji" Icon="scenario" Label="Scenariji"
+                     HasAccess="@UserCtx.CanAccess(AppModules.TestScenarios)">
+                <Trailing>
+                    @switch (RunState.Phase)
+                    {
+                        case TestRunPhase.Running:
+                            <span class="nav-run nav-run--spin" title="Testovi se izvršavaju…"></span>
+                            break;
+                        case TestRunPhase.AllPassed:
+                            <span class="nav-run nav-run--ok" title="@($"Svi prošli ({RunState.PassedCount})")">✓</span>
+                            break;
+                        case TestRunPhase.SomeFailed:
+                            <span class="nav-run nav-run--fail" title="@($"{RunState.FailedCount} palo")">✕</span>
+                            break;
+                    }
+                </Trailing>
+            </NavItem>
+            <NavItem Href="/test-generator" Icon="gear"     Label="Generator testova"
+                     HasAccess="@UserCtx.CanAccess(AppModules.TestGenerator)" />
+            <NavItem Href="/api-import" Icon="scenario" Label="Import API"
+                     HasAccess="@UserCtx.CanAccess(AppModules.ApiImport)" />
+            <NavItem Href="/rasporedi" Icon="calendar" Label="Rasporedi"
+                     HasAccess="true" />
+            <NavItem Href="/historija" Icon="history"  Label="Historija"
+                     HasAccess="true" />
+
+            <p class="rail__group">Administracija</p>
+            <NavItem Href="/users"     Icon="users"    Label="Korisnici"
+                     HasAccess="@UserCtx.CanAccess(AppModules.Korisnici)" />
+            <NavItem Href="/roles"     Icon="shield"   Label="Upravljanje rolama"
+                     HasAccess="@UserCtx.CanAccess(AppModules.Role)" />
+            <NavItem Href="/sifarnici" Icon="book"     Label="Šifarnici"
+                     HasAccess="@UserCtx.CanAccess(AppModules.Sifarnici)" />
+            <NavItem Href="/api-keys"  Icon="key"      Label="API Ključevi"
+                     HasAccess="@UserCtx.CanAccess(AppModules.ApiKeys)" />
+            <NavItem Href="/audit-log" Icon="audit"    Label="Audit Log"
+                     HasAccess="@UserCtx.CanAccess(AppModules.AuditLog)" />
+            @* Podešavanja je lični profil (ime/email/role/odjava) — vidljiv svakom
+               prijavljenom korisniku, ne samo adminu. Stranica /settings je [Authorize]. *@
+            <NavItem Href="/settings"  Icon="gear"     Label="Podešavanja"
+                     HasAccess="true" />
+        </nav>
+
+        <img src="images/login/giraffe.png" alt="" class="rail__mascot" />
+
+        <footer class="rail__footer">
+            <Chevron Size="14" Color="#FEE600" />
+            <span>Tag · @AppVersion</span>
+        </footer>
+    </aside>
+
+@code {
+    [Parameter] public bool IsOpen { get; set; } = true;
+
+    // Verzija iz env-a (APP_VERSION). Deploy je postavi na release verziju;
+    // lokalno/dev (varijabla prazna) -> "Dev build".
+    private string AppVersion =>
+        Configuration["APP_VERSION"] is { Length: > 0 } v ? v : "Dev build";
+
+    protected override void OnInitialized() => RunState.Changed += OnRunStateChanged;
+    private void OnRunStateChanged() => InvokeAsync(StateHasChanged);
+    public void Dispose() => RunState.Changed -= OnRunStateChanged;
+}

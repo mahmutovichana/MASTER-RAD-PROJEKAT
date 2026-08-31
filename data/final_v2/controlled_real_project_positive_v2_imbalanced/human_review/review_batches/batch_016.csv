@@ -1,0 +1,1861 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP2-TFG-OTHER_DOCUMENTATION-116,controlled-v2/rbi-test-forge-copy,9401501,csharp,"[""TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-116"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:23e4b93a6b185e74 -->
+### TFG-FLOW-116
+- Workflow: `rbi_test_forge-approval-116`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-116: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7d030405e3bbaf5198468de1845344fd487771cd680b61f1e2378867eb1cf348,5c08bfbfc7a36576747c02ff3ccd25eb3df3bacf238e843e52de36f398eed06a,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-116.patch
+CRPP2-TFG-OTHER_DOCUMENTATION-117,controlled-v2/rbi-test-forge-copy,9401502,csharp,"[""TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:23e4b93a6b185e74 -->
+### TFG-FLOW-117
+- Workflow: `rbi_test_forge-approval-117`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-117: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ebfebb1e4a8108820e0196bebb482466e2ab980cfdb86054e29ad0bef774f984,3420711f3dbef63d4a25c64577d4e45d945efb788cb5bfcb007a64039e600ff7,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-117.patch
+CRPP2-TFG-OTHER_DOCUMENTATION-118,controlled-v2/rbi-test-forge-copy,9401503,csharp,"[""TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-118"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:23e4b93a6b185e74 -->
+### TFG-FLOW-118
+- Workflow: `rbi_test_forge-approval-118`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-118: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,22d7abfb9cef5ac4449f55db6dfed344cb1d1fa05be21abddc1bec5e806b78f1,c4460f98118756f282436bec71159e51063b269a23997cd406c98af5b4fc5842,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-118.patch
+CRPP2-TFG-OTHER_DOCUMENTATION-119,controlled-v2/rbi-test-forge-copy,9401504,csharp,"[""TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-119"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:23e4b93a6b185e74 -->
+### TFG-FLOW-119
+- Workflow: `rbi_test_forge-approval-119`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-119: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6afe389e63ea3263923ab568ce0d1966d03b14236183c5035cf91012f1179877,bcdc484705ca59dab831324a15e2c6938fd8cf939739afb21f3074550f016a4a,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-119.patch
+CRPP2-TFG-OTHER_DOCUMENTATION-120,controlled-v2/rbi-test-forge-copy,9401505,csharp,"[""TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_02.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-120"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:23e4b93a6b185e74 -->
+### TFG-FLOW-120
+- Workflow: `rbi_test_forge-approval-120`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-120: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,da2525af43cec1bb8e34b634ff47c5a1a9da4b7fc203fb7b2978a90b0e2b0b46,c64f1a1c86602a718b39316af9f1a15976f3c8480e8468d0b02e1a1c3731a8bb,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-120.patch
+CRPP2-TFG-OTHER_DOCUMENTATION-121,controlled-v2/rbi-test-forge-copy,9401506,csharp,"[""TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:23e4b93a6b185e74 -->
+### TFG-FLOW-121
+- Workflow: `rbi_test_forge-approval-121`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-121: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3f2fa4ee66f3254ae862601e4a672ae0565af1b2fc2e1f11e14e8b4304543e91,9c135a5b3b85a12058e0a8c853ab58f17fa409414f6a74c1ca594d96c318d8fc,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-121.patch
+CRPP2-TFG-OTHER_DOCUMENTATION-122,controlled-v2/rbi-test-forge-copy,9401507,csharp,"[""TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-122"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:23e4b93a6b185e74 -->
+### TFG-FLOW-122
+- Workflow: `rbi_test_forge-approval-122`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-122: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9772f19bbad17609de10fd74e0578185e0cf62f90e1a07273560efb90a0e732f,de295cb645432fd8c37a068ec80976970a0fbc5b35c06322c83644edd097e5e4,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-122.patch
+CRPP2-TFG-OTHER_DOCUMENTATION-123,controlled-v2/rbi-test-forge-copy,9401508,csharp,"[""TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-123"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:23e4b93a6b185e74 -->
+### TFG-FLOW-123
+- Workflow: `rbi_test_forge-approval-123`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-123: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a0fc836a2185c94ede4155d52dfd9f4ce539fbcb8cd7b582456038388f2eb80e,bd6ed640da375403185124e325df48bb064b70a9be8df0108cc5d53f9737f971,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-123.patch
+CRPP2-TFG-OTHER_DOCUMENTATION-124,controlled-v2/rbi-test-forge-copy,9401509,csharp,"[""TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-124"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:23e4b93a6b185e74 -->
+### TFG-FLOW-124
+- Workflow: `rbi_test_forge-approval-124`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-124: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a8de00b6d6dff2ec71d61a5ba5de19c5ee3af0d12dae94d1058666fb0a028a9d,92b3ac68c984d1e787569f63cfd2b024b515f436429619c8263741de1accdf35,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-124.patch
+CRPP2-TFG-OTHER_DOCUMENTATION-125,controlled-v2/rbi-test-forge-copy,9401510,csharp,"[""TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab-v2/other_documentation/contracts_03.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:23e4b93a6b185e74 -->
+### TFG-FLOW-125
+- Workflow: `rbi_test_forge-approval-125`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-125: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,926d1b810fbf1b5c050398d287d0d38f72f9ca4beaa30f293b616a97633def85,caf22b9f5d97badc123c5eafcb34f57930c966a7c150e22e4093ff2f49b3695e,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-125.patch
+CRPP2-VAL-API_REFERENCE-101,controlled-v2/rbi-property-valuation-copy,9401511,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""VAL-API-101"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation101"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/101"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-101
+- Operation: `rbipropertyvaluationOperation101`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/101`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-101: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1c06176f14ea39eb855f1f6d8ed515685c65b6c5f3e835c74c9e90b9073f5bac,93872eb75bfab9a0dc972849c3036bba509e2d3a67e8d4e7a539c43fde270d27,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-101.patch
+CRPP2-VAL-API_REFERENCE-102,controlled-v2/rbi-property-valuation-copy,9401512,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""VAL-API-102"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation102"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/102"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/102"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-102
+- Operation: `rbipropertyvaluationOperation102`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/102`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-102: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/102' u '/api/rbi-property-valuation/v2/resources/102' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a67a56f6c8588f2d381264d8d601768f8293ad29cbe907e1343d3f002ffad070,9c2413fc450f521ccbd57f4f15be64987025546e69ebd8d53e97726a0223a6d7,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-102.patch
+CRPP2-VAL-API_REFERENCE-103,controlled-v2/rbi-property-valuation-copy,9401513,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation103"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/103"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-103
+- Operation: `rbipropertyvaluationOperation103`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/103`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-103: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0a26fd462c0382dd69e4fd0d93262eb407d0f6c6124b0f2927d0da111588118f,90b6b869a01e486778b57214eaa8bb95b36cad45cbefba28ba275642038f9705,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-103.patch
+CRPP2-VAL-API_REFERENCE-104,controlled-v2/rbi-property-valuation-copy,9401514,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-105"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-104
+- Operation: `rbipropertyvaluationOperation104`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/104`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-104: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e88303d27eafd10f2995c0b3fa02c9922d6efee8a18ea14a360c9baa2799b9db,b789aa836087fd95aa5e12f7695b20384373f557507693eb883a6af1695de222,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-104.patch
+CRPP2-VAL-API_REFERENCE-105,controlled-v2/rbi-property-valuation-copy,9401515,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-105"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation105"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/105"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-105
+- Operation: `rbipropertyvaluationOperation105`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/105`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-105: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1b31e4134f532c202dc3d38d1f2e56ec9206ca7ae9797655cf1cc89fbbcedd92,6054850ebdf44913f246676d571f6220f98c13ee27bc5efd8f54c46f073efa3f,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-105.patch
+CRPP2-VAL-API_REFERENCE-106,controlled-v2/rbi-property-valuation-copy,9401516,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""VAL-API-106"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation106"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/106"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/106"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-106
+- Operation: `rbipropertyvaluationOperation106`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/106`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-106: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/106' u '/api/rbi-property-valuation/v2/resources/106' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7a2b41dea11efe64fedc9089cd7467dbf77e1b4ee39ca3a0a407a0982d876451,193c731f17669a5a5e8708919e693fea4fbffb74e5d7bc49d2fe4c9c8b16ad0b,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-106.patch
+CRPP2-VAL-API_REFERENCE-107,controlled-v2/rbi-property-valuation-copy,9401517,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation107"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/107"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-107
+- Operation: `rbipropertyvaluationOperation107`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/107`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-107: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,808e0f4a70ecffd3d93547ccede7726b07722de5046661c012e9bf862beda774,ac849addd7c31de1476c6b91cb7556eb276b4e67726882cede56efd28e5dc361,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-107.patch
+CRPP2-VAL-API_REFERENCE-108,controlled-v2/rbi-property-valuation-copy,9401518,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-109"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-108
+- Operation: `rbipropertyvaluationOperation108`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/108`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-108: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ef55233ccb8e73c5ab16b1773d252fbcdbb3927595557039ef645df04e9d9c64,d991114fd6e2596324661685f8729654b5406d579ee02923fd2c64fcccac4411,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-108.patch
+CRPP2-VAL-API_REFERENCE-109,controlled-v2/rbi-property-valuation-copy,9401519,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-109"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation109"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/109"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-109
+- Operation: `rbipropertyvaluationOperation109`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/109`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-109: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,381021dfd9b37142ce313a8eb98a0c4834bc726d31ab4a6f15c363739440ee58,6253943a8fc544bfc08390c49190d5492417b41ca10c18ae3f8ecb14c4a25df8,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-109.patch
+CRPP2-VAL-API_REFERENCE-110,controlled-v2/rbi-property-valuation-copy,9401520,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""VAL-API-110"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation110"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/110"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/110"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-110
+- Operation: `rbipropertyvaluationOperation110`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/110`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-110: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/110' u '/api/rbi-property-valuation/v2/resources/110' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4755397525cf299f229126503bb799995db7e211702a8d592015f62389a5f22a,6c8915826a15d3e04a669157679ee6669432410b67e3624b4e5f33cdcf84dfb7,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-110.patch
+CRPP2-VAL-API_REFERENCE-111,controlled-v2/rbi-property-valuation-copy,9401521,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation111"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/111"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-111
+- Operation: `rbipropertyvaluationOperation111`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/111`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-111: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1e53589b1a946d313d883ea9c51b458f99fd98095e6d2197e07c37d866fecdaf,c976507356b54b4a41aaeaeac35c7392eadf80efc6306abcfc5a5683e3169bba,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-111.patch
+CRPP2-VAL-API_REFERENCE-112,controlled-v2/rbi-property-valuation-copy,9401522,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-113"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-112
+- Operation: `rbipropertyvaluationOperation112`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/112`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-112: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b99c6cdcaecebfbec2590c807fc385e625f0898a2e7a8b4b9b6bfc2f0b80ab8a,4c0c4659b1b2f64ed54c069c0ea48d2c36d3aef34babd34352d4b634f77e9614,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-112.patch
+CRPP2-VAL-API_REFERENCE-113,controlled-v2/rbi-property-valuation-copy,9401523,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-113"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation113"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/113"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-113
+- Operation: `rbipropertyvaluationOperation113`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/113`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-113: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1a9e2e32b4c02d757db02002fbf0df387320fa1f5a52f359b6b96749dc066e55,9c41a9835a34cc781705d5c8dc70652f7df072a27a4c35b6dc6a0145fefd3d4f,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-113.patch
+CRPP2-VAL-API_REFERENCE-114,controlled-v2/rbi-property-valuation-copy,9401524,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""VAL-API-114"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation114"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/114"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/114"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-114
+- Operation: `rbipropertyvaluationOperation114`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/114`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-114: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/114' u '/api/rbi-property-valuation/v2/resources/114' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6e6a7eabdd3ffa234241df460d1739353f205df8863a0ba4315fc2a270b06d0a,9ec04e907ca1da4c635ebde5b66925af1e62db7b3d034841835b43b678100f2a,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-114.patch
+CRPP2-VAL-API_REFERENCE-115,controlled-v2/rbi-property-valuation-copy,9401525,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation115"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/115"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-115
+- Operation: `rbipropertyvaluationOperation115`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/115`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-115: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,19bded8e91e40db601b1ebc855406a392fd2e9d47c7474a15acbf5d7b2a9e389,c83306cdb7de8d7ab2595bb7d347f9aa7fa9c050bf28ac298a92f13a8405ae70,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-115.patch
+CRPP2-VAL-API_REFERENCE-116,controlled-v2/rbi-property-valuation-copy,9401526,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-117"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-116
+- Operation: `rbipropertyvaluationOperation116`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/116`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-116: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,51c6a1a0e92cb62cbe408c5f23c0da1a2a135db8c78c193d0f4d84ec8fef3b25,d66d3b5eaee07008544ed7a3057797308feb508f5cfda5be4bebcd22530e833c,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-116.patch
+CRPP2-VAL-API_REFERENCE-117,controlled-v2/rbi-property-valuation-copy,9401527,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-117"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation117"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/117"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-117
+- Operation: `rbipropertyvaluationOperation117`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/117`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-117: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c356f7aba8d4e4ff0230906da371120da9fb02911b67be4ab29a9f404b58bd10,f45cc9ba8387701c20cb51e6555986d65ebe4e74509aacec9f80cfb1ec492da9,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-117.patch
+CRPP2-VAL-API_REFERENCE-118,controlled-v2/rbi-property-valuation-copy,9401528,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""VAL-API-118"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation118"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/118"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/118"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-118
+- Operation: `rbipropertyvaluationOperation118`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/118`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-118: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/118' u '/api/rbi-property-valuation/v2/resources/118' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a161dbd451e4f32bc423ff7b40df3d23087acc604554094dda1b4f12b97c032b,6bae3e1482a8e5a340b27d0e7db8a2da942ab938a9d94936423c67e6e1af700b,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-118.patch
+CRPP2-VAL-API_REFERENCE-119,controlled-v2/rbi-property-valuation-copy,9401529,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation119"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/119"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-119
+- Operation: `rbipropertyvaluationOperation119`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/119`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-119: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c34832cc26145fcd0dc27b20535b85757d378bc71246f96878778d692666dbec,350dbe5aba7e705ed2c3a7d6d16a6663890a6597cc4e5ce40e7c7a8ce5539d1c,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-119.patch
+CRPP2-VAL-API_REFERENCE-120,controlled-v2/rbi-property-valuation-copy,9401530,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_property_valuation"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-120
+- Operation: `rbipropertyvaluationOperation120`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/120`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-120: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ed0505512dc5fe16e8d08326847d7ec0ed3093feaf5488f96d47f2c4e8384b2c,03ca11218879ed96054784144372f609a0c845ab2fdc2cec311dc023e82d1fde,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-120.patch
+CRPP2-VAL-API_REFERENCE-121,controlled-v2/rbi-property-valuation-copy,9401531,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""VAL-API-121"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation121"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/121"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-121
+- Operation: `rbipropertyvaluationOperation121`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/121`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-121: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6cfc6e4870ca791f922c3d9f7afe245e19e02a07a897910a9e8f9e621055bb30,c7f18e48a109f5172a46a742875b23647690a62e2c13be262b2e634409a4fb79,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-121.patch
+CRPP2-VAL-API_REFERENCE-122,controlled-v2/rbi-property-valuation-copy,9401532,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""VAL-API-122"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation122"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/122"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/122"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-122
+- Operation: `rbipropertyvaluationOperation122`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/122`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-122: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/122' u '/api/rbi-property-valuation/v2/resources/122' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d0f2d1472842ca2d9fd3265d8d87a9a1d77c8762c9338f0c1a0782bac1fbe189,9943d0410593ca98132b837aaea71cf17b4eba966e72e8e503cfa531e639bb76,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-122.patch
+CRPP2-VAL-API_REFERENCE-123,controlled-v2/rbi-property-valuation-copy,9401533,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation123"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/123"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-123
+- Operation: `rbipropertyvaluationOperation123`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/123`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-123: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e13181505e3be1e53cc722647c017873f7a3d5c554d78a445691f62b026506ee,2a3a39a05603d6cfe83009b39761a64f523c22fd938c087d67ce21a3016a1a89,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-123.patch
+CRPP2-VAL-API_REFERENCE-124,controlled-v2/rbi-property-valuation-copy,9401534,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-125"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-124
+- Operation: `rbipropertyvaluationOperation124`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/124`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-124: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7007321d4852e345ce0e660aa310b815724ac30c5dc0b4bfef05794bdea68d04,60f7a32dec88770a2aab006772f78080d5bcb72090c4f16a82cfea961e206937,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-124.patch
+CRPP2-VAL-API_REFERENCE-125,controlled-v2/rbi-property-valuation-copy,9401535,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-125"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation125"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/125"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-125
+- Operation: `rbipropertyvaluationOperation125`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/125`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-125: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dc26cfdb937a6d11b9e21d364df22bde64f8000f66a55533f6c02e25aa3bcdde,b1faeaba754888fc10413e2afb341f0a4192edb0c3d489b1d066c6e9249150b2,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-125.patch
+CRPP2-VAL-API_REFERENCE-126,controlled-v2/rbi-property-valuation-copy,9401536,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""VAL-API-126"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation126"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/126"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/126"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-126
+- Operation: `rbipropertyvaluationOperation126`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/126`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-126: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/126' u '/api/rbi-property-valuation/v2/resources/126' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b2c9b7bad39224f248204144f121b90dfdbe8771fff2d2e58e481a793e3fb4ce,5bc83b3bb62f8f10875539f2afe7b2a3972067e12072d120685c6cabf292dab3,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-126.patch
+CRPP2-VAL-API_REFERENCE-127,controlled-v2/rbi-property-valuation-copy,9401537,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation127"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/127"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-127
+- Operation: `rbipropertyvaluationOperation127`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/127`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-127: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8c08f80b780b7eeda53dfbc57ae53594dee803700b11521d52d31294f87a2bf3,52d09033610ad5f4109be2ead72c52bc0e8833c61f58f42ad94326860e15752a,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-127.patch
+CRPP2-VAL-API_REFERENCE-128,controlled-v2/rbi-property-valuation-copy,9401538,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-129"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-128
+- Operation: `rbipropertyvaluationOperation128`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/128`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-128: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e5aac7b5c19f2f450d93e68012dcc96027128d4b769fa50763420dc9cdd693ff,cfe3ac83e6c91b3d8c4e87c1ee5074382f3c11d2820b2ce2593568f677797e33,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-128.patch
+CRPP2-VAL-API_REFERENCE-129,controlled-v2/rbi-property-valuation-copy,9401539,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-129"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation129"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/129"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-129
+- Operation: `rbipropertyvaluationOperation129`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/129`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-129: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,108c4cf34dd0652f500db46deb0812e5a24d27db06bae3a50120b6f1049b7c33,ef5529fdcbc5d6b12d5facc4a6091f2ed5ebd32876a0b03f947be0d886309c02,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-129.patch
+CRPP2-VAL-API_REFERENCE-130,controlled-v2/rbi-property-valuation-copy,9401540,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_03.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""VAL-API-130"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation130"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/130"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/130"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-130
+- Operation: `rbipropertyvaluationOperation130`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/130`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-130: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/130' u '/api/rbi-property-valuation/v2/resources/130' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1dee4ae8bec3bc38f690bf08f352aa3dac231ae21118f790f95851d1d3be751b,6724abe8c972f0ff4d7f8e1b4d42aee870edbf27a86ae44f815caf3a67a8019a,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-130.patch
+CRPP2-VAL-API_REFERENCE-131,controlled-v2/rbi-property-valuation-copy,9401541,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation131"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/131"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-131
+- Operation: `rbipropertyvaluationOperation131`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/131`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-131: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,74fb97b0d04e518c458f3082dbbaddda0013050aa75c613f5a1afa064d4e6640,f5e67e7da79939951f1434301f17c80ab76ffedc18da4d0fdfd5a6b92cd7d094,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-131.patch
+CRPP2-VAL-API_REFERENCE-132,controlled-v2/rbi-property-valuation-copy,9401542,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-133"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-132
+- Operation: `rbipropertyvaluationOperation132`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/132`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-132: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2dafc540770b0da8ccd86834c54706748dabed037349df698358798ff9f65d4e,1a0c27668af15e063a5f1502a4ee7168e05ca464579f9206402409800622ff8d,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-132.patch
+CRPP2-VAL-API_REFERENCE-133,controlled-v2/rbi-property-valuation-copy,9401543,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-133"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation133"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/133"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-133
+- Operation: `rbipropertyvaluationOperation133`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/133`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-133: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6b905490fc57c895c33ff353f13d370bdac1f8b3f5a991d5f06df4c9863a7578,e35e3cdd1bb84f606699a121799788374bf4c9dfe3b4da43c736ddd2cce66e82,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-133.patch
+CRPP2-VAL-API_REFERENCE-134,controlled-v2/rbi-property-valuation-copy,9401544,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""VAL-API-134"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation134"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/134"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/134"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-134
+- Operation: `rbipropertyvaluationOperation134`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/134`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-134: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/134' u '/api/rbi-property-valuation/v2/resources/134' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2acb775a30151dcf54f627146332ff0616d3bf6c9d279149350b466da9ff8505,4d0e1c141827bce305b90a9be4a1499d4a1ef3b75dc451575b160a84867be83b,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-134.patch
+CRPP2-VAL-API_REFERENCE-135,controlled-v2/rbi-property-valuation-copy,9401545,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation135"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/135"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-135
+- Operation: `rbipropertyvaluationOperation135`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/135`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-135: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b852e6a685de48cc173804ee21d251054ac8284874802767d8439dae0b6529eb,14f7e2d614daa56e950ff3603e2d6ad134eba1337f9ce88e6ab167ac53273a5e,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-135.patch
+CRPP2-VAL-API_REFERENCE-136,controlled-v2/rbi-property-valuation-copy,9401546,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-137"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-136
+- Operation: `rbipropertyvaluationOperation136`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/136`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-136: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2d9f9c4b265314e474d0173a35201070958cfe7203fe79f7dd1acfd3dab5389d,7bb174ffa7b52c4d4544b934fd5c3128a0ccbe002f34c87f4107db9115b5b829,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-136.patch
+CRPP2-VAL-API_REFERENCE-137,controlled-v2/rbi-property-valuation-copy,9401547,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-137"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation137"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/137"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-137
+- Operation: `rbipropertyvaluationOperation137`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/137`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-137: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5ade6734e9344e1d101e4972e30502373ff49d9bc4fecc21a5601bae92ce9eaa,2c1c7eae6cec1c02eaddd93dcfa92227f6c23a756ef4a61bd51a11813e23fee7,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-137.patch
+CRPP2-VAL-API_REFERENCE-138,controlled-v2/rbi-property-valuation-copy,9401548,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""VAL-API-138"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation138"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/138"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/138"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-138
+- Operation: `rbipropertyvaluationOperation138`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/138`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-138: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/138' u '/api/rbi-property-valuation/v2/resources/138' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c5a4310305522e3a9243fd67567709a6676ed80e60a969da9fd9eaf229eb27ff,cc3a802b11d5e9d2a18784b00a5cfb45903cf3f6408a16471dba7d65cbe08d99,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-138.patch
+CRPP2-VAL-API_REFERENCE-139,controlled-v2/rbi-property-valuation-copy,9401549,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation139"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/139"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-139
+- Operation: `rbipropertyvaluationOperation139`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/139`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-139: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a33b5be2875830357ec224108391dc8abe1e716c19026bb5b1c0744350e732c0,e75c2ee9bf499a24409b2a6e5a8c0a536e71f48ef112f65b9e02e6e274be217e,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-139.patch
+CRPP2-VAL-API_REFERENCE-140,controlled-v2/rbi-property-valuation-copy,9401550,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_04.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_property_valuation"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-140
+- Operation: `rbipropertyvaluationOperation140`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/140`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-140: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ecbda0eb2ef26cccfddd22f755ad2fe906a48e4ac5bab096dc7de638aa85c7fb,231b22adc61ca834260be77b93751952127fe2c33377a35a6fc2ad876a67228b,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-140.patch
+CRPP2-VAL-API_REFERENCE-141,controlled-v2/rbi-property-valuation-copy,9401551,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""VAL-API-141"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation141"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/141"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-141
+- Operation: `rbipropertyvaluationOperation141`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/141`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-141: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a2f4af7541d36f73c3f4196f24128fea112539593ee889b354d197f794c060b4,f1ac8dbc6a20390bf52e35e28b9f97f5da038b0a65cd29d3dffdd9b0b0c22935,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-141.patch
+CRPP2-VAL-API_REFERENCE-142,controlled-v2/rbi-property-valuation-copy,9401552,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""VAL-API-142"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation142"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/142"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/142"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-142
+- Operation: `rbipropertyvaluationOperation142`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/142`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-142: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/142' u '/api/rbi-property-valuation/v2/resources/142' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5cbe785e33dd77a78632ec0b4fc59bd6e9d8995d7ee40b0eb61a270ee65b6acd,9644787de8b3f35c021d80dc6b6e82ee2c7c153ca30deb6ae014fbbd13e06c19,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-142.patch
+CRPP2-VAL-API_REFERENCE-143,controlled-v2/rbi-property-valuation-copy,9401553,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation143"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/143"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-143
+- Operation: `rbipropertyvaluationOperation143`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/143`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-143: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0bb3489bb38ba3c42e054491533aabbab28ea27e8a343a32152143de56e46012,a8b00257c66b820a802eda31b9db6582029424d9abd1712e85f5a166e6c26396,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-143.patch
+CRPP2-VAL-API_REFERENCE-144,controlled-v2/rbi-property-valuation-copy,9401554,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-145"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-144
+- Operation: `rbipropertyvaluationOperation144`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/144`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-144: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e7f020407d72870a527f125c6eec4876961b44c28dab2a8f86c186e5f1be2936,386d9f2beaf7eac130c2726fad76434af8cf6759c194e0b62a291e2a4d7f4b8f,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-144.patch
+CRPP2-VAL-API_REFERENCE-145,controlled-v2/rbi-property-valuation-copy,9401555,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-145"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation145"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/145"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-145
+- Operation: `rbipropertyvaluationOperation145`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/145`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-145: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,881c87ae9bd7010a18cf6011882fa072a39f4ea7bfb628c3d71330a2643cc59e,65c509eb557b47fdcc64d60a46ff26435444b326ade84367ddecc82125615e66,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-145.patch
+CRPP2-VAL-API_REFERENCE-146,controlled-v2/rbi-property-valuation-copy,9401556,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""VAL-API-146"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation146"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/146"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/146"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-146
+- Operation: `rbipropertyvaluationOperation146`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/146`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-146: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/146' u '/api/rbi-property-valuation/v2/resources/146' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,50c9aca7a4b8a4c02d32fe905d7445c7568a3d1bb57e72ebbb00b9f69c14cae2,ef22e016b50c8670bcb5977c7e80df104e1f7bd39ad9a9ecaa07a32af07324cc,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-146.patch
+CRPP2-VAL-API_REFERENCE-147,controlled-v2/rbi-property-valuation-copy,9401557,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation147"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/147"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-147
+- Operation: `rbipropertyvaluationOperation147`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/147`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-147: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,225cf412b60934049e9ce11eb66cf04fde03aa31bae4e5cdaadb028e90c7bd2e,58194237e12a2e7a70cc71ca847d08ce148c361a1fe890af51b450d5a0d62314,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-147.patch
+CRPP2-VAL-API_REFERENCE-148,controlled-v2/rbi-property-valuation-copy,9401558,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-149"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-148
+- Operation: `rbipropertyvaluationOperation148`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/148`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-148: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,805b1095b15e77961aa2a5a8cf3eaa5409034cad65c71c437a12d385ad0aebd1,a8b5cfad481151606ac96dd95ff2bded8e15dfe516b825082c6d89cc1a74629d,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-148.patch
+CRPP2-VAL-API_REFERENCE-149,controlled-v2/rbi-property-valuation-copy,9401559,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-149"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation149"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/149"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-149
+- Operation: `rbipropertyvaluationOperation149`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/149`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-149: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1c520da538de971a5fe1ab2bd71be89cd9fa8e3bc7d07361471e2fdf1caf1d56,16151f55aa9b15dbb46cb9a69b9bd3bd41cbd4f2042b6d0596e30440f81cbee2,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-149.patch
+CRPP2-VAL-API_REFERENCE-150,controlled-v2/rbi-property-valuation-copy,9401560,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_05.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""VAL-API-150"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation150"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/150"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/150"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-150
+- Operation: `rbipropertyvaluationOperation150`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/150`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-150: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/150' u '/api/rbi-property-valuation/v2/resources/150' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2ab860313fc45ebaa44fdb052e0af6e94a1ea8420d6f22e4dacfb9e1cdcf8785,be5dfbe0e0b392edef2300075fc12bce972476c7466be209c6212a63ead6fe23,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-150.patch
+CRPP2-VAL-API_REFERENCE-151,controlled-v2/rbi-property-valuation-copy,9401561,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation151"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/151"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-151
+- Operation: `rbipropertyvaluationOperation151`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/151`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-151: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,84d08c78b26e84125e4a57e64a0bf2bc55083cc2bec0dc38d1fea50297c587ca,5c94e744c87fd0b1a83cfc66ac747201bd25990657d039c8f207418e33df950c,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-151.patch
+CRPP2-VAL-API_REFERENCE-152,controlled-v2/rbi-property-valuation-copy,9401562,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-153"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-152
+- Operation: `rbipropertyvaluationOperation152`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/152`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-152: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cabaa399ee5a44a5a3cb748506231634507665f4efce9952ea48564aea06c1b7,469ffc314b5c2d96a63d98f048bea4335a60dff5fe5bbd00b4af9a13aabb2d82,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-152.patch
+CRPP2-VAL-API_REFERENCE-153,controlled-v2/rbi-property-valuation-copy,9401563,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-153"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation153"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/153"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-153
+- Operation: `rbipropertyvaluationOperation153`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/153`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-153: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9f2e18932030278d40e39bd7ec1cbbcf45ec57c7dfe65e63ddec7072db43071d,ebda11dab34fb320177db5699244325b75c62569bf01508d9d69a70e8b866797,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-153.patch
+CRPP2-VAL-API_REFERENCE-154,controlled-v2/rbi-property-valuation-copy,9401564,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""VAL-API-154"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation154"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/154"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/154"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-154
+- Operation: `rbipropertyvaluationOperation154`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/154`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-154: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/154' u '/api/rbi-property-valuation/v2/resources/154' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f077c2cc6403c19803490fd353565fb9ef661448a5ab002fca995a3491a50432,e130669410b8a2e7c9f1a4e7ed110e4e8017e4ba57c7cad0b36fc3f2aea5214e,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-154.patch
+CRPP2-VAL-API_REFERENCE-155,controlled-v2/rbi-property-valuation-copy,9401565,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation155"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/155"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-155
+- Operation: `rbipropertyvaluationOperation155`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/155`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-155: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,49d71b5d5370b22aa717ff6e5ceae63aa1da5caa79d12f1a9f1911ac7c881f9b,21257992e2476203036e7d760848e70ceb661dfae50acf18bdbfe415c5f13e53,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-155.patch
+CRPP2-VAL-API_REFERENCE-156,controlled-v2/rbi-property-valuation-copy,9401566,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-157"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-156
+- Operation: `rbipropertyvaluationOperation156`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/156`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-156: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e3f404a20359518d53c14b1042e4f9d00a06cba278dc139932c4d7bc3d91f2f1,3cfa42b37b94b7b7cdaf34bf9dbac2620a287a120219fc3ea425222bf4c22bdb,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-156.patch
+CRPP2-VAL-API_REFERENCE-157,controlled-v2/rbi-property-valuation-copy,9401567,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-157"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation157"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/157"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-157
+- Operation: `rbipropertyvaluationOperation157`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/157`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-157: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a3dc0eae1b592b3131cd39f0ce752af2d4aea8c81a42f4cb2197fdc928f610ff,03136f9232d1f6361e6d31bfa1c84c5c0294faf402754fc89ad1e2c5d5982005,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-157.patch
+CRPP2-VAL-API_REFERENCE-158,controlled-v2/rbi-property-valuation-copy,9401568,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""VAL-API-158"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation158"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/158"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/158"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-158
+- Operation: `rbipropertyvaluationOperation158`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/158`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-158: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/158' u '/api/rbi-property-valuation/v2/resources/158' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,37b5865288d0f1c491dca12f096456afb6e9cabc05227c3c993b3e1ccddb8901,2f47ab5c076a4a4a3d2387d610328759b4b6f7049103233aad6bae0fde8a5fd3,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-158.patch
+CRPP2-VAL-API_REFERENCE-159,controlled-v2/rbi-property-valuation-copy,9401569,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation159"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/159"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-159
+- Operation: `rbipropertyvaluationOperation159`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/159`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-159: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,968be7dae77ecaec9fd6affdf89d1ec0399836a0bc9b37157f27aa545bfe84df,12d9757946888f70998ed6562eca8f698c02892fca6473ad287bbff2194b361e,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-159.patch
+CRPP2-VAL-API_REFERENCE-160,controlled-v2/rbi-property-valuation-copy,9401570,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_06.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_property_valuation"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-160
+- Operation: `rbipropertyvaluationOperation160`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/160`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-160: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5f279215dec9ee5e52b0e558a353a2d3258715a4c317cf4d633825c7473d48b6,5bb89407292c15eb1fa6050274c8c8af41532fe48444f9868897d3b4b2e1eab1,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-160.patch
+CRPP2-VAL-API_REFERENCE-161,controlled-v2/rbi-property-valuation-copy,9401571,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""VAL-API-161"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation161"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/161"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-161
+- Operation: `rbipropertyvaluationOperation161`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/161`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-161: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,83c6f1dcd62ae0482619a9ca630984670f626a93b74ef3f507f9bdce4073da62,82c0405a1c6b23816f88271d364dfb41726d8d328447a60d9b9d9c718898a7b3,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-161.patch
+CRPP2-VAL-API_REFERENCE-162,controlled-v2/rbi-property-valuation-copy,9401572,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""VAL-API-162"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation162"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/162"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/162"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-162
+- Operation: `rbipropertyvaluationOperation162`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/162`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-162: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/162' u '/api/rbi-property-valuation/v2/resources/162' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,362a97f1f5bc3ef8772e12f207253e6275804f204cc85742f076bcf1231d3f9f,c6c6b44c962aeef2bfa9f150260984fe311afaff8835b4638840e7c32c457f8d,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-162.patch
+CRPP2-VAL-API_REFERENCE-163,controlled-v2/rbi-property-valuation-copy,9401573,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation163"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/163"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-163
+- Operation: `rbipropertyvaluationOperation163`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/163`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-163: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1b618202e298b411b1e2a518eda4e09ea285cbb04d6c826c8eff1454a64c6fd4,ec788aec520aaa3696e053940ddc6f6734392f45217db8c1ef5c1a195191529f,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-163.patch
+CRPP2-VAL-API_REFERENCE-164,controlled-v2/rbi-property-valuation-copy,9401574,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-165"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-164
+- Operation: `rbipropertyvaluationOperation164`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/164`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-164: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c340098c37db381ab0df298d7e626e9142c02e4bee00698bd4863c30e6dcfe4d,acb5c0cecd915a366d379674f116fc02c6e2a9fc8b305856b2f22d42df8c343b,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-164.patch
+CRPP2-VAL-API_REFERENCE-165,controlled-v2/rbi-property-valuation-copy,9401575,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-165"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation165"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/165"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-165
+- Operation: `rbipropertyvaluationOperation165`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/165`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-165: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b1642be15996aa08974ca4d772f30867b3a4c7bb85e0efb598f238295141e47f,b85d0037733097513a8d277df4da74e014fb10e5be7bfd37c4363898ab4d1824,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-165.patch
+CRPP2-VAL-API_REFERENCE-166,controlled-v2/rbi-property-valuation-copy,9401576,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""VAL-API-166"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation166"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/166"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/166"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-166
+- Operation: `rbipropertyvaluationOperation166`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/166`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-166: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/166' u '/api/rbi-property-valuation/v2/resources/166' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,87be1323a198c67a36459217b9304fac2ca6d25f870a21400fd40cd38e8ed36b,b3f75a5bf7609f9c272405b07356d7d334fe51feb87e2f7239cd9f4f242f1a84,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-166.patch
+CRPP2-VAL-API_REFERENCE-167,controlled-v2/rbi-property-valuation-copy,9401577,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation167"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/167"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-167
+- Operation: `rbipropertyvaluationOperation167`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/167`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-167: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ae74682745d7250f93b14a974e4b585ebc281b96a9e75c3203b1a52c21345edd,df88bdf46921ed712b8ae6cea73181678b82ab20a2f633c9792ebcddaf73ee9e,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-167.patch
+CRPP2-VAL-API_REFERENCE-168,controlled-v2/rbi-property-valuation-copy,9401578,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-169"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-168
+- Operation: `rbipropertyvaluationOperation168`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/168`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-168: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,02fd6feb52c2340fdfc4f62120b26a3f2c7c2350d6f925536d25e2c3c6ea56ad,ab9d09f10c2f10fa599d272d537f5f1f56ac9af8cfebe1fb444566e6f54b131b,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-168.patch
+CRPP2-VAL-API_REFERENCE-169,controlled-v2/rbi-property-valuation-copy,9401579,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-169"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation169"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/169"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-169
+- Operation: `rbipropertyvaluationOperation169`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/169`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-169: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f3e9b3c21e7fe0c5a3692375b2f52b4dfbbbef5361c9c2f5795559306e833c00,23b6d0bdcb07c8a6d42a755bb96a33e1dfc22ec58154edf8b7d54c47592d602b,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-169.patch
+CRPP2-VAL-API_REFERENCE-170,controlled-v2/rbi-property-valuation-copy,9401580,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_07.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""VAL-API-170"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation170"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/170"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/170"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-170
+- Operation: `rbipropertyvaluationOperation170`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/170`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-170: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/170' u '/api/rbi-property-valuation/v2/resources/170' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,57f038aa1bbaf52af5dba07c7bc10130a80e20ec6b24f0f2de81abbc81213616,b948b45c9dcd0cd8f183ab69554c9e915e8decbc84c5249e5037e76381f5c4bc,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-170.patch
+CRPP2-VAL-API_REFERENCE-171,controlled-v2/rbi-property-valuation-copy,9401581,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation171"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/171"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-171
+- Operation: `rbipropertyvaluationOperation171`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/171`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-171: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e2ec6b48392696c4d5fcf18bbb5774248125fcffe081b4be17f7be91c9b3df31,80f9cbc54a3706193d084b2679072e6890228495d80a01993d15b35f4716c04e,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-171.patch
+CRPP2-VAL-API_REFERENCE-172,controlled-v2/rbi-property-valuation-copy,9401582,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-173"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-172
+- Operation: `rbipropertyvaluationOperation172`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/172`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-172: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9c53fb9f70f073f3f6cc07bbeb90621498c69e0a4b4c1379c3770cad65bd32e5,53a4aac11ab1beb6d5ad36d4c3fbf42ecc2b8be46db765f1abe891b3ce684105,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-172.patch
+CRPP2-VAL-API_REFERENCE-173,controlled-v2/rbi-property-valuation-copy,9401583,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-173"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation173"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/173"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-173
+- Operation: `rbipropertyvaluationOperation173`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/173`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-173: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2f61c5dd0cf5a89023cb4c9e17574ca11b2bd3acbc175358a6c5b0d14c064c25,bc240ae268776d143657e682c8933ea95b303d4a8fd35a0d41d8d8da2f305e29,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-173.patch
+CRPP2-VAL-API_REFERENCE-174,controlled-v2/rbi-property-valuation-copy,9401584,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""VAL-API-174"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation174"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/174"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/174"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-174
+- Operation: `rbipropertyvaluationOperation174`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/174`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-174: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/174' u '/api/rbi-property-valuation/v2/resources/174' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fc40f832775198f89af747af7ce6468ade9294bf88cbb363dd5eb90f9a71aa43,9f5e965abf4fc7910318fd926dfe0560b683768d477438c41a2a6e7330082b0e,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-174.patch
+CRPP2-VAL-API_REFERENCE-175,controlled-v2/rbi-property-valuation-copy,9401585,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation175"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/175"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-175
+- Operation: `rbipropertyvaluationOperation175`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/175`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-175: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aaed5197cd51423c3a5a8fa2609419297340bbf47d30be0793cb9bb00d23cb6e,0f671859b6586563df387a191d4f7c8686f1e34eb600f16df2cb22edbe00767d,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-175.patch
+CRPP2-VAL-API_REFERENCE-176,controlled-v2/rbi-property-valuation-copy,9401586,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-177"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-176
+- Operation: `rbipropertyvaluationOperation176`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/176`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-176: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b810d22f02f0e4ddd6b9060e256398e8f01574b79df2b85b0afb4f678a14c537,f2af60f772f03a23a77335e7a5ba425b802dbd4fa85134fa3e539020afd5341d,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-176.patch
+CRPP2-VAL-API_REFERENCE-177,controlled-v2/rbi-property-valuation-copy,9401587,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-177"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation177"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/177"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-177
+- Operation: `rbipropertyvaluationOperation177`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/177`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-177: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6038a57f539512f2f4c78811794005492e6ab93f1bb8b9ea3503d3db788d8107,0a4ea84db6b110667b8818a26b30f6f7961ef9a18bfd1816186e5b08535cb090,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-177.patch
+CRPP2-VAL-API_REFERENCE-178,controlled-v2/rbi-property-valuation-copy,9401588,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""VAL-API-178"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation178"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/178"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/178"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-178
+- Operation: `rbipropertyvaluationOperation178`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/178`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-178: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/178' u '/api/rbi-property-valuation/v2/resources/178' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1dc3d446fc76a36016723d2d8f3f15eebd4858edade758ccc54672a95af8f816,7f7f94e2160112b5dfe9d6ead31e667685a68356da74d6f77533f5006adaed88,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-178.patch
+CRPP2-VAL-API_REFERENCE-179,controlled-v2/rbi-property-valuation-copy,9401589,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation179"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/179"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-179
+- Operation: `rbipropertyvaluationOperation179`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/179`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-179: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d284c0d8b9686cfed921dfe4a01e3c213f2593be0c3e16f10eb5374f5fba151e,f295dde06e9270534a40ebace6472b0782da735ed0a2c65fdd53f417d690a79e,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-179.patch
+CRPP2-VAL-API_REFERENCE-180,controlled-v2/rbi-property-valuation-copy,9401590,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_08.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_property_valuation"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-180
+- Operation: `rbipropertyvaluationOperation180`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/180`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-180: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2414f3d54528c2debc62a64ff92305f51b5f3a911938a72fad91e201e6d4d401,66fdf2df0116495b87e1a4e3eb48458ea5caeb6e05780058aa6a6202a5774e98,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-180.patch
+CRPP2-VAL-API_REFERENCE-181,controlled-v2/rbi-property-valuation-copy,9401591,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""VAL-API-181"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation181"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/181"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-181
+- Operation: `rbipropertyvaluationOperation181`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/181`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-181: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9035b15eda85b2f4f5d1cbca7a2a88d2bbf82b93e612a01616d22a1cacf84162,9c940d2dbdc34ead256c1ffecc42fbf5bea9ed9ff126e83fe0e9f7c06b2d7e2c,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-181.patch
+CRPP2-VAL-API_REFERENCE-182,controlled-v2/rbi-property-valuation-copy,9401592,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""VAL-API-182"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation182"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/182"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/182"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-182
+- Operation: `rbipropertyvaluationOperation182`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/182`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-182: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/182' u '/api/rbi-property-valuation/v2/resources/182' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,60192612f1790cff4eba8a8c4fdf23914c36fe507f93d284aa29dbf67c05dbb2,75df0a49ec146406d3d9e57c99b83a6c8c21b23f3d486716d823c8d67d785c12,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-182.patch
+CRPP2-VAL-API_REFERENCE-183,controlled-v2/rbi-property-valuation-copy,9401593,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation183"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/183"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-183
+- Operation: `rbipropertyvaluationOperation183`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/183`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-183: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6263ac5b54e179f55556bb87097a791954430b3e7eded52c31c0b816c69bc930,cfa8dbb671359b256df778a422978aa30ce4c82221f0efd9594bb3b284d63e27,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-183.patch
+CRPP2-VAL-API_REFERENCE-184,controlled-v2/rbi-property-valuation-copy,9401594,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-185"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-184
+- Operation: `rbipropertyvaluationOperation184`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/184`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-184: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,43ad6fbd9a2996b9dc301dffc48b4afc3a27d85285cb4d9e388fa1e58372795d,abef01425f7a07b35f7d657b8effc01ffcb9019ca5c2047cd23a8918c0b67eb2,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-184.patch
+CRPP2-VAL-API_REFERENCE-185,controlled-v2/rbi-property-valuation-copy,9401595,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-185"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation185"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/185"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-185
+- Operation: `rbipropertyvaluationOperation185`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/185`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-185: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8bda5fddc4c7cd186232cf3f807a202298ee73b14f38779a3d7c39048c4aca31,626763bf5b7cf3f703ce15c8881cdde7b15d5dc4b89af2b2f9ffe84e75fdfc98,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-185.patch
+CRPP2-VAL-API_REFERENCE-186,controlled-v2/rbi-property-valuation-copy,9401596,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""VAL-API-186"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation186"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/186"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/186"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-186
+- Operation: `rbipropertyvaluationOperation186`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/186`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-186: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/186' u '/api/rbi-property-valuation/v2/resources/186' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,46d24f3bd252916c73409a900db33b0d4ef5604f0c164091772ca692f3337972,5e14ea19975cfbc6a96e5a4d9e0dacfa6caef4f7e5337efffca908a3d309cf04,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-186.patch
+CRPP2-VAL-API_REFERENCE-187,controlled-v2/rbi-property-valuation-copy,9401597,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbipropertyvaluationOperation187"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/187"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-187
+- Operation: `rbipropertyvaluationOperation187`
+- Public endpoint: `DELETE /api/rbi-property-valuation/v1/resources/187`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-187: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,088fbab61b774752b1ef445ec9dc8bac4fe5def19617914966ed524f79d7dd09,f1ed90939440c9c671bb2532dcb4d9be9d8c03ea11cf80982fd09d21df5e8025,api_reference,rbi_property_valuation,required_parameter_added,cases/patches/rbi_property_valuation/api_reference/VAL-API-187.patch
+CRPP2-VAL-API_REFERENCE-188,controlled-v2/rbi-property-valuation-copy,9401598,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""VAL-API-189"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-188
+- Operation: `rbipropertyvaluationOperation188`
+- Public endpoint: `GET /api/rbi-property-valuation/v1/resources/188`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-188: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c4a1c00e45dd746bf96e168d1a98ff7a81062c715045039bec2bef952936713d,422574bc944a50cf7ffd4561459e2c72ed9b5f8354fb0473bbf8112cf5974199,api_reference,rbi_property_valuation,success_status_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-188.patch
+CRPP2-VAL-API_REFERENCE-189,controlled-v2/rbi-property-valuation-copy,9401599,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""VAL-API-189"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation189"",
+       ""path"": ""/api/rbi-property-valuation/v1/resources/189"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-189
+- Operation: `rbipropertyvaluationOperation189`
+- Public endpoint: `POST /api/rbi-property-valuation/v1/resources/189`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-189: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c47b4fe53b7ba4554223aef379bd8f45598311e3716e531792c78a8b368279ba,b5a8e195bba1d0517f6e537254a2b1a98993d3f474ff2d234d27b6389aeeb9f5,api_reference,rbi_property_valuation,http_method_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-189.patch
+CRPP2-VAL-API_REFERENCE-190,controlled-v2/rbi-property-valuation-copy,9401600,csharp,"[""PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab-v2/api_reference/contracts_09.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""VAL-API-190"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbipropertyvaluationOperation190"",
+-      ""path"": ""/api/rbi-property-valuation/v1/resources/190"",
++      ""path"": ""/api/rbi-property-valuation/v2/resources/190"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:af8ae3ad073eb1cd -->
+### VAL-API-190
+- Operation: `rbipropertyvaluationOperation190`
+- Public endpoint: `PUT /api/rbi-property-valuation/v1/resources/190`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"VAL-API-190: kod mijenja javni API ugovor iz '/api/rbi-property-valuation/v1/resources/190' u '/api/rbi-property-valuation/v2/resources/190' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,640bc9af3e7dec795e02b0c7b77326f5950a4a826670d8244358cf69619940c1,8eb1bd488b4303a27a3e076b26b43270f0ceda99c95c13d8e1f8c60a7b2dff76,api_reference,rbi_property_valuation,endpoint_version_change,cases/patches/rbi_property_valuation/api_reference/VAL-API-190.patch

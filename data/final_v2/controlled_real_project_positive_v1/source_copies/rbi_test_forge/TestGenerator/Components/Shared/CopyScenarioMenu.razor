@@ -1,0 +1,58 @@
+@* ============================================================
+   CopyScenarioMenu — meni "Kopiraj u grupu…" po scenariju (AC3)
+   ============================================================
+   Renderuje listu ciljnih grupa (bez izvorne). Izbor grupe javlja
+   se roditelju preko OnTargetSelected; roditelj zove servis i reload.
+
+   Upotreba:
+     <CopyScenarioMenu Scenario="context"
+                       Groups="targetGroups"
+                       OnTargetSelected="@(id => CopyTo(context, id))" />
+   ============================================================ *@
+
+<MudMenu AnchorOrigin="Origin.BottomRight"
+         TransformOrigin="Origin.TopRight"
+         Dense="true"
+         ListClass="grupe-copy-menu">
+    <ActivatorContent>
+        <MudIconButton Icon="@Icons.Material.Filled.MoreVert"
+                       Size="Size.Small"
+                       Color="Color.Default"
+                       aria-label="Akcije scenarija" />
+    </ActivatorContent>
+    <ChildContent>
+        <MudText Typo="Typo.overline" Class="px-4 pt-2 pb-1 d-block" Color="Color.Secondary">
+            Kopiraj u grupu
+        </MudText>
+        <MudDivider Class="mb-1" />
+
+        @if (Groups.Count == 0)
+        {
+            <MudMenuItem Disabled="true">Nema drugih grupa</MudMenuItem>
+        }
+        else
+        {
+            @foreach (var g in Groups)
+            {
+                <MudMenuItem Icon="@Icons.Material.Filled.ContentCopy"
+                             OnClick="@(() => OnTargetSelected.InvokeAsync(g.Id))">
+                    @g.Naziv
+                </MudMenuItem>
+            }
+        }
+    </ChildContent>
+</MudMenu>
+
+@code {
+    /// <summary>Scenarij za koji se nudi kopiranje (izvor).</summary>
+    [Parameter, EditorRequired]
+    public ScenarioListItemDto Scenario { get; set; } = default!;
+
+    /// <summary>Ciljne grupe (izvorna grupa je već isključena od strane roditelja).</summary>
+    [Parameter, EditorRequired]
+    public IReadOnlyList<GroupDto> Groups { get; set; } = [];
+
+    /// <summary>Javlja roditelju ID izabrane ciljne grupe.</summary>
+    [Parameter]
+    public EventCallback<Guid> OnTargetSelected { get; set; }
+}

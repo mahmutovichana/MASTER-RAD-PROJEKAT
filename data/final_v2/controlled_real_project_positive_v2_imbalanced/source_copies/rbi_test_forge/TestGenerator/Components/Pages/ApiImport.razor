@@ -1,0 +1,310 @@
+@page "/api-import"
+@attribute [Authorize(Roles = AppRoles.Administrator + "," + AppRoles.QALead + "," + AppRoles.QAInzenjer)]
+@rendermode InteractiveServer
+@using RBBH.TestAutomation.Core.Parsing
+@inject IOpenApiEndpointParser Parser
+@inject IHttpClientFactory HttpFactory
+@inject IScenarioService ScenarioSvc
+@inject IGroupService GroupSvc
+@inject IUserContext UserCtx
+@inject ToastService Toast
+
+<PageTitle>Import API</PageTitle>
+
+@if (!UserCtx.CanAccess(AppModules.ApiImport))
+{
+    <MudAlert Severity="Severity.Warning" Class="ma-4">
+        Nemate pristup ovom modulu. Potrebna rola: Administrator, QA Lead ili QA Inženjer.
+    </MudAlert>
+    return;
+}
+
+<PageHeader Title="Import API (Swagger/OpenAPI)"
+            Subtitle="Učitaj OpenAPI spec mikroservisa i generiši REST scenarije iz endpointa" />
+
+<MudGrid Spacing="3">
+
+    @* ── Izvor spec-a ─────────────────────────────────────────────── *@
+    <MudItem xs="12" md="4">
+        <MudPaper Class="pa-4" Elevation="1">
+            <MudText Typo="Typo.h6" Class="mb-3">Izvor specifikacije</MudText>
+
+            <MudToggleGroup T="string" @bind-Value="_mode" Exclusive
+                            SelectionMode="SelectionMode.SingleSelection"
+                            Class="mb-4" Color="Color.Primary">
+                <MudToggleItem Value="@("url")">URL</MudToggleItem>
+                <MudToggleItem Value="@("fajl")">Fajl</MudToggleItem>
+                <MudToggleItem Value="@("tekst")">Tekst</MudToggleItem>
+            </MudToggleGroup>
+
+            @if (_mode == "url")
+            {
+                <MudTextField @bind-Value="_url" Label="URL do swagger.json / openapi.yaml"
+                              Variant="Variant.Outlined" Class="mb-3" Immediate
+                              Placeholder="https://servis/swagger/v1/swagger.json" />
+                <LoadingButton IsLoading="@_parsing" Text="Učitaj i parsiraj"
+                               Color="Color.Primary" Variant="Variant.Filled"
+                               OnClick="@FetchAndParse" />
+            }
+            else if (_mode == "fajl")
+            {
+                <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-3">
+                    Odaberi <code>.json</code>, <code>.yaml</code> ili <code>.yml</code> fajl.
+                </MudText>
+
+                @* RBI-themed upload: MudButton kao <label> okida skriveni InputFile *@
+                <MudButton HtmlTag="label"
+                           for="apiSpecFile"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.UploadFile">
+                    Odaberi .json / .yaml
+                </MudButton>
+                <InputFile id="apiSpecFile" OnChange="OnFileSelected"
+                           accept=".json,.yaml,.yml" style="display:none" />
+
+                @if (_fileName is { Length: > 0 })
+                {
+                    <MudText Typo="Typo.caption" Class="d-block mt-2">
+                        <MudIcon Icon="@Icons.Material.Filled.Description" Size="Size.Small" /> @_fileName
+                    </MudText>
+                }
+                @if (_parsing)
+                {
+                    <MudProgressLinear Indeterminate Color="Color.Primary" Class="mt-3" />
+                }
+            }
+            else
+            {
+                <MudTextField @bind-Value="_specText" Label="Zalijepi OpenAPI/Swagger spec (JSON ili YAML)"
+                              Variant="Variant.Outlined" Lines="12" Class="mb-3" Immediate
+                              Style="font-family:'JetBrains Mono',monospace;font-size:12px;" />
+                <LoadingButton IsLoading="@_parsing" Text="Parsiraj"
+                               Color="Color.Primary" Variant="Variant.Filled"
+                               OnClick="@(() => ParseText(_specText))" />
+            }
+
+            @if (_error is not null)
+            {
+                <MudAlert Severity="Severity.Error" Class="mt-3" Dense>@_error</MudAlert>
+            }
+        </MudPaper>
+    </MudItem>
+
+    @* ── Rezultat / lista endpointa ───────────────────────────────── *@
+    <MudItem xs="12" md="8">
+        @if (_result is null)
+        {
+            <MudPaper Class="pa-6 d-flex flex-column align-center justify-center" Elevation="1" Style="min-height:320px;">
+                <MudIcon Icon="@Icons.Material.Outlined.Api" Color="Color.Secondary" Size="Size.Large" Class="mb-2" />
+                <MudText Typo="Typo.body1" Color="Color.Secondary">
+                    Učitaj spec da vidiš listu endpointa
+                </MudText>
+            </MudPaper>
+        }
+        else
+        {
+            <MudPaper Class="pa-4" Elevation="1">
+                <div class="d-flex justify-space-between align-center mb-1">
+                    <MudText Typo="Typo.h6">@_result.Title <MudText Typo="Typo.caption" Color="Color.Secondary" Inline>@_result.Version</MudText></MudText>
+                    <MudChip T="string" Size="Size.Small" Color="Color.Default" Variant="Variant.Text">
+                        @_result.Endpoints.Count endpointa
+                    </MudChip>
+                </div>
+
+                @foreach (var w in _result.Warnings.Take(3))
+                {
+                    <MudAlert Severity="Severity.Warning" Dense Class="mb-1">@w</MudAlert>
+                }
+
+                <MudTable Items="_result.Endpoints" T="ParsedEndpoint" Dense Hover Striped
+                          MultiSelection="true" @bind-SelectedItems="_selected"
+                          FixedHeader="true" Height="380px" Class="mt-2">
+                    <HeaderContent>
+                        <MudTh>Metoda</MudTh>
+                        <MudTh>Ruta</MudTh>
+                        <MudTh>Kontroler</MudTh>
+                        <MudTh>Auth</MudTh>
+                        <MudTh>Status</MudTh>
+                        <MudTh>Param</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Metoda">
+                            <MudChip T="string" Size="Size.Small" Color="@MethodColor(context.HttpMethod)" Variant="Variant.Filled">
+                                @context.HttpMethod
+                            </MudChip>
+                        </MudTd>
+                        <MudTd DataLabel="Ruta" Style="font-family:'JetBrains Mono',monospace;">@context.Route</MudTd>
+                        <MudTd DataLabel="Kontroler">@context.Controller</MudTd>
+                        <MudTd DataLabel="Auth">
+                            @if (context.RequiresAuth)
+                            {
+                                @foreach (var a in context.AuthSchemes)
+                                {
+                                    <MudChip T="string" Size="Size.Small" Color="Color.Secondary" Variant="Variant.Text">@a</MudChip>
+                                }
+                            }
+                            else
+                            {
+                                <MudText Typo="Typo.caption" Color="Color.Secondary">—</MudText>
+                            }
+                        </MudTd>
+                        <MudTd DataLabel="Status">@context.SuccessStatus</MudTd>
+                        <MudTd DataLabel="Param">@context.Parameters.Count</MudTd>
+                    </RowTemplate>
+                </MudTable>
+
+                @* ── Kreiranje scenarija ── *@
+                <MudGrid Spacing="2" Class="align-center mt-3">
+                    <MudItem xs="12" sm="6">
+                        <MudSelect T="Guid?" @bind-Value="_targetGroupId" Label="Ciljna grupa (opciono)"
+                                   Variant="Variant.Outlined" Margin="Margin.Dense" Clearable>
+                            @foreach (var g in _groups)
+                            {
+                                <MudSelectItem T="Guid?" Value="@((Guid?)g.Id)">@g.Naziv</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" Class="d-flex justify-end">
+                        <LoadingButton IsLoading="@_creating"
+                                       Text="@($"Kreiraj scenarije ({_selected.Count})")"
+                                       Color="Color.Primary" Variant="Variant.Filled"
+                                       OnClick="@CreateScenarios" />
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+        }
+    </MudItem>
+</MudGrid>
+
+@code {
+    private string _mode = "url";
+    private string _url = "";
+    private string _specText = "";
+    private string? _error;
+    private string? _fileName;
+
+    private bool _parsing;
+    private bool _creating;
+
+    private OpenApiParseResult? _result;
+    private HashSet<ParsedEndpoint> _selected = [];
+    private List<GroupDto> _groups = [];
+    private Guid? _targetGroupId;
+
+    private static readonly HashSet<string> _creatableMethods =
+        new(StringComparer.OrdinalIgnoreCase) { "GET", "POST", "PUT", "PATCH", "DELETE" };
+
+    protected override async Task OnInitializedAsync()
+    {
+        try { _groups = (await GroupSvc.GetRootGroupsAsync()).ToList(); }
+        catch { /* grupe nisu kritične za parsiranje */ }
+    }
+
+    private async Task FetchAndParse()
+    {
+        if (string.IsNullOrWhiteSpace(_url)) { _error = "Unesite URL."; return; }
+        _parsing = true; _error = null; _result = null;
+        try
+        {
+            var client = HttpFactory.CreateClient("SwaggerFetch");
+            client.Timeout = TimeSpan.FromSeconds(20);
+            var content = await client.GetStringAsync(_url);
+            ParseText(content);
+        }
+        catch (Exception ex)
+        {
+            _error = $"Dohvat s URL-a nije uspio: {ex.Message}";
+        }
+        finally { _parsing = false; }
+    }
+
+    private async Task OnFileSelected(InputFileChangeEventArgs e)
+    {
+        _parsing = true; _error = null; _result = null;
+        _fileName = e.File.Name;
+        try
+        {
+            await using var stream = e.File.OpenReadStream(maxAllowedSize: 8 * 1024 * 1024);
+            using var reader = new StreamReader(stream);
+            var content = await reader.ReadToEndAsync();
+            ParseText(content);
+        }
+        catch (Exception ex)
+        {
+            _error = $"Čitanje fajla nije uspjelo: {ex.Message}";
+        }
+        finally { _parsing = false; }
+    }
+
+    private void ParseText(string content)
+    {
+        _error = null;
+        _selected = [];
+        var result = Parser.Parse(content);
+        if (!result.Success)
+        {
+            _result = null;
+            _error = result.Error ?? "Parsiranje nije uspjelo.";
+            return;
+        }
+        _result = result;
+        if (result.Endpoints.Count == 0)
+            Toast.Info("Spec je validan ali ne sadrži nijedan endpoint.");
+    }
+
+    private async Task CreateScenarios()
+    {
+        if (_result is null) return;
+        if (_selected.Count == 0) { Toast.Warning("Označite bar jedan endpoint."); return; }
+
+        _creating = true;
+        try
+        {
+            int created = 0, skipped = 0;
+            foreach (var ep in _selected)
+            {
+                if (!_creatableMethods.Contains(ep.HttpMethod)) { skipped++; continue; }
+
+                var rest = new RestScenarioDto(
+                    Metoda:          Enum.Parse<HttpMetoda>(ep.HttpMethod, ignoreCase: true),
+                    Url:             ep.Route,
+                    // Auth endpointi dobiju Authorization header s {{token}} placeholderom (Run config ga rješava).
+                    Headeri:         ep.RequiresAuth ? [new HeaderDto("Authorization", "Bearer {{token}}")] : [],
+                    RequestBody:     ep.RequestBodyJsonSample,
+                    OcekivaniStatus: ep.SuccessStatus,
+                    ResponseAsserti: []);
+
+                var req = new CreateScenarioRequest(
+                    GroupId: _targetGroupId,
+                    Naziv:   $"{ep.HttpMethod} {ep.Route}",
+                    Opis:    $"Importovano iz \"{_result.Title}\" (OpenAPI). Kontroler: {ep.Controller}.",
+                    Tip:     TipScenarija.Rest,
+                    Rest:    rest,
+                    Ui:      null);
+
+                await ScenarioSvc.CreateAsync(req, UserCtx.UserId, UserCtx.FullName);
+                created++;
+            }
+
+            var msg = $"Kreirano {created} scenarija." + (skipped > 0 ? $" Preskočeno {skipped} (nepodržana metoda)." : "");
+            Toast.Success(msg);
+            _selected = [];
+        }
+        catch (Exception ex)
+        {
+            Toast.Error($"Greška pri kreiranju scenarija: {ex.Message}");
+        }
+        finally { _creating = false; }
+    }
+
+    private static Color MethodColor(string method) => method.ToUpperInvariant() switch
+    {
+        "GET"    => Color.Info,
+        "POST"   => Color.Success,
+        "PUT"    => Color.Warning,
+        "PATCH"  => Color.Warning,
+        "DELETE" => Color.Error,
+        _        => Color.Default,
+    };
+}

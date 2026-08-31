@@ -1,0 +1,327 @@
+@page "/roles"
+@attribute [Authorize(Roles = AppRoles.Administrator)]
+@rendermode InteractiveServer
+@inject IUserContext UserCtx
+@inject IKeycloakAdminService AdminSvc
+@inject ISifarnikService SifarnikSvc
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+
+<PageTitle>Upravljanje rolama</PageTitle>
+
+@if (!UserCtx.CanAccess(AppModules.Role))
+{
+    <MudAlert Severity="Severity.Warning" Class="ma-4">Nemate pristup ovom modulu.</MudAlert>
+    return;
+}
+
+<PageHeader Title="Upravljanje rolama"
+            Subtitle="Dodjela i upravljanje korisničkim rolama" />
+
+@if (_isLoading)
+{
+    <MudProgressLinear Indeterminate="true" Color="Color.Primary" Class="mb-4" />
+}
+else if (_errorMessage is not null)
+{
+    <ErrorAlert Message="@_errorMessage" />
+}
+else
+{
+    <MudTextField @bind-Value="_search"
+                  Placeholder="Pretraži po imenu ili emailu..."
+                  Adornment="Adornment.Start"
+                  AdornmentIcon="@Icons.Material.Filled.Search"
+                  Immediate="true"
+                  Clearable="true"
+                  Class="mb-4"
+                  Variant="Variant.Outlined" />
+
+    <MudTable Items="@FilteredUsers"
+              Hover="true"
+              Striped="false"
+              Dense="false"
+              Elevation="1"
+              Breakpoint="Breakpoint.Sm"
+              Class="rbi-mobile-cards">
+        <HeaderContent>
+            <MudTh>Korisnik</MudTh>
+            <MudTh>Email</MudTh>
+            <MudTh>Role</MudTh>
+            <MudTh Style="text-align:right">Akcije</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Korisnik">
+                <MudText Typo="Typo.body1">@context.User.FullName</MudText>
+                <MudText Typo="Typo.caption" Color="Color.Secondary">@@context.User.Username</MudText>
+            </MudTd>
+            <MudTd DataLabel="Email">@context.User.Email</MudTd>
+            <MudTd DataLabel="Role">
+                <div class="role-chip-list">
+                    @foreach (var role in context.Roles)
+                    {
+                        <span class="role-chip-removable">
+                            <RoleChip DotColor="@RoleDotColor(role)">@role</RoleChip>
+                            @if (UserCtx.HasRole(AppRoles.Administrator))
+                            {
+                                <MudIconButton Icon="@Icons.Material.Filled.Close"
+                                               Size="Size.Small"
+                                               Class="role-chip-remove-btn"
+                                               OnClick="@(() => ConfirmRemoveRole(context, role))"
+                                               title="Ukloni rolu" />
+                            }
+                        </span>
+                    }
+                    @if (!context.Roles.Any())
+                    {
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">Bez rola</MudText>
+                    }
+                </div>
+            </MudTd>
+            <MudTd DataLabel="Akcije" Style="text-align:right">
+                <MudButton Size="Size.Small"
+                           Variant="Variant.Outlined"
+                           Color="Color.Primary"
+                           OnClick="@(async () => await OpenAssignDialog(context))"
+                           Disabled="@(!UserCtx.HasRole(AppRoles.Administrator))">
+                    Dodaj rolu
+                </MudButton>
+                @if (UserCtx.HasRole(AppRoles.Administrator)
+                     && !context.Roles.Contains(AppRoles.Administrator)
+                     && context.User.Id != UserCtx.UserId)
+                {
+                    <MudButton Size="Size.Small"
+                               Variant="Variant.Text"
+                               Color="Color.Warning"
+                               Class="ml-1"
+                               OnClick="@(() => ConfirmTransferAdmin(context))">
+                        Prenesi admin
+                    </MudButton>
+                }
+            </MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText Typo="Typo.body2" Class="pa-4">Nema korisnika koji odgovaraju pretrazi.</MudText>
+        </NoRecordsContent>
+    </MudTable>
+}
+
+@* ── Dijalog: dodaj rolu ────────────────────────────────────────────────────── *@
+<MudDialog @bind-Visible="_assignDialogOpen">
+    <TitleContent>
+        <MudText Typo="Typo.h6">Dodaj rolu — @_dialogUser?.User.FullName</MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudSelect T="string"
+                   @bind-Value="_selectedRole"
+                   Label="Odaberi rolu"
+                   Variant="Variant.Outlined"
+                   AnchorOrigin="Origin.BottomCenter">
+            @foreach (var role in AvailableRoles)
+            {
+                <MudSelectItem Value="@role">@role</MudSelectItem>
+            }
+        </MudSelect>
+
+        @* Tip korisnika (Unosnik / Verifikator / ...) — čita se iz šifarnika tipovi_rola *@
+        @if (_tipoviRola.Count > 0)
+        {
+            <MudSelect T="Guid?"
+                       @bind-Value="_selectedTipKorisnikaId"
+                       Label="Tip korisnika (opciono)"
+                       Variant="Variant.Outlined"
+                       AnchorOrigin="Origin.BottomCenter"
+                       Class="mt-3"
+                       Clearable="true">
+                @foreach (var tip in _tipoviRola)
+                {
+                    <MudSelectItem T="Guid?" Value="@tip.Id">@tip.Naziv</MudSelectItem>
+                }
+            </MudSelect>
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@(() => _assignDialogOpen = false)">Odustani</MudButton>
+        <LoadingButton Text="Dodaj"
+                       IsLoading="@_isSaving"
+                       Disabled="@string.IsNullOrEmpty(_selectedRole)"
+                       OnClick="@ExecuteAssignRole"
+                       Color="Color.Primary" />
+    </DialogActions>
+</MudDialog>
+
+@code {
+    private List<UserWithRolesDto> _allUsers = [];
+    private bool _isLoading = true;
+    private bool _isSaving;
+    private string? _errorMessage;
+    private string _search = string.Empty;
+
+    private bool _assignDialogOpen;
+    private UserWithRolesDto? _dialogUser;
+    private string _selectedRole = string.Empty;
+
+    // TAG-6.8: tipovi rola iz šifarnika (kategorija slug = "tipovi_rola")
+    // Lista se reloaduje pri svakom otvaranju dialog-a — admin u /sifarnici može
+    // dodati novu vrijednost koja se odmah reflektira u dropdown-u.
+    private List<SifarnikVrijednostDto> _tipoviRola = [];
+    private Guid? _selectedTipKorisnikaId;
+
+    private IEnumerable<UserWithRolesDto> FilteredUsers =>
+        string.IsNullOrWhiteSpace(_search)
+            ? _allUsers
+            : _allUsers.Where(u =>
+                u.User.FullName.ContainsNormalized(_search)
+                || u.User.Email.ContainsNormalized(_search)
+                || u.User.Username.ContainsNormalized(_search));
+
+    private IEnumerable<string> AvailableRoles =>
+        _dialogUser is null
+            ? AppRoles.All
+            : AppRoles.All.Except(_dialogUser.Roles, StringComparer.OrdinalIgnoreCase);
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUsersAsync();
+    }
+
+    private async Task LoadUsersAsync()
+    {
+        _isLoading = true;
+        _errorMessage = null;
+        try
+        {
+            var result = await AdminSvc.GetUsersWithRolesAsync();
+            _allUsers = result
+                .OrderBy(u => u.User.FullName)
+                .ToList();
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"Greška pri učitavanju korisnika: {ex.Message}";
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task OpenAssignDialog(UserWithRolesDto user)
+    {
+        _dialogUser              = user;
+        _selectedRole            = string.Empty;
+        _selectedTipKorisnikaId  = null;
+        _assignDialogOpen        = true;
+
+        // Reload tipova iz šifarnika svaki put — promjene iz /sifarnici se odmah vide.
+        await LoadTipoviRolaAsync();
+    }
+
+    private async Task LoadTipoviRolaAsync()
+    {
+        try
+        {
+            var kat = await SifarnikSvc.GetKategorijaBySlugAsync("tipovi_rola");
+            if (kat is null)
+            {
+                _tipoviRola = [];
+                return;
+            }
+            var rows = await SifarnikSvc.GetVrijednostiAsync(kat.Id, onlyActive: true);
+            _tipoviRola = rows.OrderBy(v => v.Redoslijed).ThenBy(v => v.Naziv).ToList();
+        }
+        catch (Exception ex)
+        {
+            // Ne blokirati dialog ako šifarnik ne radi — samo log + prazan dropdown.
+            _tipoviRola = [];
+            Snackbar.Add($"Nije moguće učitati tipove rola: {ex.Message}", Severity.Warning);
+        }
+    }
+
+    private async Task ExecuteAssignRole()
+    {
+        if (_dialogUser is null || string.IsNullOrEmpty(_selectedRole)) return;
+
+        _isSaving = true;
+        try
+        {
+            await AdminSvc.AssignRoleAsync(_dialogUser.User.Id, _selectedRole);
+            _dialogUser.Roles.Add(_selectedRole);
+            _assignDialogOpen = false;
+            Snackbar.Add($"Rola \"{_selectedRole}\" dodijeljena korisniku {_dialogUser.User.FullName}.", Severity.Success);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Greška: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isSaving = false;
+        }
+    }
+
+    private async Task ConfirmRemoveRole(UserWithRolesDto user, string role)
+    {
+        var confirm = await DialogService.ShowMessageBox(
+            "Ukloni rolu",
+            $"Ukloniti rolu \"{role}\" od korisnika {user.User.FullName}?",
+            yesText: "Ukloni", cancelText: "Odustani");
+
+        if (confirm != true) return;
+
+        try
+        {
+            await AdminSvc.RemoveRoleAsync(user.User.Id, role);
+            user.Roles.Remove(role);
+            Snackbar.Add($"Rola \"{role}\" uklonjena.", Severity.Success);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Greška: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task ConfirmTransferAdmin(UserWithRolesDto targetUser)
+    {
+        var confirm = await DialogService.ShowMessageBox(
+            "Prenos administratorske role",
+            $"Prenijeti administratorsku rolu na {targetUser.User.FullName}? " +
+            $"Vaša administratorska rola će biti uklonjena.",
+            yesText: "Prenesi", cancelText: "Odustani");
+
+        if (confirm != true) return;
+
+        _isSaving = true;
+        try
+        {
+            await AdminSvc.AssignRoleAsync(targetUser.User.Id, AppRoles.Administrator);
+            await AdminSvc.RemoveRoleAsync(UserCtx.UserId, AppRoles.Administrator);
+
+            targetUser.Roles.Add(AppRoles.Administrator);
+            var me = _allUsers.FirstOrDefault(u => u.User.Id == UserCtx.UserId);
+            me?.Roles.Remove(AppRoles.Administrator);
+
+            Snackbar.Add(
+                $"Administratorska rola prenesena na {targetUser.User.FullName}.",
+                Severity.Warning);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Greška pri prenosu: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _isSaving = false;
+        }
+    }
+
+    private static string RoleDotColor(string role) => role switch
+    {
+        AppRoles.Administrator  => "#D6433C",
+        AppRoles.QALead         => "#1A6E48",
+        AppRoles.QAInzenjer     => "#1F8A6A",
+        AppRoles.Developer      => "#2F4D7A",
+        AppRoles.DevOpsInzenjer => "#6B5A3E",
+        _                       => "#888888",
+    };
+}

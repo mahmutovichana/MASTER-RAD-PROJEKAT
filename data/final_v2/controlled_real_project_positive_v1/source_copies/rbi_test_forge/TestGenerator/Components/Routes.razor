@@ -1,0 +1,13 @@
+<Router AppAssembly="typeof(Program).Assembly">
+    <Found Context="routeData">
+        @* AuthorizeRouteView poštuje [Authorize] atribute na stranicama.
+           Stranice bez auth atributa su dostupne svima; one s [Authorize] koje
+           korisnik ne zadovoljava → <NotAuthorized> → RedirectToLogin. *@
+        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
+            <NotAuthorized>
+                <RedirectToLogin />
+            </NotAuthorized>
+        </AuthorizeRouteView>
+        <FocusOnNavigate RouteData="routeData" Selector="h1" />
+    </Found>
+</Router>

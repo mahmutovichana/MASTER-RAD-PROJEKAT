@@ -1,0 +1,2501 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-RPP-MODEL_CONTRACT-001,controlled/rbi-related-parties-portal-copy,9200801,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-001 — `RPPPublicContract001`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-001: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6eb3eb7142066722c56541da70d9e16f616b8ada21aae3e34b342c51204d4380,2d5b9cb3f01f3da952c10dd6b62e32398de979935d6061faeaa8d04f77c617bc,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-001.patch
+CRPP1-RPP-MODEL_CONTRACT-002,controlled/rbi-related-parties-portal-copy,9200802,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract002"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-002 — `RPPPublicContract002`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-002: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e0dc7fed42f885dff4ae8e28cc68d80dda8aff613b18e679c7d467b87bbe33ff,cef6665e419a24386fbde88123d4633b7ffeeeca3e89ab2d32996e9d5e737459,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-002.patch
+CRPP1-RPP-MODEL_CONTRACT-003,controlled/rbi-related-parties-portal-copy,9200803,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-003 — `RPPPublicContract003`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-003: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,711008f26e9db9fcfb93164cb4523e7054abe117210889e2d1e796e29f1a3f2e,a32315253ff5c83fff54b0746f812a2836af3238a6bb2377d593bdc1a15282a6,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-003.patch
+CRPP1-RPP-MODEL_CONTRACT-004,controlled/rbi-related-parties-portal-copy,9200804,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-004"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-004 — `RPPPublicContract004`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-004: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5fc96cd51eb52d61b4d3d6b2f6ca0318a8ca3f8a9f2c05e1e141ce502a5f4035,db6a63ea9325971ccf1aa12b75c38dac9f3acfa53fb4967de6437d8c2001f862,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-004.patch
+CRPP1-RPP-MODEL_CONTRACT-005,controlled/rbi-related-parties-portal-copy,9200805,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-005 — `RPPPublicContract005`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-005: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b41c419711f7e91c6036d3b9433a4a75555f72223baf8d0d55e72b445d94a9a7,f5f64a235f4d0cbf139535d7e90be1f5330ac5932adc1a9b1bac013b94950662,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-005.patch
+CRPP1-RPP-MODEL_CONTRACT-006,controlled/rbi-related-parties-portal-copy,9200806,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract006"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-006 — `RPPPublicContract006`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-006: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,83c62072403dc351ad472d97af65ef6d4bf6a115a819337b4a73d7be90c32db7,38823905763c890512ddf16042c69b13c2d4c80b7931608e4d3d089926a73062,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-006.patch
+CRPP1-RPP-MODEL_CONTRACT-007,controlled/rbi-related-parties-portal-copy,9200807,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-007 — `RPPPublicContract007`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-007: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0e7de1638ba904ff5759e0777371eee3df24780b2387c0081f3e65782d268546,aac9eff590aa0253f6c6602fb00c446597f73b693af4983bee63e73b4737b52d,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-007.patch
+CRPP1-RPP-MODEL_CONTRACT-008,controlled/rbi-related-parties-portal-copy,9200808,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-008"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-008 — `RPPPublicContract008`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-008: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,73b03281cf30629c4b1138d433c0a15f22999419632787224c07d25786e9787a,ddd0002266841cddff185f822c1ded7d0701e07c482a695f4ef32e58971a0311,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-008.patch
+CRPP1-RPP-MODEL_CONTRACT-009,controlled/rbi-related-parties-portal-copy,9200809,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-009 — `RPPPublicContract009`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-009: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,232a2f2d909123ee097054b9991b84466c47851a7dc797d0e11e125aadb83ce2,8bf4861e56cc0dcd0ded81d8246eeb4e9dce93f33a8b31c3245c09cd53a71351,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-009.patch
+CRPP1-RPP-MODEL_CONTRACT-010,controlled/rbi-related-parties-portal-copy,9200810,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract010"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-010 — `RPPPublicContract010`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-010: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aafdc1e1ef9e1d4782a826211763265948ccd5de204baba1ea916bf26eae9875,13c80510ba65b490fbbb4030d6b70bde1f8d74ec9a45caf7cc19775bba314a20,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-010.patch
+CRPP1-RPP-MODEL_CONTRACT-011,controlled/rbi-related-parties-portal-copy,9200811,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-011 — `RPPPublicContract011`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-011: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4cf85a54bf325bc6e1acd8ba7ffb77e32d2a416a0c4977e3ad27d5ead23547bc,f9b41046bc9bd13a83679cc40f5217853784676536abe36f5c6cef968737888b,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-011.patch
+CRPP1-RPP-MODEL_CONTRACT-012,controlled/rbi-related-parties-portal-copy,9200812,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-012"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-012 — `RPPPublicContract012`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-012: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,86ce184a83c8af1ce0fe862536f4dcd70cfd4be87c7b9b94a085a823dfcf1477,8f6518acaa032751aeff99dcf9b52f8909ce4731312978ff8d4ea1080ff1002c,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-012.patch
+CRPP1-RPP-MODEL_CONTRACT-013,controlled/rbi-related-parties-portal-copy,9200813,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-013 — `RPPPublicContract013`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-013: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a806e2ddef05468fef7a9728b77ae2b00deea7a97a93565980585fdc9fc9c6e3,75eb5979c3961827f8f229da3672236284f22a1639946d774ee98528fb389e1e,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-013.patch
+CRPP1-RPP-MODEL_CONTRACT-014,controlled/rbi-related-parties-portal-copy,9200814,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract014"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-014 — `RPPPublicContract014`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-014: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,03fdf80dc66f842e97fd6a1278ff674f8a08a93db6e24da560c304beb9f77bc9,cbafb3360019e1b8469f023f4814d76c5d209cca962bd91424cd1261c228b10b,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-014.patch
+CRPP1-RPP-MODEL_CONTRACT-015,controlled/rbi-related-parties-portal-copy,9200815,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-015 — `RPPPublicContract015`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-015: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ffef2e1ef0e3bac24038441c4497e624074fab004c7645f940a16683f891caad,95d7f49f9a979d895679b69d70d4917216a3810ac9c552c79fa6bcedf0baee76,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-015.patch
+CRPP1-RPP-MODEL_CONTRACT-016,controlled/rbi-related-parties-portal-copy,9200816,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-016"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-016 — `RPPPublicContract016`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-016: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,078b4f9c76ec7c467c8a2a3d92ff5d0c90aa73c007e8a5a06efa41834a0615de,a073325a911f7c713b0e028c5e47ebb4b54df247d7e84a3c639e8faaab20668f,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-016.patch
+CRPP1-RPP-MODEL_CONTRACT-017,controlled/rbi-related-parties-portal-copy,9200817,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-017 — `RPPPublicContract017`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-017: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cfce5a31a7ae565ad0b2e576ee95d937817221b64e12a4538ecfcafaaccdfdf6,37e2031aff31aa5be7f7f75f2d3ca39abf5f4cdb6b7d3677ec8b96a08cfbcc7e,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-017.patch
+CRPP1-RPP-MODEL_CONTRACT-018,controlled/rbi-related-parties-portal-copy,9200818,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract018"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-018 — `RPPPublicContract018`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-018: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8ef2a7711ea925fbe3b68e38c5751a345e89c31dd726edf657c9fb99b85c7cf8,14a4cd3c98c3a8a4e9f161b617fb469f55f9963ee080ea08b72e85e881deb2aa,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-018.patch
+CRPP1-RPP-MODEL_CONTRACT-019,controlled/rbi-related-parties-portal-copy,9200819,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-019 — `RPPPublicContract019`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-019: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b20fd169b83e983a61304a33647c572bf40361cfe544ab703c4363ebc2260d08,3c41c1c18fdfc6ed58545ae98544644a17a5b67523cec54cf9d0fec3d9637f28,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-019.patch
+CRPP1-RPP-MODEL_CONTRACT-020,controlled/rbi-related-parties-portal-copy,9200820,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-020"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-020 — `RPPPublicContract020`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-020: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9f45e02753a86a6b61e3029f921132440a9bb355298eb2ca45d5a5af04b3e970,70c8dea54b890af0aa0186bf9db523b95ec686adc31624609ad6f05c49e00f93,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-020.patch
+CRPP1-RPP-MODEL_CONTRACT-021,controlled/rbi-related-parties-portal-copy,9200821,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-021 — `RPPPublicContract021`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-021: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,040385606be59d0ebde97a35bd74a8d463ae0c10660ee38e7a25876ce06b7af9,137201d9101ad9cf3bb268f653e83f3f9206387fbf501b4e93a2120d04946d0f,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-021.patch
+CRPP1-RPP-MODEL_CONTRACT-022,controlled/rbi-related-parties-portal-copy,9200822,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract022"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-022 — `RPPPublicContract022`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-022: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7e825a5d5af586e9b49ed4dfaf7c2df36006db6659296ba05c1bcfa11694e3f6,8703441b20404f27946ca0f573fd60a4ac6280b4b7bf8c1b31261af3baae6521,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-022.patch
+CRPP1-RPP-MODEL_CONTRACT-023,controlled/rbi-related-parties-portal-copy,9200823,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-023 — `RPPPublicContract023`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-023: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9d210815443b6327f610511a7d8a03f2fc5374af33a1475935edc1012945efea,9652efa0caa748e6f284ea0b1977ce56ed84b00613d9d7bea44aa49ce6a93000,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-023.patch
+CRPP1-RPP-MODEL_CONTRACT-024,controlled/rbi-related-parties-portal-copy,9200824,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-024"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-024 — `RPPPublicContract024`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-024: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,55861859304b95e2b551f410751014ec0f7650425581f1ca7d83a548fc14a25e,b51fb8a4ceb8f653442811c3e060565bc6b657281e8b2575534e5f9504f2bb68,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-024.patch
+CRPP1-RPP-MODEL_CONTRACT-025,controlled/rbi-related-parties-portal-copy,9200825,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-025 — `RPPPublicContract025`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-025: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7c8d4cf8c36577434a10d9c36bd880f4b74ea75e3929d278e341ed3a5b1f25f7,b9bad8fcd38da4bb8de8da499dadbbea3682be40451b0307aa5889c21369db30,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-025.patch
+CRPP1-RPP-MODEL_CONTRACT-026,controlled/rbi-related-parties-portal-copy,9200826,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract026"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-026 — `RPPPublicContract026`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-026: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e5a385f92c40ad8ec8d0013be9d3e085947f4e68bd5aff6976cde8b3c25df519,e0e7af2409e77ab1ce678fb7f31da6432424d39d4c4866b7fad698b30dc24e60,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-026.patch
+CRPP1-RPP-MODEL_CONTRACT-027,controlled/rbi-related-parties-portal-copy,9200827,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-027 — `RPPPublicContract027`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-027: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4b930eb33dea34939b3e5396b58d0f10523ef2b41f50b3a14df23eb172b3473d,2d758bbe54978a58d869251ef9ef97a8d43c6676170c91b9f91fb5fb9dcee308,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-027.patch
+CRPP1-RPP-MODEL_CONTRACT-028,controlled/rbi-related-parties-portal-copy,9200828,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-028"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-028 — `RPPPublicContract028`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-028: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,41f96031ee2764e5c965e3c66fe64855f441dbdb08084a2fdc9581267e305d55,d2ca0e966f8339f09bd6dc270403c83809ce01ba9ce6c4e0ad7440008094de8a,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-028.patch
+CRPP1-RPP-MODEL_CONTRACT-029,controlled/rbi-related-parties-portal-copy,9200829,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-029 — `RPPPublicContract029`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-029: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,94f6ae0a0fbaeee56a5e686327471044d33ab3f55e75a4a92ab2b1d69132ed0d,13323a3e4b508755f2242153f904a850bd06fcd9c2c8034ca26fca1184636fce,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-029.patch
+CRPP1-RPP-MODEL_CONTRACT-030,controlled/rbi-related-parties-portal-copy,9200830,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract030"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-030 — `RPPPublicContract030`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-030: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f336f1c1e2d69d2aabe20af7f8138fdc9436e31b441068ed063904a386b99f35,5557989b2f90c77f16b4d014afc7f68e2de1d4446439a5382445c0cbc39363a7,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-030.patch
+CRPP1-RPP-MODEL_CONTRACT-031,controlled/rbi-related-parties-portal-copy,9200831,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-031 — `RPPPublicContract031`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-031: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d4b7ad728587d2ed998291fb21f48247d9e92a176b56003c747182164403a05a,90e79b2fba8808959c89b012d2c92d3bf771004ca897c82c7a6cf00e7338cfd2,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-031.patch
+CRPP1-RPP-MODEL_CONTRACT-032,controlled/rbi-related-parties-portal-copy,9200832,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-032"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-032 — `RPPPublicContract032`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-032: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a812877f4620f9d9830b40faad3b9163de133b7b4d02a5507f7ecea90a62dc0e,9124c6f2ba754c65d86d7ab73c6eff28ca17de348abcb67eaac291412a0dfab9,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-032.patch
+CRPP1-RPP-MODEL_CONTRACT-033,controlled/rbi-related-parties-portal-copy,9200833,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-033 — `RPPPublicContract033`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-033: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a980df30e9cbca6b4deb870effda0918756a558f6cb1b0a979e3e0850d572098,4a360111f1bf0b2aab7ef2d2bff9db069929036c5e493377cec3f727ebb07491,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-033.patch
+CRPP1-RPP-MODEL_CONTRACT-034,controlled/rbi-related-parties-portal-copy,9200834,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract034"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-034 — `RPPPublicContract034`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-034: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,962653a3bfdf4d96268976223ceef442847841d2d9973cfa92b535fe8c03b05e,62e527f8f18f0a54edc0bcb0b76b83e34a42f37354c60dca084a796d5ecd954f,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-034.patch
+CRPP1-RPP-MODEL_CONTRACT-035,controlled/rbi-related-parties-portal-copy,9200835,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-035 — `RPPPublicContract035`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-035: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,09dd68d3fb5bd5ff4e3de86130c626465865e78d4b1868efc71a0d312ce23e8c,e5ec5c193db820c086f45e374647cdc0be5e013f32a93c77604896fd4362999d,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-035.patch
+CRPP1-RPP-MODEL_CONTRACT-036,controlled/rbi-related-parties-portal-copy,9200836,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-036"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-036 — `RPPPublicContract036`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-036: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8af24d8f882a6be253cd6b2ac1f3de6dc46ce6db1faed7a3e6165bf6b551b023,2a67934622c49c976635743f47e5fa1f0368252d70c720cd63ed1a4c28c55195,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-036.patch
+CRPP1-RPP-MODEL_CONTRACT-037,controlled/rbi-related-parties-portal-copy,9200837,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-037 — `RPPPublicContract037`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-037: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,01d4c1b1d42f9318ff1d52d52a700c7099415937f2035f184651683205777d33,e6c1a8c87fd7d64b58c807a05df612ef17cf6e83bc5b8a0f3eaf22d476980869,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-037.patch
+CRPP1-RPP-MODEL_CONTRACT-038,controlled/rbi-related-parties-portal-copy,9200838,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract038"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-038 — `RPPPublicContract038`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-038: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4b360b04374e74314da967d574b27e356484c130cddf4eb0fcaea82186bcdaac,5933bc6a22b433e6828a624ef2c85b9c12af05649a43a808f6968089e455a5ae,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-038.patch
+CRPP1-RPP-MODEL_CONTRACT-039,controlled/rbi-related-parties-portal-copy,9200839,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-039 — `RPPPublicContract039`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-039: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7056daf13f67f1a7892c50cff82028034b1ac90ce4150ea5e2993e182b4562f5,f210be8f7480f77ae3d13ef7f0654709fc6151bbbb0a473052cd7d99c104d843,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-039.patch
+CRPP1-RPP-MODEL_CONTRACT-040,controlled/rbi-related-parties-portal-copy,9200840,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-040"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-040 — `RPPPublicContract040`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-040: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d5b1104074270d5f146925f9a67001508127f019278c6c24670e573f7b9057a1,4c548b56668e2e530dd9e7a3f41c31a9450f3a18425053015269cb9b698df664,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-040.patch
+CRPP1-RPP-MODEL_CONTRACT-041,controlled/rbi-related-parties-portal-copy,9200841,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-041 — `RPPPublicContract041`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-041: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8c4f3826c68bbc1cfa0fade681dc1c43e32c273b1eb50f5361fd44bfe3105ae0,250d331d27c6629f3d16c997aed15c95c1832debb75a1f8dcf1b8e2367899621,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-041.patch
+CRPP1-RPP-MODEL_CONTRACT-042,controlled/rbi-related-parties-portal-copy,9200842,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract042"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-042 — `RPPPublicContract042`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-042: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,20ce4a4971ade0d6934b7f9b892cb7538bb58823cca21ce84dd525cf24abb6eb,e65929ff737eb57e2b0174339585320354da10c32aec54f811ac81d751cc03e9,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-042.patch
+CRPP1-RPP-MODEL_CONTRACT-043,controlled/rbi-related-parties-portal-copy,9200843,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-043 — `RPPPublicContract043`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-043: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e3eeff95ef5584e1f278650d9dee5963861072cf9d6f6a1c13c1bc64664bf221,436e16f29871e7c08197e1beb86e02b4f5283dd5edd3ac7d2423e98b44e006d1,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-043.patch
+CRPP1-RPP-MODEL_CONTRACT-044,controlled/rbi-related-parties-portal-copy,9200844,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-044"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-044 — `RPPPublicContract044`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-044: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9b440038fed5bb15d0ef27ace91244c195d3a9f824e1f00bebb26ecd6183c4fe,33346a5ae4898f2cd561c9e792a8defd10a1260d6604b799b9a65f7f16233ddb,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-044.patch
+CRPP1-RPP-MODEL_CONTRACT-045,controlled/rbi-related-parties-portal-copy,9200845,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-045 — `RPPPublicContract045`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-045: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6147e88d2b2b00d1a665683a64f53b30342f6c2d838539b11f760b2d0e75742e,214d9cddb5fabea496f775597ab46f8012eea3ca4d98f74c3bc9ecd406457869,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-045.patch
+CRPP1-RPP-MODEL_CONTRACT-046,controlled/rbi-related-parties-portal-copy,9200846,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract046"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-046 — `RPPPublicContract046`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-046: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,74ac1f543a08c9b6f3f9f0d580125b38bef4a55832c2ca739c03c6e30eaab318,f5374d1fed6c7ab4f6bfe6788cc6bb30a796414e81c5c41b81441be62550f848,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-046.patch
+CRPP1-RPP-MODEL_CONTRACT-047,controlled/rbi-related-parties-portal-copy,9200847,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-047 — `RPPPublicContract047`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-047: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0428135f6e73805b95f8a135b813166bcadaf251be5ea9fc78315fea2f69ab54,45e4e885bd350656605d973b7319cea1304ec3b1ba46297607987d70ebe94602,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-047.patch
+CRPP1-RPP-MODEL_CONTRACT-048,controlled/rbi-related-parties-portal-copy,9200848,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-048"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-048 — `RPPPublicContract048`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-048: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,85f4ee06e192d14bd340693b838c0f8f56130bd99de7c5383756c5040f67ecea,5d28ef433686c64991dd2096794ab6a022060d35650a3a95a420e0e9ee60f266,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-048.patch
+CRPP1-RPP-MODEL_CONTRACT-049,controlled/rbi-related-parties-portal-copy,9200849,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-049 — `RPPPublicContract049`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-049: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aa956b20d94e86f586954a17a4d3e93843a17632ed1889f9bef78da2343a754a,2d5ce944076863a8688336322b944adc28c238fc82bbbebcf5245d70b3f17bc7,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-049.patch
+CRPP1-RPP-MODEL_CONTRACT-050,controlled/rbi-related-parties-portal-copy,9200850,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract050"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-050 — `RPPPublicContract050`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-050: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e4c4ea250905175d121ac7afd0857f9e863b8ab3b98348609aded78bc8e11592,a0b2cd0bcacbcd3d5405db89d6032ed0fd3c5b89b7af3d4278cbdf59a686ae64,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-050.patch
+CRPP1-RPP-MODEL_CONTRACT-051,controlled/rbi-related-parties-portal-copy,9200851,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-051 — `RPPPublicContract051`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-051: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8522e5df928a9247bd39f498d6a2800d56908b1a6a26ef8d1f4ea9ffea0c50c7,0e78ef00a61344202945f131d2e99bc5f4a427db7b779985c296b402d81f4c51,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-051.patch
+CRPP1-RPP-MODEL_CONTRACT-052,controlled/rbi-related-parties-portal-copy,9200852,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-052"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-052 — `RPPPublicContract052`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-052: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ea3c65209cf2d82766d0d3ee38605045921ff852979bdde817c7d57d3d329c9a,902afb1aa5b141e0cacdc15d14fd65e524d2aba256c80a8c7ba912b1438a93b7,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-052.patch
+CRPP1-RPP-MODEL_CONTRACT-053,controlled/rbi-related-parties-portal-copy,9200853,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-053 — `RPPPublicContract053`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-053: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,50d33880024a00976830de06056a203207b99ed892c67cdf9e1a2e0c8bb7dff5,e32b0c0911203ee2b7b95d6cc7544680070f7e40f83e28eb69532bffdda90413,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-053.patch
+CRPP1-RPP-MODEL_CONTRACT-054,controlled/rbi-related-parties-portal-copy,9200854,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract054"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-054 — `RPPPublicContract054`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-054: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,705af9e38f70663645e31a11c1f83d3eb0a0c87e6f3b83963be03755eb92567f,6cd915f1a426b49ccc491ac96b10304e89e40173165ccd1fc64aaa35ad594cbc,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-054.patch
+CRPP1-RPP-MODEL_CONTRACT-055,controlled/rbi-related-parties-portal-copy,9200855,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-055 — `RPPPublicContract055`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-055: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a6abc86e6912bd920ad59662fbd8c8f7addf3ffaffadd5b8cc13de86b97139d6,56a0c400a650c30eb1dc39b7f4ffac83581f18eca9bddb883e488481beed2cbe,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-055.patch
+CRPP1-RPP-MODEL_CONTRACT-056,controlled/rbi-related-parties-portal-copy,9200856,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-056"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-056 — `RPPPublicContract056`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-056: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,09e0224cbad16df35aa9aad8547a2224cdee88ee543798cdcefbb150b6663f26,e333df28d1b70f50cfb5fdf1ebce6dbbfa998190f48341e6e5d9998eda252c4a,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-056.patch
+CRPP1-RPP-MODEL_CONTRACT-057,controlled/rbi-related-parties-portal-copy,9200857,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-057 — `RPPPublicContract057`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-057: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,638ac0acaf325d5bc0fae59bcbabcc9c7e7cc75dcaaede1f2dcaa685632b1b50,03024794211b9c666308302676c36437985bf95a77c0c497a2d8618f501cbd24,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-057.patch
+CRPP1-RPP-MODEL_CONTRACT-058,controlled/rbi-related-parties-portal-copy,9200858,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract058"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-058 — `RPPPublicContract058`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-058: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,642a4a207e10bba72a18965db52eed9b363e973ad3ed63a68143bb9cf80083df,cae36ed60c04a569e664317701fcb72471c120858680f94cdecc34b73062a402,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-058.patch
+CRPP1-RPP-MODEL_CONTRACT-059,controlled/rbi-related-parties-portal-copy,9200859,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-059 — `RPPPublicContract059`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-059: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9a94c386db87b62dae1ce3b7afe60b4d01541bdff81fd6465f1b241b0df925dd,e7c21619168bcdb6d4b5dfd37a7763bd526a492cedd129a930482e122c73e2cb,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-059.patch
+CRPP1-RPP-MODEL_CONTRACT-060,controlled/rbi-related-parties-portal-copy,9200860,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-060"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-060 — `RPPPublicContract060`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-060: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,46f88b2dc524b4aad1205c087575cf50c96cfc184d6c86d178f69f49d60bd6f5,708e312a4beb62669b5b917180df2465e5b3f870416ccfd8839767a30ded2972,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-060.patch
+CRPP1-RPP-MODEL_CONTRACT-061,controlled/rbi-related-parties-portal-copy,9200861,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-061 — `RPPPublicContract061`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-061: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dab71bfc01685a4f5fcf66961e9a23330e7584eecfb1c521adc617756aa988dd,646a80fb01650ba64236c92d9de92d3c50b3183c4716a795d7500426ef8e1d38,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-061.patch
+CRPP1-RPP-MODEL_CONTRACT-062,controlled/rbi-related-parties-portal-copy,9200862,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract062"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-062 — `RPPPublicContract062`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-062: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ed8da58b0175a3d008faa70ebf2ba31890d99ac0f34ea77fb1daaf785cdbbd4c,bff01018d75ef958db4626e0d1cfc16d2a4e9a50ccdc40e3be2313e3ea0178d8,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-062.patch
+CRPP1-RPP-MODEL_CONTRACT-063,controlled/rbi-related-parties-portal-copy,9200863,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-063 — `RPPPublicContract063`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-063: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d844fb98327c1a14e2985157efee1a2ea456bf2fb6556aa94e05cdf90849c721,43ad404309843957eec88bdeb2edf86193cbde3cb249531bd982306fef0b0b90,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-063.patch
+CRPP1-RPP-MODEL_CONTRACT-064,controlled/rbi-related-parties-portal-copy,9200864,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-064"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-064 — `RPPPublicContract064`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-064: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7841ba18ee2cb167588cac8c1b8d00324ad16e8272c1ad746daa146353c5c41e,0cf2faa2d2c55c3bd856933a1ef191db6d2f77d13cdc95c826c4769e746080ab,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-064.patch
+CRPP1-RPP-MODEL_CONTRACT-065,controlled/rbi-related-parties-portal-copy,9200865,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-065 — `RPPPublicContract065`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-065: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5e0fe973f459c6dccb94fbc127d7dd903fab44065a81b05549341d5cc5575b75,a0905c1df34f879a91bd41f751b4280fc40140980ff557a2f82c8283eb7ab34e,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-065.patch
+CRPP1-RPP-MODEL_CONTRACT-066,controlled/rbi-related-parties-portal-copy,9200866,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract066"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-066 — `RPPPublicContract066`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-066: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ebadee2291374ff47b6d623cf1bd1d01858ae2332884466be39e6b1dda7d66e1,70b34c04c6ff04b8ad7310d2dcf70f793938630f76adf6e598ca53525ff72c03,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-066.patch
+CRPP1-RPP-MODEL_CONTRACT-067,controlled/rbi-related-parties-portal-copy,9200867,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-067 — `RPPPublicContract067`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-067: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fa2d852ad626da3e0fcd0dfe019cbdc90d88014af0993fe5f4d7d190ba908c75,1e9356f3f445b718da6e373604ae8a38e1e13dd0f34f10015bc7aae69e73dfd2,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-067.patch
+CRPP1-RPP-MODEL_CONTRACT-068,controlled/rbi-related-parties-portal-copy,9200868,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-068"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-068 — `RPPPublicContract068`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-068: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5917691774e31c220ff0ef58acc9dfc1b466071f4e1881865aa2b6b4564e9dc5,f60efda60c67a0af58774411da7957e4eab0e653efa7dbf843152f6166262d0b,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-068.patch
+CRPP1-RPP-MODEL_CONTRACT-069,controlled/rbi-related-parties-portal-copy,9200869,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-069 — `RPPPublicContract069`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-069: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ef812216f9499871f29e73d18be4844ecf84f715936b12415967b4f29068a225,3235c4af1e016b2c9818b612d707b8c9ceaa0b64efbf50519141213e03a6fdfb,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-069.patch
+CRPP1-RPP-MODEL_CONTRACT-070,controlled/rbi-related-parties-portal-copy,9200870,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract070"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-070 — `RPPPublicContract070`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-070: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f1e696581b6fb827fdfe50d76bf0640abecb7a1a61e98962ae7231fd31d8ee4d,afef3df9c553b8cfa8700afd726d4efe8bd1ae1495f5a96af76276d7dcdde2a5,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-070.patch
+CRPP1-RPP-MODEL_CONTRACT-071,controlled/rbi-related-parties-portal-copy,9200871,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-071 — `RPPPublicContract071`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-071: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ef005deccf369e29d421cce5947ae6193d5201719bb74b91a2edc9c12ac9d7bd,60b1affaebe3d841bd123cac063e4fe2fb5c0c0da019aa98205f8c8da8e13db2,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-071.patch
+CRPP1-RPP-MODEL_CONTRACT-072,controlled/rbi-related-parties-portal-copy,9200872,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-072"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-072 — `RPPPublicContract072`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-072: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,af173547ee64bc3ae0a792d60f20179eef970ef52a23dee8d2f95b600e8dde57,fa5bef61c853a56aaf11916d952311cc7f5d2036b845cc2b60c388a39004339c,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-072.patch
+CRPP1-RPP-MODEL_CONTRACT-073,controlled/rbi-related-parties-portal-copy,9200873,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-073 — `RPPPublicContract073`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-073: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4e319e2cd32d01f0e82e761bf00c12088abeefaca6ec2a2cb22cb736140247fd,6c42f9be17d2f498576642c4acc019781bcf47ecdc3018b5c5271f221a8ab7de,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-073.patch
+CRPP1-RPP-MODEL_CONTRACT-074,controlled/rbi-related-parties-portal-copy,9200874,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract074"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-074 — `RPPPublicContract074`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-074: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,34e5a6f11565cb0b13aac8456e1cccb1aa611bcd732cb373ed103b772ce9e08a,94988d83a80383c23b332e93532a48404666dbccf8a28f133c95081b382e6751,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-074.patch
+CRPP1-RPP-MODEL_CONTRACT-075,controlled/rbi-related-parties-portal-copy,9200875,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-075 — `RPPPublicContract075`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-075: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a14e528152f69195221c3c4338a75b76a5f933fd9dc35523c17103673d9a8429,02f158870b7f51660f1b7dcf8d0e7da5f3e6c1c2368650b9ecd9277d6b076fa2,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-075.patch
+CRPP1-RPP-MODEL_CONTRACT-076,controlled/rbi-related-parties-portal-copy,9200876,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-076"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-076 — `RPPPublicContract076`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-076: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a9f0af639df0c1e67292d69c68e7d3e9c7d60111c35c9fc349464c78db8ceb51,6fdc0bc13e351144d90294f1ffd1ce1990c892203cbcd9deee35f8224a31fb01,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-076.patch
+CRPP1-RPP-MODEL_CONTRACT-077,controlled/rbi-related-parties-portal-copy,9200877,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-077 — `RPPPublicContract077`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-077: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,618243cd96064f7aaae5067e10ba8b4fdca5626fa6ab119ceab1682a7882189d,f895237804a41d614ae139ffd4663b25a688914928dec93a5db737048543f6bb,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-077.patch
+CRPP1-RPP-MODEL_CONTRACT-078,controlled/rbi-related-parties-portal-copy,9200878,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract078"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-078 — `RPPPublicContract078`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-078: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d30691e2928e9420f30130771ea6831af8fbf03f1202693da6081c9572850cb8,fd95bd494eeb41c72c1f80d0e428c6d5dae416dab480fefe34f42738c7c40255,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-078.patch
+CRPP1-RPP-MODEL_CONTRACT-079,controlled/rbi-related-parties-portal-copy,9200879,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-079 — `RPPPublicContract079`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-079: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,534ac2609369c368f4e228312d8c35d38ad350f33cea1449303c24d64fc278dd,5c74a04fcba3ab5eace22dcc0ecdfcd80b2bbaaf38638cb6e532d97fed350c7a,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-079.patch
+CRPP1-RPP-MODEL_CONTRACT-080,controlled/rbi-related-parties-portal-copy,9200880,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-080"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-080 — `RPPPublicContract080`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-080: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4d91fcc3f19447e4f73a73463eaa8f48f947d70a5d441d5436a81cb2a1e9f984,c38671aefe74ef365688151b8f7c894c53d984f3c6dc7e54d9541a1bfd7b71d5,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-080.patch
+CRPP1-RPP-MODEL_CONTRACT-081,controlled/rbi-related-parties-portal-copy,9200881,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-081 — `RPPPublicContract081`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-081: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8b5c11a8a18cba8a3126514e73e9e58d13c328401161270f09187008de377477,1fc82c980caf11a13d55dc5bcdd102bf3e9018d033948705fd36ad5eda666501,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-081.patch
+CRPP1-RPP-MODEL_CONTRACT-082,controlled/rbi-related-parties-portal-copy,9200882,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract082"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-082 — `RPPPublicContract082`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-082: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2262b55bef82334f6ad1778295a11c0e1fb2284bc1d38d230a58b82d774ccb29,2ff846eb966ea19c8e881e429214162297a432b57176dad13a13ae5b35c0b893,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-082.patch
+CRPP1-RPP-MODEL_CONTRACT-083,controlled/rbi-related-parties-portal-copy,9200883,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-083 — `RPPPublicContract083`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-083: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,137109907ac914d242f7085b5cd6869b3469e1a617bf3499b02ca957cde617d7,fb068e8ee43751ba96cfff0995bcf932ec73a5c1a987538db2d79afc67ffd022,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-083.patch
+CRPP1-RPP-MODEL_CONTRACT-084,controlled/rbi-related-parties-portal-copy,9200884,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-084"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-084 — `RPPPublicContract084`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-084: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,12c3ab7dc2226b55c74d216fc076ee341df616bb575ae968149a861044a20d8b,b98de8cedcfdefca49ef99167f541fd840cd036deb0ca150131a0088a4d27790,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-084.patch
+CRPP1-RPP-MODEL_CONTRACT-085,controlled/rbi-related-parties-portal-copy,9200885,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-085 — `RPPPublicContract085`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-085: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ed603a997907a97d1a1e4e9b2bd916f789b1f771ec15203d56fecefe52d796ef,4fa44af627a3ba52c666e8850f3650fefdb1f059cdef42d663355f5be0786e07,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-085.patch
+CRPP1-RPP-MODEL_CONTRACT-086,controlled/rbi-related-parties-portal-copy,9200886,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract086"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-086 — `RPPPublicContract086`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-086: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,45f267c5c021bc8477512c2be99845ccc96b5ad2768654ac1ba819299aff3511,e3ae92a32a3b3b67044e6d81fc79ec08a41e95dd646fd1911f9058373d8fb8a4,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-086.patch
+CRPP1-RPP-MODEL_CONTRACT-087,controlled/rbi-related-parties-portal-copy,9200887,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-087 — `RPPPublicContract087`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-087: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6427ada58799aea8d8fcc64520cd5f74dabc88acd45874cae7f1c02b32375a62,2303a1e63fb25be19940449be6d0a457e2f0513839611aa3b63ac5f08dad7cbd,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-087.patch
+CRPP1-RPP-MODEL_CONTRACT-088,controlled/rbi-related-parties-portal-copy,9200888,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-088"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-088 — `RPPPublicContract088`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-088: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0449c9512fb570f80c60b610a63933e314f0afb4c7e282e9f6b08f18d6ba5bdc,ab40d021b8c37b2d175fb23bce333a521ce5fe27d0b49505ffde6ecab65fbd50,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-088.patch
+CRPP1-RPP-MODEL_CONTRACT-089,controlled/rbi-related-parties-portal-copy,9200889,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-089 — `RPPPublicContract089`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-089: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ee0406a052f1872addaa6201fd1bd1f92efce576a99a926e94e69cbafe0863f5,e57097ee1e312fbe4baeec64aa612b79dc29f32c39b0353806d2a11aaf5135d1,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-089.patch
+CRPP1-RPP-MODEL_CONTRACT-090,controlled/rbi-related-parties-portal-copy,9200890,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract090"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-090 — `RPPPublicContract090`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-090: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,33b1eddc6e0722bf79e6e2756ebb8d5ba35a07a504336a8f655669f948f8a70e,3d2055032fae65bc9a144c59d6edeac93393d1f35e3db0cae4a5ff920d73bdf9,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-090.patch
+CRPP1-RPP-MODEL_CONTRACT-091,controlled/rbi-related-parties-portal-copy,9200891,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-091 — `RPPPublicContract091`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-091: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a30a9c378693ca664ccea753403b867910f4af6d40d7e52efaa6c1a010374d4f,a2fc84cf5b907bdc3419ab348d4ce31ada420f8deb2683e7ca5b6074eb202316,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-091.patch
+CRPP1-RPP-MODEL_CONTRACT-092,controlled/rbi-related-parties-portal-copy,9200892,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-092"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-092 — `RPPPublicContract092`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-092: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a97d234e414aba3e204582f20d6aff0d552000e4a8fdd688de22334a60507865,4a5aea6acc9da89f181d09240356013a451d8a108c420b0cd66dfe4dd56081fb,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-092.patch
+CRPP1-RPP-MODEL_CONTRACT-093,controlled/rbi-related-parties-portal-copy,9200893,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-093 — `RPPPublicContract093`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-093: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,28ffaf619937602c8b0a20a47950a473879fc1f7e7396d8be76776cf4a67efc6,9e3f85f3c2c27a9e3d309c6a993eb02419ad2cbfa3e878ec26719189b05dd283,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-093.patch
+CRPP1-RPP-MODEL_CONTRACT-094,controlled/rbi-related-parties-portal-copy,9200894,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract094"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-094 — `RPPPublicContract094`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-094: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,359af624193da7085721b8d54f6745a854b21f76e8aebd884e344d3d709f2a2b,0a5dd09a4f9679a4788662c05efc37801f32685f2a423640e9703181e542152b,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-094.patch
+CRPP1-RPP-MODEL_CONTRACT-095,controlled/rbi-related-parties-portal-copy,9200895,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-095 — `RPPPublicContract095`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-095: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c51efaf00daf3f489a943b6cbc0a804b4f99b0fdf9256a477f5a5374db87d9a7,ff3d8cb71514e8d3d7b2fd97abf71fcbce837c8f93df0cc791281df567fb53a0,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-095.patch
+CRPP1-RPP-MODEL_CONTRACT-096,controlled/rbi-related-parties-portal-copy,9200896,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-096"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-096 — `RPPPublicContract096`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-096: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fe0685342ee38c442c44a364ab84081e4fadacbe6b76f347daf97889c0f51909,c8d29e488869bd5faaffcc86bac2fc12f59fff1e6e7759097e7911885c07c305,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-096.patch
+CRPP1-RPP-MODEL_CONTRACT-097,controlled/rbi-related-parties-portal-copy,9200897,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-097 — `RPPPublicContract097`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-097: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7940310ceca74fa5cbb5b56024becd7a80bd17c16d0d41f9e2156acb7ff099d0,420326181f7fe6b12829906d10fe258cebb413871a100713a944c73851b9207c,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-097.patch
+CRPP1-RPP-MODEL_CONTRACT-098,controlled/rbi-related-parties-portal-copy,9200898,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract098"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-098 — `RPPPublicContract098`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-098: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f7513fcf0d14007203893bceaf33cad43b251d51e5e8c562f5cb4470cafef700,6cf85e971d1295d2fd84e59a896cd6a9f0b7f0ad149b9b890223e53934dce68c,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-098.patch
+CRPP1-RPP-MODEL_CONTRACT-099,controlled/rbi-related-parties-portal-copy,9200899,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-099 — `RPPPublicContract099`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-099: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c82342221c806b063ad126f72e1cda7ab2795598d752e2ea3d37ae84c80bba13,c7b1004f585160ef401c3a1074f896471fd4f4c2596dd0d0cc8f1d27549ca68c,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-099.patch
+CRPP1-RPP-MODEL_CONTRACT-100,controlled/rbi-related-parties-portal-copy,9200900,typescript,"[""src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/Web/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-100"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:a4b20d75aaf76701 -->
+### RPP-MODEL-100 — `RPPPublicContract100`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-100: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,99be2ba7b06e14e31f6f4306f1f596d5121ef1f23b3a8b387605fc95fa22c427,06e4f89d7670dd1de1dcf9185dcd2fdafe2e6ef8460ff07680b010b8a0e8cd1f,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-100.patch

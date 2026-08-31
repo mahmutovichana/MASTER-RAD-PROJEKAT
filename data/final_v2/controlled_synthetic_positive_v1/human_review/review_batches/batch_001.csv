@@ -1,0 +1,2926 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,docs_before_retrieved_files,doc_context_01_path,doc_context_01_excerpt,doc_context_02_path,doc_context_02_excerpt,doc_context_03_path,doc_context_03_excerpt,doc_context_04_path,doc_context_04_excerpt,doc_context_05_path,doc_context_05_excerpt,doc_context_06_path,doc_context_06_excerpt,doc_context_07_path,doc_context_07_excerpt,doc_context_08_path,doc_context_08_excerpt,doc_context_09_path,doc_context_09_excerpt,doc_context_10_path,doc_context_10_excerpt,doc_context_11_path,doc_context_11_excerpt,doc_context_12_path,doc_context_12_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash
+synthetic:pallets/flask:api_reference:1,pallets/flask,900001,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..b1ba0aa 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_1: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,32de68ba8a960efc8fbbb1bf54e27ed803fdce5076c510d3d775ce1cb6deeaa6,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:2,pallets/flask,900002,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..199b7e5 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_2: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,84f6d6b35ef60de739aa2b453c24be16f215e32a4a8a05862c91932b067f8448,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:3,pallets/flask,900003,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..3719262 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_3: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,66ed015372a1d59dfe9546692b0fecb79ce7fc8487b8a1d00ea2b9330314126e,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:4,pallets/flask,900004,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..1509b1e 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_4: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,b10880b5d1b1e12abbc13df17c39e823f5c0afe620f47e5039e1cc2010b9c79e,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:5,pallets/flask,900005,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..99c53c7 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_5: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,e791d391b2b759961f6f17cea09a1517a3fb518a1143c77ca6fde2a7308ff890,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:6,pallets/flask,900006,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..db1b2ef 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_6: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,a937f1f946a95cfd16029a07981ea3fb8916744a5130f70aa468f2b2f6cef925,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:7,pallets/flask,900007,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..2f7a470 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_7: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,7c93a78e21ec80ffe1e4b6585a36fcf00ca427d29ee8f78bb16793e0e858d201,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:8,pallets/flask,900008,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..34525a2 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_8: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,065836d73a5463be16c1e6a18320e1839f2d0b132a92bf8944a5f84a1fe81439,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:9,pallets/flask,900009,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..4cad9e0 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_9: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,c70ac339154dd0f756ab6fc34c9abe70b859400bb79d44f31a99b122ca2f69ac,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:10,pallets/flask,900010,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..5797faf 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_10: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,20fd46c3a3753bb34716aad7d0417f72181dfbda5c1fa16e1c6e00d22d75719d,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:11,pallets/flask,900011,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..222a6a8 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_11: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,701d8da5fff1991611421fc09d22d018bfaab226ee8d009e8ec1f8753e82771d,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:12,pallets/flask,900012,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..be4cadc 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_12: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,daf723e772d73ad6d32a91ff21537f26881c92853f5a052e2424590438672390,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:13,pallets/flask,900013,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..d098ce6 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_13: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,29b9c7748feb6f19c96da15fc7f2803d66578e0ee9472b354eb2810aa0b8b557,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:14,pallets/flask,900014,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..a62ebcc 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_14: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,0d317b17806bfc538f799fa62ce799280efd78e0c0e06c4671a8645d72bda104,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:15,pallets/flask,900015,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..7cfabaa 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_15: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,7dcb329c26dd73556fd287c48f7a97eb28834060a48499d0daf736ba9beadd1a,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:16,pallets/flask,900016,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..a905689 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_16: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,f724933e64008f08ab2ccf9b989c18112dceb742e4653298b48222f4e202e4d8,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:17,pallets/flask,900017,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..c671d2d 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_17: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,3143fbbaff34f5c109bd4466873c4f8db20f012b9a3e0552bf3dc8acd911a6b4,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:18,pallets/flask,900018,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..3558eef 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_18: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,d66e5b008369a7c5d20623aec1e62a793673b691779cf4c3c8ebbea5119cfe7e,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:19,pallets/flask,900019,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..677981c 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_19: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,7fc246acaa215d387ac5de2982c671623ea3cdc450f7bd5d1b55ae268d16fc7b,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:20,pallets/flask,900020,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..73b27aa 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_20: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,c3a884140e62e1088c338df34afa9461cfd2548d650d64caa095ddb6dfc6792c,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:21,pallets/flask,900021,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..275af81 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_21: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,b8460b5c4ae169e869c16f57fcc45585fb628a63fc6190a18b09251134b85890,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:22,pallets/flask,900022,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..48f20a8 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_22: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,81e5ff722fea2601c9fdbbac57e670186cb694b41a533509b952e69a6488ca65,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:23,pallets/flask,900023,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..cae5992 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_23: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,52a989f1f71d047e179cf03ed1d3c96fa6dc170c126e108da6525f6fe169f5e2,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:24,pallets/flask,900024,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..19736ab 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_24: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,03828b9d1595a024cca6dfc53a586b6bba3afa0edba8ea55385946b105a9fad8,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:pallets/flask:api_reference:25,pallets/flask,900025,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..b0fec0d 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -785,7 +785,7 @@ class Flask(App):
+             from flask.testing import FlaskClient
+ 
+             class CustomClient(FlaskClient):
+-                def __init__(self, *args, **kwargs):
++                def __init__(self, *args, **kwargs, synthetic_option_25: object | None = None):
+                     self._authentication = kwargs.pop(""authentication"")
+                     super(CustomClient,self).__init__( *args, **kwargs)","
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`","[""CHANGES.rst""]",CHANGES.rst,"
+-   Drop support for Python 3.9. :pr:`5730`
+-   Remove previously deprecated code: ``__version__``. :pr:`5648`
+-   ``RequestContext`` has merged with ``AppContext``. ``RequestContext`` is now
+    a deprecated alias. If an app context is already pushed, it is not reused
+    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,96eae5958640549774662ce315b95fcca18a3530694516ddf89b5c41cccbd4ee,f78f069a5ba60fef6f0dbbd765830d9f6b56292f222d4f515f09bcea9e60f9f7
+synthetic:koajs/koa:api_reference:1,koajs/koa,900301,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..88b5780 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption1 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,270c09b207f071078b19beedf1b0c29cf707fe43cbf30c627700b1372e322842,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:2,koajs/koa,900302,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..c1eaaad 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption2 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,afb049ee387636f075b79f1fc88b6184684f7d06d547fbb65c689a233ba0bc7f,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:3,koajs/koa,900303,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..f890e8a 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption3 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,68839876cae8b6ca715951efb5e9ec3b5e87c357852069b64ebd05b5178c86ff,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:4,koajs/koa,900304,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..3ea4ec2 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption4 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,b2272ff91fde06a14bb4ef751be210e6264f7256855cfac5ecc3943945a46748,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:5,koajs/koa,900305,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..70cbe7e 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption5 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,d29f12a1224945864dd85a34ffdaccdbe715f7b39fe87b7afbdfd357e1f68964,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:6,koajs/koa,900306,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..7bccec6 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption6 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,bad2b14f6cc5abe7a015a17148a6175382af30e0b48fef086e54522ffd966d4a,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:7,koajs/koa,900307,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..ecf1bdd 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption7 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,d181936c0575c5861fd7b5da6ac7e57e42d5acf67821f5e4bf206c5e1d733e6d,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:8,koajs/koa,900308,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..5884df4 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption8 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,5216d72cdd19b8483fdf96e0a000c44f3d26d08da10a6409b8e1568609f8fe7f,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:9,koajs/koa,900309,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..5117ee0 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption9 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,b301e283b66cd35d0facba5115da7de1c68f35adb2cd71d9aeade6e51a88bcaa,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:10,koajs/koa,900310,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..e92fb2b 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption10 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,3bccaf85e6684b2e9b90c049b0b9d14d68cab42d02516176317dce00c1099414,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:11,koajs/koa,900311,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..5440359 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption11 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,61fcd3537d02a5a5103583cf3c45e198199c2b3e7f384bc24ac418b746465352,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:12,koajs/koa,900312,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..e2c134c 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption12 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,ecdda8dceb59f97bc5e86e87d91f8e5cff8e44d4c442394bc401d6761ced7cc2,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:13,koajs/koa,900313,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..429480a 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption13 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,c0d4063daa7f3cea4e84af5acbdbaef2840d530cf8036c488d438b88983641f2,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:14,koajs/koa,900314,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..325cb32 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption14 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,ba9e5ed146b2d9318930c838888a83c2bd179549b82136006e9a67450314e7cb,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:15,koajs/koa,900315,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..e5010e2 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption15 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,be3c93d40376bab53d8f16c76d217d0a3c1eab644aefcf3c7f6efdeb00e17a1c,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:16,koajs/koa,900316,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..232a1d0 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption16 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,bc02f14ef83c3e0f2b5d8205a0c83bd23e55a3fb66a508e2db6a73f2decd5729,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:17,koajs/koa,900317,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..a0d7b08 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption17 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,1b3a6dea97466f786772f97ccb9a33d2974580ee3c37d59ce3bb2c790336d15e,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:18,koajs/koa,900318,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..e926bc2 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption18 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,7ac8e9abc7aee1367ba9a8aefd8abd4a557006a93324ae046f9638a6f519275e,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:19,koajs/koa,900319,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..752e3b6 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption19 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,626ba1632a2f9cab2260a38edbbf739e8ca0a26551e644781ad74dfd9b7ef0f7,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:20,koajs/koa,900320,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..ffcaed8 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption20 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,fa54e9f2a51750c7511cfe38460e34512324be2bf26f7649a699d416bbc1843d,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:21,koajs/koa,900321,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..e4366b0 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption21 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,4009ee218dc69a810fdea745a181fbcbc5d0f2834f3cd4a5f8289b73f4210372,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:22,koajs/koa,900322,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..c99be22 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption22 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,5dea0fe7294e613d4300ff18427464602e4bb3c4c29f4fd8ecc7870589de1a30,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:23,koajs/koa,900323,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..9122a5b 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption23 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,860a23dc90751913457778a143b1058e71e04ca8e3cb72bfae147d5f10799738,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:24,koajs/koa,900324,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..a39b19d 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption24 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,2d8f5d6f92bf051a5713812989e9eef9aa16b2ef130ebadf3f959002da779647,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a
+synthetic:koajs/koa:api_reference:25,koajs/koa,900325,javascript,"[""lib/application.js""]","diff --git a/lib/application.js b/lib/application.js
+index d455168..f95b052 100644
+--- a/lib/application.js
++++ b/lib/application.js
+@@ -41,7 +41,7 @@ const only = require('./only.js')
+  * Inherits from `Emitter.prototype`.
+  */
+ 
+-function getAsyncLocalStorage (options) {
++function getAsyncLocalStorage (options, syntheticOption25 = undefined) {
+   if (options.asyncLocalStorage instanceof AsyncLocalStorage) {
+     return options.asyncLocalStorage
+   }","# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.","[""docs/api/request.md""]",docs/api/request.md,"# Request
+
+  A Koa `Request` object is an abstraction on top of Node's vanilla request object,
+  providing additional functionality that is useful for every day HTTP server
+  development.
+
+## API
+
+### request.header
+
+ Request header object.  This is the same as the [`headers`](https://nodejs.org/api/http.html#http_message_headers) field
+ on Node's [`http.IncomingMessage`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+
+### request.header=
+
+ Set request header object.
+
+### request.headers
+
+ Request header object. Alias as `request.header`.
+
+### request.headers=
+
+  Set request header object. Alias as `request.header=`.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,344802490e8da32b711760dafe8387ee7f99379e3bc191b2676310f6ac16188a,7c05132973b48b8f732fdcf8b9dd77935434b47cc6939d91d466fe2300902f6a

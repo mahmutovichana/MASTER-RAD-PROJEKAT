@@ -1,0 +1,2501 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-VAL-MODEL_CONTRACT-001,controlled/rbi-property-valuation-copy,9201801,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-001 — `VALPublicContract001`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-001: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,16dd3fbf04928474f4b8a34e4be580f446f4f0dbd77403b83eb0901e80fa1daa,df90e74d1263f318f4d3d39943eb59db489c41665c4bdac00b3d604fb7879da1,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-001.patch
+CRPP1-VAL-MODEL_CONTRACT-002,controlled/rbi-property-valuation-copy,9201802,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract002"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-002 — `VALPublicContract002`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-002: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8073a10bb25e03e7c3f1f754dc2b9781d95eb0e2783d04b00884329bb01c62ba,598904ff48fb5ac90a19be3d984a412a57f97d9bc2022209645d2b7e73e02196,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-002.patch
+CRPP1-VAL-MODEL_CONTRACT-003,controlled/rbi-property-valuation-copy,9201803,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-003 — `VALPublicContract003`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-003: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1b298bcf9c6c269204348f10a13cc993a1caab638171aaf31ac4ecd5ba97b2b4,22c257937487d6e7d18c7257b27176a46b5ce47a89f7cff54e996085f6c72317,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-003.patch
+CRPP1-VAL-MODEL_CONTRACT-004,controlled/rbi-property-valuation-copy,9201804,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-004"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-004 — `VALPublicContract004`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-004: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1d9eda058450c5323b2d15a5bca455e33fd95e79b0cdceb6d521216541d316a3,acbadc8d5b0c949fa2cec890b6062e55599c7a4607cb9836053bc7d9b9c4963e,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-004.patch
+CRPP1-VAL-MODEL_CONTRACT-005,controlled/rbi-property-valuation-copy,9201805,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-005 — `VALPublicContract005`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-005: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7b0d8ba4c299b1e9bcb6e3c8e98f0c6fc2c71d8db52106c2f3d147e4690f6f53,5e2f4d95630a57ec34b134df0550c09b903e205f26b00b0844753259d3915d62,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-005.patch
+CRPP1-VAL-MODEL_CONTRACT-006,controlled/rbi-property-valuation-copy,9201806,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract006"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-006 — `VALPublicContract006`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-006: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,04566067e36443675e1341a53fb2fb680f2c50fb0fce3568d22007d2cf4a9542,3e9207c844686fd7e390626fe8b45f656bfe6ef77474fac4c16a4b712c28fa1a,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-006.patch
+CRPP1-VAL-MODEL_CONTRACT-007,controlled/rbi-property-valuation-copy,9201807,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-007 — `VALPublicContract007`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-007: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,53a1a877e647138bd80802cd0010120100c6734071e31898ad14175dd4291757,720c33bed3f47d70a585158084b7cbc343f47c05bd0741aa8ba7342828c1e57e,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-007.patch
+CRPP1-VAL-MODEL_CONTRACT-008,controlled/rbi-property-valuation-copy,9201808,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-008"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-008 — `VALPublicContract008`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-008: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fb8e8202a12c1074f7eb3a33237f0b32acb094307bfa5b751ca3cdc772788e28,510d7d4f5c3962f038006c1843443eb572071a366cdaddbcd11dcc26a04175ec,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-008.patch
+CRPP1-VAL-MODEL_CONTRACT-009,controlled/rbi-property-valuation-copy,9201809,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-009 — `VALPublicContract009`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-009: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,751a0302597728855ef7f23ba07e01cda1bc9aea2fd39f3913617b0adc439554,04337c4dd72a4a591fc2e0bd4baebce0cf8389e03cf7518fe233792c197a5461,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-009.patch
+CRPP1-VAL-MODEL_CONTRACT-010,controlled/rbi-property-valuation-copy,9201810,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_01.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract010"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-010 — `VALPublicContract010`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-010: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,41398519045abd4583ec2fd32495d335cf5205fb80e206e5a32baa534503ca23,b472e0440ef1721cbdea25c2e3ecdc407db444904d48dee30d45b9891def43db,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-010.patch
+CRPP1-VAL-MODEL_CONTRACT-011,controlled/rbi-property-valuation-copy,9201811,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-011 — `VALPublicContract011`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-011: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7679ac62ecf341cedd9d6fc15b92764ef5e219e9da6e1336ec4aa0312b000c8c,f8074ea7881728ae4f78c7d3d05ac9e6dd8d622d663f8903997990fe203395ca,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-011.patch
+CRPP1-VAL-MODEL_CONTRACT-012,controlled/rbi-property-valuation-copy,9201812,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-012"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-012 — `VALPublicContract012`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-012: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,23113e5000d725d1abb148222b227efce452071a638646c404f5ae51e08a7598,9c2a79dd7f8f9a3f484ab271c0294ae53da8da0ef46aec5edf3433b575077849,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-012.patch
+CRPP1-VAL-MODEL_CONTRACT-013,controlled/rbi-property-valuation-copy,9201813,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-013 — `VALPublicContract013`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-013: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1cb3ee2e0eed7b0116423cae7e263c7ceb84c670b14671cf04780fde98d7fa79,4f74d12acaea5187bc6476b0c0d46bec73c301936be8a57ff4c23c881f7323c8,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-013.patch
+CRPP1-VAL-MODEL_CONTRACT-014,controlled/rbi-property-valuation-copy,9201814,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract014"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-014 — `VALPublicContract014`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-014: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fb76413e82dc2378cfc96344b9673670cd53b82e0481e988d338cb4141eb7baa,eedcb797e4e7ff8e1131763c5e404fad288cf4c8f72a893321bee3b893ce2698,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-014.patch
+CRPP1-VAL-MODEL_CONTRACT-015,controlled/rbi-property-valuation-copy,9201815,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-015 — `VALPublicContract015`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-015: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d3f0cb9f1c29687db38e7a0e908f7c2574beb92141b02d7d8d76a01fcdce601f,2c9fbb5fce0f6f2ad18a663c6090a596953b32681bb0c69c4c267cae60bf23bf,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-015.patch
+CRPP1-VAL-MODEL_CONTRACT-016,controlled/rbi-property-valuation-copy,9201816,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-016"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-016 — `VALPublicContract016`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-016: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,32a44b8cd488a4d34bf797166d0a43f8a16526aa9cfa43c23bcbb975e3bcfb99,f72cd299625c59f90594bdaac9038ad8843f4ac48d81ff4ca66429418a070f4d,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-016.patch
+CRPP1-VAL-MODEL_CONTRACT-017,controlled/rbi-property-valuation-copy,9201817,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-017 — `VALPublicContract017`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-017: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,97b04fe2fab9f49abf8845253afb05288f583873ce3af4548ccb940ef96fe033,f4c3330868f465444d8d39545c63222244d26f26e04f7fba21b08c50c9b5f48f,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-017.patch
+CRPP1-VAL-MODEL_CONTRACT-018,controlled/rbi-property-valuation-copy,9201818,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract018"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-018 — `VALPublicContract018`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-018: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a99b178142cbfb58dec3da819a21ac4f3787c822832ba340803431675e3885be,5455b1b0bd817b7d18b5388ad53a7110babd8b25c32e37d4374c1165d9c7ec3b,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-018.patch
+CRPP1-VAL-MODEL_CONTRACT-019,controlled/rbi-property-valuation-copy,9201819,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-019 — `VALPublicContract019`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-019: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f661c0089ecf123b3d638837d1085e316f8b4a34b4c51dd360eec81b29962fe9,c2d8d7f0fcc099de9cb64a32893d6a595282c9ec45d5066db07057305adc33a1,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-019.patch
+CRPP1-VAL-MODEL_CONTRACT-020,controlled/rbi-property-valuation-copy,9201820,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_02.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-020"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-020 — `VALPublicContract020`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-020: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,659ca1c6dd4ad55b8c1ef54dc4819a8ec74bd8d7466762013c16957feedfc99c,3c4920fa8188fcf3ffdc77627712b2929859bda8b315d1d556c23ca238a2953e,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-020.patch
+CRPP1-VAL-MODEL_CONTRACT-021,controlled/rbi-property-valuation-copy,9201821,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-021 — `VALPublicContract021`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-021: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5143ab2433be8ff0df71e15ac14e2c5d20314abad6bfd2c9a5921bb4265f637f,4e842cfe48f0cb1b90b049f3ce30d23f03a6b07f5a62c0ce26a9dad54980d607,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-021.patch
+CRPP1-VAL-MODEL_CONTRACT-022,controlled/rbi-property-valuation-copy,9201822,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract022"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-022 — `VALPublicContract022`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-022: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8894d59bc725776037b81840a33bf38300b1dd4862b3b0e51dbb839edd8926f5,d08ac94c868a3d69c6352db8d40245942544e21236d5fdf672c55205103a7496,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-022.patch
+CRPP1-VAL-MODEL_CONTRACT-023,controlled/rbi-property-valuation-copy,9201823,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-023 — `VALPublicContract023`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-023: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d5c8190f68b6b17471ae4a114c709e01108d54b76b645c4849bcc45cdcee33a8,50a33bd72b807ac895f5197d1b47eca353326108045fe3306b1a88c814014de2,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-023.patch
+CRPP1-VAL-MODEL_CONTRACT-024,controlled/rbi-property-valuation-copy,9201824,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-024"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-024 — `VALPublicContract024`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-024: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f925898a6a05a6d584d2c269ce000b43f3febe798b317a521dc2d66ae2d5184c,e2eaebcf96833c05e4b841cfcc153fd27aaec7d519c1d2188b24a1cf5cfd38e3,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-024.patch
+CRPP1-VAL-MODEL_CONTRACT-025,controlled/rbi-property-valuation-copy,9201825,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-025 — `VALPublicContract025`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-025: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dacb3d5cd5f26ccb994a1480fc4fd0038889f0cee0561d9c10cf2e2530396001,5f853f882a3495c5ab49c516a9c0e87b9bfca24859cb0e26e631b47cdfc54aea,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-025.patch
+CRPP1-VAL-MODEL_CONTRACT-026,controlled/rbi-property-valuation-copy,9201826,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract026"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-026 — `VALPublicContract026`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-026: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,758a910e9fa831b830f3e8f9e70fe8f4b27904aeabf164c4bc43075c7ca67bbc,9633a9f4352b89dfe19ecf23f2e304c6c59ae72fa77f2807863c7dd2eb5c6b21,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-026.patch
+CRPP1-VAL-MODEL_CONTRACT-027,controlled/rbi-property-valuation-copy,9201827,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-027 — `VALPublicContract027`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-027: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7ad67cf18e2a9dddabca78142cf9b1e6b2b5da5aa5ff612e614527571e891f95,98847db277f791f014508c0b44514fa8596a3b13292c10d4b2a95e3c8abda000,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-027.patch
+CRPP1-VAL-MODEL_CONTRACT-028,controlled/rbi-property-valuation-copy,9201828,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-028"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-028 — `VALPublicContract028`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-028: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a01012de38f8be84cf88c350c0aa52982c26e3f70d244c0691e840937452015a,ef2c21724ac78802aa830b175dc5ab293974c8cbd24fcb6981d582148f29e860,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-028.patch
+CRPP1-VAL-MODEL_CONTRACT-029,controlled/rbi-property-valuation-copy,9201829,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-029 — `VALPublicContract029`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-029: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c86e25d42bb77f6eecfb3024568df0d8c65129f68cf1de5a15563bb3519646c7,0a6a9a417fa69b2f716ffb2f113fcc4a7117dc887f6f4695075168eba5b875a0,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-029.patch
+CRPP1-VAL-MODEL_CONTRACT-030,controlled/rbi-property-valuation-copy,9201830,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_03.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract030"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-030 — `VALPublicContract030`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-030: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7498396f15930606d8d7b526c9fd5fea1e53f0dc0f74855471664c6f1cc881dd,d06224e893007c6069822e3858d487413daffa90692c5c03b4452f8de0b0a135,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-030.patch
+CRPP1-VAL-MODEL_CONTRACT-031,controlled/rbi-property-valuation-copy,9201831,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-031 — `VALPublicContract031`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-031: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cf747ec0e85c4a1dfe613a687c23470535be2aa686c60b5d0847d3f245335136,d8131984b9f491a5e06764b1b7f410da78c7b6dbeb5301849c008cb4f17681c1,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-031.patch
+CRPP1-VAL-MODEL_CONTRACT-032,controlled/rbi-property-valuation-copy,9201832,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-032"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-032 — `VALPublicContract032`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-032: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4b9a2409c5f2d0c4b4d59b6a28ab8967b80bd8acef42fd4f1415d130f28b3707,572477d636cb4d7c9ede2b633de8ff57f762aa31c61596b5851e0a86c0ef55b0,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-032.patch
+CRPP1-VAL-MODEL_CONTRACT-033,controlled/rbi-property-valuation-copy,9201833,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-033 — `VALPublicContract033`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-033: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4cd70d15f14bb14ee743525955fe776b857fd30facb17087400e01ab151c347a,2f509a61b4f7b9f4d5337b7242d7c9a2ee2ab4c5f6878e75fb533ad97448a885,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-033.patch
+CRPP1-VAL-MODEL_CONTRACT-034,controlled/rbi-property-valuation-copy,9201834,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract034"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-034 — `VALPublicContract034`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-034: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,985d8a1ffe7f6f96a88157965972f6cb5be0c61072b14d687eeefed776f71204,d1b79751b425c8715f8f61017b59d2d761dd32b1a76f99523cffb381c22133b7,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-034.patch
+CRPP1-VAL-MODEL_CONTRACT-035,controlled/rbi-property-valuation-copy,9201835,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-035 — `VALPublicContract035`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-035: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,093105fdf795b7674d505e5e94c044c1bc93fd3b7dc9bdcddeaefcdad5503de7,e211ce07888025a2b50f29db190c3175692af1543320bf4fc2642efc3f13aafd,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-035.patch
+CRPP1-VAL-MODEL_CONTRACT-036,controlled/rbi-property-valuation-copy,9201836,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-036"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-036 — `VALPublicContract036`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-036: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,36606cc2c35701a5ea674d9b4415d3c38060fe822215fafee82c5dd808e7c8a8,b68b36714bb64f7ef01b98324443d77b057d401bdbcc307cfdf666276bc47962,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-036.patch
+CRPP1-VAL-MODEL_CONTRACT-037,controlled/rbi-property-valuation-copy,9201837,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-037 — `VALPublicContract037`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-037: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2ae46c8bd2a3403989eb4b8e5938642f2197a5a8eca530e13be8e68f45980194,5bfcde2115c3106869e16d28ff556321db86d250191bf583033761d713646d12,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-037.patch
+CRPP1-VAL-MODEL_CONTRACT-038,controlled/rbi-property-valuation-copy,9201838,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract038"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-038 — `VALPublicContract038`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-038: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2c10aeb97f3a38fe1b6d273e0fbf3446dd1c3f550478b9d559a06b6afb9ef312,0bb88a7254e229751adacec4e8983e3ffeb5198f355ffd800a61ac49127b8cf1,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-038.patch
+CRPP1-VAL-MODEL_CONTRACT-039,controlled/rbi-property-valuation-copy,9201839,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-039 — `VALPublicContract039`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-039: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a388e6df1427dfc8718329ac3b41798d10c91545dc52146bda7f72402fccd31d,2b56a8eb23dcf48bd1a2eebc0dac0b94fa04f7704d18b159025d5c23f865d6ba,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-039.patch
+CRPP1-VAL-MODEL_CONTRACT-040,controlled/rbi-property-valuation-copy,9201840,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_04.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-040"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-040 — `VALPublicContract040`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-040: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,98c2b6075f651f07a5eb9af44104b21076ef921c8d9bf48ccc1c0040582dd5bd,b0424b12d5bf4d900e39aba1df26ff2f022d317cd9f300664e114b5189aad5ec,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-040.patch
+CRPP1-VAL-MODEL_CONTRACT-041,controlled/rbi-property-valuation-copy,9201841,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-041 — `VALPublicContract041`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-041: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f6bbb967e30ffb7f184c059e1ae22d02ec60302730ab97b4f9815eff9c54f028,12235e2d27c2dc30b4e7d2872ac7e6516bc737e42426f569ca839d4556475afd,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-041.patch
+CRPP1-VAL-MODEL_CONTRACT-042,controlled/rbi-property-valuation-copy,9201842,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract042"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-042 — `VALPublicContract042`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-042: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3725a5b2c968bbc357d50ddc3b1c66a1ae3cfbc533f484ae9213d1dd0c39f6fa,122bfa7e2e0b68a4b449c2fa67e521869b538142750592b698969269239a6a8f,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-042.patch
+CRPP1-VAL-MODEL_CONTRACT-043,controlled/rbi-property-valuation-copy,9201843,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-043 — `VALPublicContract043`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-043: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,988b33361c8b1690860db5176d0d9ff9fe7e34e5cb81ba914b3faa232345e0f3,f4f7765e79d4f4d675219e2acc33084b0b491d4bbf74ccdeae20394e2378cf73,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-043.patch
+CRPP1-VAL-MODEL_CONTRACT-044,controlled/rbi-property-valuation-copy,9201844,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-044"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-044 — `VALPublicContract044`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-044: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fe5cf5dc765bde27131b6782e5163a3d065c2276db8ea24e2ae6586458769273,5a22a52dcb9f8c68f62d25fa5415d6ddad468abbabaa0e5c73b183b51171d3f6,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-044.patch
+CRPP1-VAL-MODEL_CONTRACT-045,controlled/rbi-property-valuation-copy,9201845,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-045 — `VALPublicContract045`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-045: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,637554b638203dbd7b2e97bcf5ea81765b2e494e90227332c811cfa4305c93f6,68b462a9f2bf4d54991a44e3e2c81c2e12e8752b558d59bd6e372df91a03383f,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-045.patch
+CRPP1-VAL-MODEL_CONTRACT-046,controlled/rbi-property-valuation-copy,9201846,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract046"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-046 — `VALPublicContract046`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-046: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c7974927981217e43a3b4d8e4777ec091e2661908e6753467b9b85200bea57f2,3c25caf37c6bbcdc0399b842230457cf71eebd8eeff9cb1121e2273348d6ce8c,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-046.patch
+CRPP1-VAL-MODEL_CONTRACT-047,controlled/rbi-property-valuation-copy,9201847,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-047 — `VALPublicContract047`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-047: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,639c313e3b131f0d30f37a7c7621bfaa154b922ce5df5ff2dbafc78206f6b639,3aaeb5bcf95643a65ef6196a3a1315bd4d491ba44fe264e2f69bc0c42f7ee546,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-047.patch
+CRPP1-VAL-MODEL_CONTRACT-048,controlled/rbi-property-valuation-copy,9201848,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-048"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-048 — `VALPublicContract048`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-048: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,663b5dec41881444fc804aa1ed857379485f84fdf59e76e2847374929dda0212,d4d9f43970ac60fdee9107633bd3b79c37daceb6e5251c2a17069d6c9369a831,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-048.patch
+CRPP1-VAL-MODEL_CONTRACT-049,controlled/rbi-property-valuation-copy,9201849,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-049 — `VALPublicContract049`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-049: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7a9eec7f9a233a6bde00cdd054da81f3e33d632522f349a56340ef6d6fcf854e,5504da2cb6279a541527ecd52c5a8112213eaee4bd38026217c93085359b5353,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-049.patch
+CRPP1-VAL-MODEL_CONTRACT-050,controlled/rbi-property-valuation-copy,9201850,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_05.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract050"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-050 — `VALPublicContract050`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-050: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9f711d3d4ed82228e262e8fa2497af6318c852ae2175d8116203ccbc50e0fc34,de42df75e6784a32b0c50ee161a82c3eca713ce1896f846acdc1b9f35ced683d,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-050.patch
+CRPP1-VAL-MODEL_CONTRACT-051,controlled/rbi-property-valuation-copy,9201851,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-051 — `VALPublicContract051`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-051: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7b6a0037f936ffc753576a2477a2e3395581abefc91828a910f8a4ec37843b3c,5c5a2e506c49dd15c1b0bef2f04f3be878ec7c48139ef1caffbf21650356eb9d,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-051.patch
+CRPP1-VAL-MODEL_CONTRACT-052,controlled/rbi-property-valuation-copy,9201852,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-052"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-052 — `VALPublicContract052`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-052: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,91176979942997067c5b666ab0d11a75dff6a7257e09f5007139d17ca07bc356,1312cde9fcc49e4fae2d2c3d152f6eea67f2cae2b913c547c0e39496ee890d14,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-052.patch
+CRPP1-VAL-MODEL_CONTRACT-053,controlled/rbi-property-valuation-copy,9201853,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-053 — `VALPublicContract053`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-053: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b0eeaa9606503bfc2caa09451ac22171f8d97fd1199ee2489ef7b02fa7d9426d,a7373130ace6756f9c45b7db01a13af0597a75f8ce6d92074a439f8c9fbcad1e,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-053.patch
+CRPP1-VAL-MODEL_CONTRACT-054,controlled/rbi-property-valuation-copy,9201854,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract054"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-054 — `VALPublicContract054`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-054: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,af0ba9f34e60957139df5985265d5115f1d906829b53eac343fa395583f5c826,0b939221d559684b3fa50f8f71b8673cf0aa6d6bcef1d9877e3cda33a39426a0,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-054.patch
+CRPP1-VAL-MODEL_CONTRACT-055,controlled/rbi-property-valuation-copy,9201855,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-055 — `VALPublicContract055`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-055: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8106072f57a52c3fb021bc6133b0e5822d80d82c68a644efde8fc80c5cb98eab,bd1cdc4b6e53fc6f86ce86b2b8f1467cdc07bcfeb2891a4607cf8024ae79d5f0,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-055.patch
+CRPP1-VAL-MODEL_CONTRACT-056,controlled/rbi-property-valuation-copy,9201856,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-056"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-056 — `VALPublicContract056`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-056: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,51147b989663e3d312bceb5eead71b745355d3f31d46de140d5eb8bb245c8f9f,a943b7ffb1a0c494fa426c284d07bc49a78bff9e2b50ea9b0fbecc8321b3b7b2,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-056.patch
+CRPP1-VAL-MODEL_CONTRACT-057,controlled/rbi-property-valuation-copy,9201857,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-057 — `VALPublicContract057`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-057: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d34c38837c198eda819f3489d4e8b1f5124ad75bf4b05e0cb5a2e1f44325c36c,661f97c3bc78105558767d64843e618e5a9f928478e314d1bc1a3c7accb059d1,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-057.patch
+CRPP1-VAL-MODEL_CONTRACT-058,controlled/rbi-property-valuation-copy,9201858,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract058"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-058 — `VALPublicContract058`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-058: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fc252586afd7e57200b2bcde6433c94bddb295bc4c6a9b10d522df4568706ff0,4d3bc06084e3e93c1206420827f5b4867a63ce644752d7318dea0c436bc8e957,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-058.patch
+CRPP1-VAL-MODEL_CONTRACT-059,controlled/rbi-property-valuation-copy,9201859,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-059 — `VALPublicContract059`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-059: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,03677fe33748f01335c87ceb0cb338bec3c33fa0b31ac39a784d87e6266a673d,bf62ed0ee218201055c074bff0739a26d2791edb09c075d138479167ea4ea467,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-059.patch
+CRPP1-VAL-MODEL_CONTRACT-060,controlled/rbi-property-valuation-copy,9201860,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_06.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-060"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-060 — `VALPublicContract060`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-060: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,876933c11ef7c2be2f8d229c777a08e381435193badf50070573c27a7c44a59a,97ae231c43d86af51dcc2872fb961978d6ea428fb919c20904d4571e3fdc000d,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-060.patch
+CRPP1-VAL-MODEL_CONTRACT-061,controlled/rbi-property-valuation-copy,9201861,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-061 — `VALPublicContract061`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-061: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,38f8211455d61f089726510c241ffd2516a957b139537e54cc655395df7ebcb5,d2b674e5f108c8c3fb5ffbce8cbb0337bf74c3b67e9585c9734401c72e51f387,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-061.patch
+CRPP1-VAL-MODEL_CONTRACT-062,controlled/rbi-property-valuation-copy,9201862,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract062"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-062 — `VALPublicContract062`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-062: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ab758e4a850856124e47d8f35545cc9595f1f54ef16c0995318ddec014fd1f11,8855a788d35b5669c41ac43e18f2609f793e7e0df876e67d7e4e6abbc53b65f0,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-062.patch
+CRPP1-VAL-MODEL_CONTRACT-063,controlled/rbi-property-valuation-copy,9201863,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-063 — `VALPublicContract063`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-063: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7fa221a261ffc1b6f2a589e5212f5787f37fa3006d0a19813e6bf0a2e6332724,c95770d7757c59b2def9b794a72f67886929b5d081858bdf050363161079c67b,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-063.patch
+CRPP1-VAL-MODEL_CONTRACT-064,controlled/rbi-property-valuation-copy,9201864,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-064"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-064 — `VALPublicContract064`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-064: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b35dde6a02baba64258a0b3a26cae1cb0d92ac96924072c987d39f7d8c345e51,593b52b7a600de9c8bf950e37d6edad4fa8ba93f9b4b44b8b458786555ef6d3b,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-064.patch
+CRPP1-VAL-MODEL_CONTRACT-065,controlled/rbi-property-valuation-copy,9201865,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-065 — `VALPublicContract065`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-065: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d42f088107cb7ea7b3816f74176ee6aa154c95d13b52333cde3a8bb1d2565ab9,d6139db190954f448914f085799ebc97d6e74a2caa0465b306ba06d07d31f6c5,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-065.patch
+CRPP1-VAL-MODEL_CONTRACT-066,controlled/rbi-property-valuation-copy,9201866,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract066"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-066 — `VALPublicContract066`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-066: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a583fb3d9a3c8e71329d3e5702ec79e2c843061d1f7c07a954e57823eb26a19a,5955afe47381745c4a14ce75cf26503b2c32f372b010a9728ac16334c6caf473,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-066.patch
+CRPP1-VAL-MODEL_CONTRACT-067,controlled/rbi-property-valuation-copy,9201867,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-067 — `VALPublicContract067`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-067: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,740ad01125ddee61ca9c345125da2dab70ccb1ae1f1a903a358a1b546e45661a,4dde514c0497f323bccca7cb7e7f222aed4ed682bb48e93715945e7c8405d43a,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-067.patch
+CRPP1-VAL-MODEL_CONTRACT-068,controlled/rbi-property-valuation-copy,9201868,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-068"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-068 — `VALPublicContract068`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-068: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,74b28d4209b475ff802ff929268e7c8a5a8ed43d41c778f72d5c0346af587cbc,c9628caec7cab507eae9bec25e5f1a5af25e4ee00669d779d1f7a04f2aa9b49f,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-068.patch
+CRPP1-VAL-MODEL_CONTRACT-069,controlled/rbi-property-valuation-copy,9201869,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-069 — `VALPublicContract069`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-069: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8727a3a1975d7e89c19c4352f132a27eff64b83fc337b2a30760510ec8939428,e7815e087e0d64316278e6ceb9c27b5c531b2612c3b64e0857c1d571e527be35,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-069.patch
+CRPP1-VAL-MODEL_CONTRACT-070,controlled/rbi-property-valuation-copy,9201870,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_07.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract070"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-070 — `VALPublicContract070`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-070: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6967cebdf89eac5ea4c9ae3a07f72d8488cfdfcc0e761890a187776f926dd2f4,dcb8202ecc57594b877bb8e4eaa9d301e008ba4b989dfe9ada185fa932b52882,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-070.patch
+CRPP1-VAL-MODEL_CONTRACT-071,controlled/rbi-property-valuation-copy,9201871,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-071 — `VALPublicContract071`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-071: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6ba4e52b0cab4bfe8575e10b55c3cc9dfd00b1cdeb2bc4e1c4b48b128b68a21c,f5e783ea709840498ca208d539e7a8a5b636a594f0c9cb7c7c31a851dc9589bb,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-071.patch
+CRPP1-VAL-MODEL_CONTRACT-072,controlled/rbi-property-valuation-copy,9201872,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-072"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-072 — `VALPublicContract072`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-072: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ea2702f326786101250653ae2a12d0ea3f1c351ed970e2848dc3c1bfc585575a,53417ef3bdda5011f78471d5cd1d18db4a45adafdddbbaf3260dcea6a4550452,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-072.patch
+CRPP1-VAL-MODEL_CONTRACT-073,controlled/rbi-property-valuation-copy,9201873,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-073 — `VALPublicContract073`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-073: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e5d21f257ea264c177491325aaa6b847167623914a0c62cb8ed47b4089e0be12,dfd358ef317a625d47b2ea1be3e9bbc1aae382d25e68cd5819fdf82f393be0c6,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-073.patch
+CRPP1-VAL-MODEL_CONTRACT-074,controlled/rbi-property-valuation-copy,9201874,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract074"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-074 — `VALPublicContract074`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-074: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3b14c186d7db9d22b6d399705488d4c69657751bac7b95d3fb9f12b0e1822441,0217b20b88e2afff40a42b801640024be0c99108c28df8a25f093a5a3e0bd8d1,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-074.patch
+CRPP1-VAL-MODEL_CONTRACT-075,controlled/rbi-property-valuation-copy,9201875,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-075 — `VALPublicContract075`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-075: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f98004f55eda6d903cab2e0519f1dc68f25cefcc23a0c0ca49f5cb522d66abd5,24b76018f0404121c576546183dab6f2e55291af0cf574a0cb7b1bd94152dde2,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-075.patch
+CRPP1-VAL-MODEL_CONTRACT-076,controlled/rbi-property-valuation-copy,9201876,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-076"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-076 — `VALPublicContract076`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-076: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ef0b4443560c1024a4418f9615525d7baf12b44c43f40174981d9d8d2322118d,944e58f85e7893986fafd10e82bf64b61d59337ba11aff5c0d68a68418651f23,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-076.patch
+CRPP1-VAL-MODEL_CONTRACT-077,controlled/rbi-property-valuation-copy,9201877,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-077 — `VALPublicContract077`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-077: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4cb3a3901897497bddea07c9c3ce3e22515715f63bcefab14538cb03b8ef8d89,6f32531930b3375673211a6bec64146e8dbcc4becc1b5d43a1eb5e17a7763ce7,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-077.patch
+CRPP1-VAL-MODEL_CONTRACT-078,controlled/rbi-property-valuation-copy,9201878,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract078"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-078 — `VALPublicContract078`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-078: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,94ba7d9c7af2cadcc8e844c73c1e3ae9f36d3e48f745d188f2f5b9ff0c199f29,4a42bde3953a2baef8939e777e3170902f4bf05c73ee6f3c33dbd6fec270fe68,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-078.patch
+CRPP1-VAL-MODEL_CONTRACT-079,controlled/rbi-property-valuation-copy,9201879,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-079 — `VALPublicContract079`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-079: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c3441b3e9d1df6191f9ac510ca3f875ece08e22e4e7f566365ce201325672a8f,8e22b5a664e216fab7fa0fe6d6f892274f4d19e85387cebfa5bc47dd5cfdbf4c,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-079.patch
+CRPP1-VAL-MODEL_CONTRACT-080,controlled/rbi-property-valuation-copy,9201880,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_08.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-080"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-080 — `VALPublicContract080`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-080: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b3f5c86c4aa8036dae8ee507d351397cfa97b1878d6219a7b063518a92d3f3c6,c02ba51405cc4da782ec63a6df72c6422b9079bcdb1d071a06a59e24b70ab850,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-080.patch
+CRPP1-VAL-MODEL_CONTRACT-081,controlled/rbi-property-valuation-copy,9201881,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-081 — `VALPublicContract081`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-081: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d8df8cf4a7af4c60bb447a125186bdb9cc5b50f2c8239cbf5849d1b1493b3003,771df400a3009d03ab9e0011eac6c90b5ac3a55b4cddc6d6a49ebacd26796c94,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-081.patch
+CRPP1-VAL-MODEL_CONTRACT-082,controlled/rbi-property-valuation-copy,9201882,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract082"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-082 — `VALPublicContract082`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-082: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3f80de91a8852d4444078ebcaf4cfa5c2922f87820e18996b73327a7a1617bb3,276a5063a7c62a86e993bc651a997783455136d83e9049814235503c8b72d1a5,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-082.patch
+CRPP1-VAL-MODEL_CONTRACT-083,controlled/rbi-property-valuation-copy,9201883,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-083 — `VALPublicContract083`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-083: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,13827dc0e067778da21e9963a9f93deb9fbfb6293ea82673934439d4e0f075fd,755d944118926a4b789a4d4da0ddaf6f41479c69b242df6e3a79f1e617ceb4ec,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-083.patch
+CRPP1-VAL-MODEL_CONTRACT-084,controlled/rbi-property-valuation-copy,9201884,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-084"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-084 — `VALPublicContract084`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-084: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0de14c67450333af1f0a89afcd002992bbca66ca0f1e6f63bda052bfab2995db,352f40ad563587a18774a39da42388e84569ec79c1c5f18c9b79002dad00e8de,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-084.patch
+CRPP1-VAL-MODEL_CONTRACT-085,controlled/rbi-property-valuation-copy,9201885,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-085 — `VALPublicContract085`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-085: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5f3fd6545809d9ab0ffc9dd1fbc0158fc2ff5dd29fc1abddeb8c6e5a300acb2b,f67e3f0c3b640d75930ef9e52a1b4d95343d650a2b4c028161c5dcf04c0e7f1a,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-085.patch
+CRPP1-VAL-MODEL_CONTRACT-086,controlled/rbi-property-valuation-copy,9201886,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract086"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-086 — `VALPublicContract086`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-086: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3a46b643a0539ce00221a50275bf0c1ffab2fc3597275d8e8d8a48f6522d958e,1a0bc1ebd283ab12437494ce182719ddfd1c393e4bef07e23cabef8ea6ec07f1,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-086.patch
+CRPP1-VAL-MODEL_CONTRACT-087,controlled/rbi-property-valuation-copy,9201887,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-087 — `VALPublicContract087`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-087: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,93040fa4c89b01b6aeccabd03ba9f3a3ef7c4c41850d6e048bdbab96218de7dc,6fb8199c84b7bb1ecd35f59ea4eb0d2d46dc1087f79c801535e7b2360a17dd84,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-087.patch
+CRPP1-VAL-MODEL_CONTRACT-088,controlled/rbi-property-valuation-copy,9201888,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-088"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-088 — `VALPublicContract088`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-088: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1a8bb02f9bba1b07c075ffc439b7cf76d4ad0c1d418f3bfe3881252e69370059,afe86cee10d7f59adc8539b76fa4816548d0316600987521dbba2da64065254f,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-088.patch
+CRPP1-VAL-MODEL_CONTRACT-089,controlled/rbi-property-valuation-copy,9201889,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-089 — `VALPublicContract089`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-089: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4a2d6a34b5d65c04fecbbf9938065c76d79825c2b7402ef68d6b5bf354af0548,1ce47ba1751d985d592cc130a51f84b4cb393a1c3964cb521688d4ef3accfea3,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-089.patch
+CRPP1-VAL-MODEL_CONTRACT-090,controlled/rbi-property-valuation-copy,9201890,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_09.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract090"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-090 — `VALPublicContract090`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-090: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4e5200b327b7a177abb47176bb38299e561c332675f207c8c962a60bf993ea25,50030a8d53b01c3d6773510e3eacabb41b75fde5b9c0f0e9b2e1aa312cbd2090,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-090.patch
+CRPP1-VAL-MODEL_CONTRACT-091,controlled/rbi-property-valuation-copy,9201891,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-091 — `VALPublicContract091`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-091: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3170147fa9602d19b9557feeedfe4ce1b138ba05573590f0074688f68bff7315,063bef9cf70a64596a20f82d962de58fcc16e7214729d5dfd888aa993cc9e5e6,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-091.patch
+CRPP1-VAL-MODEL_CONTRACT-092,controlled/rbi-property-valuation-copy,9201892,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-092"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-092 — `VALPublicContract092`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-092: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9eb0210898e02912cbd997e0e22577b515917fcb133a2ae780475d4e1a3e2e41,2003bc97897c96f0ce9e01f75cd53abfc0f1d1a43e22c69e372e720d82b866b5,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-092.patch
+CRPP1-VAL-MODEL_CONTRACT-093,controlled/rbi-property-valuation-copy,9201893,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-093 — `VALPublicContract093`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-093: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d4cbd67d652ac0607dc1109c50e7667ba878a194ce654fe385ed1ba3f21fde97,daa0a19c641fcd133caf43dfe919beceaa878a5e6eb3f3fe4897e27ee6171037,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-093.patch
+CRPP1-VAL-MODEL_CONTRACT-094,controlled/rbi-property-valuation-copy,9201894,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract094"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-094 — `VALPublicContract094`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-094: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3332f6c967c5119989c26d0924c0021ca5c61e4b4c51876c2677882c55334488,f1606051e0ff2b300d7fc48fb02bb1056ef3407dd4d1a0d634cc354802ae8f96,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-094.patch
+CRPP1-VAL-MODEL_CONTRACT-095,controlled/rbi-property-valuation-copy,9201895,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-095 — `VALPublicContract095`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-095: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2d82a9bc7c72766f5a8fabb69cf7cb07b95b612748e934814ce2740747cbb7d5,3ba2bfbe588c9b07c832564b4a974a13e458673a1c28fc5001c78bffd09dc53e,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-095.patch
+CRPP1-VAL-MODEL_CONTRACT-096,controlled/rbi-property-valuation-copy,9201896,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-096"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-096 — `VALPublicContract096`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-096: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,42d6642a52f3a95d2088f5eb40e9f232fa530215b5d4ddccb7938a9f327cf897,7acaf4b23462661878191cf32de0e73c48ba9f02c70bfa08c32c7f675f208888,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-096.patch
+CRPP1-VAL-MODEL_CONTRACT-097,controlled/rbi-property-valuation-copy,9201897,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-097 — `VALPublicContract097`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-097: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fc74ff6993db2bc835c907095e8d7ce9d009a333c1fce45bd1eba24516ee0fd1,d86d3e996b32bf04bb1b16ea841e99b3bd9c290ac7f143ef98413e6f3e98b54e,model_contract,rbi_property_valuation,serialized_field_type_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-097.patch
+CRPP1-VAL-MODEL_CONTRACT-098,controlled/rbi-property-valuation-copy,9201898,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""VALPublicContract098"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-098 — `VALPublicContract098`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-098: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a05fb61e1bc3d7dfabbec3a168aa15f4216341210e2d96b07722769ddd06728e,ee502eca32d1ad2a46727da89d6aba522350082212653603f2ce0b8cd3628982,model_contract,rbi_property_valuation,required_field_change,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-098.patch
+CRPP1-VAL-MODEL_CONTRACT-099,controlled/rbi-property-valuation-copy,9201899,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-099 — `VALPublicContract099`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-099: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9b7fc3391ba76d69f6cecf8a4d81b450254af5709c029c7906765d407dd82e10,37cadf2eeb409236d88b8da50df49381ac9009760c4635af646c132420687328,model_contract,rbi_property_valuation,serialized_field_added,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-099.patch
+CRPP1-VAL-MODEL_CONTRACT-100,controlled/rbi-property-valuation-copy,9201900,csharp,"[""PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json""]","--- a/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
++++ b/PropertyValuation/DocGuardContractLab/model_contract/contracts_10.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""VAL-MODEL-100"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:c2c9b22f14020d62 -->
+### VAL-MODEL-100 — `VALPublicContract100`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"VAL-MODEL-100: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,59a8f392cb9fb37fe9a4140a4e3b9cd84c0022cd05d6b4542c7f83430baab001,45df3608f556a70532536182d5c9d476e257eac0881ceed356de17b5763523d2,model_contract,rbi_property_valuation,serialized_field_rename,cases/patches/rbi_property_valuation/model_contract/VAL-MODEL-100.patch

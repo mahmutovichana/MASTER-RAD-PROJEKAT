@@ -1,0 +1,299 @@
+@* ============================================================
+   ScenarioDialog — AC1 + AC4 + AC6: okvir forme za kreiranje/uređivanje scenarija
+   ============================================================
+   Create mode: Existing = null
+   Edit mode:   Existing = postojeći ScenarioDto
+
+   AC1 — prekidač tipa REST/UI s uvjetnim prikazom sub-forme
+   AC4 — RunConfig se učitava iz IScenarioService, prosljeđuje VariablePicker-u
+   AC6 — Save button onemogućen dok zajednička forma + aktivna sub-forma nisu validne
+
+   Sub-forme koriste "inicijalizacija jednom" pattern — vrijednost se čita
+   iz @ref na Save akciji, bez round-trip re-render problema.
+   ============================================================ *@
+
+@inject IScenarioService ScenarioSvc
+@inject IGroupService GroupSvc
+@inject IUserContext UserCtx
+@inject ToastService Toast
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            @(_isEdit ? $"Uredi: {Existing!.Naziv}" : "Novi scenarij")
+        </MudText>
+    </TitleContent>
+
+    <DialogContent>
+        @if (_isLoading)
+        {
+            <MudProgressLinear Indeterminate="true" Color="Color.Primary" Class="mb-4" />
+        }
+        else
+        {
+            @* ── Zajednička polja ──────────────────────────────────── *@
+            <MudForm @ref="_form">
+
+                <MudTextField @bind-Value="_naziv"
+                              Label="Naziv"
+                              Variant="Variant.Outlined"
+                              Required="true"
+                              RequiredError="Naziv je obavezan."
+                              Validation="@((Func<string, string?>)ValidateNaziv)"
+                              Immediate="true"
+                              Class="mb-3" />
+
+                <MudTextField @bind-Value="_opis"
+                              Label="Opis"
+                              Variant="Variant.Outlined"
+                              Lines="2"
+                              Class="mb-3" />
+
+                <MudSelect T="Guid?"
+                           @bind-Value="_groupId"
+                           Label="Grupa *"
+                           Variant="Variant.Outlined"
+                           Required="true"
+                           RequiredError="Grupa je obavezna."
+                           Class="mb-3">
+                    @foreach (var g in _allGroups)
+                    {
+                        <MudSelectItem T="Guid?" Value="@((Guid?)g.Id)">@g.Naziv</MudSelectItem>
+                    }
+                </MudSelect>
+
+                <MudCheckBox T="bool"
+                             @bind-Value="_runSequentially"
+                             Label="Pokreni sekvencijalno"
+                             Color="Color.Primary"
+                             Class="mb-3" />
+
+            </MudForm>
+
+            @* ── Tip scenarija (AC1) ────────────────────────────────── *@
+            <MudText Typo="Typo.subtitle2" Class="mb-1">Tip scenarija</MudText>
+            <MudRadioGroup T="TipScenarija"
+                           Value="@_tip"
+                           ValueChanged="@OnTipChanged"
+                           Class="mb-3">
+                <MudRadio T="TipScenarija" Value="TipScenarija.Rest" Color="Color.Primary">
+                    Microservice (REST)
+                </MudRadio>
+                <MudRadio T="TipScenarija" Value="TipScenarija.Ui" Color="Color.Primary" Class="ml-4">
+                    Blazor (UI)
+                </MudRadio>
+            </MudRadioGroup>
+
+            <MudDivider Class="mb-3" />
+
+            @* ── Sub-forma (AC1: uvjetno REST ili UI) ──────────────── *@
+            @if (_tip == TipScenarija.Rest)
+            {
+                <RestScenarioForm @ref="_restForm"
+                                  InitialValue="@_restInitial"
+                                  RunConfig="@_runConfig"
+                                  IsValidChanged="@(v => { _isSubFormValid = v; StateHasChanged(); })" />
+            }
+            else
+            {
+                <UiScenarioForm @ref="_uiForm"
+                                InitialValue="@_uiInitial"
+                                RunConfig="@_runConfig"
+                                IsValidChanged="@(v => { _isSubFormValid = v; StateHasChanged(); })" />
+            }
+
+            <ErrorAlert Message="@_errorMessage" />
+        }
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="@Cancel" Variant="Variant.Text" Disabled="@_isSaving">
+            Odustani
+        </MudButton>
+        <LoadingButton Text="Sačuvaj"
+                       IsLoading="@_isSaving"
+                       Disabled="@(!_isFormValid)"
+                       OnClick="@HandleSave"
+                       Color="Color.Primary" />
+    </DialogActions>
+</MudDialog>
+
+@code {
+    /// <summary>null = create mode; postojeći DTO = edit mode.</summary>
+    [Parameter]
+    public ScenarioDto? Existing { get; set; }
+
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    // ── Stanje dijaloga ───────────────────────────────────────────
+
+    private bool _isLoading = true;
+    private bool _isSaving;
+    private string? _errorMessage;
+
+    // Zajednička polja
+    private string  _naziv   = "";
+    private string  _opis    = "";
+    private Guid?   _groupId;
+    private TipScenarija _tip = TipScenarija.Rest;
+    private bool _runSequentially;
+
+    // Početne vrijednosti za sub-forme (postavljene jednom pri init)
+    private RestScenarioDto? _restInitial;
+    private UiScenarioDto?   _uiInitial;
+
+    // Reference na sub-forme
+    private RestScenarioForm? _restForm;
+    private UiScenarioForm?   _uiForm;
+
+    // Podaci za dropdowne i varijable
+    private IReadOnlyList<GroupDto> _allGroups = [];
+    private RunConfigDto _runConfig = new([]);
+
+    // Validnost
+    private MudForm _form = default!;
+    private bool _isSubFormValid;
+
+    private bool _isEdit  => Existing is not null;
+
+    // Zajednička polja su validna kad su Naziv i Grupa ispravni. Računamo direktno
+    // (ne oslanjamo se na MudForm @bind-IsValid) da Save u edit modu bude ODMAH
+    // aktivan nad postojećim, već validnim podacima. Ranije se `_isCommonFormValid`
+    // palio tek nakon `_form.Validate()` u OnAfterRender ili ručne izmjene Naziva —
+    // pa se dugme "Sačuvaj" pojavljivalo tek kad korisnik dirne naziv.
+    private bool _isCommonFormValid => ValidateNaziv(_naziv) is null && _groupId is not null;
+    private bool _isFormValid => _isCommonFormValid && _isSubFormValid;
+
+    // ── Lifecycle ─────────────────────────────────────────────────
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var groupsTask = GroupSvc.GetGroupsTreeAsync();
+            var configTask = ScenarioSvc.GetRunConfigAsync();
+            await Task.WhenAll(groupsTask, configTask);
+
+            _allGroups  = FlattenGroups(await groupsTask);
+            _runConfig  = await configTask;
+        }
+        catch
+        {
+            // Fallback — forma radi bez grupa i varijabli
+        }
+
+        if (_isEdit)
+        {
+            _naziv   = Existing!.Naziv;
+            _opis    = Existing.Opis ?? "";
+            _groupId = Existing.GroupId;
+            _tip     = Existing.Tip;
+            _runSequentially = Existing.RunSequentially;
+
+            _restInitial = Existing.Rest;
+            _uiInitial   = Existing.Ui;
+
+            // Edit mode — postojeći podaci su validni
+            _isSubFormValid = true;
+        }
+        else
+        {
+            // Create mode — postavi defaults za aktivnu sub-formu
+            _restInitial = new RestScenarioDto(HttpMetoda.Get, "", [], null, 200, []);
+            _uiInitial   = new UiScenarioDto("", []);
+            _isSubFormValid = false;
+        }
+
+        _isLoading = false;
+    }
+
+    // ── Promjena tipa (AC1) ────────────────────────────────────────
+
+    private void OnTipChanged(TipScenarija tip)
+    {
+        if (_tip == tip) return;
+        _tip = tip;
+        // Reset sub-forme na defaults (korisnik mijenja tip — stari podaci se gube)
+        _restInitial = new RestScenarioDto(HttpMetoda.Get, "", [], null, 200, []);
+        _uiInitial   = new UiScenarioDto("", []);
+        _isSubFormValid = false;
+        // Force re-kreacija sub-forme klona (Blazor će je uništiti i ponovo kreirati)
+    }
+
+    // ── Validacija zajedničkih polja ───────────────────────────────
+
+    private static string? ValidateNaziv(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))  return "Naziv je obavezan.";
+        if (value.Trim().Length < 2)           return "Naziv mora imati najmanje 2 znaka.";
+        if (value.Length > 200)                return "Naziv može imati najviše 200 znakova.";
+        return null;
+    }
+
+    // ── Helpers ──────────────────────────────────────────────────
+
+    private static IReadOnlyList<GroupDto> FlattenGroups(IEnumerable<GroupTreeNodeDto> nodes)
+    {
+        var result = new List<GroupDto>();
+        foreach (var n in nodes)
+        {
+            result.Add(n.Group);
+            result.AddRange(n.Children.Select(c => c.Group));
+        }
+        return result;
+    }
+
+    // ── Save ──────────────────────────────────────────────────────
+
+    private async Task HandleSave()
+    {
+        await _form.Validate();
+        if (!_isFormValid) return;
+
+        var rest = _tip == TipScenarija.Rest ? _restForm?.GetCurrentValue() : null;
+        var ui   = _tip == TipScenarija.Ui   ? _uiForm?.GetCurrentValue()   : null;
+
+        _isSaving     = true;
+        _errorMessage = null;
+
+        try
+        {
+            var opis = string.IsNullOrWhiteSpace(_opis) ? null : _opis.Trim();
+
+            if (_isEdit)
+            {
+                await ScenarioSvc.UpdateAsync(
+                    Existing!.Id,
+                    new UpdateScenarioRequest(_groupId, _naziv.Trim(), opis, _tip, rest, ui, RunSequentially: _runSequentially),
+                    UserCtx.UserId, UserCtx.FullName);
+
+                Toast.Success($"Scenarij \"{_naziv.Trim()}\" ažuriran.");
+            }
+            else
+            {
+                await ScenarioSvc.CreateAsync(
+                    new CreateScenarioRequest(_groupId, _naziv.Trim(), opis, _tip, rest, ui, RunSequentially: _runSequentially),
+                    UserCtx.UserId, UserCtx.FullName);
+
+                Toast.Success($"Scenarij \"{_naziv.Trim()}\" kreiran.");
+            }
+
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (InvalidOperationException ex)
+        {
+            _errorMessage = ex.Message;
+        }
+        catch (Exception)
+        {
+            _errorMessage = "Greška pri snimanju scenarija. Pokušajte ponovo.";
+        }
+        finally
+        {
+            _isSaving = false;
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+}

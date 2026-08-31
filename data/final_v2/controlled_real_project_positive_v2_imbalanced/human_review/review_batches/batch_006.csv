@@ -1,0 +1,2091 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP2-JOB-MODEL_CONTRACT-171,controlled-v2/jobfair-platform-copy,9400501,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-171 — `JOBPublicContract171`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-171: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2c21aac821fef9024107b03491344d3b77c3b221971b0e44a9ae419162166f19,3d912eb9245c1756de4daa7469d80a3b4f3144507d21c565f4171999c0b8eb36,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-171.patch
+CRPP2-JOB-MODEL_CONTRACT-172,controlled-v2/jobfair-platform-copy,9400502,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-172"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-172 — `JOBPublicContract172`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-172: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c53259dfc05d8ec22ccdd7039b91213792c59950481b46bae6013dc730f493ed,2b1c58a580db11c859c3be7d6c9e5ebf3fd72008e82ca65b63e0c9eb1b56610c,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-172.patch
+CRPP2-JOB-MODEL_CONTRACT-173,controlled-v2/jobfair-platform-copy,9400503,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-173 — `JOBPublicContract173`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-173: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9afae4e35b09cbed8ac99018a244c8eb331ba2d27935d0f41cb9bf446184d67a,58c1790dd44240811ead3515696b5a4bd6c2fa475c2739d259b119cce58c8857,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-173.patch
+CRPP2-JOB-MODEL_CONTRACT-174,controlled-v2/jobfair-platform-copy,9400504,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract174"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-174 — `JOBPublicContract174`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-174: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,47102a48b095c7c885829dcc7955107f52386d2d302a9a69826e132482284b2d,1a5db2eadd71be7b638f9710cbc11f20d586ea8b32d80aa0c85b277d568a0056,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-174.patch
+CRPP2-JOB-MODEL_CONTRACT-175,controlled-v2/jobfair-platform-copy,9400505,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-175 — `JOBPublicContract175`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-175: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,722a4fed9fa4bbe643e507ec4b8eff9d118c190d11472ecb60a51b0a3ffef36e,97848a0e3375dee6a753338e89cb6964dcfe30b1da941b8883125cf9191e6a1d,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-175.patch
+CRPP2-JOB-MODEL_CONTRACT-176,controlled-v2/jobfair-platform-copy,9400506,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-176"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-176 — `JOBPublicContract176`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-176: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,de58acf4ba31ed530da6d2413533aef6e40c7dba76c94495b21ba05b95b7ec57,bf4cd77716557ca5835439d77402f3ba63b0f6396f58b1ab8c62e78ecc960fe4,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-176.patch
+CRPP2-JOB-MODEL_CONTRACT-177,controlled-v2/jobfair-platform-copy,9400507,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-177 — `JOBPublicContract177`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-177: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6256933d5a594ef72fc9777cc45d3c33ddc9833e9395f3d46a2c971635eb9274,2aeebdf9be7696b1eb5fd2898b58e5b49d66cd9e6d1e414b9279618bb9f88722,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-177.patch
+CRPP2-JOB-MODEL_CONTRACT-178,controlled-v2/jobfair-platform-copy,9400508,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract178"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-178 — `JOBPublicContract178`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-178: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fdfe6c4c968b599c1dbc87f8a9ad5f044c85fdec6962528e8f03f9ca02acc306,5a0e78ba36063ebc0f4bfb54a766514cdab3ce5dcea1ae71175104e7eb410b47,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-178.patch
+CRPP2-JOB-MODEL_CONTRACT-179,controlled-v2/jobfair-platform-copy,9400509,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-179 — `JOBPublicContract179`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-179: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,025dee209aeeba5b7d5ace8bb0190ad4a8e3d42b5a4db0b28f2ade760c870b75,8d94d5b5858c429959f0b9c87e4adb757a53e81a3b88bef11a60525c4e1b9f69,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-179.patch
+CRPP2-JOB-MODEL_CONTRACT-180,controlled-v2/jobfair-platform-copy,9400510,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-180"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-180 — `JOBPublicContract180`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-180: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aaca31fa1cb2f5eb01212f09a5a197eb567f43b30b5e6cd1b44baa774cc7fb8e,e132ef42d9a73160f844b7b727ba8baf6d456e9f286704ab86ba96a83f04d29d,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-180.patch
+CRPP2-JOB-MODEL_CONTRACT-181,controlled-v2/jobfair-platform-copy,9400511,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-181 — `JOBPublicContract181`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-181: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d20a567333068fe06ea67adc57d02f2b41fd00c57a87a5c424e362704aa450a3,2325e0753887feb541e1aee52203d7d34b23ebfd968cca60ee0c21a37eb5d743,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-181.patch
+CRPP2-JOB-MODEL_CONTRACT-182,controlled-v2/jobfair-platform-copy,9400512,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract182"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-182 — `JOBPublicContract182`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-182: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0f5ab134a0b52f7605464e85e9879cb86103ea2bd87b55a3322f0be3a93d6dfc,1f9df3a38bacee40c7c2debe057f0b03b50ab06db359838006990255298619d3,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-182.patch
+CRPP2-JOB-MODEL_CONTRACT-183,controlled-v2/jobfair-platform-copy,9400513,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-183 — `JOBPublicContract183`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-183: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9580499c636c6eb9e95d24e185f0ffc96af5d32a1aa919faf01e30438847698c,0f3c27ac6727c6fe0f4e1919ac5167118bc070a4ab729bab953b1b1d1cdefe8b,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-183.patch
+CRPP2-JOB-MODEL_CONTRACT-184,controlled-v2/jobfair-platform-copy,9400514,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-184"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-184 — `JOBPublicContract184`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-184: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,85940dfff2e039880a408fb57e8e8aa767f09e3922ab9dac70f589b4508d0acf,bf398b2c7b9501a2e48c828e3a20189802cd239dcb01829d193d9ed84839dc9d,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-184.patch
+CRPP2-JOB-MODEL_CONTRACT-185,controlled-v2/jobfair-platform-copy,9400515,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-185 — `JOBPublicContract185`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-185: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f3a090dc357cf9d66c7bdc520c11a44e3e446f4693b8f119e8a055d24a306d7e,983b6da4a0258741b556d7419b84ae1792df4c7822ca8db4ede9332bcc90ebd3,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-185.patch
+CRPP2-JOB-MODEL_CONTRACT-186,controlled-v2/jobfair-platform-copy,9400516,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract186"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-186 — `JOBPublicContract186`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-186: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,158ae77634199a6ea7159eeb958a25d3dba8305013a7a9437175cd38a79b4cbd,8e21c49f1a162b3c0108cc6b9d4efeda4d2a4fd78f62f28ba65027f34eb64834,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-186.patch
+CRPP2-JOB-MODEL_CONTRACT-187,controlled-v2/jobfair-platform-copy,9400517,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-187 — `JOBPublicContract187`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-187: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4cb7f99d98c2346a7ac770cee74d60e90b9b7c91f0dd6d9de47d32f1745b2421,b35ae54eff158e23b7bf3fa9a4a78b0d8cf1556c573be11f7b768f89b54f0621,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-187.patch
+CRPP2-JOB-MODEL_CONTRACT-188,controlled-v2/jobfair-platform-copy,9400518,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-188"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-188 — `JOBPublicContract188`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-188: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,71785156825bc2849b411f266eebd77591d2e6e0e2d2449669597e15d2729df0,340062d8f2e5f8953e24adbd43ea45efa77f447ba5fc815fa79207c5232dd4ec,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-188.patch
+CRPP2-JOB-MODEL_CONTRACT-189,controlled-v2/jobfair-platform-copy,9400519,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-189 — `JOBPublicContract189`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-189: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9f4ad4f0994839c5ea4fe92f9e5ea3e44f57edd25165386d1dfc4ad31b351e2a,5af46d0d0a57168f21ece4a148219fd7c0b337d6957848ad95b4832dfd185b3a,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-189.patch
+CRPP2-JOB-MODEL_CONTRACT-190,controlled-v2/jobfair-platform-copy,9400520,typescript,"[""src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab-v2/model_contract/contracts_09.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract190"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:dd9ed4736052dcf7 -->
+### JOB-MODEL-190 — `JOBPublicContract190`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-190: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8a2da66846f650564277541e5c2410feef47faff370159685e1e3b32b3503359,fb18cac89e06f386ed520af3ba853b26b7ad36c1cd800a24527416e2afbded2b,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-190.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-101,controlled-v2/jobfair-platform-copy,9400521,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-101
+- Workflow: `jobfair_platform-approval-101`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-101: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fbb826b02257b69fe7f2ae870be587e76650b5e48e65040ebb8bcc125057f772,45f1075323c2aeaa8354b7340a425034e37f95549cb09f5797d12d1b69f15ce8,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-101.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-102,controlled-v2/jobfair-platform-copy,9400522,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-102"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-102
+- Workflow: `jobfair_platform-approval-102`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-102: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9fa1359e9209a8bac9d8e9d83e283e29f7dd42f91a7c351c3418bb91f26e5bc2,6834a0042cb2b26ee2ecb630f7155a3915ad14dbb6ddfcf72757324de2a1fe0a,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-102.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-103,controlled-v2/jobfair-platform-copy,9400523,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-103"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-103
+- Workflow: `jobfair_platform-approval-103`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-103: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5fcb7382bc776fef23b406bdcbaf79f6fe226ada034601a59ff3edb7f79d2534,8038b9dcf99e85372a85102e82d498e513f787eeea10682f06e4624c62f7fb18,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-103.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-104,controlled-v2/jobfair-platform-copy,9400524,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-104"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-104
+- Workflow: `jobfair_platform-approval-104`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-104: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3d2b21541d453bca4720e23d659821fdf611b9f2590c2aa1eca06871f639930c,3118c4d405ebacf2893925c44888c554e4cca997a6bea3f30587180973542534,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-104.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-105,controlled-v2/jobfair-platform-copy,9400525,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-105
+- Workflow: `jobfair_platform-approval-105`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-105: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7273212046e0d9b647b4b5a7367bbf8d27191f91d605165cd77e7d050d1358c2,869cb4d78cbd33a8fddb197d1ffb6d02f0aa44c59d2c37f3be7682bf4e7c3c29,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-105.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-106,controlled-v2/jobfair-platform-copy,9400526,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-106"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-106
+- Workflow: `jobfair_platform-approval-106`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-106: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a5917255a812bf6870b707fc478a4398955d22bccc8b23445e9e4ad1582cb8b1,975b2d7b74e945087edd2e4c79f198b67a00872323ac9f80563c8ccce27703fc,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-106.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-107,controlled-v2/jobfair-platform-copy,9400527,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-107"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-107
+- Workflow: `jobfair_platform-approval-107`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-107: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,040ca7c15543c085829f90706bfe77e9800e8440d08eba63c65759485275dfb0,26a808c38d99d1e452e5a1ca7bf803164233b4ee1f45734749eecd894c6a1a5a,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-107.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-108,controlled-v2/jobfair-platform-copy,9400528,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-108"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-108
+- Workflow: `jobfair_platform-approval-108`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-108: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6044d8b0c96059710e935d59fb27244768f0ed1305719b3c8b849ddc96cbb5e2,d740b34617aab3cd00e9f51e0532784275f2fe0a31fd68fdecc28aabae9d7d39,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-108.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-109,controlled-v2/jobfair-platform-copy,9400529,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-109
+- Workflow: `jobfair_platform-approval-109`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-109: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0a0a916fae8a704eeb61ecc3340343f8bc81baff057406e66e584d113b3d405a,0f545021b7166b97c198e5df745d5e58e1d98714dcb94639252f2c8b798fe7a9,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-109.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-110,controlled-v2/jobfair-platform-copy,9400530,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-110"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-110
+- Workflow: `jobfair_platform-approval-110`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-110: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,54412fc494afc24ca32586de7923eb0b2e1cab3753d82ad36dfed14d0d03e772,c311e7b5c08ec01ed79a992230fc4676aab2bfb814f9992a207b0ec34496035d,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-110.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-111,controlled-v2/jobfair-platform-copy,9400531,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-111"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-111
+- Workflow: `jobfair_platform-approval-111`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-111: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2aedfa4814612ace0800fea14b65a6319d1757b79bd0c9f19a4b29954cae052b,54ee070d2855ae3bf503c4e96dbed9ccd51bc2a0323dba45ca828095fd44944e,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-111.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-112,controlled-v2/jobfair-platform-copy,9400532,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-112"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-112
+- Workflow: `jobfair_platform-approval-112`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-112: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,69805023c33da0e598604ca3843a7b510410661c5d8d3b233715d65e3b2f2c2a,ff61130e72046967e9924ed9aee5f45dd29f6a2d810d3d3b39bc265116e570e0,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-112.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-113,controlled-v2/jobfair-platform-copy,9400533,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-113
+- Workflow: `jobfair_platform-approval-113`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-113: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a6469d8de413755b43ad69308b680d27a61dae98b86e337e9420f572f54cc05f,bbc75fb361f0d21dfa45d5be570e814c9fc1a509204318ba5b95f92b36e3ae14,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-113.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-114,controlled-v2/jobfair-platform-copy,9400534,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-114"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-114
+- Workflow: `jobfair_platform-approval-114`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-114: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,70fd33d9aa0c4ff2b48d208d3bccb2b1f20d7d6e623b45531600b190d77cad59,e3fc436ea15d8ffbc63d7905db3c73c4f3a5a2754f7b2a241e289ab12ebbfcd6,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-114.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-115,controlled-v2/jobfair-platform-copy,9400535,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-115"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-115
+- Workflow: `jobfair_platform-approval-115`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-115: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,87c6569c195eea9aaa595f81f5f485e95a69a09f7ec2c497ef24f6741255f849,77d39516a4d8bdef2a6bedc89613e6126aa7e44004900db231534bf27ddc99a1,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-115.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-116,controlled-v2/jobfair-platform-copy,9400536,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-116"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-116
+- Workflow: `jobfair_platform-approval-116`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-116: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,88c2a9770529686a006316f9bd4d43e3b9d6cec3283031fae91059bc8f5cda16,88c186eb226211f41fc4917fff83fc6448516c4a26091cd72f212685e59234b1,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-116.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-117,controlled-v2/jobfair-platform-copy,9400537,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-117
+- Workflow: `jobfair_platform-approval-117`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-117: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3d33b20b43593d45961e048973fcd3566a9b646f6ba2b533f02035450e0b53bc,a63cbe4c12628a10d586df2b62f4a38119424ab43806a4d70dae4a829f23e329,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-117.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-118,controlled-v2/jobfair-platform-copy,9400538,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-118"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-118
+- Workflow: `jobfair_platform-approval-118`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-118: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d80c5d58c20a67b8c73b68fd0110b6e6c9bd7ae362b29858eb9d9c9c60fbf589,b32885ad46ff5e20e257def13c5e025566bfe67a203e289d2eb4acd675016387,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-118.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-119,controlled-v2/jobfair-platform-copy,9400539,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-119"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-119
+- Workflow: `jobfair_platform-approval-119`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-119: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9d4e792226d019cbb1f18c3d6ffd9d47cd5fde19087d0a8ba27c23f56a4b16f3,42a6ca9b482f91e5bcb9d7f97e62561dc85374b18c86d548921a01075ae955a0,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-119.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-120,controlled-v2/jobfair-platform-copy,9400540,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-120"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-120
+- Workflow: `jobfair_platform-approval-120`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-120: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7aae8243c1b3e9f1569868ac8eda4b898e90a0197eb176d0c574a903b0950b60,199a9a013bb721e6e25888025813656fc0d5555deeaf36f994246d4c3edf5c95,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-120.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-121,controlled-v2/jobfair-platform-copy,9400541,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-121
+- Workflow: `jobfair_platform-approval-121`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-121: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2f1780b6e77fcc72f33f335901b63eb5418b1426d00d1aa4ff1cf22f2f34524a,8a8f7040c02c3821fe94d1c4ad87c876aad05a8190df59b446f8a49f89b06880,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-121.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-122,controlled-v2/jobfair-platform-copy,9400542,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-122"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-122
+- Workflow: `jobfair_platform-approval-122`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-122: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fce96ca17ec96a054343b750bf5bd023b2c6235a5f8dc39980a18c34a17613b0,0288334045d4fc1aa11657812de3d7633c053a83456a9dc68d33a1b982c294f5,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-122.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-123,controlled-v2/jobfair-platform-copy,9400543,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-123"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-123
+- Workflow: `jobfair_platform-approval-123`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-123: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4abdb2c3ff78b1b8dbbde00afe86009c23c0d2fa894964ef8bd7a960ef748d78,cbff072d8d418b0c385cfd5f9527fb46e40103727dbf2ca2fa0d66d0e5bb1dd4,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-123.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-124,controlled-v2/jobfair-platform-copy,9400544,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-124"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-124
+- Workflow: `jobfair_platform-approval-124`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-124: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,98d59dcdb2f0e3e7280f141bc20007714c73600b7cf0981683a49eb1f29c3485,79b2051d9ae500871dd758af04dd371130f7b1e95201aa56ac98912171d77b12,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-124.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-125,controlled-v2/jobfair-platform-copy,9400545,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-125
+- Workflow: `jobfair_platform-approval-125`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-125: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,24d483263343dcad6ac4fb17dfd2b663545285c67cc92b0d0958cb14ea674a3c,c5012c5d9982766067dbe03380e5336b59b72223c61309f3cb239c8d2422d597,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-125.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-126,controlled-v2/jobfair-platform-copy,9400546,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-126"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-126
+- Workflow: `jobfair_platform-approval-126`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-126: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7a68da4fc08b1240753ec1e98b52cad74719bbe10b2fdcab6a5a70b3df9c8999,595f696524bbcd6be99c5d831af764fc555b30ebb50fa17b0c370b6ae66b4bf3,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-126.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-127,controlled-v2/jobfair-platform-copy,9400547,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-127"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-127
+- Workflow: `jobfair_platform-approval-127`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-127: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b283af27f84ebfb9a036120388f77e00ebccb5b225e65cd53a2d627350f3aa10,52f6ed1c09d6c5e78952d9aca5c9d4c27fb2314f95494ed466c1fbbd98e0a410,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-127.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-128,controlled-v2/jobfair-platform-copy,9400548,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-128"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-128
+- Workflow: `jobfair_platform-approval-128`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-128: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c4193af51f7e1da03c7791530366cda2a6ad2590b60ab98411f963c690b29194,c743be86257e7093b4ab7af3039322c06a809535674cccb970c0f9d7b36c7b42,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-128.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-129,controlled-v2/jobfair-platform-copy,9400549,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-129
+- Workflow: `jobfair_platform-approval-129`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-129: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,34e15d29425311733ef775eee7eca264f0055bf2e0c52f10677720362352f235,7b57a0cc7a1cab364b7fe848c8195154f189baa5cdf794b429f2b8a632001226,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-129.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-130,controlled-v2/jobfair-platform-copy,9400550,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-130"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-130
+- Workflow: `jobfair_platform-approval-130`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-130: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b21677a632097087fd0f209c1c3f483e729ec792306f1e43cad71eb31d9c13af,cd65b2ec98889c555297c066bda7c0e94ad7f37b09bb62dfebd3f55315a1bce7,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-130.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-131,controlled-v2/jobfair-platform-copy,9400551,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-131"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-131
+- Workflow: `jobfair_platform-approval-131`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-131: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,904a1f62124d00214fe454e1295e13389710a7f581d95bc48054b59cc36be854,0e4cc661a358cf1692d4b53705b68f2f31969bc238ca6de6fba21f84f618b4f0,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-131.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-132,controlled-v2/jobfair-platform-copy,9400552,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-132"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-132
+- Workflow: `jobfair_platform-approval-132`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-132: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c302a2b46caab30571202ac90a9a3bb3af6ab7fa2dbe69a0618cd9df736ad7ce,cee680dea2cbd70d1c2bf2eaea4a1fa54a12a666e24259f28a3dba80618e143e,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-132.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-133,controlled-v2/jobfair-platform-copy,9400553,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-133
+- Workflow: `jobfair_platform-approval-133`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-133: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,44a20eceded0426ae8157eb7ffe4379d6b58109020555917d4013bc024ce6ff7,5a35db9c912e29f36db051e3363235c15b0dab94b1e6ed6891c265d2a8938a19,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-133.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-134,controlled-v2/jobfair-platform-copy,9400554,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-134"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-134
+- Workflow: `jobfair_platform-approval-134`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-134: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c5bdea432afe74fe6673e22513b3c0059927d91bdf3a68f70b443174c36ee987,dea98058e66bc03c151cb1093c6bf2825180a3bed7faa4c98f169fadf5bba0f7,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-134.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-135,controlled-v2/jobfair-platform-copy,9400555,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-135"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-135
+- Workflow: `jobfair_platform-approval-135`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-135: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,110f08c64e9b4ef188965d88ec5fa58c46969673520d33b8f67adb2c81f23cdc,1f11cf7212221e40c08bbf12b71fb82f2859350ffaded98d036938bd91d39f97,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-135.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-136,controlled-v2/jobfair-platform-copy,9400556,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-136"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-136
+- Workflow: `jobfair_platform-approval-136`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-136: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ca53e8f32aacc4d390ba5a36c71b5f5da993c27b3b6201a10d4acae56099abbf,6d1ee36f56c7461580b7592187af66eef006a7641b889d8e4a3b6f404a1ba75d,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-136.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-137,controlled-v2/jobfair-platform-copy,9400557,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-137
+- Workflow: `jobfair_platform-approval-137`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-137: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1f4fc307c01334c03f89b36cb8324d30ddb7f22f33efd0212199c23b994c87a8,8fadddbc688256656c4e25bcbae633ecc08d99f362dcbaa07171b4276f71f590,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-137.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-138,controlled-v2/jobfair-platform-copy,9400558,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-138"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-138
+- Workflow: `jobfair_platform-approval-138`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-138: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3925cae84a130b72403aaf3bfa071a3fecc5167315005b138785e5a41eac51bf,de1b6fc8cb839b957ce3a4bb99c20c3f706daf386c379ec8080720b590d8e7b9,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-138.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-139,controlled-v2/jobfair-platform-copy,9400559,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-139"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-139
+- Workflow: `jobfair_platform-approval-139`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-139: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2cc98f4fd61a0506901b75c4b8632fe056858c196b51c69a588c61df9c46a421,cfd2eb900e3ea858fd4926a080d3aeca37083b53eaddb070fe03b643c6eb7bd5,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-139.patch
+CRPP2-JOB-OTHER_DOCUMENTATION-140,controlled-v2/jobfair-platform-copy,9400560,typescript,"[""src/docguard-contract-lab-v2/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab-v2/other_documentation/contracts_04.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-140"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:6bc6d262bd2e22d7 -->
+### JOB-FLOW-140
+- Workflow: `jobfair_platform-approval-140`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-140: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b0f3571ee6643612a5a0c6b10690c09279d35305772c3ea2f2aba0cd118114c8,0da4984a887b68c04528eb81bc3960ad1fb25740023a139bd2cee5a7d1ca1382,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-140.patch
+CRPP2-RPP-API_REFERENCE-101,controlled-v2/rbi-related-parties-portal-copy,9400561,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""RPP-API-101"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation101"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/101"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-101
+- Operation: `rbirelatedpartiesportalOperation101`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/101`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-101: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ea0adc0a155b903d0d2794b5ada601e89a5398d2845d360f9573b31559d2d161,66ffc404adde2d37410438560056ecdbe0b89a002d3e3b1f90d12bbb18b54037,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-101.patch
+CRPP2-RPP-API_REFERENCE-102,controlled-v2/rbi-related-parties-portal-copy,9400562,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""RPP-API-102"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation102"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/102"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/102"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-102
+- Operation: `rbirelatedpartiesportalOperation102`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/102`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-102: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/102' u '/api/rbi-related-parties-portal/v2/resources/102' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c066f9ea2f40b633d5283e538f6afe28909f9ae531a4f631cf57c6bb7669b1cb,5d7716f3ca5211d47401891d5c97abc50b055ecf99330f857b39b01c8ab49070,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-102.patch
+CRPP2-RPP-API_REFERENCE-103,controlled-v2/rbi-related-parties-portal-copy,9400563,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation103"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/103"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-103
+- Operation: `rbirelatedpartiesportalOperation103`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/103`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-103: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b0f26095fb52ce7f5f9a80a8797302c674759795ac2188cb700138e8541e478b,4e219032ef0900844a2e0c9d2d2d5c072e5a4846067e1c35fd67d8ecb5579ef3,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-103.patch
+CRPP2-RPP-API_REFERENCE-104,controlled-v2/rbi-related-parties-portal-copy,9400564,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-105"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-104
+- Operation: `rbirelatedpartiesportalOperation104`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/104`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-104: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0afc6cc3f739a70aef574c962b1f750d54c55c4d248cadbfaf0a0f42dc4642bb,2da9817e8fb4480c2b3a9b3f9fd827568de9cd6b3521ca836fbce3eee95e5c78,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-104.patch
+CRPP2-RPP-API_REFERENCE-105,controlled-v2/rbi-related-parties-portal-copy,9400565,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-105"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation105"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/105"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-105
+- Operation: `rbirelatedpartiesportalOperation105`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/105`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-105: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ffb38948fb45b5547bad85814d2e12b8cf4a2bf405da1e0ae946f1ed9f1e6041,3dfb3f84de4fcbc8ee111a21b60aee6c63d945b3d06f9dd8fe9a1118bff3a3d5,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-105.patch
+CRPP2-RPP-API_REFERENCE-106,controlled-v2/rbi-related-parties-portal-copy,9400566,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""RPP-API-106"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation106"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/106"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/106"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-106
+- Operation: `rbirelatedpartiesportalOperation106`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/106`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-106: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/106' u '/api/rbi-related-parties-portal/v2/resources/106' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5528a078852ea94ebfac9d94c1354e79209848ee27839847d68df4445af013f2,ea4ed494e0e49d10d2aafe555214ad9475b052758eb6bedeeee82640b7cf85b8,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-106.patch
+CRPP2-RPP-API_REFERENCE-107,controlled-v2/rbi-related-parties-portal-copy,9400567,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation107"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/107"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-107
+- Operation: `rbirelatedpartiesportalOperation107`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/107`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-107: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ab0bf826e7465faa799607e783ec9d0750b95571b4c2d0c988c733008a68fcbd,e40f39cd92381fba0a97b0e69d8876b596207fe123ebf4a7fc10b51328800c65,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-107.patch
+CRPP2-RPP-API_REFERENCE-108,controlled-v2/rbi-related-parties-portal-copy,9400568,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-109"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-108
+- Operation: `rbirelatedpartiesportalOperation108`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/108`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-108: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d3c6f47f84d38bcd5c6a1f8b7786ff52818908226736c6c5a1ca69da3cebe586,bc625873108caa64e70a157408b9ba0236564f627c68b2c13d209ae30c47cd28,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-108.patch
+CRPP2-RPP-API_REFERENCE-109,controlled-v2/rbi-related-parties-portal-copy,9400569,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-109"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation109"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/109"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-109
+- Operation: `rbirelatedpartiesportalOperation109`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/109`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-109: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,673f4a831fa2b99db9f5e0b23c433dc047622260cacf6230d4cdda4490524844,6041050ab98fae7dcd4032fff07ccd47130cfde3f97b30bbf74e3678a1d14fb0,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-109.patch
+CRPP2-RPP-API_REFERENCE-110,controlled-v2/rbi-related-parties-portal-copy,9400570,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""RPP-API-110"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation110"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/110"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/110"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-110
+- Operation: `rbirelatedpartiesportalOperation110`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/110`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-110: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/110' u '/api/rbi-related-parties-portal/v2/resources/110' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2c26381069d8ba2a9eebb16dc392aea828b4ee477c45c09fd3c99de3cf585d37,2dade633af9709e8be8db4ea0c21b43c474ffffdabed636f4ad135244d698035,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-110.patch
+CRPP2-RPP-API_REFERENCE-111,controlled-v2/rbi-related-parties-portal-copy,9400571,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation111"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/111"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-111
+- Operation: `rbirelatedpartiesportalOperation111`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/111`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-111: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0b1de4173ae8f5743d997904be93064bc2b0bda3c36e90ea26bec767f5cbc0d7,d3002059fe4f3dc0290cfe8e372819dd26d033a6d72f32944e8bc21fcf3acb12,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-111.patch
+CRPP2-RPP-API_REFERENCE-112,controlled-v2/rbi-related-parties-portal-copy,9400572,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-113"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-112
+- Operation: `rbirelatedpartiesportalOperation112`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/112`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-112: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5a597195d2877b704fc3870965156c8e31f6ecfdc274370cdc3c45d903e7fc81,d978c568d684bd82211d7926c40d7eaa90408c411fa35f5ce126257495beada8,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-112.patch
+CRPP2-RPP-API_REFERENCE-113,controlled-v2/rbi-related-parties-portal-copy,9400573,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-113"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation113"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/113"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-113
+- Operation: `rbirelatedpartiesportalOperation113`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/113`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-113: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,451a7b1a13b46c03e269d051bbdfdbc02d6a585e7ee271e2d5ed1f86eb723ecd,a7c79027527dda4c14ec8d02b12c99f888ea48ea519920181a881be90c95dcb4,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-113.patch
+CRPP2-RPP-API_REFERENCE-114,controlled-v2/rbi-related-parties-portal-copy,9400574,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""RPP-API-114"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation114"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/114"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/114"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-114
+- Operation: `rbirelatedpartiesportalOperation114`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/114`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-114: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/114' u '/api/rbi-related-parties-portal/v2/resources/114' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e8b2fc2a9c4e7641ca290fbcd985def3e1a32852bad1d247d74351b84dfcdf1e,4ca18b717b593540ec31b771abfbcc01736c52fd3beb9015cb64fc312acd32aa,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-114.patch
+CRPP2-RPP-API_REFERENCE-115,controlled-v2/rbi-related-parties-portal-copy,9400575,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation115"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/115"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-115
+- Operation: `rbirelatedpartiesportalOperation115`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/115`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-115: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,29f987ccf02a6a158646fbecdbec1ae87842b7c95eed24d85779604c0ca0eead,fc594e0030dc8f33e278a68d089a8ec89e07e33f62a66845c4f5a7a0b67fe9b2,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-115.patch
+CRPP2-RPP-API_REFERENCE-116,controlled-v2/rbi-related-parties-portal-copy,9400576,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-117"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-116
+- Operation: `rbirelatedpartiesportalOperation116`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/116`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-116: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e5573c757ff9658573f32cd4de480131d57a1a55ff0743358f9d69ca3ca9c377,94e89a91c0d6b23da32538a6a6cf7db1d0dca290284abe4efbf12f9a6fc6169c,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-116.patch
+CRPP2-RPP-API_REFERENCE-117,controlled-v2/rbi-related-parties-portal-copy,9400577,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-117"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation117"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/117"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-117
+- Operation: `rbirelatedpartiesportalOperation117`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/117`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-117: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,da48e43e1dd509394d83c3f86d31d16c44d1208728696b924b20e4db7f2c56fd,1a4858ae3e744f78dd2f184749cd93409b00987fdf8e2111a8a3ab2243f07eeb,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-117.patch
+CRPP2-RPP-API_REFERENCE-118,controlled-v2/rbi-related-parties-portal-copy,9400578,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""RPP-API-118"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation118"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/118"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/118"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-118
+- Operation: `rbirelatedpartiesportalOperation118`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/118`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-118: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/118' u '/api/rbi-related-parties-portal/v2/resources/118' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1c36c07eed331d6a5a9a21cf1758182f2439a3dbed4bdd343c981e1e8c9c9905,e2982146db671f313e0522202e0c0da86288a422b8bd1b43122a28ac71510231,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-118.patch
+CRPP2-RPP-API_REFERENCE-119,controlled-v2/rbi-related-parties-portal-copy,9400579,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation119"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/119"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-119
+- Operation: `rbirelatedpartiesportalOperation119`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/119`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-119: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3f5a88cc2167fe8706545e81b608374d111125d132ea8359f02f8c3b7ec369d0,75dbffc6e9f21870f32498def9351edd54f8d0e49749c13b3af400f7322f2e0a,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-119.patch
+CRPP2-RPP-API_REFERENCE-120,controlled-v2/rbi-related-parties-portal-copy,9400580,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_related_parties_portal"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-120
+- Operation: `rbirelatedpartiesportalOperation120`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/120`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-120: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9eec2a0ecb4ea9ba22377fa2b9d24744348534e4d7d7202c716dad39c04364a9,03e4df6b625106e0cd3c86314e7907c32514f43192d437b0503fd46969f68c8f,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-120.patch
+CRPP2-RPP-API_REFERENCE-121,controlled-v2/rbi-related-parties-portal-copy,9400581,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""RPP-API-121"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation121"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/121"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-121
+- Operation: `rbirelatedpartiesportalOperation121`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/121`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-121: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6c16768bf5993b3ea6f6c46338f5e6dc69d57c08a1374f9ef1534585190edd08,c50fd89b33e64a5c8c3506ab424839c375d0a4e811ef8c8802ce00ace4dd6a91,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-121.patch
+CRPP2-RPP-API_REFERENCE-122,controlled-v2/rbi-related-parties-portal-copy,9400582,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""RPP-API-122"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation122"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/122"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/122"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-122
+- Operation: `rbirelatedpartiesportalOperation122`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/122`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-122: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/122' u '/api/rbi-related-parties-portal/v2/resources/122' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7e3364af18972adfffd410eff97ea402e6d94a830cd2c9c77e0f6cbaa387930a,270644befb4f4f10a8932aa0d74110621f17f291de63ca9017818d4625859bec,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-122.patch
+CRPP2-RPP-API_REFERENCE-123,controlled-v2/rbi-related-parties-portal-copy,9400583,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation123"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/123"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-123
+- Operation: `rbirelatedpartiesportalOperation123`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/123`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-123: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c7f053c277b3f56a65fc83ef373ca1823c49383ae32e11f804ab2d91a0440b11,0c1b9a42db2037ac6674f621c64d705d925e98af44ac4a18ba3d3f2036d9e938,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-123.patch
+CRPP2-RPP-API_REFERENCE-124,controlled-v2/rbi-related-parties-portal-copy,9400584,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-125"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-124
+- Operation: `rbirelatedpartiesportalOperation124`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/124`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-124: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d844b0f6855c72c664bd6bb2a257ab7ddb31e9d8f618a06f107d1e9d7fd2e8bd,85ba4aa0c62359c3294bd3ff6bb121ff2efaaff6b60d75690516f5e9d584fec7,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-124.patch
+CRPP2-RPP-API_REFERENCE-125,controlled-v2/rbi-related-parties-portal-copy,9400585,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-125"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation125"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/125"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-125
+- Operation: `rbirelatedpartiesportalOperation125`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/125`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-125: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a1bdf8c8dfd749dc32752c7d54aff688f54a83c61258f3e7140e389089efd250,11a17dd0163b5c39a8ba767a700e34a1685db86352e8177d6f4ae9549b515a77,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-125.patch
+CRPP2-RPP-API_REFERENCE-126,controlled-v2/rbi-related-parties-portal-copy,9400586,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""RPP-API-126"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation126"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/126"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/126"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-126
+- Operation: `rbirelatedpartiesportalOperation126`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/126`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-126: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/126' u '/api/rbi-related-parties-portal/v2/resources/126' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2e13f0369703fb8b4dd93cd3054d1fc3372049c1ad0d259ce69724a6c73843cb,fe423c705457e78b795a1b4ea469c3d0f5331165c738cfb2564b0c5a0e3b7af8,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-126.patch
+CRPP2-RPP-API_REFERENCE-127,controlled-v2/rbi-related-parties-portal-copy,9400587,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation127"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/127"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-127
+- Operation: `rbirelatedpartiesportalOperation127`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/127`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-127: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,597a0fd7ef5d84beff48ddd1dd783e95f8a871b63ed62e54bf06385260acfa20,2d632924bd3cfdf6a1d9eb0b82553b5f0342f793557049cb481ed8416849b95e,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-127.patch
+CRPP2-RPP-API_REFERENCE-128,controlled-v2/rbi-related-parties-portal-copy,9400588,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-129"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-128
+- Operation: `rbirelatedpartiesportalOperation128`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/128`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-128: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4dcf2634c21eb5067bc0ee82fcb9db3bdbfeec9f12864c44b5c194403e969cc3,03279e62d5bce517f34191652c7eb4f6a1e8e9d6e61d0bf78b1ae105c1ffe8ef,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-128.patch
+CRPP2-RPP-API_REFERENCE-129,controlled-v2/rbi-related-parties-portal-copy,9400589,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-129"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation129"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/129"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-129
+- Operation: `rbirelatedpartiesportalOperation129`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/129`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-129: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,524075660168e36aa9025e0ea7c63a2a7cc895bfb62746bafb2bafe000a1caa0,8a10130b30f71485cb898a758e6221429bde1df89b5cd21b289eebf8bd540522,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-129.patch
+CRPP2-RPP-API_REFERENCE-130,controlled-v2/rbi-related-parties-portal-copy,9400590,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""RPP-API-130"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation130"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/130"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/130"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-130
+- Operation: `rbirelatedpartiesportalOperation130`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/130`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-130: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/130' u '/api/rbi-related-parties-portal/v2/resources/130' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c6c1764302efab77a0c9f99d24191a8517ef3d005f55eb5248d8db054b31e493,dd3f465ccbd427c6dc5651a03b527781701602a208f3a307c7d3766e3a63a58c,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-130.patch
+CRPP2-RPP-API_REFERENCE-131,controlled-v2/rbi-related-parties-portal-copy,9400591,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation131"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/131"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-131
+- Operation: `rbirelatedpartiesportalOperation131`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/131`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-131: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3f9ee045cd6631fa6595337ab357903ffe418b299418916185c84be521a475bb,5c065b9154a6c2cb8b1337519f43a839f3091678b3ea894fabf31ef8a2d64ac1,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-131.patch
+CRPP2-RPP-API_REFERENCE-132,controlled-v2/rbi-related-parties-portal-copy,9400592,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-133"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-132
+- Operation: `rbirelatedpartiesportalOperation132`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/132`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-132: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8dc91ce24768374d93bda48f7117fe4b4999a71f8f50fb566b2edd66d672976b,9a572cfe89729d1ab3fbf168c191ad28567624190a68a5a93eeac3d3fa6b0b9e,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-132.patch
+CRPP2-RPP-API_REFERENCE-133,controlled-v2/rbi-related-parties-portal-copy,9400593,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-133"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation133"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/133"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-133
+- Operation: `rbirelatedpartiesportalOperation133`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/133`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-133: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,46bdc4368f48c421f7aef6d79d5246103b50391502484cc580ce6e94324b6266,6894bba6f4e0d64bccbd570eaf158f96125834c9e70ff696afdef3dac9ee94c4,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-133.patch
+CRPP2-RPP-API_REFERENCE-134,controlled-v2/rbi-related-parties-portal-copy,9400594,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""RPP-API-134"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation134"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/134"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/134"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-134
+- Operation: `rbirelatedpartiesportalOperation134`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/134`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-134: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/134' u '/api/rbi-related-parties-portal/v2/resources/134' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,76b745f4797b39e8b188dfaccda1c02314bce67d889b3753934cb5f21730f99c,6b2c724ca585a249b67e2a7bf36623a386700cc1b6e7372b40dac5e1bcef713d,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-134.patch
+CRPP2-RPP-API_REFERENCE-135,controlled-v2/rbi-related-parties-portal-copy,9400595,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation135"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/135"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-135
+- Operation: `rbirelatedpartiesportalOperation135`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/135`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-135: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2ff89138780bd8b1cc87bd966ae89ebd6b4455ca421f9b6c9b3d1f21fc3d6e76,24090863bf477d572b8ae3c5adce28e571895f1641ffb623df5d68288e487573,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-135.patch
+CRPP2-RPP-API_REFERENCE-136,controlled-v2/rbi-related-parties-portal-copy,9400596,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-137"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-136
+- Operation: `rbirelatedpartiesportalOperation136`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/136`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-136: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,19bcb2f9f80c5ba6ba508b147e380a21d4543764ac749513b40e2074d55cac1f,809c0ee060a7bb8816018a584cce885e63fea323b5f9d452ce73aa7a7ccba2c6,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-136.patch
+CRPP2-RPP-API_REFERENCE-137,controlled-v2/rbi-related-parties-portal-copy,9400597,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-137"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation137"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/137"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-137
+- Operation: `rbirelatedpartiesportalOperation137`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/137`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-137: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7b5040ae13731fe2e4f277e690d3712776cf36d261cf01d2b81c58d0f463d8cf,0fbea4d91f0538e9f3af6a211fa6c4d1a7020ba5aed0c8f029a669d41386c8ca,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-137.patch
+CRPP2-RPP-API_REFERENCE-138,controlled-v2/rbi-related-parties-portal-copy,9400598,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""RPP-API-138"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation138"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/138"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/138"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-138
+- Operation: `rbirelatedpartiesportalOperation138`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/138`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-138: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/138' u '/api/rbi-related-parties-portal/v2/resources/138' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b29e2994e8afd21973256c482b57e03899c8cfab1f386c4ae00177f93346baab,4c5d49e11aa815c38718d4d69f317f97586f80838a969ed7a714cb0b7e8f6f9d,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-138.patch
+CRPP2-RPP-API_REFERENCE-139,controlled-v2/rbi-related-parties-portal-copy,9400599,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation139"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/139"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-139
+- Operation: `rbirelatedpartiesportalOperation139`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/139`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-139: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9b32fd1f248f46883c79f88f3d01fae9c1dd67fe805fc97f1ad35bb6d43736c9,d217aed74d4a70736282768f1f1093d9ad8b67ab0af1fb0afe732ca2ad43bc0f,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-139.patch
+CRPP2-RPP-API_REFERENCE-140,controlled-v2/rbi-related-parties-portal-copy,9400600,typescript,"[""src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_related_parties_portal"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:19b04b8dac0d1838 -->
+### RPP-API-140
+- Operation: `rbirelatedpartiesportalOperation140`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/140`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-140: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9fe83488f6170126b90f622621310a26b753eddd3077144254e9c5aa77d3a8bc,6872e27434271a3e47248933ccf3bf249e0547df0e97dcaa996aa154aeffc1a4,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-140.patch

@@ -1,0 +1,2951 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,docs_before_retrieved_files,doc_context_01_path,doc_context_01_excerpt,doc_context_02_path,doc_context_02_excerpt,doc_context_03_path,doc_context_03_excerpt,doc_context_04_path,doc_context_04_excerpt,doc_context_05_path,doc_context_05_excerpt,doc_context_06_path,doc_context_06_excerpt,doc_context_07_path,doc_context_07_excerpt,doc_context_08_path,doc_context_08_excerpt,doc_context_09_path,doc_context_09_excerpt,doc_context_10_path,doc_context_10_excerpt,doc_context_11_path,doc_context_11_excerpt,doc_context_12_path,doc_context_12_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash
+synthetic:pallets/flask:configuration:1,pallets/flask,900026,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..36c2c07 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 6.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,6ba446c133f4179b24844bf814e5500d96c8ac120432b8f5631e83df50ad94e2,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:2,pallets/flask,900027,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..664f501 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 7.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,309a88e78ef69f7b8a2f312905fa6a50f01c1f4fd5826a9b849b104893320605,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:3,pallets/flask,900028,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..e202b26 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 8.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,5ee801ee23429f4a739e9ab45e2e2c4b822e1283184b13689b52d3d17255287f,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:4,pallets/flask,900029,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..362cf1b 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 5.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,00d10189c6d1f3413e7ec91017347028a757bae5a0b496f788841c6efcb692de,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:5,pallets/flask,900030,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..36c2c07 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 6.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,1141d5bf30dd83a30b88d79c3328a4cbf02d38988a1a88cc3ce8fc87a127b0ff,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:6,pallets/flask,900031,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..664f501 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 7.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,1d4744a91ca2391b71408986b053815ad24024580e309c098d86372e949df074,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:7,pallets/flask,900032,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..e202b26 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 8.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,82991af6516758d5627d34c4a9a9978cef26deb1ed635f877d53af28a543bd46,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:8,pallets/flask,900033,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..362cf1b 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 5.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,fe06835df0a5ce87f69acd2d948368c125044c3405544d527d08d11237e82c58,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:9,pallets/flask,900034,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..36c2c07 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 6.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,a1356041fd3c3d2b4077b814102a14e795806d8eb54d150b78907a5b73c616db,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:10,pallets/flask,900035,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..664f501 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 7.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,bae68402f3115a87ec2abbb41945fcbeace4617184ff6902df68da7f52081226,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:11,pallets/flask,900036,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..e202b26 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 8.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,7729121c59afab6fab33cb9d9ff3949023f6b4137934472c2eb17d24d637a666,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:12,pallets/flask,900037,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..362cf1b 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 5.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,926bfb88e905836be964dc342fa3b2015ff7b827392074bf86cc9af76d79c2cd,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:13,pallets/flask,900038,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..36c2c07 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 6.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,951ad852046b636aa926c38aeb50152a863c04aeef2d5b9571368c5dcbebfa89,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:14,pallets/flask,900039,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..664f501 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 7.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,51e270e77cf5b35ff27b27e1d1743100155b84a2967b5e8720e84791e4f339b0,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:15,pallets/flask,900040,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..e202b26 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 8.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,5be55bdb9e2dbc2d8b84bf91ac3c5a38d40f10f7463498172f123b0f0777d037,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:16,pallets/flask,900041,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..362cf1b 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 5.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,93c7019da84d0fabe4fd4f1d39309d14862588a92affe2e9229184f8fa07ebb5,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:17,pallets/flask,900042,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..36c2c07 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 6.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,e872ea07f7e8423b73a12ee45e7827a031f30fae22dc5fedb2d2af5ba816865f,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:18,pallets/flask,900043,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..664f501 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 7.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,353336a9e0112c94bb1d90c79d15878cddde374f858c2fb1cd954b2896162388,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:19,pallets/flask,900044,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..e202b26 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 8.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,2156b78e78063a69a50ac93e5a04ec844e8d7cf3e7d158de2aa5545e04e98a8d,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:20,pallets/flask,900045,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..362cf1b 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 5.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,eccc0b53e7922097e842adcd75c82107b562723a4ad7f3215c06c574c7c82e76,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:21,pallets/flask,900046,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..36c2c07 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 6.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,05d31438cb0af8f37f54783b3e4b99d7fda652d409447cc036bae7fd8139582e,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:22,pallets/flask,900047,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..664f501 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 7.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,f27453b13578e5cdce9087cd3393f3e98923aead775a7bc9bb30d08bd63eced3,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:23,pallets/flask,900048,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..e202b26 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 8.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,98d79ce7c3c4207beea1c2195c162f4c54069787a1ceb4192a2130611ba3d428,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:24,pallets/flask,900049,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..362cf1b 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 5.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,dac66632d33ba0df269f7197f1776d44bfea6b1c04d01bc99f2edac58d5c0d91,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:pallets/flask:configuration:25,pallets/flask,900050,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..36c2c07 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -301,7 +301,7 @@ class Flask(App):
+                 warnings.warn(
+                     f""The '{method.__name__}' method now takes 'ctx: AppContext'""
+                     "" as the first parameter. The old signature is deprecated""
+-                    "" and will not be supported in Flask 4.0."",
++                    "" and will not be supported in Flask 6.0."",
+                     DeprecationWarning,
+                     stacklevel=2,
+                 )","Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+","[""docs/config.rst""]",docs/config.rst,"Configuration Handling
+======================
+
+Applications need some kind of configuration.  There are different settings
+you might want to change depending on the application environment like
+toggling the debug mode, setting the secret key, and other such
+environment-specific things.
+
+The way Flask is designed usually requires the configuration to be
+available when the application starts up.  You can hard code the
+configuration in the code, which for many small applications is not
+actually that bad, but there are better ways.
+
+Independent of how you load your config, there is a config object
+available which holds the loaded configuration values:
+The :attr:`~flask.Flask.config` attribute of the :class:`~flask.Flask`
+object.  This is the place where Flask itself puts certain configuration
+values and also where extensions can put their configuration values.  But
+this is also where you can have your own configuration.
+
+
+Configuration Basics
+--------------------
+",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,74229a20b2d287b7eac08996b9aa2c253dded021ea39bc9fe7b2c2aecbe7152c,5a7470fc88f342a206339eac440a3e7d3c09c3ddb84c4fb9d1d153c56ed9ad6d
+synthetic:encode/httpx:configuration:1,encode/httpx,900101,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..b4185c5 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(7.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,2cea269b1baa2a7a38183523be072247a3baa80229113a2d55fede007d9f03bf,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:2,encode/httpx,900102,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..bc326ab 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(8.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,e6760ae9fb7fbde3a3d59a931ea2ce7d106b4816dd79effcc1927b1593c768e4,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:3,encode/httpx,900103,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..632208d 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(9.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,f65c13e3228199efa77e23fc305b78f03db776c7968193fbdb32b3b45e1a10f1,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:4,encode/httpx,900104,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..1c767b6 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(6.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,aca0beb570698acd84fcc5d5452fccf2866a7df0bff96ec10c6ae6a37805d032,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:5,encode/httpx,900105,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..b4185c5 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(7.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,a85610fc854310bdff9b109118c9caaf56122ace54cffde82ce44fb83b22b66e,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:6,encode/httpx,900106,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..bc326ab 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(8.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,b44e2ddce89ac45fc99ac969f279d65c572de81ab360c2f60b81af906a6929e7,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:7,encode/httpx,900107,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..632208d 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(9.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,a682a48bc3868e5afffefb38708451e03889758262fa7335b4c5530505c2e919,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:8,encode/httpx,900108,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..1c767b6 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(6.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,802b859d32364b469b7200de871aa5f62061c3ce8e240c7a540b5142862ee43e,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:9,encode/httpx,900109,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..b4185c5 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(7.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,9317995892420d527404e659494e8eea22d9e0cc9e406e35c8adb714f43d9b2a,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:10,encode/httpx,900110,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..bc326ab 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(8.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,d3a1621d3e3a1a080910173153cab89c2de3bc4abfabf9a31c9541a6f92b3122,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:11,encode/httpx,900111,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..632208d 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(9.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,d267f640de2fa4eefe43a9bc1783f37374d3846671f1e081edd6f1b28c2d0119,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:12,encode/httpx,900112,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..1c767b6 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(6.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,aa2859d343d793ca6a69e00b3a01d99327cea6f9121317f0d6623e271ea7854d,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:13,encode/httpx,900113,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..b4185c5 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(7.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,fc6c38bfea6f17e8e08532dbb66739b91ac277d5b40d813d1ddb694aaa24d388,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:14,encode/httpx,900114,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..bc326ab 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(8.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,0e46ed87a6a0f57f300b932115d3b971af8be523d6a6e3c8a593ad173934bba0,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:15,encode/httpx,900115,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..632208d 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(9.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,b21d1d6b0207df4487ccd3e4b6799cc9e1297672f13d92fd172a84e3240e1e3e,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:16,encode/httpx,900116,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..1c767b6 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(6.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,6e9c87eaa213e5bd371779c78e3f746ed3280f7dab57ef055f1d36b68ff9f20a,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:17,encode/httpx,900117,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..b4185c5 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(7.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,ced8efebfe8245fdef6619ba2ed3b53fb96b280d9f357700f8e7fba1c9b0242f,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:18,encode/httpx,900118,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..bc326ab 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(8.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,033adb3099b1a053cf15607eeefa24afc088ad39638df069ea9663acf8b53534,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:19,encode/httpx,900119,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..632208d 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(9.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,81e546fb7cee32fe58e06e04389047b13bdd48a71231764b9ce3e916faf4c26a,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:20,encode/httpx,900120,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..1c767b6 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(6.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,827c2600bb8af63b16d328ea696e4d2184c7fa51e71394f10774a734b9291453,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:21,encode/httpx,900121,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..b4185c5 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(7.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,be9886dcc3b62bc545b4f26cc07f9c278c6ec18f5dd1561b9d8958e7d0abdeb6,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:22,encode/httpx,900122,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..bc326ab 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(8.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,3f11b7eecec85b0292f4c0a28e3b8b861694c8f604c83c0ca0e86077d4ed5e3d,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:23,encode/httpx,900123,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..632208d 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(9.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,ffdaf14263897e763d298c424c46daaa16c7f4eac2dc407bac804d488d6a9c51,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:24,encode/httpx,900124,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..1c767b6 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(6.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,4f2b5b89b3b05333815c598603db3e424aea4cf91b62ea71ef201b2daac5e276,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1
+synthetic:encode/httpx:configuration:25,encode/httpx,900125,python,"[""httpx/_config.py""]","diff --git a/httpx/_config.py b/httpx/_config.py
+index 467a6c9..b4185c5 100644
+--- a/httpx/_config.py
++++ b/httpx/_config.py
+@@ -76,7 +76,7 @@ class Timeout:
+     **Usage**:
+ 
+     Timeout(None)               # No timeouts.
+-    Timeout(5.0)                # 5s timeout on all operations.
++    Timeout(7.0)                # 5s timeout on all operations.
+     Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+     Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+     Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.","
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*","[""CHANGELOG.md""]",CHANGELOG.md,"
+### Removed
+
+* Drop support for Python 3.8
+
+### Added
+
+* Expose `FunctionAuth` from the public API. (#3699)
+
+## 0.28.1 (6th December, 2024)
+
+* Fix SSL case where `verify=False` together with client side certificates.
+ 
+## 0.28.0 (28th November, 2024)
+
+Be aware that the default *JSON request bodies now use a more compact representation*. This is generally considered a prefered style, tho may require updates to test suites.
+
+The 0.28 release includes a limited set of deprecations...
+
+**Deprecations**:
+
+We are working towards a simplified SSL configuration API.
+
+*For users of the standard `verify=True` or `verify=False` cases, or `verify=<ssl_context>` case this should require no changes. The following cases have been deprecated...*",,,,,,,,,,,,,,,,,,,,,,,,,,false,no_update,Dostavljeni BASE docs excerpt ne pokriva promijenjenu javnu dokumentacijsku površinu niti postojeću setup tvrdnju; dokumentacija ostaje semantički tačna.,approved,798ff5e12bcb76cea1f8eec3022181d45576f45982646cebf15dcb364482454e,949107e5a4553b6199c8d37f0b0c4be2d5ce2bf8557324e95e847bc94ad1ccb1

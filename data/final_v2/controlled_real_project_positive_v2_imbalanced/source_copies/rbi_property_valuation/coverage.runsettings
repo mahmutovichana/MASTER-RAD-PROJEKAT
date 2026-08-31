@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat code coverage">
+        <Configuration>
+          <!-- Isključi EF Core migracije (scaffold/generated kod) -->
+          <!-- Isključi Web UI sloj (pokriven bUnit i E2E) -->
+          <!-- Isključi Keycloak HTTP klijente (integration testovi) -->
+          <Exclude>
+            [RBBH.CollateralAppraisal.Infrastructure]RBBH.CollateralAppraisal.Infrastructure.Migrations.*,
+            [Web]*
+          </Exclude>
+          <ExcludeByAttribute>ExcludeFromCodeCoverage,GeneratedCodeAttribute,CompilerGeneratedAttribute</ExcludeByAttribute>
+          <SkipAutoProps>true</SkipAutoProps>
+          <DeterministicReport>true</DeterministicReport>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

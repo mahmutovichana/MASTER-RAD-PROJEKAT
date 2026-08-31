@@ -1,0 +1,2151 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-RPP-OTHER_DOCUMENTATION-001,controlled/rbi-related-parties-portal-copy,9200901,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-001
+- Workflow: `rbi_related_parties_portal-approval-001`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-001: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2441ff8776aac98b954b7974d2a51239c027be1b580b135aa5de43a53a3879b9,966039c9e4bc7d61dd330a7641583505070e9aef9ab6f6afeb38013639e85163,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-001.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-002,controlled/rbi-related-parties-portal-copy,9200902,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-002"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-002
+- Workflow: `rbi_related_parties_portal-approval-002`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-002: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b92df7f153540634f6aea641375807fc60d971b9e71a0c65a143fbbafeb0d124,14736478bdfc1ba9dbef6bad2649b1885db3b2e96a477fa1a53d49d6bbb80378,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-002.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-003,controlled/rbi-related-parties-portal-copy,9200903,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-003"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-003
+- Workflow: `rbi_related_parties_portal-approval-003`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-003: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f7b3360dc088ebe4c8b88950080069818b8b9188b309b63e1c5a44aff5207f30,f60dd60ea9baa6aedb8e1c49cd920914f9f88d903ca8c9b42a7c53e0e7f381da,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-003.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-004,controlled/rbi-related-parties-portal-copy,9200904,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-004"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-004
+- Workflow: `rbi_related_parties_portal-approval-004`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-004: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f112e14a9f6b50459696c4318ab30886694fde10ba6e785e2a61d0efe9dba7b6,98b05a3b07141cea111944214c132834990573e913c0f4d25bc28cf1fa881c3c,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-004.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-005,controlled/rbi-related-parties-portal-copy,9200905,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-005
+- Workflow: `rbi_related_parties_portal-approval-005`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-005: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,62f992241f5e28358fe00a8c3ca296a7ba8a7da72d312f331de6fbb2ee618583,cf2dec960b537f6eab4ff72de44ba5e07cd81640daf72ad825d4bacc325c3e56,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-005.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-006,controlled/rbi-related-parties-portal-copy,9200906,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-006"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-006
+- Workflow: `rbi_related_parties_portal-approval-006`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-006: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0d9f2224765be5bf593a246cad74fc63fe6148f8b9038c24b6d699a9db16df40,ef8f9cb6b32af84455617876d2a9f44554465900222121d01556df2e748c66bb,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-006.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-007,controlled/rbi-related-parties-portal-copy,9200907,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-007"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-007
+- Workflow: `rbi_related_parties_portal-approval-007`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-007: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ac1462df32caf7d0ca04abe6e5a4412a6c22f756fb4d529b5ee1a4b44be0a4a3,b88390f8e82bad80fd956d35fc95f8a0a9594bd00383b8b720f2aacda39a1e37,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-007.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-008,controlled/rbi-related-parties-portal-copy,9200908,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-008"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-008
+- Workflow: `rbi_related_parties_portal-approval-008`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-008: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c1fdcde9daa37138f9e0d8dda2231ed0870a77ee4cf1d7e09ee5e0f9c4d3a815,ceda5c2881a0ee93474252c8a92f6ea35aa8cc0fbedf1f1ad710ffd3c5adc75d,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-008.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-009,controlled/rbi-related-parties-portal-copy,9200909,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-009
+- Workflow: `rbi_related_parties_portal-approval-009`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-009: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3df33e7fc9fb95942cea323a4f5017f28e3bc4b1f223a31b62c2492db97c366d,f5e995289279cdd883ebcaa58fb602f7e9053f619780e4ece91e5cbb64bd1ac8,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-009.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-010,controlled/rbi-related-parties-portal-copy,9200910,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-010"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-010
+- Workflow: `rbi_related_parties_portal-approval-010`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-010: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c7a8fd69057c4bb6ae01dad27d54678dfe4c065206640f88ebaf4fa828a4f63b,9f9f43cf5c1ed8e044015fb599c0e47e0b244577e4ff236ad6856350497e90b4,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-010.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-011,controlled/rbi-related-parties-portal-copy,9200911,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-011"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-011
+- Workflow: `rbi_related_parties_portal-approval-011`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-011: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b477c05f62a95cc9836ac5c43fdfd5d96a012f45e0761034bac9723c13b9fcd8,2815ed703acbf270a5912380fdb3814298855e0ce3f87e5f9b25eb2cad2e7b29,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-011.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-012,controlled/rbi-related-parties-portal-copy,9200912,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-012"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-012
+- Workflow: `rbi_related_parties_portal-approval-012`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-012: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1706f6a676993a082e74edcd285800fd362b53a82d5027d04d7cdab9132fe84f,180c3de6fbe0f4d5c68bec762de2cf0ad23dc2a6d770b3f90dff3a14eea7acb0,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-012.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-013,controlled/rbi-related-parties-portal-copy,9200913,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-013
+- Workflow: `rbi_related_parties_portal-approval-013`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-013: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b7675867e35693049186cd80837c18f65c6d7a905a1b170ed943783501c60f3a,40b9c7c8b49345b2fb6215dfdbdd3b7c058e250eb30909825492572c1046fa45,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-013.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-014,controlled/rbi-related-parties-portal-copy,9200914,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-014"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-014
+- Workflow: `rbi_related_parties_portal-approval-014`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-014: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7044e21682776ca9d1225ac6e8cd15bc64354ef22b7302ead7f08c4561b63961,e3a508d165c8076b920a5d5c2c8c0c64c5f1e40d86d767ecf6012575ac2d78bf,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-014.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-015,controlled/rbi-related-parties-portal-copy,9200915,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-015"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-015
+- Workflow: `rbi_related_parties_portal-approval-015`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-015: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e3a384325f7a1b0b1d162b7b4aa9e8c1abb1a842933d41a934c0688bf24544f1,cefd5694cea26b9e3cc082157b439e8de68f5427055a78128ab5dcdabca8dee1,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-015.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-016,controlled/rbi-related-parties-portal-copy,9200916,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-016"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-016
+- Workflow: `rbi_related_parties_portal-approval-016`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-016: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a257a12d8a3baf2966329e44ce7a883b5321090235877a2e7163e9ed648bf5b5,b11e995c1a9c38a8c37c6589333541a0eff881d5dda6147a82c0501ce459dca8,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-016.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-017,controlled/rbi-related-parties-portal-copy,9200917,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-017
+- Workflow: `rbi_related_parties_portal-approval-017`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-017: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3bf402f6a7f5e50c8f14e12afdc1cae9f5aa6355aa6e8261835b836da93a2ead,48a4d9aecae3709bed08c5098bcccd96bcd7988f112315eb2b739ef77346e077,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-017.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-018,controlled/rbi-related-parties-portal-copy,9200918,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-018"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-018
+- Workflow: `rbi_related_parties_portal-approval-018`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-018: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aaa431eee93cb780bcddde53958157380d9d5fb18926bf518bc010eb2e6916fb,4216243d1d0a31ba0573e782ad5fd3723ae1a68b3ec99542fba1ffe20a4e575c,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-018.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-019,controlled/rbi-related-parties-portal-copy,9200919,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-019"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-019
+- Workflow: `rbi_related_parties_portal-approval-019`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-019: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eb1895edf51cb83e0f6ab3f36f6f7f602f09bea9a0c6e0d44ca70d7cd928b772,71dbd8220da55107a3e274ce7bb6b80c2bca4c4f41fd2f4dec129fa14c80232b,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-019.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-020,controlled/rbi-related-parties-portal-copy,9200920,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-020"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-020
+- Workflow: `rbi_related_parties_portal-approval-020`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-020: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5bb767e4cbde7c8ded3e7807ee5f1f5344dbe9cbc7e838bb797542c4673725a0,0131635eaeeb056b470cf1031b8721ffd5585f6a2ab5383b524b1de095120dc3,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-020.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-021,controlled/rbi-related-parties-portal-copy,9200921,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-021
+- Workflow: `rbi_related_parties_portal-approval-021`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-021: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1f36b260ed917e96abcaa43c38a0fca174e34bd2c7d57fcada9696d8e51ccd93,e44024e1a0e8cc7c2f0ac069b03c795920c524acf6de32e63b992b3b045b6877,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-021.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-022,controlled/rbi-related-parties-portal-copy,9200922,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-022"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-022
+- Workflow: `rbi_related_parties_portal-approval-022`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-022: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0d478e96d53856bac1c192998cfa6506e0fec45431bbbfcb976d00ec808c2fe3,8b447c5db791c096416c836b01d9f69f8dab55da9a8f2a721655ee5fcc3183c4,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-022.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-023,controlled/rbi-related-parties-portal-copy,9200923,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-023"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-023
+- Workflow: `rbi_related_parties_portal-approval-023`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-023: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dd3a9ae160cada16ffdce0cb07015e2ef6f1e0961604dced45a404b063bc1231,54cae3a0a00c6e77071679283ad087dfd3ef7e05b88af09ecdaf6466fea5cc75,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-023.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-024,controlled/rbi-related-parties-portal-copy,9200924,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-024"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-024
+- Workflow: `rbi_related_parties_portal-approval-024`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-024: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e50986cc09adce56aaa2629b07e949ccda13b0cc7c9149a7491f27b4ca0e4cfd,807214e45a8b93c0179ffce8544e31419815370f138474580f04dfcf42c95dcc,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-024.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-025,controlled/rbi-related-parties-portal-copy,9200925,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-025
+- Workflow: `rbi_related_parties_portal-approval-025`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-025: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bd5a48ffc687857f2f81d4884a9c1072541be00b0d57a8de90ea8fd21b870d2b,8c8233ae604f321560bbaa9c85c791b2ca2ccc4f925c9c03a2131361f7d8c50e,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-025.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-026,controlled/rbi-related-parties-portal-copy,9200926,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-026"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-026
+- Workflow: `rbi_related_parties_portal-approval-026`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-026: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,327373d24c1c34cde73c917fa68405dc419e70b8963ba919137f9ceb1d89b359,ef15c6016832afa7ee690e2abf204d41a4977decb7584ecf55faf5066d1438ce,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-026.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-027,controlled/rbi-related-parties-portal-copy,9200927,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-027"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-027
+- Workflow: `rbi_related_parties_portal-approval-027`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-027: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ab637aec6d8e6a90e2df6aebb41c0653459e7e4cc7fe4fa78caadebf657f9bc2,5e167f5dec56acfd58466988c4d3c1f3f331e30bad9ea63626ced57e8adf9df8,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-027.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-028,controlled/rbi-related-parties-portal-copy,9200928,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-028"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-028
+- Workflow: `rbi_related_parties_portal-approval-028`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-028: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ccf7b991f27d5ece818f37fc86561929052b0e27b8e8b8dc0996a09cc78d296b,8d4abfff5e66541a2f75286461cd6fb51b7fc75984eaeab7b14318c4c8a4e2ae,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-028.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-029,controlled/rbi-related-parties-portal-copy,9200929,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-029
+- Workflow: `rbi_related_parties_portal-approval-029`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-029: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b545720d9a171478ce6bf1e25b256ef9ee0116a5e675a3e5d4cd62a6daaa6fc2,7785eb8f93e79628e7571409a0feab49bd3ad172cb67b4020ca527a8c3ccd8d9,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-029.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-030,controlled/rbi-related-parties-portal-copy,9200930,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-030"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-030
+- Workflow: `rbi_related_parties_portal-approval-030`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-030: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2c288c8088ee6e582aefd7c02771aea870f7e9af8b7a96a4a4ea3a94ff8e9ccc,cf5c62f722a7ee6c59ae02df2d89dfcc81943b13c591f3fa246789b4fd0cbe33,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-030.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-031,controlled/rbi-related-parties-portal-copy,9200931,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-031"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-031
+- Workflow: `rbi_related_parties_portal-approval-031`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-031: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8c3a7171dfbc5f15c0ba0e9e1f848eee61b97070317d96e16d40c22f05648de9,f05b5413c7dbce5eb1035068334a5feeed86a7a9cd2d5fe4c78af0b1f859390b,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-031.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-032,controlled/rbi-related-parties-portal-copy,9200932,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-032"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-032
+- Workflow: `rbi_related_parties_portal-approval-032`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-032: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,11c7272c29ea73c2a4fbc755458c20d15e72b4549c69546fedf619687f7d682e,5c0e3f2a1639b01eaf6948442cb12bce54e99b41e39581193d4a48f4582e4e92,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-032.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-033,controlled/rbi-related-parties-portal-copy,9200933,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-033
+- Workflow: `rbi_related_parties_portal-approval-033`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-033: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,014e62cda6f239509c0ad8599edc415d32fde04af87ad18852a5ceea274a0739,81688dbb60b43945d0a4526e8be970ef6df1e5177d34c0f472456011b35ae436,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-033.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-034,controlled/rbi-related-parties-portal-copy,9200934,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-034"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-034
+- Workflow: `rbi_related_parties_portal-approval-034`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-034: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,51183a53f9aba45240a02115bd9b1cfd885016ea68b29659b6dc052aa3870073,299fc52d546bae943826dc8928cfa266d62618a69c7abb864cd6e2c235041c0f,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-034.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-035,controlled/rbi-related-parties-portal-copy,9200935,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-035"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-035
+- Workflow: `rbi_related_parties_portal-approval-035`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-035: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2add31474f07d0f48dfbc3ca54f1dc0330cb18ab435131604ec32d99d754b6f8,c3493b337fc46c881de763f64395151b695f9d5086db365a9ecfd1d57d83216d,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-035.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-036,controlled/rbi-related-parties-portal-copy,9200936,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-036"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-036
+- Workflow: `rbi_related_parties_portal-approval-036`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-036: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,62f6b96f1b5f930873ced8edd9e9f2f8ab294f738a63f6db0faf8f155259feda,57dbe293749e56b730af5e2bd580a9739b8ff7aa0c37f5ccd4f4650bbf54a442,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-036.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-037,controlled/rbi-related-parties-portal-copy,9200937,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-037
+- Workflow: `rbi_related_parties_portal-approval-037`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-037: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,29d3cbe56b22f46bc4de4aedfa009371f4c4cc9a4ec56c146264720b00cbfe6a,6c4e80b0889dd53b712144187d4fd1c3d50b74ede07aa3b96fbdacd1fcb48d53,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-037.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-038,controlled/rbi-related-parties-portal-copy,9200938,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-038"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-038
+- Workflow: `rbi_related_parties_portal-approval-038`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-038: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e7782ac1769d1a10b53fc7d83750aa9974e7a94d156221b5d77483f8fce286c4,47bbc7a1e5c955681d55cc75837cf1f976e175cae2090ee5380a49732bacbfe1,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-038.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-039,controlled/rbi-related-parties-portal-copy,9200939,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-039"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-039
+- Workflow: `rbi_related_parties_portal-approval-039`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-039: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d33e13ff8b9d69bdbfb0be5d0fa9c6c2414d42d2d0c82923461d8ffed465fe6c,1f24ce798701a55a5930a3f02eaec7b180b5bf4de8dac8b5de1a9c5147a62dd8,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-039.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-040,controlled/rbi-related-parties-portal-copy,9200940,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-040"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-040
+- Workflow: `rbi_related_parties_portal-approval-040`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-040: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,99e15c7e93350dc82d73660042f154fa56a887ad623a45f52d02272af86e0601,c46614687c799ee437b82a27f90db30e4671fc8ab972c6c678eea764faae0829,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-040.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-041,controlled/rbi-related-parties-portal-copy,9200941,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-041
+- Workflow: `rbi_related_parties_portal-approval-041`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-041: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f82228790580d89d4ab78efc62c6bc1d2a60b761a74f58c86599b3c0bbddbdef,923fd62f692d56659adcf5506845a4eb2599b856a4af8788bf62d5e37a506d92,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-041.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-042,controlled/rbi-related-parties-portal-copy,9200942,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-042"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-042
+- Workflow: `rbi_related_parties_portal-approval-042`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-042: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,49e988a279ff3aff1b1d9b3b269f1942c4adff0b9f66d5048d5df970c98cc5c0,4828c0a1982ba7672fb74585613d3fe2a1697204b6681f0e4106f3dabef13764,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-042.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-043,controlled/rbi-related-parties-portal-copy,9200943,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-043"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-043
+- Workflow: `rbi_related_parties_portal-approval-043`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-043: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f49bd3601ef7323251abc014c4cd0d4db3f5fcd09eba00e24732ca5c21af2c62,fc1217b5a616a96511138745fc8f9d11f657b6776edfc4f281605963045e82be,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-043.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-044,controlled/rbi-related-parties-portal-copy,9200944,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-044"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-044
+- Workflow: `rbi_related_parties_portal-approval-044`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-044: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c109370bb0308e5398d9e71cf036c748f3864043792c9e9de93fed7e379dad9e,6db8588221c9157ecc05dcc401afd2fe19e4f3b4a22a9f77e9fe779c3dd20b67,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-044.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-045,controlled/rbi-related-parties-portal-copy,9200945,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-045
+- Workflow: `rbi_related_parties_portal-approval-045`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-045: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,17fe5c9f39885e67a4146021b2c0fbda4e55a924305dae21a7a26d3947d0587f,94d33ed690034adf27d85da0ae0824ecd828464f43fe219ca382bb7683ac702a,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-045.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-046,controlled/rbi-related-parties-portal-copy,9200946,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-046"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-046
+- Workflow: `rbi_related_parties_portal-approval-046`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-046: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,03370648ed9aa72eb8306f1e24b2a53926155e192d725d4c9ea76808567b56c8,d619d03f5416a7f81f94e8a468128cdc11b84adca80ba633f25336cea7b7a437,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-046.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-047,controlled/rbi-related-parties-portal-copy,9200947,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-047"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-047
+- Workflow: `rbi_related_parties_portal-approval-047`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-047: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c598ac13f207e1bd9e7890bde8ecf2917e0d235016df8b4a91434263c1682487,883d50ed7bb61f6edbdc589296bd0e54c8277b4c0adc66868a252519772f3e77,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-047.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-048,controlled/rbi-related-parties-portal-copy,9200948,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-048"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-048
+- Workflow: `rbi_related_parties_portal-approval-048`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-048: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d523c9757e3d57bb9138bb2b9b99ca7d6a223c5ef6cb07662563259e480ffa0c,0045ec9932f10c8f9792d41f43f134377048907f1b9e6cebf799013b55cef355,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-048.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-049,controlled/rbi-related-parties-portal-copy,9200949,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-049
+- Workflow: `rbi_related_parties_portal-approval-049`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-049: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a8fd2b74e0eaaf4d1e19b4edb96a254d0d719149d9efd4e43d312df1e012ace4,55d475eb21ec3b7ea0249ce2573e0bfc05a0570363aa1a32bb57ae36955da9da,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-049.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-050,controlled/rbi-related-parties-portal-copy,9200950,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-050"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-050
+- Workflow: `rbi_related_parties_portal-approval-050`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-050: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,29b4df7d72af5e15b0962111ed87927b633601c40f829e764c4e6609631899b9,83d4d1fd668736331c79cd0ca5cab3d34469fc3e36fc78ec7dd5b4ab52999f84,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-050.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-051,controlled/rbi-related-parties-portal-copy,9200951,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-051"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-051
+- Workflow: `rbi_related_parties_portal-approval-051`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-051: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ead81e84ecc85d5644f30c67955438dca20a1859df164c2e1da31f145d2c53ef,c26a94a34ae5a6b22f16c4d155c376a9fc4ae47f55e8bc4a51cdb8fc6ac89c44,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-051.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-052,controlled/rbi-related-parties-portal-copy,9200952,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-052"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-052
+- Workflow: `rbi_related_parties_portal-approval-052`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-052: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,932bdc92839873cee8d1bb51caec02aa38d65b9d43a8c460f1fc35a27bbfcaa4,a670c08af8ac282b5da34f6d641eec86189964b447500f88322a1379d7106058,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-052.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-053,controlled/rbi-related-parties-portal-copy,9200953,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-053
+- Workflow: `rbi_related_parties_portal-approval-053`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-053: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,12be4b5d9b1cb54a76c9830ba29cf2654460302b4b00fe7ab93112020564b656,c214dc8e18b345cb0c5e7c7679ceae62488e05b05d805e86c674baf20eabc3d6,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-053.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-054,controlled/rbi-related-parties-portal-copy,9200954,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-054"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-054
+- Workflow: `rbi_related_parties_portal-approval-054`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-054: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,13419612fb81efbc9c566e57bc51a079bfca7769c5c5c2d497f87b7fbf6a372a,af8576d4b18750d9236ad3bd957e9ab87d23f6f1f7fb4528f09e5fff646a438b,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-054.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-055,controlled/rbi-related-parties-portal-copy,9200955,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-055"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-055
+- Workflow: `rbi_related_parties_portal-approval-055`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-055: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,48c9a43a2d72d54833c434da7701de32892d6ac5675d737c4826d3f888a90293,7aa1c28b9e2510015b9162ce99ab12fa85bca68c4d49ef6c040c5a02fac25fbb,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-055.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-056,controlled/rbi-related-parties-portal-copy,9200956,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-056"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-056
+- Workflow: `rbi_related_parties_portal-approval-056`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-056: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0b821f10d867b4302f7d2029cba3cfd21fc98fb502a54188e54552f0ea614ea4,5aa2e2795135fb931a560a43e30a2cd538af15fca335b889cad4d971ccee6fb1,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-056.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-057,controlled/rbi-related-parties-portal-copy,9200957,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-057
+- Workflow: `rbi_related_parties_portal-approval-057`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-057: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8c6b16692d77b6bce6514338bf1002d9feb0032b8303ae6bb73c7c805f8bd220,db597e452810742f6520dc7d62abad7890c55d725a76994b9e33f2719341bd69,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-057.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-058,controlled/rbi-related-parties-portal-copy,9200958,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-058"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-058
+- Workflow: `rbi_related_parties_portal-approval-058`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-058: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6424c2deba07902820d1982349e8b94e2c04987dfa78e195a33866a4c49b41b8,fac1f6d559235cbdc8e2e97a0879a43c4593d4b863ecf7ea263d13a1bbbb62f8,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-058.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-059,controlled/rbi-related-parties-portal-copy,9200959,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-059"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-059
+- Workflow: `rbi_related_parties_portal-approval-059`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-059: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d49311ed2ad98a466b9e4c3b4cd0d53359c771ce6c6aa571129a501809ed87cb,8f96924a67ff995aee079b8beb24d651c74c8f7e786f404b0dd1e710de58ac8b,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-059.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-060,controlled/rbi-related-parties-portal-copy,9200960,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-060"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-060
+- Workflow: `rbi_related_parties_portal-approval-060`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-060: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4fbcaff7c8fe160a27aa8d5ba70b386dee7f0069460f900e2929fe801acfb263,89e69fff17f09aa8ef831611c6479c04dfb801ba4da873ec89267719fdae2581,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-060.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-061,controlled/rbi-related-parties-portal-copy,9200961,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-061
+- Workflow: `rbi_related_parties_portal-approval-061`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-061: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4ab6dba74af77830c5e9279ce1708814f7650c6b4865df76a9a60396832f1841,b2d44cdbb341096ba3b06b66523963ffadd6fccfa15abd8e9933b250c6f951ab,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-061.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-062,controlled/rbi-related-parties-portal-copy,9200962,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-062"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-062
+- Workflow: `rbi_related_parties_portal-approval-062`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-062: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d2364e3b6f20bdd9f624a20d3236ca8618148ddb94d7206ea3e7e1932e4ad2ce,4f610e92af4d35d31fb7173ac26dda969bbe0658d6e8f131e92947170360cfb2,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-062.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-063,controlled/rbi-related-parties-portal-copy,9200963,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-063"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-063
+- Workflow: `rbi_related_parties_portal-approval-063`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-063: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b7826f50bd95e7cfca7ec116e5253b995524d66b18bd3e887f5435b0928e241e,9c03ba8644bdbb70d305961dd535e2b093bcfe2e495aca00df8ccb716e62d5ee,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-063.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-064,controlled/rbi-related-parties-portal-copy,9200964,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-064"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-064
+- Workflow: `rbi_related_parties_portal-approval-064`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-064: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b7c15f5db1db4f41052c814d6954336a97992a280511e5ba3391f5e3737042d3,1e6ec08010ccaf4f0528a37f3b03ab9213eb7bf18a5fbeccd58e00c4cb592504,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-064.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-065,controlled/rbi-related-parties-portal-copy,9200965,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-065
+- Workflow: `rbi_related_parties_portal-approval-065`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-065: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,476bae573b661758f5c25713fbe09a69f3f48e590628ee51ab52f4aedc3b8ee3,fa5d14c6ab168ce6a318c936aaac68e9dbc9e02f80d46706289856c8c072906d,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-065.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-066,controlled/rbi-related-parties-portal-copy,9200966,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-066"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-066
+- Workflow: `rbi_related_parties_portal-approval-066`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-066: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,15360e38d3585decff6f68d97f05fd9400ec268e6bc3e24bd0e0a771537e15de,836088ccf1462a690867b6320a295482007754c02b610e69198318bc48ebd5ef,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-066.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-067,controlled/rbi-related-parties-portal-copy,9200967,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-067"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-067
+- Workflow: `rbi_related_parties_portal-approval-067`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-067: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2ec81c7be02f2f3ca7b52b1aae625c84c6acc1b4554ab79c5dfa3855428ccdae,f6d3690d8e660bc5a6569c78c04762bf3a42689f718d0a71e0802a9776e7b0c4,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-067.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-068,controlled/rbi-related-parties-portal-copy,9200968,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-068"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-068
+- Workflow: `rbi_related_parties_portal-approval-068`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-068: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,71229be1e79f2e17f4cb1a21ef4a765cc627bf0a284808b29d1181bb6e2bc35c,b4ff2e3d2c281081e0a817c732cc9b82d2b2cd8ba0a5062c655509a86e32ca4e,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-068.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-069,controlled/rbi-related-parties-portal-copy,9200969,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-069
+- Workflow: `rbi_related_parties_portal-approval-069`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-069: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ee1ac4b8f6e0da42047da77e5e40e31407391cae261c6b050247e988136ca6be,624d005092c847c99b698b8a833372661be322db373af2480bd34969d196a949,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-069.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-070,controlled/rbi-related-parties-portal-copy,9200970,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-070"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-070
+- Workflow: `rbi_related_parties_portal-approval-070`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-070: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e39163f2ebbd427dbd180755e7f55e79852c3a4f8b5a771cf462edc077533d4e,45db267375fd1593f1d2b71b35f121e4485347aef01b6a6d6d17b32117f85bf1,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-070.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-071,controlled/rbi-related-parties-portal-copy,9200971,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-071"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-071
+- Workflow: `rbi_related_parties_portal-approval-071`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-071: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,02d77fa8993d51cadc1cf94c74fcda9704a69e1f0213b246144db16da6727f58,5bd30346eb1c3d4408cb7031c7d53e2ad2b12a7f738beed3f1409d75c57ad021,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-071.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-072,controlled/rbi-related-parties-portal-copy,9200972,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-072"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-072
+- Workflow: `rbi_related_parties_portal-approval-072`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-072: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3531f64221e998486ac4b0b42b9fab0cdab9c740b3f358db06620d4e4471f47b,02b5fdf9e43573a7bcf512654b1052c9d8fd585f5d98860bf6bb7c942498b113,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-072.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-073,controlled/rbi-related-parties-portal-copy,9200973,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-073
+- Workflow: `rbi_related_parties_portal-approval-073`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-073: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4ac378ba2144297fe1e358e698d648da45b97f1f77f19e3c691195176531966f,aec5c058da1e8eaf328002cd28140361c3e01aa5eac7141dd9c23d0e85ba3220,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-073.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-074,controlled/rbi-related-parties-portal-copy,9200974,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-074"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-074
+- Workflow: `rbi_related_parties_portal-approval-074`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-074: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eace0ddb32fa3a6bdee34da567041ef0696db82c00cdbe6eb48c1d519f9f08be,5cd2d15effd88930efea4c530c761a6e07b132fd85ba32fc5782d451b8c0c9d1,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-074.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-075,controlled/rbi-related-parties-portal-copy,9200975,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-075"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-075
+- Workflow: `rbi_related_parties_portal-approval-075`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-075: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,89c804f19e90a352777a8a3d43623983db0337f3e43428a6c122d847aa876b67,16a0979d7f35a93b4cd9f893a0ef510963f2c8ba067d4ca70a1af64d7c53d784,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-075.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-076,controlled/rbi-related-parties-portal-copy,9200976,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-076"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-076
+- Workflow: `rbi_related_parties_portal-approval-076`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-076: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,34824001906849c49d7c218b6c21ba1f7827e1c7eac768da2f0584222cfcfaf7,6159b1ed60dd0a9d291e026f7565f2e76e813e12aee24bb492709484874a43d7,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-076.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-077,controlled/rbi-related-parties-portal-copy,9200977,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-077
+- Workflow: `rbi_related_parties_portal-approval-077`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-077: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0c6b3618bc8dc77d6b8158faf6630763c38e3b0ad038dd0bb6afdeadce6b713c,8525a6cf41f214ffe2e0c45844eceb6239cb0361c0d9731ef961c78e74a47c5e,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-077.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-078,controlled/rbi-related-parties-portal-copy,9200978,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-078"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-078
+- Workflow: `rbi_related_parties_portal-approval-078`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-078: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eeffb3e6fc49b8ebf5ad61e30040f1c06babecf047759292e95d4197b48e83ac,5ba1103cc26fccc83106ef2ad0c46f9ff2185b46e8dcb4f65505da6f4783facf,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-078.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-079,controlled/rbi-related-parties-portal-copy,9200979,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-079"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-079
+- Workflow: `rbi_related_parties_portal-approval-079`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-079: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bfe33fd9cad57f4cf785ab962275328e58a6d8da1492581a0a5dcf0dac9fc555,3921f2e6a2fb9a1049b1e52782551f5b43950ac488583e30a4d03875c7d8c757,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-079.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-080,controlled/rbi-related-parties-portal-copy,9200980,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-080"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-080
+- Workflow: `rbi_related_parties_portal-approval-080`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-080: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7ce4766ec32cbedaeee6783bf9edfce4132984197161d3304f19790e6a93987d,f2b46ac19cdafd09e93b6420a63de6ce963d4fd34996a2f64b97dd1fb1c4d26f,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-080.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-081,controlled/rbi-related-parties-portal-copy,9200981,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-081
+- Workflow: `rbi_related_parties_portal-approval-081`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-081: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e04384fefc738dac5e61113331216ce398541554add0f0d63fa85d7806f856df,bd9f5021a94a534964e033ebb254ea0eeaa2f8bddd2b1527a75893d9c340d07f,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-081.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-082,controlled/rbi-related-parties-portal-copy,9200982,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-082"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-082
+- Workflow: `rbi_related_parties_portal-approval-082`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-082: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a7b7e340a5ef1ccbb30fa7bf6b299afb16bb02173ac51ea4ce0fca91c0818b41,f08c644f28bcf362a61b5a74caca56c572730a1c6c809d1c361f6e57415d6075,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-082.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-083,controlled/rbi-related-parties-portal-copy,9200983,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-083"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-083
+- Workflow: `rbi_related_parties_portal-approval-083`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-083: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9ad5b113d2b87d29dac5567594cadf8b438a90ae39582d621f8821c1f3fa96b1,b5408e9a75f8e02f3a6ac82d27df48824eb23e4912f436056df8ab8485575804,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-083.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-084,controlled/rbi-related-parties-portal-copy,9200984,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-084"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-084
+- Workflow: `rbi_related_parties_portal-approval-084`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-084: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e303f61a00319af378cc914eae576ef5ef60946c1bdf2af89bbc54d418253a16,7ba01ca597c36a017c26a8ef45ea7853bde3ffcdf90e64f0dd58fd8755a23aea,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-084.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-085,controlled/rbi-related-parties-portal-copy,9200985,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-085
+- Workflow: `rbi_related_parties_portal-approval-085`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-085: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,932e4c03db58089983fdc228a44e6aab19af653cfa1e643ac7ef4ef476c09de0,ff22b6178bfb9a2c51854735b7b015154e5835ae0afd6e947c733bb1840f3e85,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-085.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-086,controlled/rbi-related-parties-portal-copy,9200986,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-086"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-086
+- Workflow: `rbi_related_parties_portal-approval-086`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-086: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,df32379caa95d91a1819250f235d32ddfc0bcc77e63ee37e2c436ec16ae9b320,59d628a73150f4ac2844bc8a98ad8e1e4af6060ed99aa904b092501e46307e40,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-086.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-087,controlled/rbi-related-parties-portal-copy,9200987,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-087"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-087
+- Workflow: `rbi_related_parties_portal-approval-087`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-087: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f1429c71e4b2efcda16553653b00352ca5c50764048a86a23e58609c31aa0e33,4541e74087d0d43dd09d6ae2baf7d0305e6a9ddc23add1f3c5840594da2bd894,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-087.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-088,controlled/rbi-related-parties-portal-copy,9200988,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-088"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-088
+- Workflow: `rbi_related_parties_portal-approval-088`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-088: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5bd932771869d14081b0da9beb4e1d111d9a90768c98c40ac0360ff793641553,3ea0e011b41cd57380f47927626b6acb90a6862e96fb3afcf745bb9cc8b304f6,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-088.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-089,controlled/rbi-related-parties-portal-copy,9200989,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-089
+- Workflow: `rbi_related_parties_portal-approval-089`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-089: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d7cdf0c8749f44ffb95d4444fee44c8e8cec179549b7db8fb1f59cc42f1bf279,7c470cbb8352a6aeb409c2522df3749713b5e84097410752c12e9a0ab359158d,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-089.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-090,controlled/rbi-related-parties-portal-copy,9200990,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-090"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-090
+- Workflow: `rbi_related_parties_portal-approval-090`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-090: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,60fc4846741d7a7fcb9537fad7f095ed92be137e4a3167e688b3b2c971d95416,7f7c7b361aeff0fc853ccdfedcc2a553978be11a66f641d5870fd7ae5b309892,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-090.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-091,controlled/rbi-related-parties-portal-copy,9200991,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-091"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-091
+- Workflow: `rbi_related_parties_portal-approval-091`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-091: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a0d040c3172a72af7e0c9b39aa326fa9563642544f47190b5443288018cb285f,1ed3c7623b917a3e53403cc3241df4e9d48e16fc2220897e0dc7030f15b3d725,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-091.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-092,controlled/rbi-related-parties-portal-copy,9200992,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-092"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-092
+- Workflow: `rbi_related_parties_portal-approval-092`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-092: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9fd469a85aebb83338b4ac7619c23f1d7e06fa26457b6f881411abf1b8ca7042,61822c0b2cc88207d9da86f2c12194b78bfeffbcd67c8dcacb9878d3f7defccc,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-092.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-093,controlled/rbi-related-parties-portal-copy,9200993,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-093
+- Workflow: `rbi_related_parties_portal-approval-093`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-093: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fa437677a25f4ff7aea7f167119c8d2bb94ea4c01c6f5b68dcdedcf8418b7925,3b72dc9d5ad07bcece8db0d2ddb6b9df72fb32894ea664006127e80e75cb3639,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-093.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-094,controlled/rbi-related-parties-portal-copy,9200994,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-094"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-094
+- Workflow: `rbi_related_parties_portal-approval-094`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-094: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4c0f337b05d75d9cee07b54c00cf997143ebfa37ba6e2768fb1ee36f07dfb13e,b17dd272d4dd84aaabe2e9671ce34315314d95ade72153a6c97dc8083af10f6f,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-094.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-095,controlled/rbi-related-parties-portal-copy,9200995,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-095"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-095
+- Workflow: `rbi_related_parties_portal-approval-095`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-095: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d706f2932a72c92c290c5383054e40751eb77a2daa7925d8bc85d84c94fa575b,645a292805538e96300e7e04e23981b5696e0f1cb75d842898582e5b8acb5624,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-095.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-096,controlled/rbi-related-parties-portal-copy,9200996,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-096"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-096
+- Workflow: `rbi_related_parties_portal-approval-096`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-096: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f9e558a145a863b762beba4d5256764d8c09e51eebff85eed3090df5584769c5,d217074c95e491344d7cdf5a862ca3b6966ed9abf05096d39fe30b7e4470136b,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-096.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-097,controlled/rbi-related-parties-portal-copy,9200997,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-097
+- Workflow: `rbi_related_parties_portal-approval-097`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-097: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9914f34f1301e543ae8df0b7bf901b171166fd37aa4fafade577589ec198b57e,b1a3168c97d26fd71a737409e7c8496f8217bf4363cb41d455897b6006cbaa27,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-097.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-098,controlled/rbi-related-parties-portal-copy,9200998,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-098"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-098
+- Workflow: `rbi_related_parties_portal-approval-098`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-098: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1d652ded63c52824e066daff5f7aa1c322afe1360c156162894f2916b1edbd81,d05608efe7ec51cb3b9a97597c1333f515373d21e07c48b8bdb753d60ca2331a,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-098.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-099,controlled/rbi-related-parties-portal-copy,9200999,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-099"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-099
+- Workflow: `rbi_related_parties_portal-approval-099`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-099: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3490912c429dc4ea7bfff9bd831c463f83742c6b7f7d7d1d58248e67a419cd0a,f74168ea3d3d1396c2b1d54bd4e1ba3b32fb21b26637201107dff10630f492b4,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-099.patch
+CRPP1-RPP-OTHER_DOCUMENTATION-100,controlled/rbi-related-parties-portal-copy,9201000,typescript,"[""src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-100"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:f83581df6564f6d9 -->
+### RPP-FLOW-100
+- Workflow: `rbi_related_parties_portal-approval-100`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-100: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,50f82122af64e5b2eef1bf40db2a591d0625613d21a955fbff3c05dbfaa5819f,1dcc23ea7007de5df5a9f176d1ba9d0940a68b9fcbaff725b7f6cac39ff1b596,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-100.patch

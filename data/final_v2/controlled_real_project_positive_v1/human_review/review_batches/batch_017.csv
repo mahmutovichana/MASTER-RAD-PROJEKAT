@@ -1,0 +1,1901 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-VAL-CONFIGURATION-001,controlled/rbi-property-valuation-copy,9201601,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""VAL-CFG-001"",
+-      ""default"": 31,
++      ""default"": 61,
+       ""environmentVariable"": ""VAL_FEATURE_001_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature001.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-001
+- Configuration key: `rbi_property_valuation.feature001.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_001_TIMEOUT_SECONDS`
+- Documented default: `31`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-001: kod mijenja dokumentovanu konfiguraciju iz '31' u '61' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7aacd03299b632648c4f0a9e64c9ebb5d4aeeae15983df912d38b78c9c72504e,668a45fb559ab6e799b60a6a868e2736c9e85aa3595ad33f87fc96e955043e92,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-001.patch
+CRPP1-VAL-CONFIGURATION-002,controlled/rbi-property-valuation-copy,9201602,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""VAL-CFG-002"",
+       ""default"": 32,
+-      ""environmentVariable"": ""VAL_FEATURE_002_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_002_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature002.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-002
+- Configuration key: `rbi_property_valuation.feature002.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_002_TIMEOUT_SECONDS`
+- Documented default: `32`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-002: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_002_TIMEOUT_SECONDS' u 'VAL_FEATURE_002_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d90c4175aa828ca9be996b05cb990cde6b82d598c2a460b0786f41aef9937793,7980778a6b18317dc7cf8519629287de3aac8ab9f6a2989039eac7944af15f71,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-002.patch
+CRPP1-VAL-CONFIGURATION-003,controlled/rbi-property-valuation-copy,9201603,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_003_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature003.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-004"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-003
+- Configuration key: `rbi_property_valuation.feature003.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_003_TIMEOUT_SECONDS`
+- Documented default: `33`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-003: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cdc09b0cd73c7e1beefa9a942ce439d8177d24d2b6b851f643fb94ba6ec708ea,c2cc49df275938c449673fec1c30fc579ae97cff1e788bfa410127cadce07338,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-003.patch
+CRPP1-VAL-CONFIGURATION-004,controlled/rbi-property-valuation-copy,9201604,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
+@@ -30,7 +30,7 @@
+       ""default"": 34,
+       ""environmentVariable"": ""VAL_FEATURE_004_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature004.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-004
+- Configuration key: `rbi_property_valuation.feature004.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_004_TIMEOUT_SECONDS`
+- Documented default: `34`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-004: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,94d5b09a36b2694dd6a26ba5dae07445091e8f46921bd6638fd28ea2ccf34309,947f2eadcdf07af38a2921b316677d6f04d2eeb7fabc86832dce8b63aa54b208,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-004.patch
+CRPP1-VAL-CONFIGURATION-005,controlled/rbi-property-valuation-copy,9201605,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-005"",
+-      ""default"": 35,
++      ""default"": 65,
+       ""environmentVariable"": ""VAL_FEATURE_005_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature005.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-005
+- Configuration key: `rbi_property_valuation.feature005.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_005_TIMEOUT_SECONDS`
+- Documented default: `35`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-005: kod mijenja dokumentovanu konfiguraciju iz '35' u '65' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,762fbadd6920e97960b482ecbd165dac50d08fa4c99c26cdadd6cf3f95c0f82e,c4d05b550ac24c1b1acf14fdea2062a18e964adfdba3dd7d3e6fd34f7f3d7419,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-005.patch
+CRPP1-VAL-CONFIGURATION-006,controlled/rbi-property-valuation-copy,9201606,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""VAL-CFG-006"",
+       ""default"": 36,
+-      ""environmentVariable"": ""VAL_FEATURE_006_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_006_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature006.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-006
+- Configuration key: `rbi_property_valuation.feature006.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_006_TIMEOUT_SECONDS`
+- Documented default: `36`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-006: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_006_TIMEOUT_SECONDS' u 'VAL_FEATURE_006_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b49bb6687203f1ea8e6d5c9c87611541289c5374f0942827b3353caf3543693f,649b1b0d3da6bb93c058aeab849e602138d000d10fa8e5a4662dd50739742dfb,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-006.patch
+CRPP1-VAL-CONFIGURATION-007,controlled/rbi-property-valuation-copy,9201607,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_007_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature007.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-008"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-007
+- Configuration key: `rbi_property_valuation.feature007.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_007_TIMEOUT_SECONDS`
+- Documented default: `37`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-007: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,89ca4e34209513e7e1e647be48c1d1885333ebc3e5539dbe112ec920bb26ab60,3667e9b519e826d3fe5d71d8ad5ef619b87e6636d0e759168751263b83afec8a,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-007.patch
+CRPP1-VAL-CONFIGURATION-008,controlled/rbi-property-valuation-copy,9201608,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
+@@ -62,7 +62,7 @@
+       ""default"": 38,
+       ""environmentVariable"": ""VAL_FEATURE_008_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature008.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-008
+- Configuration key: `rbi_property_valuation.feature008.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_008_TIMEOUT_SECONDS`
+- Documented default: `38`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-008: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6b494b163278af5fd0dc98d2ce6da28b61f4a2409b79727b873dbc3a96d3446e,84010bf1aa375793257fc5d48747e45a50f4ae6ec1abb5f3d0f3234ad1fd59ad,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-008.patch
+CRPP1-VAL-CONFIGURATION-009,controlled/rbi-property-valuation-copy,9201609,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-009"",
+-      ""default"": 39,
++      ""default"": 69,
+       ""environmentVariable"": ""VAL_FEATURE_009_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature009.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-009
+- Configuration key: `rbi_property_valuation.feature009.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_009_TIMEOUT_SECONDS`
+- Documented default: `39`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-009: kod mijenja dokumentovanu konfiguraciju iz '39' u '69' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2a2dde945f6ac08140a8824dba264bb7e8e97699d9bfe15ef854bcf2c27a0011,5886d0c7b46ceb2c7ecc8d319e4d38468030760e3ce5957b5642e409b4ed7fe7,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-009.patch
+CRPP1-VAL-CONFIGURATION-010,controlled/rbi-property-valuation-copy,9201610,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_01.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_01.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""VAL-CFG-010"",
+       ""default"": 40,
+-      ""environmentVariable"": ""VAL_FEATURE_010_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_010_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature010.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-010
+- Configuration key: `rbi_property_valuation.feature010.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_010_TIMEOUT_SECONDS`
+- Documented default: `40`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-010: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_010_TIMEOUT_SECONDS' u 'VAL_FEATURE_010_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bb61cfcc5c2646071bbd986f55ccd9e3369d6e6c816fdb21fc2f62044b772ccd,6e53b2a8061a1e7a329ad05193dafccda631a3f10827a145efea47b8839f4105,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-010.patch
+CRPP1-VAL-CONFIGURATION-011,controlled/rbi-property-valuation-copy,9201611,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_011_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature011.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-012"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-011
+- Configuration key: `rbi_property_valuation.feature011.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_011_TIMEOUT_SECONDS`
+- Documented default: `41`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-011: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4e139468b383758dd69dcc2e57ab39310d68c646370ad3c58f2c8433f3fe81b9,a11cd087b19db48d420d1e3fc72212e1d00ed960e8c8eccbe7180aaf9a7cb8ba,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-011.patch
+CRPP1-VAL-CONFIGURATION-012,controlled/rbi-property-valuation-copy,9201612,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
+@@ -14,7 +14,7 @@
+       ""default"": 42,
+       ""environmentVariable"": ""VAL_FEATURE_012_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature012.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-012
+- Configuration key: `rbi_property_valuation.feature012.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_012_TIMEOUT_SECONDS`
+- Documented default: `42`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-012: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,727578ace4f2a88f4fc2344736f4f8b561f9a84cc880889c79b52f20d3f79698,1b8dd9f0d7b43fed0da50224bebcbac23bfba66f7e904e7c6122c062a575ac46,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-012.patch
+CRPP1-VAL-CONFIGURATION-013,controlled/rbi-property-valuation-copy,9201613,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-013"",
+-      ""default"": 43,
++      ""default"": 73,
+       ""environmentVariable"": ""VAL_FEATURE_013_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature013.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-013
+- Configuration key: `rbi_property_valuation.feature013.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_013_TIMEOUT_SECONDS`
+- Documented default: `43`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-013: kod mijenja dokumentovanu konfiguraciju iz '43' u '73' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,41aacf030f5cb74c79a6a5a0ebdec7030c8f3d644075983bbd8bceda9f7ca977,52d0668dd7dc94a76f3bb3bd823b9c9e8546b97352ec0efd7eb44374ba753f27,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-013.patch
+CRPP1-VAL-CONFIGURATION-014,controlled/rbi-property-valuation-copy,9201614,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""VAL-CFG-014"",
+       ""default"": 44,
+-      ""environmentVariable"": ""VAL_FEATURE_014_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_014_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature014.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-014
+- Configuration key: `rbi_property_valuation.feature014.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_014_TIMEOUT_SECONDS`
+- Documented default: `44`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-014: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_014_TIMEOUT_SECONDS' u 'VAL_FEATURE_014_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,72b85de36f6911e7cbc92810627fbe5599908f317bcd1e436b2197b48d95e307,bac9bef4fb314a70ede151105039ffb0b3b7c503d723ac3dd773825a6ae692df,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-014.patch
+CRPP1-VAL-CONFIGURATION-015,controlled/rbi-property-valuation-copy,9201615,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_015_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature015.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-016"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-015
+- Configuration key: `rbi_property_valuation.feature015.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_015_TIMEOUT_SECONDS`
+- Documented default: `45`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-015: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b8e387a64758fa007dbca66f75640ccae74b4834171484825d9e9dd3b43a2a98,34a9c134adfca2e24abc9d5cdb7574a0b1fc742ccc9a605339c4afc71f3e34ab,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-015.patch
+CRPP1-VAL-CONFIGURATION-016,controlled/rbi-property-valuation-copy,9201616,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
+@@ -46,7 +46,7 @@
+       ""default"": 46,
+       ""environmentVariable"": ""VAL_FEATURE_016_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature016.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-016
+- Configuration key: `rbi_property_valuation.feature016.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_016_TIMEOUT_SECONDS`
+- Documented default: `46`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-016: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5e55d5a96ea97cbddb0757561688d3a54ab8ec85877f1f572b848f0b24e597e3,5b16749adc577cd25f911f4e429d55bf60afa8502e91539be445ba3b16fbe705,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-016.patch
+CRPP1-VAL-CONFIGURATION-017,controlled/rbi-property-valuation-copy,9201617,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-017"",
+-      ""default"": 47,
++      ""default"": 77,
+       ""environmentVariable"": ""VAL_FEATURE_017_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature017.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-017
+- Configuration key: `rbi_property_valuation.feature017.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_017_TIMEOUT_SECONDS`
+- Documented default: `47`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-017: kod mijenja dokumentovanu konfiguraciju iz '47' u '77' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,58d9b3baa71de019143f4aa94b885119e884fb275ba23ff2bc05226d5fdb62b7,d043dcd34dd9aef52893399c516aee727862527bafbd7fe0f1ca75491b815dd4,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-017.patch
+CRPP1-VAL-CONFIGURATION-018,controlled/rbi-property-valuation-copy,9201618,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""VAL-CFG-018"",
+       ""default"": 48,
+-      ""environmentVariable"": ""VAL_FEATURE_018_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_018_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature018.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-018
+- Configuration key: `rbi_property_valuation.feature018.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_018_TIMEOUT_SECONDS`
+- Documented default: `48`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-018: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_018_TIMEOUT_SECONDS' u 'VAL_FEATURE_018_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a7edfdcd122bbc49a31b3c2ea1f1df1df98510ace8096b39c192875078014006,bd9eb237163b38ddbbfc42c05b3dc79aa56ff488ea6bbc6974b027dddbad7d75,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-018.patch
+CRPP1-VAL-CONFIGURATION-019,controlled/rbi-property-valuation-copy,9201619,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_019_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature019.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-020"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-019
+- Configuration key: `rbi_property_valuation.feature019.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_019_TIMEOUT_SECONDS`
+- Documented default: `49`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-019: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cd8216d5db43e14a344123b16a82df673781855056ee87de04aabde24671a1cc,7a9f49777f6d11ffdbe733ee9555446f6fef9cd1d9af30ca34876a0d8a75cdbe,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-019.patch
+CRPP1-VAL-CONFIGURATION-020,controlled/rbi-property-valuation-copy,9201620,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_02.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_02.json
+@@ -78,7 +78,7 @@
+       ""default"": 50,
+       ""environmentVariable"": ""VAL_FEATURE_020_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature020.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-020
+- Configuration key: `rbi_property_valuation.feature020.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_020_TIMEOUT_SECONDS`
+- Documented default: `50`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-020: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,206204b76a450965d623efba27355095eb65ae8fa72c5e9e6597b5c0c9391e15,255cbe0b92e2d34908d73e62c948ca372355638a11c66bf5332081c2c9f67ba3,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-020.patch
+CRPP1-VAL-CONFIGURATION-021,controlled/rbi-property-valuation-copy,9201621,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""VAL-CFG-021"",
+-      ""default"": 51,
++      ""default"": 81,
+       ""environmentVariable"": ""VAL_FEATURE_021_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature021.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-021
+- Configuration key: `rbi_property_valuation.feature021.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_021_TIMEOUT_SECONDS`
+- Documented default: `51`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-021: kod mijenja dokumentovanu konfiguraciju iz '51' u '81' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4e585fb67f9039721b92d605ad9cd840ef7ae41246fb087fe368e555d2285e7e,4592202cc6238b9d133e34626276cc38833decf724db5cb83b9c1234573ad76c,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-021.patch
+CRPP1-VAL-CONFIGURATION-022,controlled/rbi-property-valuation-copy,9201622,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""VAL-CFG-022"",
+       ""default"": 52,
+-      ""environmentVariable"": ""VAL_FEATURE_022_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_022_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature022.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-022
+- Configuration key: `rbi_property_valuation.feature022.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_022_TIMEOUT_SECONDS`
+- Documented default: `52`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-022: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_022_TIMEOUT_SECONDS' u 'VAL_FEATURE_022_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a63b9c2c9657178eada08bb048b30ef9618a11a9249936dc8343e3a39e392f3a,cfafff62239ddbee21ffc71d048f8f4f05876f3bbf8a339bc98ee1185c0490a5,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-022.patch
+CRPP1-VAL-CONFIGURATION-023,controlled/rbi-property-valuation-copy,9201623,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_023_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature023.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-024"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-023
+- Configuration key: `rbi_property_valuation.feature023.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_023_TIMEOUT_SECONDS`
+- Documented default: `53`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-023: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ea52cb2c9bd98702b2f023d6e095281aa560c31fdd6dd7092e1963b62c2ed944,b65655dd86671ecd679ad15860abe339116df87f277458a83f0a0bbe4e1fe03f,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-023.patch
+CRPP1-VAL-CONFIGURATION-024,controlled/rbi-property-valuation-copy,9201624,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
+@@ -30,7 +30,7 @@
+       ""default"": 54,
+       ""environmentVariable"": ""VAL_FEATURE_024_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature024.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-024
+- Configuration key: `rbi_property_valuation.feature024.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_024_TIMEOUT_SECONDS`
+- Documented default: `54`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-024: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6415bd6a719455805d4537f8d3ca0c68e3f6162f55ff4fbc460dc47a85f1cfad,1612933c0c4bbec0d90d44c27da5686af1b6188235c1cf083267ba3d6c7fe79b,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-024.patch
+CRPP1-VAL-CONFIGURATION-025,controlled/rbi-property-valuation-copy,9201625,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-025"",
+-      ""default"": 55,
++      ""default"": 85,
+       ""environmentVariable"": ""VAL_FEATURE_025_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature025.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-025
+- Configuration key: `rbi_property_valuation.feature025.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_025_TIMEOUT_SECONDS`
+- Documented default: `55`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-025: kod mijenja dokumentovanu konfiguraciju iz '55' u '85' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0f84c9597eedd3dabe472e9676c989ea2e7e5319d5c4ef1223550c45a92bb3f1,9ab1e7fcba40b580cdb101b4f6d4e6959249dad53e1e7731eafbfbf341af2068,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-025.patch
+CRPP1-VAL-CONFIGURATION-026,controlled/rbi-property-valuation-copy,9201626,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""VAL-CFG-026"",
+       ""default"": 56,
+-      ""environmentVariable"": ""VAL_FEATURE_026_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_026_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature026.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-026
+- Configuration key: `rbi_property_valuation.feature026.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_026_TIMEOUT_SECONDS`
+- Documented default: `56`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-026: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_026_TIMEOUT_SECONDS' u 'VAL_FEATURE_026_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0558eff74ee57f939defe31ca22b1fe50322cf27e1a809ac1befc18be7729250,6347fcaae94387f030175f8901f93c5f6b3788aa060c24f0c5d31cd89ff64c8b,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-026.patch
+CRPP1-VAL-CONFIGURATION-027,controlled/rbi-property-valuation-copy,9201627,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_027_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature027.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-028"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-027
+- Configuration key: `rbi_property_valuation.feature027.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_027_TIMEOUT_SECONDS`
+- Documented default: `57`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-027: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,18e14b0d570f3f18d6452795444495c302dc7cb752c39f81894ceed81dfbf76c,361e811225583d42521c4e3f3248d98c85d0b2459947757c968cf28b777d89da,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-027.patch
+CRPP1-VAL-CONFIGURATION-028,controlled/rbi-property-valuation-copy,9201628,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
+@@ -62,7 +62,7 @@
+       ""default"": 58,
+       ""environmentVariable"": ""VAL_FEATURE_028_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature028.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-028
+- Configuration key: `rbi_property_valuation.feature028.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_028_TIMEOUT_SECONDS`
+- Documented default: `58`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-028: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b18eb6e1d61fd95dfeb4a7970fe86559c12c9919f81b71c0f2f5ade45630a978,9f8c5fb87cd0d1753df29b8ae75e218b077769d71d11843a83733c0e0d82c8bf,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-028.patch
+CRPP1-VAL-CONFIGURATION-029,controlled/rbi-property-valuation-copy,9201629,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-029"",
+-      ""default"": 59,
++      ""default"": 89,
+       ""environmentVariable"": ""VAL_FEATURE_029_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature029.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-029
+- Configuration key: `rbi_property_valuation.feature029.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_029_TIMEOUT_SECONDS`
+- Documented default: `59`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-029: kod mijenja dokumentovanu konfiguraciju iz '59' u '89' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0906db154c28216d125213fc26d05b0e4c722cb7954c03055b4662d9d664b765,924d6415382c041995362df85e90ed6a2a89415e485ff1ec339f32d6c8496875,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-029.patch
+CRPP1-VAL-CONFIGURATION-030,controlled/rbi-property-valuation-copy,9201630,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_03.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_03.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""VAL-CFG-030"",
+       ""default"": 60,
+-      ""environmentVariable"": ""VAL_FEATURE_030_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_030_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature030.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-030
+- Configuration key: `rbi_property_valuation.feature030.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_030_TIMEOUT_SECONDS`
+- Documented default: `60`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-030: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_030_TIMEOUT_SECONDS' u 'VAL_FEATURE_030_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f01837225f23048e2be82586db9367ca9b4344c90e1cb4dee346064fd5025bd6,b5fdd33fcc12edd5756b9124e99273622853b16b8c02a8ab8a7f56e3ab3cb894,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-030.patch
+CRPP1-VAL-CONFIGURATION-031,controlled/rbi-property-valuation-copy,9201631,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_031_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature031.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-032"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-031
+- Configuration key: `rbi_property_valuation.feature031.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_031_TIMEOUT_SECONDS`
+- Documented default: `61`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-031: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3001ac4811ea5d0efc0f02c9ebf5b2603d713f7fcca1132b713f5bfc8f3e2caf,20b363545c1353f2b632120424f7f306456e5262ea25e68aa919eca432853ba0,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-031.patch
+CRPP1-VAL-CONFIGURATION-032,controlled/rbi-property-valuation-copy,9201632,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
+@@ -14,7 +14,7 @@
+       ""default"": 62,
+       ""environmentVariable"": ""VAL_FEATURE_032_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature032.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-032
+- Configuration key: `rbi_property_valuation.feature032.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_032_TIMEOUT_SECONDS`
+- Documented default: `62`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-032: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,607cae7a02bb17c4192708d95bebfcf94fa3ec1ac1dd934511a5b4ac6a2fbd1f,79f9ef005e5d9bf5a7f195f843d82709dcf6bd3ca6895653804641898ba23f8a,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-032.patch
+CRPP1-VAL-CONFIGURATION-033,controlled/rbi-property-valuation-copy,9201633,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-033"",
+-      ""default"": 63,
++      ""default"": 93,
+       ""environmentVariable"": ""VAL_FEATURE_033_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature033.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-033
+- Configuration key: `rbi_property_valuation.feature033.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_033_TIMEOUT_SECONDS`
+- Documented default: `63`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-033: kod mijenja dokumentovanu konfiguraciju iz '63' u '93' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2b3e4fb11ca9fddcebd09cf457b365777c255f17dec364213aa8ab7a305d4893,7118a31bf479a30b9c8d9146f7b9a3b8ae84e3c45eef94d82cdeaf759f4bb069,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-033.patch
+CRPP1-VAL-CONFIGURATION-034,controlled/rbi-property-valuation-copy,9201634,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""VAL-CFG-034"",
+       ""default"": 64,
+-      ""environmentVariable"": ""VAL_FEATURE_034_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_034_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature034.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-034
+- Configuration key: `rbi_property_valuation.feature034.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_034_TIMEOUT_SECONDS`
+- Documented default: `64`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-034: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_034_TIMEOUT_SECONDS' u 'VAL_FEATURE_034_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,87f8f0ceec969c370accddd73317e89d481d262d9ab75ffe52ab3322c2cf3dfd,1ea5fc66939efba2b79b45b0cc58f0dcbd88b5a51d4aeac9f21b6c012acb9e94,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-034.patch
+CRPP1-VAL-CONFIGURATION-035,controlled/rbi-property-valuation-copy,9201635,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_035_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature035.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-036"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-035
+- Configuration key: `rbi_property_valuation.feature035.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_035_TIMEOUT_SECONDS`
+- Documented default: `65`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-035: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,673c0ef9d0436fe20f955939593ea8835769fa795fc1433aa171a0852f2b590f,7e5a603d0bc70bc69cb1eabda1ec57ff3300038dbffa966f9a4bb13387c09aff,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-035.patch
+CRPP1-VAL-CONFIGURATION-036,controlled/rbi-property-valuation-copy,9201636,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
+@@ -46,7 +46,7 @@
+       ""default"": 66,
+       ""environmentVariable"": ""VAL_FEATURE_036_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature036.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-036
+- Configuration key: `rbi_property_valuation.feature036.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_036_TIMEOUT_SECONDS`
+- Documented default: `66`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-036: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,32c09436a3573865ac1158217f0aa514d6b5a8884b6e5f55270bf14ae0ac9e17,50bc164cde3f337605f379eda0f37830c89bd4dd66bf3b88c340a7955856e1c9,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-036.patch
+CRPP1-VAL-CONFIGURATION-037,controlled/rbi-property-valuation-copy,9201637,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-037"",
+-      ""default"": 67,
++      ""default"": 97,
+       ""environmentVariable"": ""VAL_FEATURE_037_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature037.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-037
+- Configuration key: `rbi_property_valuation.feature037.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_037_TIMEOUT_SECONDS`
+- Documented default: `67`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-037: kod mijenja dokumentovanu konfiguraciju iz '67' u '97' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,48e2b7f6a62371db2f264a30503b749daa374663f249b6dd756a2559dd7c3ec4,e77b9b4240e495183ce625cd957076cd075c9bd8c722aca3d3d791aa57293456,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-037.patch
+CRPP1-VAL-CONFIGURATION-038,controlled/rbi-property-valuation-copy,9201638,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""VAL-CFG-038"",
+       ""default"": 68,
+-      ""environmentVariable"": ""VAL_FEATURE_038_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_038_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature038.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-038
+- Configuration key: `rbi_property_valuation.feature038.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_038_TIMEOUT_SECONDS`
+- Documented default: `68`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-038: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_038_TIMEOUT_SECONDS' u 'VAL_FEATURE_038_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,074b7f93db02ab0f90e0702ed9a75402216353beb98a24ea3b258b90b98ac295,cda3146540c78c79c4a63bccb47c94d5de92e64fd80ba78d04d43304db751ab0,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-038.patch
+CRPP1-VAL-CONFIGURATION-039,controlled/rbi-property-valuation-copy,9201639,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_039_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature039.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-040"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-039
+- Configuration key: `rbi_property_valuation.feature039.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_039_TIMEOUT_SECONDS`
+- Documented default: `69`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-039: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1d4a0bbe719e1e6b5b4b308fe5bb194a8020a49391361b1fc39e1a0f63f7d51f,563de66d68b5db1d2ce452388f3fc51df5aae76a036647f7a2dc8f3c51d3536c,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-039.patch
+CRPP1-VAL-CONFIGURATION-040,controlled/rbi-property-valuation-copy,9201640,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_04.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_04.json
+@@ -78,7 +78,7 @@
+       ""default"": 70,
+       ""environmentVariable"": ""VAL_FEATURE_040_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature040.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-040
+- Configuration key: `rbi_property_valuation.feature040.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_040_TIMEOUT_SECONDS`
+- Documented default: `70`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-040: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b69e7cf876b99610d446499edf59267e1f0e38b5e2805ae74b5ebf799fb98506,072a75c2bddfed0e0ed0b264d23ea0a55f273213620288e0945b275b6c3f0003,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-040.patch
+CRPP1-VAL-CONFIGURATION-041,controlled/rbi-property-valuation-copy,9201641,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""VAL-CFG-041"",
+-      ""default"": 71,
++      ""default"": 101,
+       ""environmentVariable"": ""VAL_FEATURE_041_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature041.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-041
+- Configuration key: `rbi_property_valuation.feature041.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_041_TIMEOUT_SECONDS`
+- Documented default: `71`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-041: kod mijenja dokumentovanu konfiguraciju iz '71' u '101' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4f2852b8eea62e074dc8b0483a4eac2932ee49fe9cdc77aea4a62e64aa4f3fe0,fa51d1497380a1a60e07a6ae987482218bcf7da89495f4cc81ea13d765d6e13c,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-041.patch
+CRPP1-VAL-CONFIGURATION-042,controlled/rbi-property-valuation-copy,9201642,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""VAL-CFG-042"",
+       ""default"": 72,
+-      ""environmentVariable"": ""VAL_FEATURE_042_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_042_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature042.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-042
+- Configuration key: `rbi_property_valuation.feature042.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_042_TIMEOUT_SECONDS`
+- Documented default: `72`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-042: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_042_TIMEOUT_SECONDS' u 'VAL_FEATURE_042_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6b511ecc650dddff1ddb08ec24de7579bc0ad9ed4825791a412a55061cda54dc,0ffc22c52c4e55cb49444850f048a93f751cc71a6dbe8235d4327b587c8d75eb,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-042.patch
+CRPP1-VAL-CONFIGURATION-043,controlled/rbi-property-valuation-copy,9201643,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_043_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature043.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-044"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-043
+- Configuration key: `rbi_property_valuation.feature043.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_043_TIMEOUT_SECONDS`
+- Documented default: `73`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-043: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d03a86268c710300592f45c4e3d93285604932378ae4c4e1a00de9b1fb19c430,8e166efa637aa40bb48736caf9da696fc37fcd55e5dbf6dd16574233d4749e60,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-043.patch
+CRPP1-VAL-CONFIGURATION-044,controlled/rbi-property-valuation-copy,9201644,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
+@@ -30,7 +30,7 @@
+       ""default"": 74,
+       ""environmentVariable"": ""VAL_FEATURE_044_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature044.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-044
+- Configuration key: `rbi_property_valuation.feature044.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_044_TIMEOUT_SECONDS`
+- Documented default: `74`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-044: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,810ffdf36c7e4c264014d70d8cafb6675c2faa7c336591ccbf0d0187630aa966,1b83962bb03507ca912268df0a2c29300226261d7e97f3ff89b1e772f13d8285,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-044.patch
+CRPP1-VAL-CONFIGURATION-045,controlled/rbi-property-valuation-copy,9201645,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-045"",
+-      ""default"": 75,
++      ""default"": 105,
+       ""environmentVariable"": ""VAL_FEATURE_045_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature045.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-045
+- Configuration key: `rbi_property_valuation.feature045.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_045_TIMEOUT_SECONDS`
+- Documented default: `75`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-045: kod mijenja dokumentovanu konfiguraciju iz '75' u '105' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a3e3f9b50470dd0d16706f5e82ea80499245e4835fea76c388ed22e3d010b0a6,45944003b27f1c17de303e48618f649b8da844ff9e0c68fc037006fdba83c9cf,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-045.patch
+CRPP1-VAL-CONFIGURATION-046,controlled/rbi-property-valuation-copy,9201646,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""VAL-CFG-046"",
+       ""default"": 76,
+-      ""environmentVariable"": ""VAL_FEATURE_046_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_046_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature046.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-046
+- Configuration key: `rbi_property_valuation.feature046.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_046_TIMEOUT_SECONDS`
+- Documented default: `76`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-046: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_046_TIMEOUT_SECONDS' u 'VAL_FEATURE_046_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4f733e0bed99b7bf3557ef903a62a1d85a4bd602c4b69ea7f3f34785211bfc4f,67d046bda028e9389c41c675011b67b4a9276c25f07ce657705b3c320f6af924,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-046.patch
+CRPP1-VAL-CONFIGURATION-047,controlled/rbi-property-valuation-copy,9201647,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_047_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature047.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-048"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-047
+- Configuration key: `rbi_property_valuation.feature047.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_047_TIMEOUT_SECONDS`
+- Documented default: `77`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-047: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,572b8ca8ecca45cd6fedcf39975314c07b07e215de0a5b8b722d9c505a319d94,073d5967a0c99ba04711cc3e0a40b6f6ec83b1918d7a0d1f3840f13326bd5118,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-047.patch
+CRPP1-VAL-CONFIGURATION-048,controlled/rbi-property-valuation-copy,9201648,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
+@@ -62,7 +62,7 @@
+       ""default"": 78,
+       ""environmentVariable"": ""VAL_FEATURE_048_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature048.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-048
+- Configuration key: `rbi_property_valuation.feature048.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_048_TIMEOUT_SECONDS`
+- Documented default: `78`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-048: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,47f8ce1c8efbae98c2171ecd47a1e500842576f89ae6dd52620059ad50b32318,f61501502158e6b5188e956db8a39d90d686ab74ae51835c7f566557d401ecfd,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-048.patch
+CRPP1-VAL-CONFIGURATION-049,controlled/rbi-property-valuation-copy,9201649,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-049"",
+-      ""default"": 79,
++      ""default"": 109,
+       ""environmentVariable"": ""VAL_FEATURE_049_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature049.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-049
+- Configuration key: `rbi_property_valuation.feature049.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_049_TIMEOUT_SECONDS`
+- Documented default: `79`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-049: kod mijenja dokumentovanu konfiguraciju iz '79' u '109' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b12c02aadfa7e7f19efb9f99b7810baa554c0ff0d879d9f7b5bbfcb5c33295c4,01a764e9bae078d05f73b6c47066e38cf3e761b0116df38e961e588308845782,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-049.patch
+CRPP1-VAL-CONFIGURATION-050,controlled/rbi-property-valuation-copy,9201650,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_05.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_05.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""VAL-CFG-050"",
+       ""default"": 80,
+-      ""environmentVariable"": ""VAL_FEATURE_050_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_050_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature050.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-050
+- Configuration key: `rbi_property_valuation.feature050.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_050_TIMEOUT_SECONDS`
+- Documented default: `80`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-050: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_050_TIMEOUT_SECONDS' u 'VAL_FEATURE_050_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f7e830207352f44c63f18767908e9b2e5b5fe08dd63084767bf5dc30a1844271,ed440e3d035d16a2cbb08e89c9cc5c9d3657e1b31e71d08eeaa9ac40d5c039c2,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-050.patch
+CRPP1-VAL-CONFIGURATION-051,controlled/rbi-property-valuation-copy,9201651,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_051_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature051.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-052"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-051
+- Configuration key: `rbi_property_valuation.feature051.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_051_TIMEOUT_SECONDS`
+- Documented default: `81`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-051: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d3ddb86f117c5cc3f46f464f5774f4425a4c085e29bbea3e1fde86e9bc7f6ee9,f456af739096f11ba5599df2572b4898c8f340e56eb5c1bf6533b91bc9d4433a,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-051.patch
+CRPP1-VAL-CONFIGURATION-052,controlled/rbi-property-valuation-copy,9201652,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
+@@ -14,7 +14,7 @@
+       ""default"": 82,
+       ""environmentVariable"": ""VAL_FEATURE_052_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature052.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-052
+- Configuration key: `rbi_property_valuation.feature052.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_052_TIMEOUT_SECONDS`
+- Documented default: `82`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-052: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d30fc395af014d9975503e697fed1ebd4cc75de2efdbe6bb9e681934c75cc919,27d9bc161be17f37739e948a9e753d7fb8520e2b32cda22f6378bf8ec1593538,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-052.patch
+CRPP1-VAL-CONFIGURATION-053,controlled/rbi-property-valuation-copy,9201653,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-053"",
+-      ""default"": 83,
++      ""default"": 113,
+       ""environmentVariable"": ""VAL_FEATURE_053_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature053.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-053
+- Configuration key: `rbi_property_valuation.feature053.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_053_TIMEOUT_SECONDS`
+- Documented default: `83`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-053: kod mijenja dokumentovanu konfiguraciju iz '83' u '113' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,daa51eea013a8fbac0bc3c9dff1fd8ddaa339f52f23dcfc02c67c747e730a17d,20a72f4537017e9fc96392004fb2d81bd69ac7c938f76d3ec294d8867e7e87e3,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-053.patch
+CRPP1-VAL-CONFIGURATION-054,controlled/rbi-property-valuation-copy,9201654,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""VAL-CFG-054"",
+       ""default"": 84,
+-      ""environmentVariable"": ""VAL_FEATURE_054_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_054_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature054.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-054
+- Configuration key: `rbi_property_valuation.feature054.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_054_TIMEOUT_SECONDS`
+- Documented default: `84`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-054: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_054_TIMEOUT_SECONDS' u 'VAL_FEATURE_054_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0788d3ee5f37cf2cc758526bb0e27260ae9521e4bfe567fbc912db4269dc1ab7,6a76fa1e5a701ce2caad2324382f2d530a441fd7e9c0d142aaf807f5dbc73a63,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-054.patch
+CRPP1-VAL-CONFIGURATION-055,controlled/rbi-property-valuation-copy,9201655,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_055_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature055.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-056"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-055
+- Configuration key: `rbi_property_valuation.feature055.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_055_TIMEOUT_SECONDS`
+- Documented default: `85`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-055: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3e119c49c0a57a17f587caaa9263b4fcc88bef8c2e4787cfb68cb664a023df74,a41830255c1a9af3a7401141b22598774a1d5e071d969d6db27e193910912e6d,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-055.patch
+CRPP1-VAL-CONFIGURATION-056,controlled/rbi-property-valuation-copy,9201656,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
+@@ -46,7 +46,7 @@
+       ""default"": 86,
+       ""environmentVariable"": ""VAL_FEATURE_056_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature056.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-056
+- Configuration key: `rbi_property_valuation.feature056.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_056_TIMEOUT_SECONDS`
+- Documented default: `86`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-056: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b2bbacd68c32c8590db0371e082d3a8240802ad1bfe2a7aa347d4779df2fefbc,a8a05aaa9dfb6916ec88a952c550e491f7b5ca208508905017870ab7a19345fd,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-056.patch
+CRPP1-VAL-CONFIGURATION-057,controlled/rbi-property-valuation-copy,9201657,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-057"",
+-      ""default"": 87,
++      ""default"": 117,
+       ""environmentVariable"": ""VAL_FEATURE_057_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature057.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-057
+- Configuration key: `rbi_property_valuation.feature057.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_057_TIMEOUT_SECONDS`
+- Documented default: `87`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-057: kod mijenja dokumentovanu konfiguraciju iz '87' u '117' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b83ba5e8f051f8e4c70ed0d2ea91f5ab241a06a60e78d22f13f9b569c1a7c9fe,b82e96e536f8e5ceb77ca5188b815da4393a886062f5c1e171498292cd55e418,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-057.patch
+CRPP1-VAL-CONFIGURATION-058,controlled/rbi-property-valuation-copy,9201658,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""VAL-CFG-058"",
+       ""default"": 88,
+-      ""environmentVariable"": ""VAL_FEATURE_058_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_058_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature058.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-058
+- Configuration key: `rbi_property_valuation.feature058.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_058_TIMEOUT_SECONDS`
+- Documented default: `88`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-058: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_058_TIMEOUT_SECONDS' u 'VAL_FEATURE_058_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,28af581b16ab6c64c78b749e25302d30e8b7e4c1d90202ba1ec80920d5638c4e,478babd32bb34520a8ce757fd8fee6b11e2c9b662f07d30dbd3d3f389550a159,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-058.patch
+CRPP1-VAL-CONFIGURATION-059,controlled/rbi-property-valuation-copy,9201659,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_059_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature059.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-060"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-059
+- Configuration key: `rbi_property_valuation.feature059.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_059_TIMEOUT_SECONDS`
+- Documented default: `89`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-059: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,37b73033c55277005cef5d2f5c1eabe09855391d6fee18556b922a39fae25721,57fd39354daa8359c9d8fcc385e5a13a92ca0379c92334be595fbfe3f5f4d0de,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-059.patch
+CRPP1-VAL-CONFIGURATION-060,controlled/rbi-property-valuation-copy,9201660,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_06.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_06.json
+@@ -78,7 +78,7 @@
+       ""default"": 90,
+       ""environmentVariable"": ""VAL_FEATURE_060_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature060.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-060
+- Configuration key: `rbi_property_valuation.feature060.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_060_TIMEOUT_SECONDS`
+- Documented default: `90`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-060: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0ad6463f9892f149623e3efd01e01fa1ea06c0aa7e5017189c8c72e0f9a14de6,ba7ae133f885ad55e0355d50d7b8edeff04699aa3050790e24b290a3f948356b,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-060.patch
+CRPP1-VAL-CONFIGURATION-061,controlled/rbi-property-valuation-copy,9201661,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""VAL-CFG-061"",
+-      ""default"": 91,
++      ""default"": 121,
+       ""environmentVariable"": ""VAL_FEATURE_061_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature061.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-061
+- Configuration key: `rbi_property_valuation.feature061.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_061_TIMEOUT_SECONDS`
+- Documented default: `91`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-061: kod mijenja dokumentovanu konfiguraciju iz '91' u '121' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a738de5dfcbb564309f7e839a0a8c15bf1ebf352f6942f9819b01806116ea8ee,98dd83c34df0a38e53975c067fc0f00a8064d3e4925553a1b57a421059c43777,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-061.patch
+CRPP1-VAL-CONFIGURATION-062,controlled/rbi-property-valuation-copy,9201662,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""VAL-CFG-062"",
+       ""default"": 92,
+-      ""environmentVariable"": ""VAL_FEATURE_062_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_062_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature062.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-062
+- Configuration key: `rbi_property_valuation.feature062.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_062_TIMEOUT_SECONDS`
+- Documented default: `92`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-062: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_062_TIMEOUT_SECONDS' u 'VAL_FEATURE_062_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8777ad958f231fd50a5fbcdfa4d90aa0cc7e4b7abd7449f8e40d3a0cb64af3b1,43368da863a5128e06bf3a9b96f86345a93354f05881f6db3d74cc413480a5d5,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-062.patch
+CRPP1-VAL-CONFIGURATION-063,controlled/rbi-property-valuation-copy,9201663,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_063_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature063.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-064"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-063
+- Configuration key: `rbi_property_valuation.feature063.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_063_TIMEOUT_SECONDS`
+- Documented default: `93`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-063: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c82de9e8b93f38629f7f1523ca95a1f3ba39192d4d233848bfdbbddbab35b2f9,f1944491dfd9d4ae3188197566d02acd7ba246d43e77d02d35df66811b0f8039,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-063.patch
+CRPP1-VAL-CONFIGURATION-064,controlled/rbi-property-valuation-copy,9201664,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
+@@ -30,7 +30,7 @@
+       ""default"": 94,
+       ""environmentVariable"": ""VAL_FEATURE_064_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature064.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-064
+- Configuration key: `rbi_property_valuation.feature064.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_064_TIMEOUT_SECONDS`
+- Documented default: `94`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-064: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6a5e7615f739454479fc5d07de0ce40ad6367a25c2b4c936a37066fb9f7ee109,914b5515bc9c9fd22fb58d37c8b74fc932eab99067e9312dfce5e1e96814547b,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-064.patch
+CRPP1-VAL-CONFIGURATION-065,controlled/rbi-property-valuation-copy,9201665,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-065"",
+-      ""default"": 95,
++      ""default"": 125,
+       ""environmentVariable"": ""VAL_FEATURE_065_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature065.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-065
+- Configuration key: `rbi_property_valuation.feature065.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_065_TIMEOUT_SECONDS`
+- Documented default: `95`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-065: kod mijenja dokumentovanu konfiguraciju iz '95' u '125' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,69acf6842a183abac3d744ea6beebfa3e8cc3d631b20c058a78f218a3b4bb8d4,e4100d0508fb8f6bdd43edf70ca60664d35e386e7000d9dd3bd1c4a03f5a3da5,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-065.patch
+CRPP1-VAL-CONFIGURATION-066,controlled/rbi-property-valuation-copy,9201666,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""VAL-CFG-066"",
+       ""default"": 96,
+-      ""environmentVariable"": ""VAL_FEATURE_066_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_066_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature066.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-066
+- Configuration key: `rbi_property_valuation.feature066.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_066_TIMEOUT_SECONDS`
+- Documented default: `96`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-066: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_066_TIMEOUT_SECONDS' u 'VAL_FEATURE_066_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,930fadd6d57290f60c80456ecd383bc79e51260702d2105e802d0ea3c81ba96b,3134aecd36329917f0d8e2939af3b2318ef5f57b900aea3790fe2a21987ed76c,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-066.patch
+CRPP1-VAL-CONFIGURATION-067,controlled/rbi-property-valuation-copy,9201667,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_067_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature067.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-068"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-067
+- Configuration key: `rbi_property_valuation.feature067.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_067_TIMEOUT_SECONDS`
+- Documented default: `97`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-067: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fc32579d9f1efcb3c96b8df78ec508e7227283773be71306523227002f374a50,a7f2d8103d52f13152a03b48a0f086c2ac749954799e7c148b0a40e1565a4cde,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-067.patch
+CRPP1-VAL-CONFIGURATION-068,controlled/rbi-property-valuation-copy,9201668,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
+@@ -62,7 +62,7 @@
+       ""default"": 98,
+       ""environmentVariable"": ""VAL_FEATURE_068_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature068.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-068
+- Configuration key: `rbi_property_valuation.feature068.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_068_TIMEOUT_SECONDS`
+- Documented default: `98`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-068: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6ec78f5d6314c0eb05a557b5242ec5be1cbb3d7ce0d9527805b36c109bdd1ae9,61763a780ef61d56165b52e6905e1e344237732cd67a11ed77af6d8f75b0c8a1,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-068.patch
+CRPP1-VAL-CONFIGURATION-069,controlled/rbi-property-valuation-copy,9201669,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-069"",
+-      ""default"": 99,
++      ""default"": 129,
+       ""environmentVariable"": ""VAL_FEATURE_069_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature069.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-069
+- Configuration key: `rbi_property_valuation.feature069.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_069_TIMEOUT_SECONDS`
+- Documented default: `99`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-069: kod mijenja dokumentovanu konfiguraciju iz '99' u '129' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,29b4ae2bc1bbc7758e8615b15f329a4e2ac35854b99fb7ce26e1456880b49377,007fab9a27b9916e61bdbfa9ef9c4536b6ed0b06e6232e85fb84f888d28c7254,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-069.patch
+CRPP1-VAL-CONFIGURATION-070,controlled/rbi-property-valuation-copy,9201670,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_07.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_07.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""VAL-CFG-070"",
+       ""default"": 100,
+-      ""environmentVariable"": ""VAL_FEATURE_070_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_070_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature070.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-070
+- Configuration key: `rbi_property_valuation.feature070.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_070_TIMEOUT_SECONDS`
+- Documented default: `100`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-070: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_070_TIMEOUT_SECONDS' u 'VAL_FEATURE_070_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,09a7effdac0fb0ae2a067ea6f1ff89100aa380d5315564065837781cd6e47119,6422df5648dbbfca2dee49804a47dae5c69a1e7c135ea671c7f3128536ade01a,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-070.patch
+CRPP1-VAL-CONFIGURATION-071,controlled/rbi-property-valuation-copy,9201671,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_071_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature071.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-072"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-071
+- Configuration key: `rbi_property_valuation.feature071.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_071_TIMEOUT_SECONDS`
+- Documented default: `101`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-071: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aa97e9d47c934fc296724acb430b68f026449562ade09f946fada42a4b4c939c,169e2a1071590c8b7b4483f11d599e4d8710aab10a90c7c21543b595ccacfbaa,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-071.patch
+CRPP1-VAL-CONFIGURATION-072,controlled/rbi-property-valuation-copy,9201672,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
+@@ -14,7 +14,7 @@
+       ""default"": 102,
+       ""environmentVariable"": ""VAL_FEATURE_072_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature072.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-072
+- Configuration key: `rbi_property_valuation.feature072.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_072_TIMEOUT_SECONDS`
+- Documented default: `102`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-072: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,84d9652f362b1e512fb0b249b9f102474c5471e5605719ec2893be189fc7e99b,a45653587abdc885a3b98bc39d57c6fc168f048990be56f81934409d1d98dbb2,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-072.patch
+CRPP1-VAL-CONFIGURATION-073,controlled/rbi-property-valuation-copy,9201673,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-073"",
+-      ""default"": 103,
++      ""default"": 133,
+       ""environmentVariable"": ""VAL_FEATURE_073_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature073.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-073
+- Configuration key: `rbi_property_valuation.feature073.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_073_TIMEOUT_SECONDS`
+- Documented default: `103`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-073: kod mijenja dokumentovanu konfiguraciju iz '103' u '133' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8b314561181a97ea030ef0b477a2b66a2f4966e1499f32f0381e8d94f14fb665,3289dfde0c0b2c5320a21aaeb62f57758d027c624e026f8ca6d7658b62cbcc19,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-073.patch
+CRPP1-VAL-CONFIGURATION-074,controlled/rbi-property-valuation-copy,9201674,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""VAL-CFG-074"",
+       ""default"": 104,
+-      ""environmentVariable"": ""VAL_FEATURE_074_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_074_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature074.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-074
+- Configuration key: `rbi_property_valuation.feature074.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_074_TIMEOUT_SECONDS`
+- Documented default: `104`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-074: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_074_TIMEOUT_SECONDS' u 'VAL_FEATURE_074_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,647aa00ffa8e3bdf7bcab2524bf65b7b4042141ea59888667e01b351853cc11b,b8a8b8faba6c1a8a9220cc98289418efbd3fcb7080cfe943d0bf4d4c11d06358,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-074.patch
+CRPP1-VAL-CONFIGURATION-075,controlled/rbi-property-valuation-copy,9201675,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_075_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature075.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-076"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-075
+- Configuration key: `rbi_property_valuation.feature075.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_075_TIMEOUT_SECONDS`
+- Documented default: `105`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-075: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7790802c54c599fbee9e1edb161dfc87cbb6cddeb205e62e0063e2931c737ed3,55ffc1577012fa03f118017bc82ea51e869ab59b2ce5d82d0a179b63ea79f50c,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-075.patch
+CRPP1-VAL-CONFIGURATION-076,controlled/rbi-property-valuation-copy,9201676,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
+@@ -46,7 +46,7 @@
+       ""default"": 106,
+       ""environmentVariable"": ""VAL_FEATURE_076_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature076.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-076
+- Configuration key: `rbi_property_valuation.feature076.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_076_TIMEOUT_SECONDS`
+- Documented default: `106`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-076: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,13ef3404d9d849f6b37d74c69e06550f88806ff503aa61ec8347cdbe730e4da7,3cbcf74e8f80880c2489b1f20e3eec4938ae8403fbd4edc56e6ab4196576a815,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-076.patch
+CRPP1-VAL-CONFIGURATION-077,controlled/rbi-property-valuation-copy,9201677,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-077"",
+-      ""default"": 107,
++      ""default"": 137,
+       ""environmentVariable"": ""VAL_FEATURE_077_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature077.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-077
+- Configuration key: `rbi_property_valuation.feature077.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_077_TIMEOUT_SECONDS`
+- Documented default: `107`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-077: kod mijenja dokumentovanu konfiguraciju iz '107' u '137' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7ad49786a12ee4257dc8da3042454d2fae46334fe2d9f25a09792f62441d5456,97883581f4ffe76fd6ee7958ac678a651c59bf58dfa93a7b3ecaef6851b4e019,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-077.patch
+CRPP1-VAL-CONFIGURATION-078,controlled/rbi-property-valuation-copy,9201678,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""VAL-CFG-078"",
+       ""default"": 108,
+-      ""environmentVariable"": ""VAL_FEATURE_078_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_078_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature078.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-078
+- Configuration key: `rbi_property_valuation.feature078.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_078_TIMEOUT_SECONDS`
+- Documented default: `108`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-078: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_078_TIMEOUT_SECONDS' u 'VAL_FEATURE_078_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c25d1ba9195164927fd43ddf690ec9a14a6c1519e3b5808a6b8ccf2bf4557d15,c3d68d8322999b81d3ef984efa68d3953f0a53f4d906446cebdbd0e7822deddd,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-078.patch
+CRPP1-VAL-CONFIGURATION-079,controlled/rbi-property-valuation-copy,9201679,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_079_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature079.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-080"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-079
+- Configuration key: `rbi_property_valuation.feature079.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_079_TIMEOUT_SECONDS`
+- Documented default: `109`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-079: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f544e037c3f0bed92f0385e057b3499c69704aa8da9472adc6a7fe0eafc585c0,aeabe8b7457301dc002dc9a3c0e4ee4b177221054b7cd0ce922b77a6ed172852,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-079.patch
+CRPP1-VAL-CONFIGURATION-080,controlled/rbi-property-valuation-copy,9201680,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_08.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_08.json
+@@ -78,7 +78,7 @@
+       ""default"": 110,
+       ""environmentVariable"": ""VAL_FEATURE_080_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature080.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-080
+- Configuration key: `rbi_property_valuation.feature080.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_080_TIMEOUT_SECONDS`
+- Documented default: `110`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-080: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,de2b73db201d47020b3c07d6aefbd1792a38748b1979fe24aea227a088efc128,94b1fb217a2642430cc7a9557a3d01fb4f8fa9f585c1da9d46c0f6eb84385ecb,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-080.patch
+CRPP1-VAL-CONFIGURATION-081,controlled/rbi-property-valuation-copy,9201681,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""VAL-CFG-081"",
+-      ""default"": 111,
++      ""default"": 141,
+       ""environmentVariable"": ""VAL_FEATURE_081_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature081.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-081
+- Configuration key: `rbi_property_valuation.feature081.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_081_TIMEOUT_SECONDS`
+- Documented default: `111`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-081: kod mijenja dokumentovanu konfiguraciju iz '111' u '141' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,32d8281a0712a13383a5f6cd8e0472d5d39cc1b006d0e3c60a0b55d461047789,faf79c4b2705f031b0d68512bd74d3c1e361a4c351006613355ec7cc60baa762,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-081.patch
+CRPP1-VAL-CONFIGURATION-082,controlled/rbi-property-valuation-copy,9201682,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""VAL-CFG-082"",
+       ""default"": 112,
+-      ""environmentVariable"": ""VAL_FEATURE_082_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_082_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature082.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-082
+- Configuration key: `rbi_property_valuation.feature082.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_082_TIMEOUT_SECONDS`
+- Documented default: `112`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-082: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_082_TIMEOUT_SECONDS' u 'VAL_FEATURE_082_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d40f6bcabab6d413fa7e77d695e83eca30e34b463dec84841d0e12169ed5083e,d09a5d6d8dd7258b8d1f1a58048461ff3107ec40ab5030e728124d74342d9a8b,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-082.patch
+CRPP1-VAL-CONFIGURATION-083,controlled/rbi-property-valuation-copy,9201683,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_083_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature083.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-084"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-083
+- Configuration key: `rbi_property_valuation.feature083.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_083_TIMEOUT_SECONDS`
+- Documented default: `113`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-083: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ccd9bf7fcd210579904d047eca1a5b14400afae3aca9d955b7f44692995145de,b454454127d8fdcd0d0b25530adbc5bc6c8ffd0b89c83d9bfcbe61501d9f15b7,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-083.patch
+CRPP1-VAL-CONFIGURATION-084,controlled/rbi-property-valuation-copy,9201684,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
+@@ -30,7 +30,7 @@
+       ""default"": 114,
+       ""environmentVariable"": ""VAL_FEATURE_084_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature084.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-084
+- Configuration key: `rbi_property_valuation.feature084.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_084_TIMEOUT_SECONDS`
+- Documented default: `114`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-084: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e5b2e5678eda6b1e43b89790675392247b941a858816b0dc98793c97b2bae9c2,b611f982d0e49ec8c29228cab72a82633a063cc75cc6df34d3273afa3687b206,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-084.patch
+CRPP1-VAL-CONFIGURATION-085,controlled/rbi-property-valuation-copy,9201685,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-085"",
+-      ""default"": 115,
++      ""default"": 145,
+       ""environmentVariable"": ""VAL_FEATURE_085_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature085.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-085
+- Configuration key: `rbi_property_valuation.feature085.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_085_TIMEOUT_SECONDS`
+- Documented default: `115`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-085: kod mijenja dokumentovanu konfiguraciju iz '115' u '145' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,92809309c23db1b360bbaabd2e2cec0806895ef5ff3196f8782750ff3961901a,64bd353e141a80ed15b61d94f8f13808282044861d7ae8b4bc7b05688f6674fd,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-085.patch
+CRPP1-VAL-CONFIGURATION-086,controlled/rbi-property-valuation-copy,9201686,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""VAL-CFG-086"",
+       ""default"": 116,
+-      ""environmentVariable"": ""VAL_FEATURE_086_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_086_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature086.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-086
+- Configuration key: `rbi_property_valuation.feature086.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_086_TIMEOUT_SECONDS`
+- Documented default: `116`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-086: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_086_TIMEOUT_SECONDS' u 'VAL_FEATURE_086_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d93306fd06cc8a6ab57e24fbace802f78f9534f412b09add12c4f55224cbb05c,68d054e01cccc321fce71e0b94d3dc108437d3439faf4fec565d720783418982,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-086.patch
+CRPP1-VAL-CONFIGURATION-087,controlled/rbi-property-valuation-copy,9201687,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_087_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature087.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-088"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-087
+- Configuration key: `rbi_property_valuation.feature087.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_087_TIMEOUT_SECONDS`
+- Documented default: `117`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-087: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4eb88ca3302d30ef462dbd92111ecbf44c3defc5add63f73cfcf6dc1b01bdc05,1547d9b5e0aad8eff2f6e83c8ff88adf05a514ad7125e18daa15f45cf25d95e1,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-087.patch
+CRPP1-VAL-CONFIGURATION-088,controlled/rbi-property-valuation-copy,9201688,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
+@@ -62,7 +62,7 @@
+       ""default"": 118,
+       ""environmentVariable"": ""VAL_FEATURE_088_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature088.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-088
+- Configuration key: `rbi_property_valuation.feature088.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_088_TIMEOUT_SECONDS`
+- Documented default: `118`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-088: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4963679e40482d6a389f255bb7548ee1f5fac29d31a415dfeeea5002691725a8,603d813b6ec38cb8d68c013612c0fb9b0930bee10ad48ac6599d12f9ad067c68,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-088.patch
+CRPP1-VAL-CONFIGURATION-089,controlled/rbi-property-valuation-copy,9201689,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-089"",
+-      ""default"": 119,
++      ""default"": 149,
+       ""environmentVariable"": ""VAL_FEATURE_089_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature089.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-089
+- Configuration key: `rbi_property_valuation.feature089.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_089_TIMEOUT_SECONDS`
+- Documented default: `119`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-089: kod mijenja dokumentovanu konfiguraciju iz '119' u '149' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7c84a974d8f43ce8a7d2e7dd22ca21db5311692cab7d4d6e54e236698192a0e8,2c11ef95bcb1e5966d86af865b0b4aa624b582fec1933d1f5533b0832995b573,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-089.patch
+CRPP1-VAL-CONFIGURATION-090,controlled/rbi-property-valuation-copy,9201690,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_09.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_09.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""VAL-CFG-090"",
+       ""default"": 120,
+-      ""environmentVariable"": ""VAL_FEATURE_090_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_090_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature090.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-090
+- Configuration key: `rbi_property_valuation.feature090.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_090_TIMEOUT_SECONDS`
+- Documented default: `120`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-090: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_090_TIMEOUT_SECONDS' u 'VAL_FEATURE_090_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9a06f670f6a81875e8bb655636500ed5f0fc770a30dbaf08ebceae03e63590f5,67e311063bfa249f2586960a43b1c7667fdc5a42efc1a3b863e292ddf40bb75c,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-090.patch
+CRPP1-VAL-CONFIGURATION-091,controlled/rbi-property-valuation-copy,9201691,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_091_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature091.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-092"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-091
+- Configuration key: `rbi_property_valuation.feature091.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_091_TIMEOUT_SECONDS`
+- Documented default: `121`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-091: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c1d594932567316869978190e4ea9a5cfa6651f7ec8cd719ef3bc948dd7ef223,d52e7bdd1a106fc69227a6acda8e891173c574021b3a70ac9161f37a1d59e7d0,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-091.patch
+CRPP1-VAL-CONFIGURATION-092,controlled/rbi-property-valuation-copy,9201692,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
+@@ -14,7 +14,7 @@
+       ""default"": 122,
+       ""environmentVariable"": ""VAL_FEATURE_092_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature092.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-092
+- Configuration key: `rbi_property_valuation.feature092.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_092_TIMEOUT_SECONDS`
+- Documented default: `122`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-092: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1ab330fb16563eb13336ab4ca4109630aee9f39c39249ce198911a74ce9fca75,cfaa313e5679e2e49c4006aecf6d630a191d5e291e5ba3135be59a30313b2fba,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-092.patch
+CRPP1-VAL-CONFIGURATION-093,controlled/rbi-property-valuation-copy,9201693,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-093"",
+-      ""default"": 123,
++      ""default"": 153,
+       ""environmentVariable"": ""VAL_FEATURE_093_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature093.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-093
+- Configuration key: `rbi_property_valuation.feature093.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_093_TIMEOUT_SECONDS`
+- Documented default: `123`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-093: kod mijenja dokumentovanu konfiguraciju iz '123' u '153' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d752211c6134ca4f5144b6c431de32323cedaeaab5a0efbd00c1f052587d418c,81b269f384fbe968a296d4a77e04472b27f7a4dbfba7bb691e0ed59ed6ac8745,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-093.patch
+CRPP1-VAL-CONFIGURATION-094,controlled/rbi-property-valuation-copy,9201694,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""VAL-CFG-094"",
+       ""default"": 124,
+-      ""environmentVariable"": ""VAL_FEATURE_094_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_094_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature094.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-094
+- Configuration key: `rbi_property_valuation.feature094.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_094_TIMEOUT_SECONDS`
+- Documented default: `124`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-094: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_094_TIMEOUT_SECONDS' u 'VAL_FEATURE_094_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a799338da7c4c64850f2e88452e4959a29be5ecbd4c1a1f18c2df77487075594,e399267b24a90846fbbf7a9d9c580b552bcacb08284131c25676f5530a9004af,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-094.patch
+CRPP1-VAL-CONFIGURATION-095,controlled/rbi-property-valuation-copy,9201695,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_095_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature095.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-096"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-095
+- Configuration key: `rbi_property_valuation.feature095.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_095_TIMEOUT_SECONDS`
+- Documented default: `125`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-095: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,71137f8c5cf725b93c8ec33f361006714e060c712d15aab69e0707dbbd5b4151,ff819b5db7b9ba54aace84059a1726300ef40c59faf52e5a6d3c2a5b3f1991df,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-095.patch
+CRPP1-VAL-CONFIGURATION-096,controlled/rbi-property-valuation-copy,9201696,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
+@@ -46,7 +46,7 @@
+       ""default"": 126,
+       ""environmentVariable"": ""VAL_FEATURE_096_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature096.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-096
+- Configuration key: `rbi_property_valuation.feature096.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_096_TIMEOUT_SECONDS`
+- Documented default: `126`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-096: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,99cfca64825f36e8c17d135be34257538443e254a0a890ab9197bf0111fa6f44,a14686454b6552932401c86c5400e8810d188caaeeb19a7a498b9727ff3544ab,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-096.patch
+CRPP1-VAL-CONFIGURATION-097,controlled/rbi-property-valuation-copy,9201697,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""VAL-CFG-097"",
+-      ""default"": 127,
++      ""default"": 157,
+       ""environmentVariable"": ""VAL_FEATURE_097_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature097.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-097
+- Configuration key: `rbi_property_valuation.feature097.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_097_TIMEOUT_SECONDS`
+- Documented default: `127`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-097: kod mijenja dokumentovanu konfiguraciju iz '127' u '157' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ea76ca8a0c165591c68ffd4886f600d9b1d08f5b5d1a27b67019832e5eb12cea,56bb6fc6306e0acbd83f4afeaf2d8105d205c7eb3d4038135fe1fa5d7b400358,configuration,rbi_property_valuation,documented_default_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-097.patch
+CRPP1-VAL-CONFIGURATION-098,controlled/rbi-property-valuation-copy,9201698,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""VAL-CFG-098"",
+       ""default"": 128,
+-      ""environmentVariable"": ""VAL_FEATURE_098_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""VAL_FEATURE_098_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_property_valuation.feature098.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-098
+- Configuration key: `rbi_property_valuation.feature098.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_098_TIMEOUT_SECONDS`
+- Documented default: `128`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-098: kod mijenja dokumentovanu konfiguraciju iz 'VAL_FEATURE_098_TIMEOUT_SECONDS' u 'VAL_FEATURE_098_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a7c74603f9ef3574fba38addb421128cab87d93dd492e7db5a851620a6fc3801,bd15fd6a670ec237a2ac3ae9af0423a30983ad220f44526c9bf2073e549120ea,configuration,rbi_property_valuation,environment_variable_rename,cases/patches/rbi_property_valuation/configuration/VAL-CFG-098.patch
+CRPP1-VAL-CONFIGURATION-099,controlled/rbi-property-valuation-copy,9201699,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""VAL_FEATURE_099_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature099.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""VAL-CFG-100"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-099
+- Configuration key: `rbi_property_valuation.feature099.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_099_TIMEOUT_SECONDS`
+- Documented default: `129`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-099: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c2e43308d2cc5acf8da6564939885de037b00bbadd078e6f97a523590e4423f9,944b11d750fca876254219e6c525c2ad087f262d7ae12d3b16ce7c798361045a,configuration,rbi_property_valuation,optional_to_required,cases/patches/rbi_property_valuation/configuration/VAL-CFG-099.patch
+CRPP1-VAL-CONFIGURATION-100,controlled/rbi-property-valuation-copy,9201700,csharp,"[""PropertyValuation/DocGuardContractLab/configuration/contracts_10.json""]","--- a/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
++++ b/PropertyValuation/DocGuardContractLab/configuration/contracts_10.json
+@@ -78,7 +78,7 @@
+       ""default"": 130,
+       ""environmentVariable"": ""VAL_FEATURE_100_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_property_valuation.feature100.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:4acd6a30129d393a -->
+### VAL-CFG-100
+- Configuration key: `rbi_property_valuation.feature100.timeoutSeconds`
+- Environment variable: `VAL_FEATURE_100_TIMEOUT_SECONDS`
+- Documented default: `130`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"VAL-CFG-100: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d1febee8c1b746737ba605a0dcf10ccb51888643967d8a07e7d548e2307b93db,cb6e4fa81f49da6f76d8404ec94a0475019614fe9459ed1e548170d1aa7ea181,configuration,rbi_property_valuation,configuration_mode_change,cases/patches/rbi_property_valuation/configuration/VAL-CFG-100.patch

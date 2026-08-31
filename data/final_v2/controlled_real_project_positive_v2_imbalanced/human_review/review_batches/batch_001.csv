@@ -1,0 +1,1826 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP2-JOB-API_REFERENCE-101,controlled-v2/jobfair-platform-copy,9400001,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""JOB-API-101"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation101"",
+       ""path"": ""/api/jobfair-platform/v1/resources/101"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-101
+- Operation: `jobfairplatformOperation101`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/101`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-101: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d88164fdc9717ff3ad3ed25505fef21ee1b4f4e8bcc704973a1de51c1de4dd50,4fa834934bc0077864ee776f3e746ddef16bf5a4d02c842aa68c55a1bcec3f5c,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-101.patch
+CRPP2-JOB-API_REFERENCE-102,controlled-v2/jobfair-platform-copy,9400002,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""JOB-API-102"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation102"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/102"",
++      ""path"": ""/api/jobfair-platform/v2/resources/102"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-102
+- Operation: `jobfairplatformOperation102`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/102`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-102: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/102' u '/api/jobfair-platform/v2/resources/102' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a9a4fd210941acd7114fe653d725f29788fbfa3c2867d07be7977110585c5fdb,9653f055d9d0b80006bfb008c86c6d4edd4fe7f72ce007ee6b926d9290e72a5b,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-102.patch
+CRPP2-JOB-API_REFERENCE-103,controlled-v2/jobfair-platform-copy,9400003,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""jobfairplatformOperation103"",
+       ""path"": ""/api/jobfair-platform/v1/resources/103"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-103
+- Operation: `jobfairplatformOperation103`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/103`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-103: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,05b91c540c514306d6496d1221b521e54bdd2c84a8b9046972048a652210ab60,adf1bf43a01d22aa5f5c52dd24fd4ee3d2b72db7eb0aa6aed729b1df1da3c449,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-103.patch
+CRPP2-JOB-API_REFERENCE-104,controlled-v2/jobfair-platform-copy,9400004,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-105"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-104
+- Operation: `jobfairplatformOperation104`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/104`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-104: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f71e977e58e0c91bb831a60b52859675a08cb128422b6c0b773b620ca2310a0a,a16e3b6a614135bd0a949430a4c1be85c916e02f5c319773ffcde5b60fc8063a,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-104.patch
+CRPP2-JOB-API_REFERENCE-105,controlled-v2/jobfair-platform-copy,9400005,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-105"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation105"",
+       ""path"": ""/api/jobfair-platform/v1/resources/105"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-105
+- Operation: `jobfairplatformOperation105`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/105`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-105: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7c38469046c344358484e0c830ca87b7ac0e91265bb4787dd0fb2d634468c603,c3dddaaff34cd84c4666bcf4aa2f135cb78e943ae269265278d10a0e8cba6f98,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-105.patch
+CRPP2-JOB-API_REFERENCE-106,controlled-v2/jobfair-platform-copy,9400006,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""JOB-API-106"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation106"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/106"",
++      ""path"": ""/api/jobfair-platform/v2/resources/106"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-106
+- Operation: `jobfairplatformOperation106`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/106`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-106: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/106' u '/api/jobfair-platform/v2/resources/106' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,02d48500201374bb43ef24f8c00bc4b9a7a4a963e8e8d56142c4017752c5a9f7,4912b0fa0791045656ab01bc034796bbaef703400370b705c291c12e255e654d,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-106.patch
+CRPP2-JOB-API_REFERENCE-107,controlled-v2/jobfair-platform-copy,9400007,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""jobfairplatformOperation107"",
+       ""path"": ""/api/jobfair-platform/v1/resources/107"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-107
+- Operation: `jobfairplatformOperation107`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/107`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-107: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c298fbd3f73414763f053babf2192eea4857410382c1123d2dd8f86ec8e9c880,12c32783940affad1e90fc292e83e9376e635743f587db8452e5cf86153d6902,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-107.patch
+CRPP2-JOB-API_REFERENCE-108,controlled-v2/jobfair-platform-copy,9400008,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-109"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-108
+- Operation: `jobfairplatformOperation108`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/108`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-108: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b5c5b1e4e2332eb8e24906ef2098b42f0755a87777f3acd59d8655df900f5c1f,a27744ac7c31e807486e19a54bcb801fcc629f3bcff36fe76ff15efc87850972,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-108.patch
+CRPP2-JOB-API_REFERENCE-109,controlled-v2/jobfair-platform-copy,9400009,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-109"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation109"",
+       ""path"": ""/api/jobfair-platform/v1/resources/109"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-109
+- Operation: `jobfairplatformOperation109`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/109`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-109: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9d13352428e778a2cba9cda669107b548f8e5665fe510af74c44dfc666c7157d,c098c28741fa37dfa88567806b5e75088df48e987fdd3d6c6f1f4f763d2f6443,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-109.patch
+CRPP2-JOB-API_REFERENCE-110,controlled-v2/jobfair-platform-copy,9400010,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_01.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_01.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_01.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""JOB-API-110"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation110"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/110"",
++      ""path"": ""/api/jobfair-platform/v2/resources/110"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-110
+- Operation: `jobfairplatformOperation110`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/110`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-110: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/110' u '/api/jobfair-platform/v2/resources/110' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,19795814e0d4e8ba811214a1dba30f5fbb045f9423fa61c7d94d7b09d67745f6,5c382e00d573dae89ebe9b577faadc3f80222ba8865cd39dbf06921b7b8733f2,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-110.patch
+CRPP2-JOB-API_REFERENCE-111,controlled-v2/jobfair-platform-copy,9400011,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""jobfairplatformOperation111"",
+       ""path"": ""/api/jobfair-platform/v1/resources/111"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-111
+- Operation: `jobfairplatformOperation111`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/111`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-111: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a612db92ff1a6da6c35b5c759e9930f0665c828847d98ea32dfe7a77b3029082,17e1b205f74a9c708e395cd1a84ea6a8b857f3564f7b14505ba376e8d7118287,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-111.patch
+CRPP2-JOB-API_REFERENCE-112,controlled-v2/jobfair-platform-copy,9400012,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-113"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-112
+- Operation: `jobfairplatformOperation112`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/112`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-112: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a4edf3ef61d697aecf35bcf9606a755e1f3a1d02052d20d7734dfaf52d41a095,bcaec265491f4b1a5f853f63ed496ada22d9b16a8fa7f07ae81c238bcd6d5f3e,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-112.patch
+CRPP2-JOB-API_REFERENCE-113,controlled-v2/jobfair-platform-copy,9400013,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-113"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation113"",
+       ""path"": ""/api/jobfair-platform/v1/resources/113"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-113
+- Operation: `jobfairplatformOperation113`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/113`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-113: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ff0b5bbe26e8a88db9fde7ce4df32f8a2438ecf97c080f20798b74fe58c66718,dd47ff66e494d95a17ba02bf91f0d3554a41d02a06359cc28052342697732118,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-113.patch
+CRPP2-JOB-API_REFERENCE-114,controlled-v2/jobfair-platform-copy,9400014,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""JOB-API-114"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation114"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/114"",
++      ""path"": ""/api/jobfair-platform/v2/resources/114"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-114
+- Operation: `jobfairplatformOperation114`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/114`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-114: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/114' u '/api/jobfair-platform/v2/resources/114' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,56dcd6e9da4006427963e4eaf45a9b4328237343f74cff59a86aa6545df6fe2f,5334fc4856761c729e6b13b4766bf905210318f92cf9162161ef1e2560365f61,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-114.patch
+CRPP2-JOB-API_REFERENCE-115,controlled-v2/jobfair-platform-copy,9400015,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""jobfairplatformOperation115"",
+       ""path"": ""/api/jobfair-platform/v1/resources/115"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-115
+- Operation: `jobfairplatformOperation115`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/115`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-115: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8279b61474ea2a9112e767acf965ef29f0013dea58243b8caf38515b72027b46,1b597a123a60fa2e4349a4d0bb49593dbd997708b2393b1b30a4966f3be2631e,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-115.patch
+CRPP2-JOB-API_REFERENCE-116,controlled-v2/jobfair-platform-copy,9400016,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-117"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-116
+- Operation: `jobfairplatformOperation116`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/116`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-116: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,31cf0f24432386055a02fb75644d913e0e9768d70bb08f02c3d231c5a0bc9bb7,adf654115a4d795360dfa80658a60fac012e3256b47ec1fb833b25eb784943c4,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-116.patch
+CRPP2-JOB-API_REFERENCE-117,controlled-v2/jobfair-platform-copy,9400017,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-117"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation117"",
+       ""path"": ""/api/jobfair-platform/v1/resources/117"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-117
+- Operation: `jobfairplatformOperation117`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/117`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-117: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0f6778c769c604cff88c81466e50ed4e00baab4de19250210021daacea9d397f,656a57e82ebcf1646d60734131fd3e29c6bde4b8023670bc0a6c2d9b39ea365e,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-117.patch
+CRPP2-JOB-API_REFERENCE-118,controlled-v2/jobfair-platform-copy,9400018,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""JOB-API-118"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation118"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/118"",
++      ""path"": ""/api/jobfair-platform/v2/resources/118"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-118
+- Operation: `jobfairplatformOperation118`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/118`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-118: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/118' u '/api/jobfair-platform/v2/resources/118' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,18206b39105afee48348c48babb7242356285c0da3a42dc9fbe0c4ad938b15c3,62a1556b116347604567cbe35489bda0cb436800577c3e55a3a117b5b2f21b0d,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-118.patch
+CRPP2-JOB-API_REFERENCE-119,controlled-v2/jobfair-platform-copy,9400019,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""jobfairplatformOperation119"",
+       ""path"": ""/api/jobfair-platform/v1/resources/119"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-119
+- Operation: `jobfairplatformOperation119`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/119`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-119: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ba02c279c36db18eae914a34877e22a26d4e4d21e06c6af9b6ea4b88cf2a0d30,c54179c6bd8aa981088a7362c440c93a867b9a4a4ec2af75db998d04dc8b1cf5,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-119.patch
+CRPP2-JOB-API_REFERENCE-120,controlled-v2/jobfair-platform-copy,9400020,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_02.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_02.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_02.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""jobfair_platform"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-120
+- Operation: `jobfairplatformOperation120`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/120`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-120: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c83ee7b7f5d77c1602e82f9b5a6747df71bdf22b428329fefd66a4c979d1a5e1,fc4c172bafa38228bd66bf8d05713c7614e7d5e61c05e351418b5a1930bb7724,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-120.patch
+CRPP2-JOB-API_REFERENCE-121,controlled-v2/jobfair-platform-copy,9400021,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""JOB-API-121"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation121"",
+       ""path"": ""/api/jobfair-platform/v1/resources/121"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-121
+- Operation: `jobfairplatformOperation121`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/121`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-121: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e77008595ac80b5bbf489ca962ca8de421d5c1ed72886048401dd3917c5209a3,c1cf9a21c76037bbb92d1f398b69d95dd450377ffda9abf8f9a0ada79894c294,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-121.patch
+CRPP2-JOB-API_REFERENCE-122,controlled-v2/jobfair-platform-copy,9400022,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""JOB-API-122"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation122"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/122"",
++      ""path"": ""/api/jobfair-platform/v2/resources/122"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-122
+- Operation: `jobfairplatformOperation122`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/122`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-122: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/122' u '/api/jobfair-platform/v2/resources/122' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3be4a035b81c973f120c9f90f5f241122cf87c0c8c3644efd3c293600bb64616,45bc228b2895431416e225e24a9643b347859b24a618d1394d91e7f8a15cff8d,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-122.patch
+CRPP2-JOB-API_REFERENCE-123,controlled-v2/jobfair-platform-copy,9400023,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""jobfairplatformOperation123"",
+       ""path"": ""/api/jobfair-platform/v1/resources/123"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-123
+- Operation: `jobfairplatformOperation123`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/123`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-123: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2f743cac5b657a608158f5913663fa52344463326e84fdcad94ed10d5a1c9bba,a731f65209daec7d62b561214b30acee69c06397e86f192542b42c20b2a0d75b,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-123.patch
+CRPP2-JOB-API_REFERENCE-124,controlled-v2/jobfair-platform-copy,9400024,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-125"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-124
+- Operation: `jobfairplatformOperation124`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/124`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-124: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7175c9e5647153e7ed1974015db29133a8a12a50a7a488c9c0057293dd1b77d6,d3fc149849da08dd7c27f0597f04cb99c4c883aef93bbae83e96eb0d38819a0e,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-124.patch
+CRPP2-JOB-API_REFERENCE-125,controlled-v2/jobfair-platform-copy,9400025,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-125"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation125"",
+       ""path"": ""/api/jobfair-platform/v1/resources/125"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-125
+- Operation: `jobfairplatformOperation125`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/125`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-125: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,58957d50d221fea3b416d84b8d2eaf9af1be5bdb08f22e733223e8c2e8a0546e,a084904e194958a52ed15bb0c85e6a19c5af33229b664a1238c94f5d16f8b8da,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-125.patch
+CRPP2-JOB-API_REFERENCE-126,controlled-v2/jobfair-platform-copy,9400026,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""JOB-API-126"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation126"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/126"",
++      ""path"": ""/api/jobfair-platform/v2/resources/126"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-126
+- Operation: `jobfairplatformOperation126`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/126`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-126: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/126' u '/api/jobfair-platform/v2/resources/126' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,96e10b233dd92aa9eba73c2f94450adc9547a4dba5467f80324138bbb23b740e,e23d3cce2ea45af3c2b8ea01714b3744655efe3e80f4d5de6974cdeffccb80ed,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-126.patch
+CRPP2-JOB-API_REFERENCE-127,controlled-v2/jobfair-platform-copy,9400027,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""jobfairplatformOperation127"",
+       ""path"": ""/api/jobfair-platform/v1/resources/127"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-127
+- Operation: `jobfairplatformOperation127`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/127`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-127: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c63c1848b27475e61cc564d0df562ed929de9c5a84559fa6502a51efc5cfc94c,895b29e02b7955f3bf82bb5b9b63253a9a546ce90f4ac75a9b9b12c50b4139ae,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-127.patch
+CRPP2-JOB-API_REFERENCE-128,controlled-v2/jobfair-platform-copy,9400028,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-129"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-128
+- Operation: `jobfairplatformOperation128`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/128`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-128: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,70b1a9e30120ae8867c35a4ad18283d58b0f0ac09a0baa550b6e74e404285798,3c9d5c28c04e260f96508825e5caabfa3e029133d559a0c174c14ba1b19e4613,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-128.patch
+CRPP2-JOB-API_REFERENCE-129,controlled-v2/jobfair-platform-copy,9400029,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-129"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation129"",
+       ""path"": ""/api/jobfair-platform/v1/resources/129"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-129
+- Operation: `jobfairplatformOperation129`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/129`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-129: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e62e06adf25fc46c038be4931afc9124fd09e4be68364bc3fd8871be81775c22,7b681717ec5287714ee0b76df17392d11748c4dfe2d1d3eaff7669aca7ef1e0a,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-129.patch
+CRPP2-JOB-API_REFERENCE-130,controlled-v2/jobfair-platform-copy,9400030,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_03.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_03.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_03.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""JOB-API-130"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation130"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/130"",
++      ""path"": ""/api/jobfair-platform/v2/resources/130"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-130
+- Operation: `jobfairplatformOperation130`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/130`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-130: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/130' u '/api/jobfair-platform/v2/resources/130' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b824bf186cf41f4f99c1d724c7a0ee381b5c98f86657281bef75e1a0847ea06c,71509aebd85409ed4906ae67c471cc67f018e8ba30b3dbfdc7738410f34eb225,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-130.patch
+CRPP2-JOB-API_REFERENCE-131,controlled-v2/jobfair-platform-copy,9400031,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""jobfairplatformOperation131"",
+       ""path"": ""/api/jobfair-platform/v1/resources/131"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-131
+- Operation: `jobfairplatformOperation131`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/131`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-131: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7d9e9f514d88ae98d28be0e14001903ce0f8d644df9e2aa60d5366fa1d3bcf18,8e65a2ca514c623b455aad3324c77abb15863fd5a1a273b397170dcff8bf3dc2,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-131.patch
+CRPP2-JOB-API_REFERENCE-132,controlled-v2/jobfair-platform-copy,9400032,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-133"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-132
+- Operation: `jobfairplatformOperation132`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/132`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-132: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8aa365612fc8de44a676f689ab8cab0f538944d74dc7420bbc353d32f4765fbb,2d5752cab248c101a83a7a13c682dfec58b1d66cfc7a510b7a3963684c71a958,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-132.patch
+CRPP2-JOB-API_REFERENCE-133,controlled-v2/jobfair-platform-copy,9400033,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-133"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation133"",
+       ""path"": ""/api/jobfair-platform/v1/resources/133"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-133
+- Operation: `jobfairplatformOperation133`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/133`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-133: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a9317f617013f244e2b9c4773b504d292ce916ec23e7987e742bfc28a844cc8d,f7588fe2f3d48690ba96da52ac3d711d9afadd68f10a89d3d5c9692f9513ecfb,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-133.patch
+CRPP2-JOB-API_REFERENCE-134,controlled-v2/jobfair-platform-copy,9400034,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""JOB-API-134"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation134"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/134"",
++      ""path"": ""/api/jobfair-platform/v2/resources/134"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-134
+- Operation: `jobfairplatformOperation134`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/134`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-134: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/134' u '/api/jobfair-platform/v2/resources/134' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,43089fbda6fce41bbdba3b3cd614af9ed4dcc18a2ecb6a9deca58a0606886322,73dae0aac1d40802965895c407944d7b990c3c163157e2bbbbc7b099335f7045,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-134.patch
+CRPP2-JOB-API_REFERENCE-135,controlled-v2/jobfair-platform-copy,9400035,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""jobfairplatformOperation135"",
+       ""path"": ""/api/jobfair-platform/v1/resources/135"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-135
+- Operation: `jobfairplatformOperation135`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/135`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-135: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,86f24b9998cba23396f3d3a738b9789a677a6d91e69cab3dc7ecc041405939ff,af66ba3deaf75f11b4a163b162bbfde23b4c73ba8229596f58519d301f8f8e65,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-135.patch
+CRPP2-JOB-API_REFERENCE-136,controlled-v2/jobfair-platform-copy,9400036,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-137"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-136
+- Operation: `jobfairplatformOperation136`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/136`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-136: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8c053f1f6e5726d2171550b7ae43d94697e9b90f8518e20e8825215f57a75cba,339d440ab92cf5920e248b35256659135e2863761e4d4446aee3c49d00b26a32,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-136.patch
+CRPP2-JOB-API_REFERENCE-137,controlled-v2/jobfair-platform-copy,9400037,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-137"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation137"",
+       ""path"": ""/api/jobfair-platform/v1/resources/137"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-137
+- Operation: `jobfairplatformOperation137`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/137`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-137: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,24c7b948a1c1cece9daacc41e9d74e15dc1800dfa51006f9d34b9d8457b7e232,f500435a875d3192a2d8b1e91ab0f4ce3337063d68c1e9dbee65a883ae79c8b5,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-137.patch
+CRPP2-JOB-API_REFERENCE-138,controlled-v2/jobfair-platform-copy,9400038,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""JOB-API-138"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation138"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/138"",
++      ""path"": ""/api/jobfair-platform/v2/resources/138"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-138
+- Operation: `jobfairplatformOperation138`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/138`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-138: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/138' u '/api/jobfair-platform/v2/resources/138' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,05f382b5344b9f3390070060ea396a5ea761daced4a119f4cbe0afbb21e8ed46,b177b0e64704f3002b49e107dbffa37505fd3623ee868b8ca998079f0db09fb4,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-138.patch
+CRPP2-JOB-API_REFERENCE-139,controlled-v2/jobfair-platform-copy,9400039,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""jobfairplatformOperation139"",
+       ""path"": ""/api/jobfair-platform/v1/resources/139"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-139
+- Operation: `jobfairplatformOperation139`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/139`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-139: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ccb3bacb74f7333e48a04676055114caf472338dcee07b85246279093ddceea6,9bc1b869147c5edb13ef4c114a8c8c320ab0730d6c80e263b7b39dc08df99dd9,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-139.patch
+CRPP2-JOB-API_REFERENCE-140,controlled-v2/jobfair-platform-copy,9400040,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_04.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_04.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_04.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""jobfair_platform"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-140
+- Operation: `jobfairplatformOperation140`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/140`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-140: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2bbc2127eb3d71f651981523f5b9020547779cba7fe4443134d45dcddb192a6e,a36b3b7bad110efb5cd271beed3550a79111a9d6b999aae673ae52d85d862282,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-140.patch
+CRPP2-JOB-API_REFERENCE-141,controlled-v2/jobfair-platform-copy,9400041,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_05.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_05.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""JOB-API-141"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation141"",
+       ""path"": ""/api/jobfair-platform/v1/resources/141"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-141
+- Operation: `jobfairplatformOperation141`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/141`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-141: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,24023125f488c95c908bbe745a3f61c97dde77a829adca91df98d0c44d931618,36e51e6855c4b75750c450f432762d1fd74d86bb543943844d8e3d07d06a70e4,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-141.patch
+CRPP2-JOB-API_REFERENCE-142,controlled-v2/jobfair-platform-copy,9400042,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_05.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_05.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""JOB-API-142"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation142"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/142"",
++      ""path"": ""/api/jobfair-platform/v2/resources/142"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-142
+- Operation: `jobfairplatformOperation142`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/142`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-142: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/142' u '/api/jobfair-platform/v2/resources/142' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,467abd32d072e360d1479602f73b30097d7d01636af1d48d58411996be9a6164,38de83305863fc9e4b3e92458ffac3ab546f44addd4c1758686c752c3a0858e9,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-142.patch
+CRPP2-JOB-API_REFERENCE-143,controlled-v2/jobfair-platform-copy,9400043,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_05.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_05.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""jobfairplatformOperation143"",
+       ""path"": ""/api/jobfair-platform/v1/resources/143"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-143
+- Operation: `jobfairplatformOperation143`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/143`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-143: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,87800903ddec79f224c9ffe1d4c72f8a18ae8e69c1e80aa16f5d80de0b3a0509,7f3852dda883416edc216dacdfa5addc990b82abecd775f172809ea9b77205e1,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-143.patch
+CRPP2-JOB-API_REFERENCE-144,controlled-v2/jobfair-platform-copy,9400044,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_05.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_05.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-145"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-144
+- Operation: `jobfairplatformOperation144`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/144`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-144: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eb6c63416cc9f629a3c9acf33e4d8fdcb16e74a17ec31edc9f4fb60e92456280,23dfb04e5e50a20353157c74fda4b57e050677408bd1c95ac83f2c2c1cbb4409,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-144.patch
+CRPP2-JOB-API_REFERENCE-145,controlled-v2/jobfair-platform-copy,9400045,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_05.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_05.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-145"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation145"",
+       ""path"": ""/api/jobfair-platform/v1/resources/145"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-145
+- Operation: `jobfairplatformOperation145`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/145`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-145: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cf65cddf3c2334c141b9f349dea5fcd1f4ad9472e40c46b2862cc109243966fd,bbf611321422936a40f7efe8a81f5a56d011d208a3f76929b355a78fac037559,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-145.patch
+CRPP2-JOB-API_REFERENCE-146,controlled-v2/jobfair-platform-copy,9400046,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_05.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_05.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""JOB-API-146"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation146"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/146"",
++      ""path"": ""/api/jobfair-platform/v2/resources/146"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-146
+- Operation: `jobfairplatformOperation146`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/146`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-146: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/146' u '/api/jobfair-platform/v2/resources/146' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ccf109bd12c2b2dc45a881e544540a875e4b4c4ce6ba38fe6091926772965fa6,69a1900cf1a7c9f32b5662b8852216338299a492b114736437d545788f4bed4c,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-146.patch
+CRPP2-JOB-API_REFERENCE-147,controlled-v2/jobfair-platform-copy,9400047,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_05.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_05.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""jobfairplatformOperation147"",
+       ""path"": ""/api/jobfair-platform/v1/resources/147"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-147
+- Operation: `jobfairplatformOperation147`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/147`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-147: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ba96a844f0b8c12949bdbaab2d363fdd9a195737d3141aae03d6984d3fa1f2f6,c2d1fd415f408b449c36dd26722596ce2d5cc693397c224b9e5321ec4739d4a4,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-147.patch
+CRPP2-JOB-API_REFERENCE-148,controlled-v2/jobfair-platform-copy,9400048,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_05.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_05.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-149"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-148
+- Operation: `jobfairplatformOperation148`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/148`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-148: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7a70515d3ceb02c0e4d4dde155e5cc7eb2867f4fda5a9e78ae59f6b741b8eda2,f70341c79e9e017df74744475b4ea1f6151f15b008aeba800fa70c5b2cb9705b,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-148.patch
+CRPP2-JOB-API_REFERENCE-149,controlled-v2/jobfair-platform-copy,9400049,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_05.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_05.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-149"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation149"",
+       ""path"": ""/api/jobfair-platform/v1/resources/149"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-149
+- Operation: `jobfairplatformOperation149`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/149`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-149: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a7c0a807a411c4803c128dc89ff1c623b5eaec50e1552712415bac00161664ca,37eaf63cede9e67c24ab89638633a4edb51cb2a558f35adbe0a5215b3eeb224d,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-149.patch
+CRPP2-JOB-API_REFERENCE-150,controlled-v2/jobfair-platform-copy,9400050,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_05.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_05.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_05.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""JOB-API-150"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation150"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/150"",
++      ""path"": ""/api/jobfair-platform/v2/resources/150"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-150
+- Operation: `jobfairplatformOperation150`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/150`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-150: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/150' u '/api/jobfair-platform/v2/resources/150' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8ced9f44cf163978c5a7b41b9888a7e37963863a8b2390b6389d63237f999f77,3c67ce3e09e418e73eb2e93ebe8d7125492d2b9cf0fe6fd1bf83df6e1583ed66,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-150.patch
+CRPP2-JOB-API_REFERENCE-151,controlled-v2/jobfair-platform-copy,9400051,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_06.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_06.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""jobfairplatformOperation151"",
+       ""path"": ""/api/jobfair-platform/v1/resources/151"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-151
+- Operation: `jobfairplatformOperation151`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/151`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-151: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bc57eb6bdc7f33bd6e4a285cbfad9003c5cccbf8e41e14ceb2c138fe2ea4bb19,880fa34870bf63f1ad3a9e16c5f5d06fb99eb68071c6d6205217d843eec7f9b0,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-151.patch
+CRPP2-JOB-API_REFERENCE-152,controlled-v2/jobfair-platform-copy,9400052,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_06.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_06.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-153"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-152
+- Operation: `jobfairplatformOperation152`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/152`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-152: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b8ef9005fdafa2a4c1fc999b3af18d4a962514ac274898a29db519b152624d6f,bf15e075420d09284f9783441d88049614bb5ee2553c13f562aa30eaba310932,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-152.patch
+CRPP2-JOB-API_REFERENCE-153,controlled-v2/jobfair-platform-copy,9400053,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_06.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_06.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-153"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation153"",
+       ""path"": ""/api/jobfair-platform/v1/resources/153"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-153
+- Operation: `jobfairplatformOperation153`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/153`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-153: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,21b9b9f1b4df01fe784710f9292d2e043d4e0c983abe2560819757bd92d1b5a7,3c26f0fa0724704c786b4fbd301d40005a37c685840e496f66c8b43d762416f7,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-153.patch
+CRPP2-JOB-API_REFERENCE-154,controlled-v2/jobfair-platform-copy,9400054,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_06.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_06.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""JOB-API-154"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation154"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/154"",
++      ""path"": ""/api/jobfair-platform/v2/resources/154"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-154
+- Operation: `jobfairplatformOperation154`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/154`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-154: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/154' u '/api/jobfair-platform/v2/resources/154' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ae4db570616c6ee6e43efcfad471a60130319fcb3c22bedc58bc9ab3ce2a6b95,298f71a1ab05512fd3eb14a1631c31965a565e5f54fb33ef78790a7b974341f5,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-154.patch
+CRPP2-JOB-API_REFERENCE-155,controlled-v2/jobfair-platform-copy,9400055,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_06.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_06.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""jobfairplatformOperation155"",
+       ""path"": ""/api/jobfair-platform/v1/resources/155"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-155
+- Operation: `jobfairplatformOperation155`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/155`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-155: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4fe5685153a0f638bd9a6708dbea887b534c8b0add88f6a76d0add39e22ed81c,bfe9f6b6e287ede075070179ed3f13d7b468142c2617c0cfe33611fb971b6c6d,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-155.patch
+CRPP2-JOB-API_REFERENCE-156,controlled-v2/jobfair-platform-copy,9400056,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_06.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_06.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-157"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-156
+- Operation: `jobfairplatformOperation156`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/156`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-156: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f3708179ac4548b4a77b527087e5c9ed120738bb85b8f6d045ffe69e51b174f0,70b1be222a1c24e4eea55011e5196991616a70ebb0361b175d19f4ae54b35171,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-156.patch
+CRPP2-JOB-API_REFERENCE-157,controlled-v2/jobfair-platform-copy,9400057,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_06.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_06.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-157"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation157"",
+       ""path"": ""/api/jobfair-platform/v1/resources/157"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-157
+- Operation: `jobfairplatformOperation157`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/157`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-157: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1d830ddf1831720b1a8213cb718d716368dc9c7c3bfb14b4302c83c307b647c4,3f9f405912f8acd12ff939ac388fba92d54a5663b47c8205f349426648a00519,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-157.patch
+CRPP2-JOB-API_REFERENCE-158,controlled-v2/jobfair-platform-copy,9400058,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_06.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_06.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""JOB-API-158"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation158"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/158"",
++      ""path"": ""/api/jobfair-platform/v2/resources/158"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-158
+- Operation: `jobfairplatformOperation158`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/158`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-158: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/158' u '/api/jobfair-platform/v2/resources/158' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,af689d8e72853c820e36735f966a12870c4f0e2afcdc904df4c973d53f95bb1a,80632d0d2a2ffa0b8ed9fe00cdc666254fd9825d49504adadd16044ee0b42ff0,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-158.patch
+CRPP2-JOB-API_REFERENCE-159,controlled-v2/jobfair-platform-copy,9400059,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_06.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_06.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""jobfairplatformOperation159"",
+       ""path"": ""/api/jobfair-platform/v1/resources/159"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-159
+- Operation: `jobfairplatformOperation159`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/159`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-159: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7aeb2b7cb85836485fd787e43fb56107c4f30bf1104684ca24ab25c257992a90,ea8823f53b7271264b14f45c94aaa9de1b008483c51b97f3fe2cf13668f6ee1a,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-159.patch
+CRPP2-JOB-API_REFERENCE-160,controlled-v2/jobfair-platform-copy,9400060,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_06.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_06.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_06.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""jobfair_platform"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-160
+- Operation: `jobfairplatformOperation160`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/160`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-160: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ee7bd7a7ce4584de3530f7ddc92260bb8f3955d2c237a735b89483a5971429db,2ae52530fb71b8ca1e048243dfecfea62c75b567a0339a111f16ee312c1e4ece,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-160.patch
+CRPP2-JOB-API_REFERENCE-161,controlled-v2/jobfair-platform-copy,9400061,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_07.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_07.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""JOB-API-161"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation161"",
+       ""path"": ""/api/jobfair-platform/v1/resources/161"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-161
+- Operation: `jobfairplatformOperation161`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/161`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-161: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,98ec16529b3dbaf4d05c41e4de821959330a45069cb2837ea29440723fac95cc,170e8f3891577f74ba4ebb4be64a5261df3b4901a57c098cb77f3f6de40e52f1,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-161.patch
+CRPP2-JOB-API_REFERENCE-162,controlled-v2/jobfair-platform-copy,9400062,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_07.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_07.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""JOB-API-162"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation162"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/162"",
++      ""path"": ""/api/jobfair-platform/v2/resources/162"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-162
+- Operation: `jobfairplatformOperation162`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/162`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-162: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/162' u '/api/jobfair-platform/v2/resources/162' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4a74773ad9b3c0229a223908371f0a97daae26ed9b2b52be6d63793b8ab34242,53b521d72450bfe29be532ecd8e5f568c3c0328952a7ccf19d6ce09e54b74bc4,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-162.patch
+CRPP2-JOB-API_REFERENCE-163,controlled-v2/jobfair-platform-copy,9400063,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_07.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_07.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""jobfairplatformOperation163"",
+       ""path"": ""/api/jobfair-platform/v1/resources/163"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-163
+- Operation: `jobfairplatformOperation163`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/163`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-163: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e695d19018bbe1b69cfb0e6964f38a2ee128ee6f4a9a325943c66e53d24f7415,8a6ef139381885e28f019878cf2240d56cfd1c9d541d89e4b5d8ff55b937e729,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-163.patch
+CRPP2-JOB-API_REFERENCE-164,controlled-v2/jobfair-platform-copy,9400064,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_07.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_07.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-165"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-164
+- Operation: `jobfairplatformOperation164`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/164`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-164: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0518932729bd18cea486f660b9619934104fb92e901512e0fd727a3d4685189a,a113f2600b020bdec96c47e2eb16401609313d76ef68ab8b6e7d3e44b7128784,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-164.patch
+CRPP2-JOB-API_REFERENCE-165,controlled-v2/jobfair-platform-copy,9400065,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_07.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_07.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-165"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation165"",
+       ""path"": ""/api/jobfair-platform/v1/resources/165"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-165
+- Operation: `jobfairplatformOperation165`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/165`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-165: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,26ecedb01eb07afcfecc46ce191ea486f524663535da0514ffc3f949b612739a,0c1cae590160c22afda710c37ec300d19b1132953d7708be2079ec5ee0eb38fa,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-165.patch
+CRPP2-JOB-API_REFERENCE-166,controlled-v2/jobfair-platform-copy,9400066,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_07.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_07.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""JOB-API-166"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation166"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/166"",
++      ""path"": ""/api/jobfair-platform/v2/resources/166"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-166
+- Operation: `jobfairplatformOperation166`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/166`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-166: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/166' u '/api/jobfair-platform/v2/resources/166' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f2ef3f689d4c42e4563a5063476828cd85fc55eaba54cd7d1c6df3a696cebdb0,e805851085f64e94418d346a58d75b8aba0c684fb00006fa34220efcb710bc86,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-166.patch
+CRPP2-JOB-API_REFERENCE-167,controlled-v2/jobfair-platform-copy,9400067,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_07.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_07.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""jobfairplatformOperation167"",
+       ""path"": ""/api/jobfair-platform/v1/resources/167"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-167
+- Operation: `jobfairplatformOperation167`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/167`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-167: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eaf408158709172fffc6495b4d6792df494485391452058dc75b75e98da20fb6,9b9aa29571535fa68b03fbd2dd311440fb6a2bf19687bc590094748c7ebbf421,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-167.patch
+CRPP2-JOB-API_REFERENCE-168,controlled-v2/jobfair-platform-copy,9400068,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_07.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_07.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-169"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-168
+- Operation: `jobfairplatformOperation168`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/168`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-168: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1276f26ec3d3ef294921fa0cbb61fec52aa6d4545a09441b775d62ff6a1bc576,da7f8bc5b25ae502119edb0f14bc6093a61a3830404b264f191abac2d424f929,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-168.patch
+CRPP2-JOB-API_REFERENCE-169,controlled-v2/jobfair-platform-copy,9400069,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_07.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_07.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-169"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation169"",
+       ""path"": ""/api/jobfair-platform/v1/resources/169"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-169
+- Operation: `jobfairplatformOperation169`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/169`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-169: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d912d80eac91926dceaa29c1e5cecd225547c5b81ab145e5b19fdb7213e3b459,605e24a4db72aa64cdff42e8a4bb5df67be09b91bb4114115a33932c3a16b363,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-169.patch
+CRPP2-JOB-API_REFERENCE-170,controlled-v2/jobfair-platform-copy,9400070,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_07.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_07.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_07.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""JOB-API-170"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation170"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/170"",
++      ""path"": ""/api/jobfair-platform/v2/resources/170"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-170
+- Operation: `jobfairplatformOperation170`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/170`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-170: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/170' u '/api/jobfair-platform/v2/resources/170' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8d2aee10e7b8ccc53d564881df28a4c264878f1386ed2c9a5d77262e8e4a5916,20e157a94ea36a3cd35c88d46618ea98e41d6e2e35446acff6fcf4d72df694c3,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-170.patch
+CRPP2-JOB-API_REFERENCE-171,controlled-v2/jobfair-platform-copy,9400071,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_08.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_08.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""jobfairplatformOperation171"",
+       ""path"": ""/api/jobfair-platform/v1/resources/171"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-171
+- Operation: `jobfairplatformOperation171`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/171`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-171: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fe192c24cf74270127d41a9dbe60c13ab8a2dfce3e1798fb443b368478885a09,32b7a4918339f599b28543680f65ae909e47af5fec0f7cb11cf3b6b1192c32b4,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-171.patch
+CRPP2-JOB-API_REFERENCE-172,controlled-v2/jobfair-platform-copy,9400072,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_08.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_08.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-173"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-172
+- Operation: `jobfairplatformOperation172`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/172`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-172: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e07415c78096ab0daeebd65905a05e6b61f718c13265c0a999d21014bdd1de90,f21d78c9e0079ae3bb0aecdbed15c9e35c23249ed5842710043531291a19b6bd,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-172.patch
+CRPP2-JOB-API_REFERENCE-173,controlled-v2/jobfair-platform-copy,9400073,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_08.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_08.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-173"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation173"",
+       ""path"": ""/api/jobfair-platform/v1/resources/173"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-173
+- Operation: `jobfairplatformOperation173`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/173`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-173: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,51633bdf15fd486fe5d0fdb76edeed2a84c07d8586ad686da6b07f0d57e025ea,30ae9596c0492c14accb5bc3dc8bdec6daf34171f0d19e78c5462ccedf2814f7,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-173.patch
+CRPP2-JOB-API_REFERENCE-174,controlled-v2/jobfair-platform-copy,9400074,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_08.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_08.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""JOB-API-174"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation174"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/174"",
++      ""path"": ""/api/jobfair-platform/v2/resources/174"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-174
+- Operation: `jobfairplatformOperation174`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/174`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-174: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/174' u '/api/jobfair-platform/v2/resources/174' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3a432b1d236a56b436d6c589e88453e75945ec5f122b80fc770118e69b248495,b4a46767173f038fcfadcbe896c8951384516c818af72963446acc3e770e0aac,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-174.patch
+CRPP2-JOB-API_REFERENCE-175,controlled-v2/jobfair-platform-copy,9400075,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_08.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_08.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""jobfairplatformOperation175"",
+       ""path"": ""/api/jobfair-platform/v1/resources/175"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-175
+- Operation: `jobfairplatformOperation175`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/175`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-175: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3afb973138fc4740ce2d736407d2cb73a21e50efda641ab81339362f7641cba6,659a645e0878337f2a45c6c8e32393e20b94dc24ac70f26114d2d6d54df8684d,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-175.patch
+CRPP2-JOB-API_REFERENCE-176,controlled-v2/jobfair-platform-copy,9400076,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_08.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_08.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-177"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-176
+- Operation: `jobfairplatformOperation176`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/176`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-176: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,40c16209b370723e64da7f00cb9e4f052bef8f1cb32672c0225f808e85818fb5,a484f4c12c7da779afbf0c2abdd284b4e0b48c4abfdf48c1f3c6397cde554110,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-176.patch
+CRPP2-JOB-API_REFERENCE-177,controlled-v2/jobfair-platform-copy,9400077,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_08.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_08.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-177"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation177"",
+       ""path"": ""/api/jobfair-platform/v1/resources/177"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-177
+- Operation: `jobfairplatformOperation177`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/177`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-177: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2eba4107373e9175846c1669447f4fac3fca6bd0ba3fff364068d998d473482e,8d4796221a435284c0dfdc28a6edc9dbb5a463eb36653d2bb346cfca164ed64e,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-177.patch
+CRPP2-JOB-API_REFERENCE-178,controlled-v2/jobfair-platform-copy,9400078,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_08.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_08.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""JOB-API-178"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation178"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/178"",
++      ""path"": ""/api/jobfair-platform/v2/resources/178"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-178
+- Operation: `jobfairplatformOperation178`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/178`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-178: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/178' u '/api/jobfair-platform/v2/resources/178' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,883aeec20935b4fda38477e0c0fa165c9ac0a8d62f2c190a5d8e280519ddb0d6,37fd673202f9592c24fbdad884d904a4a829526644d5c5fa2922aff76aa07a0e,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-178.patch
+CRPP2-JOB-API_REFERENCE-179,controlled-v2/jobfair-platform-copy,9400079,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_08.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_08.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""jobfairplatformOperation179"",
+       ""path"": ""/api/jobfair-platform/v1/resources/179"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-179
+- Operation: `jobfairplatformOperation179`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/179`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-179: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,67b7f6490689b91979df3eb69e0b13598b0b19f3f4f77c4231496aca32b6c071,7f72f4202d70164dd9fdaeab3a6534d8305c72a4780892df260f5518fad53e3c,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-179.patch
+CRPP2-JOB-API_REFERENCE-180,controlled-v2/jobfair-platform-copy,9400080,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_08.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_08.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_08.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""jobfair_platform"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-180
+- Operation: `jobfairplatformOperation180`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/180`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-180: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,15a7beb858e466f707b2476f71dcaebd0bcc3e42a453acf87f599d5190e659f1,531409dbd1f146009d7c5333c70f791f5483a3ced33bf008150fc21bde1b744c,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-180.patch
+CRPP2-JOB-API_REFERENCE-181,controlled-v2/jobfair-platform-copy,9400081,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_09.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_09.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""JOB-API-181"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation181"",
+       ""path"": ""/api/jobfair-platform/v1/resources/181"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-181
+- Operation: `jobfairplatformOperation181`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/181`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-181: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ddb1bdbf5b8b8617a860812d5a843b059667454426ece43c271fe407243247b4,4836e7da68c8a2d6bbca12a76651127081448c2ac8344cca79cac795b8ec82b2,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-181.patch
+CRPP2-JOB-API_REFERENCE-182,controlled-v2/jobfair-platform-copy,9400082,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_09.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_09.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""JOB-API-182"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation182"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/182"",
++      ""path"": ""/api/jobfair-platform/v2/resources/182"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-182
+- Operation: `jobfairplatformOperation182`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/182`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-182: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/182' u '/api/jobfair-platform/v2/resources/182' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e97895a2ee9b051803ea610c906fa53a103f1a5092692e676843dc97d485b2aa,d2ce602f4577e5e3c8a2d10732d2b910a57fe18a04d05ca98401e6e96cb28dd6,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-182.patch
+CRPP2-JOB-API_REFERENCE-183,controlled-v2/jobfair-platform-copy,9400083,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_09.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_09.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""jobfairplatformOperation183"",
+       ""path"": ""/api/jobfair-platform/v1/resources/183"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-183
+- Operation: `jobfairplatformOperation183`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/183`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-183: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d9a3bc6fec5484bbc8992faf1d0c135be1eb9c21b9dc5db8052651ab4ca1ea01,9902787fafda0c5f56fa8484c57833be13a638a897525f89251a699d457a0c65,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-183.patch
+CRPP2-JOB-API_REFERENCE-184,controlled-v2/jobfair-platform-copy,9400084,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_09.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_09.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-185"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-184
+- Operation: `jobfairplatformOperation184`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/184`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-184: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9df468e0bb060bd63072821ab7dac6a57aa40f5d0de073cfd7eb91d1482abdab,afbe5e2a84a2bf09f4bb8e2e5b0e07c799ec9f796b4959e4b91dec6358a28be7,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-184.patch
+CRPP2-JOB-API_REFERENCE-185,controlled-v2/jobfair-platform-copy,9400085,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_09.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_09.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-185"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation185"",
+       ""path"": ""/api/jobfair-platform/v1/resources/185"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-185
+- Operation: `jobfairplatformOperation185`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/185`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-185: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,224b4f4bbec32cec8e7a5d4c303a8e844d6f98252004deb4ebe49f6679a143ba,8f1e7568a7f72735eb64ca7d74961488a996545a42c8fbc64095540ac926895a,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-185.patch
+CRPP2-JOB-API_REFERENCE-186,controlled-v2/jobfair-platform-copy,9400086,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_09.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_09.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""JOB-API-186"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation186"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/186"",
++      ""path"": ""/api/jobfair-platform/v2/resources/186"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-186
+- Operation: `jobfairplatformOperation186`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/186`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-186: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/186' u '/api/jobfair-platform/v2/resources/186' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a6063da7898e3a586adb1e65922915d2c36d1b6f3aafa9618f0930a682f4c30b,f3614c7c06bfd0ceeae8aa42dc82a960ebd93563fd84335c6a0097832b6e9d9e,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-186.patch
+CRPP2-JOB-API_REFERENCE-187,controlled-v2/jobfair-platform-copy,9400087,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_09.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_09.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""jobfairplatformOperation187"",
+       ""path"": ""/api/jobfair-platform/v1/resources/187"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-187
+- Operation: `jobfairplatformOperation187`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/187`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-187: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b76e53a9e4e71648247c6a145bdb2c3805bdd86a5c5b844e9df67281b5faba78,ca30031e14227f02d3adf20416461d1e935ebf5958086396634e392cf42051a0,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-187.patch
+CRPP2-JOB-API_REFERENCE-188,controlled-v2/jobfair-platform-copy,9400088,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_09.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_09.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-189"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-188
+- Operation: `jobfairplatformOperation188`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/188`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-188: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6f3407393c4e5fd5abb24cddeb69e15c06fd6e7e0ea5ed70b7ea0617085d6a45,f9c4260f20e490d6055cb2c256e1a24ef96bce89e33020f6c7d40bdf986c251e,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-188.patch
+CRPP2-JOB-API_REFERENCE-189,controlled-v2/jobfair-platform-copy,9400089,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_09.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_09.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-189"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation189"",
+       ""path"": ""/api/jobfair-platform/v1/resources/189"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-189
+- Operation: `jobfairplatformOperation189`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/189`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-189: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ac1b1e6fae130262266fd96ec7d8003ac07d1886bc1d91eb3dbffb43f49deb33,1594853f0d7314e00cc6d84293e86c08d5d959619afa97f25dc3024bdb0ace8c,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-189.patch
+CRPP2-JOB-API_REFERENCE-190,controlled-v2/jobfair-platform-copy,9400090,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_09.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_09.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_09.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""JOB-API-190"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation190"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/190"",
++      ""path"": ""/api/jobfair-platform/v2/resources/190"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-190
+- Operation: `jobfairplatformOperation190`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/190`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-190: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/190' u '/api/jobfair-platform/v2/resources/190' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,04e6ad6eb5d4dd96380246245c5975ac6b3dd7caa85801ae5aea5a649035e416,370db97f2d170b574144ebce3ba6f8590bfae5aa0862134549e7be6cd994d58a,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-190.patch
+CRPP2-JOB-API_REFERENCE-191,controlled-v2/jobfair-platform-copy,9400091,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_10.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_10.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""jobfairplatformOperation191"",
+       ""path"": ""/api/jobfair-platform/v1/resources/191"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-191
+- Operation: `jobfairplatformOperation191`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/191`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-191: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,065bfd17dd01405a5459ff1f81f4211cce84da2ba006d0df4ac8f38a3251ce88,300832e615e7c4123b93a658b93150c25ecbc76402b9a98f440e51362018162f,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-191.patch
+CRPP2-JOB-API_REFERENCE-192,controlled-v2/jobfair-platform-copy,9400092,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_10.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_10.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-193"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-192
+- Operation: `jobfairplatformOperation192`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/192`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-192: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8ce1823e4fca6c18320c68d6c058ba1d5990c78d633ff0f79ad772064ce39384,7c04ae8a9fcabd900d1d6fa40d3adf1b6b38a0f713978f9fb0c7c550d70938cd,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-192.patch
+CRPP2-JOB-API_REFERENCE-193,controlled-v2/jobfair-platform-copy,9400093,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_10.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_10.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-193"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation193"",
+       ""path"": ""/api/jobfair-platform/v1/resources/193"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-193
+- Operation: `jobfairplatformOperation193`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/193`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-193: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b7e1fc92f218aeac5facc17870a988a9a378e452f316895c159fc894e3d29ebd,e60bef42d306672922a2dec36a12d5f388057e6252d8203a287f40b258df4902,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-193.patch
+CRPP2-JOB-API_REFERENCE-194,controlled-v2/jobfair-platform-copy,9400094,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_10.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_10.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""JOB-API-194"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation194"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/194"",
++      ""path"": ""/api/jobfair-platform/v2/resources/194"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-194
+- Operation: `jobfairplatformOperation194`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/194`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-194: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/194' u '/api/jobfair-platform/v2/resources/194' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ea3c778c525f1d3abebacfb839e08404b2c8b0a37f398899fee54ac5085633b8,dcae89910e01e0a6d7eb4df08090aa5d7de7efe9aa918caaa8bd358945d03ac0,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-194.patch
+CRPP2-JOB-API_REFERENCE-195,controlled-v2/jobfair-platform-copy,9400095,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_10.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_10.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""jobfairplatformOperation195"",
+       ""path"": ""/api/jobfair-platform/v1/resources/195"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-195
+- Operation: `jobfairplatformOperation195`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/195`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-195: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1111e8f8d50b46e36dd5dc24a8556252c5beba4d1fe0e2ac541f9194963ca591,e3813dac6cdd02cba4f3a6db94407477976a08db04885e208618f882bdd77269,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-195.patch
+CRPP2-JOB-API_REFERENCE-196,controlled-v2/jobfair-platform-copy,9400096,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_10.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_10.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""JOB-API-197"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-196
+- Operation: `jobfairplatformOperation196`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/196`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-196: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3eb0cc9b900a0155f86eec6589378c8a2d1bf70f224d85f4a42e6d8a1086f581,ea15ba4328cec170f856664e953349ab54b3a1ada0b5e29b1e4f040befefc2c5,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-196.patch
+CRPP2-JOB-API_REFERENCE-197,controlled-v2/jobfair-platform-copy,9400097,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_10.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_10.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""JOB-API-197"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation197"",
+       ""path"": ""/api/jobfair-platform/v1/resources/197"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-197
+- Operation: `jobfairplatformOperation197`
+- Public endpoint: `POST /api/jobfair-platform/v1/resources/197`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-197: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bf9afb7fe653f819223af307ae807132a46cbfb347a85f9d439935f5144505e0,55183a4617a470b226275368af6d1ca2b50e2b25ea54af90c86c9eace5487701,api_reference,jobfair_platform,http_method_change,cases/patches/jobfair_platform/api_reference/JOB-API-197.patch
+CRPP2-JOB-API_REFERENCE-198,controlled-v2/jobfair-platform-copy,9400098,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_10.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_10.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""JOB-API-198"",
+       ""method"": ""PUT"",
+       ""operationId"": ""jobfairplatformOperation198"",
+-      ""path"": ""/api/jobfair-platform/v1/resources/198"",
++      ""path"": ""/api/jobfair-platform/v2/resources/198"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-198
+- Operation: `jobfairplatformOperation198`
+- Public endpoint: `PUT /api/jobfair-platform/v1/resources/198`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-198: kod mijenja javni API ugovor iz '/api/jobfair-platform/v1/resources/198' u '/api/jobfair-platform/v2/resources/198' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,30dac20bcc70671ee3070cec6be6972e5397ae06cde5c8b31016ae48044428dd,834fe9f3bba846b5df9aac58d38978cb8d83e233356b608ab5e266bc76890db9,api_reference,jobfair_platform,endpoint_version_change,cases/patches/jobfair_platform/api_reference/JOB-API-198.patch
+CRPP2-JOB-API_REFERENCE-199,controlled-v2/jobfair-platform-copy,9400099,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_10.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_10.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""jobfairplatformOperation199"",
+       ""path"": ""/api/jobfair-platform/v1/resources/199"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-199
+- Operation: `jobfairplatformOperation199`
+- Public endpoint: `DELETE /api/jobfair-platform/v1/resources/199`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-199: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8d062aebec5cb5b12e106c81d3f689922a5de4c504b8999a2cbadf35a49ceecd,2ebdae0213bf106fd41907caccc9467d0983cb39b4a76c7ab114a376181302e0,api_reference,jobfair_platform,required_parameter_added,cases/patches/jobfair_platform/api_reference/JOB-API-199.patch
+CRPP2-JOB-API_REFERENCE-200,controlled-v2/jobfair-platform-copy,9400100,typescript,"[""src/docguard-contract-lab-v2/api_reference/contracts_10.json""]","--- a/src/docguard-contract-lab-v2/api_reference/contracts_10.json
++++ b/src/docguard-contract-lab-v2/api_reference/contracts_10.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""jobfair_platform"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:d464442dc60457f7 -->
+### JOB-API-200
+- Operation: `jobfairplatformOperation200`
+- Public endpoint: `GET /api/jobfair-platform/v1/resources/200`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"JOB-API-200: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,26000e0692e7a44f2424dcaa63b743fa14c265c8c9d1a85af39852bcd115a325,955a8281ffffe796aa1346854b8da5649e1fcb1f216e4f65490a608fb03ab484,api_reference,jobfair_platform,success_status_change,cases/patches/jobfair_platform/api_reference/JOB-API-200.patch

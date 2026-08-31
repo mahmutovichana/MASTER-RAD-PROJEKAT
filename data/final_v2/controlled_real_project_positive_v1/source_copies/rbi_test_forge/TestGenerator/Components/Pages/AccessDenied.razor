@@ -1,0 +1,25 @@
+@page "/access-denied"
+@layout MainLayout
+@attribute [AllowAnonymous]
+
+<PageTitle>Pristup odbijen</PageTitle>
+
+<MudPaper Class="rbi-paper access-denied-card" Elevation="2">
+    <MudIcon Icon="@Icons.Material.Filled.Lock"
+             Size="Size.Large"
+             Color="Color.Error"
+             Class="mb-3" />
+
+    <MudText Typo="Typo.h4" Class="mb-2">Pristup odbijen</MudText>
+
+    <MudText Typo="Typo.body1" Class="mb-4">
+        @AuthErrorMessages.AccessDenied
+    </MudText>
+
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               StartIcon="@Icons.Material.Filled.Home"
+               Href="/">
+        Povratak na početnu
+    </MudButton>
+</MudPaper>

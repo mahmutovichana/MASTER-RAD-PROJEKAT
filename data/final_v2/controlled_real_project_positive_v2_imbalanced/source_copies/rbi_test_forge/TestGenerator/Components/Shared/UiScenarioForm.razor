@@ -1,0 +1,269 @@
+@* ============================================================
+   UiScenarioForm — AC3 + AC6: forma za Blazor/UI scenarij
+   ============================================================
+   Pokriva AC3: URL stranice, koraci (klik/upis/očekivani tekst/element).
+   Pokriva AC4: VariablePicker za URL stranicu.
+   Pokriva AC6: real-time validacija po tipu akcije (relevantna polja
+                su obavezna ovisno o odabranoj akciji).
+
+   Isti "inicijalizacija jednom" pattern kao RestScenarioForm.
+   ============================================================ *@
+
+<div>
+    @* ── URL stranice ─────────────────────────────────────────── *@
+    <MudTextField Value="@_urlStranice"
+                  ValueChanged="@OnUrlChanged"
+                  T="string"
+                  Label="URL stranice"
+                  Variant="Variant.Outlined"
+                  Placeholder="npr. {{baseUrl}}/login"
+                  Immediate="true"
+                  Error="@(_urlTouched && string.IsNullOrWhiteSpace(_urlStranice))"
+                  ErrorText="URL stranice je obavezan."
+                  Class="mb-1" />
+    <VariablePicker RunConfig="@RunConfig"
+                    OnTokenClicked="@(t => { _urlStranice += t; Notify(); })" />
+
+    @* ── Koraci ───────────────────────────────────────────────── *@
+    <div class="d-flex align-center mb-2 mt-1">
+        <MudText Typo="Typo.subtitle2">Koraci scenarija</MudText>
+        <MudSpacer />
+        <MudButton StartIcon="@Icons.Material.Filled.Add"
+                   Size="Size.Small"
+                   Variant="Variant.Outlined"
+                   Color="Color.Primary"
+                   OnClick="AddStep">
+            Dodaj korak
+        </MudButton>
+    </div>
+
+    @if (_koraci.Count == 0)
+    {
+        <MudAlert Severity="Severity.Warning" Dense="true" Class="mb-2">
+            Scenarij mora imati najmanje jedan korak.
+        </MudAlert>
+    }
+
+    @for (var i = 0; i < _koraci.Count; i++)
+    {
+        var idx  = i;
+        var korak = _koraci[i];
+
+        <MudPaper Class="pa-3 mb-3" Elevation="1" Outlined="true">
+            <div class="d-flex align-center mb-2">
+                <MudText Typo="Typo.caption" Color="Color.Secondary">Korak @(idx + 1)</MudText>
+                <MudSpacer />
+                <MudTooltip Text="Pomjeri gore">
+                    <MudIconButton Icon="@Icons.Material.Filled.ArrowUpward"
+                                   Size="Size.Small"
+                                   Disabled="@(idx == 0)"
+                                   OnClick="@(() => MoveStep(idx, -1))" />
+                </MudTooltip>
+                <MudTooltip Text="Pomjeri dolje">
+                    <MudIconButton Icon="@Icons.Material.Filled.ArrowDownward"
+                                   Size="Size.Small"
+                                   Disabled="@(idx == _koraci.Count - 1)"
+                                   OnClick="@(() => MoveStep(idx, +1))" />
+                </MudTooltip>
+                <MudTooltip Text="Ukloni korak">
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                   Size="Size.Small"
+                                   Color="Color.Error"
+                                   OnClick="@(() => RemoveStep(korak))" />
+                </MudTooltip>
+            </div>
+
+            @* Tip akcije *@
+            <MudSelect T="UiAkcija"
+                       Value="@korak.Akcija"
+                       ValueChanged="@((UiAkcija v) => { korak.Akcija = v; korak.Touched = true; Notify(); })"
+                       Label="Akcija"
+                       Variant="Variant.Outlined"
+                       Class="mb-2">
+                <MudSelectItem T="UiAkcija" Value="UiAkcija.Klik">Klik</MudSelectItem>
+                <MudSelectItem T="UiAkcija" Value="UiAkcija.Upis">Upis (unos teksta)</MudSelectItem>
+                <MudSelectItem T="UiAkcija" Value="UiAkcija.OcekujTekst">Očekuj tekst</MudSelectItem>
+                <MudSelectItem T="UiAkcija" Value="UiAkcija.OcekujElement">Očekuj element</MudSelectItem>
+            </MudSelect>
+
+            @* Selektor (za Klik i Upis) *@
+            @if (korak.Akcija is UiAkcija.Klik or UiAkcija.Upis)
+            {
+                <MudTextField Value="@korak.Selektor"
+                              ValueChanged="@((string v) => { korak.Selektor = v; korak.Touched = true; Notify(); })"
+                              T="string"
+                              Label="CSS selektor elementa"
+                              Variant="Variant.Outlined"
+                              Placeholder="npr. #btn-login, .submit-btn, [data-testid='login']"
+                              Immediate="true"
+                              Error="@(korak.Touched && string.IsNullOrWhiteSpace(korak.Selektor))"
+                              ErrorText="Selektor je obavezan za ovu akciju."
+                              Class="mb-2" />
+            }
+
+            @* Vrijednost (samo za Upis) *@
+            @if (korak.Akcija == UiAkcija.Upis)
+            {
+                <MudTextField Value="@korak.Vrijednost"
+                              ValueChanged="@((string v) => { korak.Vrijednost = v; korak.Touched = true; Notify(); })"
+                              T="string"
+                              Label="Tekst za unos"
+                              Variant="Variant.Outlined"
+                              Placeholder="npr. test@example.com"
+                              Immediate="true"
+                              Error="@(korak.Touched && string.IsNullOrWhiteSpace(korak.Vrijednost))"
+                              ErrorText="Tekst za unos je obavezan."
+                              Class="mb-2" />
+            }
+
+            @* Očekivani tekst/element *@
+            @if (korak.Akcija is UiAkcija.OcekujTekst or UiAkcija.OcekujElement)
+            {
+                <MudTextField Value="@korak.OcekivaniTekst"
+                              ValueChanged="@((string v) => { korak.OcekivaniTekst = v; korak.Touched = true; Notify(); })"
+                              T="string"
+                              Label="@(korak.Akcija == UiAkcija.OcekujTekst ? "Očekivani tekst" : "CSS selektor elementa (mora postojati)")"
+                              Variant="Variant.Outlined"
+                              Placeholder="@(korak.Akcija == UiAkcija.OcekujTekst ? "npr. Dashboard" : "npr. .dashboard-title")"
+                              Immediate="true"
+                              Error="@(korak.Touched && string.IsNullOrWhiteSpace(korak.OcekivaniTekst))"
+                              ErrorText="Ovo polje je obavezno."
+                              Class="mb-0" />
+            }
+        </MudPaper>
+    }
+</div>
+
+@code {
+    // ── Interna klasa za editabilni korak ─────────────────────────
+
+    private sealed class EditStep
+    {
+        public UiAkcija Akcija        = UiAkcija.Klik;
+        public string   Selektor      = "";
+        public string   Vrijednost    = "";
+        public string   OcekivaniTekst = "";
+        public bool     Touched;
+    }
+
+    // ── Parametri ─────────────────────────────────────────────────
+
+    /// <summary>Početna vrijednost (koristi se samo pri prvom renderu).</summary>
+    [Parameter]
+    public UiScenarioDto? InitialValue { get; set; }
+
+    /// <summary>Run konfiguracija za VariablePicker.</summary>
+    [Parameter, EditorRequired]
+    public RunConfigDto RunConfig { get; set; } = new([]);
+
+    /// <summary>Poziva se kad se validnost forme promijeni.</summary>
+    [Parameter]
+    public EventCallback<bool> IsValidChanged { get; set; }
+
+    // ── Lokalno stanje ────────────────────────────────────────────
+
+    private string         _urlStranice = "";
+    private List<EditStep> _koraci      = [];
+    private bool           _urlTouched;
+    private bool           _lastReportedValid;
+    private bool           _initialized;
+
+    // ── Lifecycle ─────────────────────────────────────────────────
+
+    protected override void OnParametersSet()
+    {
+        if (_initialized) return;
+        _initialized = true;
+
+        if (InitialValue is not null)
+        {
+            _urlStranice = InitialValue.UrlStranice;
+            _koraci = InitialValue.Koraci.Select(k => new EditStep
+            {
+                Akcija         = k.Akcija,
+                Selektor       = k.Selektor       ?? "",
+                Vrijednost     = k.Vrijednost      ?? "",
+                OcekivaniTekst = k.OcekivaniTekst ?? "",
+            }).ToList();
+        }
+
+        _lastReportedValid = ComputeIsValid();
+    }
+
+    // ── Javni API ─────────────────────────────────────────────────
+
+    /// <summary>Vraća trenutni DTO izgrađen iz stanja forme.</summary>
+    public UiScenarioDto GetCurrentValue() => BuildDto();
+
+    // ── Handleri ──────────────────────────────────────────────────
+
+    private void OnUrlChanged(string v) { _urlStranice = v; _urlTouched = true; Notify(); }
+
+    private void AddStep()
+    {
+        _koraci.Add(new EditStep());
+        Notify();
+    }
+
+    private void RemoveStep(EditStep step)
+    {
+        _koraci.Remove(step);
+        Notify();
+    }
+
+    private void MoveStep(int idx, int direction)
+    {
+        var newIdx = idx + direction;
+        if (newIdx < 0 || newIdx >= _koraci.Count) return;
+        (_koraci[idx], _koraci[newIdx]) = (_koraci[newIdx], _koraci[idx]);
+        Notify();
+    }
+
+    // ── Validacija ────────────────────────────────────────────────
+
+    private bool ComputeIsValid()
+    {
+        if (string.IsNullOrWhiteSpace(_urlStranice)) return false;
+        if (_koraci.Count == 0) return false;
+
+        foreach (var k in _koraci)
+        {
+            switch (k.Akcija)
+            {
+                case UiAkcija.Klik:
+                    if (string.IsNullOrWhiteSpace(k.Selektor)) return false;
+                    break;
+                case UiAkcija.Upis:
+                    if (string.IsNullOrWhiteSpace(k.Selektor) || string.IsNullOrWhiteSpace(k.Vrijednost)) return false;
+                    break;
+                case UiAkcija.OcekujTekst:
+                case UiAkcija.OcekujElement:
+                    if (string.IsNullOrWhiteSpace(k.OcekivaniTekst)) return false;
+                    break;
+            }
+        }
+        return true;
+    }
+
+    private void Notify()
+    {
+        var valid = ComputeIsValid();
+        if (valid != _lastReportedValid)
+        {
+            _lastReportedValid = valid;
+            _ = IsValidChanged.InvokeAsync(valid);
+        }
+    }
+
+    // ── Izgradnja DTO ─────────────────────────────────────────────
+
+    private UiScenarioDto BuildDto() => new(
+        UrlStranice: _urlStranice.Trim(),
+        Koraci: _koraci.Select(k => new UiKorakDto(
+            Akcija:         k.Akcija,
+            Selektor:       string.IsNullOrWhiteSpace(k.Selektor) ? null : k.Selektor.Trim(),
+            Vrijednost:     string.IsNullOrWhiteSpace(k.Vrijednost) ? null : k.Vrijednost.Trim(),
+            OcekivaniTekst: string.IsNullOrWhiteSpace(k.OcekivaniTekst) ? null : k.OcekivaniTekst.Trim()
+        )).ToList()
+    );
+}

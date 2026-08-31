@@ -1,0 +1,109 @@
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@using RBBH.TestAutomation.Api.Services.Run
+
+<MudDialog>
+    <TitleContent>
+        <div class="d-flex align-center gap-2">
+            <MudIcon Icon="@Icons.Material.Filled.Assessment" />
+            <MudText Typo="Typo.h6">@Run.GroupName — @Run.StartedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</MudText>
+        </div>
+    </TitleContent>
+
+    <DialogContent>
+        <MudGrid Class="mb-3">
+            <MudItem xs="6" sm="3">
+                <MudText Typo="Typo.caption" Color="Color.Secondary">Status</MudText>
+                <MudChip T="string" Color="@(Run.Status == "Passed" ? Color.Success : Color.Error)">@Run.Status</MudChip>
+            </MudItem>
+            <MudItem xs="6" sm="3">
+                <MudText Typo="Typo.caption" Color="Color.Secondary">Pass Rate</MudText>
+                <MudText Typo="Typo.h6">@Run.PassRate.ToString("F1")%</MudText>
+            </MudItem>
+            <MudItem xs="6" sm="3">
+                <MudText Typo="Typo.caption" Color="Color.Secondary">Rezultat</MudText>
+                <MudText Typo="Typo.h6">@Run.PassedCount / @Run.FailedCount / @Run.TotalCount</MudText>
+            </MudItem>
+            <MudItem xs="6" sm="3">
+                <MudText Typo="Typo.caption" Color="Color.Secondary">Trajanje</MudText>
+                <MudText Typo="Typo.h6">@Run.Duration.ToString(@"mm\:ss")</MudText>
+            </MudItem>
+        </MudGrid>
+
+        <MudDivider Class="mb-3" />
+
+        <MudText Typo="Typo.subtitle2" Class="mb-2">
+            Trigger: @Run.TriggerType | Tag: @Run.GroupTag
+            @if (Run.CompletedAt is not null)
+            {
+                <span> | Zavrseno: @Run.CompletedAt.Value.ToLocalTime().ToString("dd.MM.yyyy HH:mm:ss")</span>
+            }
+        </MudText>
+
+        @if (_scenarios.Count > 0)
+        {
+            <MudText Typo="Typo.h6" Class="mt-3 mb-2">Test rezultati</MudText>
+            <MudTable Items="@_scenarios" Dense="true" Hover="true" Breakpoint="Breakpoint.Sm">
+                <HeaderContent>
+                    <MudTh>Scenarij</MudTh>
+                    <MudTh>Status</MudTh>
+                    <MudTh>Trajanje</MudTh>
+                    <MudTh>Razlog pada</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd>@context.Naziv</MudTd>
+                    <MudTd>
+                        <MudChip T="string" Size="Size.Small"
+                                 Color="@(context.Status == ScenarioRunStatus.Passed ? Color.Success : Color.Error)">
+                            @context.Status
+                        </MudChip>
+                    </MudTd>
+                    <MudTd>@context.DurationMs ms</MudTd>
+                    <MudTd Style="max-width:400px;overflow:hidden;text-overflow:ellipsis;">
+                        @(context.FailReason ?? "—")
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
+        }
+        else
+        {
+            <MudAlert Severity="Severity.Info" Dense="true" Class="mt-2">
+                Detalji pojedinih scenarija nisu dostupni za ovaj run.
+            </MudAlert>
+        }
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="Close" Variant="Variant.Text">Zatvori</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [Parameter] public RunHistoryRow Run { get; set; } = default!;
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    private List<ScenarioResultRow> _scenarios = [];
+
+    protected override void OnParametersSet()
+    {
+        if (Run.DetailsJson is not null)
+        {
+            try
+            {
+                _scenarios = JsonSerializer.Deserialize<List<ScenarioResultRow>>(Run.DetailsJson, _json) ?? [];
+            }
+            catch { _scenarios = []; }
+        }
+    }
+
+    private void Close() => MudDialog.Close();
+
+    private static readonly JsonSerializerOptions _json =
+        new(JsonSerializerDefaults.Web) { Converters = { new JsonStringEnumConverter() } };
+
+    private sealed record ScenarioResultRow(
+        string Naziv,
+        ScenarioRunStatus Status,
+        long DurationMs,
+        string? FailReason);
+}

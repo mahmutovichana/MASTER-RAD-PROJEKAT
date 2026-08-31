@@ -1,0 +1,1901 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-RPP-DEVELOPER_SETUP-001,controlled/rbi-related-parties-portal-copy,9200701,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-001"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-002"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-001
+- Profile: `developer-profile-001`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 001`
+- Migration command: `pnpm db:migrate --profile 001`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-001: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,68c15e44f4c68b41f239a1bb716b10ac55096a607a23c2c0e1f6e77799bfe86e,6cc870f17d4e613e6e8280cc50c30f299d1ffccc8241f93303fe6eba56809e9e,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-001.patch
+CRPP1-RPP-DEVELOPER_SETUP-002,controlled/rbi-related-parties-portal-copy,9200702,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-002"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 002"",
++      ""developmentCommand"": ""pnpm dev -- --profile 002 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 002"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-002"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-002
+- Profile: `developer-profile-002`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 002`
+- Migration command: `pnpm db:migrate --profile 002`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-002: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 002' u 'pnpm dev -- --profile 002 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0923accb9edec2d0969da76604d0e6efb844c758c74fbfb0486162961486b6ab,61d097422bd0c52a1aebf3aa160c4c3fe0bb0d3b27d9317633f4dac9312558bd,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-002.patch
+CRPP1-RPP-DEVELOPER_SETUP-003,controlled/rbi-related-parties-portal-copy,9200703,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""RPP-SETUP-003"",
+       ""developmentCommand"": ""pnpm dev -- --profile 003"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 003"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-003"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-003
+- Profile: `developer-profile-003`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 003`
+- Migration command: `pnpm db:migrate --profile 003`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-003: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b463dce69985d4cd044ec0d4fef2d54261426c2fea09d112c54172df37be144c,13e3f4cac8c67a62a95f0a49fceb971a90ae92fc87954e9af487741cbd78431b,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-003.patch
+CRPP1-RPP-DEVELOPER_SETUP-004,controlled/rbi-related-parties-portal-copy,9200704,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-004"",
+       ""developmentCommand"": ""pnpm dev -- --profile 004"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 004"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 004 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-004"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-004
+- Profile: `developer-profile-004`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 004`
+- Migration command: `pnpm db:migrate --profile 004`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-004: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 004' u 'pnpm db:migrate --profile 004 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,39f79f0b0766c5e1aca0e08f496d638dea72da019d55b2761504651d959cb9b0,d8fde209c94e2c22752038258b4b0e5d071f0fb7db3585a8847ccda016350399,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-004.patch
+CRPP1-RPP-DEVELOPER_SETUP-005,controlled/rbi-related-parties-portal-copy,9200705,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-005"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-006"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-005
+- Profile: `developer-profile-005`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 005`
+- Migration command: `pnpm db:migrate --profile 005`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-005: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b71af51a2fcb7f74375ab5bae7c9cc804eb309524b574d13361aea35dc95771f,f70d187a00e6da989f0fdecd8d24c67212dfc6124845fcd8e10cbb1b0b5ba3ae,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-005.patch
+CRPP1-RPP-DEVELOPER_SETUP-006,controlled/rbi-related-parties-portal-copy,9200706,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-006"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 006"",
++      ""developmentCommand"": ""pnpm dev -- --profile 006 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 006"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-006"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-006
+- Profile: `developer-profile-006`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 006`
+- Migration command: `pnpm db:migrate --profile 006`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-006: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 006' u 'pnpm dev -- --profile 006 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7cef0637634dfaf407332950f5e9574284824f6c1cc234c6790c181ad2d185a4,a1e5623a73a13f6940d28e09639006c8441d6ebe259bbed7647d2a84a2b1f8da,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-006.patch
+CRPP1-RPP-DEVELOPER_SETUP-007,controlled/rbi-related-parties-portal-copy,9200707,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""RPP-SETUP-007"",
+       ""developmentCommand"": ""pnpm dev -- --profile 007"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 007"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-007"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-007
+- Profile: `developer-profile-007`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 007`
+- Migration command: `pnpm db:migrate --profile 007`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-007: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7694b8046da59aaed390daaeda9b9fd94f415bfb923eefb479cc7600c0dce901,dd422bec6ec8577f195807a8b0b92b0aa8997551e868c90a99ffc0192d469231,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-007.patch
+CRPP1-RPP-DEVELOPER_SETUP-008,controlled/rbi-related-parties-portal-copy,9200708,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-008"",
+       ""developmentCommand"": ""pnpm dev -- --profile 008"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 008"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 008 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-008"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-008
+- Profile: `developer-profile-008`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 008`
+- Migration command: `pnpm db:migrate --profile 008`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-008: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 008' u 'pnpm db:migrate --profile 008 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ec98531150c33a8f75b5c4cebbe9faed5122abcd7419ed1fa97b8375acc07672,095e02aac7a6222e47a8ce649b8293a52fbb2f43ca2c3b75aa684b9853cdbb3c,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-008.patch
+CRPP1-RPP-DEVELOPER_SETUP-009,controlled/rbi-related-parties-portal-copy,9200709,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-009"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-010"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-009
+- Profile: `developer-profile-009`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 009`
+- Migration command: `pnpm db:migrate --profile 009`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-009: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,362d93b82e096dbdd3d949ae293423d0f59388c03a4c96b779002e814876b057,ef7b2bbd20a5d149e796643dbbbf6a3c1a81d388b6ad07313d2156e4f8d4d9e8,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-009.patch
+CRPP1-RPP-DEVELOPER_SETUP-010,controlled/rbi-related-parties-portal-copy,9200710,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-010"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 010"",
++      ""developmentCommand"": ""pnpm dev -- --profile 010 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 010"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-010"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-010
+- Profile: `developer-profile-010`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 010`
+- Migration command: `pnpm db:migrate --profile 010`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-010: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 010' u 'pnpm dev -- --profile 010 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a2054898cd09e0b3d331761cb524ed793e687d3dd8d84c843307218b2bd6cd57,99bb45af64bc9674519d8d01afe088627780497ed90dbe0da15bf8700941b4c9,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-010.patch
+CRPP1-RPP-DEVELOPER_SETUP-011,controlled/rbi-related-parties-portal-copy,9200711,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""RPP-SETUP-011"",
+       ""developmentCommand"": ""pnpm dev -- --profile 011"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 011"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-011"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-011
+- Profile: `developer-profile-011`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 011`
+- Migration command: `pnpm db:migrate --profile 011`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-011: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,45e5122adfbecec08ac459f145f2088eec75f74e4bb251405265b973bf53a443,0605a2076690a85004208648e92479bf8f510ce24e1ede2684171b6a26657050,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-011.patch
+CRPP1-RPP-DEVELOPER_SETUP-012,controlled/rbi-related-parties-portal-copy,9200712,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-012"",
+       ""developmentCommand"": ""pnpm dev -- --profile 012"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 012"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 012 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-012"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-012
+- Profile: `developer-profile-012`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 012`
+- Migration command: `pnpm db:migrate --profile 012`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-012: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 012' u 'pnpm db:migrate --profile 012 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,06865544defdef51f56e4b11988e23c2a72c0d57b55fd2b6081f0cb64545b652,b003940310d80cc8e802ee3ac3e47cced3072686a0ed3c9fc9f2128bebdeb249,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-012.patch
+CRPP1-RPP-DEVELOPER_SETUP-013,controlled/rbi-related-parties-portal-copy,9200713,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-013"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-014"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-013
+- Profile: `developer-profile-013`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 013`
+- Migration command: `pnpm db:migrate --profile 013`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-013: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,960759608fe4fd145281f3d2b3b583ce04ac90bcf767ad89d2532c38e46a49b8,9f9b22d9db832568835497467d40deb1e531080b17384c03a9f789b876310937,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-013.patch
+CRPP1-RPP-DEVELOPER_SETUP-014,controlled/rbi-related-parties-portal-copy,9200714,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-014"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 014"",
++      ""developmentCommand"": ""pnpm dev -- --profile 014 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 014"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-014"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-014
+- Profile: `developer-profile-014`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 014`
+- Migration command: `pnpm db:migrate --profile 014`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-014: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 014' u 'pnpm dev -- --profile 014 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,53e8abeaf8b2a57df1e7adf2051c1553b2d6daf3faa57b090c1af40e01c8e502,87afe6320bf9565b5d9402f57b526eb9417f1f83c3106d1faf5c9201873c0f0a,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-014.patch
+CRPP1-RPP-DEVELOPER_SETUP-015,controlled/rbi-related-parties-portal-copy,9200715,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""RPP-SETUP-015"",
+       ""developmentCommand"": ""pnpm dev -- --profile 015"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 015"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-015"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-015
+- Profile: `developer-profile-015`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 015`
+- Migration command: `pnpm db:migrate --profile 015`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-015: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3ec279d83324f97a43c8534e8cbcc7c1e55f78069f2a2b950a5b1ccb7e1ba342,68d92f0fc911c8fdb73093f4d555431a32d573622bb8fd9f3495f8d3ecd48263,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-015.patch
+CRPP1-RPP-DEVELOPER_SETUP-016,controlled/rbi-related-parties-portal-copy,9200716,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-016"",
+       ""developmentCommand"": ""pnpm dev -- --profile 016"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 016"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 016 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-016"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-016
+- Profile: `developer-profile-016`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 016`
+- Migration command: `pnpm db:migrate --profile 016`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-016: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 016' u 'pnpm db:migrate --profile 016 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9239d64e42b7f92d2deb590ede8e5fddafbc2bad6e863325fe7d2ac71d9d0d0f,afb2689563cae1d8540429ea8790209cee9bf5e9a3bd04dce2d9499e97115176,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-016.patch
+CRPP1-RPP-DEVELOPER_SETUP-017,controlled/rbi-related-parties-portal-copy,9200717,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-017"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-018"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-017
+- Profile: `developer-profile-017`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 017`
+- Migration command: `pnpm db:migrate --profile 017`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-017: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6e82a6cf500b1477062fe6e31619773a80ecfd78cd9c04ea5eb3b29a4d834370,8b1d22e449e0aaa2299135f00084009cc6f258b0472c86e401d5928bdd8d65b2,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-017.patch
+CRPP1-RPP-DEVELOPER_SETUP-018,controlled/rbi-related-parties-portal-copy,9200718,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-018"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 018"",
++      ""developmentCommand"": ""pnpm dev -- --profile 018 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 018"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-018"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-018
+- Profile: `developer-profile-018`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 018`
+- Migration command: `pnpm db:migrate --profile 018`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-018: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 018' u 'pnpm dev -- --profile 018 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c7df6fda2f7f2cfa22fec8d0eff27ee0c1ef8dab5d1bcd5f31534890ccbbfbb1,6b3bfe2543b849600c3b9d86bb54c29768e26430ffe09e519d3e604c569fe5fa,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-018.patch
+CRPP1-RPP-DEVELOPER_SETUP-019,controlled/rbi-related-parties-portal-copy,9200719,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""RPP-SETUP-019"",
+       ""developmentCommand"": ""pnpm dev -- --profile 019"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 019"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-019"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-019
+- Profile: `developer-profile-019`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 019`
+- Migration command: `pnpm db:migrate --profile 019`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-019: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c8cd6785c0e9c47047c647387c50640c8365bc6014bcef611eb46fee91394f18,533037ceb61da6cc9ae35f7ee6da56853db0c02929dd87e2a27a254696ad8dab,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-019.patch
+CRPP1-RPP-DEVELOPER_SETUP-020,controlled/rbi-related-parties-portal-copy,9200720,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-020"",
+       ""developmentCommand"": ""pnpm dev -- --profile 020"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 020"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 020 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-020"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-020
+- Profile: `developer-profile-020`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 020`
+- Migration command: `pnpm db:migrate --profile 020`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-020: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 020' u 'pnpm db:migrate --profile 020 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5ccd0799285d2434a4ffc073c29fb22f5387d2d4f188ff53139ec06400c90930,d2a165938517723d96703f430b1a9d4f8627fa1319de713881eb7e817423cf66,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-020.patch
+CRPP1-RPP-DEVELOPER_SETUP-021,controlled/rbi-related-parties-portal-copy,9200721,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-021"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-022"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-021
+- Profile: `developer-profile-021`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 021`
+- Migration command: `pnpm db:migrate --profile 021`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-021: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f46395f70a7dc430bdfef8cdc250c5d459be38b35f3b1a081cddd7442f3ea192,d27bf80e8a3de45fd3cc1845867ffe94457c580eb977e97bd323a850e1b42b2f,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-021.patch
+CRPP1-RPP-DEVELOPER_SETUP-022,controlled/rbi-related-parties-portal-copy,9200722,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-022"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 022"",
++      ""developmentCommand"": ""pnpm dev -- --profile 022 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 022"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-022"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-022
+- Profile: `developer-profile-022`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 022`
+- Migration command: `pnpm db:migrate --profile 022`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-022: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 022' u 'pnpm dev -- --profile 022 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fba6187c1401dff4466497714c5740d3271bb41b2bd282112e436b75b38dae83,022805532dcaa888d37e5bf818580ac1c4b9ce5697ba968ca22bd20b0af1d1fb,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-022.patch
+CRPP1-RPP-DEVELOPER_SETUP-023,controlled/rbi-related-parties-portal-copy,9200723,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""RPP-SETUP-023"",
+       ""developmentCommand"": ""pnpm dev -- --profile 023"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 023"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-023"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-023
+- Profile: `developer-profile-023`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 023`
+- Migration command: `pnpm db:migrate --profile 023`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-023: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,526d10aa0c712ca5842b51381d7d3aa96402eba3969a63696961a059b2f658a9,df8db07a2f4737845f36377731c79c8d7e0bcffbb44dcd6c3720997d9f7e04db,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-023.patch
+CRPP1-RPP-DEVELOPER_SETUP-024,controlled/rbi-related-parties-portal-copy,9200724,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-024"",
+       ""developmentCommand"": ""pnpm dev -- --profile 024"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 024"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 024 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-024"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-024
+- Profile: `developer-profile-024`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 024`
+- Migration command: `pnpm db:migrate --profile 024`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-024: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 024' u 'pnpm db:migrate --profile 024 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7f71cf3e2d60c6607cacb5f9c96b57c4309f4cb1fe2066a4c43310c760163a1c,cbb62083e524ba32b5da11652e991300a490a3094e1851fb0b6746e855a7e387,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-024.patch
+CRPP1-RPP-DEVELOPER_SETUP-025,controlled/rbi-related-parties-portal-copy,9200725,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-025"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-026"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-025
+- Profile: `developer-profile-025`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 025`
+- Migration command: `pnpm db:migrate --profile 025`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-025: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,26abcd2485bf4129c0eb8815ec4d73149160e460baa3c4eab84d190efed28195,5b4cc3fd359e94f647c56e189c5716dd33fe14c93910fdcf0d6004cd63cf37ce,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-025.patch
+CRPP1-RPP-DEVELOPER_SETUP-026,controlled/rbi-related-parties-portal-copy,9200726,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-026"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 026"",
++      ""developmentCommand"": ""pnpm dev -- --profile 026 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 026"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-026"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-026
+- Profile: `developer-profile-026`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 026`
+- Migration command: `pnpm db:migrate --profile 026`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-026: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 026' u 'pnpm dev -- --profile 026 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1620e56632614697792eefc2cf108c3ee6621a926fcf9e95589f1b6072c4ccab,72800011812d5378ff8a92eca4b232f9d958fc237d0b00c4a1e875af195481ae,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-026.patch
+CRPP1-RPP-DEVELOPER_SETUP-027,controlled/rbi-related-parties-portal-copy,9200727,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""RPP-SETUP-027"",
+       ""developmentCommand"": ""pnpm dev -- --profile 027"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 027"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-027"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-027
+- Profile: `developer-profile-027`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 027`
+- Migration command: `pnpm db:migrate --profile 027`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-027: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,30b4287fd61149799e7c6b543aa19d828cb2f6d4811a9e62c5eadc33de339a8c,60a7930f405bbd5052bed1f158f607873dfe82ec66033ebf4cf4e34bc8d5c9ef,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-027.patch
+CRPP1-RPP-DEVELOPER_SETUP-028,controlled/rbi-related-parties-portal-copy,9200728,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-028"",
+       ""developmentCommand"": ""pnpm dev -- --profile 028"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 028"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 028 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-028"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-028
+- Profile: `developer-profile-028`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 028`
+- Migration command: `pnpm db:migrate --profile 028`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-028: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 028' u 'pnpm db:migrate --profile 028 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2411618cea059964d73e787aece76a0280572d3c699160112b7e6f2f4b0d0ad9,593b7c8f36f75b4cac14e967bb06a4ab72936adcbb3178752a43031c5c99644b,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-028.patch
+CRPP1-RPP-DEVELOPER_SETUP-029,controlled/rbi-related-parties-portal-copy,9200729,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-029"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-030"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-029
+- Profile: `developer-profile-029`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 029`
+- Migration command: `pnpm db:migrate --profile 029`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-029: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4b7853112ea5f33fc361a8d9f45780d2901418622ac1d45e5ca7acb278798c4b,c652b4702ce9fbf88fd8c023a77ebde1f55a3c3989485fddcefef2c40c1222fe,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-029.patch
+CRPP1-RPP-DEVELOPER_SETUP-030,controlled/rbi-related-parties-portal-copy,9200730,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-030"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 030"",
++      ""developmentCommand"": ""pnpm dev -- --profile 030 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 030"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-030"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-030
+- Profile: `developer-profile-030`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 030`
+- Migration command: `pnpm db:migrate --profile 030`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-030: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 030' u 'pnpm dev -- --profile 030 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,62f66cb961027401469de41f3045e78c68f0bb4e26b411c6ae86b5d495c21275,3d895864374863d4a9683ffdc2d23600b7171fb2092658a0ac8370bf1474f5b9,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-030.patch
+CRPP1-RPP-DEVELOPER_SETUP-031,controlled/rbi-related-parties-portal-copy,9200731,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""RPP-SETUP-031"",
+       ""developmentCommand"": ""pnpm dev -- --profile 031"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 031"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-031"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-031
+- Profile: `developer-profile-031`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 031`
+- Migration command: `pnpm db:migrate --profile 031`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-031: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b6d7689d687dde288815b57bbaa90223ab032de16bf88c6fc21924977c010f77,c6976d080507ccc4ffe0a338bcb29f786489b728c68d197f60de822bad868e1c,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-031.patch
+CRPP1-RPP-DEVELOPER_SETUP-032,controlled/rbi-related-parties-portal-copy,9200732,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-032"",
+       ""developmentCommand"": ""pnpm dev -- --profile 032"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 032"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 032 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-032"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-032
+- Profile: `developer-profile-032`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 032`
+- Migration command: `pnpm db:migrate --profile 032`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-032: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 032' u 'pnpm db:migrate --profile 032 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,41ca487b0f3d47de8cc6fa0c6f4b8cd9046637d85e044cdca573c8590d7c3bd5,52c8e9590406a42faa4fef7bb9f36196967d22aa1ac3cae83a0fc2d5f127813f,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-032.patch
+CRPP1-RPP-DEVELOPER_SETUP-033,controlled/rbi-related-parties-portal-copy,9200733,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-033"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-034"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-033
+- Profile: `developer-profile-033`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 033`
+- Migration command: `pnpm db:migrate --profile 033`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-033: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,464a796cb1e9940f9a0f751b40a48126c591dc1c4ef05fd2d56770b3b177328b,d1d052c21a8b1c9d730ab91ae5ab74b3125bc584cfcc1223b66c47a215299e4c,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-033.patch
+CRPP1-RPP-DEVELOPER_SETUP-034,controlled/rbi-related-parties-portal-copy,9200734,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-034"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 034"",
++      ""developmentCommand"": ""pnpm dev -- --profile 034 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 034"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-034"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-034
+- Profile: `developer-profile-034`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 034`
+- Migration command: `pnpm db:migrate --profile 034`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-034: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 034' u 'pnpm dev -- --profile 034 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6e86fae767fd866e1d5408d0188cf729765cd90ae629fc77c2276106e74e871c,eb52483b41c83175f996ab602c840b451ec07841b992cc9e4d987dacd996a3d0,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-034.patch
+CRPP1-RPP-DEVELOPER_SETUP-035,controlled/rbi-related-parties-portal-copy,9200735,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""RPP-SETUP-035"",
+       ""developmentCommand"": ""pnpm dev -- --profile 035"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 035"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-035"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-035
+- Profile: `developer-profile-035`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 035`
+- Migration command: `pnpm db:migrate --profile 035`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-035: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,360082fb26e8a1a71142153308068586f8d760c81361b26c36fd7dc5ccde0d1b,9d7644b313aa961f45343f0d69d37639fb0cbe23360ed614458adae7012e8da1,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-035.patch
+CRPP1-RPP-DEVELOPER_SETUP-036,controlled/rbi-related-parties-portal-copy,9200736,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-036"",
+       ""developmentCommand"": ""pnpm dev -- --profile 036"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 036"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 036 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-036"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-036
+- Profile: `developer-profile-036`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 036`
+- Migration command: `pnpm db:migrate --profile 036`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-036: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 036' u 'pnpm db:migrate --profile 036 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1ef3f27f1cd53e912f8eb98a2363e8400d039f110d23b066f941e80358867ca1,de1e8e7234e938ca7ef1308047fdede264bc4f00586e1afce20d68d397fc96a7,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-036.patch
+CRPP1-RPP-DEVELOPER_SETUP-037,controlled/rbi-related-parties-portal-copy,9200737,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-037"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-038"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-037
+- Profile: `developer-profile-037`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 037`
+- Migration command: `pnpm db:migrate --profile 037`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-037: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,718d1d2d590a9e160f8e95d6a830fe1719ba7170886fa22ef2a1446561265662,4df26424fca2d1a1a5c41c0591488bcaf522055f43628c22d975816f4acfe27b,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-037.patch
+CRPP1-RPP-DEVELOPER_SETUP-038,controlled/rbi-related-parties-portal-copy,9200738,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-038"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 038"",
++      ""developmentCommand"": ""pnpm dev -- --profile 038 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 038"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-038"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-038
+- Profile: `developer-profile-038`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 038`
+- Migration command: `pnpm db:migrate --profile 038`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-038: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 038' u 'pnpm dev -- --profile 038 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,57fb29476e11462154f1aca0beafd557adb38887a76bda589d98ec02d0bad0bc,e70bde2045cd09bfadc862149474ef23e07fef24e43870752da9aa48c72f359a,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-038.patch
+CRPP1-RPP-DEVELOPER_SETUP-039,controlled/rbi-related-parties-portal-copy,9200739,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""RPP-SETUP-039"",
+       ""developmentCommand"": ""pnpm dev -- --profile 039"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 039"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-039"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-039
+- Profile: `developer-profile-039`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 039`
+- Migration command: `pnpm db:migrate --profile 039`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-039: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7ae3d41c902c9d78870c63b7cade94c6c1c63792d8fb46a25ee07993e3dfe77e,90f8231538fb97d18a4a3c1abbebb61968693eac64fa790030d8d076f90ec6a5,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-039.patch
+CRPP1-RPP-DEVELOPER_SETUP-040,controlled/rbi-related-parties-portal-copy,9200740,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-040"",
+       ""developmentCommand"": ""pnpm dev -- --profile 040"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 040"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 040 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-040"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-040
+- Profile: `developer-profile-040`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 040`
+- Migration command: `pnpm db:migrate --profile 040`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-040: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 040' u 'pnpm db:migrate --profile 040 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9b35ec2ad232d731caf39886f4f387d9305ea26f2b5d6f94cc941d8642e20593,244f591dc8fb5b05bbb16df86b754283519cfe639e9e06312a7843e40719f54c,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-040.patch
+CRPP1-RPP-DEVELOPER_SETUP-041,controlled/rbi-related-parties-portal-copy,9200741,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-041"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-042"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-041
+- Profile: `developer-profile-041`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 041`
+- Migration command: `pnpm db:migrate --profile 041`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-041: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3da2145ee8ca50081f0d1d529e5ad9c2f207f5838c52bafbc7177ae61cd1ff80,7d83155a3c6037f10c58aa28a609753907cf13c3f2895cffd7db564eab711ffe,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-041.patch
+CRPP1-RPP-DEVELOPER_SETUP-042,controlled/rbi-related-parties-portal-copy,9200742,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-042"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 042"",
++      ""developmentCommand"": ""pnpm dev -- --profile 042 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 042"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-042"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-042
+- Profile: `developer-profile-042`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 042`
+- Migration command: `pnpm db:migrate --profile 042`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-042: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 042' u 'pnpm dev -- --profile 042 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,54246c1ede50c0d6c4da58c47cde44dd3ca02290606b80dc34316589bff090a8,5129e51d1c2b628bc50f95810bc284888fa16875f48b472b4113fcd8569d63ce,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-042.patch
+CRPP1-RPP-DEVELOPER_SETUP-043,controlled/rbi-related-parties-portal-copy,9200743,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""RPP-SETUP-043"",
+       ""developmentCommand"": ""pnpm dev -- --profile 043"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 043"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-043"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-043
+- Profile: `developer-profile-043`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 043`
+- Migration command: `pnpm db:migrate --profile 043`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-043: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2a7754fb2a40032d8fc0f0f5caa30bd7a43cce4e946b204345aff353aff5f2db,e80db1acd423d0602d222a9a6fdea177d59965e74230a47bbd5aa34105e2729b,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-043.patch
+CRPP1-RPP-DEVELOPER_SETUP-044,controlled/rbi-related-parties-portal-copy,9200744,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-044"",
+       ""developmentCommand"": ""pnpm dev -- --profile 044"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 044"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 044 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-044"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-044
+- Profile: `developer-profile-044`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 044`
+- Migration command: `pnpm db:migrate --profile 044`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-044: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 044' u 'pnpm db:migrate --profile 044 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ead50b03926cdf32efdc459159a74797948bac367ec5798c39694bdef3f50e9f,78794f0d259e268fb0e4420d1916c944ddd6a0969b84b5b6ed5ebe809d8d3f9b,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-044.patch
+CRPP1-RPP-DEVELOPER_SETUP-045,controlled/rbi-related-parties-portal-copy,9200745,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-045"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-046"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-045
+- Profile: `developer-profile-045`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 045`
+- Migration command: `pnpm db:migrate --profile 045`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-045: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,70f0392da0de72de86a9d36c54d629809c11ebdc0733a6aef9b51043a581a546,0f9d4b96575a657836f4486b19486c5c3b841894b6251483007e155d76672ee2,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-045.patch
+CRPP1-RPP-DEVELOPER_SETUP-046,controlled/rbi-related-parties-portal-copy,9200746,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-046"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 046"",
++      ""developmentCommand"": ""pnpm dev -- --profile 046 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 046"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-046"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-046
+- Profile: `developer-profile-046`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 046`
+- Migration command: `pnpm db:migrate --profile 046`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-046: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 046' u 'pnpm dev -- --profile 046 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b0f3e53c7915f2486ae7140602ef7802d9ab2cfa83b9cf45ecee6edffa0f611a,bd85b38c7f613c929eb4cad2e665877ef2aee4c456b0d2f53085fad435664100,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-046.patch
+CRPP1-RPP-DEVELOPER_SETUP-047,controlled/rbi-related-parties-portal-copy,9200747,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""RPP-SETUP-047"",
+       ""developmentCommand"": ""pnpm dev -- --profile 047"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 047"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-047"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-047
+- Profile: `developer-profile-047`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 047`
+- Migration command: `pnpm db:migrate --profile 047`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-047: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e6c1c91bee60b17eddc7aa2cca741669c4e76c3f37e758b43531787ff2ee9d8d,7b234cdc5bff205dff71a22dcdad19eb6c5383ce26836f821fb38f12bc3ad7b6,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-047.patch
+CRPP1-RPP-DEVELOPER_SETUP-048,controlled/rbi-related-parties-portal-copy,9200748,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-048"",
+       ""developmentCommand"": ""pnpm dev -- --profile 048"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 048"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 048 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-048"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-048
+- Profile: `developer-profile-048`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 048`
+- Migration command: `pnpm db:migrate --profile 048`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-048: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 048' u 'pnpm db:migrate --profile 048 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f2f8fe48ee903cdfc9c1c5f1191f4234e657fab8a1ab50ba780e92703325a98d,8668a84102bc1d41b37dded0b2913b58e4c991d98e61de26ad5cad1c73cbac5c,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-048.patch
+CRPP1-RPP-DEVELOPER_SETUP-049,controlled/rbi-related-parties-portal-copy,9200749,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-049"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-050"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-049
+- Profile: `developer-profile-049`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 049`
+- Migration command: `pnpm db:migrate --profile 049`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-049: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d8958cfed7a6b4213e32b4699b064625445af353b521af311a83d61f7ea37324,51e60cad94b334cf8dfc88a783866c05bd24a6254e61c2a379396c21a8ebdd46,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-049.patch
+CRPP1-RPP-DEVELOPER_SETUP-050,controlled/rbi-related-parties-portal-copy,9200750,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-050"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 050"",
++      ""developmentCommand"": ""pnpm dev -- --profile 050 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 050"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-050"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-050
+- Profile: `developer-profile-050`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 050`
+- Migration command: `pnpm db:migrate --profile 050`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-050: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 050' u 'pnpm dev -- --profile 050 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,321ff3ab33af8ee917caff49f6ada2dfe09fc829149b3d6e500b5791eee65980,e66ba4e1991ff92818ea6837c898a8e2239fc587696e03f3799cebe170004dd4,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-050.patch
+CRPP1-RPP-DEVELOPER_SETUP-051,controlled/rbi-related-parties-portal-copy,9200751,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""RPP-SETUP-051"",
+       ""developmentCommand"": ""pnpm dev -- --profile 051"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 051"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-051"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-051
+- Profile: `developer-profile-051`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 051`
+- Migration command: `pnpm db:migrate --profile 051`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-051: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3c254657a160cf2c74979490ac715d856bb194d295f24310179b8c9518b10633,002d98179b408d6c1ffb3668621e6687ce7830116e1109c28782239a5df7db4d,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-051.patch
+CRPP1-RPP-DEVELOPER_SETUP-052,controlled/rbi-related-parties-portal-copy,9200752,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-052"",
+       ""developmentCommand"": ""pnpm dev -- --profile 052"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 052"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 052 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-052"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-052
+- Profile: `developer-profile-052`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 052`
+- Migration command: `pnpm db:migrate --profile 052`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-052: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 052' u 'pnpm db:migrate --profile 052 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1a7b732987a9ab78b7a8429dd4c6df4095afe5d8a694bd3ac5d436bf88080c7b,5172391b6ba92e9eaddff445f0655712cc85740ceb8b3f0e4ebb7733ab28d01a,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-052.patch
+CRPP1-RPP-DEVELOPER_SETUP-053,controlled/rbi-related-parties-portal-copy,9200753,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-053"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-054"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-053
+- Profile: `developer-profile-053`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 053`
+- Migration command: `pnpm db:migrate --profile 053`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-053: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8cfcbcbf501b84337bf041ceedfce09bf5b717884a15513cb98f4d67ac0a598e,dbc3f23f9a3a9f0779a28e0dcb88bd63b3c4ecd67f88c68b78d6079cb12848da,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-053.patch
+CRPP1-RPP-DEVELOPER_SETUP-054,controlled/rbi-related-parties-portal-copy,9200754,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-054"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 054"",
++      ""developmentCommand"": ""pnpm dev -- --profile 054 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 054"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-054"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-054
+- Profile: `developer-profile-054`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 054`
+- Migration command: `pnpm db:migrate --profile 054`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-054: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 054' u 'pnpm dev -- --profile 054 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6b9e75113a55056a9326827c56aa3801c67349e564dc0968693e652ae1c9d961,e118de09aa7102b8bf4d8c8ee7b737473d5533a28b80fb880435d1f4ba4df690,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-054.patch
+CRPP1-RPP-DEVELOPER_SETUP-055,controlled/rbi-related-parties-portal-copy,9200755,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""RPP-SETUP-055"",
+       ""developmentCommand"": ""pnpm dev -- --profile 055"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 055"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-055"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-055
+- Profile: `developer-profile-055`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 055`
+- Migration command: `pnpm db:migrate --profile 055`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-055: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0fc50628b4b9c7d27f0ec135c268648152bf2f92974d86b5f1f2d368a20d78f4,8e97d86da36d7ff3a76d5dddba41597d6a13fe3cbd433d0f841b6323a863d238,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-055.patch
+CRPP1-RPP-DEVELOPER_SETUP-056,controlled/rbi-related-parties-portal-copy,9200756,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-056"",
+       ""developmentCommand"": ""pnpm dev -- --profile 056"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 056"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 056 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-056"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-056
+- Profile: `developer-profile-056`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 056`
+- Migration command: `pnpm db:migrate --profile 056`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-056: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 056' u 'pnpm db:migrate --profile 056 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9d362054d7079f3815bb02f535e971e48a00d1d598825c05a5cfea9ce38cab13,df8e2966254b5fc2a242872ff5039c5c972a56f93d80395006c5b1a66e48ffab,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-056.patch
+CRPP1-RPP-DEVELOPER_SETUP-057,controlled/rbi-related-parties-portal-copy,9200757,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-057"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-058"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-057
+- Profile: `developer-profile-057`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 057`
+- Migration command: `pnpm db:migrate --profile 057`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-057: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fdb8f907ffe051b9f18a129979d4ace41a6fa5e68f9bbf45521435b027ef1b82,a220bb000eda84707891553f55c01db0262a1b3551d9df276c0b75e5f0e0a21e,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-057.patch
+CRPP1-RPP-DEVELOPER_SETUP-058,controlled/rbi-related-parties-portal-copy,9200758,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-058"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 058"",
++      ""developmentCommand"": ""pnpm dev -- --profile 058 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 058"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-058"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-058
+- Profile: `developer-profile-058`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 058`
+- Migration command: `pnpm db:migrate --profile 058`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-058: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 058' u 'pnpm dev -- --profile 058 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fa357c3d45448fed8465604b40bc173a6c527c3bef7aaf75a7754f7f15dbedbe,d76ac4db302c46e092c70737986991a95a9b6232fdf09c253f0f02228b426113,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-058.patch
+CRPP1-RPP-DEVELOPER_SETUP-059,controlled/rbi-related-parties-portal-copy,9200759,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""RPP-SETUP-059"",
+       ""developmentCommand"": ""pnpm dev -- --profile 059"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 059"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-059"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-059
+- Profile: `developer-profile-059`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 059`
+- Migration command: `pnpm db:migrate --profile 059`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-059: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d50dfa461b1218b14004c9cac26c00793d31b5bd438880a4dcfa744042d2713a,f11577f6c8bb295662df5ea6bb741bab9a47c0b612e50f9d1b7dfef456ba646c,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-059.patch
+CRPP1-RPP-DEVELOPER_SETUP-060,controlled/rbi-related-parties-portal-copy,9200760,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-060"",
+       ""developmentCommand"": ""pnpm dev -- --profile 060"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 060"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 060 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-060"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-060
+- Profile: `developer-profile-060`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 060`
+- Migration command: `pnpm db:migrate --profile 060`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-060: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 060' u 'pnpm db:migrate --profile 060 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,931c62a7e27f2e7cfa5881506a80efed2c4c0d3f45b2ca79e4a8f1c19265a7ed,458606a103af0affed1480848b120a9a3cd048147b46a4a685d76c92a9517614,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-060.patch
+CRPP1-RPP-DEVELOPER_SETUP-061,controlled/rbi-related-parties-portal-copy,9200761,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-061"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-062"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-061
+- Profile: `developer-profile-061`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 061`
+- Migration command: `pnpm db:migrate --profile 061`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-061: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,66d7ad71f771023447a17a3d5045049c7bc251e5472909c7e04966833ebe4066,80424a2bf9c389dffbb4d790b379e8132a349241c21178bda8970c1301be53f1,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-061.patch
+CRPP1-RPP-DEVELOPER_SETUP-062,controlled/rbi-related-parties-portal-copy,9200762,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-062"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 062"",
++      ""developmentCommand"": ""pnpm dev -- --profile 062 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 062"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-062"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-062
+- Profile: `developer-profile-062`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 062`
+- Migration command: `pnpm db:migrate --profile 062`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-062: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 062' u 'pnpm dev -- --profile 062 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,77ee33abfece93a02e62e086a9f0fd9ab896cc941623d57db296e63b8597bcb5,a240236c9039e0e965c8f4725cb74b1c1ee02e4cd1b89cf44e7995d7f7db3790,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-062.patch
+CRPP1-RPP-DEVELOPER_SETUP-063,controlled/rbi-related-parties-portal-copy,9200763,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""RPP-SETUP-063"",
+       ""developmentCommand"": ""pnpm dev -- --profile 063"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 063"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-063"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-063
+- Profile: `developer-profile-063`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 063`
+- Migration command: `pnpm db:migrate --profile 063`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-063: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e80b5d0d8f1fee7f024abedc3ccddc869c3f31524a9e8e8b15a6469e492a5477,8061fc9a4f23d059aa16eb2086185a0d18ecf58cc6d57b59c3be13562056341c,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-063.patch
+CRPP1-RPP-DEVELOPER_SETUP-064,controlled/rbi-related-parties-portal-copy,9200764,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-064"",
+       ""developmentCommand"": ""pnpm dev -- --profile 064"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 064"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 064 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-064"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-064
+- Profile: `developer-profile-064`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 064`
+- Migration command: `pnpm db:migrate --profile 064`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-064: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 064' u 'pnpm db:migrate --profile 064 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,04f83a75a93fa7e6427c02b5c51e1f3d9a7f8aeb202ce031a2d2c066d3dd40e1,f16dd3b8bb754d531a957a855b1e154b88079dcf90664edd005b03b2f5706fc1,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-064.patch
+CRPP1-RPP-DEVELOPER_SETUP-065,controlled/rbi-related-parties-portal-copy,9200765,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-065"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-066"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-065
+- Profile: `developer-profile-065`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 065`
+- Migration command: `pnpm db:migrate --profile 065`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-065: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,335b17897216bb9650a708409569716574c12da75404ba85205cee9b0aab4ec8,27d4ab33509e87692e85f38cd72dd8515bd3ea7797fdeaa1c3f5a55338bbb0d9,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-065.patch
+CRPP1-RPP-DEVELOPER_SETUP-066,controlled/rbi-related-parties-portal-copy,9200766,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-066"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 066"",
++      ""developmentCommand"": ""pnpm dev -- --profile 066 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 066"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-066"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-066
+- Profile: `developer-profile-066`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 066`
+- Migration command: `pnpm db:migrate --profile 066`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-066: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 066' u 'pnpm dev -- --profile 066 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bf99325116586267b78a300c2a7ea46cb134161b167e663d6a58b0cd3eebc80a,3fb7e9a8077b7fda6af3105df75878dd58a39b59e936ee8d19076d4da65976d5,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-066.patch
+CRPP1-RPP-DEVELOPER_SETUP-067,controlled/rbi-related-parties-portal-copy,9200767,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""RPP-SETUP-067"",
+       ""developmentCommand"": ""pnpm dev -- --profile 067"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 067"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-067"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-067
+- Profile: `developer-profile-067`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 067`
+- Migration command: `pnpm db:migrate --profile 067`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-067: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5cc756e6e4a519c84cd4266fc817412f8bea90fb405fbc614d66634b3c90732a,419e68bdc91267c069c378e10c32df4383461e17042c5b60d0fd76e27ddd062d,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-067.patch
+CRPP1-RPP-DEVELOPER_SETUP-068,controlled/rbi-related-parties-portal-copy,9200768,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-068"",
+       ""developmentCommand"": ""pnpm dev -- --profile 068"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 068"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 068 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-068"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-068
+- Profile: `developer-profile-068`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 068`
+- Migration command: `pnpm db:migrate --profile 068`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-068: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 068' u 'pnpm db:migrate --profile 068 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3e4fc62af10c5d491fee3e1f6c82907182c9e7ae8dfed9443de444548e77d1a8,d8b9ec8c30a3d47b7fc473c86d38cd4ce05423d2e973e807bb42be1ca08767e4,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-068.patch
+CRPP1-RPP-DEVELOPER_SETUP-069,controlled/rbi-related-parties-portal-copy,9200769,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-069"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-070"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-069
+- Profile: `developer-profile-069`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 069`
+- Migration command: `pnpm db:migrate --profile 069`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-069: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b575516de2058fa36dcd5f917a5d5cb9c8c163ee26e68923dd26a8f214e11933,378383ff483f65363bd4a7ad052cc6987d244cb1bb7136054c53a59788549758,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-069.patch
+CRPP1-RPP-DEVELOPER_SETUP-070,controlled/rbi-related-parties-portal-copy,9200770,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-070"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 070"",
++      ""developmentCommand"": ""pnpm dev -- --profile 070 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 070"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-070"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-070
+- Profile: `developer-profile-070`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 070`
+- Migration command: `pnpm db:migrate --profile 070`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-070: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 070' u 'pnpm dev -- --profile 070 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2ac15fda0bc423e7a631e239250a042dc95bad766e1bbd4a68b00ca73ea04fd1,e4086a1eb06b1916e8a308076bb46ef7f36877739bb7b5465bbfcfe0d7b00158,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-070.patch
+CRPP1-RPP-DEVELOPER_SETUP-071,controlled/rbi-related-parties-portal-copy,9200771,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""RPP-SETUP-071"",
+       ""developmentCommand"": ""pnpm dev -- --profile 071"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 071"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-071"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-071
+- Profile: `developer-profile-071`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 071`
+- Migration command: `pnpm db:migrate --profile 071`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-071: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c4a131a45f30f93ca873cbe6f470bf979d39b5fe33595e52d1bcbab1f832284e,55a5b2d869e10a362f66d6231010c02f99ddd3b95ff6f6929ded1a09494aa212,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-071.patch
+CRPP1-RPP-DEVELOPER_SETUP-072,controlled/rbi-related-parties-portal-copy,9200772,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-072"",
+       ""developmentCommand"": ""pnpm dev -- --profile 072"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 072"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 072 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-072"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-072
+- Profile: `developer-profile-072`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 072`
+- Migration command: `pnpm db:migrate --profile 072`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-072: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 072' u 'pnpm db:migrate --profile 072 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a7933ec227bfa510593e9aa2a2ff6907d8d84b103fdb1a160d0b1986d78b5b4b,b11e5e5ff71754f051750b4557d2d459a6ef79b3858d27ffdf33633600809126,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-072.patch
+CRPP1-RPP-DEVELOPER_SETUP-073,controlled/rbi-related-parties-portal-copy,9200773,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-073"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-074"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-073
+- Profile: `developer-profile-073`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 073`
+- Migration command: `pnpm db:migrate --profile 073`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-073: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a42092783a3e5d6222eb168ade016e0c34270a3f1f4e92d2a9d17e315ec17a87,5d417d77d4fdd7e6609f905054c26c97a98f28ecbde8a50a04b923442a7474b0,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-073.patch
+CRPP1-RPP-DEVELOPER_SETUP-074,controlled/rbi-related-parties-portal-copy,9200774,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-074"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 074"",
++      ""developmentCommand"": ""pnpm dev -- --profile 074 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 074"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-074"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-074
+- Profile: `developer-profile-074`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 074`
+- Migration command: `pnpm db:migrate --profile 074`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-074: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 074' u 'pnpm dev -- --profile 074 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,995b7de20533f4f9dcb57476dce62b917c88e4cf418e9f371477a391231484d4,8160b4599987850cee57a704ff64664cf5028b241659ca84c641aa1903e61eba,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-074.patch
+CRPP1-RPP-DEVELOPER_SETUP-075,controlled/rbi-related-parties-portal-copy,9200775,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""RPP-SETUP-075"",
+       ""developmentCommand"": ""pnpm dev -- --profile 075"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 075"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-075"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-075
+- Profile: `developer-profile-075`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 075`
+- Migration command: `pnpm db:migrate --profile 075`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-075: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e2063321687759ee859373c50391a4f555cd42c79482d6127c636ee567956e38,f3ddd2150346b1da91189fb3f9f1b150af842bf8b8569dd8381ced9c42154878,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-075.patch
+CRPP1-RPP-DEVELOPER_SETUP-076,controlled/rbi-related-parties-portal-copy,9200776,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-076"",
+       ""developmentCommand"": ""pnpm dev -- --profile 076"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 076"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 076 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-076"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-076
+- Profile: `developer-profile-076`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 076`
+- Migration command: `pnpm db:migrate --profile 076`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-076: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 076' u 'pnpm db:migrate --profile 076 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,19724c9e5b37c9292626c6d569b34844434e125232c9ba540c064355107c870c,c31bff82408bbaa34c48afc11345f9faa2f190c617c1921de0499dff68ad4328,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-076.patch
+CRPP1-RPP-DEVELOPER_SETUP-077,controlled/rbi-related-parties-portal-copy,9200777,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-077"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-078"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-077
+- Profile: `developer-profile-077`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 077`
+- Migration command: `pnpm db:migrate --profile 077`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-077: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,317d83e2cd72215c827c444a14201a90a2ed2f14086eec3ca7cc277ba7bf1932,b42176fbc385a86492af0f3788198fca0bd0fda1f0026567578b146689fa45bc,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-077.patch
+CRPP1-RPP-DEVELOPER_SETUP-078,controlled/rbi-related-parties-portal-copy,9200778,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-078"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 078"",
++      ""developmentCommand"": ""pnpm dev -- --profile 078 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 078"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-078"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-078
+- Profile: `developer-profile-078`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 078`
+- Migration command: `pnpm db:migrate --profile 078`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-078: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 078' u 'pnpm dev -- --profile 078 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4eccea7e4fc0179c07066e28477c757237e7c9ae4f371864a605a4ab05fc4f24,6cea48430612171e36dc84752c8d5e840d1f87db29691b383b3398a74dcd37eb,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-078.patch
+CRPP1-RPP-DEVELOPER_SETUP-079,controlled/rbi-related-parties-portal-copy,9200779,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""RPP-SETUP-079"",
+       ""developmentCommand"": ""pnpm dev -- --profile 079"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 079"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-079"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-079
+- Profile: `developer-profile-079`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 079`
+- Migration command: `pnpm db:migrate --profile 079`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-079: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,48b62785b764f28bfd9b86e164e4b4f9b4ed8d6cf7a4e04e60f87ec9b4e0e6d5,7253195215254116451793046449ac17ebb20285eabf7d505781abc836c1b82c,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-079.patch
+CRPP1-RPP-DEVELOPER_SETUP-080,controlled/rbi-related-parties-portal-copy,9200780,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-080"",
+       ""developmentCommand"": ""pnpm dev -- --profile 080"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 080"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 080 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-080"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-080
+- Profile: `developer-profile-080`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 080`
+- Migration command: `pnpm db:migrate --profile 080`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-080: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 080' u 'pnpm db:migrate --profile 080 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eb74ad578658de6cec0f30a228e446a21ae6ed14dfc7989d30342550d1ffcd93,eaf35a4e33f46f52f001855f8cf77378a174e59f1af339ed4fe3b6492ee5523f,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-080.patch
+CRPP1-RPP-DEVELOPER_SETUP-081,controlled/rbi-related-parties-portal-copy,9200781,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-081"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-082"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-081
+- Profile: `developer-profile-081`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 081`
+- Migration command: `pnpm db:migrate --profile 081`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-081: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,701cbe802859fb6ac3911dc2509fa9a3a16c7c35a43813439e09b56b98eed112,03daa0a5b42d5ec2b92b3cbb7c7c42b6bd107940968a7cba44671757195ecd3a,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-081.patch
+CRPP1-RPP-DEVELOPER_SETUP-082,controlled/rbi-related-parties-portal-copy,9200782,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-082"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 082"",
++      ""developmentCommand"": ""pnpm dev -- --profile 082 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 082"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-082"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-082
+- Profile: `developer-profile-082`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 082`
+- Migration command: `pnpm db:migrate --profile 082`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-082: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 082' u 'pnpm dev -- --profile 082 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e09b86d1fc82b0bf262481db955f0527728481dad34f4eebb7f229d1fe057cf0,89739e6bb2012e41c362bec14416c8890d7422f608eba8bb8d978a9f5d46326f,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-082.patch
+CRPP1-RPP-DEVELOPER_SETUP-083,controlled/rbi-related-parties-portal-copy,9200783,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""RPP-SETUP-083"",
+       ""developmentCommand"": ""pnpm dev -- --profile 083"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 083"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-083"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-083
+- Profile: `developer-profile-083`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 083`
+- Migration command: `pnpm db:migrate --profile 083`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-083: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,14de948d1039ebfc04d7131979c1a5739d5e6f582c05c35a014408dae8ca3f89,8653908f74c75d1846844714a23227a7b744c591ec875c23a945d51ea35312a1,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-083.patch
+CRPP1-RPP-DEVELOPER_SETUP-084,controlled/rbi-related-parties-portal-copy,9200784,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-084"",
+       ""developmentCommand"": ""pnpm dev -- --profile 084"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 084"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 084 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-084"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-084
+- Profile: `developer-profile-084`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 084`
+- Migration command: `pnpm db:migrate --profile 084`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-084: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 084' u 'pnpm db:migrate --profile 084 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fb073d8d61857fd0600d7921379dbbdb1ef391361943fac427d05c6c394032c6,0b5630c362ee811392e9d29a6c1e049d4c7668ab970ac569dab79b38dd57e683,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-084.patch
+CRPP1-RPP-DEVELOPER_SETUP-085,controlled/rbi-related-parties-portal-copy,9200785,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-085"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-086"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-085
+- Profile: `developer-profile-085`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 085`
+- Migration command: `pnpm db:migrate --profile 085`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-085: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,326591da712560da68a73f862f59d61bfd27527e54678b8469ce2f3598fdb184,fe94faeb4a1862c3cd130f61bae3096e490fdeb0d4c458df6f334eeda88ead1a,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-085.patch
+CRPP1-RPP-DEVELOPER_SETUP-086,controlled/rbi-related-parties-portal-copy,9200786,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-086"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 086"",
++      ""developmentCommand"": ""pnpm dev -- --profile 086 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 086"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-086"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-086
+- Profile: `developer-profile-086`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 086`
+- Migration command: `pnpm db:migrate --profile 086`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-086: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 086' u 'pnpm dev -- --profile 086 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,033b94e8f7f3f571cad1b08ef90a0ce0fbb1bd59170f5e42d9acacf7c6ab4806,53e4aa1e8dc0e80775e0262bbe874c9ee84f349104ea7603c12b05861eddca7c,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-086.patch
+CRPP1-RPP-DEVELOPER_SETUP-087,controlled/rbi-related-parties-portal-copy,9200787,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""RPP-SETUP-087"",
+       ""developmentCommand"": ""pnpm dev -- --profile 087"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 087"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-087"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-087
+- Profile: `developer-profile-087`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 087`
+- Migration command: `pnpm db:migrate --profile 087`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-087: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,de830b8d3130808df506fd46e915267b51a5026565b087b7b41f3d3c1778fb34,f54e83ee22f2621fab22c95778504ac2fc04bbf8eaf9035d4fec599781c0b3c0,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-087.patch
+CRPP1-RPP-DEVELOPER_SETUP-088,controlled/rbi-related-parties-portal-copy,9200788,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-088"",
+       ""developmentCommand"": ""pnpm dev -- --profile 088"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 088"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 088 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-088"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-088
+- Profile: `developer-profile-088`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 088`
+- Migration command: `pnpm db:migrate --profile 088`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-088: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 088' u 'pnpm db:migrate --profile 088 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8e69f5013c853bef6b805f8fe4a217fca19af0a78d6e61a781218226860a2cb4,d25f274497606dced0529b64596de6aac137c6d06dcd84be68c9871ea7c599f8,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-088.patch
+CRPP1-RPP-DEVELOPER_SETUP-089,controlled/rbi-related-parties-portal-copy,9200789,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-089"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-090"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-089
+- Profile: `developer-profile-089`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 089`
+- Migration command: `pnpm db:migrate --profile 089`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-089: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,862df40df8e980c63355a45cb92daf1c0b7d732c2e3a60601f0ea61ec99115c3,8d698c74e84a0a5a22338b2768723179a08c76d3355df7481e3b677b9bba4308,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-089.patch
+CRPP1-RPP-DEVELOPER_SETUP-090,controlled/rbi-related-parties-portal-copy,9200790,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-090"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 090"",
++      ""developmentCommand"": ""pnpm dev -- --profile 090 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 090"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-090"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-090
+- Profile: `developer-profile-090`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 090`
+- Migration command: `pnpm db:migrate --profile 090`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-090: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 090' u 'pnpm dev -- --profile 090 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8ec565fb162cf4a9dcfc85d8a98a07f46c5ff032ad6e382cd106049bbc8c2af5,d2499d82f4fb32e882595d9745a9835c5bac04fd37557acd980f7d23810dff65,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-090.patch
+CRPP1-RPP-DEVELOPER_SETUP-091,controlled/rbi-related-parties-portal-copy,9200791,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""RPP-SETUP-091"",
+       ""developmentCommand"": ""pnpm dev -- --profile 091"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 091"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-091"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-091
+- Profile: `developer-profile-091`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 091`
+- Migration command: `pnpm db:migrate --profile 091`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-091: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6d266f9a70b00172ebe35dcdf8580766059b1c950d13e72350bcee3e6d32b05d,687137fdd6ae29ba091a51d861709e2a33ea08cf70d6faa8f711240e50124061,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-091.patch
+CRPP1-RPP-DEVELOPER_SETUP-092,controlled/rbi-related-parties-portal-copy,9200792,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-092"",
+       ""developmentCommand"": ""pnpm dev -- --profile 092"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 092"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 092 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-092"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-092
+- Profile: `developer-profile-092`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 092`
+- Migration command: `pnpm db:migrate --profile 092`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-092: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 092' u 'pnpm db:migrate --profile 092 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,96c9234efcc3f4ebf804f174e34cd9ce88b7b574fc98aa5e54400283c1492584,1591aec5db9a711a6d1044919da558430c3fc1a7afc2b3d63fa07d9c4eb5608c,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-092.patch
+CRPP1-RPP-DEVELOPER_SETUP-093,controlled/rbi-related-parties-portal-copy,9200793,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-093"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-094"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-093
+- Profile: `developer-profile-093`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 093`
+- Migration command: `pnpm db:migrate --profile 093`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-093: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,09e35791d0320be8d0c4c4aadcd1701a570d719a75e08a23167341dcc20063b8,d8091c785068cd405a595d07380817f55c809c6b841e01fbd358acf4b5276f42,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-093.patch
+CRPP1-RPP-DEVELOPER_SETUP-094,controlled/rbi-related-parties-portal-copy,9200794,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-094"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 094"",
++      ""developmentCommand"": ""pnpm dev -- --profile 094 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 094"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-094"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-094
+- Profile: `developer-profile-094`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 094`
+- Migration command: `pnpm db:migrate --profile 094`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-094: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 094' u 'pnpm dev -- --profile 094 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a4863c88b22c715c6fdfcb5c3c62e416af61ee1df1185203808156800663cc75,2585487e805df6c753c1e0eea3ba2048ee98e76b8d81f2084b3c48841ff85b33,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-094.patch
+CRPP1-RPP-DEVELOPER_SETUP-095,controlled/rbi-related-parties-portal-copy,9200795,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""RPP-SETUP-095"",
+       ""developmentCommand"": ""pnpm dev -- --profile 095"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 095"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-095"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-095
+- Profile: `developer-profile-095`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 095`
+- Migration command: `pnpm db:migrate --profile 095`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-095: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,30373ca75fde2c6f71ade87a75eb6ba923e67b5b2eaf38e02fbb6c453d603629,26fe41ae3ebde0eac2aa350a5fa40a667a9524b7e9696d073328b2612dad4eb3,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-095.patch
+CRPP1-RPP-DEVELOPER_SETUP-096,controlled/rbi-related-parties-portal-copy,9200796,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-096"",
+       ""developmentCommand"": ""pnpm dev -- --profile 096"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 096"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 096 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-096"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-096
+- Profile: `developer-profile-096`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 096`
+- Migration command: `pnpm db:migrate --profile 096`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-096: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 096' u 'pnpm db:migrate --profile 096 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,688565824c4a3d8302ebbddf30ff6b541218e57fa0a2f9389458d27de9fb1d5c,a57e34d8b7c800c85f584e3da6d3b53d9a98ccb1d1192037bc32e8d98369bf32,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-096.patch
+CRPP1-RPP-DEVELOPER_SETUP-097,controlled/rbi-related-parties-portal-copy,9200797,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-097"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""RPP-SETUP-098"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-097
+- Profile: `developer-profile-097`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 097`
+- Migration command: `pnpm db:migrate --profile 097`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-097: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2344fd4854ddf951d0f2a07c9dbc4b4c7b2305ea5dcb96e03a774e44b046bb89,5b2c0e8addda0a96d19ba7c1fffacd1c52f1621433ad92fc8b023f6a9f2d2da7,developer_setup,rbi_related_parties_portal,runtime_requirement_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-097.patch
+CRPP1-RPP-DEVELOPER_SETUP-098,controlled/rbi-related-parties-portal-copy,9200798,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""RPP-SETUP-098"",
+-      ""developmentCommand"": ""pnpm dev -- --profile 098"",
++      ""developmentCommand"": ""pnpm dev -- --profile 098 --strict"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 098"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-098"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-098
+- Profile: `developer-profile-098`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 098`
+- Migration command: `pnpm db:migrate --profile 098`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-098: kod mijenja dokumentovani razvojni setup iz 'pnpm dev -- --profile 098' u 'pnpm dev -- --profile 098 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f8b63e8b24b5fc87f1a673347e1b0f948d1ad4b08484703a99be5322188a93ae,c30fbb083cdc573f9f08cdfa00c94c2ec9a1a705a5a5da69ac358668981ef4ff,developer_setup,rbi_related_parties_portal,local_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-098.patch
+CRPP1-RPP-DEVELOPER_SETUP-099,controlled/rbi-related-parties-portal-copy,9200799,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""RPP-SETUP-099"",
+       ""developmentCommand"": ""pnpm dev -- --profile 099"",
+       ""migrationCommand"": ""pnpm db:migrate --profile 099"",
+-      ""packageManager"": ""pnpm@9"",
++      ""packageManager"": ""pnpm@10"",
+       ""profile"": ""developer-profile-099"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-099
+- Profile: `developer-profile-099`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 099`
+- Migration command: `pnpm db:migrate --profile 099`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-099: kod mijenja dokumentovani razvojni setup iz 'pnpm@9' u 'pnpm@10' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e488495a379038d50b2b80d4afac9cc2271472306968e2f68c2ae88a69e7c74c,0953ae63dc29770330fac77fcb59da1afa7c9848cae9ec985c60b6ceaaef598d,developer_setup,rbi_related_parties_portal,package_manager_version_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-099.patch
+CRPP1-RPP-DEVELOPER_SETUP-100,controlled/rbi-related-parties-portal-copy,9200800,typescript,"[""src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""RPP-SETUP-100"",
+       ""developmentCommand"": ""pnpm dev -- --profile 100"",
+-      ""migrationCommand"": ""pnpm db:migrate --profile 100"",
++      ""migrationCommand"": ""pnpm db:migrate --profile 100 --no-build"",
+       ""packageManager"": ""pnpm@9"",
+       ""profile"": ""developer-profile-100"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:bd9479f8e8a6feab -->
+### RPP-SETUP-100
+- Profile: `developer-profile-100`
+- Required runtime: `Node.js 20.11`
+- Package manager: `pnpm@9`
+- Local development command: `pnpm dev -- --profile 100`
+- Migration command: `pnpm db:migrate --profile 100`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"RPP-SETUP-100: kod mijenja dokumentovani razvojni setup iz 'pnpm db:migrate --profile 100' u 'pnpm db:migrate --profile 100 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8c833c09315a967b7861cb8a2b7525fa9b1069a3099a439ca61a1e5c4ec28eda,2e3bc92ede57006be125987f9571244cb3040bf27ac71347f7f8d6f3dca41288,developer_setup,rbi_related_parties_portal,migration_command_change,cases/patches/rbi_related_parties_portal/developer_setup/RPP-SETUP-100.patch

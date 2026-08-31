@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>RBBH.CollateralAppraisal.Infrastructure</RootNamespace>
+    <AssemblyName>RBBH.CollateralAppraisal.Infrastructure</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- ASP.NET Core framework reference — daje pristup IHttpContextAccessor, ClaimsPrincipal, itd. -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- EF Core SQL Server — isti provider kao Data Products i SSMS okruženje. -->
+    <PackageReference Include="ClosedXML" Version="0.105.0" />
+    <PackageReference Include="MailKit" Version="4.17.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Stare SQL Server migracije su zadržane kao historijski trag, ali se ne kompajliraju. -->
+    <Compile Remove="Migrations\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Seed podaci za šifarnike — ugrađeni u assembly da budu dostupni i u Docker image-u. -->
+    <EmbeddedResource Include="Seed\codebooks.json" />
+    <Content Include="Templates\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

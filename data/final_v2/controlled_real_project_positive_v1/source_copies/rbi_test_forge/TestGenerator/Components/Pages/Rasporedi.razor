@@ -1,0 +1,269 @@
+@page "/rasporedi"
+@attribute [Authorize]
+@rendermode InteractiveServer
+@using RBBH.TestAutomation.Api.Services.Schedules
+@inject IScheduleService ScheduleSvc
+@inject IGroupService GroupSvc
+@inject IDialogService DialogService
+@inject ToastService Toast
+@inject IUserContext UserCtx
+
+<PageTitle>Rasporedi</PageTitle>
+<PageHeader Title="Rasporedi" Subtitle="Automatsko pokretanje testova po Cron rasporedu" />
+
+@if (_isLoading)
+{
+    <MudProgressLinear Indeterminate Color="Color.Primary" Class="mb-4" />
+}
+else if (_loadError is not null)
+{
+    <ErrorAlert Message="@_loadError" />
+}
+else
+{
+    <div class="d-flex justify-space-between align-center mb-4">
+        <MudSelect T="Guid?" Value="@_filterGroupId" Placeholder="Sve grupe"
+                   Style="max-width:280px;" Variant="Variant.Outlined" Margin="Margin.Dense"
+                   Clearable ValueChanged="@OnGroupFilterChanged">
+            @foreach (var g in _groups)
+            {
+                <MudSelectItem T="Guid?" Value="@((Guid?)g.Id)">@g.Naziv</MudSelectItem>
+            }
+        </MudSelect>
+
+        <MudButton StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled"
+                   Color="Color.Primary" OnClick="@OpenCreateDialog">
+            Novi raspored
+        </MudButton>
+    </div>
+
+    @if (_schedules.Count == 0)
+    {
+        <MudPaper Class="pa-8 d-flex flex-column align-center" Elevation="1">
+            <MudIcon Icon="@Icons.Material.Outlined.Schedule" Size="Size.Large" Color="Color.Secondary" Class="mb-2" />
+            <MudText Typo="Typo.body1" Color="Color.Secondary">
+                Nema rasporeda. Kliknite "Novi raspored" da dodate prvi.
+            </MudText>
+        </MudPaper>
+    }
+    else
+    {
+        <MudTable Items="@_schedules" Hover Striped Elevation="1" Dense>
+            <HeaderContent>
+                <MudTh>Grupa</MudTh>
+                <MudTh>Cron izraz</MudTh>
+                <MudTh>Raspored</MudTh>
+                <MudTh>Sljedeće pokretanje</MudTh>
+                <MudTh>Aktivan</MudTh>
+                <MudTh></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Grupa">
+                    <MudText Typo="Typo.body2" Style="font-weight:600;">@context.GroupNaziv</MudText>
+                </MudTd>
+                <MudTd DataLabel="Cron izraz">
+                    <code class="cron-chip">@context.CronExpression</code>
+                </MudTd>
+                <MudTd DataLabel="Raspored">
+                    <MudText Typo="Typo.body2" Color="Color.Secondary">@CronUtil.Describe(context.CronExpression)</MudText>
+                </MudTd>
+                <MudTd DataLabel="Sljedeće pokretanje">
+                    <MudText Typo="Typo.body2" Color="Color.Secondary">@NextRunLabel(context)</MudText>
+                </MudTd>
+                <MudTd DataLabel="Aktivan">
+                    <MudSwitch T="bool" Value="@context.IsActive" Color="Color.Success"
+                               ValueChanged="@(v => ToggleActive(context, v))" />
+                </MudTd>
+                <MudTd>
+                    <div class="d-flex gap-1 justify-end">
+                        <MudTooltip Text="Pokreni odmah">
+                            <MudIconButton Icon="@Icons.Material.Filled.PlayArrow"
+                                           Size="Size.Small" Color="Color.Primary"
+                                           OnClick="@(() => TriggerNow(context))" />
+                        </MudTooltip>
+                        <MudTooltip Text="Uredi">
+                            <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                           Size="Size.Small"
+                                           OnClick="@(() => OpenEditDialog(context))" />
+                        </MudTooltip>
+                        <MudTooltip Text="Obriši">
+                            <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                           Size="Size.Small" Color="Color.Error"
+                                           OnClick="@(() => DeleteSchedule(context))" />
+                        </MudTooltip>
+                    </div>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+    }
+
+    <div class="mt-4">
+        <a href="/hangfire" target="_blank" class="hangfire-chip">
+            <span class="hangfire-chip__dot"></span>
+            Hangfire Dashboard
+        </a>
+    </div>
+}
+
+@code {
+    private bool   _isLoading = true;
+    private string? _loadError;
+
+    private List<ScheduleConfigDto> _schedules = [];
+    private List<GroupDto>          _groups    = [];
+    private Guid?                   _filterGroupId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _groups    = (await GroupSvc.GetRootGroupsAsync()).ToList();
+
+            // U mock modu servis ne zna nazive grupa — proslijedimo ih za prikaz.
+            if (ScheduleSvc is MockScheduleService mock)
+                mock.SeedGroupNames(_groups.Select(g => (g.Id, g.Naziv)));
+
+            _schedules = (await ScheduleSvc.GetAllAsync()).ToList();
+        }
+        catch (Exception ex)
+        {
+            _loadError = $"Greška pri učitavanju: {ex.Message}";
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task OnGroupFilterChanged(Guid? groupId)
+    {
+        _filterGroupId = groupId;
+        _schedules = groupId.HasValue
+            ? (await ScheduleSvc.GetByGroupAsync(groupId.Value)).ToList()
+            : (await ScheduleSvc.GetAllAsync()).ToList();
+    }
+
+    private async Task OpenCreateDialog()
+    {
+        var parameters = new DialogParameters
+        {
+            [nameof(ScheduleDialog.Groups)]             = (IReadOnlyList<GroupDto>)_groups,
+            [nameof(ScheduleDialog.PreselectedGroupId)] = _filterGroupId,
+        };
+
+        var dialog = await DialogService.ShowAsync<ScheduleDialog>(
+            "Novi raspored", parameters,
+            new DialogOptions { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true });
+
+        var result = await dialog.Result;
+        if (result is { Canceled: false, Data: ScheduleCreateDraft draft })
+        {
+            try
+            {
+                // Isti raspored može biti dodijeljen više grupa — jedan zapis po grupi.
+                foreach (var groupId in draft.GroupIds)
+                    await ScheduleSvc.CreateAsync(new CreateScheduleRequest(
+                        groupId, draft.CronExpression, draft.Timezone, draft.IsActive));
+
+                Toast.Success(draft.GroupIds.Count == 1
+                    ? "Raspored kreiran."
+                    : $"Raspored kreiran za {draft.GroupIds.Count} grupa.");
+                await Reload();
+            }
+            catch (Exception ex)
+            {
+                Toast.Error($"Greška: {ex.Message}");
+            }
+        }
+    }
+
+    private static string NextRunLabel(ScheduleConfigDto s)
+    {
+        if (!s.IsActive) return "—";
+        var next = CronUtil.NextOccurrences(s.CronExpression, s.Timezone, 1);
+        return next.Count > 0 ? next[0].ToString("dd.MM. HH:mm") : "—";
+    }
+
+    private async Task OpenEditDialog(ScheduleConfigDto existing)
+    {
+        var parameters = new DialogParameters
+        {
+            [nameof(ScheduleDialog.Existing)] = existing,
+            [nameof(ScheduleDialog.Groups)]   = (IReadOnlyList<GroupDto>)_groups,
+        };
+
+        var dialog = await DialogService.ShowAsync<ScheduleDialog>(
+            "Uredi raspored", parameters,
+            new DialogOptions { MaxWidth = MaxWidth.Small, FullWidth = true, CloseOnEscapeKey = true });
+
+        var result = await dialog.Result;
+        if (result is { Canceled: false, Data: UpdateScheduleRequest req })
+        {
+            try
+            {
+                await ScheduleSvc.UpdateAsync(existing.Id, req);
+                Toast.Success("Raspored ažuriran.");
+                await Reload();
+            }
+            catch (Exception ex)
+            {
+                Toast.Error($"Greška: {ex.Message}");
+            }
+        }
+    }
+
+    private async Task ToggleActive(ScheduleConfigDto s, bool isActive)
+    {
+        try
+        {
+            await ScheduleSvc.UpdateAsync(s.Id, new UpdateScheduleRequest(s.CronExpression, s.Timezone, isActive));
+            Toast.Success(isActive ? "Raspored aktiviran." : "Raspored pauziran.");
+            await Reload();
+        }
+        catch (Exception ex)
+        {
+            Toast.Error($"Greška: {ex.Message}");
+        }
+    }
+
+    private async Task TriggerNow(ScheduleConfigDto s)
+    {
+        try
+        {
+            await ScheduleSvc.TriggerNowAsync(s.Id);
+            Toast.Success($"Raspored za '{s.GroupNaziv}' pokrenut odmah.");
+        }
+        catch (Exception ex)
+        {
+            Toast.Error($"Greška: {ex.Message}");
+        }
+    }
+
+    private async Task DeleteSchedule(ScheduleConfigDto s)
+    {
+        var confirmed = await DialogService.ShowMessageBox(
+            "Potvrda brisanja",
+            $"Obrisati raspored za grupu '{s.GroupNaziv}'?",
+            yesText: "Obriši", cancelText: "Odustani");
+
+        if (confirmed != true) return;
+
+        try
+        {
+            await ScheduleSvc.DeleteAsync(s.Id);
+            Toast.Success("Raspored obrisan.");
+            await Reload();
+        }
+        catch (Exception ex)
+        {
+            Toast.Error($"Greška: {ex.Message}");
+        }
+    }
+
+    private async Task Reload()
+    {
+        _schedules = _filterGroupId.HasValue
+            ? (await ScheduleSvc.GetByGroupAsync(_filterGroupId.Value)).ToList()
+            : (await ScheduleSvc.GetAllAsync()).ToList();
+    }
+}

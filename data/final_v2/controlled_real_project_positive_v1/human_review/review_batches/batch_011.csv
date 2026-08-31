@@ -1,0 +1,1826 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-TFG-API_REFERENCE-001,controlled/rbi-test-forge-copy,9201001,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""TFG-API-001"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation001"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/001"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-001
+- Operation: `rbitestforgeOperation001`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/001`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-001: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e78b24c7c0bfd2da28fe03f81da9c39440b3257c0f4e8c2d3af944b0d3c85270,f3506d30455de439cab26311efacd160ed2a2eb15684a499eb926fae38680e01,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-001.patch
+CRPP1-TFG-API_REFERENCE-002,controlled/rbi-test-forge-copy,9201002,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""TFG-API-002"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation002"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/002"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/002"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-002
+- Operation: `rbitestforgeOperation002`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/002`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-002: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/002' u '/api/rbi-test-forge/v2/resources/002' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6e90967ef8039e8c7cac27627d8e10eec2ed146b58d62a5d72f0c3e0ad61c5be,e89318537753bd7240dee7c26adc65561145979b12a2821bf7ca11af97bc2507,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-002.patch
+CRPP1-TFG-API_REFERENCE-003,controlled/rbi-test-forge-copy,9201003,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbitestforgeOperation003"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/003"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-003
+- Operation: `rbitestforgeOperation003`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/003`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-003: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,03d45e500514d1a75290deef637b35d163856e454b9c2e1c3a0ef32f248d6468,c4fa41e1ab543d7879df2385e80777a531977cb2c155e9eaf7ee6a5cde49ee7d,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-003.patch
+CRPP1-TFG-API_REFERENCE-004,controlled/rbi-test-forge-copy,9201004,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-005"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-004
+- Operation: `rbitestforgeOperation004`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/004`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-004: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e0c93fd0f6654bf0cb597b555f1f0b9e2be283a0d4ff4e967c9e64b8af383832,ee43f71f5447ab1832a929946944b7146eb51cc0b30d1e845958b2147f7786ed,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-004.patch
+CRPP1-TFG-API_REFERENCE-005,controlled/rbi-test-forge-copy,9201005,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-005"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation005"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/005"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-005
+- Operation: `rbitestforgeOperation005`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/005`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-005: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,499ec05e842fd27cad60380ef247ad8b5e866b773bb8890815096dab0d3aff96,f936cc77731c6ecbb1cae0680acd819f5a071b37c5a92ae195173f75de59ef9f,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-005.patch
+CRPP1-TFG-API_REFERENCE-006,controlled/rbi-test-forge-copy,9201006,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""TFG-API-006"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation006"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/006"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/006"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-006
+- Operation: `rbitestforgeOperation006`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/006`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-006: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/006' u '/api/rbi-test-forge/v2/resources/006' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,21c98de811cbe109f6997f2226c6f1a0ff5909717308cb45bccd3b4ecd84789f,6d67f9675552668ff6878d18d381e067e6431eb196085ae265cceea2a9e4df09,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-006.patch
+CRPP1-TFG-API_REFERENCE-007,controlled/rbi-test-forge-copy,9201007,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbitestforgeOperation007"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/007"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-007
+- Operation: `rbitestforgeOperation007`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/007`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-007: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8664789575e7713ff4291436aeb93f13c8279867d6bfb4830684822cf4d668ee,e445003dbe626fcec34965ed7097cb3f2936af2168b9ed8f581c765c52fa2a4c,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-007.patch
+CRPP1-TFG-API_REFERENCE-008,controlled/rbi-test-forge-copy,9201008,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-009"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-008
+- Operation: `rbitestforgeOperation008`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/008`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-008: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8c375b7d8d53e8e5e3d97e721f959dfb79e1f4dc099bacaeee942ee9499e0d69,a3e9866fc9b3da0ca95b2edfd5518cb94aa164a5c9f72268d93ef454e76fa980,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-008.patch
+CRPP1-TFG-API_REFERENCE-009,controlled/rbi-test-forge-copy,9201009,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-009"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation009"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/009"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-009
+- Operation: `rbitestforgeOperation009`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/009`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-009: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e65f8f11fb35fd56d40557f2444ae0afc996b69c1805ff2e7ac5abd78eafb4bb,893d0466bf81e66f961ab84effc5834b8632a5314bf2b59248f858785172ee33,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-009.patch
+CRPP1-TFG-API_REFERENCE-010,controlled/rbi-test-forge-copy,9201010,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_01.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""TFG-API-010"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation010"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/010"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/010"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-010
+- Operation: `rbitestforgeOperation010`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/010`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-010: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/010' u '/api/rbi-test-forge/v2/resources/010' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c61c38ef1530e7378305519580fa482a30cc6528614c66453c99d076cd36df6c,2d734511e2b834ca6630dd81dce2946a76270af484a482dedbe1a49273d4faf6,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-010.patch
+CRPP1-TFG-API_REFERENCE-011,controlled/rbi-test-forge-copy,9201011,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbitestforgeOperation011"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/011"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-011
+- Operation: `rbitestforgeOperation011`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/011`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-011: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,da47c3ba6f21fc63daa02938ba05fece28a06fe132ae6e50c5ef085f77315e0b,b7a900ada81c029768611bbd76da39ac5fba30f3763baedd0411d8436cc7ebc9,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-011.patch
+CRPP1-TFG-API_REFERENCE-012,controlled/rbi-test-forge-copy,9201012,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-013"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-012
+- Operation: `rbitestforgeOperation012`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/012`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-012: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fb597f166f0125ff7a41ff56101b8e39f522311f99a8c2aea5d284c181466502,5b88065f93af68b8c0d3e850dfd8e085ce5db7ce2bef48e69c8ff5c8b08f7a88,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-012.patch
+CRPP1-TFG-API_REFERENCE-013,controlled/rbi-test-forge-copy,9201013,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-013"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation013"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/013"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-013
+- Operation: `rbitestforgeOperation013`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/013`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-013: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,09b13b49d4febd6abd93b60665d3a50e591e8146f6cac80ed3027304139e5e7b,a714184de6966930b30162033eaf332b6b2bea6cf02e7bb718a8b651bc598352,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-013.patch
+CRPP1-TFG-API_REFERENCE-014,controlled/rbi-test-forge-copy,9201014,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""TFG-API-014"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation014"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/014"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/014"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-014
+- Operation: `rbitestforgeOperation014`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/014`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-014: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/014' u '/api/rbi-test-forge/v2/resources/014' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,669bf3b2f063a58357b4fe764e64dd5596093ef8be1913cc84f40757a72f3b7b,99833396bf061b59a8cf7c8fffaaed2ef123d2640c503821b1dc0c67db4cdd59,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-014.patch
+CRPP1-TFG-API_REFERENCE-015,controlled/rbi-test-forge-copy,9201015,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbitestforgeOperation015"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/015"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-015
+- Operation: `rbitestforgeOperation015`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/015`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-015: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b33634111cf7d423984eb5a6e291f18a8dbcd5ddc32e58c008d86df97207f5c1,c1dab6c3d370561235a16cfa466e6119d3a7ba3a44dce454351ecbb5c5e0ac6c,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-015.patch
+CRPP1-TFG-API_REFERENCE-016,controlled/rbi-test-forge-copy,9201016,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-017"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-016
+- Operation: `rbitestforgeOperation016`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/016`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-016: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6be22f427dc95ccbdbc3707514be4934503e183a6536cf98d82168cc084610ab,5564620f9bc80931206b74ef83ecda76316a99444c89b83ec502e78080e62da3,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-016.patch
+CRPP1-TFG-API_REFERENCE-017,controlled/rbi-test-forge-copy,9201017,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-017"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation017"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/017"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-017
+- Operation: `rbitestforgeOperation017`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/017`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-017: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5e2fbca6c01188477f7530d142d11ef6727c6ab7bc7ebcfdbb8fa5501ed982df,894f58e6042c4c3cfce6224bfbdf3e68372183af06dfff4c47cb28698d0ed5f1,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-017.patch
+CRPP1-TFG-API_REFERENCE-018,controlled/rbi-test-forge-copy,9201018,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""TFG-API-018"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation018"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/018"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/018"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-018
+- Operation: `rbitestforgeOperation018`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/018`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-018: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/018' u '/api/rbi-test-forge/v2/resources/018' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f7a8f4d39584d5761deb067044d2e4fa0dc58ffa269009e8815647d9a3709b02,b593b39ecfb1b2a8ec67d5de10f3add22620abdbff8dc45d91c42ed9289e9db9,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-018.patch
+CRPP1-TFG-API_REFERENCE-019,controlled/rbi-test-forge-copy,9201019,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbitestforgeOperation019"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/019"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-019
+- Operation: `rbitestforgeOperation019`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/019`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-019: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,40f18379418e077f9ed999ecee7d09cc242fd8bb3ac75a782c8eb3f99f5935e8,42010e6d1d342d1353bf067b765acc12ea1d7a5b4911fc7357223bb781243354,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-019.patch
+CRPP1-TFG-API_REFERENCE-020,controlled/rbi-test-forge-copy,9201020,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_02.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_test_forge"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-020
+- Operation: `rbitestforgeOperation020`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/020`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-020: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8a55d643ebeec8ac0530baa8095db836127c801e062a11ad01a02646ac3c2c5c,0631c03b21971ef6ba09176a559420bc417f1c1495c161c54145e03fa3d42ea9,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-020.patch
+CRPP1-TFG-API_REFERENCE-021,controlled/rbi-test-forge-copy,9201021,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""TFG-API-021"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation021"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/021"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-021
+- Operation: `rbitestforgeOperation021`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/021`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-021: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f410120cdfc392c8aab4abb602e7f06027f619e7a7c7353c868fbf3e424ca428,0fc0b21c24c9b22482ed1d85d3990ab492bec16463d06415ddecd89457e22026,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-021.patch
+CRPP1-TFG-API_REFERENCE-022,controlled/rbi-test-forge-copy,9201022,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""TFG-API-022"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation022"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/022"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/022"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-022
+- Operation: `rbitestforgeOperation022`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/022`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-022: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/022' u '/api/rbi-test-forge/v2/resources/022' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,def3814f683b42f1e4c77dc3d3e3461bb25a61b9e2140a247825666c91d510c0,f64044c1bb07a07fe8c6269e49554f1e61348406d1fdffeba890022626f2463e,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-022.patch
+CRPP1-TFG-API_REFERENCE-023,controlled/rbi-test-forge-copy,9201023,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbitestforgeOperation023"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/023"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-023
+- Operation: `rbitestforgeOperation023`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/023`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-023: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c462bb5170ae1b8aeecb376e78186f8cc5e607f28f7069a33bfb9228d7542b38,330a53fabf357fa9c51bea6a9c8a833fd6a065140516c855bd45299d27e3c694,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-023.patch
+CRPP1-TFG-API_REFERENCE-024,controlled/rbi-test-forge-copy,9201024,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-025"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-024
+- Operation: `rbitestforgeOperation024`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/024`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-024: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,475acfa24d76e5dffab87ca4fffb5f2333e254c6ff175ca4f58f80711e976083,3899b67343b7d55023fc41d7a7d32a0f8ee3d67127288c36e35c29fefe68d0e9,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-024.patch
+CRPP1-TFG-API_REFERENCE-025,controlled/rbi-test-forge-copy,9201025,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-025"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation025"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/025"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-025
+- Operation: `rbitestforgeOperation025`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/025`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-025: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ae5381048235f3e6f1d0168dd52ba6ce530727536cf860c48572f13c8b6d652f,af6fd578f616f4355792b724ceb8b76f7df02e0b34d3d7a163cb082a386400a5,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-025.patch
+CRPP1-TFG-API_REFERENCE-026,controlled/rbi-test-forge-copy,9201026,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""TFG-API-026"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation026"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/026"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/026"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-026
+- Operation: `rbitestforgeOperation026`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/026`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-026: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/026' u '/api/rbi-test-forge/v2/resources/026' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7cdf8052b926aebff29d52e02e805d395bf25bf972c5b9c59bb4400571fe1852,bf675ed25092d3dca1638508ea6b92b8f334e265d211cd3c0ed53036a1cb51d6,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-026.patch
+CRPP1-TFG-API_REFERENCE-027,controlled/rbi-test-forge-copy,9201027,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbitestforgeOperation027"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/027"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-027
+- Operation: `rbitestforgeOperation027`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/027`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-027: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,28c763a465903bb337e180b04edeec84e37305b53e78de00e2d0190d3325def5,9015619c27eeecc2b9d718fd37348bc629d2176cddd3a5dbef74cfc5f652eaa3,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-027.patch
+CRPP1-TFG-API_REFERENCE-028,controlled/rbi-test-forge-copy,9201028,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-029"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-028
+- Operation: `rbitestforgeOperation028`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/028`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-028: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1443ee1c5efa0da5d70a13d53d29c5c8ee51142aaa22e18ec8fa9d12658ad890,1e17453028ab335ae814be8824f7d75e3c73d17ae1e2397dea7ff0abdb334445,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-028.patch
+CRPP1-TFG-API_REFERENCE-029,controlled/rbi-test-forge-copy,9201029,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-029"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation029"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/029"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-029
+- Operation: `rbitestforgeOperation029`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/029`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-029: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b4f62a76baf883c2136bba2c0d083e57ff3be25f82083fb0a608945b1a432485,105ac4332a7ed64f8fecc1445b41e4d3edc3983964f043425337fb0c91758741,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-029.patch
+CRPP1-TFG-API_REFERENCE-030,controlled/rbi-test-forge-copy,9201030,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_03.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""TFG-API-030"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation030"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/030"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/030"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-030
+- Operation: `rbitestforgeOperation030`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/030`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-030: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/030' u '/api/rbi-test-forge/v2/resources/030' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,72cd0383e19f516d3e9ed47f5367d9658e809f7d0b312a0c5b9f2e14f0589968,bbb1b78e794183f3c3564d120700b97614fa36dfd65abc4f7b975dc977ec6f68,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-030.patch
+CRPP1-TFG-API_REFERENCE-031,controlled/rbi-test-forge-copy,9201031,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbitestforgeOperation031"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/031"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-031
+- Operation: `rbitestforgeOperation031`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/031`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-031: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,99d1c5ed376be02dda5a8d1f315e038d3c3595eb1512241d5fbe52595da40110,a642e80ed9e233b7f91a5504a9f16c0c384404706ab05ee9bb40993271aafd13,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-031.patch
+CRPP1-TFG-API_REFERENCE-032,controlled/rbi-test-forge-copy,9201032,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-033"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-032
+- Operation: `rbitestforgeOperation032`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/032`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-032: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,416bf572efcfe8585b4fdabfa5b5de00ad5591f6de879701c9ee119b0ffc2598,7edc58c7a9f5185e7142018f190e22b5db93c006e78893ebe8a5bd92f3731b55,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-032.patch
+CRPP1-TFG-API_REFERENCE-033,controlled/rbi-test-forge-copy,9201033,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-033"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation033"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/033"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-033
+- Operation: `rbitestforgeOperation033`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/033`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-033: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8e7f8a710083a6bd0b0cc19801dcb6368d38f655a14d1f015cfdc81d91b9ea5c,cb9840aa6ecfafa909601121f3da28900951a06918790306db871e8a529286d7,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-033.patch
+CRPP1-TFG-API_REFERENCE-034,controlled/rbi-test-forge-copy,9201034,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""TFG-API-034"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation034"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/034"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/034"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-034
+- Operation: `rbitestforgeOperation034`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/034`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-034: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/034' u '/api/rbi-test-forge/v2/resources/034' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9fd808d70e8bea7d50787929bf7ea877746978bb436c4991756aeea88473b113,d39005b91941d46dfcd1dbfa3a53cc959624dfdf957add3733b3c750227abb59,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-034.patch
+CRPP1-TFG-API_REFERENCE-035,controlled/rbi-test-forge-copy,9201035,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbitestforgeOperation035"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/035"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-035
+- Operation: `rbitestforgeOperation035`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/035`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-035: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bcc6dea658b9a6f8cecc9d6b042c3c4c67e7397bb1113315a52ff7d558a22c31,72c5ed6a6db310b933df3661a83b806e97b32d3a003a8d2c2d1fb46b33d3c9e0,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-035.patch
+CRPP1-TFG-API_REFERENCE-036,controlled/rbi-test-forge-copy,9201036,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-037"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-036
+- Operation: `rbitestforgeOperation036`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/036`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-036: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b797f8140866f8f4d27b8ab0132d8fb244c95e289861c1a80349ec6590d97484,b89b59549c26dd3f3b1c2d7cfae82dea88277fc3c2ccf781a9073a5e37428cba,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-036.patch
+CRPP1-TFG-API_REFERENCE-037,controlled/rbi-test-forge-copy,9201037,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-037"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation037"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/037"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-037
+- Operation: `rbitestforgeOperation037`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/037`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-037: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2515f09381c898712af268a16b5e2c4029f6b76dc672d9c58b1cf41d4825bb62,0ac04bffe6a32cfde86a5a590264388bb7ae2672424ca929c3feba1118ab1bc7,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-037.patch
+CRPP1-TFG-API_REFERENCE-038,controlled/rbi-test-forge-copy,9201038,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""TFG-API-038"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation038"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/038"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/038"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-038
+- Operation: `rbitestforgeOperation038`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/038`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-038: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/038' u '/api/rbi-test-forge/v2/resources/038' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7cf3c14d7773e45fca3c2bf9fc935187d3f92680b1021ff21dd1f5116f207215,8d153a93f938ff6b297d1c119939094645d4737681c05d3d909c5068bb6abb29,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-038.patch
+CRPP1-TFG-API_REFERENCE-039,controlled/rbi-test-forge-copy,9201039,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbitestforgeOperation039"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/039"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-039
+- Operation: `rbitestforgeOperation039`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/039`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-039: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9b2d40cddcf0eaec7c8538244aa172aab328c90e6ea2dbc7c8f195d632b9111e,cdfd07e3cf9f471c41850a30edc84f61f9d59a375a2aa0ea238af0b4c08cb1de,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-039.patch
+CRPP1-TFG-API_REFERENCE-040,controlled/rbi-test-forge-copy,9201040,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_04.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_test_forge"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-040
+- Operation: `rbitestforgeOperation040`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/040`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-040: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d765c3801ecfd8807a914f61b81818e6d9eaf877ab3177eb1cd1d159a83bdfe6,cf098782b2e9ed368120a3018e548764cbd8f2b101539996629da9beea66f1a8,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-040.patch
+CRPP1-TFG-API_REFERENCE-041,controlled/rbi-test-forge-copy,9201041,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""TFG-API-041"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation041"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/041"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-041
+- Operation: `rbitestforgeOperation041`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/041`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-041: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b55dee3ca22324fd562565bb459efca5603cf7ffec51fd8988bc4e3b85a918fd,4670792e76f8e3413ac8d6ff2f39f400836afdec794b2fcef2932e4bf4b29ba2,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-041.patch
+CRPP1-TFG-API_REFERENCE-042,controlled/rbi-test-forge-copy,9201042,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""TFG-API-042"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation042"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/042"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/042"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-042
+- Operation: `rbitestforgeOperation042`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/042`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-042: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/042' u '/api/rbi-test-forge/v2/resources/042' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c1b08d6a32273af5c779008935d35c4ee2e876cab38935a77f4aa879093b86b7,376ee0489f2702696875d816a3adf31fc60ad2f0eceb33e7557bac86be7592a7,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-042.patch
+CRPP1-TFG-API_REFERENCE-043,controlled/rbi-test-forge-copy,9201043,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbitestforgeOperation043"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/043"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-043
+- Operation: `rbitestforgeOperation043`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/043`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-043: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,54b7356793aee84e476f2e7958b40cd064b5c7651a1d0eac81cf20129b2808c4,e77adf64c927e436eb64e4e8afef5f38b6b4d47708bbb72fd58aac1e5c5e0d63,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-043.patch
+CRPP1-TFG-API_REFERENCE-044,controlled/rbi-test-forge-copy,9201044,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-045"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-044
+- Operation: `rbitestforgeOperation044`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/044`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-044: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c19df8a663e591781a5c9c070d2d46efda404c0138eab8b414463f1d4f805880,665bca7bddf1eb678a86ba0024c3fb6872688123fa59bf91008890bc4deef955,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-044.patch
+CRPP1-TFG-API_REFERENCE-045,controlled/rbi-test-forge-copy,9201045,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-045"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation045"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/045"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-045
+- Operation: `rbitestforgeOperation045`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/045`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-045: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fcdddeb74d482878ca3b92873532281968311815463413be5be10bd0f465b6cb,853483cfde2c9c89452e961c2d3573609291f0cfeba4277995dce48e5b26f67a,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-045.patch
+CRPP1-TFG-API_REFERENCE-046,controlled/rbi-test-forge-copy,9201046,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""TFG-API-046"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation046"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/046"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/046"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-046
+- Operation: `rbitestforgeOperation046`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/046`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-046: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/046' u '/api/rbi-test-forge/v2/resources/046' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,74dd808f62ae6b279a372821831a565ccea4b02fc8697ab712d40021b8ca26d4,2d11420094183751aa340bdd79e725a88626cea2089f0884957c0808e83f0df7,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-046.patch
+CRPP1-TFG-API_REFERENCE-047,controlled/rbi-test-forge-copy,9201047,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbitestforgeOperation047"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/047"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-047
+- Operation: `rbitestforgeOperation047`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/047`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-047: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,baf35dda02053e46f4843ebbc7c8bdc4f7cab821fc64652a490fa8f5b82373ab,e966424f31f513638b909dc4986a8a4b21b0fdb130d9179502e28d0b27f1d823,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-047.patch
+CRPP1-TFG-API_REFERENCE-048,controlled/rbi-test-forge-copy,9201048,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-049"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-048
+- Operation: `rbitestforgeOperation048`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/048`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-048: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8f95f587f8b5db32c3d9f6690538e352241d3bbc1facba9e05802d209931e3db,b5ac6659eb9e2ea8feb03bbe2c830b6cf4b6821af518f61f2b3f03b9bd6335db,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-048.patch
+CRPP1-TFG-API_REFERENCE-049,controlled/rbi-test-forge-copy,9201049,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-049"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation049"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/049"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-049
+- Operation: `rbitestforgeOperation049`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/049`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-049: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,347b18dd2fd6540786dc940ac7e8b8a7d449f730ff6c46b0eba087d29dc6bf88,d0ea6e92ee6c52974f9cfd3de79dde18bc6cdd18b94b1eeb9c2c4de252179649,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-049.patch
+CRPP1-TFG-API_REFERENCE-050,controlled/rbi-test-forge-copy,9201050,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_05.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""TFG-API-050"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation050"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/050"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/050"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-050
+- Operation: `rbitestforgeOperation050`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/050`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-050: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/050' u '/api/rbi-test-forge/v2/resources/050' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d2c5d917352bf9f20894d55ebc32b38fc7010ce023f2f7a25f852aef15595b7a,1e904850b7e9abd61238dfcd845392973701554014f4a3166706472981ab4716,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-050.patch
+CRPP1-TFG-API_REFERENCE-051,controlled/rbi-test-forge-copy,9201051,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbitestforgeOperation051"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/051"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-051
+- Operation: `rbitestforgeOperation051`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/051`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-051: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6216d60c4638eea793d78616934ef91fa506fe7bc4dece28393561839a10ff35,a7a1d5604b948ea52c7ce83fcc5f718e3bbd75fab8bb29a5aabd628007a3d379,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-051.patch
+CRPP1-TFG-API_REFERENCE-052,controlled/rbi-test-forge-copy,9201052,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-053"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-052
+- Operation: `rbitestforgeOperation052`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/052`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-052: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e308e6524c70cabeb806f7970f76241d43249a96ab6350a6ef7cd9742b05966b,fcdf8939d7fe84963783b5ab1ca2517cb3fbcc602f0dde5de6ccd0e6052715e4,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-052.patch
+CRPP1-TFG-API_REFERENCE-053,controlled/rbi-test-forge-copy,9201053,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-053"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation053"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/053"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-053
+- Operation: `rbitestforgeOperation053`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/053`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-053: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,37343909fa56dba403e797a630c7e2d33b0757ec6c78b702f09f93bead9580f1,16745cebfdfd2344d6a523f3fac4aa76521fbd155287a209cbc1cba61b81da00,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-053.patch
+CRPP1-TFG-API_REFERENCE-054,controlled/rbi-test-forge-copy,9201054,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""TFG-API-054"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation054"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/054"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/054"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-054
+- Operation: `rbitestforgeOperation054`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/054`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-054: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/054' u '/api/rbi-test-forge/v2/resources/054' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,740f721b3c5bd87bcd77f90be7006f643f5192a24c4d93d563e556565da3eeb7,a0ad7f8f586f18469836e858912f85e7f0121b414b8d764c7a130179de464557,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-054.patch
+CRPP1-TFG-API_REFERENCE-055,controlled/rbi-test-forge-copy,9201055,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbitestforgeOperation055"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/055"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-055
+- Operation: `rbitestforgeOperation055`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/055`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-055: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,20f77dd94ace8bb122467006d223298e392ce18e56554b92a0b8abc2b1e6dbcc,e43d6de07826cad1471986c735a6738177df0f82b8cd15e2dd116a1ea9dc6055,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-055.patch
+CRPP1-TFG-API_REFERENCE-056,controlled/rbi-test-forge-copy,9201056,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-057"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-056
+- Operation: `rbitestforgeOperation056`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/056`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-056: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,092d8cbcb5b655d0f9dda16d4075d76fd87a3a53883e0490abe3965ec0a68c3b,9bbb0527dac508df1eee2bce0b7a7cab944e183c334e6b263ecc19cbfe0f4c6a,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-056.patch
+CRPP1-TFG-API_REFERENCE-057,controlled/rbi-test-forge-copy,9201057,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-057"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation057"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/057"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-057
+- Operation: `rbitestforgeOperation057`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/057`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-057: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c87a368487a9b5a3918988c00fead59acc2c8bb63b44069eb9378061bf0a3962,d6b089fd60f237e4958ed3fc506bb41d0e3467b5bed22c3e2afb74eea66442f7,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-057.patch
+CRPP1-TFG-API_REFERENCE-058,controlled/rbi-test-forge-copy,9201058,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""TFG-API-058"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation058"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/058"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/058"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-058
+- Operation: `rbitestforgeOperation058`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/058`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-058: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/058' u '/api/rbi-test-forge/v2/resources/058' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,17bdba571f137375aa10fd867e1c5c14e9720182eefe4fb4c84919e734f242cf,d51fdc2ba8b3211ee19f394b35f6bad54d1f222d575120a04b216750c8b384ea,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-058.patch
+CRPP1-TFG-API_REFERENCE-059,controlled/rbi-test-forge-copy,9201059,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbitestforgeOperation059"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/059"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-059
+- Operation: `rbitestforgeOperation059`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/059`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-059: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,21af44a7a81d8205e28837fe2de968ed1713c30b8aa5b92315f098d28eadbaa1,b4876d45b0b94cfdd82b719e1c18040ca45ae7ec63b88b92a1743daafdeba246,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-059.patch
+CRPP1-TFG-API_REFERENCE-060,controlled/rbi-test-forge-copy,9201060,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_06.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_test_forge"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-060
+- Operation: `rbitestforgeOperation060`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/060`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-060: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fa387b1a8c66f188a8b50be72a4843300e3a741d11d8db33845960784f6d61c9,bd358e290d8fa2dd0cd67b6e7326eb4bb817f4bf9b774e7be4fd6515a9a3bb4d,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-060.patch
+CRPP1-TFG-API_REFERENCE-061,controlled/rbi-test-forge-copy,9201061,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""TFG-API-061"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation061"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/061"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-061
+- Operation: `rbitestforgeOperation061`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/061`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-061: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,819e4d9352601022fce073f685bc6e46dba95a14d14484f74a42c55188941041,dada6b8162d1e7e2d74edeaddd19451271d8d2658444db7efcb0fa6d0031e9b4,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-061.patch
+CRPP1-TFG-API_REFERENCE-062,controlled/rbi-test-forge-copy,9201062,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""TFG-API-062"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation062"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/062"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/062"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-062
+- Operation: `rbitestforgeOperation062`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/062`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-062: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/062' u '/api/rbi-test-forge/v2/resources/062' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c0c3401109696c17d5c207701b7fc5168941e35c9ca7a6dda62119a780d759f6,199bd93796f84061d2ecc4daee01d0b2770e1ecb25c3152e09dc1fc3afc949c1,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-062.patch
+CRPP1-TFG-API_REFERENCE-063,controlled/rbi-test-forge-copy,9201063,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbitestforgeOperation063"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/063"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-063
+- Operation: `rbitestforgeOperation063`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/063`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-063: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1aa8b62daaa65b9d03092649c2c50081e79fed2d239c694acd1dfb132d8feccf,abe7a3944c035b6a3bf1ec4404e623bfbf824dee24e8bfd3c350c5ac818318cf,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-063.patch
+CRPP1-TFG-API_REFERENCE-064,controlled/rbi-test-forge-copy,9201064,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-065"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-064
+- Operation: `rbitestforgeOperation064`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/064`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-064: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ea409917bb30159921d78aa525f8c4074be51abed6b99d93c1a05ea0ea2caab0,c69dd32fa1094afc34dcd4791410fd21be109ba20df72f63e951ef2944625863,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-064.patch
+CRPP1-TFG-API_REFERENCE-065,controlled/rbi-test-forge-copy,9201065,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-065"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation065"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/065"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-065
+- Operation: `rbitestforgeOperation065`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/065`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-065: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0d04abae55b653696f021de33d58a0e2abb2b31b48b861737ac638b08acdfe92,9297df7ceaf3eab90be39f549d02ff83dc3be9c8e580be2b5afd8f6c06a17ee2,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-065.patch
+CRPP1-TFG-API_REFERENCE-066,controlled/rbi-test-forge-copy,9201066,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""TFG-API-066"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation066"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/066"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/066"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-066
+- Operation: `rbitestforgeOperation066`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/066`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-066: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/066' u '/api/rbi-test-forge/v2/resources/066' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e5ba6541e2e63f2b9860330f137214bee4af589b2a154e81b284f92600587c59,fdabb3c4df8ab56dedd8254da5bf60a954201df5070ccd1dbf7cad1c950b6940,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-066.patch
+CRPP1-TFG-API_REFERENCE-067,controlled/rbi-test-forge-copy,9201067,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbitestforgeOperation067"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/067"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-067
+- Operation: `rbitestforgeOperation067`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/067`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-067: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5685a825cbef3d29adc020faeeef91e83bbf233aa6879babe4220b5de878014e,c459f6e159928656f975439fa29b9efd0da4fc9d776f9a0980c58f06daf5bb94,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-067.patch
+CRPP1-TFG-API_REFERENCE-068,controlled/rbi-test-forge-copy,9201068,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-069"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-068
+- Operation: `rbitestforgeOperation068`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/068`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-068: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e486d8e5396b91bd0f21b3242f0719dfae455775a066a8a615e1b52abeee116b,cee50751d0552fdd4a95afdc91f65b043c2dca689b484767905d656223c0f9e8,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-068.patch
+CRPP1-TFG-API_REFERENCE-069,controlled/rbi-test-forge-copy,9201069,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-069"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation069"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/069"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-069
+- Operation: `rbitestforgeOperation069`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/069`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-069: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1fb0da7e58a3d955d40e1b4fdd841f415a7635c51aedfec88b8356e323c2c22d,2ffddcbce8e2e40d47fe9bce2b830b06e700be42d93f0f02e691a9c7f4d099ff,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-069.patch
+CRPP1-TFG-API_REFERENCE-070,controlled/rbi-test-forge-copy,9201070,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_07.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""TFG-API-070"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation070"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/070"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/070"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-070
+- Operation: `rbitestforgeOperation070`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/070`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-070: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/070' u '/api/rbi-test-forge/v2/resources/070' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,94860354a052af41a7f9c975481f403d362a5ca7cb65fabe8211cb223f8ddd04,8caf16e6d3a4a98deef1a8132cf2403bdeefd87a62e5ab2819903906abf3cfe4,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-070.patch
+CRPP1-TFG-API_REFERENCE-071,controlled/rbi-test-forge-copy,9201071,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbitestforgeOperation071"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/071"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-071
+- Operation: `rbitestforgeOperation071`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/071`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-071: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8b4f1afe8ae097a09cc31a13ff425c29f496869b3a29945f75f531c2656dece3,d13438194f5e5ead2910b09418989e2b20c049349caf2cf1800820f73f5f414e,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-071.patch
+CRPP1-TFG-API_REFERENCE-072,controlled/rbi-test-forge-copy,9201072,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-073"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-072
+- Operation: `rbitestforgeOperation072`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/072`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-072: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,316ae9cfb2ccbcc19eeb1b30704891c84cea7c418779713be5e3770214e62514,8e5ebf13f3aa305df98315e0cc2c8aeafd5f6183ca64d3096b6d2f67cbbcf902,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-072.patch
+CRPP1-TFG-API_REFERENCE-073,controlled/rbi-test-forge-copy,9201073,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-073"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation073"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/073"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-073
+- Operation: `rbitestforgeOperation073`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/073`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-073: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,db8ab678cbac67c2bcbba63cb0ebcabb2d7d8e4052d73628618205a294238990,7849f41850877750119fa7276f551ead6153aff36e2585784c9ca06e6591d9a0,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-073.patch
+CRPP1-TFG-API_REFERENCE-074,controlled/rbi-test-forge-copy,9201074,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""TFG-API-074"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation074"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/074"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/074"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-074
+- Operation: `rbitestforgeOperation074`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/074`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-074: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/074' u '/api/rbi-test-forge/v2/resources/074' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,209e7f5f2ec704d898eeefe20ea4f7317782b3d9a1cd2e29dc88f55e1930764d,1535470d93a0531d20b36965bc3a03e959c2c43cdeb645bbf7721d6ff415e8ca,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-074.patch
+CRPP1-TFG-API_REFERENCE-075,controlled/rbi-test-forge-copy,9201075,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbitestforgeOperation075"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/075"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-075
+- Operation: `rbitestforgeOperation075`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/075`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-075: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4412992bfcc4cf6058a3b5d22960a9eac7fe469f86b0835ee24abe20e4d1cc5d,f1b4facf4a38d821f3f329a7afc069c0ac1e39fe0046dafa89e3d5174f9da5bf,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-075.patch
+CRPP1-TFG-API_REFERENCE-076,controlled/rbi-test-forge-copy,9201076,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-077"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-076
+- Operation: `rbitestforgeOperation076`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/076`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-076: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,71ee926856daab8e484594840a949549d3d71e7310dd6a00e2110c17e61122bf,4528fe682de0da787e47eb2bb78c2defc44d30bfc07ca26d9050bdfd23aecf6b,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-076.patch
+CRPP1-TFG-API_REFERENCE-077,controlled/rbi-test-forge-copy,9201077,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-077"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation077"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/077"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-077
+- Operation: `rbitestforgeOperation077`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/077`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-077: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2650834ad4d0b564e67821f321f8205b86c6f0e844061dfeb36602c655a5f6ac,9491dc0133f06815fb5bead700ed3323d86cb6a82e454290be77b6f9ba18466d,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-077.patch
+CRPP1-TFG-API_REFERENCE-078,controlled/rbi-test-forge-copy,9201078,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""TFG-API-078"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation078"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/078"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/078"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-078
+- Operation: `rbitestforgeOperation078`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/078`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-078: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/078' u '/api/rbi-test-forge/v2/resources/078' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dd066349fc7b4b6ec46e11bcc9b83a8e7bc0455ed1b9a0b7d98845adfcf25d08,36fbe2187e8bac96344ac69172d6b3c50caf2410ed1efcf758733a4914694a74,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-078.patch
+CRPP1-TFG-API_REFERENCE-079,controlled/rbi-test-forge-copy,9201079,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbitestforgeOperation079"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/079"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-079
+- Operation: `rbitestforgeOperation079`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/079`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-079: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,771bffc7927b63182892fe5defdb4186335799975983313c596e08d60c859d95,316398f9bfd4f2a5ca4085281ea9a003b7817e68d821c92d65959084728d613b,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-079.patch
+CRPP1-TFG-API_REFERENCE-080,controlled/rbi-test-forge-copy,9201080,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_08.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_test_forge"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-080
+- Operation: `rbitestforgeOperation080`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/080`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-080: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,30d47027018a009369700a3e125db6206a9c6cd1e191f01f0c0d3d180c0dbdd6,3820bde76bd178891dcfda83c7ca4bdf9c377d08e04ff5bbbdd25c2b808c1e0c,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-080.patch
+CRPP1-TFG-API_REFERENCE-081,controlled/rbi-test-forge-copy,9201081,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""TFG-API-081"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation081"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/081"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-081
+- Operation: `rbitestforgeOperation081`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/081`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-081: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9210d95d58b6122452ab037f509ce0e13ee505a73a8c626951c06759278712b3,1f691de4ad4fad81b07a14e3b50f8c8b40f465398e66280f5bcc3712bbf338f1,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-081.patch
+CRPP1-TFG-API_REFERENCE-082,controlled/rbi-test-forge-copy,9201082,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""TFG-API-082"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation082"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/082"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/082"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-082
+- Operation: `rbitestforgeOperation082`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/082`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-082: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/082' u '/api/rbi-test-forge/v2/resources/082' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,36c4af8cbd178ad4b57184b7603e2624bceea5b3ca38a9ec4a01ea9a05b1bc75,a1423d42d11788abce426a43fe88d571b860345752c3dfa5ef50124020b0bc05,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-082.patch
+CRPP1-TFG-API_REFERENCE-083,controlled/rbi-test-forge-copy,9201083,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbitestforgeOperation083"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/083"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-083
+- Operation: `rbitestforgeOperation083`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/083`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-083: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,efe921da794e110ac1667b8ebeb2a7049d4bc4fb12322837755a1791bcf3c8a1,46943fb28852a82f0a80b298b645e3ece21965a4e41eb218c073f774f1bd0641,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-083.patch
+CRPP1-TFG-API_REFERENCE-084,controlled/rbi-test-forge-copy,9201084,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-085"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-084
+- Operation: `rbitestforgeOperation084`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/084`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-084: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,47f793c8e5abe704cc14d4bbc4bbb72c759996a7ef0784dfbeeeeaf058cfb95c,8c9bfbc0905f2039436a402bc8312e485c3977b4839365c2c628827570ef6029,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-084.patch
+CRPP1-TFG-API_REFERENCE-085,controlled/rbi-test-forge-copy,9201085,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-085"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation085"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/085"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-085
+- Operation: `rbitestforgeOperation085`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/085`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-085: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,25a2c7535b8d3f39530e41deb5d36cfacee8fbf3738e7eb6409ed4dedf181eab,a33bea0be41432aa055fe55b9b017b739fcc077000f4b22cfe99c611537df588,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-085.patch
+CRPP1-TFG-API_REFERENCE-086,controlled/rbi-test-forge-copy,9201086,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""TFG-API-086"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation086"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/086"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/086"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-086
+- Operation: `rbitestforgeOperation086`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/086`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-086: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/086' u '/api/rbi-test-forge/v2/resources/086' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9f58c710a8328648aa52bbdca50d2be1dde0807806672d910817b713005d42c1,dfc5156a79a255f644f06729ca56b0414a66cd8ded485e27b7e17f3b22b11f00,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-086.patch
+CRPP1-TFG-API_REFERENCE-087,controlled/rbi-test-forge-copy,9201087,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbitestforgeOperation087"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/087"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-087
+- Operation: `rbitestforgeOperation087`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/087`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-087: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d364e34e8ceb9899dd1cc7dd5397c156af1002b5e0c42ee1b3c2fa8d487d37f7,4c392f7c7c0ee611b03cfcff52739091f947046e7cec406bd74a7cb491d83078,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-087.patch
+CRPP1-TFG-API_REFERENCE-088,controlled/rbi-test-forge-copy,9201088,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-089"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-088
+- Operation: `rbitestforgeOperation088`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/088`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-088: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1e36ef27e094721f7fd4cea1ed6155e867f53ea41e41402ece26cc35cc3ee580,61446b04cdb10732580f18ab9a2aa062736891b838e03502a78ce7be864b2192,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-088.patch
+CRPP1-TFG-API_REFERENCE-089,controlled/rbi-test-forge-copy,9201089,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-089"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation089"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/089"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-089
+- Operation: `rbitestforgeOperation089`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/089`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-089: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7ce9e410d3126f49e8d04760389e32fb5e019dd0c04c916a3f314921e310b24e,ac097a5c138b4254a67705f6ef94e8e82badebc78964a1db58aa157828be533d,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-089.patch
+CRPP1-TFG-API_REFERENCE-090,controlled/rbi-test-forge-copy,9201090,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_09.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""TFG-API-090"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation090"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/090"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/090"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-090
+- Operation: `rbitestforgeOperation090`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/090`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-090: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/090' u '/api/rbi-test-forge/v2/resources/090' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,89a586d7cbf39bcb459f4399892c27b4e09874ba37ceaedf7c5c75bf0a458719,25b9a929eda2cabc4884524545128e3fbc7cc4866a7ac555e0e3406a15b4fbb7,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-090.patch
+CRPP1-TFG-API_REFERENCE-091,controlled/rbi-test-forge-copy,9201091,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbitestforgeOperation091"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/091"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-091
+- Operation: `rbitestforgeOperation091`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/091`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-091: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2ee622ac5ecb33bdd7e60fd7c8888981a9e659cf29a75ac0bd2f0cda815cfcba,74da7fecfee4ae31d2b5b850e59cb56f423446b63c6f29b3967f022b1f9b6bcd,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-091.patch
+CRPP1-TFG-API_REFERENCE-092,controlled/rbi-test-forge-copy,9201092,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-093"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-092
+- Operation: `rbitestforgeOperation092`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/092`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-092: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0e2ad7cf9554f738f8a03c9c738253bcb2909c9b6ee07d3ff294a3c9524b3a89,a05f5bfb532690fd25d8eb52be20273979ed60a7898b9c9ac88b0b58d5f01cc0,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-092.patch
+CRPP1-TFG-API_REFERENCE-093,controlled/rbi-test-forge-copy,9201093,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-093"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation093"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/093"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-093
+- Operation: `rbitestforgeOperation093`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/093`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-093: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e4626bb5625f7549088af028e2d8e40e52a6562887ed183bd5cc57d350cfdf71,155039c7efbf26e41b457c1f2f2a34b9ecba5ab997ef73415767ea823f40a043,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-093.patch
+CRPP1-TFG-API_REFERENCE-094,controlled/rbi-test-forge-copy,9201094,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""TFG-API-094"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation094"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/094"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/094"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-094
+- Operation: `rbitestforgeOperation094`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/094`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-094: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/094' u '/api/rbi-test-forge/v2/resources/094' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6dafc5c0aa636ec05e51f35a93808eabe423342240686258b29dc5519eb4f9ed,1df8693e1f520a5da4dc3c3894e7b04d243189d772ed428f7a2851f27caa99f9,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-094.patch
+CRPP1-TFG-API_REFERENCE-095,controlled/rbi-test-forge-copy,9201095,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbitestforgeOperation095"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/095"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-095
+- Operation: `rbitestforgeOperation095`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/095`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-095: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8c9a8bd4683c933c2c20afc2f1ccc87af08e48cb2bb6b7af8b8815e57c0423c8,867f0c57472c49918e33cb08ca2e7c9a878c6d17cf5f1a6b53c2a16a1b80f24e,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-095.patch
+CRPP1-TFG-API_REFERENCE-096,controlled/rbi-test-forge-copy,9201096,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-097"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-096
+- Operation: `rbitestforgeOperation096`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/096`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-096: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,074efc684f32a98300528c4838035e445a5e7790424f2fb380286e200ca211c0,7b737fe050b355dd671f14e27e49ab74fbd86a278ef1fa24f75c9f9899e28de6,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-096.patch
+CRPP1-TFG-API_REFERENCE-097,controlled/rbi-test-forge-copy,9201097,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-097"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation097"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/097"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-097
+- Operation: `rbitestforgeOperation097`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/097`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-097: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d29fb327f515a4dfa6d1d1e10770ab60f234daa0a1395649eea8429e48f0057a,97a6fda7b9b073c9fc132b708cbd9b03c65a1aee10da3658546660120ddd7b41,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-097.patch
+CRPP1-TFG-API_REFERENCE-098,controlled/rbi-test-forge-copy,9201098,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""TFG-API-098"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation098"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/098"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/098"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-098
+- Operation: `rbitestforgeOperation098`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/098`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-098: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/098' u '/api/rbi-test-forge/v2/resources/098' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9de5a6a223465d668aac3022d8e8ed64297c8cf0ec2e42c0896e0c8ea0870e20,4fbc43ae1958fc295b5a4b9387b68deb969d6f01bc6bca2c0080b9de437c1c5b,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-098.patch
+CRPP1-TFG-API_REFERENCE-099,controlled/rbi-test-forge-copy,9201099,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbitestforgeOperation099"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/099"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-099
+- Operation: `rbitestforgeOperation099`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/099`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-099: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d266f611b5b1c62f2047d097e42a80f43ac65ed7df0958d79cecaa2d53f2ca5a,f7a940e5b6d555fb4885de9402ff2ac0e39de8a14f221d0ff7b174016c8309f3,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-099.patch
+CRPP1-TFG-API_REFERENCE-100,controlled/rbi-test-forge-copy,9201100,csharp,"[""TestGenerator/DocGuardContractLab/api_reference/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/api_reference/contracts_10.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_test_forge"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:1439beb4fa15fdf3 -->
+### TFG-API-100
+- Operation: `rbitestforgeOperation100`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/100`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-100: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,91a91dd3e8a395951c66d82efb1c083827dd095924c340eba4d1e6f67b4329a6,a0f7c2ee1dac6b423590ad5a82ae11bb28bd2f04864b101e2059f9b212673b94,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-100.patch

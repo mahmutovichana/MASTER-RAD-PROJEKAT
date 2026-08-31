@@ -1,0 +1,9 @@
+<span class="role-chip">
+    <span class="role-chip__dot" style="background: @DotColor"></span>
+    @ChildContent
+</span>
+
+@code {
+    [Parameter] public string DotColor { get; set; } = "#888";
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

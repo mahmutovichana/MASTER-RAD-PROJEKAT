@@ -1,0 +1,40 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;          /* stranica se ne skrola — skrola samo .app__main */
+    font-family: var(--font-sans);
+}
+
+.app__body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.app__main {
+    flex: 1;
+    background: #FAFAF7;
+    padding: 32px 44px;
+    overflow-y: auto;
+}
+
+/* Backdrop se prikazuje samo na mobitelu kad je overlay sidebar otvoren —
+   klik na njega zatvara sidebar (ToggleSidebar). Na desktopu nikad. */
+.sidebar-backdrop {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    .app__main {
+        padding: 20px 16px;
+    }
+
+    .app__body.sidebar-open .sidebar-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 150;
+        background: rgba(14, 15, 18, 0.45);
+    }
+}

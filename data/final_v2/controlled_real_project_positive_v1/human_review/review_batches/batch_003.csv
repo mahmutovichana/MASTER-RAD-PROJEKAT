@@ -1,0 +1,1901 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-JOB-DEVELOPER_SETUP-001,controlled/jobfair-platform-copy,9200201,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-001"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-002"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-001
+- Profile: `developer-profile-001`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 001`
+- Migration command: `npm run supabase:migrate --profile 001`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-001: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f46c0edec5414438f5ea8a429838e470ba0868d1a2ecae1b49d92ce6e01c6986,d449c02b2f14e23ab5adba027dbd111b19a83a745e21bff02842a4e272ef0ad2,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-001.patch
+CRPP1-JOB-DEVELOPER_SETUP-002,controlled/jobfair-platform-copy,9200202,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-002"",
+-      ""developmentCommand"": ""npm run dev -- --profile 002"",
++      ""developmentCommand"": ""npm run dev -- --profile 002 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 002"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-002"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-002
+- Profile: `developer-profile-002`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 002`
+- Migration command: `npm run supabase:migrate --profile 002`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-002: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 002' u 'npm run dev -- --profile 002 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ecbd09f57b0c6e8fdfb7bb2e335e0795f97b5f160babb005b405a67f6d79027c,e0107dc3bf9612af07b594f0b20fb97b838a6dd0ffa9d25f7947f0015278cf6b,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-002.patch
+CRPP1-JOB-DEVELOPER_SETUP-003,controlled/jobfair-platform-copy,9200203,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""JOB-SETUP-003"",
+       ""developmentCommand"": ""npm run dev -- --profile 003"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 003"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-003"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-003
+- Profile: `developer-profile-003`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 003`
+- Migration command: `npm run supabase:migrate --profile 003`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-003: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,30cb2b74cbfba42f8ad4f78b6cf57cb50b68f74539ed4b8967b173da43264954,fb549c5e9499a2ce1e1c48c419cbbccffbd940b7b16666cfa316e507ccb919df,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-003.patch
+CRPP1-JOB-DEVELOPER_SETUP-004,controlled/jobfair-platform-copy,9200204,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-004"",
+       ""developmentCommand"": ""npm run dev -- --profile 004"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 004"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 004 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-004"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-004
+- Profile: `developer-profile-004`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 004`
+- Migration command: `npm run supabase:migrate --profile 004`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-004: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 004' u 'npm run supabase:migrate --profile 004 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,69e68e45a156c941abc046e41e70ec49134353641be4370a9979ecff4b4d1f6d,aaacf2646d6d62a089691c6c7149480ec161f60226a0347038f5f837cc101bcc,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-004.patch
+CRPP1-JOB-DEVELOPER_SETUP-005,controlled/jobfair-platform-copy,9200205,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-005"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-006"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-005
+- Profile: `developer-profile-005`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 005`
+- Migration command: `npm run supabase:migrate --profile 005`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-005: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c9b1ab96a9f3d0f28e237f7d25aa2883a605fc68384ca46c34a455b9a180bc87,c148afaf4eb514d845ac545bcf86d05acf641a482154ff40f0f8f818dbf7c19e,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-005.patch
+CRPP1-JOB-DEVELOPER_SETUP-006,controlled/jobfair-platform-copy,9200206,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-006"",
+-      ""developmentCommand"": ""npm run dev -- --profile 006"",
++      ""developmentCommand"": ""npm run dev -- --profile 006 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 006"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-006"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-006
+- Profile: `developer-profile-006`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 006`
+- Migration command: `npm run supabase:migrate --profile 006`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-006: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 006' u 'npm run dev -- --profile 006 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e7552d2c79658f9084c878bb70caaf13abdfd55a8469f53d84fa6bb0a4c302e6,8ef2d6217f3ff522fad0f65f25f68646bd97fd1fc1b82c55452670f55466efe5,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-006.patch
+CRPP1-JOB-DEVELOPER_SETUP-007,controlled/jobfair-platform-copy,9200207,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""JOB-SETUP-007"",
+       ""developmentCommand"": ""npm run dev -- --profile 007"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 007"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-007"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-007
+- Profile: `developer-profile-007`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 007`
+- Migration command: `npm run supabase:migrate --profile 007`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-007: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b9c1b358696d16dbdd2309a50e60f0a2285a9038757e0ec13c0e51c5348f070c,d8f07e8429d9fd483be1aeed1db74b3aaf4e25359d283604eed4997c49a80c96,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-007.patch
+CRPP1-JOB-DEVELOPER_SETUP-008,controlled/jobfair-platform-copy,9200208,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-008"",
+       ""developmentCommand"": ""npm run dev -- --profile 008"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 008"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 008 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-008"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-008
+- Profile: `developer-profile-008`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 008`
+- Migration command: `npm run supabase:migrate --profile 008`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-008: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 008' u 'npm run supabase:migrate --profile 008 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4fba1bfefe895d16ece18a5170c36682b553ef75082718ca975f51fd0c97834e,4e554fd8f107161327f2821c8cb7f974c1ddf2f34df8344bfbe329cf3b045815,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-008.patch
+CRPP1-JOB-DEVELOPER_SETUP-009,controlled/jobfair-platform-copy,9200209,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-009"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-010"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-009
+- Profile: `developer-profile-009`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 009`
+- Migration command: `npm run supabase:migrate --profile 009`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-009: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7779c8ddb9d6fc033feab267e24d37ecbff4eb6d667dc4a142e323b6da087aa2,ef40751279673f920e28089f3d9326eec2bd9853d85b046ab39356b96cd4c423,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-009.patch
+CRPP1-JOB-DEVELOPER_SETUP-010,controlled/jobfair-platform-copy,9200210,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_01.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_01.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_01.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-010"",
+-      ""developmentCommand"": ""npm run dev -- --profile 010"",
++      ""developmentCommand"": ""npm run dev -- --profile 010 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 010"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-010"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-010
+- Profile: `developer-profile-010`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 010`
+- Migration command: `npm run supabase:migrate --profile 010`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-010: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 010' u 'npm run dev -- --profile 010 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4d86f45dab4766c8922bf41fbf66303f6c3215ad05159299a66ccdec8bbda264,f2844f86145426cf616c2fd78d990e04e915606ecba2bb64d3c5b31f9eb9d063,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-010.patch
+CRPP1-JOB-DEVELOPER_SETUP-011,controlled/jobfair-platform-copy,9200211,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""JOB-SETUP-011"",
+       ""developmentCommand"": ""npm run dev -- --profile 011"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 011"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-011"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-011
+- Profile: `developer-profile-011`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 011`
+- Migration command: `npm run supabase:migrate --profile 011`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-011: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eb0379282c7289f032d1a7ac717c72caadb4519f7dd3a03523a5e653fe98645a,b03783c1254d0a0610e15b47f75e02f453f4a0a1929538dc89ba7ad9b594967d,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-011.patch
+CRPP1-JOB-DEVELOPER_SETUP-012,controlled/jobfair-platform-copy,9200212,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-012"",
+       ""developmentCommand"": ""npm run dev -- --profile 012"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 012"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 012 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-012"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-012
+- Profile: `developer-profile-012`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 012`
+- Migration command: `npm run supabase:migrate --profile 012`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-012: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 012' u 'npm run supabase:migrate --profile 012 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,67db67a937b767ddf701eb9f440aaf04fcc201f814c47571ee14601613c828b9,c2c0364bece757758590528206813a30e42787b9722cb370a1862d9c5f0733d8,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-012.patch
+CRPP1-JOB-DEVELOPER_SETUP-013,controlled/jobfair-platform-copy,9200213,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-013"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-014"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-013
+- Profile: `developer-profile-013`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 013`
+- Migration command: `npm run supabase:migrate --profile 013`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-013: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,da9be3af1985ce41299c3877f12775aca0313f9182105a22637507c540b39495,8c1c409e3f770251e6db26b2d4519b65e5b23e596a7ac5fa5416e41ae9072575,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-013.patch
+CRPP1-JOB-DEVELOPER_SETUP-014,controlled/jobfair-platform-copy,9200214,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-014"",
+-      ""developmentCommand"": ""npm run dev -- --profile 014"",
++      ""developmentCommand"": ""npm run dev -- --profile 014 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 014"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-014"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-014
+- Profile: `developer-profile-014`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 014`
+- Migration command: `npm run supabase:migrate --profile 014`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-014: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 014' u 'npm run dev -- --profile 014 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c4a299ac34331acaa7be835b84fde3e4d8c87eef23cc597af2488e685b6bebe5,91a326e80c143d7c58b9a17d4cfd29b7b44b4876cedf1dc314b3969f6cec0c77,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-014.patch
+CRPP1-JOB-DEVELOPER_SETUP-015,controlled/jobfair-platform-copy,9200215,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""JOB-SETUP-015"",
+       ""developmentCommand"": ""npm run dev -- --profile 015"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 015"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-015"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-015
+- Profile: `developer-profile-015`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 015`
+- Migration command: `npm run supabase:migrate --profile 015`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-015: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c214065501d5d16d96d8bdabdb54c73ac82cb3a6431d9e6cfab60e6083e46f67,906f63df986f37a913c963fac2adba9f03342eb38bbfa222aa289ee185ec2f7b,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-015.patch
+CRPP1-JOB-DEVELOPER_SETUP-016,controlled/jobfair-platform-copy,9200216,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-016"",
+       ""developmentCommand"": ""npm run dev -- --profile 016"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 016"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 016 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-016"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-016
+- Profile: `developer-profile-016`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 016`
+- Migration command: `npm run supabase:migrate --profile 016`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-016: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 016' u 'npm run supabase:migrate --profile 016 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,562b6085a3a2030111e4bdf248c4e8c052bc902b5cdea45d859f7bec62ecdbac,e7397d47e234cc0e1027b0ad0781b0a3156d3babd7c8ee8ca1dd9cf8fb0b8cac,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-016.patch
+CRPP1-JOB-DEVELOPER_SETUP-017,controlled/jobfair-platform-copy,9200217,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-017"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-018"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-017
+- Profile: `developer-profile-017`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 017`
+- Migration command: `npm run supabase:migrate --profile 017`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-017: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eb172c7aa4c487761b27541bcbdfeace4e9030497a3b9de1de21ff9181f95e3d,0f3e827e1e04d416e959a4e074df5853ffba71e3060fb2562a405a0eb29a90bc,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-017.patch
+CRPP1-JOB-DEVELOPER_SETUP-018,controlled/jobfair-platform-copy,9200218,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-018"",
+-      ""developmentCommand"": ""npm run dev -- --profile 018"",
++      ""developmentCommand"": ""npm run dev -- --profile 018 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 018"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-018"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-018
+- Profile: `developer-profile-018`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 018`
+- Migration command: `npm run supabase:migrate --profile 018`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-018: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 018' u 'npm run dev -- --profile 018 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ac8817d5ab683d8c1ed741981bfafabd2256ee32d9798df055da70beead2bdf5,da056ef52cabaeaf39e626c3bc1834cd471e94cd9a5a5ac7c2afb002c923900d,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-018.patch
+CRPP1-JOB-DEVELOPER_SETUP-019,controlled/jobfair-platform-copy,9200219,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""JOB-SETUP-019"",
+       ""developmentCommand"": ""npm run dev -- --profile 019"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 019"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-019"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-019
+- Profile: `developer-profile-019`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 019`
+- Migration command: `npm run supabase:migrate --profile 019`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-019: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,51a83cf75dfd9cf0795b826ebc673fc5f87745671fa58e5e7250ae885a46ef4b,266bcb31ec375b76cee6464f55abb1cdd3fcf996394e6bd01bcaf501aa0e7d05,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-019.patch
+CRPP1-JOB-DEVELOPER_SETUP-020,controlled/jobfair-platform-copy,9200220,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_02.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_02.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_02.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-020"",
+       ""developmentCommand"": ""npm run dev -- --profile 020"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 020"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 020 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-020"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-020
+- Profile: `developer-profile-020`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 020`
+- Migration command: `npm run supabase:migrate --profile 020`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-020: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 020' u 'npm run supabase:migrate --profile 020 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,47e8ed5355048a3f750e577fe14d52b7bb1a60e40a1129f0a6a6af3dd6f2f339,6b51614da2ad15609431ff905a7bfca3fe977711798e750dc70d0933fd4268c6,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-020.patch
+CRPP1-JOB-DEVELOPER_SETUP-021,controlled/jobfair-platform-copy,9200221,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-021"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-022"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-021
+- Profile: `developer-profile-021`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 021`
+- Migration command: `npm run supabase:migrate --profile 021`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-021: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,73e470f0e93baba90faf524b47e9f12f80fc089036a628339717e25bc47dbb3c,6fef31b05bbf870ad148dd119c2901682305b5c76fba3259d742a9ce99abf611,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-021.patch
+CRPP1-JOB-DEVELOPER_SETUP-022,controlled/jobfair-platform-copy,9200222,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-022"",
+-      ""developmentCommand"": ""npm run dev -- --profile 022"",
++      ""developmentCommand"": ""npm run dev -- --profile 022 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 022"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-022"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-022
+- Profile: `developer-profile-022`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 022`
+- Migration command: `npm run supabase:migrate --profile 022`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-022: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 022' u 'npm run dev -- --profile 022 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d69f6b82a61c60e1e6987d9657daeff9e07ded400b16b6c269f29b3cf76583ec,e69d417b59af84a4fef58ad6d74a5f8161058674c768c0777f1dc16238dcbd14,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-022.patch
+CRPP1-JOB-DEVELOPER_SETUP-023,controlled/jobfair-platform-copy,9200223,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""JOB-SETUP-023"",
+       ""developmentCommand"": ""npm run dev -- --profile 023"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 023"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-023"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-023
+- Profile: `developer-profile-023`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 023`
+- Migration command: `npm run supabase:migrate --profile 023`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-023: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,551b030a153e211fa1d48a6b2a689e982bedf043706167bdbbdbddf1d3d0e0fd,aa6e7a4f042f5d06bce61d2eca62572f14b3ea0f49263d47a1de0d7a4eafcc01,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-023.patch
+CRPP1-JOB-DEVELOPER_SETUP-024,controlled/jobfair-platform-copy,9200224,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-024"",
+       ""developmentCommand"": ""npm run dev -- --profile 024"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 024"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 024 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-024"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-024
+- Profile: `developer-profile-024`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 024`
+- Migration command: `npm run supabase:migrate --profile 024`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-024: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 024' u 'npm run supabase:migrate --profile 024 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5e5eac5258e17342d39a10e8f0b650089846610671ea884ebe6cb1e6926e3dcf,a566070cd574a878b3efecb54a765c018ce3def6d578c96443b47639dda255f0,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-024.patch
+CRPP1-JOB-DEVELOPER_SETUP-025,controlled/jobfair-platform-copy,9200225,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-025"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-026"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-025
+- Profile: `developer-profile-025`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 025`
+- Migration command: `npm run supabase:migrate --profile 025`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-025: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3fef29c2a2342b28516982fb26ce2602a2c237c1ffb1525d0469bd9c4e4fd14e,3029512056f51310d0588c1024cfd29f39bcf19a0a09fce37d687f262e226035,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-025.patch
+CRPP1-JOB-DEVELOPER_SETUP-026,controlled/jobfair-platform-copy,9200226,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-026"",
+-      ""developmentCommand"": ""npm run dev -- --profile 026"",
++      ""developmentCommand"": ""npm run dev -- --profile 026 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 026"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-026"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-026
+- Profile: `developer-profile-026`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 026`
+- Migration command: `npm run supabase:migrate --profile 026`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-026: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 026' u 'npm run dev -- --profile 026 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f7134e7a615427432a262419cbeb9104f438797f680594337e83efe7c41fa0d2,17b436f134dc512c42a3f101fb7951363718a926ecb5f27b64458c3b381cf0ca,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-026.patch
+CRPP1-JOB-DEVELOPER_SETUP-027,controlled/jobfair-platform-copy,9200227,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""JOB-SETUP-027"",
+       ""developmentCommand"": ""npm run dev -- --profile 027"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 027"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-027"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-027
+- Profile: `developer-profile-027`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 027`
+- Migration command: `npm run supabase:migrate --profile 027`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-027: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bf0cee4d184bcc7fa089d36d7e01c5bd48de354a4bfc16a25f6ecf250f189059,14bc3ada4c6e00f5f8dbb79760f71f7dc6fb7f8dfac9aa4da3e2222bc8adfc27,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-027.patch
+CRPP1-JOB-DEVELOPER_SETUP-028,controlled/jobfair-platform-copy,9200228,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-028"",
+       ""developmentCommand"": ""npm run dev -- --profile 028"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 028"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 028 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-028"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-028
+- Profile: `developer-profile-028`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 028`
+- Migration command: `npm run supabase:migrate --profile 028`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-028: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 028' u 'npm run supabase:migrate --profile 028 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e5cadac654e41598285686f2e49ebad8311dad19b481cec120d5e3c553e3f048,5adf947f8d7315b68f39c0648e055db4c24fc7087285481f195e2ae7603a7bd4,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-028.patch
+CRPP1-JOB-DEVELOPER_SETUP-029,controlled/jobfair-platform-copy,9200229,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-029"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-030"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-029
+- Profile: `developer-profile-029`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 029`
+- Migration command: `npm run supabase:migrate --profile 029`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-029: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,973427f5f5a10b17c5f0993e9e163d85373d4e0ff2b0ef6fea513911517e897a,3eccd867316718e26a5de4c6f85e2fb0a98022655a3099f014b9c362e008b7ac,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-029.patch
+CRPP1-JOB-DEVELOPER_SETUP-030,controlled/jobfair-platform-copy,9200230,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_03.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_03.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_03.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-030"",
+-      ""developmentCommand"": ""npm run dev -- --profile 030"",
++      ""developmentCommand"": ""npm run dev -- --profile 030 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 030"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-030"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-030
+- Profile: `developer-profile-030`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 030`
+- Migration command: `npm run supabase:migrate --profile 030`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-030: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 030' u 'npm run dev -- --profile 030 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,08f24a67d2acc5e1d9f4eb77c64bbba68352a5740237620e6943ef6ae2256f35,7eb18fd3bd65362bbda32b1020acc046417f0102e68cd3e4e1a101852d5e9bbd,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-030.patch
+CRPP1-JOB-DEVELOPER_SETUP-031,controlled/jobfair-platform-copy,9200231,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""JOB-SETUP-031"",
+       ""developmentCommand"": ""npm run dev -- --profile 031"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 031"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-031"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-031
+- Profile: `developer-profile-031`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 031`
+- Migration command: `npm run supabase:migrate --profile 031`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-031: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b550a2bc57b0a1166b68c3c76bcf91502b9ca69852bb8f1b61860695531d3a66,2e1d29cfe5e8396a213202898972fd692703da1c137bfcc49b25bba20d63af95,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-031.patch
+CRPP1-JOB-DEVELOPER_SETUP-032,controlled/jobfair-platform-copy,9200232,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-032"",
+       ""developmentCommand"": ""npm run dev -- --profile 032"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 032"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 032 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-032"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-032
+- Profile: `developer-profile-032`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 032`
+- Migration command: `npm run supabase:migrate --profile 032`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-032: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 032' u 'npm run supabase:migrate --profile 032 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0289b153a9601fd730f605bfb132dc3da83d0ac1b5c75d1b5091dda4036f3c00,bd047848170f69de840554cba053ce16f4c1c1b4ab090e6b3c09ea33acae37ec,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-032.patch
+CRPP1-JOB-DEVELOPER_SETUP-033,controlled/jobfair-platform-copy,9200233,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-033"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-034"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-033
+- Profile: `developer-profile-033`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 033`
+- Migration command: `npm run supabase:migrate --profile 033`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-033: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5ca41396b93c3b93a58359a9e5b5f07cb8fe90af398d55afe3b669cc3ea975cf,5b1854abebc8c9ab325f1f8585da235915028590671969b868d6a3ed6c9be3a8,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-033.patch
+CRPP1-JOB-DEVELOPER_SETUP-034,controlled/jobfair-platform-copy,9200234,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-034"",
+-      ""developmentCommand"": ""npm run dev -- --profile 034"",
++      ""developmentCommand"": ""npm run dev -- --profile 034 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 034"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-034"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-034
+- Profile: `developer-profile-034`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 034`
+- Migration command: `npm run supabase:migrate --profile 034`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-034: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 034' u 'npm run dev -- --profile 034 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,998f17d37ac01ec0a5f7dde55335a7ed12a7e3186765f72880c37dccf8ce2981,b679a221c0b827dff89f74c64f820254d934bb59e710e3a0c7fcf1c84820d53e,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-034.patch
+CRPP1-JOB-DEVELOPER_SETUP-035,controlled/jobfair-platform-copy,9200235,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""JOB-SETUP-035"",
+       ""developmentCommand"": ""npm run dev -- --profile 035"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 035"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-035"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-035
+- Profile: `developer-profile-035`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 035`
+- Migration command: `npm run supabase:migrate --profile 035`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-035: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,461b0590905be59eba1a8c3b10f109eb5fd2fcbc2b319f0375835c47efea4f86,38df84d304652c403a9430fe2758b6ef5310ab6bf76612e0761263f367648278,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-035.patch
+CRPP1-JOB-DEVELOPER_SETUP-036,controlled/jobfair-platform-copy,9200236,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-036"",
+       ""developmentCommand"": ""npm run dev -- --profile 036"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 036"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 036 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-036"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-036
+- Profile: `developer-profile-036`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 036`
+- Migration command: `npm run supabase:migrate --profile 036`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-036: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 036' u 'npm run supabase:migrate --profile 036 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a2387d94c075e9737ea7f4cd53d44b49b94c380a3b4ee83866b043b48d0ab3d6,358486101527892fb02a5725a5f544b513e7cd9bce43e5702feb288fdfdfc596,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-036.patch
+CRPP1-JOB-DEVELOPER_SETUP-037,controlled/jobfair-platform-copy,9200237,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-037"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-038"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-037
+- Profile: `developer-profile-037`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 037`
+- Migration command: `npm run supabase:migrate --profile 037`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-037: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,14b05777b1589678a4432d2e2a94523d6aad4f7e0f1f4ee39bacd15a049bd7ae,5f2fb0460f4188a7c33efac19b01297951c809e2be1399b48078f9a2d8615f34,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-037.patch
+CRPP1-JOB-DEVELOPER_SETUP-038,controlled/jobfair-platform-copy,9200238,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-038"",
+-      ""developmentCommand"": ""npm run dev -- --profile 038"",
++      ""developmentCommand"": ""npm run dev -- --profile 038 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 038"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-038"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-038
+- Profile: `developer-profile-038`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 038`
+- Migration command: `npm run supabase:migrate --profile 038`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-038: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 038' u 'npm run dev -- --profile 038 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c46afb747877b01f7b6c91fda88d90bd5c8def99909a292809ffce200f8e4d03,d684bcc0ff751324330e4cc9f90b1a95117ae245b6f6192a6b1b473e29346781,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-038.patch
+CRPP1-JOB-DEVELOPER_SETUP-039,controlled/jobfair-platform-copy,9200239,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""JOB-SETUP-039"",
+       ""developmentCommand"": ""npm run dev -- --profile 039"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 039"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-039"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-039
+- Profile: `developer-profile-039`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 039`
+- Migration command: `npm run supabase:migrate --profile 039`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-039: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3383e2e5b2756c0c6431afd3f7e6229f4583cb1468378f658388ba4cb9ee2564,d972db6626b7b1f891b9d810502923e6f969b47e343275804bd6469d8af55842,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-039.patch
+CRPP1-JOB-DEVELOPER_SETUP-040,controlled/jobfair-platform-copy,9200240,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_04.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_04.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_04.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-040"",
+       ""developmentCommand"": ""npm run dev -- --profile 040"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 040"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 040 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-040"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-040
+- Profile: `developer-profile-040`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 040`
+- Migration command: `npm run supabase:migrate --profile 040`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-040: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 040' u 'npm run supabase:migrate --profile 040 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a98e05f345c91aea319961abc9f99733a949125185367e9db8bf878fcc29f470,be196626b006f19d60e82b32bb80db987f9de8b36dd9a4d2707efe99bb0a57de,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-040.patch
+CRPP1-JOB-DEVELOPER_SETUP-041,controlled/jobfair-platform-copy,9200241,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-041"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-042"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-041
+- Profile: `developer-profile-041`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 041`
+- Migration command: `npm run supabase:migrate --profile 041`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-041: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,045925ebc51233e8c5394921e87ef077f922851e42ff65a937dc0001e583f9b5,0c8e23e522578e225984af9bb8529ed580193f16d140185a43d6d4dd9f2d5ae9,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-041.patch
+CRPP1-JOB-DEVELOPER_SETUP-042,controlled/jobfair-platform-copy,9200242,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-042"",
+-      ""developmentCommand"": ""npm run dev -- --profile 042"",
++      ""developmentCommand"": ""npm run dev -- --profile 042 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 042"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-042"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-042
+- Profile: `developer-profile-042`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 042`
+- Migration command: `npm run supabase:migrate --profile 042`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-042: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 042' u 'npm run dev -- --profile 042 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e1e7e5fd014e39fc2d53c9cfd2e2e026bb0cf9448166916c59cf2899945a6416,2215ee6ea43824de560d66282bdd0d07344b927cefcb33b0f5b7f149c2f5bd51,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-042.patch
+CRPP1-JOB-DEVELOPER_SETUP-043,controlled/jobfair-platform-copy,9200243,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""JOB-SETUP-043"",
+       ""developmentCommand"": ""npm run dev -- --profile 043"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 043"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-043"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-043
+- Profile: `developer-profile-043`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 043`
+- Migration command: `npm run supabase:migrate --profile 043`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-043: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ca7283b5efe0aae5d5d208246d025409a9833937c16f9b322dcd410b138f3fa7,003da5c1e80c8b91a4c87c17ba3b4adf8118f82ccd126ed6f467b7d7dbca3b45,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-043.patch
+CRPP1-JOB-DEVELOPER_SETUP-044,controlled/jobfair-platform-copy,9200244,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-044"",
+       ""developmentCommand"": ""npm run dev -- --profile 044"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 044"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 044 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-044"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-044
+- Profile: `developer-profile-044`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 044`
+- Migration command: `npm run supabase:migrate --profile 044`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-044: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 044' u 'npm run supabase:migrate --profile 044 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9ad8257d2b3f819e2427ee9d8014efe78d967592ccaeca8a9754940002da8b5d,3f97d034a62e8f12d7456d3ac0c5c038e22dc8a07f8623b5b73b2c772cd847f2,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-044.patch
+CRPP1-JOB-DEVELOPER_SETUP-045,controlled/jobfair-platform-copy,9200245,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-045"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-046"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-045
+- Profile: `developer-profile-045`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 045`
+- Migration command: `npm run supabase:migrate --profile 045`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-045: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e9c98ad6ef186c4c5e873e312569d3aedf1bced1356e3cfa5eb6fca95f393dcb,9d25a3c65f8ee6f3391fe8bacc41492bcd1bac00ae31d85d7b097ce6ff266a79,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-045.patch
+CRPP1-JOB-DEVELOPER_SETUP-046,controlled/jobfair-platform-copy,9200246,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-046"",
+-      ""developmentCommand"": ""npm run dev -- --profile 046"",
++      ""developmentCommand"": ""npm run dev -- --profile 046 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 046"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-046"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-046
+- Profile: `developer-profile-046`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 046`
+- Migration command: `npm run supabase:migrate --profile 046`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-046: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 046' u 'npm run dev -- --profile 046 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,52aff8e2877fbd1cfcbe35d6b614a63bb80e96cdc5072ebf85e42b3480a6dab3,1df6ee0c624924ea6208cd78561672c82abbdd2ec82592863b77c8957cc00175,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-046.patch
+CRPP1-JOB-DEVELOPER_SETUP-047,controlled/jobfair-platform-copy,9200247,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""JOB-SETUP-047"",
+       ""developmentCommand"": ""npm run dev -- --profile 047"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 047"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-047"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-047
+- Profile: `developer-profile-047`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 047`
+- Migration command: `npm run supabase:migrate --profile 047`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-047: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ca1f37c02a777771e02cb0d842af3baba151bfc44598eab9f7a58b86e6ee368e,b3e5c5fcb49e21f2d7454cd8ab409154498d350fe519aaa1be6cdb40845cc749,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-047.patch
+CRPP1-JOB-DEVELOPER_SETUP-048,controlled/jobfair-platform-copy,9200248,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-048"",
+       ""developmentCommand"": ""npm run dev -- --profile 048"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 048"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 048 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-048"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-048
+- Profile: `developer-profile-048`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 048`
+- Migration command: `npm run supabase:migrate --profile 048`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-048: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 048' u 'npm run supabase:migrate --profile 048 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,42a23c504921d5c5f9ad49a8cc25efbb954d7366e1d08c02b1791a1089813fa4,2a3411b0bf1f2c3a727322b79efca85858138b2057a432cece222ce7ec6708a3,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-048.patch
+CRPP1-JOB-DEVELOPER_SETUP-049,controlled/jobfair-platform-copy,9200249,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-049"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-050"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-049
+- Profile: `developer-profile-049`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 049`
+- Migration command: `npm run supabase:migrate --profile 049`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-049: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e916a98c442e2fc6cf1d7253e080ffd86d095ebf6fd7cd3860e72f998f93e3e0,85bdfd2395e5849cc9ea31cec2066ebbb88f4b59848925ccd74e29627dece17a,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-049.patch
+CRPP1-JOB-DEVELOPER_SETUP-050,controlled/jobfair-platform-copy,9200250,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_05.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_05.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_05.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-050"",
+-      ""developmentCommand"": ""npm run dev -- --profile 050"",
++      ""developmentCommand"": ""npm run dev -- --profile 050 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 050"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-050"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-050
+- Profile: `developer-profile-050`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 050`
+- Migration command: `npm run supabase:migrate --profile 050`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-050: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 050' u 'npm run dev -- --profile 050 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,075cff631da0f93f913ebe6a6f0e8da9b6cc86bc2642aed2476056e270efa53c,b0b64bd78b3c0a2d20972472fc85a888581de45ca7e1472d3ba71b9a304afb86,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-050.patch
+CRPP1-JOB-DEVELOPER_SETUP-051,controlled/jobfair-platform-copy,9200251,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""JOB-SETUP-051"",
+       ""developmentCommand"": ""npm run dev -- --profile 051"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 051"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-051"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-051
+- Profile: `developer-profile-051`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 051`
+- Migration command: `npm run supabase:migrate --profile 051`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-051: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3406e2873f3366f2fe0a46be3cc189d30a39b04a277aa7e4b6282c20ee79f470,76f922673dcb6ada84506df01c5fed39eedbd65285d4b0f7082fb23d390b3447,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-051.patch
+CRPP1-JOB-DEVELOPER_SETUP-052,controlled/jobfair-platform-copy,9200252,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-052"",
+       ""developmentCommand"": ""npm run dev -- --profile 052"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 052"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 052 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-052"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-052
+- Profile: `developer-profile-052`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 052`
+- Migration command: `npm run supabase:migrate --profile 052`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-052: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 052' u 'npm run supabase:migrate --profile 052 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6f0b7e7d10a5deb1673f3265e341aa53a68ffa63d33f1423947eec3cbb8cfd40,ededd3ae0699e3ec8043bcaadd7306c74c80bbeee9d11d3aadf9803ca33ae114,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-052.patch
+CRPP1-JOB-DEVELOPER_SETUP-053,controlled/jobfair-platform-copy,9200253,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-053"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-054"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-053
+- Profile: `developer-profile-053`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 053`
+- Migration command: `npm run supabase:migrate --profile 053`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-053: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,22a3f025f978fe496aca71003fb3a0f19be019579a810da6e32596a54af28fee,d7efd2dc8d9477b71c04c52107caae82a95ecb981ac5831a98824878f9b5dd3a,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-053.patch
+CRPP1-JOB-DEVELOPER_SETUP-054,controlled/jobfair-platform-copy,9200254,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-054"",
+-      ""developmentCommand"": ""npm run dev -- --profile 054"",
++      ""developmentCommand"": ""npm run dev -- --profile 054 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 054"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-054"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-054
+- Profile: `developer-profile-054`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 054`
+- Migration command: `npm run supabase:migrate --profile 054`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-054: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 054' u 'npm run dev -- --profile 054 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8aaa6978a5eb7833569208f2867dbe1d36af6c4b3da322bf4031df5cd13f1de3,8da3554f946a87e4ac9ecb5458b8339a814d1b4c8903833c5a782905337de080,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-054.patch
+CRPP1-JOB-DEVELOPER_SETUP-055,controlled/jobfair-platform-copy,9200255,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""JOB-SETUP-055"",
+       ""developmentCommand"": ""npm run dev -- --profile 055"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 055"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-055"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-055
+- Profile: `developer-profile-055`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 055`
+- Migration command: `npm run supabase:migrate --profile 055`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-055: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a52bc83418a115461b82428a4d9a32567ffe383f706f5f5b2c6901fcc62a709f,5776344c76a7782a3913e4ea609f0bbd5996369f26c4dbbc171e1feba18bcefa,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-055.patch
+CRPP1-JOB-DEVELOPER_SETUP-056,controlled/jobfair-platform-copy,9200256,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-056"",
+       ""developmentCommand"": ""npm run dev -- --profile 056"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 056"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 056 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-056"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-056
+- Profile: `developer-profile-056`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 056`
+- Migration command: `npm run supabase:migrate --profile 056`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-056: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 056' u 'npm run supabase:migrate --profile 056 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f5687b2005d611f8d0b3ed7e18337a5903b95387c73d62001100374c73635a5f,e41508ec36e3c89f5807bba8f66216e04288f93a7dcbcaf5d5a1b00e9c213079,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-056.patch
+CRPP1-JOB-DEVELOPER_SETUP-057,controlled/jobfair-platform-copy,9200257,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-057"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-058"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-057
+- Profile: `developer-profile-057`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 057`
+- Migration command: `npm run supabase:migrate --profile 057`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-057: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,058425329b951bed6933ce511325b72c5dfd30f60d25473341f2c500e366500a,9ec8d34637ab2dd64a337f704e91f5101441e9df1e6079a2de83e8bb69f36cc2,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-057.patch
+CRPP1-JOB-DEVELOPER_SETUP-058,controlled/jobfair-platform-copy,9200258,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-058"",
+-      ""developmentCommand"": ""npm run dev -- --profile 058"",
++      ""developmentCommand"": ""npm run dev -- --profile 058 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 058"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-058"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-058
+- Profile: `developer-profile-058`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 058`
+- Migration command: `npm run supabase:migrate --profile 058`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-058: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 058' u 'npm run dev -- --profile 058 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,15cd20967089cb7876d801d63a684096d74c933778ac212a76f807c2fa72b5a6,5c2308ec44c6c2a59a03bc7c6ae5431876ddc0a59ee2a1ff23a4e97646833750,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-058.patch
+CRPP1-JOB-DEVELOPER_SETUP-059,controlled/jobfair-platform-copy,9200259,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""JOB-SETUP-059"",
+       ""developmentCommand"": ""npm run dev -- --profile 059"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 059"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-059"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-059
+- Profile: `developer-profile-059`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 059`
+- Migration command: `npm run supabase:migrate --profile 059`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-059: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5ce644f1caf3f2eddacc944b61ff5ff4e0f08d49a1fb04c95073d24d5014c5f1,4fb52299d26e8227030b601767d19d28a6c7c9127e5ffb1f3a09229ac8f426c8,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-059.patch
+CRPP1-JOB-DEVELOPER_SETUP-060,controlled/jobfair-platform-copy,9200260,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_06.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_06.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_06.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-060"",
+       ""developmentCommand"": ""npm run dev -- --profile 060"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 060"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 060 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-060"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-060
+- Profile: `developer-profile-060`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 060`
+- Migration command: `npm run supabase:migrate --profile 060`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-060: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 060' u 'npm run supabase:migrate --profile 060 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,24f843a8b10a6700b1d2b11b8bcc35b8cd9d090944a16f6b132854ca095a79ec,9cc3cd122f77060023a992c7ae378c7e8128c2aca4c44773fb9275437593eb14,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-060.patch
+CRPP1-JOB-DEVELOPER_SETUP-061,controlled/jobfair-platform-copy,9200261,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-061"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-062"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-061
+- Profile: `developer-profile-061`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 061`
+- Migration command: `npm run supabase:migrate --profile 061`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-061: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,93cbf9b984e06931f2969feaab2a8f17022eaade022080045e1158a97c252729,df210e98d34a2ed151f34d56b32aa65b36af5c46f0df8674e57554b9e36310ce,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-061.patch
+CRPP1-JOB-DEVELOPER_SETUP-062,controlled/jobfair-platform-copy,9200262,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-062"",
+-      ""developmentCommand"": ""npm run dev -- --profile 062"",
++      ""developmentCommand"": ""npm run dev -- --profile 062 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 062"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-062"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-062
+- Profile: `developer-profile-062`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 062`
+- Migration command: `npm run supabase:migrate --profile 062`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-062: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 062' u 'npm run dev -- --profile 062 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d16910340a21ae25adfd3bd290beac11005e149c6872dad653278083cf0c7129,82428dc95413375e342f54588873c478710c8a5e926ad34e9e9f9e90e9f8150b,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-062.patch
+CRPP1-JOB-DEVELOPER_SETUP-063,controlled/jobfair-platform-copy,9200263,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""JOB-SETUP-063"",
+       ""developmentCommand"": ""npm run dev -- --profile 063"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 063"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-063"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-063
+- Profile: `developer-profile-063`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 063`
+- Migration command: `npm run supabase:migrate --profile 063`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-063: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fba0bf431e5de9be02669bb80c57ab041cd0f26506cf78a43b48ea2b480fea41,c7704557d570f3fa871a51d823741e1b0c01a3e11594c6275f73d65241f6f570,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-063.patch
+CRPP1-JOB-DEVELOPER_SETUP-064,controlled/jobfair-platform-copy,9200264,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-064"",
+       ""developmentCommand"": ""npm run dev -- --profile 064"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 064"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 064 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-064"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-064
+- Profile: `developer-profile-064`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 064`
+- Migration command: `npm run supabase:migrate --profile 064`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-064: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 064' u 'npm run supabase:migrate --profile 064 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,248115a92fdd01ad7e8b59879c36b551984fb80c98b8575e10e87689a3e3d06b,2c9daa1378ff8cd3103f10d425b7ef9cee3810d1c7bee21070cf22d542c79cd1,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-064.patch
+CRPP1-JOB-DEVELOPER_SETUP-065,controlled/jobfair-platform-copy,9200265,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-065"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-066"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-065
+- Profile: `developer-profile-065`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 065`
+- Migration command: `npm run supabase:migrate --profile 065`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-065: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dfd8293b64a2b80a89416a057da54e7f455f48ba623d4a7aded2822a0967c75a,c133fb2d1e9189932fbd20987ef12be4aec20fa60ff73c7d4c0f973f2aa2a8eb,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-065.patch
+CRPP1-JOB-DEVELOPER_SETUP-066,controlled/jobfair-platform-copy,9200266,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-066"",
+-      ""developmentCommand"": ""npm run dev -- --profile 066"",
++      ""developmentCommand"": ""npm run dev -- --profile 066 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 066"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-066"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-066
+- Profile: `developer-profile-066`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 066`
+- Migration command: `npm run supabase:migrate --profile 066`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-066: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 066' u 'npm run dev -- --profile 066 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b3b885f870c5c573c34a1e4ef750c476a6d7b3e14778247d5f72247af5e7cf64,1ef7b9919307786d63d85d8cd31a2dd7c67b9095a28f1225426665c727bc01ef,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-066.patch
+CRPP1-JOB-DEVELOPER_SETUP-067,controlled/jobfair-platform-copy,9200267,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""JOB-SETUP-067"",
+       ""developmentCommand"": ""npm run dev -- --profile 067"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 067"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-067"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-067
+- Profile: `developer-profile-067`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 067`
+- Migration command: `npm run supabase:migrate --profile 067`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-067: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,20fbcb3478e53368b8751f113f64cc86a8737498b8b8ac272c59126f8b3a6bea,aca21f4873d315cca976b7ad098174c41482c0aca5094f2ffceef14310de07ae,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-067.patch
+CRPP1-JOB-DEVELOPER_SETUP-068,controlled/jobfair-platform-copy,9200268,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-068"",
+       ""developmentCommand"": ""npm run dev -- --profile 068"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 068"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 068 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-068"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-068
+- Profile: `developer-profile-068`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 068`
+- Migration command: `npm run supabase:migrate --profile 068`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-068: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 068' u 'npm run supabase:migrate --profile 068 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,556dfeb8c4c08a9772cd41fa89d8571c04db17204b45083945a4c2f9e4bb3bed,c30117da2f0d99318ca0c31af4aebb83dbf50e9a3d6ce83ff4b091d08e5b6025,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-068.patch
+CRPP1-JOB-DEVELOPER_SETUP-069,controlled/jobfair-platform-copy,9200269,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-069"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-070"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-069
+- Profile: `developer-profile-069`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 069`
+- Migration command: `npm run supabase:migrate --profile 069`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-069: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c2524972072d9df3ce6c48e051c90541ff6ea1eaae5c091bd5f1ed7f7f44121b,5a03f6805de719e23856ea2ee1d62b7744bb022c60346f4180121d2feeb4b884,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-069.patch
+CRPP1-JOB-DEVELOPER_SETUP-070,controlled/jobfair-platform-copy,9200270,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_07.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_07.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_07.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-070"",
+-      ""developmentCommand"": ""npm run dev -- --profile 070"",
++      ""developmentCommand"": ""npm run dev -- --profile 070 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 070"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-070"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-070
+- Profile: `developer-profile-070`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 070`
+- Migration command: `npm run supabase:migrate --profile 070`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-070: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 070' u 'npm run dev -- --profile 070 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,64eac1a0e6cb5491bcee4920ee095f2cd3a6ab2661b13f2b587e693148b18479,49d284cf2c51e52b5be3bfbb52f0b3e8b7045c8713a3e6a4f5eafd7e1addbf31,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-070.patch
+CRPP1-JOB-DEVELOPER_SETUP-071,controlled/jobfair-platform-copy,9200271,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""JOB-SETUP-071"",
+       ""developmentCommand"": ""npm run dev -- --profile 071"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 071"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-071"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-071
+- Profile: `developer-profile-071`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 071`
+- Migration command: `npm run supabase:migrate --profile 071`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-071: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,85a7b5c8f70bf6dd7c1e77806bfc6dbe0d0907740a4aa4637ddd5a305d20f07f,ca7aeac4b50da7c075bb1aa8cb3083a6fd5cb760ba9ecfc774384b73bf2d05ec,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-071.patch
+CRPP1-JOB-DEVELOPER_SETUP-072,controlled/jobfair-platform-copy,9200272,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-072"",
+       ""developmentCommand"": ""npm run dev -- --profile 072"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 072"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 072 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-072"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-072
+- Profile: `developer-profile-072`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 072`
+- Migration command: `npm run supabase:migrate --profile 072`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-072: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 072' u 'npm run supabase:migrate --profile 072 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,37780e4d6cac6c101f95dbd44627e6a96e35ed6653c86977971790856f997bb8,2eb03c9e5cdaea2a8bfce9d964f8e366702b0437887179853427f8a0b13cdd10,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-072.patch
+CRPP1-JOB-DEVELOPER_SETUP-073,controlled/jobfair-platform-copy,9200273,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-073"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-074"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-073
+- Profile: `developer-profile-073`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 073`
+- Migration command: `npm run supabase:migrate --profile 073`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-073: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3b33a0e78ecfeac5ced38185a39b75fb287cc91bb6ba47d774c2859b74c332c6,94bb17fdbe743ee8e9fed332a2af6ce5ffa65dba73baf566d4d0c6c133635dde,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-073.patch
+CRPP1-JOB-DEVELOPER_SETUP-074,controlled/jobfair-platform-copy,9200274,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-074"",
+-      ""developmentCommand"": ""npm run dev -- --profile 074"",
++      ""developmentCommand"": ""npm run dev -- --profile 074 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 074"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-074"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-074
+- Profile: `developer-profile-074`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 074`
+- Migration command: `npm run supabase:migrate --profile 074`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-074: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 074' u 'npm run dev -- --profile 074 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bcfd7b6a8cdaa0a511899e45b410397e3bd31945c983228c21b0b90358796298,8f76594d62782ac34f73eb41e1858dccfa501a1f3828977c405fa12a860b291f,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-074.patch
+CRPP1-JOB-DEVELOPER_SETUP-075,controlled/jobfair-platform-copy,9200275,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""JOB-SETUP-075"",
+       ""developmentCommand"": ""npm run dev -- --profile 075"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 075"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-075"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-075
+- Profile: `developer-profile-075`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 075`
+- Migration command: `npm run supabase:migrate --profile 075`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-075: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,245fc1988b88bbdb55afad656f34ebb6f168e0e94a6873a2f46694321230bb1c,d9d4cb0c7fd0b0a42fd44a1e5c7a10f8336b9d5a424d4269ffd5cdafdf8a3cc1,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-075.patch
+CRPP1-JOB-DEVELOPER_SETUP-076,controlled/jobfair-platform-copy,9200276,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-076"",
+       ""developmentCommand"": ""npm run dev -- --profile 076"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 076"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 076 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-076"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-076
+- Profile: `developer-profile-076`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 076`
+- Migration command: `npm run supabase:migrate --profile 076`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-076: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 076' u 'npm run supabase:migrate --profile 076 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e7760e293bfadb52efaf54c4e8d863ed243c67c5b16dea067e7fa60a407b71d7,986f62bb1ab9b63d4bff2d32f561c130e5a6f1d9ad9b8f752b7867637d4607fd,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-076.patch
+CRPP1-JOB-DEVELOPER_SETUP-077,controlled/jobfair-platform-copy,9200277,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-077"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-078"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-077
+- Profile: `developer-profile-077`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 077`
+- Migration command: `npm run supabase:migrate --profile 077`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-077: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9c1acabdc6345b3d7b5463f05f648b1455b9a3600ccf9afb2e628cfb4191ae09,7c2b1d671999c43174f00ce64959cb7c1edf0fb9fc830be96c2c153f1de066f3,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-077.patch
+CRPP1-JOB-DEVELOPER_SETUP-078,controlled/jobfair-platform-copy,9200278,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-078"",
+-      ""developmentCommand"": ""npm run dev -- --profile 078"",
++      ""developmentCommand"": ""npm run dev -- --profile 078 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 078"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-078"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-078
+- Profile: `developer-profile-078`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 078`
+- Migration command: `npm run supabase:migrate --profile 078`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-078: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 078' u 'npm run dev -- --profile 078 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,911b103150f33cbb8ab9913fa9a2f1a5e7bb560251092aea60edae5eab1e0d0b,dc4d73ed37394084f10a5aca6f4d941c3d6bb242a39c1444e0703a84d6ac2947,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-078.patch
+CRPP1-JOB-DEVELOPER_SETUP-079,controlled/jobfair-platform-copy,9200279,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""JOB-SETUP-079"",
+       ""developmentCommand"": ""npm run dev -- --profile 079"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 079"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-079"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-079
+- Profile: `developer-profile-079`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 079`
+- Migration command: `npm run supabase:migrate --profile 079`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-079: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a567bc2cf92067a1f258280177592ca579ada7fffd20d06551c68b7225e9f74f,691ae4834a8b7e5d408eba2c96f9cb4b8ae7c0b19e881488bd5c7125d231a7dd,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-079.patch
+CRPP1-JOB-DEVELOPER_SETUP-080,controlled/jobfair-platform-copy,9200280,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_08.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_08.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_08.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-080"",
+       ""developmentCommand"": ""npm run dev -- --profile 080"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 080"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 080 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-080"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-080
+- Profile: `developer-profile-080`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 080`
+- Migration command: `npm run supabase:migrate --profile 080`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-080: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 080' u 'npm run supabase:migrate --profile 080 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5fe157286a814627934028f92ea845c9c04269409d1a713fab085b20de5bd3f2,d64334e46ba5f6425733f858e05a77bac70e1bfe7a3b39d16f908c14f8b61cfe,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-080.patch
+CRPP1-JOB-DEVELOPER_SETUP-081,controlled/jobfair-platform-copy,9200281,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-081"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-082"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-081
+- Profile: `developer-profile-081`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 081`
+- Migration command: `npm run supabase:migrate --profile 081`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-081: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7e06317b1faa31000c27ae35c7eba1935576dfa627804518b371c8887786396f,9221cc1ce1a181b929f90ab89954623563af021323923bfb3f973b4ffdb70f1e,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-081.patch
+CRPP1-JOB-DEVELOPER_SETUP-082,controlled/jobfair-platform-copy,9200282,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-082"",
+-      ""developmentCommand"": ""npm run dev -- --profile 082"",
++      ""developmentCommand"": ""npm run dev -- --profile 082 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 082"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-082"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-082
+- Profile: `developer-profile-082`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 082`
+- Migration command: `npm run supabase:migrate --profile 082`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-082: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 082' u 'npm run dev -- --profile 082 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,19facb24330058cde29d2af7f6d4cbeebc5ed4e0a1ae714eb092880c86e1d380,16392b6aa567dd541ca4171553089b6a7ea37cfddc5ef20d7aff820fcc3a3edf,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-082.patch
+CRPP1-JOB-DEVELOPER_SETUP-083,controlled/jobfair-platform-copy,9200283,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""JOB-SETUP-083"",
+       ""developmentCommand"": ""npm run dev -- --profile 083"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 083"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-083"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-083
+- Profile: `developer-profile-083`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 083`
+- Migration command: `npm run supabase:migrate --profile 083`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-083: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3ac1985f170be15b89495f01891da2a8ae8da208fa2223545df9448691d7584d,fb330df5b3b19faaa077500b08ea4958f05a0b8ed96b2656b7b48dc98b60aa03,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-083.patch
+CRPP1-JOB-DEVELOPER_SETUP-084,controlled/jobfair-platform-copy,9200284,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-084"",
+       ""developmentCommand"": ""npm run dev -- --profile 084"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 084"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 084 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-084"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-084
+- Profile: `developer-profile-084`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 084`
+- Migration command: `npm run supabase:migrate --profile 084`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-084: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 084' u 'npm run supabase:migrate --profile 084 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,be54f65d0378e929cb71fe7cb43a1e1475e0b4d9acd7e0072bc43cdc3912fc5e,fd443c5e0153cd101473c6d8a4170e212a5b5305eb5685a29ecf5c039fa57ea2,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-084.patch
+CRPP1-JOB-DEVELOPER_SETUP-085,controlled/jobfair-platform-copy,9200285,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-085"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-086"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-085
+- Profile: `developer-profile-085`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 085`
+- Migration command: `npm run supabase:migrate --profile 085`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-085: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aa8c99e41bbc1370ea4baf6f46bcd653ada7da52206f73f784a89be4f51fa35f,a95151523cf019ba81bae7bde816f144f245dc6efe268795b6350313f0f6d9f3,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-085.patch
+CRPP1-JOB-DEVELOPER_SETUP-086,controlled/jobfair-platform-copy,9200286,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-086"",
+-      ""developmentCommand"": ""npm run dev -- --profile 086"",
++      ""developmentCommand"": ""npm run dev -- --profile 086 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 086"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-086"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-086
+- Profile: `developer-profile-086`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 086`
+- Migration command: `npm run supabase:migrate --profile 086`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-086: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 086' u 'npm run dev -- --profile 086 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,285c09c94ecef6cc6234b4dbac34f86bb66fad002446c78ab9841d73e9ebcd21,fe5d97d6dd1e1e8e1c4cb2692d82d1a23c7e4f04eba24177ad226ee73e6e13d6,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-086.patch
+CRPP1-JOB-DEVELOPER_SETUP-087,controlled/jobfair-platform-copy,9200287,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""JOB-SETUP-087"",
+       ""developmentCommand"": ""npm run dev -- --profile 087"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 087"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-087"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-087
+- Profile: `developer-profile-087`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 087`
+- Migration command: `npm run supabase:migrate --profile 087`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-087: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7e5caf7d72d2876cf73485f1922c9f1766ae9f2f44ca9c5981a0e27ab6ee2662,138fdccad12cd2148a373dcc28148c5b06b6cf8292a5be9b32d43566de1c37e7,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-087.patch
+CRPP1-JOB-DEVELOPER_SETUP-088,controlled/jobfair-platform-copy,9200288,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-088"",
+       ""developmentCommand"": ""npm run dev -- --profile 088"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 088"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 088 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-088"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-088
+- Profile: `developer-profile-088`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 088`
+- Migration command: `npm run supabase:migrate --profile 088`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-088: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 088' u 'npm run supabase:migrate --profile 088 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ef82b778fa0d1933751238373eafbd6e5eaf8e1d36830c04de4beebb7de4f25e,09c0b8c413427eaff8e2e5a51817d05da503ec8bc147b95c20552f6bd8bdcbb9,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-088.patch
+CRPP1-JOB-DEVELOPER_SETUP-089,controlled/jobfair-platform-copy,9200289,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-089"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-090"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-089
+- Profile: `developer-profile-089`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 089`
+- Migration command: `npm run supabase:migrate --profile 089`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-089: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,81cdc75267c45df32936f42bbbc1d4d78fec57343dfe7dc2c0bed40cc321663f,d89e1e83a8fe958b633636b259dde4e849104fb7c9f14477977bea335144f846,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-089.patch
+CRPP1-JOB-DEVELOPER_SETUP-090,controlled/jobfair-platform-copy,9200290,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_09.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_09.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_09.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-090"",
+-      ""developmentCommand"": ""npm run dev -- --profile 090"",
++      ""developmentCommand"": ""npm run dev -- --profile 090 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 090"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-090"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-090
+- Profile: `developer-profile-090`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 090`
+- Migration command: `npm run supabase:migrate --profile 090`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-090: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 090' u 'npm run dev -- --profile 090 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,596fd804a7feb963405f8ec165ade630eaad83e488a0655cba5e6fe26be92c4f,d8f2fd1e447a19464ed1f281e4cfc9650f12c566eef029c0778a3167ee978278,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-090.patch
+CRPP1-JOB-DEVELOPER_SETUP-091,controlled/jobfair-platform-copy,9200291,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""JOB-SETUP-091"",
+       ""developmentCommand"": ""npm run dev -- --profile 091"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 091"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-091"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-091
+- Profile: `developer-profile-091`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 091`
+- Migration command: `npm run supabase:migrate --profile 091`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-091: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,07c6e69e292699e6a3ad3a7b25274f5aa2f55f4c4c8273538cabb8a247dee0b6,0a66936459b5133722a6709e70919eaa05001251f783d6e582143a58d9a34b52,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-091.patch
+CRPP1-JOB-DEVELOPER_SETUP-092,controlled/jobfair-platform-copy,9200292,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-092"",
+       ""developmentCommand"": ""npm run dev -- --profile 092"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 092"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 092 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-092"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-092
+- Profile: `developer-profile-092`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 092`
+- Migration command: `npm run supabase:migrate --profile 092`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-092: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 092' u 'npm run supabase:migrate --profile 092 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e080e04d117a45ec9d27de4cab5ca5b1b8fdcf42f1d742009bef4785f3e29c0a,1afb4184204684a8f40cf045ad62ab2777a338c95a53c17eff222d4b69514557,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-092.patch
+CRPP1-JOB-DEVELOPER_SETUP-093,controlled/jobfair-platform-copy,9200293,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-093"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-094"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-093
+- Profile: `developer-profile-093`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 093`
+- Migration command: `npm run supabase:migrate --profile 093`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-093: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1cbaf2e6284c2c165bc2689d98df5b124a95c251660e9da1cd371ab4ab1a3880,95cf7228dfbd9ecabb5fcc7133db096dd7e5c87b7e3e0974a3dd545a96bacc46,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-093.patch
+CRPP1-JOB-DEVELOPER_SETUP-094,controlled/jobfair-platform-copy,9200294,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-094"",
+-      ""developmentCommand"": ""npm run dev -- --profile 094"",
++      ""developmentCommand"": ""npm run dev -- --profile 094 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 094"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-094"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-094
+- Profile: `developer-profile-094`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 094`
+- Migration command: `npm run supabase:migrate --profile 094`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-094: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 094' u 'npm run dev -- --profile 094 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,af16122d034d8d1436cba6fda88e4e052b176ad07bb35af2939283a0ef656ffa,2d879966706c03da65cabd9fe6b543ecb27f189c6228120f7ca0564ea611dd78,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-094.patch
+CRPP1-JOB-DEVELOPER_SETUP-095,controlled/jobfair-platform-copy,9200295,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""JOB-SETUP-095"",
+       ""developmentCommand"": ""npm run dev -- --profile 095"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 095"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-095"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-095
+- Profile: `developer-profile-095`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 095`
+- Migration command: `npm run supabase:migrate --profile 095`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-095: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5ca5448ce56f6097a0ea26b2369ddcefa2deda4b9c9cd76e0e7ec5e414b738ac,c87d903832b1be4d84a2d8af8ac997035073a904b89fd743e87087b3c2282e94,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-095.patch
+CRPP1-JOB-DEVELOPER_SETUP-096,controlled/jobfair-platform-copy,9200296,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-096"",
+       ""developmentCommand"": ""npm run dev -- --profile 096"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 096"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 096 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-096"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-096
+- Profile: `developer-profile-096`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 096`
+- Migration command: `npm run supabase:migrate --profile 096`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-096: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 096' u 'npm run supabase:migrate --profile 096 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d19cdda18899010f85891ca942b087f71d06cb4ca7cbb84b43c678fa70f1c8e0,be57cff45fe28fc6a8ffa5391912123f5d9838a5c16f4c503c2ab118047a69b3,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-096.patch
+CRPP1-JOB-DEVELOPER_SETUP-097,controlled/jobfair-platform-copy,9200297,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-097"",
+       ""runtime"": ""Node.js"",
+-      ""runtimeVersion"": ""20.11""
++      ""runtimeVersion"": ""22.0""
+     },
+     {
+       ""contractId"": ""JOB-SETUP-098"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-097
+- Profile: `developer-profile-097`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 097`
+- Migration command: `npm run supabase:migrate --profile 097`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-097: kod mijenja dokumentovani razvojni setup iz '20.11' u '22.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eb667d605eafad4535c7000f654d336e99f657f97c260663ab877b8f01512323,02a5fa4f3caf633c1546e00d37e2a7ba99c16ea14dc5885861ab65d0b9b2ee51,developer_setup,jobfair_platform,runtime_requirement_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-097.patch
+CRPP1-JOB-DEVELOPER_SETUP-098,controlled/jobfair-platform-copy,9200298,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""JOB-SETUP-098"",
+-      ""developmentCommand"": ""npm run dev -- --profile 098"",
++      ""developmentCommand"": ""npm run dev -- --profile 098 --strict"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 098"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-098"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-098
+- Profile: `developer-profile-098`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 098`
+- Migration command: `npm run supabase:migrate --profile 098`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-098: kod mijenja dokumentovani razvojni setup iz 'npm run dev -- --profile 098' u 'npm run dev -- --profile 098 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e1945117a45d5e041910655ea2fa8e3d6e0bd519465233479abefc2921265d52,455c4a7b40d8caf8fdd62738363cbc18ab46e39b3c06ef39b3f53bcafbe3c0aa,developer_setup,jobfair_platform,local_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-098.patch
+CRPP1-JOB-DEVELOPER_SETUP-099,controlled/jobfair-platform-copy,9200299,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""JOB-SETUP-099"",
+       ""developmentCommand"": ""npm run dev -- --profile 099"",
+       ""migrationCommand"": ""npm run supabase:migrate --profile 099"",
+-      ""packageManager"": ""npm@10"",
++      ""packageManager"": ""npm@11"",
+       ""profile"": ""developer-profile-099"",
+       ""runtime"": ""Node.js"",
+       ""runtimeVersion"": ""20.11""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-099
+- Profile: `developer-profile-099`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 099`
+- Migration command: `npm run supabase:migrate --profile 099`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-099: kod mijenja dokumentovani razvojni setup iz 'npm@10' u 'npm@11' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1d78558424b6a7278d417a724fa3111d222b0b5aecac24d1c0c4df17c9cc902b,b764ebf0cb213f00a4d890c4faa60e6e12f704a02430b63ce32eb796f15f68ac,developer_setup,jobfair_platform,package_manager_version_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-099.patch
+CRPP1-JOB-DEVELOPER_SETUP-100,controlled/jobfair-platform-copy,9200300,typescript,"[""src/docguard-contract-lab/developer_setup/contracts_10.json""]","--- a/src/docguard-contract-lab/developer_setup/contracts_10.json
++++ b/src/docguard-contract-lab/developer_setup/contracts_10.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""JOB-SETUP-100"",
+       ""developmentCommand"": ""npm run dev -- --profile 100"",
+-      ""migrationCommand"": ""npm run supabase:migrate --profile 100"",
++      ""migrationCommand"": ""npm run supabase:migrate --profile 100 --no-build"",
+       ""packageManager"": ""npm@10"",
+       ""profile"": ""developer-profile-100"",
+       ""runtime"": ""Node.js"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:7b8aae7467eef5a0 -->
+### JOB-SETUP-100
+- Profile: `developer-profile-100`
+- Required runtime: `Node.js 20.11`
+- Package manager: `npm@10`
+- Local development command: `npm run dev -- --profile 100`
+- Migration command: `npm run supabase:migrate --profile 100`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"JOB-SETUP-100: kod mijenja dokumentovani razvojni setup iz 'npm run supabase:migrate --profile 100' u 'npm run supabase:migrate --profile 100 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9edff6994d3dfdd664760c2ba6962ce6ebb1cb348b85bb4e03f70050e7694827,95548092ce12b7b17e9ba9dc7e49ffe537d160c58e515f039a8da64360a53ad0,developer_setup,jobfair_platform,migration_command_change,cases/patches/jobfair_platform/developer_setup/JOB-SETUP-100.patch

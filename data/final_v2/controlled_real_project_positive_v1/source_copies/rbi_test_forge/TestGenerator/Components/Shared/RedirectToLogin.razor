@@ -1,0 +1,35 @@
+@inject NavigationManager Navigation
+
+@* RedirectToLogin — renderira se unutar <AuthorizeRouteView><NotAuthorized>.
+   Razlikuje dva slučaja:
+   - Neautentificiran korisnik → OIDC challenge (Keycloak login)
+   - Autentificiran ali bez prava (npr. [Authorize(Roles=...)] fail) → /access-denied *@
+
+@code {
+    [CascadingParameter] private Task<AuthenticationState>? AuthStateTask { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AuthStateTask is null) return;
+
+        var state = await AuthStateTask;
+        var isAuthenticated = state.User.Identity?.IsAuthenticated == true;
+
+        if (!isAuthenticated)
+        {
+            // Sačuvaj originalnu rutu (path + query) da se korisnik vrati nakon login-a.
+            var returnUrl = Uri.EscapeDataString(
+                new Uri(Navigation.Uri).PathAndQuery);
+
+            // OIDC challenge endpoint — forceLoad jer redirect na Keycloak ide
+            // kroz server (ne klijentski circuit).
+            Navigation.NavigateTo(
+                $"/authentication/login?returnUrl={returnUrl}", forceLoad: true);
+        }
+        else
+        {
+            // Prijavljen je, ali nema potrebnu rolu → Access Denied.
+            Navigation.NavigateTo("/access-denied", forceLoad: false);
+        }
+    }
+}

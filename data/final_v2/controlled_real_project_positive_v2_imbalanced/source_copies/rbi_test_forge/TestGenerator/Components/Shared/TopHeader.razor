@@ -1,0 +1,91 @@
+@using RBBH.TestAutomation.Api.Services.Run
+@implements IDisposable
+@inject IDialogService DialogService
+@inject ToastService Toast
+@inject NavigationManager Navigation
+@inject TestRunStateService RunState
+
+<header class="top">
+    <div class="top__left">
+        <button class="icon-btn icon-btn--burger" @onclick="OnBurgerClick" aria-label="Toggle navigation">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+        </button>
+        <div class="brand-row">
+            <img class="brand-row__mark" src="images/login/logo-mark.png" alt="" />
+            <div>
+                <p class="top-eyebrow">Raiffeisen Bank</p>
+                <h1 class="app-title">Test Automation Generator</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="top__chevrons" aria-hidden="true">
+        <Chevron Size="48" Color="#0E0F12" />
+        <Chevron Size="48" Color="#0E0F12" />
+    </div>
+
+    <div class="top__right">
+        <div class="top__actions">
+            <button class="btn-action btn-action--ghost" @onclick="OnRunClick" disabled="@RunState.IsRunning">
+                <BrandIcon Name="play" Size="16" Color="currentColor" />
+                <span>@(RunState.IsRunning ? "Pokrećem…" : "Pokreni")</span>
+            </button>
+            <button class="btn-action btn-action--primary" @onclick="OnNewClick">
+                <span class="btn-action__plus">+</span>
+                <span>Novo</span>
+            </button>
+        </div>
+        <div class="user">
+            <span class="user__name">@UserName</span>
+            <span class="user__avatar">@UserInitials</span>
+        </div>
+        <button class="icon-btn" @onclick="OnLogoutClick" aria-label="Odjava">
+            <BrandIcon Name="logout" Size="20" Color="#0E0F12" />
+        </button>
+    </div>
+</header>
+
+@code {
+    [Parameter] public string        UserName      { get; set; } = "Korisnik";
+    [Parameter] public string        UserInitials  { get; set; } = "KK";
+    [Parameter] public EventCallback OnBurgerClick { get; set; }
+    [Parameter] public EventCallback OnLogoutClick { get; set; }
+
+    protected override void OnInitialized() => RunState.Changed += OnRunStateChanged;
+    private void OnRunStateChanged() => InvokeAsync(StateHasChanged);
+    public void Dispose() => RunState.Changed -= OnRunStateChanged;
+
+    // "Pokreni" pokreće sve scenarije (Scenariji tab). Indikator napretka je u sidebaru.
+    private async Task OnRunClick()
+    {
+        if (RunState.IsRunning) return;
+        await RunState.RunAllAsync();
+
+        if (RunState.Phase == TestRunPhase.AllPassed)
+            Toast.Success($"Svi testovi prošli ({RunState.PassedCount}).");
+        else if (RunState.Phase == TestRunPhase.SomeFailed)
+            Toast.Error($"{RunState.FailedCount} test(ova) palo, {RunState.PassedCount} prošlo.");
+    }
+
+    // "Novo" otvara dijalog za novu grupu (top-level entitet), pa vodi na /grupe.
+    private async Task OnNewClick()
+    {
+        var parameters = new DialogParameters
+        {
+            [nameof(GroupDialog.Existing)]      = (GroupDto?)null,
+            [nameof(GroupDialog.ParentGroupId)] = (Guid?)null,
+            [nameof(GroupDialog.RootGroups)]    = (IReadOnlyList<GroupDto>)[],
+        };
+
+        var dialog = await DialogService.ShowAsync<GroupDialog>(
+            "Nova grupa",
+            parameters,
+            new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small, FullWidth = true });
+
+        if (await dialog.Result is { Canceled: false })
+            Navigation.NavigateTo("/grupe");
+    }
+}

@@ -1,0 +1,2247 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP2-RPP-MODEL_CONTRACT-126,controlled-v2/rbi-related-parties-portal-copy,9401001,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract126"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-126 — `RPPPublicContract126`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-126: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0aadf88f24ba65b9cea748a190d5d56224033e3c5368f69e55a0d0fe2b40f809,8036dc20fc102140fcf285fe56b9e70e8f8257e943f2892777dcc815afcb377f,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-126.patch
+CRPP2-RPP-MODEL_CONTRACT-127,controlled-v2/rbi-related-parties-portal-copy,9401002,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-127 — `RPPPublicContract127`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-127: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,403456fe7b5066d1087ac682b227f5883632eb98349b6adec2e86fcf3cae3468,63cc13912d910db6a2a5ddc3e43dc756da3930b7f452c1bd622e373ff878d93c,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-127.patch
+CRPP2-RPP-MODEL_CONTRACT-128,controlled-v2/rbi-related-parties-portal-copy,9401003,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-128"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-128 — `RPPPublicContract128`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-128: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,32b0db78946ad68ffa5ebe1257e8c91089abd2361ad6a033ce6c98c9ec936b81,656c476a19f2717961bd9a3f075838b58ee4edc4207cbbb277b225cd35e511de,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-128.patch
+CRPP2-RPP-MODEL_CONTRACT-129,controlled-v2/rbi-related-parties-portal-copy,9401004,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-129 — `RPPPublicContract129`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-129: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d76ea585571362db37a4d68cd51918d575c084d843c508838de12f5696f7a5fd,61851fb79894ad9d4c09d801ed7e5dfb4d2af1006da27082bcc3dfdda885796d,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-129.patch
+CRPP2-RPP-MODEL_CONTRACT-130,controlled-v2/rbi-related-parties-portal-copy,9401005,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_03.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract130"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-130 — `RPPPublicContract130`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-130: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,73e592d88db9781569adba34e8985e685dd5f0cf9e7e61cd4c692a27daf1ccb6,3fcab444b59fbe6ec9193eb04b1fbc081615a4747f57ab731188e6370d6eaeb3,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-130.patch
+CRPP2-RPP-MODEL_CONTRACT-131,controlled-v2/rbi-related-parties-portal-copy,9401006,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-131 — `RPPPublicContract131`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-131: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fdf420300ff0baff23773628e7dc4390f74e48f325b20c2bc9a3a5b7efc38e13,e69c843f7e529ace37df6fa1c5e6eac416d550fa963c35d4274b6824c69dd274,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-131.patch
+CRPP2-RPP-MODEL_CONTRACT-132,controlled-v2/rbi-related-parties-portal-copy,9401007,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-132"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-132 — `RPPPublicContract132`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-132: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,13d56aaec93953de6d065e18db7099a39d74fd4b6d564809d4648e9881a6f7c6,df2a7c73fe8450131502fa91fed09dfd90b6bce795f8993a796fa91f75a918d0,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-132.patch
+CRPP2-RPP-MODEL_CONTRACT-133,controlled-v2/rbi-related-parties-portal-copy,9401008,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-133 — `RPPPublicContract133`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-133: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,39229235a89bad5d925d3f1538f3eb85f76f41920fc18bd1d91ad60ebd6737fe,497d947ab8e63559bfa9f3eead542097599c4925872755cb8b8bf303c71d47fa,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-133.patch
+CRPP2-RPP-MODEL_CONTRACT-134,controlled-v2/rbi-related-parties-portal-copy,9401009,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract134"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-134 — `RPPPublicContract134`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-134: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,26cfdeb29ad39acc54a8674b20674e9338d300a6c98d26458b174bebbcc48465,ebf0ced248bdd0c076ae75766b15e07c6f5fa7c5ba24e6bb0f99364077ea2537,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-134.patch
+CRPP2-RPP-MODEL_CONTRACT-135,controlled-v2/rbi-related-parties-portal-copy,9401010,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-135 — `RPPPublicContract135`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-135: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,10a50bb562f520110170f30df7871ec6a7bab3f054e5c1a6db06169334239d16,0aec58379721f1c748a943f763ccc53c03ba5532c8e47f03ee93ab7eca6f7efb,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-135.patch
+CRPP2-RPP-MODEL_CONTRACT-136,controlled-v2/rbi-related-parties-portal-copy,9401011,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-136"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-136 — `RPPPublicContract136`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-136: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8fc35149bf4e3292e2d68d67128c0b83dae1e2529de7b69b862edd9a5adeb479,4712eab2573e85344b2d14c88bd99e573e63c4ae3434307172424f923a22a7c8,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-136.patch
+CRPP2-RPP-MODEL_CONTRACT-137,controlled-v2/rbi-related-parties-portal-copy,9401012,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-137 — `RPPPublicContract137`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-137: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fcf62bc7f3b9df12c0814979e3246f7234e7ceca0163070a13e3d6532b0684fc,ec2df57047e0f22fe02c25647056ebac5c469f6cb87e1038295b2cc4ea6ead63,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-137.patch
+CRPP2-RPP-MODEL_CONTRACT-138,controlled-v2/rbi-related-parties-portal-copy,9401013,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract138"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-138 — `RPPPublicContract138`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-138: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,90ba693a44b2ab1b686fbf260e99db40be219f287d10b4e2b11285c0a3515253,b4affcaecd2de1ece4f88ae9267c04b1192add64d6d30b875ffe5d59853c7555,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-138.patch
+CRPP2-RPP-MODEL_CONTRACT-139,controlled-v2/rbi-related-parties-portal-copy,9401014,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-139 — `RPPPublicContract139`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-139: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0024fe06a5e444ee801e28b6c3a124f6fbc4ffeab1dc9fbce1db3b06f9832c3f,d685e2da648308feef83da4ad73b4dfde79f5e38430bd0bb150ea4d6de8a1056,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-139.patch
+CRPP2-RPP-MODEL_CONTRACT-140,controlled-v2/rbi-related-parties-portal-copy,9401015,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_04.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-140"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-140 — `RPPPublicContract140`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-140: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,db5d6ee2b26422883070c9449dc1e006eb58f5f901e0b09aa5a15e1c1fbe40ad,5186aa2a3d9885ed9b85c64588fd86f120cf5bfd7ace73d3e98604ecc14edb4e,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-140.patch
+CRPP2-RPP-MODEL_CONTRACT-141,controlled-v2/rbi-related-parties-portal-copy,9401016,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-141 — `RPPPublicContract141`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-141: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3b4be58406edd2b798611dbc29c56f6f8203db718efad43773b3a9b826c6de72,faa627962426cca6367f9472152352afa6bd4aaf5e1ab7302d3ff3b7dae0056d,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-141.patch
+CRPP2-RPP-MODEL_CONTRACT-142,controlled-v2/rbi-related-parties-portal-copy,9401017,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract142"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-142 — `RPPPublicContract142`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-142: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ad84cb2ccb44d17c41607ce54983c93b0092ba302b97d8081e58128114a60e9a,7c135eecbf715897b663203a6862149ad58af232b39ced917b5112cd0e1f6278,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-142.patch
+CRPP2-RPP-MODEL_CONTRACT-143,controlled-v2/rbi-related-parties-portal-copy,9401018,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-143 — `RPPPublicContract143`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-143: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,754ac02014a568f64c4b912692d7c628701f730ec0bc12f632d3b04c0e9bb1d3,ff67929670da55679deba2a3cac1fb2b103c6c55f3c2d69a65a654c3700f4c1c,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-143.patch
+CRPP2-RPP-MODEL_CONTRACT-144,controlled-v2/rbi-related-parties-portal-copy,9401019,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-144"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-144 — `RPPPublicContract144`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-144: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,776fcd79c43f35675deaedc997bd830e3d36173b1c2aadf2369b634ba7c61a75,5cfca6d709a1c2c8f0b9b95c37ff926a185b8464b540b770f7a2b363969647b5,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-144.patch
+CRPP2-RPP-MODEL_CONTRACT-145,controlled-v2/rbi-related-parties-portal-copy,9401020,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-145 — `RPPPublicContract145`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-145: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c885f7601bc1ae9cf4d7ffe8a72f71ed0760a1fb6902fb2ad9c475242e9cc0e6,0ac1731c9be0b580136e0ec1b7f56e94bd9222928f1ab4dfb1881ed7918e4cfa,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-145.patch
+CRPP2-RPP-MODEL_CONTRACT-146,controlled-v2/rbi-related-parties-portal-copy,9401021,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract146"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-146 — `RPPPublicContract146`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-146: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3d186016f7b9077fe8338ca5a97cb28a5a242d76cdaaaed5c907877cf2ab60ed,32ea775e10da8cc0d692d145d805453ea83a5179b55d127fa8156cab4fa25564,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-146.patch
+CRPP2-RPP-MODEL_CONTRACT-147,controlled-v2/rbi-related-parties-portal-copy,9401022,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-147 — `RPPPublicContract147`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-147: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,62bcf0850cc1b1b2aa70e9ce2ff60cce759dd3133b39a9a245d38a53bd820387,d6b7436fefc8fcd8a9a1e7c4dc8cc3a552229ed5d0c3d396e6becc61a3384c47,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-147.patch
+CRPP2-RPP-MODEL_CONTRACT-148,controlled-v2/rbi-related-parties-portal-copy,9401023,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-148"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-148 — `RPPPublicContract148`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-148: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,83011fc4bd8044c282cfb275266cf1ba13cdd1a53b388b5de52bf89f6e47ecb7,122a5b07d1907daa0160e0001b78d06bbec08f6362b5f2576628064b8f06ada8,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-148.patch
+CRPP2-RPP-MODEL_CONTRACT-149,controlled-v2/rbi-related-parties-portal-copy,9401024,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-149 — `RPPPublicContract149`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-149: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2230fff2ec9b5f275c5284abc91d844048988a6510e249a8db7b6213b51a9eb9,ada360ac7d78bc129fb12e1070fe3e1f05223e1a3a0fa17279f5103b65453b57,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-149.patch
+CRPP2-RPP-MODEL_CONTRACT-150,controlled-v2/rbi-related-parties-portal-copy,9401025,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_05.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract150"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-150 — `RPPPublicContract150`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-150: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eb2c4d13f78cf569509bf487e5661556b3237a64728d9b36f2abda458df51f4b,3486b662366c44ba7af79cb6d9737869f956369bf5bf0f7dd5a50ac745054760,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-150.patch
+CRPP2-RPP-MODEL_CONTRACT-151,controlled-v2/rbi-related-parties-portal-copy,9401026,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-151 — `RPPPublicContract151`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-151: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aa3c74a4f3baf4bc45758be961d5ec37082c3689bb96a1ee64f6a2904d548cd0,c7dccc3eb0e9ef13a79585463d6aabfa0d1442c5c8b67c9d89aabfc15e77d377,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-151.patch
+CRPP2-RPP-MODEL_CONTRACT-152,controlled-v2/rbi-related-parties-portal-copy,9401027,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-152"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-152 — `RPPPublicContract152`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-152: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3b9fcef7c6a2f03a410ead892844ff0c3a910b14802d3dd0dd0557298b047a12,16d04049066e3b1e5ea42bce2b8c9301d029305665c372999e0ad6f425dc0008,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-152.patch
+CRPP2-RPP-MODEL_CONTRACT-153,controlled-v2/rbi-related-parties-portal-copy,9401028,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-153 — `RPPPublicContract153`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-153: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a6ae28a06c44a459373ae875d7680943f791c9175625aaf27d11c00abf69216a,9c9650fa4e2a3bcc987da66642447baf821bad9bc5cd558ae2d37d67be14c9cd,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-153.patch
+CRPP2-RPP-MODEL_CONTRACT-154,controlled-v2/rbi-related-parties-portal-copy,9401029,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract154"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-154 — `RPPPublicContract154`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-154: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6cab37f3378411866e8b78aad7814bf74987ca8ed0ed5098ab4fb196ade25fc5,cbab52d0a7fe752cb877066064f3e0c488c90dc31dd672602625f0f51ae9ccda,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-154.patch
+CRPP2-RPP-MODEL_CONTRACT-155,controlled-v2/rbi-related-parties-portal-copy,9401030,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-155 — `RPPPublicContract155`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-155: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cf6f58860012415826a43a95448129084bd57638220205d13b3dea0f042fd9dd,ae6e5c70acd9e98a61fc4622ab92e1e5ac3d45f56ab4c5ab32a2790bf70c769c,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-155.patch
+CRPP2-RPP-MODEL_CONTRACT-156,controlled-v2/rbi-related-parties-portal-copy,9401031,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-156"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-156 — `RPPPublicContract156`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-156: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,471e0a2d0920aed6d2a2d52736d4c2cb118e15b808bd9366e9d34646290ae896,d3c6dc31a25ab6739e1caa7841a34ada895a86c930ca101b00a76f61b075e517,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-156.patch
+CRPP2-RPP-MODEL_CONTRACT-157,controlled-v2/rbi-related-parties-portal-copy,9401032,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-157 — `RPPPublicContract157`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-157: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,72f56ddc4d0b8f7330ba7c890cad72b0227e499e23372aa4612f7e65838f9db3,7fefac167b81b93381c617013ec9aadac5131b63e3511f9ea002e563be691eaa,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-157.patch
+CRPP2-RPP-MODEL_CONTRACT-158,controlled-v2/rbi-related-parties-portal-copy,9401033,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract158"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-158 — `RPPPublicContract158`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-158: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0d344d2bdaacf0f0f5d62fc5268cee58a67cdf1b1eb50d2fc45237f7aa745efa,6e3f05f4ab36bb8eff5e2a80bcb5aed7447c7e9bb6d18f64907ec54d6f561fab,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-158.patch
+CRPP2-RPP-MODEL_CONTRACT-159,controlled-v2/rbi-related-parties-portal-copy,9401034,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-159 — `RPPPublicContract159`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-159: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a70efd50aaaff689de7da99444a0d33e7f90944bb403d14edeab305989bd1d13,08bb36c69a5ea2734d3ca50c4b51a29b9d663f169fbccc2e13e4130613520fab,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-159.patch
+CRPP2-RPP-MODEL_CONTRACT-160,controlled-v2/rbi-related-parties-portal-copy,9401035,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_06.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-160"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-160 — `RPPPublicContract160`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-160: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0b07b20ba4990e09f2e5ea5a00fe9739b7251ddb6de4b2385c343c2d35a3f060,402b3b53706bdc92654b4a057e9abfd1e3e943beb202afb2d352d10c1eb333bf,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-160.patch
+CRPP2-RPP-MODEL_CONTRACT-161,controlled-v2/rbi-related-parties-portal-copy,9401036,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-161 — `RPPPublicContract161`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-161: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,53e0170c4faf6828af6b58b11a3f990556dece921bc9877fe55d5ee913c89b7a,ac0e2ea4cfd0d1bcaf527cd63cb3df7512ecd8ad9368d37fcb86a4f658b03005,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-161.patch
+CRPP2-RPP-MODEL_CONTRACT-162,controlled-v2/rbi-related-parties-portal-copy,9401037,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract162"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-162 — `RPPPublicContract162`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-162: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2718fbe9ad1f9e52901fa32601ee46c1a8721623395ce8a7cc3364c8762d76c1,04860b7cc9b780144ae911c611edf966b9269374149785bef0fa01f44887310c,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-162.patch
+CRPP2-RPP-MODEL_CONTRACT-163,controlled-v2/rbi-related-parties-portal-copy,9401038,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-163 — `RPPPublicContract163`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-163: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,11567f4831a652deed838c4957482a386679dd51187fb2279273b39a8f08370b,78e5907c4ea16b3600ed1909f1e28ab0839c25e6a2bd944eb7e2e377ba0624bc,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-163.patch
+CRPP2-RPP-MODEL_CONTRACT-164,controlled-v2/rbi-related-parties-portal-copy,9401039,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-164"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-164 — `RPPPublicContract164`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-164: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,89d4e865e9765fc72d3708d098b46fe4eec09469e40630edc7d45751e6f2da69,8fb6f293f878e34b29465dedee5458875ecef4ad0e5ab248516cd3c37880be0e,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-164.patch
+CRPP2-RPP-MODEL_CONTRACT-165,controlled-v2/rbi-related-parties-portal-copy,9401040,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-165 — `RPPPublicContract165`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-165: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5f32e7ad8a82dd0971005372219aec68fa0db12f01c63da8cf09657dd5dee4b5,6d937029531c52b0eeddc7a2f8d8286aa3efb97fabad6b65f0f5e93ce30af91b,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-165.patch
+CRPP2-RPP-MODEL_CONTRACT-166,controlled-v2/rbi-related-parties-portal-copy,9401041,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract166"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-166 — `RPPPublicContract166`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-166: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,68a7ac926ae0e4e91f41d50aa1fe00b6365996e83ab4123accaf3315ac053dd6,7acc4afbf2af1cbd9b2f423dbde64ca79ae72852c029aeb1f629950ee0eadddd,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-166.patch
+CRPP2-RPP-MODEL_CONTRACT-167,controlled-v2/rbi-related-parties-portal-copy,9401042,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-167 — `RPPPublicContract167`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-167: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,98b5afbd6786d746555ae3cfada40e2fc2fa43ac9f9fb77ce491bc623f2bd0d3,6acd55a0a2bb30a74e3f9e81e7856698d0ad9f2d179e96af29a26da3825fe84e,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-167.patch
+CRPP2-RPP-MODEL_CONTRACT-168,controlled-v2/rbi-related-parties-portal-copy,9401043,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-168"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-168 — `RPPPublicContract168`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-168: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,46a1366239919578280205e428b58dbcab1b058f066986f80e43348878cd2a2f,a3681a8cc629fb8b0cadd3206fb6a501d2df56984df3f8ddd2220072b43f746a,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-168.patch
+CRPP2-RPP-MODEL_CONTRACT-169,controlled-v2/rbi-related-parties-portal-copy,9401044,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-169 — `RPPPublicContract169`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-169: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bba7649d4fe39f5f05d6d00908f610cc363e650e5f131688da5764198f146ec2,904e615af99bd294c5dfb233172590be418a2e866afe7c9cd4181b6a4a664fdf,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-169.patch
+CRPP2-RPP-MODEL_CONTRACT-170,controlled-v2/rbi-related-parties-portal-copy,9401045,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_07.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract170"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-170 — `RPPPublicContract170`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-170: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,645806ec574304f907e6f0c080303b2d4cba1aa4d13ada03e779a78c54c5e620,0a22976e27be35abc82e705f2f884107e2ede301fd3930152f0773c9c0b547c7,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-170.patch
+CRPP2-RPP-MODEL_CONTRACT-171,controlled-v2/rbi-related-parties-portal-copy,9401046,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-171 — `RPPPublicContract171`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-171: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fe423e84521dfb21fda8412db1212f20196164a2285f7cd3c3e9b700d8cd88ec,5e17507ab81018b948d1b0f36c3f0f8142675abb7cee6344e7e48fdf19cc9830,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-171.patch
+CRPP2-RPP-MODEL_CONTRACT-172,controlled-v2/rbi-related-parties-portal-copy,9401047,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""RPP-MODEL-172"",
+       ""properties"": {
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
+         ""id"": {
+           ""format"": ""uuid"",
+           ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-172 — `RPPPublicContract172`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-172: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,36ff05917cbc5b8a6c57aa6b8fb9238daa9ef48f0b704f6d398a4eb8638b3ca7,a3170d5b3756b34ed419e594842a8f9836c07286adedc11159b005ebe2f3c9a4,model_contract,rbi_related_parties_portal,serialized_field_rename,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-172.patch
+CRPP2-RPP-MODEL_CONTRACT-173,controlled-v2/rbi-related-parties-portal-copy,9401048,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-173 — `RPPPublicContract173`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-173: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,97d016f1c717b53e68445113018c7fb399aac88dfb213cb4027c9750fac43047,c4191fb4cb33348e43a78b023f84393c05fbf841815b4dd236a0693d58189286,model_contract,rbi_related_parties_portal,serialized_field_type_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-173.patch
+CRPP2-RPP-MODEL_CONTRACT-174,controlled-v2/rbi-related-parties-portal-copy,9401049,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""RPPPublicContract174"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-174 — `RPPPublicContract174`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-174: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,27167dbe1e7876c4a5305299b493031d7008fe1456195452211acca2276f6d6e,c4bf7f42afff24e1b4bf7ef3ef1bfe19518e50edee1a72439fbe747e79dcba70,model_contract,rbi_related_parties_portal,required_field_change,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-174.patch
+CRPP2-RPP-MODEL_CONTRACT-175,controlled-v2/rbi-related-parties-portal-copy,9401050,typescript,"[""src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json""]","--- a/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
++++ b/src/Web/src/docguard-contract-lab-v2/model_contract/contracts_08.schema.json
+@@ -132,6 +132,10 @@
+           ""additionalProperties"": true,
+           ""type"": ""object""
+         },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
++        },
+         ""score"": {
+           ""minimum"": 0,
+           ""type"": ""integer""
+","<!-- docs/docguard-contract-lab-v2/MODEL_CONTRACTS.md @ controlled-baseline:b833cf74b1013c49 -->
+### RPP-MODEL-175 — `RPPPublicContract175`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"RPP-MODEL-175: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2462428de53d79379fbb91300a45bc202b6802e868be9683d08c0682d9245170,db4d24366c986d06b381ee2d1d671e3e02e740accf9ca77c5a0853a672572766,model_contract,rbi_related_parties_portal,serialized_field_added,cases/patches/rbi_related_parties_portal/model_contract/RPP-MODEL-175.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-101,controlled-v2/rbi-related-parties-portal-copy,9401051,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-101
+- Workflow: `rbi_related_parties_portal-approval-101`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-101: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,10993b0bd30c9f090acb89eb48ebe7d8ec7a829ffd71e81dc9729c1ec93df619,0d73396fdce7c0e79f56af4fe288783ba26f646f2fec6deab58e7b5f71771c94,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-101.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-102,controlled-v2/rbi-related-parties-portal-copy,9401052,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-102"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-102
+- Workflow: `rbi_related_parties_portal-approval-102`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-102: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5a94ca6874fd6b528f2a58746b3ca8438e4c8f3a194be1f7f35740fda020770b,f14c633ae747a0014d0d8e7c422870992882ec8e2d8a47fde3cf7422741a6924,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-102.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-103,controlled-v2/rbi-related-parties-portal-copy,9401053,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-103"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-103
+- Workflow: `rbi_related_parties_portal-approval-103`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-103: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,496c5731aeaa011c76102bf51957f4fd97b1bab38372ec33a9f447f8fe20953d,dff2df403f81f0df9ba4225ea8fdc6221183b32c4dc58574ae3213bfdae7bb33,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-103.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-104,controlled-v2/rbi-related-parties-portal-copy,9401054,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-104"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-104
+- Workflow: `rbi_related_parties_portal-approval-104`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-104: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ec7ede636ca24e6cfaa4170c5b68d0a0c70d8435331b9b3fe255b8cccd0a119e,86f9d3890e2eeb2e6b3353822bcf0a09725ed216c2e8aecc57f7fbbd5f7e1dd4,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-104.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-105,controlled-v2/rbi-related-parties-portal-copy,9401055,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-105
+- Workflow: `rbi_related_parties_portal-approval-105`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-105: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9dd734f974e958d0eadf346fa4032773743aac5e699eb3bd275d67345694999d,36ee975d0cf832cd79dc8f9596831bf648ebfba5724bd5dc44bf1c62da7a72dd,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-105.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-106,controlled-v2/rbi-related-parties-portal-copy,9401056,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-106"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-106
+- Workflow: `rbi_related_parties_portal-approval-106`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-106: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3c779b506fbb5359d794bfd5e1648462db0c2d9e069d6107bf7fcfcaf350d39a,ad265637ce278a604fc64b1c9396eac216208c20fb45dac04a9900b2c617980f,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-106.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-107,controlled-v2/rbi-related-parties-portal-copy,9401057,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-107"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-107
+- Workflow: `rbi_related_parties_portal-approval-107`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-107: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a39d2d617803abf9193fd54f1fba549a151aabfd097fb8e8e87c4593edc97047,d981d11e6236fda161329473884dfef4ecdc565026f733e55850253ecafcd3e1,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-107.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-108,controlled-v2/rbi-related-parties-portal-copy,9401058,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-108"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-108
+- Workflow: `rbi_related_parties_portal-approval-108`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-108: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b7451855f9bc32e3bd394db2c611e4a6234a71b045644e37a4e284ec5a2dcbb3,17d0d51f532d669f0b4f396159b939e9059711d3ca2572193fcc6902e73017c7,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-108.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-109,controlled-v2/rbi-related-parties-portal-copy,9401059,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-109
+- Workflow: `rbi_related_parties_portal-approval-109`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-109: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c477d5b286e81caa5e5e2d8471083d3d16643d0dc2867a352a398e8859109615,40a5aef224f501b3306de567fdec1727b8ef3060f1a4178420a7731bf53bc6e1,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-109.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-110,controlled-v2/rbi-related-parties-portal-copy,9401060,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_01.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-110"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-110
+- Workflow: `rbi_related_parties_portal-approval-110`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-110: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,33e5276b317b7b76b5717748765ea240a25b896c4a6537d0c1c4cb9f85da87ed,8811b64f35f2d2112f567df8ad70ea11c261addf7d869cc64144874e85fe3f27,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-110.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-111,controlled-v2/rbi-related-parties-portal-copy,9401061,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-111"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-111
+- Workflow: `rbi_related_parties_portal-approval-111`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-111: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8203883a7c30c678523b485954e73c247cf7ff851dec5f068a8e097e3eb12954,1a141e8944124a97d38773ad0783a078dff499d0263dcc132070195201b570cb,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-111.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-112,controlled-v2/rbi-related-parties-portal-copy,9401062,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-112"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-112
+- Workflow: `rbi_related_parties_portal-approval-112`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-112: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0f366ae69f348033ac92ee836eeed02dcdb161c6a148e588442c8f9e497123f1,9368f4760a2eb6e7a8ff08bfa436eba32a9e55dd1af9bffed2fc5ff56138478b,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-112.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-113,controlled-v2/rbi-related-parties-portal-copy,9401063,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-113
+- Workflow: `rbi_related_parties_portal-approval-113`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-113: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9f311da13abf1c76f758315b4d0e8acde5214c767ee2efa90a0326ef22088a2c,a91c19c33ff783de1c393834d3a66e5d7e2d888c5e43746a819bc6cc0d2da94d,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-113.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-114,controlled-v2/rbi-related-parties-portal-copy,9401064,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-114"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-114
+- Workflow: `rbi_related_parties_portal-approval-114`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-114: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,51b3373bc2e836ac2ff99e42c72ccc34d727f2f075fa39099527cf5cf5084f13,9d6532c519f0c8df4c171da1d8a0b52686409c6f2fd5c9394d271b2fe4fe4b0d,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-114.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-115,controlled-v2/rbi-related-parties-portal-copy,9401065,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-115"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-115
+- Workflow: `rbi_related_parties_portal-approval-115`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-115: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f24ab93c05c6bcd44cc47d696544bab2a354a53b83425890a325b3d00df645fe,0b02dfad225f2e3dc6dbb28f26046d3d2073f7513feda8787ae86cd6e67fbffa,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-115.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-116,controlled-v2/rbi-related-parties-portal-copy,9401066,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-116"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-116
+- Workflow: `rbi_related_parties_portal-approval-116`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-116: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,42d19f927ba4b4f27b8201c43bed5891cf3ef92aa5a3dcfce3ecc6eac960c2c1,f475688f45c70d7fb3ac0440d8975f78dc60b02ce558beee0a24f8411c47c6d4,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-116.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-117,controlled-v2/rbi-related-parties-portal-copy,9401067,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-117
+- Workflow: `rbi_related_parties_portal-approval-117`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-117: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e6dd5b93ef1dcc83815ed34510c9ee042074f2daf54974ba975b979a500dc6f8,3eb988240d2aa93992f4ace5f3df5389b55c60f4d3164a247a734f3c7ea867bc,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-117.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-118,controlled-v2/rbi-related-parties-portal-copy,9401068,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-118"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-118
+- Workflow: `rbi_related_parties_portal-approval-118`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-118: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d2709cc7417c170287cdc1dc32f89eba8cef0b1305d757c3996a94f6f0a79c38,f37c379f7e2fe51daa6ed6ae094692ec89aca8d6f99f902768558be251e33b5a,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-118.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-119,controlled-v2/rbi-related-parties-portal-copy,9401069,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-119"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-119
+- Workflow: `rbi_related_parties_portal-approval-119`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-119: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,93b528d5cf4ce491af6360274d1c284b505a11064fcd10bea74801f405b8a2b8,b4b9e58486374c5a1daedf26f81ad091dd95d806b698af0e31f15f3f7b47377e,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-119.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-120,controlled-v2/rbi-related-parties-portal-copy,9401070,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_02.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-120"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-120
+- Workflow: `rbi_related_parties_portal-approval-120`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-120: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0a9bf228833ae4462c584b3cf7391a994c1423a8aeaea31fb927bb131a9bfc69,e27ac08e264c806224bbd776ad49918f4f34ddb80bac5e18e961191b147d52ed,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-120.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-121,controlled-v2/rbi-related-parties-portal-copy,9401071,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-121
+- Workflow: `rbi_related_parties_portal-approval-121`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-121: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,179f734e920fde2d67842bdd0434a2e2bb5882ef1b4268efe71e7bbb6c93a061,ec654e362c72b028ecc6b3707ddc9af88f78670feec93e8c078ecec5fb370b43,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-121.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-122,controlled-v2/rbi-related-parties-portal-copy,9401072,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-122"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-122
+- Workflow: `rbi_related_parties_portal-approval-122`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-122: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6a0e10ea2783b6a1931ba2676fe343ae636f7448761ead1c0d403ea2cf018ca9,3a6ca789bcf019907d2c2d68f9e0d7bac3ffc2bde625895bf0ef9a1c850e73d5,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-122.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-123,controlled-v2/rbi-related-parties-portal-copy,9401073,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-123"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-123
+- Workflow: `rbi_related_parties_portal-approval-123`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-123: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,12a7fc7e275c8f2c03d2bf6c4588b37f32fba2714000caebfd1395740f5b539c,00319bbcefd88b5398cabdaa6c860942786c6fdd5101ca26fd2769a533d51be0,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-123.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-124,controlled-v2/rbi-related-parties-portal-copy,9401074,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-124"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-124
+- Workflow: `rbi_related_parties_portal-approval-124`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-124: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a6b0a8afbbe9cf290e8e23a22ad2e564cae7bada74281c96f97df0d8d1e07947,60fa69c07e6abd0cfd45673d3ec2e3b9456509b22c885a0103e3eb3e256567b4,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-124.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-125,controlled-v2/rbi-related-parties-portal-copy,9401075,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-125
+- Workflow: `rbi_related_parties_portal-approval-125`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-125: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,915a7fa235ad2baff9c0cc8fea34eb5ad1b1b9027cd8f2cc00e390c767936a3a,f70cc6275c9463c3e0ebf5c2bc42eb6e185a59ac4912dbb7568f45f32eb6cf74,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-125.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-126,controlled-v2/rbi-related-parties-portal-copy,9401076,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-126"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-126
+- Workflow: `rbi_related_parties_portal-approval-126`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-126: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f929500e13ec23bdf434c1fd6d6cf13659e063bd16bcdac3ba1d567e1e32b837,04ace4c53dd0cb4ed134238ddb4f6651422835d0bbd37ccd59b2f4739802b5ee,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-126.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-127,controlled-v2/rbi-related-parties-portal-copy,9401077,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-127"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-127
+- Workflow: `rbi_related_parties_portal-approval-127`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-127: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2efc984e85ae21f348b4982b596535ac7ff1fa0d5122e39286202232b4c9f1bc,6c5184becbde5b43c1e694c7e564161bac9a6aa2e158df5afc223b264aafbd5c,other_documentation,rbi_related_parties_portal,operations_retry_policy_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-127.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-128,controlled-v2/rbi-related-parties-portal-copy,9401078,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-128"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-128
+- Workflow: `rbi_related_parties_portal-approval-128`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-128: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3d5e62b72da514e69576de73e3450576a815439294d4da7a3a4f4a4ad110b732,4c4a178a6a4741acc0c7ba8f7c43aa9ea04978d028eaa565d4324e6214703373,other_documentation,rbi_related_parties_portal,security_approval_flow_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-128.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-129,controlled-v2/rbi-related-parties-portal-copy,9401079,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-129
+- Workflow: `rbi_related_parties_portal-approval-129`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-129: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b2077a18ebc7d48e774056977b199f169608b3048944e96acd8dc0655644a089,01a649301f0876c0cb20cbd44d389fbb974f2ece083b7bad56a44c279fa01082,other_documentation,rbi_related_parties_portal,business_workflow_step_added,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-129.patch
+CRPP2-RPP-OTHER_DOCUMENTATION-130,controlled-v2/rbi-related-parties-portal-copy,9401080,typescript,"[""src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab-v2/other_documentation/contracts_03.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""RPP-FLOW-130"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab-v2/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:44d9cec6bad84fb5 -->
+### RPP-FLOW-130
+- Workflow: `rbi_related_parties_portal-approval-130`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"RPP-FLOW-130: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d2da475eff1832c1a81e8b1238bee6c12121a05e69d5bd1c2b1b81f30210016a,9843f0319027f2fd8a45237068b4e3ec99e210e9d68cadccb3c45785b6716d4b,other_documentation,rbi_related_parties_portal,architecture_path_change,cases/patches/rbi_related_parties_portal/other_documentation/RPP-FLOW-130.patch
+CRPP2-TFG-API_REFERENCE-101,controlled-v2/rbi-test-forge-copy,9401081,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""TFG-API-101"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation101"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/101"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-101
+- Operation: `rbitestforgeOperation101`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/101`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-101: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ae0b84f567f75c749dac9a03ce09213fbfaf7dfb61b0afb1f677a84cd900f08f,9735b664cec433a939577a270418b48a0106182024d666f894c62fde805ee97e,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-101.patch
+CRPP2-TFG-API_REFERENCE-102,controlled-v2/rbi-test-forge-copy,9401082,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""TFG-API-102"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation102"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/102"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/102"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-102
+- Operation: `rbitestforgeOperation102`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/102`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-102: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/102' u '/api/rbi-test-forge/v2/resources/102' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,efb5c01c284513c3e2620157eeb055fe3dde5d1630065e4f3bc742f93330edc1,844db1ed241e99cced36afbf1a39b53445532a8bd20b791c41ad2844c7aee9ef,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-102.patch
+CRPP2-TFG-API_REFERENCE-103,controlled-v2/rbi-test-forge-copy,9401083,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbitestforgeOperation103"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/103"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-103
+- Operation: `rbitestforgeOperation103`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/103`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-103: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,238d5c326b3e4026ac4342709e1539da7ae3f846bfc8d1007c656e93ce1c7038,ed3e04c071b749d1579dea77f6ca417e1cde995bae9bdf5eb037a92ed0d7aaf3,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-103.patch
+CRPP2-TFG-API_REFERENCE-104,controlled-v2/rbi-test-forge-copy,9401084,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-105"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-104
+- Operation: `rbitestforgeOperation104`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/104`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-104: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,57c9ed08012d9634576c697d3d376de57dbc9060901a984b168b8c4fbea76aed,2e04286a03c1763d24e33fa554f742e9eb1acbc07a59a9fc2ad428d003b72aae,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-104.patch
+CRPP2-TFG-API_REFERENCE-105,controlled-v2/rbi-test-forge-copy,9401085,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-105"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation105"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/105"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-105
+- Operation: `rbitestforgeOperation105`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/105`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-105: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6c05b8675659f3479a4c0829febb15d0961029ec7947cef271ed97ac89501172,21183c805430a015ab0b401f521e367b7fcc005ffadf39c31a2317951e53ccbb,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-105.patch
+CRPP2-TFG-API_REFERENCE-106,controlled-v2/rbi-test-forge-copy,9401086,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""TFG-API-106"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation106"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/106"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/106"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-106
+- Operation: `rbitestforgeOperation106`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/106`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-106: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/106' u '/api/rbi-test-forge/v2/resources/106' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,34ad444a2948ac709e2ab563422ce361786d79f8e656cdcdb432b5b09f438a54,02b467f00f589a18fd71b921d6defc227f9a91a7bf8851d3816aaae1793a8431,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-106.patch
+CRPP2-TFG-API_REFERENCE-107,controlled-v2/rbi-test-forge-copy,9401087,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbitestforgeOperation107"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/107"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-107
+- Operation: `rbitestforgeOperation107`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/107`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-107: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,96f8bb356139c29e42bee11bcd3c0aa3c106804ace2d01595348db44db4df76f,ca1d4a8bb2c3cfb1924c8e7083967353b8ced62a92492c399a21701c76fa1dfa,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-107.patch
+CRPP2-TFG-API_REFERENCE-108,controlled-v2/rbi-test-forge-copy,9401088,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-109"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-108
+- Operation: `rbitestforgeOperation108`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/108`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-108: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0e24c707086656a533e946b333d2097855eaaf83af59968e2fc44b203c4ba631,c47cc542d76b153e5901f3404f90ca6bc0800cb8dea98a0f9644c53d4d05b499,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-108.patch
+CRPP2-TFG-API_REFERENCE-109,controlled-v2/rbi-test-forge-copy,9401089,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-109"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation109"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/109"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-109
+- Operation: `rbitestforgeOperation109`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/109`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-109: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8085e312f7746904cef9c501e2cb738417227068a30a736bf06daddbe0072a5c,2eca21501385bbab1f0b5ec59cf991b47f699703fd3ca7a6760351977ce461e9,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-109.patch
+CRPP2-TFG-API_REFERENCE-110,controlled-v2/rbi-test-forge-copy,9401090,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_01.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""TFG-API-110"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation110"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/110"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/110"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-110
+- Operation: `rbitestforgeOperation110`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/110`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-110: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/110' u '/api/rbi-test-forge/v2/resources/110' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a8deaa3f8c3f7b75921201fe6fe5ee9a9ab3553c5ea22bd07f5fa342cabc4437,ce9a69de9cc30607d3f519c4517a971856264eb33446a8ddacf569afe2ce392d,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-110.patch
+CRPP2-TFG-API_REFERENCE-111,controlled-v2/rbi-test-forge-copy,9401091,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbitestforgeOperation111"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/111"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-111
+- Operation: `rbitestforgeOperation111`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/111`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-111: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e4bf96af6dd5eee2d3fc63e0133d940837dea65aade2275ef9852cfe868719b9,954303665dbd36136d6e90b1fdbcd49ed0267cdcf82c11727ef506c1737026a2,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-111.patch
+CRPP2-TFG-API_REFERENCE-112,controlled-v2/rbi-test-forge-copy,9401092,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-113"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-112
+- Operation: `rbitestforgeOperation112`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/112`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-112: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,100010a962459789bb5d5a76fc5bb1eea9aa10ee194e3e35c7690b90c24b74e1,2b51f01e65f2d3eab1a6b7a13663a16688d9725e75ad232dfa9ae4700ccf2e3a,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-112.patch
+CRPP2-TFG-API_REFERENCE-113,controlled-v2/rbi-test-forge-copy,9401093,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-113"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation113"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/113"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-113
+- Operation: `rbitestforgeOperation113`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/113`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-113: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fd2f35de3b10924daaad997c5e62992bf5b81ecd8b25487407d951a3d0bd36c9,1938d3def975251a0e64151b424e78273c50beed7accdbb17371fb893a8f67c7,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-113.patch
+CRPP2-TFG-API_REFERENCE-114,controlled-v2/rbi-test-forge-copy,9401094,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""TFG-API-114"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation114"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/114"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/114"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-114
+- Operation: `rbitestforgeOperation114`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/114`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-114: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/114' u '/api/rbi-test-forge/v2/resources/114' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,50ffb7f4f87d85a5aabf9292718bc32842d512143373e397549bf64ad8874e27,51a9bb21c3261533d790ee509d272ad0a8a0c8a0372b6d62f99ba5186830d771,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-114.patch
+CRPP2-TFG-API_REFERENCE-115,controlled-v2/rbi-test-forge-copy,9401095,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbitestforgeOperation115"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/115"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-115
+- Operation: `rbitestforgeOperation115`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/115`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-115: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f128d09158a3d1cda53db26df5285941cc8b18bb16387c7c6df940ad48b49651,2308ebd458297cdee30471cc4539c19f65a3fc2c288489c0e819d268e15a237a,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-115.patch
+CRPP2-TFG-API_REFERENCE-116,controlled-v2/rbi-test-forge-copy,9401096,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""TFG-API-117"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-116
+- Operation: `rbitestforgeOperation116`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/116`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-116: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e7b83dc3a095819c8224d4c8101c8b2d9e9847e459761d7a18839a0a6073c4af,0aea2380693a23e9282da19f36e578dbde2e973868c6548e5cd74396660e9163,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-116.patch
+CRPP2-TFG-API_REFERENCE-117,controlled-v2/rbi-test-forge-copy,9401097,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""TFG-API-117"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation117"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/117"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-117
+- Operation: `rbitestforgeOperation117`
+- Public endpoint: `POST /api/rbi-test-forge/v1/resources/117`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-117: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9f2e967e8e7e2ad74bd8e6c7a97778b5cee9928bf00d3a0266989867f5efde2d,a51c778e4345e01d7070140570af018dce189da911e0831495acb9e1b8bcb582,api_reference,rbi_test_forge,http_method_change,cases/patches/rbi_test_forge/api_reference/TFG-API-117.patch
+CRPP2-TFG-API_REFERENCE-118,controlled-v2/rbi-test-forge-copy,9401098,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""TFG-API-118"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbitestforgeOperation118"",
+-      ""path"": ""/api/rbi-test-forge/v1/resources/118"",
++      ""path"": ""/api/rbi-test-forge/v2/resources/118"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-118
+- Operation: `rbitestforgeOperation118`
+- Public endpoint: `PUT /api/rbi-test-forge/v1/resources/118`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-118: kod mijenja javni API ugovor iz '/api/rbi-test-forge/v1/resources/118' u '/api/rbi-test-forge/v2/resources/118' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ab07031c839a3be684b9f8c8e251c193c1ef26816a27829d0833a5901bfb8745,3e51992968d5d1f806b9b806baf552c0108db118202d73cc3a9461da3773c078,api_reference,rbi_test_forge,endpoint_version_change,cases/patches/rbi_test_forge/api_reference/TFG-API-118.patch
+CRPP2-TFG-API_REFERENCE-119,controlled-v2/rbi-test-forge-copy,9401099,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbitestforgeOperation119"",
+       ""path"": ""/api/rbi-test-forge/v1/resources/119"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-119
+- Operation: `rbitestforgeOperation119`
+- Public endpoint: `DELETE /api/rbi-test-forge/v1/resources/119`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-119: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5f469af38d4706268e0b1b4eb32dfd48ea446d4378393905d2429d5b251a3b7f,f57a382592a3600c28cd8665d50f04e7ce65956dbbf65f3ab6b4a3bbcdb6a63b,api_reference,rbi_test_forge,required_parameter_added,cases/patches/rbi_test_forge/api_reference/TFG-API-119.patch
+CRPP2-TFG-API_REFERENCE-120,controlled-v2/rbi-test-forge-copy,9401100,csharp,"[""TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab-v2/api_reference/contracts_02.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_test_forge"",
+","<!-- docs/docguard-contract-lab-v2/API_REFERENCE.md @ controlled-baseline:8aedca0d76b51674 -->
+### TFG-API-120
+- Operation: `rbitestforgeOperation120`
+- Public endpoint: `GET /api/rbi-test-forge/v1/resources/120`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"TFG-API-120: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,18f81f0cb44f7652a3fcefdf76daf1b6f445021846101f3ea4964400696d7172,cfac2eefd3da2de8f6455f28e8edb4924633d8cc253855f08eac9b47a536a756,api_reference,rbi_test_forge,success_status_change,cases/patches/rbi_test_forge/api_reference/TFG-API-120.patch

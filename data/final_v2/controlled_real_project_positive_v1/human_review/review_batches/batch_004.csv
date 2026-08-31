@@ -1,0 +1,2501 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-JOB-MODEL_CONTRACT-001,controlled/jobfair-platform-copy,9200301,typescript,"[""src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-001 — `JOBPublicContract001`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-001: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3649380999baa3cdd7a53411539b65e0903aef037e598d5cfdc5174e46d2f5d5,25cdef45a210aac83a1ed6daee01aa2bb64cd7010e5b89fbbdae5b4fb822392f,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-001.patch
+CRPP1-JOB-MODEL_CONTRACT-002,controlled/jobfair-platform-copy,9200302,typescript,"[""src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract002"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-002 — `JOBPublicContract002`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-002: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7c76c43ce31174fa0cb83ad80b173d7c8497111cae32b494b416aafad75ad51d,6e14fa6bd17b2cc143057cd5b75abb91896263e1836c56ba63a34f9f060acb04,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-002.patch
+CRPP1-JOB-MODEL_CONTRACT-003,controlled/jobfair-platform-copy,9200303,typescript,"[""src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-003 — `JOBPublicContract003`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-003: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c4ee8c2fda5a3ad2bf124a640ae48ae00e889032084aaa1b64eb31d32dce7089,244ab978ab813f6512ff1a758b6687bc7fb903a3181f5efc442bf30dbfb24c7f,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-003.patch
+CRPP1-JOB-MODEL_CONTRACT-004,controlled/jobfair-platform-copy,9200304,typescript,"[""src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-004"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-004 — `JOBPublicContract004`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-004: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cb5388a3f8ba4231af909f15e49a8029342ef5a361899499a4bbaef4dc56e682,17a11537563044c8190f169e93ac48208b41800360cbee21d00a4356257a9266,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-004.patch
+CRPP1-JOB-MODEL_CONTRACT-005,controlled/jobfair-platform-copy,9200305,typescript,"[""src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-005 — `JOBPublicContract005`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-005: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7375d40ad93587207a96b53a78efb91169c13387562ab648ecc31a8fcfc60a12,8703ad7999f883ad874d38032e6a34014a9bc52f376e82994db5d97a5886e05f,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-005.patch
+CRPP1-JOB-MODEL_CONTRACT-006,controlled/jobfair-platform-copy,9200306,typescript,"[""src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract006"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-006 — `JOBPublicContract006`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-006: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4f5c88f2422df1ea8fd728abee1c3179df746a37252fdc245d01883f308c830d,a665848d30a790596b7f740f4bda3bf376237a052b583067c9ed7ce5ddb2a9bf,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-006.patch
+CRPP1-JOB-MODEL_CONTRACT-007,controlled/jobfair-platform-copy,9200307,typescript,"[""src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-007 — `JOBPublicContract007`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-007: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3bac616981c61390f4b00c07a0550ad37722990d1a646c84b9da5bf9498e8156,0fd546e14a2260fe66dddccb7b9f5531a8c9ead9579552326242bdbbd4e8cf1e,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-007.patch
+CRPP1-JOB-MODEL_CONTRACT-008,controlled/jobfair-platform-copy,9200308,typescript,"[""src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-008"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-008 — `JOBPublicContract008`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-008: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1b0e1b5a5005c8a2e1d117b21c3985087e54e6706918530b0f0d22b34b1704fa,dae793bb84604f794b2ea10cbf5d01cf6d384ac86961fe83d66cb22ba0a31d3c,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-008.patch
+CRPP1-JOB-MODEL_CONTRACT-009,controlled/jobfair-platform-copy,9200309,typescript,"[""src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-009 — `JOBPublicContract009`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-009: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,09a5c477cadb5e34fbb5aba5c7cb6e3ea590aea04fbae1145c0721b0a367b860,f49948749dc242ab8905f752062c33a0c8ad10e8538269ec38337ea3fe5b2d63,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-009.patch
+CRPP1-JOB-MODEL_CONTRACT-010,controlled/jobfair-platform-copy,9200310,typescript,"[""src/docguard-contract-lab/model_contract/contracts_01.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_01.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_01.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract010"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-010 — `JOBPublicContract010`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-010: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6091ffd7007437da1ce18365961a0228de470aa00d1ac93a0edbafac43280e3e,77c6ed8f5262d5d89aad8f84757f1887752fe3a4715660adb572c3c08d985c06,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-010.patch
+CRPP1-JOB-MODEL_CONTRACT-011,controlled/jobfair-platform-copy,9200311,typescript,"[""src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-011 — `JOBPublicContract011`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-011: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9fc26c72141ad65416c29cbe7fe4c326edb050e38d232cc808647ed22cc7fa71,7b6d7a81c7b43b2be1f3223cdedfb293fc6648478995a37f814593a0e64500c6,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-011.patch
+CRPP1-JOB-MODEL_CONTRACT-012,controlled/jobfair-platform-copy,9200312,typescript,"[""src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-012"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-012 — `JOBPublicContract012`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-012: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8d2c00b65f88c74c8f29286e2e88d7ac0e55213101b6c9c6459cdedf2d567056,1689e1ce693c2e21324f5016b53555add4496a26b81906e8d9d96c4b541af88c,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-012.patch
+CRPP1-JOB-MODEL_CONTRACT-013,controlled/jobfair-platform-copy,9200313,typescript,"[""src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-013 — `JOBPublicContract013`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-013: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,95ac739c1fc500851cc5df84a069101e4c214a77369bb5fc369c9ee8dec0006a,794f8b3ee3c399a67eafb88810a0b7e7bf4632fcd4dbb6539a4289711409a6b4,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-013.patch
+CRPP1-JOB-MODEL_CONTRACT-014,controlled/jobfair-platform-copy,9200314,typescript,"[""src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract014"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-014 — `JOBPublicContract014`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-014: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c648b073ead99cc39350a54f01f696f572c99f3bc51598be342be09cc8b88f18,a36b4910b3955355f0d22190365ac3ecd9e84b5af48917e7729536242da2696d,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-014.patch
+CRPP1-JOB-MODEL_CONTRACT-015,controlled/jobfair-platform-copy,9200315,typescript,"[""src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-015 — `JOBPublicContract015`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-015: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7bb83e5af5c5229c2192898f938b718f2aa0f0cee4ba544ebf60cc406475a4e5,f5be6bd220d62bdf2b642cc3dd0bebcf57587ed49c6e51575edd16bc83a8f7f0,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-015.patch
+CRPP1-JOB-MODEL_CONTRACT-016,controlled/jobfair-platform-copy,9200316,typescript,"[""src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-016"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-016 — `JOBPublicContract016`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-016: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,79b71c7eb9c8c35aa52f19d2ebc9b49084c36792ca5d7651d35a5b680a662eaa,2d040ae2ff438d9356165bd3fbe5635ab3554524f5dab14a1208e1cba7731c4d,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-016.patch
+CRPP1-JOB-MODEL_CONTRACT-017,controlled/jobfair-platform-copy,9200317,typescript,"[""src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-017 — `JOBPublicContract017`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-017: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,44fb93c7c975961c27baef6686e05d09ae2383ad5eda084578f5d02dd184c065,7149c15c14f99c9591c7f99ba3a24ca8edc104d2cee6f62393b123412210a340,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-017.patch
+CRPP1-JOB-MODEL_CONTRACT-018,controlled/jobfair-platform-copy,9200318,typescript,"[""src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract018"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-018 — `JOBPublicContract018`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-018: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,345e0ac17c8ccb6193f8e8f65ccfdb051f15722ca9d3f1af653a0df7c35486eb,7873f4adf178293c37a0fb310c0d638f880bf88b57e469ea859eaad2f9574cc7,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-018.patch
+CRPP1-JOB-MODEL_CONTRACT-019,controlled/jobfair-platform-copy,9200319,typescript,"[""src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-019 — `JOBPublicContract019`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-019: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f637af256422a23ff449f80607947e5a31cda49d8f325f774548a036fa0b4e55,d8a0c05c4249bc0f5b0c78cf2623d1a301513210cbbd23cd78df411b489682ca,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-019.patch
+CRPP1-JOB-MODEL_CONTRACT-020,controlled/jobfair-platform-copy,9200320,typescript,"[""src/docguard-contract-lab/model_contract/contracts_02.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_02.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_02.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-020"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-020 — `JOBPublicContract020`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-020: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a6bc66a849352970da046458718c98599b3a5ce9f85864ee22de614a38d4106c,003ff1279774cd8b321534aea2a5b1c224e37709dc9ff6d47373fd8b4098e8d0,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-020.patch
+CRPP1-JOB-MODEL_CONTRACT-021,controlled/jobfair-platform-copy,9200321,typescript,"[""src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-021 — `JOBPublicContract021`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-021: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,208e534c133d6346972bdec6ce54b78bbfd060aa8a6781471dc03e948a5cca2d,10e9d55a3effb541fd1fda65e5917d75294706a567322910891c9f362091f3e6,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-021.patch
+CRPP1-JOB-MODEL_CONTRACT-022,controlled/jobfair-platform-copy,9200322,typescript,"[""src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract022"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-022 — `JOBPublicContract022`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-022: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1d1ba631debb20e043a512ab6657387bbcd79c86a6515f2f3f13abd7740a588f,aff438b3d0f22ff03a9e755ea2d6a941d7f1bbe5fcaa3b35f79a6619a898d664,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-022.patch
+CRPP1-JOB-MODEL_CONTRACT-023,controlled/jobfair-platform-copy,9200323,typescript,"[""src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-023 — `JOBPublicContract023`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-023: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9d5c4888edd9ae0e925c125fdb921fa26d30cb7cc91c74c40ceef91d19ab444a,22b0391ceed56e8fdee590fc53543dba330f894fbbb0eec698deeeffa9ba29c1,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-023.patch
+CRPP1-JOB-MODEL_CONTRACT-024,controlled/jobfair-platform-copy,9200324,typescript,"[""src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-024"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-024 — `JOBPublicContract024`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-024: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7589296801d4a9fef32db5f49efb4e519aef636e8654e63ba18c4acbe4b2393d,fb1815c0df3c8988b382736e14d85eebb2e9a9a6ff6989d4eaf0e3cd4cefd6bc,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-024.patch
+CRPP1-JOB-MODEL_CONTRACT-025,controlled/jobfair-platform-copy,9200325,typescript,"[""src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-025 — `JOBPublicContract025`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-025: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dbae8a50aaa0c47959915a60bfb72a7327e75f540994b814d1c957fba80092b0,9a269b9e276081f4661285d12ba9ec5f317d2a02e04220ec1234f90c7d1237a1,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-025.patch
+CRPP1-JOB-MODEL_CONTRACT-026,controlled/jobfair-platform-copy,9200326,typescript,"[""src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract026"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-026 — `JOBPublicContract026`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-026: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1e682d0bd3beaa61929da12ba4d9a19325dabaa5ad88d7b82351cd9fbffcc1df,0958059981080111e05ee7cb823cf64e4cbd8b13c15bf732447578d35894786c,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-026.patch
+CRPP1-JOB-MODEL_CONTRACT-027,controlled/jobfair-platform-copy,9200327,typescript,"[""src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-027 — `JOBPublicContract027`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-027: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0ffe041d93e67e75019094ab76198bac76e7230c1f097277025c12aed84295b1,0897958f995b5d37737ea20227bf7ae977dcb89d41fe99cda172897c16ed2dce,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-027.patch
+CRPP1-JOB-MODEL_CONTRACT-028,controlled/jobfair-platform-copy,9200328,typescript,"[""src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-028"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-028 — `JOBPublicContract028`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-028: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8de5dab119981393bc03e4585b0c569653c8adf94fd1a3b5f3d905a578b08a73,b61c6fe912ed3ca740e0ffc5e2162605f459927055de51db1726c9b2e6e90b7a,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-028.patch
+CRPP1-JOB-MODEL_CONTRACT-029,controlled/jobfair-platform-copy,9200329,typescript,"[""src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-029 — `JOBPublicContract029`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-029: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d26d645d4a43179aaa0365ad6593b0517c561627299acb2dda0769aa149ffa38,eb09b89481ea58519ba52566242ddbd6ca0b8bebf65816a5854421cf4f3e33f6,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-029.patch
+CRPP1-JOB-MODEL_CONTRACT-030,controlled/jobfair-platform-copy,9200330,typescript,"[""src/docguard-contract-lab/model_contract/contracts_03.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_03.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_03.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract030"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-030 — `JOBPublicContract030`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-030: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3bb3ba7fec1b3a7896e7a5e58f324843f9516b70a142e32fe98a0df7b3abaca9,a4a968c9f2c456f1afdd2a0407b2db38251d26d0844d63ebfd9b93fcc0fea085,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-030.patch
+CRPP1-JOB-MODEL_CONTRACT-031,controlled/jobfair-platform-copy,9200331,typescript,"[""src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-031 — `JOBPublicContract031`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-031: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1ba2c176392b4c5d3c6e0f27bdf8e9d25757f1ce24ac577fbc6d8914966e6045,9560d0f034a8bd86be03fd9f7571a1afb57b6369849e26981472954f8ac447f6,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-031.patch
+CRPP1-JOB-MODEL_CONTRACT-032,controlled/jobfair-platform-copy,9200332,typescript,"[""src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-032"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-032 — `JOBPublicContract032`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-032: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d80433140c431941e8fbfa3eda9b6484fe63145196c9035aad8e9cc38e01d23c,b204911a2c7ceb9e4583cb0b9fffbd100049b42fad9579bca2bef955c36732ed,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-032.patch
+CRPP1-JOB-MODEL_CONTRACT-033,controlled/jobfair-platform-copy,9200333,typescript,"[""src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-033 — `JOBPublicContract033`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-033: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,de3abb2a14b01140fb99fdbdcb5d2d55e16449726c174a4d7e0cce4fe1d8dd7d,87a712fe43edd2fab762f93e43eb20c95f36da9a77bfa9bb6e8d3e6913497c3c,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-033.patch
+CRPP1-JOB-MODEL_CONTRACT-034,controlled/jobfair-platform-copy,9200334,typescript,"[""src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract034"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-034 — `JOBPublicContract034`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-034: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bceb3344041ffb90e1b61f11884dc042231c82230c00dc74810a186a30e1b6fb,d3122ce17034e4407d0df2672b503b8efbdc4a9b67f2f2f293817589c1f4f09e,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-034.patch
+CRPP1-JOB-MODEL_CONTRACT-035,controlled/jobfair-platform-copy,9200335,typescript,"[""src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-035 — `JOBPublicContract035`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-035: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6fe77061d0fd5a0bf34bedda510f6d87ee323c27ee564dd77fa362f7b5c4454d,ec8a42cacd7a5169d1dc0d3ca3aa664c42779850d0b7bd4ed12d4c863768139d,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-035.patch
+CRPP1-JOB-MODEL_CONTRACT-036,controlled/jobfair-platform-copy,9200336,typescript,"[""src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-036"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-036 — `JOBPublicContract036`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-036: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4740a5c440d782232aec1a1227cd4384543177c2b72bb0de56c2edbbced388f0,dfe3792c8b097fb05e7587180f69f734b354b853bdd8b6566a0ebf2f4fa0bf09,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-036.patch
+CRPP1-JOB-MODEL_CONTRACT-037,controlled/jobfair-platform-copy,9200337,typescript,"[""src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-037 — `JOBPublicContract037`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-037: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,71978506a132f0766dfeeaeba3db72f862d963b6edc164e060d6a2c1ccdac786,ab2b884d6e15946d9c9e7d1338af41af0b97502e95bb5cb36d5639131b51f0ee,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-037.patch
+CRPP1-JOB-MODEL_CONTRACT-038,controlled/jobfair-platform-copy,9200338,typescript,"[""src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract038"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-038 — `JOBPublicContract038`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-038: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6badc27ab668c63a8501adae40896f159954d77b930cf1d54ba71fa58778d287,f9a9ce5b2170155135405f406c6fa91305777f17fe31412bd547c5a61296c87d,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-038.patch
+CRPP1-JOB-MODEL_CONTRACT-039,controlled/jobfair-platform-copy,9200339,typescript,"[""src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-039 — `JOBPublicContract039`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-039: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ba21a4b83a0bcf418481e169e65f995942852490002344cd55da13314997d3b9,aed91127e36ed2d94126a172f0920111c3ed2abf0822c795f619f43240f10639,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-039.patch
+CRPP1-JOB-MODEL_CONTRACT-040,controlled/jobfair-platform-copy,9200340,typescript,"[""src/docguard-contract-lab/model_contract/contracts_04.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_04.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_04.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-040"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-040 — `JOBPublicContract040`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-040: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4b1a6aa95e1cd0d737f4252df539346a2674636c6e862a667418de6203b4aba0,2cd8fbe1089e1d7712ebc31f86470c22234b1074f2de6772593966767a9e6509,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-040.patch
+CRPP1-JOB-MODEL_CONTRACT-041,controlled/jobfair-platform-copy,9200341,typescript,"[""src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-041 — `JOBPublicContract041`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-041: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,64272083b259a7b418202675524c9e738e86257bf30429b93da7054dd95eaaf1,ec6706516171d7a5901ee973573d37aa653bfe01887a0f31d8dd9ccffb0164c7,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-041.patch
+CRPP1-JOB-MODEL_CONTRACT-042,controlled/jobfair-platform-copy,9200342,typescript,"[""src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract042"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-042 — `JOBPublicContract042`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-042: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,769be6472ed863e20d7ab8ae40760f977d566268c7cd3946c4975487804613b4,f549ec782c0a24185ffe8d6e5e8e58624d9110ad10121424dc363d7efa804426,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-042.patch
+CRPP1-JOB-MODEL_CONTRACT-043,controlled/jobfair-platform-copy,9200343,typescript,"[""src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-043 — `JOBPublicContract043`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-043: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d1f8b5d95e4123e9c1626a59fe7a803d47a000cd2c16e52fac8045194a79de0a,601c9f02fea13b35bf4a4ef6423d081fe1231258f7db230d0765e5f7c57644a0,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-043.patch
+CRPP1-JOB-MODEL_CONTRACT-044,controlled/jobfair-platform-copy,9200344,typescript,"[""src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-044"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-044 — `JOBPublicContract044`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-044: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bce31ad16b2e750ce5996c40c100fa96337cb68b10a6564d7f0bb3834bcf2ca7,8a86fa87ef1eff0f526613b6c3397f8ee3f89967a78827b46121e6c1f3c4ed7f,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-044.patch
+CRPP1-JOB-MODEL_CONTRACT-045,controlled/jobfair-platform-copy,9200345,typescript,"[""src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-045 — `JOBPublicContract045`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-045: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0d26a6c89568b705ee5712a4b4424a566e03d121a126a19e031fae056f914611,69089dfefee0d4461d8e6c62a51fff7a8fbe1c9980872bbf50e549795ecba68d,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-045.patch
+CRPP1-JOB-MODEL_CONTRACT-046,controlled/jobfair-platform-copy,9200346,typescript,"[""src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract046"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-046 — `JOBPublicContract046`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-046: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,47de69f9fef7fa4690ead17af0232c9f3b894578cf0fb624362e475d9c534b2c,02953bd4eb6414140b0aebc72e577ff791e8e864088c5bf562a14b085d7f7f3e,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-046.patch
+CRPP1-JOB-MODEL_CONTRACT-047,controlled/jobfair-platform-copy,9200347,typescript,"[""src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-047 — `JOBPublicContract047`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-047: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aa4bfffcaa5c1a963bfe2ff7d95b2670748f133908a620166b116e6edf3d6b8d,f77b4cce6e4d7110b0accca0470c8d4f2a98c5b13fce2fd7148f8522c96cda8b,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-047.patch
+CRPP1-JOB-MODEL_CONTRACT-048,controlled/jobfair-platform-copy,9200348,typescript,"[""src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-048"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-048 — `JOBPublicContract048`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-048: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1176e0608646e494125776b04e40925300a0930bae1b19189bc579d1751da263,1fde9405e2e980f91888b06a83e5244c8ed4141c859c4807dd56d739c69160fe,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-048.patch
+CRPP1-JOB-MODEL_CONTRACT-049,controlled/jobfair-platform-copy,9200349,typescript,"[""src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-049 — `JOBPublicContract049`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-049: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0738cff2ed745f3af21c8f0779f29980dc5893c95a06cfcfb4a8829629e78f83,38fa45d7ea0948a9c990b517c232eee060c94e849feac13f20438b433a6a5ad0,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-049.patch
+CRPP1-JOB-MODEL_CONTRACT-050,controlled/jobfair-platform-copy,9200350,typescript,"[""src/docguard-contract-lab/model_contract/contracts_05.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_05.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_05.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract050"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-050 — `JOBPublicContract050`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-050: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7a34edc45a5c5f47310931564a1ce26cee726eb7883413a932ec5bf32790802e,cd5a454b68acf54f8250f366540f45311571d1d081d4290b0c41b3a290c9f489,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-050.patch
+CRPP1-JOB-MODEL_CONTRACT-051,controlled/jobfair-platform-copy,9200351,typescript,"[""src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-051 — `JOBPublicContract051`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-051: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,48a4fb0e66ab75e6ed6a221474b7199e1555f0414f1edea6768e5551f05a0134,b48f9b994732410dc6da47b9a67ea1685caa2b3c7d6d077809717a6d67345adc,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-051.patch
+CRPP1-JOB-MODEL_CONTRACT-052,controlled/jobfair-platform-copy,9200352,typescript,"[""src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-052"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-052 — `JOBPublicContract052`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-052: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,86ca828e31c09fcc50789d6806fb53609fef3b1cd268539a8f9f95013365e738,34cf70eb755c7e8f28a8cef88ffaf2b33a007b8fb9835b6f879ecdf505270998,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-052.patch
+CRPP1-JOB-MODEL_CONTRACT-053,controlled/jobfair-platform-copy,9200353,typescript,"[""src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-053 — `JOBPublicContract053`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-053: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,14da0e7c42f51b6dd7dd35d616fc92fc6ac62e5fb37d2718e18fe50efea97887,9b20f2dc7e79aca46b9ec53252ed56e4df47294bb6948319b659230db829905d,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-053.patch
+CRPP1-JOB-MODEL_CONTRACT-054,controlled/jobfair-platform-copy,9200354,typescript,"[""src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract054"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-054 — `JOBPublicContract054`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-054: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9f1c82cdaed7e2e5f61ad8a5d88d56560b7d18a18b00918bec1bc975119c103e,adc97003cc1e6ce111663ce61222f5005e8248f3c3fe117d685a4c069e3b8263,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-054.patch
+CRPP1-JOB-MODEL_CONTRACT-055,controlled/jobfair-platform-copy,9200355,typescript,"[""src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-055 — `JOBPublicContract055`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-055: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,75751a1a3d906f9f8b94ef68a6d12cdac6bf46785c822250dd23e34196c99937,f0be0b69b68b051d4f4a21b40bb00e2a3240897e6f9b376d4d997c24c07e2f53,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-055.patch
+CRPP1-JOB-MODEL_CONTRACT-056,controlled/jobfair-platform-copy,9200356,typescript,"[""src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-056"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-056 — `JOBPublicContract056`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-056: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2309aabdfd1489d2a8f584f9895ca8cc6b3bcd7ca9bae9ee7ccee50a8bd426b9,08ff81fb82a871de1eca0fda11adebc39305d64b79ce7e3e94ad9649490ecd9a,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-056.patch
+CRPP1-JOB-MODEL_CONTRACT-057,controlled/jobfair-platform-copy,9200357,typescript,"[""src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-057 — `JOBPublicContract057`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-057: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,da97547ace8c727be8e462e58bd6dfa4693386fea91eb0def5f46aae6585a249,107fbac509078b057521a098423dfa5206f7efd7a99bad6f4b022efaeb3cedd7,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-057.patch
+CRPP1-JOB-MODEL_CONTRACT-058,controlled/jobfair-platform-copy,9200358,typescript,"[""src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract058"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-058 — `JOBPublicContract058`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-058: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e49c9de1c85ab3bf35c5a91a26d6617b0636618e0548441aa85fdd58a01aa539,1e5f1800a827879ef3a9f7388959c0c1582c44dd17181c907b86938bf826b0b6,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-058.patch
+CRPP1-JOB-MODEL_CONTRACT-059,controlled/jobfair-platform-copy,9200359,typescript,"[""src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-059 — `JOBPublicContract059`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-059: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,626b0ee47955b7e0792e9ffc6fade06ef82b452930ac497b1510d4444c3b0b1b,13e751e4b4eb6d752e0c00bbaf6a3936d769a38b3da00c747e58e622f737b987,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-059.patch
+CRPP1-JOB-MODEL_CONTRACT-060,controlled/jobfair-platform-copy,9200360,typescript,"[""src/docguard-contract-lab/model_contract/contracts_06.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_06.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_06.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-060"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-060 — `JOBPublicContract060`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-060: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0b31c9800b8d4489968f5a560908a765bd1fb3335a26ae1ec8254b617c1865e7,6873b16f1c03f8e12ecbd98a85125e830e414b901acc81afae290830bdc5f4ba,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-060.patch
+CRPP1-JOB-MODEL_CONTRACT-061,controlled/jobfair-platform-copy,9200361,typescript,"[""src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-061 — `JOBPublicContract061`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-061: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,87ec73966854de267f2121ce3064c78e6af258169f06b659dad27c88b2381135,423869edd123b486c60f37390f098b40aa906c417d15898388baecde16858bd8,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-061.patch
+CRPP1-JOB-MODEL_CONTRACT-062,controlled/jobfair-platform-copy,9200362,typescript,"[""src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract062"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-062 — `JOBPublicContract062`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-062: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,11369b973d3fec782a147c9f9639e03f9868850683f83ecc5b08b0779cfd120c,82bc595e589f2f342bc628bef76b1e94b1046a4ad39ce26b90c99e60cb681cb5,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-062.patch
+CRPP1-JOB-MODEL_CONTRACT-063,controlled/jobfair-platform-copy,9200363,typescript,"[""src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-063 — `JOBPublicContract063`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-063: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f95f36798f81db267adaf5fd14918830e1014e0ffd37ee50700f66cf5f7f12d4,662d132c6596892e0204b93cfe695926c6c6a3f95c60306f334bc4d5412a7c29,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-063.patch
+CRPP1-JOB-MODEL_CONTRACT-064,controlled/jobfair-platform-copy,9200364,typescript,"[""src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-064"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-064 — `JOBPublicContract064`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-064: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a022abd1f9182ba1bd83bb1017a1e9a23ef62de8f8817520473760329930ba26,04b2c37e0af6d1c35fdbe0213bdc28716e30664c05a9daa54ce08fb38feab72a,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-064.patch
+CRPP1-JOB-MODEL_CONTRACT-065,controlled/jobfair-platform-copy,9200365,typescript,"[""src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-065 — `JOBPublicContract065`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-065: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e881a6171fc42473ac258ab4c99bb0cef8436a695f94a9573d32eeaa44a26e33,fa67053e1a447bb5c0da693133889628d1f03086b7dd295f942d968b3d291ba2,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-065.patch
+CRPP1-JOB-MODEL_CONTRACT-066,controlled/jobfair-platform-copy,9200366,typescript,"[""src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract066"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-066 — `JOBPublicContract066`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-066: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,54840d071a6481db0150f18698f612f0171f361283c06e2d665df750b45b5718,459ebf6009f45965682d2dabc79492364698f6b0a70162f5218a9576b090e548,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-066.patch
+CRPP1-JOB-MODEL_CONTRACT-067,controlled/jobfair-platform-copy,9200367,typescript,"[""src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-067 — `JOBPublicContract067`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-067: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,516f2c03cfceeda2eb9df2535fea85cabdfc92c1c160a483549d28242124f27a,fada3eeb42ab0d8665b9e0cef3aa4048b74f619c3bd9c635211bcfaf637a7d68,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-067.patch
+CRPP1-JOB-MODEL_CONTRACT-068,controlled/jobfair-platform-copy,9200368,typescript,"[""src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-068"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-068 — `JOBPublicContract068`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-068: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,44738cfb7679a7f726e4864505d4ab7d8447af85b4503ae3fdcf9a0f384ac200,41c718b9caebe1db4fff643a72d74d3b2a1d6d5a4435fe457517ae8c4391e146,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-068.patch
+CRPP1-JOB-MODEL_CONTRACT-069,controlled/jobfair-platform-copy,9200369,typescript,"[""src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-069 — `JOBPublicContract069`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-069: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,88048a14c512551bdfb108d4fccf36fe3da25a5918c8fbd5c31aa2616ac7eba0,23e84405ccdbdd4a3de67935da540f5dc439da2e4af8ad907d3dae4f3b0eecdf,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-069.patch
+CRPP1-JOB-MODEL_CONTRACT-070,controlled/jobfair-platform-copy,9200370,typescript,"[""src/docguard-contract-lab/model_contract/contracts_07.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_07.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_07.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract070"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-070 — `JOBPublicContract070`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-070: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ed077d20864025f4733c008a9a8d4f42ce51f162723794ff018a06fbbc42e762,5c33614029a5a3681d95dad430c3a2a6ad0f0bde8c3b4a431f310cab5a0be1c6,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-070.patch
+CRPP1-JOB-MODEL_CONTRACT-071,controlled/jobfair-platform-copy,9200371,typescript,"[""src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-071 — `JOBPublicContract071`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-071: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8e539973893de2943148226d43aec58ebbef1a3a53ccf252374932f21844e464,dfd2dac8e922b7cac83abb32e956268855699113a2effd923794a80b0541d73c,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-071.patch
+CRPP1-JOB-MODEL_CONTRACT-072,controlled/jobfair-platform-copy,9200372,typescript,"[""src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-072"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-072 — `JOBPublicContract072`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-072: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f1d163ac1503baa826f7ec750577f5f5b13113508bb9122064d2ee9a801c9379,4336ede8c39464f4fc369090791766f30fbb571d272754ae54b75254c2076db0,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-072.patch
+CRPP1-JOB-MODEL_CONTRACT-073,controlled/jobfair-platform-copy,9200373,typescript,"[""src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-073 — `JOBPublicContract073`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-073: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6cf88bfcb4addd5932164204c931c68c952498afd9e2f747564966f7bcf79ef4,2de28a82f398dcba5c16e549751f175233fdb5005984de08ca409fce2f915dec,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-073.patch
+CRPP1-JOB-MODEL_CONTRACT-074,controlled/jobfair-platform-copy,9200374,typescript,"[""src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract074"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-074 — `JOBPublicContract074`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-074: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,06eb5b5a02c7902dabf276a8a9d668e06457dcb9910a39b2e16b17c67375d7e1,e37f7fcf1fe1d5a72e197b64bcea3cb32d4e3edf07140ef75f11f5159d9370de,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-074.patch
+CRPP1-JOB-MODEL_CONTRACT-075,controlled/jobfair-platform-copy,9200375,typescript,"[""src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-075 — `JOBPublicContract075`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-075: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,339adce6c1a4046e4a13496aac77b81db467c1ba31d1d646ad57f3d0b0282705,cc929f4dd45cfed932553de36b4259a800b3b8fd08d11894255e2a90ef817829,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-075.patch
+CRPP1-JOB-MODEL_CONTRACT-076,controlled/jobfair-platform-copy,9200376,typescript,"[""src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-076"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-076 — `JOBPublicContract076`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-076: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4abe19730ac8f7d110bf2b7287cb3ab7d65b6553def3a2e109600b78d75ba15f,6a8eb0958b05ff63d72d0d36a38708bde28a69d1bdbac277e114d7708b102f58,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-076.patch
+CRPP1-JOB-MODEL_CONTRACT-077,controlled/jobfair-platform-copy,9200377,typescript,"[""src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-077 — `JOBPublicContract077`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-077: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,385a59fa5717b10309e5934dae4a47dc11016188fdd8145342079a09d3e9c457,f38a77876fb8673ad3a5db8d69ef1bf75026e2124db4d63951156ebced11b1da,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-077.patch
+CRPP1-JOB-MODEL_CONTRACT-078,controlled/jobfair-platform-copy,9200378,typescript,"[""src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract078"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-078 — `JOBPublicContract078`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-078: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,10b95d2180dbe36d7c610b21055e8a04a353e9f6107775b614fbdcfde945d3cc,8ebe08be74c6008f81e87726b7fa796c0194a7710f893125958a201ae5e97100,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-078.patch
+CRPP1-JOB-MODEL_CONTRACT-079,controlled/jobfair-platform-copy,9200379,typescript,"[""src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-079 — `JOBPublicContract079`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-079: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,538e493c81fd6af01ec32fb645f8fbba62b0ae80d2a91314db6debb654c09a99,57d31d6ae781188ca20871ed569f2e3c6c3083d3daaab1e8424c126edfbf6964,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-079.patch
+CRPP1-JOB-MODEL_CONTRACT-080,controlled/jobfair-platform-copy,9200380,typescript,"[""src/docguard-contract-lab/model_contract/contracts_08.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_08.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_08.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-080"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-080 — `JOBPublicContract080`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-080: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,80c27ea77be5a05be4c5b3221a2575ccf180e65897ecd68a1782f82745c6eaca,4bb1889b13de10e8e520b3e0865c064bb8189e92f8b6aa6fe5e5a274bb7d1119,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-080.patch
+CRPP1-JOB-MODEL_CONTRACT-081,controlled/jobfair-platform-copy,9200381,typescript,"[""src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -17,11 +17,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-081 — `JOBPublicContract081`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-081: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1a5f05a5e19a8b20516794de1345628b046bc4c73195c7cd3d01abb96611f30b,f36db6c1251b2b35fa9626bd6e4aae811467a9afb1c1cfb19890290c7b325e7d,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-081.patch
+CRPP1-JOB-MODEL_CONTRACT-082,controlled/jobfair-platform-copy,9200382,typescript,"[""src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -56,7 +56,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract082"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-082 — `JOBPublicContract082`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-082: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0a22e07fb3cc364de7661690cc28ed54ea0585cab2979add9e7c58ff0850aee4,9812c5e6280538545183369d85d69f2d8e0169ac8360df495d52251373b0c8fe,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-082.patch
+CRPP1-JOB-MODEL_CONTRACT-083,controlled/jobfair-platform-copy,9200383,typescript,"[""src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -71,6 +71,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-083 — `JOBPublicContract083`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-083: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6a21e0cec6277d1f88c01d0c838c7afd3acb216babd7414ccd1db3e9a318c787,ee793c377fac8c4b636e0f3e7a0037c5b7728193091567417b27e420d4345dc2,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-083.patch
+CRPP1-JOB-MODEL_CONTRACT-084,controlled/jobfair-platform-copy,9200384,typescript,"[""src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -94,13 +94,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-084"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-084 — `JOBPublicContract084`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-084: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e382b881f14fc36c1b4dbe311e91ae819500bbab14cc3c242f634a558aea7673,5455a75d0c508efdac4be4cffbf0b3cfca0e3160bb25672e4a5e8305fe353b3c,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-084.patch
+CRPP1-JOB-MODEL_CONTRACT-085,controlled/jobfair-platform-copy,9200385,typescript,"[""src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -137,11 +137,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-085 — `JOBPublicContract085`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-085: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d170b8947aa0b07a1e3c8d635cc97ead85495d8714bab7555ab25bcfdb5ea31f,9e300b4d2ef577f70b9317725b5ca69f0662184ecd76a3ad259c434ecb6b4e53,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-085.patch
+CRPP1-JOB-MODEL_CONTRACT-086,controlled/jobfair-platform-copy,9200386,typescript,"[""src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -176,7 +176,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract086"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-086 — `JOBPublicContract086`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-086: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5f3bdc13245f270552a9fc9cf7f69dc6506cca011d46415add9e07b70ffabb72,29d14fa43c54d803fb755a2e299bb0347995cd33aefe844e5d17db57cbd506b8,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-086.patch
+CRPP1-JOB-MODEL_CONTRACT-087,controlled/jobfair-platform-copy,9200387,typescript,"[""src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -191,6 +191,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-087 — `JOBPublicContract087`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-087: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a704880093ed609624eb28998ca8cf1e64d6ebafe7d4e00de251f962e84a258f,2e9bcef06e7447f42d51e473444015bb97f7fe7aa21052e5bb26208e3f42feaa,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-087.patch
+CRPP1-JOB-MODEL_CONTRACT-088,controlled/jobfair-platform-copy,9200388,typescript,"[""src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -214,13 +214,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-088"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-088 — `JOBPublicContract088`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-088: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,764db0dc379eeeb40f521047ad821ce387dd9d50d624628aea43a7deb5b1290c,f55503c194fafdd2570fadeca964e7e37704c44a61beec3087bd39e9efe19663,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-088.patch
+CRPP1-JOB-MODEL_CONTRACT-089,controlled/jobfair-platform-copy,9200389,typescript,"[""src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -257,11 +257,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-089 — `JOBPublicContract089`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-089: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0112d70d6c7d5277288ed3f5d45c4ebf2f3c228cb3706b980c14906e4727a707,a6d3054def892f9ff542716f1eae76b780ef6a8050868e62b6b124e9440e26f5,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-089.patch
+CRPP1-JOB-MODEL_CONTRACT-090,controlled/jobfair-platform-copy,9200390,typescript,"[""src/docguard-contract-lab/model_contract/contracts_09.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_09.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_09.schema.json
+@@ -296,7 +296,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract090"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-090 — `JOBPublicContract090`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-090: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4d2d2f8b35406d889787de0fd6a0057c4465b592ab2672065fbdbfa54c3ef533,99d27cdb81b2c43132f5da1e8c060ec957475edcd8073b78f5c12fddb94cf2fc,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-090.patch
+CRPP1-JOB-MODEL_CONTRACT-091,controlled/jobfair-platform-copy,9200391,typescript,"[""src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -11,6 +11,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-091 — `JOBPublicContract091`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-091: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,61d09160b15ea23c5acf6a19abcee2d3ac013bcf6e531b2ea53c424c5e8c9b5b,5013938a10d187cf4b6ea1f3b2eee22b27ab49121715f7c18210a00e7952c886,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-091.patch
+CRPP1-JOB-MODEL_CONTRACT-092,controlled/jobfair-platform-copy,9200392,typescript,"[""src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -34,13 +34,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-092"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-092 — `JOBPublicContract092`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-092: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fabc014718c3c0956373dc4952967c16c2c58afff57c5eaacd12064138a33e69,a1c8a1a2e4a4731a5d01fefbd54799b92421f2dd2d6490b4f2387a19723e8966,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-092.patch
+CRPP1-JOB-MODEL_CONTRACT-093,controlled/jobfair-platform-copy,9200393,typescript,"[""src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -77,11 +77,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-093 — `JOBPublicContract093`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-093: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8a859cb26980d7b3b57357930bb061accc0bafcd0ca159f764f4385f2695aa2a,f21372ad818ebf003e61d720ca9a0331b54f7d263a36e6794e4ebfe841118568,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-093.patch
+CRPP1-JOB-MODEL_CONTRACT-094,controlled/jobfair-platform-copy,9200394,typescript,"[""src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -116,7 +116,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract094"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-094 — `JOBPublicContract094`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-094: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cb9eb8bca152bb593ca8eb80be69711a0917e052d830d0008ae13e9c0f1c5212,4793d13519d3461f8335a1f926a49b81344b105724406e5316527ca18c1ca2fb,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-094.patch
+CRPP1-JOB-MODEL_CONTRACT-095,controlled/jobfair-platform-copy,9200395,typescript,"[""src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -131,6 +131,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-095 — `JOBPublicContract095`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-095: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,524e2bb1915945b342abe6cbc1cfedf733c0a81a0b6a2960446c9d14fd8e24db,a8c902910e601a725cae032835bce0d06f34f088a9ca8d73c69de829a9e85335,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-095.patch
+CRPP1-JOB-MODEL_CONTRACT-096,controlled/jobfair-platform-copy,9200396,typescript,"[""src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -154,13 +154,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-096"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-096 — `JOBPublicContract096`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-096: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a25eff3af89058ba799ce905eeb61d1640c5f63b45aaad804dcf0aa3d479c8b1,dc407a676515f863c18b296cda00a321bbf88ffab696cb59f93156c8ebac335f,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-096.patch
+CRPP1-JOB-MODEL_CONTRACT-097,controlled/jobfair-platform-copy,9200397,typescript,"[""src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -197,11 +197,8 @@
+           ""type"": ""integer""
+         },
+         ""status"": {
+-          ""enum"": [
+-            ""active"",
+-            ""inactive""
+-          ],
+-          ""type"": ""string""
++          ""minimum"": 0,
++          ""type"": ""integer""
+         }
+       },
+       ""required"": [
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-097 — `JOBPublicContract097`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-097: kod mijenja javni/serijalizovani model iz 'status' u 'status:integer' (serialized_field_type_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a44ec4b01f40c8434ea8ddaa1b0179d9a1713106257546e63e91de2a37c586fc,57065985360aebcd29d2a9b6cc99b734214a7bf33e124d7718f5a52353a3622f,model_contract,jobfair_platform,serialized_field_type_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-097.patch
+CRPP1-JOB-MODEL_CONTRACT-098,controlled/jobfair-platform-copy,9200398,typescript,"[""src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -236,7 +236,8 @@
+       },
+       ""required"": [
+         ""id"",
+-        ""status""
++        ""status"",
++        ""score""
+       ],
+       ""title"": ""JOBPublicContract098"",
+       ""type"": ""object""
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-098 — `JOBPublicContract098`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-098: kod mijenja javni/serijalizovani model iz 'id, status' u 'id, status, score' (required_field_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d834d793c3cfd0855a5d94e4c819704b8ec8f1917755e974b6eed88b411ed428,bb674f9ffcc3ea6da046320ad1ea51b29ba7c5047286f86ebf02ac87397d7b42,model_contract,jobfair_platform,required_field_change,cases/patches/jobfair_platform/model_contract/JOB-MODEL-098.patch
+CRPP1-JOB-MODEL_CONTRACT-099,controlled/jobfair-platform-copy,9200399,typescript,"[""src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -251,6 +251,10 @@
+         ""metadata"": {
+           ""additionalProperties"": true,
+           ""type"": ""object""
++        },
++        ""revision"": {
++          ""minimum"": 1,
++          ""type"": ""integer""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-099 — `JOBPublicContract099`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-099: kod mijenja javni/serijalizovani model iz 'metadata' u 'revision:integer (new field)' (serialized_field_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,896e5d49e47038e0acc36faf0b473d7d92adef300e558cf5b2dab395642d2857,8f02b048baef077edc4c547c21aa233ef3bb63155b6af74467935dd7f8c31d42,model_contract,jobfair_platform,serialized_field_added,cases/patches/jobfair_platform/model_contract/JOB-MODEL-099.patch
+CRPP1-JOB-MODEL_CONTRACT-100,controlled/jobfair-platform-copy,9200400,typescript,"[""src/docguard-contract-lab/model_contract/contracts_10.schema.json""]","--- a/src/docguard-contract-lab/model_contract/contracts_10.schema.json
++++ b/src/docguard-contract-lab/model_contract/contracts_10.schema.json
+@@ -274,13 +274,13 @@
+     {
+       ""contractId"": ""JOB-MODEL-100"",
+       ""properties"": {
+-        ""id"": {
+-          ""format"": ""uuid"",
+-          ""type"": ""string""
+-        },
+-        ""metadata"": {
+-          ""additionalProperties"": true,
+-          ""type"": ""object""
++        ""attributes"": {
++          ""additionalProperties"": true,
++          ""type"": ""object""
++        },
++        ""id"": {
++          ""format"": ""uuid"",
++          ""type"": ""string""
+         },
+         ""score"": {
+           ""minimum"": 0,
+","<!-- docs/docguard-contract-lab/MODEL_CONTRACTS.md @ controlled-baseline:8aca88fcb227b4d5 -->
+### JOB-MODEL-100 — `JOBPublicContract100`
+- Serialized type: `object`
+- Required fields: `id, status`
+- `id`: `string(uuid)`
+- `status`: `string`, allowed values `active|inactive`
+- `score`: `integer`, minimum `0`
+- `metadata`: `object`, additional properties allowed
+",True,model_contract,Controlled design expectation: model_contract; independent human/owner acceptance still required before merge.,True,model_contract,"JOB-MODEL-100: kod mijenja javni/serijalizovani model iz 'metadata' u 'attributes' (serialized_field_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eb8c6aa3b4cb953de4bf26910fa94c1bbe02eef88372c4f10310d8f30f510689,0eb5ec722564bf31012320224de74a94d8d6a7ea354a9394f284a5c4ba8aee21,model_contract,jobfair_platform,serialized_field_rename,cases/patches/jobfair_platform/model_contract/JOB-MODEL-100.patch

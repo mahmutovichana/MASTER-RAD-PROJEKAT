@@ -1,0 +1,300 @@
+@page "/historija"
+@attribute [Authorize]
+@rendermode InteractiveServer
+@using System.Text
+@using System.Text.Json
+@inject IRunHistoryService HistorySvc
+@inject IGroupService GroupSvc
+@inject IDialogService DialogService
+@inject IJSRuntime JS
+
+<PageTitle>Historija runova</PageTitle>
+<PageHeader Title="Historija runova" Subtitle="Pregled, trend i analiza test rezultata" />
+
+@* ── Dashboard kartice ─────────────────────────────────────────── *@
+@if (_dashboard is not null)
+{
+    <MudGrid Class="mb-4">
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Class="pa-4 text-center" Elevation="1">
+                <MudText Typo="Typo.h4" Color="Color.Primary">@_dashboard.TotalRuns</MudText>
+                <MudText Typo="Typo.caption">Ukupno runova</MudText>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Class="pa-4 text-center" Elevation="1">
+                <MudText Typo="Typo.h4" Color="@(_dashboard.AvgPassRate >= 80 ? Color.Success : Color.Warning)">
+                    @_dashboard.AvgPassRate.ToString("F1")%
+                </MudText>
+                <MudText Typo="Typo.caption">Prosjecni pass rate</MudText>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Class="pa-4 text-center" Elevation="1">
+                <MudText Typo="Typo.h4">@_dashboard.AvgDuration.ToString(@"mm\:ss")</MudText>
+                <MudText Typo="Typo.caption">Prosjecno trajanje</MudText>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="3">
+            <MudPaper Class="pa-4 text-center" Elevation="1">
+                <MudText Typo="Typo.h4">
+                    <span style="color:var(--mud-palette-success);">@_dashboard.PassedRuns</span> /
+                    <span style="color:var(--mud-palette-error);">@_dashboard.FailedRuns</span>
+                </MudText>
+                <MudText Typo="Typo.caption">Proslo / Palo</MudText>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+}
+
+@* ── Trend grafikon ────────────────────────────────────────────── *@
+@if (_trendLabels.Length > 0)
+{
+    <MudPaper Class="pa-4 mb-4" Elevation="1">
+        <MudText Typo="Typo.h6" Class="mb-2">Trend pass rate-a (zadnjih 30 dana)</MudText>
+        <MudChart ChartType="ChartType.Line"
+                  ChartSeries="@_trendSeries"
+                  XAxisLabels="@_trendLabels"
+                  Width="100%" Height="300px"
+                  ChartOptions="@_chartOptions" />
+    </MudPaper>
+}
+
+@* ── Flaky testovi ─────────────────────────────────────────────── *@
+@if (_flakyTests.Count > 0)
+{
+    <MudPaper Class="pa-4 mb-4" Elevation="1">
+        <MudText Typo="Typo.h6" Class="mb-2">Flaky testovi (nestabilni)</MudText>
+        <MudTable Items="@_flakyTests" Dense="true" Hover="true" Breakpoint="Breakpoint.Sm" Class="rbi-mobile-cards">
+            <HeaderContent>
+                <MudTh>Scenarij</MudTh>
+                <MudTh>Grupa</MudTh>
+                <MudTh>Runova</MudTh>
+                <MudTh>Promjena statusa</MudTh>
+                <MudTh>Flaky rate</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Scenarij">@context.ScenarioName</MudTd>
+                <MudTd DataLabel="Grupa">@context.GroupName</MudTd>
+                <MudTd DataLabel="Runova">@context.TotalRuns</MudTd>
+                <MudTd DataLabel="Promjena statusa">@context.Flips</MudTd>
+                <MudTd DataLabel="Flaky rate">
+                    <MudChip T="string" Size="Size.Small"
+                             Color="@(context.FlakyRate > 50 ? Color.Error : Color.Warning)">
+                        @context.FlakyRate.ToString("F0")%
+                    </MudChip>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudPaper>
+}
+
+@* ── Filteri ───────────────────────────────────────────────────── *@
+<MudPaper Class="pa-3 mb-3" Elevation="1">
+    <MudGrid>
+        <MudItem xs="12" sm="6" md="2">
+            <MudSelect T="Guid?" Value="@_filterGroupId" ValueChanged="OnGroupFilterChanged"
+                       Label="Grupa" Variant="Variant.Outlined" Dense="true" Clearable="true">
+                @foreach (var g in _groups)
+                {
+                    <MudSelectItem T="Guid?" Value="@((Guid?)g.Id)">@g.Naziv</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="2">
+            <MudSelect T="string" Value="@_filterTag" ValueChanged="OnTagFilterChanged"
+                       Label="Tag" Variant="Variant.Outlined" Dense="true" Clearable="true">
+                <MudSelectItem T="string" Value="@("Smoke")">Smoke</MudSelectItem>
+                <MudSelectItem T="string" Value="@("Regression")">Regression</MudSelectItem>
+                <MudSelectItem T="string" Value="@("Full")">Full</MudSelectItem>
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="2">
+            <MudSelect T="string" Value="@_filterTrigger" ValueChanged="OnTriggerFilterChanged"
+                       Label="Trigger" Variant="Variant.Outlined" Dense="true" Clearable="true">
+                <MudSelectItem T="string" Value="@("Manual")">Manual</MudSelectItem>
+                <MudSelectItem T="string" Value="@("Scheduled")">Scheduled</MudSelectItem>
+                <MudSelectItem T="string" Value="@("Pipeline")">Pipeline</MudSelectItem>
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="2">
+            <MudSelect T="string" Value="@_filterStatus" ValueChanged="OnStatusFilterChanged"
+                       Label="Status" Variant="Variant.Outlined" Dense="true" Clearable="true">
+                <MudSelectItem T="string" Value="@("Passed")">Passed</MudSelectItem>
+                <MudSelectItem T="string" Value="@("Failed")">Failed</MudSelectItem>
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="2">
+            <MudDatePicker Date="_filterDateFrom" Label="Od" Variant="Variant.Outlined"
+                           Dense="true" Clearable="true" DateChanged="OnDateFromChanged" />
+        </MudItem>
+        <MudItem xs="12" sm="6" md="2">
+            <MudDatePicker Date="_filterDateTo" Label="Do" Variant="Variant.Outlined"
+                           Dense="true" Clearable="true" DateChanged="OnDateToChanged" />
+        </MudItem>
+    </MudGrid>
+</MudPaper>
+
+@* ── Tabela historije + CSV export ─────────────────────────────── *@
+<MudPaper Class="mb-4" Elevation="1">
+    <div class="d-flex justify-end pa-2">
+        <MudButton StartIcon="@Icons.Material.Filled.Download"
+                   Variant="Variant.Outlined" Size="Size.Small"
+                   OnClick="ExportCsv" Disabled="@(_history.Count == 0)">
+            Export CSV
+        </MudButton>
+    </div>
+
+    <MudTable Items="@_history" Dense="true" Hover="true" Breakpoint="Breakpoint.Sm" Class="rbi-mobile-cards"
+              Loading="@_isLoading" RowClass="cursor-pointer"
+              T="RunHistoryRow"
+              OnRowClick="@(args => OpenRunDetail(args.Item))">
+        <HeaderContent>
+            <MudTh><MudTableSortLabel SortBy="new Func<RunHistoryRow, object>(r => r.StartedAt)">Datum</MudTableSortLabel></MudTh>
+            <MudTh>Grupa</MudTh>
+            <MudTh>Tag</MudTh>
+            <MudTh>Trigger</MudTh>
+            <MudTh>Status</MudTh>
+            <MudTh>Pass Rate</MudTh>
+            <MudTh>Rezultat</MudTh>
+            <MudTh>Trajanje</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Datum">
+                <div>@context.StartedAt.ToLocalTime().ToString("dd.MM.yyyy")</div>
+                <MudText Typo="Typo.caption" Color="Color.Secondary">@context.StartedAt.ToLocalTime().ToString("HH:mm")</MudText>
+            </MudTd>
+            <MudTd DataLabel="Grupa">
+                <div class="d-flex align-center gap-1">
+                    @if (context.GroupBoja is not null)
+                    {
+                        <span style="@($"display:inline-block;width:10px;height:10px;border-radius:50%;background:{context.GroupBoja}")"></span>
+                    }
+                    @context.GroupName
+                </div>
+            </MudTd>
+            <MudTd DataLabel="Tag">@context.GroupTag</MudTd>
+            <MudTd DataLabel="Trigger">@context.TriggerType</MudTd>
+            <MudTd DataLabel="Status">
+                <MudChip T="string" Size="Size.Small"
+                         Color="@(context.Status == "Passed" ? Color.Success : Color.Error)">
+                    @context.Status
+                </MudChip>
+            </MudTd>
+            <MudTd DataLabel="Pass Rate">@context.PassRate.ToString("F0")%</MudTd>
+            <MudTd DataLabel="Rezultat">
+                <span style="color:var(--mud-palette-success);">✔ @context.PassedCount</span>
+                <span style="color:var(--mud-palette-error); margin-left:4px;">✘ @context.FailedCount</span>
+                <span style="color:var(--mud-palette-text-secondary); margin-left:4px;">Σ @context.TotalCount</span>
+            </MudTd>
+            <MudTd DataLabel="Trajanje">
+                @if (context.Duration.TotalMinutes >= 1)
+                {
+                    <span>@((int)context.Duration.TotalMinutes)m @context.Duration.Seconds s</span>
+                }
+                else
+                {
+                    <span>@context.Duration.Seconds s</span>
+                }
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+</MudPaper>
+
+@code {
+    private HistoryDashboard? _dashboard;
+    private List<RunHistoryRow> _history = [];
+    private List<FlakyTestInfo> _flakyTests = [];
+    private List<GroupDto> _groups = [];
+    private List<ChartSeries> _trendSeries = [];
+    private string[] _trendLabels = [];
+    private readonly ChartOptions _chartOptions = new() { YAxisLines = true, MaxNumYAxisTicks = 5 };
+    private bool _isLoading = true;
+
+    private Guid? _filterGroupId;
+    private string? _filterTag;
+    private string? _filterTrigger;
+    private string? _filterStatus;
+    private DateTime? _filterDateFrom;
+    private DateTime? _filterDateTo;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Upiti se izvrsavaju SEKVENCIJALNO — RunHistoryService dijeli jedan
+        // TestForgeDbContext, a DbContext ne podrzava paralelne operacije
+        // (Task.WhenAll je bacao "second operation started on this context").
+        _groups = [..await GroupSvc.GetRootGroupsAsync()];
+        _dashboard = await HistorySvc.GetDashboardAsync();
+        var trend = await HistorySvc.GetTrendAsync();
+        _flakyTests = [..await HistorySvc.GetFlakyTestsAsync()];
+        _history = [..await HistorySvc.GetHistoryAsync(BuildFilter())];
+        BuildTrendChart(trend);
+        _isLoading = false;
+    }
+
+    private void BuildTrendChart(IReadOnlyList<TrendPoint> trend)
+    {
+        if (trend.Count == 0) return;
+
+        var byGroup = trend.GroupBy(t => t.GroupName).ToList();
+        var allDates = trend.Select(t => t.Date).Distinct().OrderBy(d => d).ToList();
+        _trendLabels = allDates.Select((d, i) => i % 5 == 0 ? d.ToString("dd.MM") : "").ToArray();
+
+        _trendSeries = byGroup.Select(g =>
+        {
+            var dateMap = g.GroupBy(t => t.Date)
+                .ToDictionary(x => x.Key, x => x.Average(t => t.PassRate));
+            var data = allDates.Select(d => dateMap.TryGetValue(d, out var v) ? v : 0).ToArray();
+            return new ChartSeries { Name = g.Key, Data = data };
+        }).ToList();
+    }
+
+    private RunHistoryFilter BuildFilter() => new(
+        GroupId: _filterGroupId,
+        Tag: _filterTag is not null ? Enum.Parse<TestTag>(_filterTag) : null,
+        TriggerType: _filterTrigger,
+        Status: _filterStatus,
+        DateFrom: _filterDateFrom,
+        DateTo: _filterDateTo);
+
+    private async Task ReloadHistory()
+    {
+        _isLoading = true;
+        _history = [..await HistorySvc.GetHistoryAsync(BuildFilter())];
+        _isLoading = false;
+    }
+
+    private async void OnGroupFilterChanged(Guid? val) { _filterGroupId = val; await ReloadHistory(); StateHasChanged(); }
+    private async void OnTagFilterChanged(string? val) { _filterTag = val; await ReloadHistory(); StateHasChanged(); }
+    private async void OnTriggerFilterChanged(string? val) { _filterTrigger = val; await ReloadHistory(); StateHasChanged(); }
+    private async void OnStatusFilterChanged(string? val) { _filterStatus = val; await ReloadHistory(); StateHasChanged(); }
+    private async void OnDateFromChanged(DateTime? val) { _filterDateFrom = val; await ReloadHistory(); StateHasChanged(); }
+    private async void OnDateToChanged(DateTime? val) { _filterDateTo = val; await ReloadHistory(); StateHasChanged(); }
+
+    private async Task OpenRunDetail(RunHistoryRow row)
+    {
+        var parameters = new DialogParameters
+        {
+            [nameof(RunDetailDialog.Run)] = row,
+        };
+        await DialogService.ShowAsync<RunDetailDialog>(
+            $"Run: {row.GroupName}", parameters,
+            new DialogOptions { MaxWidth = MaxWidth.Large, FullWidth = true, CloseOnEscapeKey = true });
+    }
+
+    private async Task ExportCsv()
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine("Datum,Grupa,Tag,Trigger,Status,PassRate,Proslo,Palo,Ukupno,Trajanje");
+        foreach (var r in _history)
+        {
+            sb.AppendLine($"{r.StartedAt:yyyy-MM-dd HH:mm},{Esc(r.GroupName)},{r.GroupTag},{r.TriggerType},{r.Status},{r.PassRate:F1},{r.PassedCount},{r.FailedCount},{r.TotalCount},{r.Duration:mm\\:ss}");
+        }
+        var bytes = Encoding.UTF8.GetPreamble().Concat(Encoding.UTF8.GetBytes(sb.ToString())).ToArray();
+        var base64 = Convert.ToBase64String(bytes);
+        await JS.InvokeVoidAsync("eval",
+            $"{{const a=document.createElement('a');a.href='data:text/csv;base64,{base64}';a.download='historija_runova.csv';a.click();}}");
+    }
+
+    private static string Esc(string v) => v.Contains(',') ? $"\"{v}\"" : v;
+}

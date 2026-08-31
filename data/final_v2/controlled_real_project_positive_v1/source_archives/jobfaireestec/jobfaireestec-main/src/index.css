@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  CLS fix: define metric-adjusted fallback fonts so the swap from system
+  fonts to Inter / Space Grotesk does not change line-height/glyph width
+  and shift layout. Numbers tuned against the actual web fonts.
+*/
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Space Grotesk Fallback';
+  src: local('Arial');
+  size-adjust: 100%;
+  ascent-override: 95%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 220 20% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 12%;
+
+    --primary: 4 80% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 10% 94%;
+    --secondary-foreground: 220 20% 12%;
+
+    --muted: 220 10% 96%;
+    --muted-foreground: 220 5% 46%;
+
+    --accent: 220 10% 94%;
+    --accent-foreground: 220 20% 12%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 91%;
+    --input: 0 0% 91%;
+    --ring: 4 80% 50%;
+
+    --radius: 0.5rem;
+
+    --success: 160 50% 40%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 80% 55%;
+    --warning-foreground: 0 0% 100%;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 20% 12%;
+    --sidebar-primary: 4 80% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 220 20% 12%;
+    --sidebar-border: 0 0% 91%;
+    --sidebar-ring: 4 80% 50%;
+  }
+
+  .dark {
+    --background: 220 25% 6%;
+    --foreground: 220 5% 95%;
+
+    --card: 220 25% 9%;
+    --card-foreground: 220 5% 95%;
+
+    --popover: 220 25% 9%;
+    --popover-foreground: 220 5% 95%;
+
+    --primary: 4 80% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 15% 18%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 15% 18%;
+    --muted-foreground: 220 5% 55%;
+
+    --accent: 220 15% 18%;
+    --accent-foreground: 220 5% 95%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 4 80% 50%;
+
+    --sidebar-background: 220 25% 6%;
+    --sidebar-foreground: 220 5% 85%;
+    --sidebar-primary: 4 80% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 15% 14%;
+    --sidebar-accent-foreground: 220 5% 95%;
+    --sidebar-border: 220 15% 16%;
+    --sidebar-ring: 4 80% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', 'Inter Fallback', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Space Grotesk Fallback', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .prose-readable {
+    max-width: 70ch;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+}

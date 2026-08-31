@@ -1,0 +1,753 @@
+@page "/scenariji"
+@attribute [Authorize(Roles = AppRoles.Administrator + "," + AppRoles.QALead + "," + AppRoles.QAInzenjer + "," + AppRoles.Developer)]
+@rendermode InteractiveServer
+@implements IDisposable
+@using RBBH.TestAutomation.Api.Services.Run
+@using RBBH.TestAutomation.Core.Domain
+@using RBBH.TestAutomation.Core.Repositories
+@using DomainEnums = RBBH.TestAutomation.Core.Domain.Enums
+
+@inject IScenarioService ScenarioSvc
+@inject IScenarioImportExportService ImportExportSvc
+@inject TestRunStateService RunState
+@inject IXUnitTestRunner XUnitRunner
+@inject IGitHubActionsE2eRunner E2ERunner
+@inject IServiceProvider Sp
+@inject IUserContext UserCtx
+@inject ToastService Toast
+@inject IDialogService DialogService
+@inject IJSRuntime Js
+
+<PageTitle>Scenariji</PageTitle>
+
+@if (!UserCtx.CanAccess(AppModules.TestScenarios))
+{
+    <MudAlert Severity="Severity.Warning" Class="ma-4">
+        Nemate pristup ovom modulu. Potrebna rola: Administrator, QA Lead, QA Inženjer ili Developer.
+    </MudAlert>
+    return;
+}
+
+<PageHeader Title="Scenariji" Subtitle="Test scenariji i koraci" />
+
+<div class="scenariji-toolbar d-flex flex-wrap gap-2 justify-end mb-3">
+    <MudButton StartIcon="@Icons.Material.Filled.PlayArrow"
+               Variant="Variant.Outlined"
+               Color="Color.Success"
+               Disabled="@(RunState.IsRunning || _lista.Count == 0)"
+               OnClick="@RunAll">
+        <span class="btn-text">Pokreni sve</span>
+    </MudButton>
+    <MudButton StartIcon="@Icons.Material.Filled.Terminal"
+               Variant="Variant.Outlined"
+               Color="Color.Tertiary"
+               Disabled="@(_xunitRunning || _lista.Count == 0)"
+               OnClick="@RunAllXUnit">
+        <span class="btn-text">@(_xunitRunning ? "Kompajliram i pokrećem…" : "Pokreni kao xUnit (dotnet test)")</span>
+    </MudButton>
+    <MudButton StartIcon="@Icons.Material.Filled.CloudSync"
+               Variant="Variant.Outlined"
+               Color="Color.Info"
+               Disabled="@(_e2eRunning || _lista.Count == 0)"
+               OnClick="@RunAllE2E">
+        <span class="btn-text">@(_e2eRunning ? (_e2eStatus ?? "Pokrećem na GitHubu…") : "Pokreni kao E2E (Playwright / GitHub)")</span>
+    </MudButton>
+    <MudButton StartIcon="@Icons.Material.Filled.FileDownload"
+               Variant="Variant.Outlined"
+               Color="Color.Primary"
+               OnClick="@DownloadYamlAsync">
+        <span class="btn-text">Export YAML</span>
+    </MudButton>
+    <MudButton StartIcon="@Icons.Material.Filled.UploadFile"
+               Variant="Variant.Outlined"
+               Color="Color.Primary"
+               OnClick="@ToggleImportPanel">
+        <span class="btn-text">Import</span>
+    </MudButton>
+    <MudButton StartIcon="@Icons.Material.Filled.Add"
+               Variant="Variant.Filled"
+               Color="Color.Primary"
+               OnClick="@OpenCreateDialog">
+        <span class="btn-text">Novi scenarij</span>
+    </MudButton>
+</div>
+
+@if (_showImportPanel)
+{
+    <MudPaper Class="pa-4 mb-4" Elevation="0" Outlined="true">
+        <div class="d-flex justify-space-between align-center gap-3 mb-3">
+            <MudText Typo="Typo.h6">Import YAML/JSON scenarija</MudText>
+            @* RBI-themed upload: MudButton kao <label> okida skriveni InputFile *@
+            <MudButton HtmlTag="label"
+                       for="scenarioImportFile"
+                       Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.UploadFile">
+                Odaberi .yaml / .json
+            </MudButton>
+            <InputFile id="scenarioImportFile" OnChange="HandleFilesSelectedAsync"
+                       multiple accept=".yaml,.yml,.json" style="display:none" />
+        </div>
+
+        <MudRadioGroup T="ScenarioImportMergeStrategy" @bind-Value="_mergeStrategy" Class="mb-3">
+            <MudRadio Value="ScenarioImportMergeStrategy.OverwriteExisting" Color="Color.Primary">Prepisi postojece</MudRadio>
+            <MudRadio Value="ScenarioImportMergeStrategy.AddOnlyNew" Color="Color.Primary">Dodaj samo nove</MudRadio>
+        </MudRadioGroup>
+
+        @if (_isReadingFiles)
+        {
+            <MudProgressLinear Indeterminate="true" Color="Color.Primary" Class="mb-3" />
+        }
+
+        @if (_previews.Count > 0)
+        {
+            <MudTable Items="@_previews" Dense="true" Hover="true" Elevation="0">
+                <HeaderContent>
+                    <MudTh>Fajl</MudTh>
+                    <MudTh>Grupa</MudTh>
+                    <MudTh>Status</MudTh>
+                    <MudTh>Scenariji</MudTh>
+                    <MudTh>Napomene</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Fajl">@context.FileName</MudTd>
+                    <MudTd DataLabel="Grupa">@(context.Document?.Group.Naziv ?? "-")</MudTd>
+                    <MudTd DataLabel="Status">
+                        @if (context.IsValid)
+                        {
+                            <MudChip T="string" Size="Size.Small" Color="Color.Success">Validan</MudChip>
+                        }
+                        else
+                        {
+                            <MudChip T="string" Size="Size.Small" Color="Color.Error">Greska</MudChip>
+                        }
+                    </MudTd>
+                    <MudTd DataLabel="Scenariji">
+                        @if (context.IsValid)
+                        {
+                            <MudText Typo="Typo.body2">@context.Document!.Scenarios.Count ukupno</MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                @context.NewScenarioCount novih, @context.ExistingScenarioCount postojecih
+                            </MudText>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </MudTd>
+                    <MudTd DataLabel="Napomene">
+                        @foreach (var error in context.Errors)
+                        {
+                            <MudText Typo="Typo.caption" Color="Color.Error">@error</MudText>
+                        }
+                        @foreach (var warning in context.Warnings)
+                        {
+                            <MudText Typo="Typo.caption" Color="Color.Warning">@warning</MudText>
+                        }
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
+
+            <div class="d-flex justify-end gap-2 mt-3">
+                <MudButton Variant="Variant.Text" OnClick="@ClearImportPreview">Ocisti pregled</MudButton>
+                <MudButton StartIcon="@Icons.Material.Filled.PlaylistAddCheck"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           Disabled="@(!_previews.Any(p => p.IsValid))"
+                           OnClick="@ImportValidPreviewsAsync">
+                    Uvezi validne fajlove
+                </MudButton>
+            </div>
+        }
+    </MudPaper>
+}
+
+@if (_isLoading)
+{
+    <MudProgressLinear Indeterminate="true" Color="Color.Primary" Class="mb-4" />
+}
+else if (_loadError is not null)
+{
+    <ErrorAlert Message="@_loadError" />
+}
+else if (_lista.Count == 0)
+{
+    <MudText Typo="Typo.body2" Color="Color.Secondary" Class="pa-4">
+        Nema scenarija. Kreirajte prvi klikom na „Novi scenarij".
+    </MudText>
+}
+else
+{
+    <MudTable Items="@_lista"
+              Dense="true"
+              Hover="true"
+              Breakpoint="Breakpoint.Sm"
+              Class="mb-4">
+        <HeaderContent>
+            <MudTh>Naziv</MudTh>
+            <MudTh>Tip</MudTh>
+            <MudTh Style="width:90px">Rezultat</MudTh>
+            <MudTh>Izmijenjeno</MudTh>
+            <MudTh Style="width:200px">Akcije</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Naziv">
+                <MudText Typo="Typo.body2">@context.Naziv</MudText>
+            </MudTd>
+            <MudTd DataLabel="Tip">
+                <MudChip T="string"
+                         Size="Size.Small"
+                         Variant="Variant.Filled"
+                         Style="@TipChipStyle(context.Tip)">
+                    @context.Tip
+                </MudChip>
+            </MudTd>
+            <MudTd DataLabel="Rezultat">
+                @if (RunState.Results.TryGetValue(context.Id, out var r))
+                {
+                    @switch (r.Status)
+                    {
+                        case ScenarioRunStatus.Running:
+                            <MudProgressCircular Indeterminate="true" Size="Size.Small" Color="Color.Primary" />
+                            break;
+                        case ScenarioRunStatus.Passed:
+                            <MudTooltip Text="@($"Prošao · {r.DurationMs} ms")">
+                                <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success" Size="Size.Small" />
+                            </MudTooltip>
+                            break;
+                        case ScenarioRunStatus.Failed:
+                            <MudTooltip Text="@r.FailReason">
+                                <MudIcon Icon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Small" />
+                            </MudTooltip>
+                            break;
+                        case ScenarioRunStatus.Skipped:
+                            <MudTooltip Text="@r.FailReason">
+                                <MudIcon Icon="@Icons.Material.Filled.RemoveCircleOutline" Color="Color.Default" Size="Size.Small" />
+                            </MudTooltip>
+                            break;
+                    }
+                }
+            </MudTd>
+            <MudTd DataLabel="Izmijenjeno">
+                @if (_detalji.TryGetValue(context.Id, out var dto) && dto.IzmjenjenAt.HasValue)
+                {
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">
+                        @dto.IzmjenjenAt.Value.ToString("dd.MM.yyyy HH:mm")
+                    </MudText>
+                }
+                else if (_detalji.TryGetValue(context.Id, out var dto2))
+                {
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">
+                        @dto2.KreiranAt.ToString("dd.MM.yyyy HH:mm")
+                    </MudText>
+                }
+            </MudTd>
+            <MudTd>
+                <MudTooltip Text="Pokreni">
+                    <MudIconButton Icon="@Icons.Material.Filled.PlayArrow"
+                                   Size="Size.Small"
+                                   Color="Color.Success"
+                                   Disabled="@RunState.IsRunning"
+                                   OnClick="@(() => RunState.RunOneAsync(context.Id, _cts.Token))" />
+                </MudTooltip>
+                <MudTooltip Text="Uredi">
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                   Size="Size.Small"
+                                   OnClick="@(() => OpenEditDialog(context.Id))" />
+                </MudTooltip>
+                <MudTooltip Text="Kloniraj (AC5)">
+                    <MudIconButton Icon="@Icons.Material.Filled.ContentCopy"
+                                   Size="Size.Small"
+                                   Color="Color.Default"
+                                   OnClick="@(() => CloneScenario(context))" />
+                </MudTooltip>
+                <MudTooltip Text="Obriši">
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                   Size="Size.Small"
+                                   Color="Color.Error"
+                                   OnClick="@(() => DeleteScenario(context))" />
+                </MudTooltip>
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+}
+
+@if (_xunitReport is not null)
+{
+    <MudPaper Class="pa-4 mb-4" Elevation="1">
+        <div class="d-flex justify-space-between align-center mb-2">
+            <MudText Typo="Typo.h6">
+                <MudIcon Icon="@Icons.Material.Filled.Terminal" Size="Size.Small" Class="mr-1" />
+                Rezultat xUnit pokretanja (dotnet test)
+            </MudText>
+            @if (_xunitReport.Compiled)
+            {
+                <MudChip T="string" Size="Size.Small" Variant="Variant.Filled"
+                         Color="@(_xunitReport.Failed == 0 ? Color.Success : Color.Error)">
+                    @_xunitReport.Passed prošlo · @_xunitReport.Failed palo
+                </MudChip>
+            }
+            else
+            {
+                <MudChip T="string" Size="Size.Small" Variant="Variant.Filled" Color="Color.Warning">
+                    Nije se kompajliralo
+                </MudChip>
+            }
+        </div>
+
+        @if (_xunitReport.Compiled)
+        {
+            <MudSimpleTable Dense Hover Bordered="false" Style="background:transparent;">
+                <tbody>
+                    @foreach (var r in _xunitReport.Scenarios)
+                    {
+                        <tr>
+                            <td style="width:32px">
+                                <MudIcon Size="Size.Small"
+                                         Icon="@(r.Passed ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Cancel)"
+                                         Color="@(r.Passed ? Color.Success : Color.Error)" />
+                            </td>
+                            <td><MudText Typo="Typo.body2">@r.ClassName</MudText></td>
+                            <td><MudText Typo="Typo.caption" Color="Color.Secondary">@r.Detail</MudText></td>
+                            <td style="text-align:right"><MudText Typo="Typo.caption">@r.DurationMs ms</MudText></td>
+                        </tr>
+                    }
+                </tbody>
+            </MudSimpleTable>
+        }
+
+        <MudExpansionPanels Elevation="0" Class="mt-2">
+            <MudExpansionPanel Text="Sirovi izlaz (dotnet test)">
+                <pre style="font-family:'JetBrains Mono',monospace;font-size:11px;white-space:pre-wrap;max-height:300px;overflow:auto;">@_xunitReport.RawOutput</pre>
+            </MudExpansionPanel>
+        </MudExpansionPanels>
+    </MudPaper>
+}
+
+@if (_e2eReport is not null)
+{
+    <MudPaper Class="pa-4 mb-4" Elevation="1">
+        <div class="d-flex justify-space-between align-center mb-2">
+            <MudText Typo="Typo.h6">
+                <MudIcon Icon="@Icons.Material.Filled.CloudSync" Size="Size.Small" Class="mr-1" />
+                Rezultat E2E pokretanja (Playwright na GitHub Actions)
+            </MudText>
+            @if (_e2eReport.Completed)
+            {
+                <MudChip T="string" Size="Size.Small" Variant="Variant.Filled"
+                         Color="@(_e2eReport.Failed == 0 && _e2eReport.Passed > 0 ? Color.Success : Color.Error)">
+                    @_e2eReport.Passed prošlo · @_e2eReport.Failed palo
+                </MudChip>
+            }
+            else
+            {
+                <MudChip T="string" Size="Size.Small" Variant="Variant.Filled" Color="Color.Warning">
+                    @(_e2eReport.Triggered ? "Nije završeno" : "Nije okinuto")
+                </MudChip>
+            }
+        </div>
+
+        @if (_e2eReport.Completed)
+        {
+            <MudSimpleTable Dense Hover Bordered="false" Style="background:transparent;">
+                <tbody>
+                    @foreach (var r in _e2eReport.Scenarios)
+                    {
+                        <tr>
+                            <td style="width:32px">
+                                <MudIcon Size="Size.Small"
+                                         Icon="@(r.Passed ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Cancel)"
+                                         Color="@(r.Passed ? Color.Success : Color.Error)" />
+                            </td>
+                            <td><MudText Typo="Typo.body2">@r.MethodName</MudText></td>
+                            <td><MudText Typo="Typo.caption" Color="Color.Secondary">@r.Detail</MudText></td>
+                            <td style="text-align:right"><MudText Typo="Typo.caption">@r.DurationMs ms</MudText></td>
+                        </tr>
+                    }
+                </tbody>
+            </MudSimpleTable>
+        }
+
+        <div class="d-flex align-center gap-3 mt-2">
+            <MudText Typo="Typo.caption" Color="Color.Secondary">@_e2eReport.RawOutput</MudText>
+            @if (!string.IsNullOrEmpty(_e2eReport.RunUrl))
+            {
+                <MudLink Href="@_e2eReport.RunUrl" Target="_blank" Typo="Typo.caption">
+                    Otvori run na GitHubu →
+                </MudLink>
+            }
+        </div>
+    </MudPaper>
+}
+
+@code {
+    // ── Stanje ────────────────────────────────────────────────────
+
+    private bool _isLoading = true;
+    private string? _loadError;
+    private IReadOnlyList<ScenarioListItemDto> _lista = [];
+    private readonly List<ScenarioImportPreview> _previews = [];
+    // Cache detalja za prikaz audit kolone (IzmjenjenAt)
+    private readonly Dictionary<Guid, ScenarioDto> _detalji = new();
+    private readonly CancellationTokenSource _cts = new();
+    private ScenarioImportMergeStrategy _mergeStrategy = ScenarioImportMergeStrategy.AddOnlyNew;
+    private bool _showImportPanel;
+    private bool _isReadingFiles;
+
+    // xUnit runner (opcija A — pravi dotnet test)
+    private bool             _xunitRunning = false;
+    private XUnitRunReport?  _xunitReport;
+
+    // E2E runner (Playwright na GitHub Actions)
+    private bool             _e2eRunning = false;
+    private string?          _e2eStatus;
+    private E2ERunReport?    _e2eReport;
+
+    // ── Lifecycle ─────────────────────────────────────────────────
+
+    protected override async Task OnInitializedAsync()
+    {
+        RunState.Changed += OnRunStateChanged;
+        await LoadAsync();
+    }
+
+    private void OnRunStateChanged() => InvokeAsync(StateHasChanged);
+
+    private async Task LoadAsync()
+    {
+        _isLoading  = true;
+        _loadError  = null;
+        _detalji.Clear();
+
+        try
+        {
+            _lista = await ScenarioSvc.GetAllAsync(_cts.Token);
+
+            // Učitaj detalje za audit kolonu (IzmjenjenAt/KreiranAt)
+            foreach (var item in _lista)
+            {
+                var dto = await ScenarioSvc.GetByIdAsync(item.Id, _cts.Token);
+                if (dto is not null)
+                    _detalji[item.Id] = dto;
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Komponenta se uništava — tiho ignoriši.
+        }
+        catch (Exception)
+        {
+            _loadError = "Greška pri učitavanju scenarija. Pokušajte ponovo.";
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    // ── Dijalozi ──────────────────────────────────────────────────
+
+    private async Task OpenCreateDialog()
+    {
+        var dialog = await DialogService.ShowAsync<ScenarioDialog>(
+            "Novi scenarij",
+            new DialogParameters { [nameof(ScenarioDialog.Existing)] = (ScenarioDto?)null },
+            new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Medium, FullWidth = true });
+
+        if (await dialog.Result is { Canceled: false })
+            await LoadAsync();
+    }
+
+    private async Task OpenEditDialog(Guid id)
+    {
+        if (!_detalji.TryGetValue(id, out var dto))
+        {
+            Toast.Warning("Ne mogu učitati detalje scenarija.");
+            return;
+        }
+
+        var dialog = await DialogService.ShowAsync<ScenarioDialog>(
+            "Uredi scenarij",
+            new DialogParameters { [nameof(ScenarioDialog.Existing)] = dto },
+            new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Medium, FullWidth = true });
+
+        if (await dialog.Result is { Canceled: false })
+            await LoadAsync();
+    }
+
+    // ── Live runner (kroz dijeljeni TestRunStateService) ──────────
+
+    private async Task RunAll()
+    {
+        await RunState.RunAllAsync(_cts.Token);
+
+        if (RunState.Phase == TestRunPhase.AllPassed)
+            Toast.Success($"Svi testovi prošli ({RunState.PassedCount}).");
+        else if (RunState.Phase == TestRunPhase.SomeFailed)
+            Toast.Error($"{RunState.FailedCount} test(ova) palo, {RunState.PassedCount} prošlo.");
+    }
+
+    // ── xUnit runner (opcija A — kompajlira i pokreće dotnet test) ──
+
+    private async Task RunAllXUnit()
+    {
+        var restDtos = _lista
+            .Select(i => _detalji.GetValueOrDefault(i.Id))
+            .Where(d => d is { Rest: not null })
+            .Cast<ScenarioDto>()
+            .ToList();
+
+        if (restDtos.Count == 0)
+        {
+            Toast.Warning("Nema REST scenarija za xUnit pokretanje.");
+            return;
+        }
+
+        _xunitRunning = true;
+        _xunitReport  = null;
+        StateHasChanged();
+
+        try
+        {
+            _xunitReport = await XUnitRunner.RunAsync(restDtos, _cts.Token);
+
+            if (!_xunitReport.Compiled)
+                Toast.Error("Generisani xUnit projekt se nije kompajlirao. Vidi sirovi izlaz.");
+            else if (_xunitReport.Failed == 0)
+                Toast.Success($"Svi xUnit testovi prošli ({_xunitReport.Passed}).");
+            else
+                Toast.Error($"{_xunitReport.Failed} xUnit test(ova) palo, {_xunitReport.Passed} prošlo.");
+
+            await PersistXUnitRunAsync(restDtos, _xunitReport);
+        }
+        catch (OperationCanceledException) { /* odlazak sa stranice */ }
+        catch (Exception ex)
+        {
+            Toast.Error($"Greška pri xUnit pokretanju: {ex.Message}");
+        }
+        finally
+        {
+            _xunitRunning = false;
+        }
+    }
+
+    /// <summary>Upiše RunResult u bazu po grupi (best-effort) — preskače u mock modu (nema IRunRepository).</summary>
+    private async Task PersistXUnitRunAsync(IReadOnlyList<ScenarioDto> scenarios, XUnitRunReport report)
+    {
+        if (!report.Compiled) return;
+        if (Sp.GetService(typeof(IRunRepository)) is not IRunRepository repo) return;
+
+        var verdict = report.Scenarios.ToDictionary(r => r.ScenarioId, r => r.Passed);
+
+        var byGroup = scenarios
+            .Where(s => s.GroupId is not null)
+            .GroupBy(s => s.GroupId!.Value);
+
+        foreach (var grp in byGroup)
+        {
+            var ids      = grp.Select(s => s.Id).ToList();
+            var passed   = ids.Count(id => verdict.GetValueOrDefault(id));
+            var executed = ids.Count(id => verdict.ContainsKey(id));
+            if (executed == 0) continue;
+
+            try
+            {
+                await repo.AddAsync(new RunResult
+                {
+                    GroupId     = grp.Key,
+                    State       = passed == executed ? DomainEnums.RunState.Passed : DomainEnums.RunState.Failed,
+                    Duration    = TimeSpan.FromMilliseconds(report.DurationMs),
+                    PassRate    = (double)passed / executed * 100,
+                    TriggerType = DomainEnums.TriggerType.Manual,
+                    StartedAt   = DateTime.UtcNow,
+                    CompletedAt = DateTime.UtcNow,
+                }, _cts.Token);
+            }
+            catch { /* best-effort — neuspjeli upis ne ruši prikaz */ }
+        }
+    }
+
+    // ── E2E runner (Playwright na GitHub Actions preko workflow_dispatch) ──────
+
+    private async Task RunAllE2E()
+    {
+        var uiDtos = _lista
+            .Select(i => _detalji.GetValueOrDefault(i.Id))
+            .Where(d => d is { Ui: not null })
+            .Cast<ScenarioDto>()
+            .ToList();
+
+        if (uiDtos.Count == 0)
+        {
+            Toast.Warning("Nema UI scenarija za E2E pokretanje.");
+            return;
+        }
+
+        _e2eRunning = true;
+        _e2eStatus  = "Pokrećem na GitHubu…";
+        _e2eReport  = null;
+        StateHasChanged();
+
+        // Progres iz runnera → tekst na dugmetu (poll koraci mogu trajati par minuta).
+        var progress = new Progress<string>(s => InvokeAsync(() =>
+        {
+            _e2eStatus = s;
+            StateHasChanged();
+        }));
+
+        try
+        {
+            _e2eReport = await E2ERunner.RunAsync(uiDtos, progress, _cts.Token);
+
+            if (!_e2eReport.Triggered)
+                Toast.Error($"E2E nije okinut: {_e2eReport.RawOutput}");
+            else if (!_e2eReport.Completed)
+                Toast.Warning("E2E run nije završio na vrijeme — provjeri na GitHubu.");
+            else if (_e2eReport.Failed == 0 && _e2eReport.Passed > 0)
+                Toast.Success($"Svi E2E testovi prošli ({_e2eReport.Passed}).");
+            else
+                Toast.Error($"{_e2eReport.Failed} E2E test(ova) palo, {_e2eReport.Passed} prošlo.");
+        }
+        catch (OperationCanceledException) { /* odlazak sa stranice */ }
+        catch (Exception ex)
+        {
+            Toast.Error($"Greška pri E2E pokretanju: {ex.Message}");
+        }
+        finally
+        {
+            _e2eRunning = false;
+            _e2eStatus  = null;
+        }
+    }
+
+    // ── Import/Export ─────────────────────────────────────────────
+
+    private void ToggleImportPanel() => _showImportPanel = !_showImportPanel;
+
+    private async Task DownloadYamlAsync()
+    {
+        try
+        {
+            var content = await ImportExportSvc.ExportAllScenariosToYamlAsync(_cts.Token);
+            await Js.InvokeVoidAsync("tagDownloadTextFile", "scenariji-export.yaml", "application/x-yaml", content);
+        }
+        catch (Exception)
+        {
+            Toast.Error("Greska pri exportu scenarija.");
+        }
+    }
+
+    private async Task HandleFilesSelectedAsync(InputFileChangeEventArgs e)
+    {
+        _isReadingFiles = true;
+        _previews.Clear();
+
+        foreach (var file in e.GetMultipleFiles(20))
+        {
+            try
+            {
+                await using var stream = file.OpenReadStream(2 * 1024 * 1024, _cts.Token);
+                using var reader = new StreamReader(stream);
+                var content = await reader.ReadToEndAsync(_cts.Token);
+                _previews.Add(await ImportExportSvc.BuildPreviewAsync(file.Name, content, _cts.Token));
+            }
+            catch (Exception ex) when (ex is IOException or OperationCanceledException)
+            {
+                _previews.Add(new ScenarioImportPreview
+                {
+                    FileName = file.Name,
+                    Errors = [$"Fajl nije moguce procitati: {ex.Message}"],
+                });
+            }
+        }
+
+        _isReadingFiles = false;
+    }
+
+    private async Task ImportValidPreviewsAsync()
+    {
+        try
+        {
+            var result = await ImportExportSvc.ImportAsync(
+                _previews,
+                _mergeStrategy,
+                UserCtx.UserId,
+                UserCtx.FullName,
+                _cts.Token);
+
+            Toast.Success($"Import zavrsen: {result.ImportedScenarios} scenarija, preskoceno {result.SkippedScenarios}.");
+            _previews.Clear();
+            _showImportPanel = false;
+            await LoadAsync();
+        }
+        catch (Exception)
+        {
+            Toast.Error("Greska pri importu scenarija.");
+        }
+    }
+
+    private void ClearImportPreview() => _previews.Clear();
+
+    // ── Kloniranje (AC5) ──────────────────────────────────────────
+
+    private async Task CloneScenario(ScenarioListItemDto item)
+    {
+        try
+        {
+            var kopija = await ScenarioSvc.CloneAsync(item.Id, UserCtx.UserId, UserCtx.FullName, _cts.Token);
+            Toast.Success($"Scenarij \"{kopija.Naziv}\" kreiran kao kopija.");
+            await LoadAsync();
+        }
+        catch (InvalidOperationException ex)
+        {
+            Toast.Error(ex.Message);
+        }
+        catch (Exception)
+        {
+            Toast.Error("Greška pri kloniranju scenarija.");
+        }
+    }
+
+    // ── Brisanje ──────────────────────────────────────────────────
+
+    private async Task DeleteScenario(ScenarioListItemDto item)
+    {
+        var confirm = await DialogService.ShowMessageBox(
+            "Potvrda brisanja",
+            $"Obrisati scenarij \"{item.Naziv}\"? Ova akcija se ne može poništiti.",
+            yesText: "Obriši",
+            cancelText: "Odustani");
+
+        if (confirm != true) return;
+
+        try
+        {
+            await ScenarioSvc.DeleteAsync(item.Id, UserCtx.UserId, UserCtx.FullName, _cts.Token);
+            Toast.Success($"Scenarij \"{item.Naziv}\" obrisan.");
+            await LoadAsync();
+        }
+        catch (Exception)
+        {
+            Toast.Error("Greška pri brisanju scenarija.");
+        }
+    }
+
+    // ── Helpers ───────────────────────────────────────────────────
+
+    private static string TipChipStyle(string tip) => tip switch
+    {
+        "Rest"   => "background-color:#1e88e5;color:#fff;",
+        "Ui"     => "background-color:#8e24aa;color:#fff;",
+        "Blazor" => "background-color:#512da8;color:#fff;",
+        _        => "background-color:#757575;color:#fff;",
+    };
+
+    // ── Cleanup ───────────────────────────────────────────────────
+
+    public void Dispose()
+    {
+        RunState.Changed -= OnRunStateChanged;
+        _cts.Cancel();
+        _cts.Dispose();
+    }
+}

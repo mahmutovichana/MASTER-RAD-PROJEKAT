@@ -1,0 +1,222 @@
+@* ============================================================
+   GroupDialog — forma za kreiranje/uređivanje grupe testova (AC1, AC4)
+   ============================================================
+   Create root:   Existing = null, ParentGroupId = null
+   Create child:  Existing = null, ParentGroupId = <root id>  (parent zaključan)
+   Edit:          Existing = <DTO>                            (parent se ne mijenja)
+
+   Hijerarhija ≤2 je dvostruko osigurana: parent dropdown nudi SAMO root grupe
+   (child pod rootom = nivo 2), a servis svejedno baca InvalidOperationException
+   ako bi nastao 3. nivo.
+   ============================================================ *@
+
+@using RBBH.TestAutomation.Core.Domain
+@inject IGroupService GroupSvc
+@inject IUserContext UserCtx
+@inject ToastService Toast
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            @(_isEdit ? $"Uredi: {Existing!.Naziv}" : ParentGroupId is null ? "Nova grupa" : "Nova podgrupa")
+        </MudText>
+    </TitleContent>
+
+    <DialogContent>
+        <MudForm @ref="_form" @bind-IsValid="_isFormValid">
+
+            <MudTextField @bind-Value="_naziv"
+                          Label="Naziv"
+                          Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="Naziv je obavezan."
+                          Validation="@((Func<string, string?>)ValidateNaziv)"
+                          Immediate="true"
+                          Class="mb-3" />
+
+            <MudTextField @bind-Value="_opis"
+                          Label="Opis"
+                          Variant="Variant.Outlined"
+                          Lines="3"
+                          Class="mb-3" />
+
+            <MudSelect T="string" @bind-Value="_boja" Label="Boja" Variant="Variant.Outlined" Class="mb-3">
+                @foreach (var (hex, naziv) in Boje)
+                {
+                    <MudSelectItem T="string" Value="@hex">
+                        <div class="d-flex align-center">
+                            <span style="@($"display:inline-block;width:14px;height:14px;border-radius:3px;background:{hex};margin-right:8px;")"></span>
+                            @naziv
+                        </div>
+                    </MudSelectItem>
+                }
+            </MudSelect>
+
+            <MudSelect T="TestTag" @bind-Value="_tag" Label="Tip" Variant="Variant.Outlined" Class="mb-3">
+                <MudSelectItem T="TestTag" Value="TestTag.Smoke">Smoke</MudSelectItem>
+                <MudSelectItem T="TestTag" Value="TestTag.Regression">Regression</MudSelectItem>
+                <MudSelectItem T="TestTag" Value="TestTag.Full">Full</MudSelectItem>
+            </MudSelect>
+
+            <MudNumericField @bind-Value="_prioritet"
+                             Label="Prioritet"
+                             Variant="Variant.Outlined"
+                             Min="0"
+                             Max="9999"
+                             HelperText="Viši broj = prikazuje se ranije."
+                             Class="mb-3" />
+
+            @if (!_isEdit)
+            {
+                <MudSelect T="Guid?" @bind-Value="_parentId"
+                           Label="Nadređena grupa"
+                           Variant="Variant.Outlined"
+                           Disabled="@(ParentGroupId is not null)"
+                           HelperText="Bez nadređene = root grupa. Podgrupa može biti samo ispod root grupe (max 2 nivoa)."
+                           Class="mb-3">
+                    <MudSelectItem T="Guid?" Value="@((Guid?)null)">(bez — root grupa)</MudSelectItem>
+                    @foreach (var g in RootGroups)
+                    {
+                        <MudSelectItem T="Guid?" Value="@((Guid?)g.Id)">@g.Naziv</MudSelectItem>
+                    }
+                </MudSelect>
+            }
+
+        </MudForm>
+
+        <NotificationConfigPanel @ref="_notifPanel" InitialValue="@ExistingNotificationConfig" />
+
+        <ErrorAlert Message="@_errorMessage" />
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="@Cancel" Variant="Variant.Text" Disabled="@_isSaving">Odustani</MudButton>
+        <LoadingButton Text="Sačuvaj"
+                       IsLoading="@_isSaving"
+                       Disabled="@(!_isFormValid)"
+                       OnClick="@HandleSave"
+                       Color="Color.Primary" />
+    </DialogActions>
+</MudDialog>
+
+@code {
+    /// <summary>null = create mode, postojeći DTO = edit mode.</summary>
+    [Parameter] public GroupDto? Existing { get; set; }
+
+    /// <summary>Postojeća notifikaciona konfiguracija (za edit mode).</summary>
+    [Parameter] public NotificationConfig? ExistingNotificationConfig { get; set; }
+
+    /// <summary>Ako je zadan (create child), parent je zaključan na ovu grupu.</summary>
+    [Parameter] public Guid? ParentGroupId { get; set; }
+
+    /// <summary>Root grupe za parent dropdown (samo root može biti parent → ≤2 nivoa).</summary>
+    [Parameter] public IReadOnlyList<GroupDto> RootGroups { get; set; } = [];
+
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    private static readonly (string Hex, string Naziv)[] Boje =
+    [
+        ("#43a047", "Zelena"),
+        ("#1e88e5", "Plava"),
+        ("#8e24aa", "Ljubičasta"),
+        ("#3949ab", "Indigo"),
+        ("#e53935", "Crvena"),
+        ("#fb8c00", "Narandžasta"),
+        ("#00897b", "Tirkizna"),
+        ("#6d4c41", "Smeđa"),
+    ];
+
+    private MudForm _form = default!;
+    private NotificationConfigPanel _notifPanel = default!;
+    private bool _isFormValid;
+    private bool _isSaving;
+    private string? _errorMessage;
+
+    private string  _naziv     = string.Empty;
+    private string  _opis      = string.Empty;
+    private string  _boja      = Boje[0].Hex;
+    private TestTag _tag       = TestTag.Smoke;
+    private int     _prioritet = 0;
+    private Guid?   _parentId;
+
+    private bool _isEdit => Existing is not null;
+
+    protected override void OnParametersSet()
+    {
+        if (_isEdit)
+        {
+            _naziv     = Existing!.Naziv;
+            _opis      = Existing.Opis ?? string.Empty;
+            _boja      = string.IsNullOrWhiteSpace(Existing.Boja) ? Boje[0].Hex : Existing.Boja;
+            _tag       = Existing.Tag;
+            _prioritet = Existing.Prioritet;
+            _parentId  = Existing.ParentGroupId;
+        }
+        else
+        {
+            _parentId = ParentGroupId;
+        }
+    }
+
+    private static string? ValidateNaziv(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return "Naziv je obavezan.";
+        if (value.Trim().Length < 2)
+            return "Naziv mora imati najmanje 2 znaka.";
+        if (value.Length > 200)
+            return "Naziv može imati najviše 200 znakova.";
+        return null;
+    }
+
+    private async Task HandleSave()
+    {
+        await _form.Validate();
+        if (!_isFormValid) return;
+
+        _isSaving     = true;
+        _errorMessage = null;
+
+        try
+        {
+            var opis = string.IsNullOrWhiteSpace(_opis) ? null : _opis.Trim();
+
+            if (_isEdit)
+            {
+                await GroupSvc.UpdateAsync(
+                    Existing!.Id,
+                    new UpdateGroupRequest(_naziv.Trim(), opis, _boja, _tag, _prioritet),
+                    UserCtx.UserId, UserCtx.FullName);
+
+                await GroupSvc.SaveNotificationConfigAsync(Existing!.Id, _notifPanel.GetCurrentValue());
+                Toast.Success($"Grupa \"{_naziv.Trim()}\" ažurirana.");
+            }
+            else
+            {
+                var newId = await GroupSvc.CreateAsync(
+                    new CreateGroupRequest(_naziv.Trim(), opis, _boja, _tag, _prioritet, _parentId),
+                    UserCtx.UserId, UserCtx.FullName);
+
+                await GroupSvc.SaveNotificationConfigAsync(newId, _notifPanel.GetCurrentValue());
+                Toast.Success($"Grupa \"{_naziv.Trim()}\" kreirana.");
+            }
+
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (InvalidOperationException ex)
+        {
+            // Npr. prekršaj pravila ≤2 nivoa ili nepostojeći parent — prikazati korisniku.
+            _errorMessage = ex.Message;
+        }
+        catch (Exception)
+        {
+            _errorMessage = "Greška pri snimanju grupe. Pokušajte ponovo.";
+        }
+        finally
+        {
+            _isSaving = false;
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+}

@@ -1,0 +1,282 @@
+@page "/sifarnici"
+@attribute [Authorize(Roles = AppRoles.Administrator + "," + AppRoles.QALead)]
+@rendermode InteractiveServer
+@inject IUserContext UserCtx
+@inject ISifarnikService SifarnikSvc
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+
+<PageTitle>Šifarnici</PageTitle>
+
+@if (!UserCtx.CanAccess(AppModules.Sifarnici))
+{
+    <MudAlert Severity="Severity.Warning" Class="ma-4">
+        Nemate pristup ovom modulu. Potrebna rola: Administrator ili QA Lead.
+    </MudAlert>
+    return;
+}
+
+<PageHeader Title="Šifarnici" Subtitle="Upravljanje referentnim podacima" />
+
+@if (_isLoading)
+{
+    <MudProgressLinear Indeterminate="true" Color="Color.Primary" Class="mb-4" />
+}
+else if (_loadError is not null)
+{
+    <ErrorAlert Message="@_loadError" />
+}
+else
+{
+    <MudExpansionPanels MultiExpansion="true" Class="mb-6">
+        @foreach (var kat in _kategorije)
+        {
+            var vrijednosti = _vrijednostiPoKat.GetValueOrDefault(kat.Id) ?? [];
+            var panelKey    = kat.Id;
+
+            <MudExpansionPanel>
+                <TitleContent>
+                    <div class="sif-panel-title">
+                        <MudText Typo="Typo.subtitle1">@kat.Naziv</MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="ml-2">
+                            (@vrijednosti.Count vrijednosti)
+                        </MudText>
+                    </div>
+                </TitleContent>
+                <ChildContent>
+                    <MudTable Items="@vrijednosti"
+                              Hover="true"
+                              Dense="false"
+                              Elevation="0"
+                              Class="mb-3">
+                        <HeaderContent>
+                            <MudTh>Naziv</MudTh>
+                            <MudTh>Kod</MudTh>
+                            <MudTh>Redoslijed</MudTh>
+                            <MudTh>Status</MudTh>
+                            <MudTh>Izmijenjeno</MudTh>
+                            <MudTh Style="text-align:right">Akcije</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Naziv">
+                                <MudText Typo="Typo.body2">@context.Naziv</MudText>
+                            </MudTd>
+                            <MudTd DataLabel="Kod">
+                                <MudText Typo="Typo.caption" Color="Color.Secondary">@(context.Kod ?? "—")</MudText>
+                            </MudTd>
+                            <MudTd DataLabel="Redoslijed">@context.Redoslijed</MudTd>
+                            <MudTd DataLabel="Status">
+                                @if (context.Active)
+                                {
+                                    <StatusBadge Text="Aktivno" Color="Color.Success" />
+                                }
+                                else
+                                {
+                                    <StatusBadge Text="Neaktivno" Color="Color.Secondary" />
+                                }
+                            </MudTd>
+                            <MudTd DataLabel="Izmijenjeno">
+                                @if (_auditPoVrijednosti.TryGetValue(context.Id, out var audit))
+                                {
+                                    var label   = audit.Action == AuditActions.Create ? "Kreirano" : "Izmijenjeno";
+                                    var actor   = audit.ChangedByName ?? audit.ChangedBy;
+                                    var tooltip = $"Akcija: {audit.Action} · Korisnik: {actor} · Datum: {audit.ChangedAt:dd.MM.yyyy HH:mm}";
+
+                                    <MudTooltip Text="@tooltip" Placement="Placement.Top">
+                                        <div>
+                                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                                @($"{label} {audit.ChangedAt:dd.MM.yyyy HH:mm}")
+                                            </MudText>
+                                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                                od @actor
+                                            </MudText>
+                                        </div>
+                                    </MudTooltip>
+                                }
+                                else
+                                {
+                                    <MudText Typo="Typo.caption" Color="Color.Secondary">—</MudText>
+                                }
+                            </MudTd>
+                            <MudTd DataLabel="Akcije" Style="text-align:right">
+                                <MudTooltip Text="Uredi">
+                                    <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                                   Size="Size.Small"
+                                                   Color="Color.Default"
+                                                   OnClick="@(() => OpenEditDialog(kat.Id, context))" />
+                                </MudTooltip>
+                                <MudTooltip Text="Briši">
+                                    <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                                   Size="Size.Small"
+                                                   Color="Color.Error"
+                                                   OnClick="@(() => HandleDelete(context))" />
+                                </MudTooltip>
+                            </MudTd>
+                        </RowTemplate>
+                        <NoRecordsContent>
+                            <MudText Typo="Typo.body2" Class="pa-4" Color="Color.Secondary">
+                                Nema vrijednosti u ovoj kategoriji. Dodajte prvu ispod.
+                            </MudText>
+                        </NoRecordsContent>
+                    </MudTable>
+
+                    <div class="sif-add-row">
+                        <MudButton StartIcon="@Icons.Material.Filled.Add"
+                                   Variant="Variant.Outlined"
+                                   Color="Color.Primary"
+                                   Size="Size.Small"
+                                   OnClick="@(() => OpenAddDialog(kat.Id))">
+                            Dodaj novu vrijednost
+                        </MudButton>
+                    </div>
+                </ChildContent>
+            </MudExpansionPanel>
+        }
+    </MudExpansionPanels>
+}
+
+@code {
+    // ── State ──────────────────────────────────────────────────────────────────
+
+    private bool _isLoading = true;
+    private string? _loadError;
+
+    private IReadOnlyList<SifarnikKategorijaDto> _kategorije = [];
+    // kategorijaId → lista vrijednosti
+    private Dictionary<Guid, List<SifarnikVrijednostDto>> _vrijednostiPoKat = new();
+    // vrijednostId → zadnji audit zapis
+    private Dictionary<Guid, AuditLogEntryDto> _auditPoVrijednosti = new();
+
+    // ── Lifecycle ─────────────────────────────────────────────────────────────
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAllAsync();
+    }
+
+    private async Task LoadAllAsync()
+    {
+        _isLoading = true;
+        _loadError = null;
+        try
+        {
+            _kategorije = await SifarnikSvc.GetKategorijeAsync();
+
+            _vrijednostiPoKat.Clear();
+            var sveVrijednosti = new List<SifarnikVrijednostDto>();
+
+            foreach (var kat in _kategorije)
+            {
+                var rows = await SifarnikSvc.GetVrijednostiAsync(kat.Id, onlyActive: false);
+                _vrijednostiPoKat[kat.Id] = rows.ToList();
+                sveVrijednosti.AddRange(rows);
+            }
+
+            // Batch load audit — jedan query za sve vrijednosti
+            if (sveVrijednosti.Count > 0)
+            {
+                var auditMap = await SifarnikSvc.GetLastAuditEntriesAsync(
+                    AuditEntityTypes.SifarnikVrijednost,
+                    sveVrijednosti.Select(v => v.Id));
+                _auditPoVrijednosti = auditMap.ToDictionary(kv => kv.Key, kv => kv.Value);
+            }
+        }
+        catch (Exception ex)
+        {
+            _loadError = $"Greška pri učitavanju šifarnika: {ex.Message}";
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    // ── Dodavanje / Uređivanje ────────────────────────────────────────────────
+
+    private async Task OpenAddDialog(Guid kategorijaId)
+    {
+        var parameters = new DialogParameters
+        {
+            [nameof(SifarnikVrijednostDialog.KategorijaId)]      = kategorijaId,
+            [nameof(SifarnikVrijednostDialog.ExistingVrijednost)] = (SifarnikVrijednostDto?)null,
+        };
+
+        var dialog = await DialogService.ShowAsync<SifarnikVrijednostDialog>(
+            "Dodaj vrijednost",
+            parameters,
+            new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small, FullWidth = true });
+
+        var result = await dialog.Result;
+        if (result is { Canceled: false })
+            await LoadAllAsync();
+    }
+
+    private async Task OpenEditDialog(Guid kategorijaId, SifarnikVrijednostDto vrijed)
+    {
+        var parameters = new DialogParameters
+        {
+            [nameof(SifarnikVrijednostDialog.KategorijaId)]      = kategorijaId,
+            [nameof(SifarnikVrijednostDialog.ExistingVrijednost)] = vrijed,
+        };
+
+        var dialog = await DialogService.ShowAsync<SifarnikVrijednostDialog>(
+            "Uredi vrijednost",
+            parameters,
+            new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small, FullWidth = true });
+
+        var result = await dialog.Result;
+        if (result is { Canceled: false })
+            await LoadAllAsync();
+    }
+
+    // ── Brisanje (TAG-6.6) ────────────────────────────────────────────────────
+
+    private async Task HandleDelete(SifarnikVrijednostDto vrijed)
+    {
+        // Provjera: da li je vrijednost u upotrebi?
+        int usageCount;
+        try
+        {
+            usageCount = await SifarnikSvc.CountUsagesAsync(vrijed.Id);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Greška pri provjeri upotrebe: {ex.Message}", Severity.Error);
+            return;
+        }
+
+        if (usageCount > 0)
+        {
+            // Samo informativni dialog — brisanje nije dozvoljeno
+            await DialogService.ShowMessageBox(
+                "Brisanje nije moguće",
+                $"Vrijednost \"{vrijed.Naziv}\" se koristi u {usageCount} " +
+                $"{(usageCount == 1 ? "aktivnoj dodjeli role" : "aktivnih dodjela rola")}. " +
+                "Prvo uklonite dodijeljene role pa pokušajte ponovo.",
+                yesText: "U redu",
+                noText: null,
+                cancelText: null);
+            return;
+        }
+
+        // Confirm dialog — sigurno za brisanje
+        var confirm = await DialogService.ShowMessageBox(
+            "Potvrda brisanja",
+            $"Da li ste sigurni da želite obrisati vrijednost \"{vrijed.Naziv}\"? Ova akcija se ne može poništiti.",
+            yesText: "Briši",
+            cancelText: "Odustani");
+
+        if (confirm != true) return;
+
+        try
+        {
+            await SifarnikSvc.DeleteVrijednostAsync(vrijed.Id, UserCtx.UserId, UserCtx.FullName);
+            Snackbar.Add($"Vrijednost \"{vrijed.Naziv}\" obrisana.", Severity.Success);
+            await LoadAllAsync();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Greška pri brisanju: {ex.Message}", Severity.Error);
+        }
+    }
+}

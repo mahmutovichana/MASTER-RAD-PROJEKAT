@@ -1,0 +1,2876 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,docs_before_retrieved_files,doc_context_01_path,doc_context_01_excerpt,doc_context_02_path,doc_context_02_excerpt,doc_context_03_path,doc_context_03_excerpt,doc_context_04_path,doc_context_04_excerpt,doc_context_05_path,doc_context_05_excerpt,doc_context_06_path,doc_context_06_excerpt,doc_context_07_path,doc_context_07_excerpt,doc_context_08_path,doc_context_08_excerpt,doc_context_09_path,doc_context_09_excerpt,doc_context_10_path,doc_context_10_excerpt,doc_context_11_path,doc_context_11_excerpt,doc_context_12_path,doc_context_12_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash
+synthetic:pallets/flask:model_contract:1,pallets/flask,900076,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..ab5063c 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_1: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,daf1681f41403b37b526f0d043a434b1de511cfceb06375387a839d5ecb4211c,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:2,pallets/flask,900077,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..1cf6546 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_2: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,4cbb00917daffb97cabd84cff945b6b25bc49c46a9a2d4c2ec2bc3176c0c75bf,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:3,pallets/flask,900078,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..af38f50 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_3: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,eadca0f1ff7b7a0ebee0fa1c8dab2e6d3d99d64f6dda226afc9679dceca0891a,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:4,pallets/flask,900079,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..996cfb3 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_4: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,76def0f3c5d911097c737aa546ced2195d49766ed58e784584ab9ebcd3127338,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:5,pallets/flask,900080,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..3166079 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_5: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,1b0dc189c7123a5a47d64ad6c14b986c19ebf22f039120d6577e64f2fcd2c666,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:6,pallets/flask,900081,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..46c0002 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_6: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,18e57892d6761801517f5de20d91490f01dd8f146fae12ebd39781511b3a3a6b,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:7,pallets/flask,900082,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..b3817ca 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_7: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,2aeb6b9fe23edf68047390d6aa39dbe8295b3f3509e4bbc7ebb93df4bcf8ce50,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:8,pallets/flask,900083,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..6683c7c 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_8: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,68fdcd5926e4402122f4d204610b0f2dedb228ce39dc53de3e051785270cdcb5,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:9,pallets/flask,900084,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..1b2a4a5 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_9: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,1a5a52e1dddb6910672b4322b9be70273fe48f3c24dae20d24515a6a083aa607,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:10,pallets/flask,900085,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..8ba9164 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_10: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,d2a3c4aacd3f7016da3bc49cf917b2c2735ac2ec1b6a2b48d170b85a9965eb93,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:11,pallets/flask,900086,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..a90d161 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_11: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,3eac9e42528b6dffba2bfdf0d60aebad8893e5ec16249700f9e8dbe03407bd0b,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:12,pallets/flask,900087,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..a0ddc71 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_12: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,48824f1365ad78fa6a15eb8b5d8588445e5d3eb417911360d67678e2911315fc,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:13,pallets/flask,900088,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..71728a4 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_13: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,4d1ff4da5e593d32177ca7d2205b1f96762e3ffb759390b9e0a511a6c567b335,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:14,pallets/flask,900089,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..8a43d35 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_14: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,3bc5395e6a02875d7bc062570c7fd052ed0cb92dfd7d6399eb84a84fd2dee930,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:15,pallets/flask,900090,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..a59ee44 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_15: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,8363a38452a2082c6144874d8d90f2d83bfd4d6bdab52538b890b7491db4f3e5,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:16,pallets/flask,900091,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..9f11888 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_16: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,a4b36e98e9387c15b9b818094e38e4d50bfa880febd054b3ed6754d1e10f0a58,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:17,pallets/flask,900092,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..ebbc1e7 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_17: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,d003e3a58a5f80a8a30c0b7f7adb49c7c3b7c6c830fc98f9832afc47a548e80f,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:18,pallets/flask,900093,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..49b1946 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_18: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,e63c81fbbdcdf6c5e1ea787a70ae232e358be990217a171d1b0c6a67b4800514,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:19,pallets/flask,900094,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..9e98897 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_19: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,8961b53f813724df5cc48d5b105a19753eb31528ed5d7bdc00842611749d4e64,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:20,pallets/flask,900095,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..1ec645a 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_20: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,851b4ea1921b08102f14032ec03982185437707194b5cc1ab737835dcf68c5e9,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:21,pallets/flask,900096,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..5eda7e3 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_21: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,b9daa390c131b27f808136fa8b1965a91e91e0c6d8c0317c37a4795ef96e4862,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:22,pallets/flask,900097,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..0003684 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_22: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,4bf2ec4887d58cd4c1104d2274e665f3b105425bb2b10d7bea0ee76c1c068ffd,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:23,pallets/flask,900098,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..f029d52 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_23: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,003e94a4476612e143de9d7b8f6f9d5d7f27c9467642905b6be5261ecab0c582,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:24,pallets/flask,900099,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..f9e9c20 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_24: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,a1913ef8aa6c27c974f81a4ab445d1af1d8a1950e2664bbf9c5acba3fb85f2ce,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pallets/flask:model_contract:25,pallets/flask,900100,python,"[""src/flask/app.py""]","diff --git a/src/flask/app.py b/src/flask/app.py
+index 6203586..172b69b 100644
+--- a/src/flask/app.py
++++ b/src/flask/app.py
+@@ -108,6 +108,7 @@ def add_ctx(f: F) -> F:
+ 
+ 
+ class Flask(App):
++    synthetic_field_25: str | None = None
+     """"""The flask object implements a WSGI application and acts as the central
+     object.  It is passed the name of the module or package of the
+     application.  Once it is created it will act as a central registry for","    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+","[""CHANGES.rst""]",CHANGES.rst,"    when dispatching a request. This greatly simplifies the internal code for tracking
+    the active context. :issue:`5639`
+-   Many ``Flask`` methods involved in request dispatch now take the current
+    ``AppContext`` as the first parameter, instead of using the proxy objects.
+    If subclasses were overriding these methods, the old signature is detected,
+    shows a deprecation warning, and will continue to work during the
+    deprecation period. :issue:`5815`
+-   All teardown callbacks are called, even if any raise an error. :pr:`5928`
+-   The ``should_ignore_error`` is deprecated. Handle errors as needed in
+    teardown handlers instead. :issue:`5816`
+-   ``template_filter``, ``template_test``, and ``template_global`` decorators
+    can be used without parentheses. :issue:`5729`
+-   ``redirect`` returns a ``303`` status code by default instead of ``302``.
+    This tells the client to always switch to ``GET``, rather than only
+    switching ``POST`` to ``GET``. This preserves the current behavior of
+    ``GET`` and ``POST`` redirects, and is also correct for frontend libraries
+    such as HTMX. :issue:`5895`
+-   ``provide_automatic_options=True`` can be used to enable it for a view when
+    it's disabled in config. Previously, only disabling worked. :issue:`5916`
+-   ``Flask.select_jinja_autoescape`` uses case-insensitive comparison instead
+    of only lower case file extensions. :pr:`6012`
+-   Fix parsing IPv6 with port in ``run`` and the test client. :pr:`6096`
+-   Add ``app.query`` route decorator for the HTTP QUERY method.
+",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,d2f5800838be1e8ffaf1c794251d4e00357bbbbbc9e83f4df49f76d0cbc2fa6e,f8ab31cbad748ed56dd5f70d2d3af314060c7bcd4cd87fe77f00c74c186eb412
+synthetic:pydantic/pydantic:model_contract:1,pydantic/pydantic,900201,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..a52ea6c 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_1: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,456675e10cf3db40e31ba1ae67b68bf9e1361f8c24a3bdbb632789368921b8bf,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:2,pydantic/pydantic,900202,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..498f1f2 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_2: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,c327a3372848d3d24d44841686bbe9f84c5bb7195dc694d5f474bab88f67311e,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:3,pydantic/pydantic,900203,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..9b24458 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_3: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,3db29216f670ed877c9f6fc47fd2a9b31b40d5ea637279f854b043042e290d0d,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:4,pydantic/pydantic,900204,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..4116ecf 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_4: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,7a64f112e25ffaaca7294a277ca685d38fdfc64ad58ec9dad6bd4cda15cd3bbe,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:5,pydantic/pydantic,900205,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..230a96e 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_5: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,d6fbe49006ce172f13d0d234cd9ec13db59de2bdf6dc5285ef94906f9d6c762f,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:6,pydantic/pydantic,900206,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..aac8dd7 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_6: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,ed5e103a6bd6472ab548c42da5b57bb7d72a916af2fbf456f57837f7ddf28326,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:7,pydantic/pydantic,900207,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..2ab53b4 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_7: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,098db3a2a651887d55a3c4a46537248d220b0cb2cad1b752a49eba451aa679fb,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:8,pydantic/pydantic,900208,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..4c5d37f 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_8: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,fc621d5282c400adb027e473ab1ffcb3acc327f92bf70b78d625c06530b3e8dc,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:9,pydantic/pydantic,900209,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..a9f4800 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_9: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,8872109d24691295fb1586e0f28ce4d08de0058c42bf3dd3d3962f53eacb1ea4,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:10,pydantic/pydantic,900210,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..aa9efdc 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_10: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,05d7a2f1bc8218a19c00b5891bb12c7a9e91b1828c08bf2303400b5b4c32233b,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:11,pydantic/pydantic,900211,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..ef2b80b 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_11: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,35b02b4d5608d8fec05d170f7241641faa30e56d5598ff35907f715117c6cb8a,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:12,pydantic/pydantic,900212,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..4ca10ba 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_12: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,dd438014f0843bd24c2fe4a6574ae0ec33f61badf1b8cfab1e50a72f1a94e5d0,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:13,pydantic/pydantic,900213,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..17ae94f 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_13: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,2f4c2216515f025943761d2e60abbf8cf468e0fe505a83d45a5a33747f75dc3a,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:14,pydantic/pydantic,900214,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..d5b59a1 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_14: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,7e053ce3618da9413f30b5b448cc1887a88853b3f4e5ec9f54f2f2b30d012635,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:15,pydantic/pydantic,900215,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..01314ce 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_15: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,de96fbaab35eaa2a8055449ada1266060dc8b4f40e723df3600aa999e2873546,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:16,pydantic/pydantic,900216,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..ea39013 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_16: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,ede50101323255dca88c8a4044741991801b57911920db57c608ea40d5be0fc8,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:17,pydantic/pydantic,900217,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..9939d6e 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_17: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,dd9cf4d039e1ee388a796208c3fff50a8cf6f40fafe50406987ff5280f2fe3b7,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:18,pydantic/pydantic,900218,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..c87d12c 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_18: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,e0e14e1cf9f27ebd4cfc19d0d7ddb7113ceabc260863ef16f8ef449fcded7b67,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:19,pydantic/pydantic,900219,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..81a21e8 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_19: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,e949bdeaadd8a16637731f47179c58006e5309db10a5b218e285bc21812f308f,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:20,pydantic/pydantic,900220,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..e08740c 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_20: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,c4255f315cdc0e7bf31889c65e7e29bed3edae9ea9cb9f8b8de762488363b17c,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:21,pydantic/pydantic,900221,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..dc6ec05 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_21: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,de08c50a2ed89b335c93c21dcbfb2f0820dcacd8232a9609bb243528dd182842,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:22,pydantic/pydantic,900222,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..f2d7916 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_22: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,a2909dbc42c97f3cccc60741235587db639c1fd056c382596030dd6ba3d15722,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:23,pydantic/pydantic,900223,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..3570330 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_23: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,3ddef29f75b6014108cf600b9d298c7caebaf9208cd0439b7b45f271a96f4588,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:24,pydantic/pydantic,900224,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..e166c3d 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_24: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,35b19905d094db895152f8aca869c5fd5ad6beb4256e9681d0325291b05286cd,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9
+synthetic:pydantic/pydantic:model_contract:25,pydantic/pydantic,900225,python,"[""pydantic/main.py""]","diff --git a/pydantic/main.py b/pydantic/main.py
+index be444fa..e997cf1 100644
+--- a/pydantic/main.py
++++ b/pydantic/main.py
+@@ -134,6 +134,7 @@ _SIMPLE_SETATTR_HANDLERS: Mapping[str, Callable[[BaseModel, str, Any], None]] =
+ 
+ 
+ class BaseModel(metaclass=_model_construction.ModelMetaclass):
++    synthetic_field_25: str | None = None
+     """"""!!! abstract ""Usage Documentation""
+         [Models](../concepts/models.md)","
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)","[""HISTORY.md""]",HISTORY.md,"
+### What's Changed
+
+This is the first beta release of the 2.14 version, providing some new features and performance improvements for model builds.
+
+This release is the first to provide initial support for Python 3.15, although not all 3.15 specific features are supported yet.
+
+#### Packaging
+
+* Add agent skills by @Viicos in [#13193](https://github.com/pydantic/pydantic/pull/13193)
+
+#### New Features
+
+* Add support for `EllipsisType` by @Viicos in [#13484](https://github.com/pydantic/pydantic/pull/13484)
+* Add initial support for Python 3.15 by @Viicos in [#13587](https://github.com/pydantic/pydantic/pull/13587)
+
+#### Changes
+
+* Populate `__slots__` from generic class during parameterization by @Viicos in [#13243](https://github.com/pydantic/pydantic/pull/13243)
+* Avoid using explicit `Any` in the Mypy plugin by @Viicos in [#13196](https://github.com/pydantic/pydantic/pull/13196)
+* Support `Fraction` type in `pydantic-core` by @Viicos in [#13339](https://github.com/pydantic/pydantic/pull/13339)
+* Use constant-time comparison for `SecretStr` and `SecretBytes` types by @Viicos in [#13518](https://github.com/pydantic/pydantic/pull/13518)
+* Fix application of constraints in pipeline API by @Viicos in [#13516](https://github.com/pydantic/pydantic/pull/13516)
+* Optimize type lookup logic in core schema generation by @Viicos in [#13573](https://github.com/pydantic/pydantic/pull/13573)",,,,,,,,,,,,,,,,,,,,,,,,,,,,,pending,1f284c768c0a5e34ea489ed978600bbf22dee6a83bd535fa58699a6c349010de,6e8d26772c5e0f9139246d97c948f4a43078d004aa36af96d0178ddc95fe8ca9

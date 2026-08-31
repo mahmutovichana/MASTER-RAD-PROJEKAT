@@ -1,0 +1,55 @@
+@* ============================================================
+   PageHeader — Standardni naslov svake stranice u TAG aplikaciji
+   ============================================================
+   Upotreba:
+     <PageHeader Title="Korisnici" />
+     <PageHeader Title="Korisnici" Subtitle="Pregled i upravljanje korisničkim računima" />
+
+   Pravila:
+   - Uvijek prva komponenta na stranici, direktno ispod @page direktive
+   - Samo jedan PageHeader po stranici
+   - Title    = Typo.h4 (naslov stranice)
+   - Subtitle = Typo.body2 + Color.Secondary (sekundarna boja iz teme)
+   ============================================================ *@
+
+<div class="page-header">
+
+    @if (!string.IsNullOrWhiteSpace(Eyebrow))
+    {
+        <p class="rbi-eyebrow mb-1">@Eyebrow</p>
+    }
+
+    <MudText Typo="Typo.h4">@Title</MudText>
+
+    @if (!string.IsNullOrWhiteSpace(Subtitle))
+    {
+        <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-2">@Subtitle</MudText>
+    }
+
+    <MudDivider />
+
+</div>
+
+@code {
+    /// <summary>
+    /// Primarni naslov stranice. Renderuje se kao Typo.h4.
+    /// Obavezan — EditorRequired generira upozorenje kompajlera ako se ne proslijedi.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Opcioni eyebrow / breadcrumb iznad naslova (mono uppercase), npr. "HOME / OVERVIEW".
+    /// Ako nije proslijeđen, ne renderuje se.
+    /// </summary>
+    [Parameter]
+    public string? Eyebrow { get; set; }
+
+    /// <summary>
+    /// Kratki opis ispod naslova. Opcioni.
+    /// Renderuje se kao Typo.body2 s Color.Secondary.
+    /// Ako nije proslijeđen, ovaj element se ne renderuje.
+    /// </summary>
+    [Parameter]
+    public string? Subtitle { get; set; }
+}

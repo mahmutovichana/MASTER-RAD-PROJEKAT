@@ -1,0 +1,113 @@
+@inherits LayoutComponentBase
+@implements IAsyncDisposable
+@using RBBH.TestAutomation.Api.Theme
+@using Microsoft.AspNetCore.Components.Routing
+
+@inject IUserContext UserCtx
+@inject NavigationManager Navigation
+@inject IdleTimeoutService IdleTimeout
+@inject IJSRuntime JS
+@inject IConfiguration Config
+
+<MudThemeProvider Theme="_theme" IsDarkMode="false" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<div class="app">
+    <TopHeader UserName="@UserCtx.FullName"
+               UserInitials="@UserCtx.Initials"
+               OnBurgerClick="ToggleSidebar"
+               OnLogoutClick="HandleLogout" />
+    <div class="app__body @(_sidebarOpen ? "sidebar-open" : "")">
+        @if (_sidebarOpen)
+        {
+            <div class="sidebar-backdrop" @onclick="ToggleSidebar" aria-hidden="true"></div>
+        }
+        <SideNav IsOpen="@_sidebarOpen" />
+        <main class="app__main">
+            <ErrorBoundary @ref="_errorBoundary">
+                <ChildContent>@Body</ChildContent>
+                <ErrorContent>
+                    <ErrorFallback Recovery="@(() => { _errorBoundary?.Recover(); })" />
+                </ErrorContent>
+            </ErrorBoundary>
+        </main>
+    </div>
+</div>
+
+@code {
+    private readonly MudTheme _theme = RbiTheme.Create();
+    // Default zatvoren: na desktopu je rail svejedno trajno vidljiv (CSS), a na mobitelu
+    // ne želimo overlay otvoren pri učitavanju.
+    private bool _sidebarOpen = false;
+    private ErrorBoundary? _errorBoundary;
+
+    private void ToggleSidebar() => _sidebarOpen = !_sidebarOpen;
+
+    protected override void OnInitialized()
+    {
+        // Na navigaciju zatvori sidebar (relevantno za mobilni overlay; na desktopu
+        // je rail trajno vidljiv pa zatvaranje nema vizuelnog efekta).
+        Navigation.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        if (_sidebarOpen)
+        {
+            _sidebarOpen = false;
+            StateHasChanged();
+        }
+    }
+
+    private void HandleLogout()
+    {
+        var isMock = Config.GetValue<bool>("MockAuth:Enabled");
+        var url = isMock ? "/" : "/authentication/logout";
+        Navigation.NavigateTo(url, forceLoad: true);
+    }
+
+    // ── Idle timeout ────────────────────────────────────────────────────────────
+    private DotNetObjectReference<MainLayout>? _dotNetRef;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _dotNetRef = DotNetObjectReference.Create(this);
+        IdleTimeout.Start(
+            TimeSpan.FromMinutes(AuthConstants.IdleTimeoutMinutes),
+            OnIdleTimeoutAsync);
+        await JS.InvokeVoidAsync("idleTimeout.start", _dotNetRef);
+    }
+
+    [JSInvokable]
+    public void OnUserActivity() => IdleTimeout.RecordActivity();
+
+    private Task OnIdleTimeoutAsync()
+    {
+        // Full-page redirect — prekida circuit i radi Keycloak sign-out.
+        var isMock = Config.GetValue<bool>("MockAuth:Enabled");
+        Navigation.NavigateTo(isMock ? "/" : "/authentication/logout", forceLoad: true);
+        return Task.CompletedTask;
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        Navigation.LocationChanged -= OnLocationChanged;
+
+        if (_dotNetRef is not null)
+        {
+            try
+            {
+                await JS.InvokeVoidAsync("idleTimeout.stop");
+            }
+            catch (JSDisconnectedException)
+            {
+                // Circuit je već prekinut (forceLoad pri timeout-u) — JS nedostupan.
+            }
+            _dotNetRef.Dispose();
+        }
+    }
+}

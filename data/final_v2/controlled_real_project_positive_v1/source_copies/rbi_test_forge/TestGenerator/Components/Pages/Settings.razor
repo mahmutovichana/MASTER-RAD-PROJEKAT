@@ -1,0 +1,81 @@
+@page "/settings"
+@attribute [Authorize]
+@rendermode InteractiveServer
+@inject IUserContext UserCtx
+@inject NavigationManager Navigation
+@inject IConfiguration Config
+
+<PageTitle>Podešavanja</PageTitle>
+<PageHeader Title="Podešavanja" Subtitle="Korisnički profil i nalog" />
+
+@if (!UserCtx.IsAuthenticated)
+{
+    <MudAlert Severity="Severity.Warning" Class="mt-4">Niste prijavljeni.</MudAlert>
+}
+else
+{
+    <MudPaper Class="pa-4 mt-4" Elevation="1" Style="max-width:560px;">
+        @* Zaglavlje: avatar (inicijali) + ime + email *@
+        <div class="d-flex align-center gap-4 mb-4 flex-wrap">
+            <MudAvatar Color="Color.Primary" Size="Size.Large" Style="font-weight:600;">
+                @UserCtx.Initials
+            </MudAvatar>
+            <div style="min-width:0;">
+                <MudText Typo="Typo.h6">@UserCtx.FullName</MudText>
+                @if (!string.IsNullOrWhiteSpace(UserCtx.Email))
+                {
+                    <MudText Typo="Typo.body2" Color="Color.Secondary" Style="word-break:break-all;">
+                        <MudIcon Icon="@Icons.Material.Filled.Email" Size="Size.Small" Class="mr-1" />@UserCtx.Email
+                    </MudText>
+                }
+            </div>
+        </div>
+
+        <MudDivider Class="mb-3" />
+
+        @* Role *@
+        <MudText Typo="Typo.subtitle2" Color="Color.Secondary" Class="mb-2">Role</MudText>
+        @if (UserCtx.Roles.Length > 0)
+        {
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                @foreach (var role in UserCtx.Roles)
+                {
+                    <RoleChip DotColor="@RoleColor(role)">@role</RoleChip>
+                }
+            </div>
+        }
+        else
+        {
+            <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-4">Nema dodijeljenih rola.</MudText>
+        }
+
+        @* Odjava *@
+        <MudDivider Class="mb-3" />
+        <MudButton StartIcon="@Icons.Material.Filled.Logout"
+                   Variant="Variant.Outlined" Color="Color.Error"
+                   OnClick="@HandleLogout">
+            Odjava
+        </MudButton>
+    </MudPaper>
+}
+
+@code {
+    // Isti tok kao u MainLayout: full-page redirect prekida circuit i radi Keycloak sign-out
+    // (u mock modu samo na početnu).
+    private void HandleLogout()
+    {
+        var isMock = Config.GetValue<bool>("MockAuth:Enabled");
+        Navigation.NavigateTo(isMock ? "/" : "/authentication/logout", forceLoad: true);
+    }
+
+    // Boja tačke uz rolu — usklađeno s dashboardom (Home.razor) i Upravljanjem rolama.
+    private static string RoleColor(string role) => role switch
+    {
+        AppRoles.Administrator  => "#D6433C",
+        AppRoles.QALead         => "#1A6E48",
+        AppRoles.QAInzenjer     => "#1F8A6A",
+        AppRoles.Developer      => "#2F4D7A",
+        AppRoles.DevOpsInzenjer => "#6B5A3E",
+        _                       => "#888888",
+    };
+}

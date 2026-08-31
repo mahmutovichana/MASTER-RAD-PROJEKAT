@@ -1,0 +1,71 @@
+.rail {
+    width: 244px;
+    flex-shrink: 0;
+    background: var(--rail-bg);
+    color: var(--rail-fg);
+    border-right: 1px solid var(--rail-border);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.rail__nav {
+    flex: 1;
+    padding: 24px 0 12px;
+    position: relative;
+    z-index: 2;
+    overflow-y: auto;
+}
+
+.rail__group {
+    margin: 20px 26px 8px;
+    font: 700 10px/1 var(--font-mono);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(20, 16, 46, 0.35);
+}
+
+/* Žirafa u NORMALNOM toku (ne absolute) — sjedi između nav-a i footera, na dnu
+   sidebar-a. Pošto nav (flex:1) zauzme prostor i skrola interno, žirafa nikad ne
+   ulazi u skrol-zonu pa NE prelazi preko tipki (ni na desktopu ni na mobitelu). */
+.rail__mascot {
+    display: block;
+    height: 104px;
+    width: auto;
+    margin: 6px auto 12px;
+    opacity: 0.92;
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+.rail__footer {
+    padding: 16px 22px;
+    border-top: 1px solid var(--rail-border);
+    background: var(--rail-bg);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 700 9px/1 var(--font-mono);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(20, 16, 46, 0.4);
+    position: relative;
+    z-index: 2;
+}
+
+/* Tablet/mobitel (<=1024px): sidebar postaje fixed overlay, PO DEFAULTU SAKRIVEN
+   (translateX(-100%)). Prikazuje se kad parent .app__body dobije klasu .sidebar-open —
+   to pravilo je globalno u app.css (Blazor CSS isolation ne može ciljati parent klasu). */
+@media (max-width: 1024px) {
+    .rail {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100dvh;
+        z-index: 200;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        box-shadow: 4px 0 16px rgba(0, 0, 0, 0.18);
+    }
+}

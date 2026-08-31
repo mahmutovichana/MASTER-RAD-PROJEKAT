@@ -1,0 +1,1901 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-RPP-CONFIGURATION-001,controlled/rbi-related-parties-portal-copy,9200601,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""RPP-CFG-001"",
+-      ""default"": 31,
++      ""default"": 61,
+       ""environmentVariable"": ""RPP_FEATURE_001_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature001.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-001
+- Configuration key: `rbi_related_parties_portal.feature001.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_001_TIMEOUT_SECONDS`
+- Documented default: `31`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-001: kod mijenja dokumentovanu konfiguraciju iz '31' u '61' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a9c3fb0c03bd87cb10c6336a523aec8e8018527df5365ba95fc6d42a81490a97,4fb17105b536fe558beaf17c0ac5431199d1dc429d610c500561a5c8236ecac4,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-001.patch
+CRPP1-RPP-CONFIGURATION-002,controlled/rbi-related-parties-portal-copy,9200602,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""RPP-CFG-002"",
+       ""default"": 32,
+-      ""environmentVariable"": ""RPP_FEATURE_002_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_002_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature002.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-002
+- Configuration key: `rbi_related_parties_portal.feature002.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_002_TIMEOUT_SECONDS`
+- Documented default: `32`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-002: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_002_TIMEOUT_SECONDS' u 'RPP_FEATURE_002_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d971e876129e5aab44f419bcd91354c97c687e4fad8d1479ca84ec9a244dde19,5d8216c0d5e287a20d45828672e0275b4eddbb5e75a4f4b8ff1b138b49f09400,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-002.patch
+CRPP1-RPP-CONFIGURATION-003,controlled/rbi-related-parties-portal-copy,9200603,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_003_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature003.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-004"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-003
+- Configuration key: `rbi_related_parties_portal.feature003.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_003_TIMEOUT_SECONDS`
+- Documented default: `33`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-003: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4c04802f11afac8ec09a41e9cab73be7516d87054957a07a107712dec94a0b20,f270099ef6284304a5f945db5a15369901ef73739ff50c56554cc72ac4819913,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-003.patch
+CRPP1-RPP-CONFIGURATION-004,controlled/rbi-related-parties-portal-copy,9200604,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
+@@ -30,7 +30,7 @@
+       ""default"": 34,
+       ""environmentVariable"": ""RPP_FEATURE_004_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature004.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-004
+- Configuration key: `rbi_related_parties_portal.feature004.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_004_TIMEOUT_SECONDS`
+- Documented default: `34`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-004: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7b46e987cbea7947b34a8bfcb9298b2059cd2c2b99c9e35decec3a63204e2b9c,6b4cf373bc68e25772401722c8d84b749a9604ac21df4cca747d1df5014cf14c,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-004.patch
+CRPP1-RPP-CONFIGURATION-005,controlled/rbi-related-parties-portal-copy,9200605,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-005"",
+-      ""default"": 35,
++      ""default"": 65,
+       ""environmentVariable"": ""RPP_FEATURE_005_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature005.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-005
+- Configuration key: `rbi_related_parties_portal.feature005.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_005_TIMEOUT_SECONDS`
+- Documented default: `35`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-005: kod mijenja dokumentovanu konfiguraciju iz '35' u '65' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e501be1596a83356f6a3c64aaf7d74bb6f6f612d856f99bfba4c070520b621b8,85b195aaa7620dad6bb10a6302376fede5972068d9397620b34d0e6286b6ecf8,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-005.patch
+CRPP1-RPP-CONFIGURATION-006,controlled/rbi-related-parties-portal-copy,9200606,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""RPP-CFG-006"",
+       ""default"": 36,
+-      ""environmentVariable"": ""RPP_FEATURE_006_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_006_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature006.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-006
+- Configuration key: `rbi_related_parties_portal.feature006.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_006_TIMEOUT_SECONDS`
+- Documented default: `36`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-006: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_006_TIMEOUT_SECONDS' u 'RPP_FEATURE_006_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9fa5de3c9d4a745a902c9b6431bdca023510042694d1e1a68ee1232afa0f9279,937617dfb98190cc331dfba0968d5868073d384169acb66492ae63c3893d94a2,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-006.patch
+CRPP1-RPP-CONFIGURATION-007,controlled/rbi-related-parties-portal-copy,9200607,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_007_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature007.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-008"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-007
+- Configuration key: `rbi_related_parties_portal.feature007.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_007_TIMEOUT_SECONDS`
+- Documented default: `37`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-007: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7b7d7aee7051cf5529000ea36b838609b6eba9e4ed1e88f8f90d3cab0128e5c7,d08db244421be1e2815d1af7836e91ad415035795ee62fd528d8c2d001ad43f9,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-007.patch
+CRPP1-RPP-CONFIGURATION-008,controlled/rbi-related-parties-portal-copy,9200608,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
+@@ -62,7 +62,7 @@
+       ""default"": 38,
+       ""environmentVariable"": ""RPP_FEATURE_008_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature008.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-008
+- Configuration key: `rbi_related_parties_portal.feature008.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_008_TIMEOUT_SECONDS`
+- Documented default: `38`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-008: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,673dbb8c9d5fd431343e5589b8b7dd118b02b8c26c899cb90ddb505044aecc51,b04bf16fb3622f47342edccde4885096dafe03358f5da38359f4a8532ecb4674,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-008.patch
+CRPP1-RPP-CONFIGURATION-009,controlled/rbi-related-parties-portal-copy,9200609,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-009"",
+-      ""default"": 39,
++      ""default"": 69,
+       ""environmentVariable"": ""RPP_FEATURE_009_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature009.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-009
+- Configuration key: `rbi_related_parties_portal.feature009.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_009_TIMEOUT_SECONDS`
+- Documented default: `39`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-009: kod mijenja dokumentovanu konfiguraciju iz '39' u '69' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aa26641801ab7dacaf3328104e245ab87b47cfc70fac3e3b4785d8ca99c2007f,40c8761845ee1d26a34232a1c6b93ce9199f6ba2151821177d8d18d5f1324e0f,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-009.patch
+CRPP1-RPP-CONFIGURATION-010,controlled/rbi-related-parties-portal-copy,9200610,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_01.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""RPP-CFG-010"",
+       ""default"": 40,
+-      ""environmentVariable"": ""RPP_FEATURE_010_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_010_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature010.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-010
+- Configuration key: `rbi_related_parties_portal.feature010.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_010_TIMEOUT_SECONDS`
+- Documented default: `40`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-010: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_010_TIMEOUT_SECONDS' u 'RPP_FEATURE_010_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a4244473007788de67b7a09c2d2e5cc68b9f5c914d1342b495c6ae890605e1ba,23df97bc0769851a8c6c8ecbf9322dd4f61d7517a193874a9a04f6f8e6e26af9,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-010.patch
+CRPP1-RPP-CONFIGURATION-011,controlled/rbi-related-parties-portal-copy,9200611,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_011_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature011.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-012"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-011
+- Configuration key: `rbi_related_parties_portal.feature011.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_011_TIMEOUT_SECONDS`
+- Documented default: `41`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-011: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,26c2cde25b023161a7f13986d83561387f26adefc1d97ab78ac9d45a1c9bd2ef,8e5fbbd12fb8ddfcc0cd2ead25a4f0e63b173aeb9af6159f51116b8064715628,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-011.patch
+CRPP1-RPP-CONFIGURATION-012,controlled/rbi-related-parties-portal-copy,9200612,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
+@@ -14,7 +14,7 @@
+       ""default"": 42,
+       ""environmentVariable"": ""RPP_FEATURE_012_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature012.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-012
+- Configuration key: `rbi_related_parties_portal.feature012.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_012_TIMEOUT_SECONDS`
+- Documented default: `42`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-012: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1ae03a8b705aa306e8d10768556eca1c5ba048ad0f2d178cc976dde554fb74f3,1961ed6c8bf16a2504ef9f1cd05ddb63c9b03a1a49d5e60dffdd96bf8a0d4d9c,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-012.patch
+CRPP1-RPP-CONFIGURATION-013,controlled/rbi-related-parties-portal-copy,9200613,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-013"",
+-      ""default"": 43,
++      ""default"": 73,
+       ""environmentVariable"": ""RPP_FEATURE_013_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature013.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-013
+- Configuration key: `rbi_related_parties_portal.feature013.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_013_TIMEOUT_SECONDS`
+- Documented default: `43`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-013: kod mijenja dokumentovanu konfiguraciju iz '43' u '73' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2ce923e7d18c61de14728a40086c21b36dc264009e7acc5c43b2547156adbfed,4e8d5924ca465a08af99053fb4673777409bedb98a3c62ba093acf05ad4244c8,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-013.patch
+CRPP1-RPP-CONFIGURATION-014,controlled/rbi-related-parties-portal-copy,9200614,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""RPP-CFG-014"",
+       ""default"": 44,
+-      ""environmentVariable"": ""RPP_FEATURE_014_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_014_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature014.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-014
+- Configuration key: `rbi_related_parties_portal.feature014.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_014_TIMEOUT_SECONDS`
+- Documented default: `44`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-014: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_014_TIMEOUT_SECONDS' u 'RPP_FEATURE_014_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fb09cda028019aa4c740590590c2f471714f98c4ce24ef968c3607c3cf4e002a,a52442e89874486f439f6e58320ed6a98f5a4553f7f412a9110a80f57a84f5df,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-014.patch
+CRPP1-RPP-CONFIGURATION-015,controlled/rbi-related-parties-portal-copy,9200615,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_015_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature015.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-016"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-015
+- Configuration key: `rbi_related_parties_portal.feature015.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_015_TIMEOUT_SECONDS`
+- Documented default: `45`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-015: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bd67f4bba168db93d39f706bce321db20364f56de89ec639770e7f4f74ecbaaa,f6797225a375d2c752d385cee18f1d00308a9772cd16c3a68cc533bb58bcb455,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-015.patch
+CRPP1-RPP-CONFIGURATION-016,controlled/rbi-related-parties-portal-copy,9200616,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
+@@ -46,7 +46,7 @@
+       ""default"": 46,
+       ""environmentVariable"": ""RPP_FEATURE_016_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature016.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-016
+- Configuration key: `rbi_related_parties_portal.feature016.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_016_TIMEOUT_SECONDS`
+- Documented default: `46`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-016: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fc9ba37bc444c0b3d690fbeecabb1a94be7c47508f0f2c44729866c1a4388b54,96113b9b6edfd2139e729e5455ca7710733ee01cc904e241feb9feacffc48d40,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-016.patch
+CRPP1-RPP-CONFIGURATION-017,controlled/rbi-related-parties-portal-copy,9200617,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-017"",
+-      ""default"": 47,
++      ""default"": 77,
+       ""environmentVariable"": ""RPP_FEATURE_017_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature017.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-017
+- Configuration key: `rbi_related_parties_portal.feature017.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_017_TIMEOUT_SECONDS`
+- Documented default: `47`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-017: kod mijenja dokumentovanu konfiguraciju iz '47' u '77' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e84388fe04f27b1b11ec544c35697672dac4b8f1812bc703f36c7fd185666944,5e3b2a3d76a5e7a51625ccc20920c591254ca2b6c095a265a95ef423d6a9fb3c,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-017.patch
+CRPP1-RPP-CONFIGURATION-018,controlled/rbi-related-parties-portal-copy,9200618,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""RPP-CFG-018"",
+       ""default"": 48,
+-      ""environmentVariable"": ""RPP_FEATURE_018_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_018_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature018.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-018
+- Configuration key: `rbi_related_parties_portal.feature018.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_018_TIMEOUT_SECONDS`
+- Documented default: `48`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-018: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_018_TIMEOUT_SECONDS' u 'RPP_FEATURE_018_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,590edf62fef87b614f1f9588686eeb2da78ce933ce8e9d0606d399de97c07a23,ad05125984f121c6bb72157af72edf01a744a40c3d8ef32863beaa674dcd722e,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-018.patch
+CRPP1-RPP-CONFIGURATION-019,controlled/rbi-related-parties-portal-copy,9200619,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_019_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature019.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-020"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-019
+- Configuration key: `rbi_related_parties_portal.feature019.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_019_TIMEOUT_SECONDS`
+- Documented default: `49`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-019: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cbbaaa2acf9ae5dd8544175359b850c6ec65b05802a240e5b1d55e51cd232200,6a5fc963edef07ecffaf8887be283c02a1876e96b043d9dbc52855f7668eaf82,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-019.patch
+CRPP1-RPP-CONFIGURATION-020,controlled/rbi-related-parties-portal-copy,9200620,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_02.json
+@@ -78,7 +78,7 @@
+       ""default"": 50,
+       ""environmentVariable"": ""RPP_FEATURE_020_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature020.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-020
+- Configuration key: `rbi_related_parties_portal.feature020.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_020_TIMEOUT_SECONDS`
+- Documented default: `50`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-020: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,787253cb76080617b7e322dd5549950749c8cc38a37c641f5620135678777fda,d3d44586e0a800e71a8df3139301042c27687cff7bd24209aec68c8160131584,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-020.patch
+CRPP1-RPP-CONFIGURATION-021,controlled/rbi-related-parties-portal-copy,9200621,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""RPP-CFG-021"",
+-      ""default"": 51,
++      ""default"": 81,
+       ""environmentVariable"": ""RPP_FEATURE_021_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature021.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-021
+- Configuration key: `rbi_related_parties_portal.feature021.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_021_TIMEOUT_SECONDS`
+- Documented default: `51`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-021: kod mijenja dokumentovanu konfiguraciju iz '51' u '81' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,439ec8d7e40cc66c63c15579cd2614bb214f3081ebae1d3901ef1a6a50d410f3,1e4e5d7ad1c6c1d0a80f641d2cd7cd8aecde51412dff4bd653c4abdfcbe5d032,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-021.patch
+CRPP1-RPP-CONFIGURATION-022,controlled/rbi-related-parties-portal-copy,9200622,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""RPP-CFG-022"",
+       ""default"": 52,
+-      ""environmentVariable"": ""RPP_FEATURE_022_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_022_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature022.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-022
+- Configuration key: `rbi_related_parties_portal.feature022.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_022_TIMEOUT_SECONDS`
+- Documented default: `52`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-022: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_022_TIMEOUT_SECONDS' u 'RPP_FEATURE_022_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,832e99cae70a1353b23f40b53158c9352a5672326032b0af8930156c6af824eb,fea935e03272ee352fc5b8a739933391a17fe2d71e10e8e0666a6257eb1e918d,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-022.patch
+CRPP1-RPP-CONFIGURATION-023,controlled/rbi-related-parties-portal-copy,9200623,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_023_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature023.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-024"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-023
+- Configuration key: `rbi_related_parties_portal.feature023.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_023_TIMEOUT_SECONDS`
+- Documented default: `53`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-023: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,feb0adf470a3a0a686dbb58a8dfb857e6b74705a0b19db90d7941fda31567555,99b464f1e6d4691d5a31b6c07277beb8426937687ed9a7c850d60ce890ccd2f3,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-023.patch
+CRPP1-RPP-CONFIGURATION-024,controlled/rbi-related-parties-portal-copy,9200624,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
+@@ -30,7 +30,7 @@
+       ""default"": 54,
+       ""environmentVariable"": ""RPP_FEATURE_024_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature024.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-024
+- Configuration key: `rbi_related_parties_portal.feature024.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_024_TIMEOUT_SECONDS`
+- Documented default: `54`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-024: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2398f7bf392dba1feac9e02d6f717a61807d5d24daea3db1291c4ce34cd5eeb3,18dd3a59c943e681b81b7ff797b684852c1d54277d6f8a4d9ff0d194d5f89185,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-024.patch
+CRPP1-RPP-CONFIGURATION-025,controlled/rbi-related-parties-portal-copy,9200625,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-025"",
+-      ""default"": 55,
++      ""default"": 85,
+       ""environmentVariable"": ""RPP_FEATURE_025_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature025.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-025
+- Configuration key: `rbi_related_parties_portal.feature025.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_025_TIMEOUT_SECONDS`
+- Documented default: `55`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-025: kod mijenja dokumentovanu konfiguraciju iz '55' u '85' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,abcb1a04465c28f29303a4b10ed141f9151b382db2db3af003aada7b0965e883,8068a20d2cc3065a061cf8784b389d1ca93c053a75a6539f7acfcfb54f201a94,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-025.patch
+CRPP1-RPP-CONFIGURATION-026,controlled/rbi-related-parties-portal-copy,9200626,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""RPP-CFG-026"",
+       ""default"": 56,
+-      ""environmentVariable"": ""RPP_FEATURE_026_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_026_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature026.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-026
+- Configuration key: `rbi_related_parties_portal.feature026.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_026_TIMEOUT_SECONDS`
+- Documented default: `56`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-026: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_026_TIMEOUT_SECONDS' u 'RPP_FEATURE_026_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0db63fef66eafb676d5d597d338ab906670bc4d4feceb72f7012765d3c4fd411,38f5b4cf4519771b1b20913c4c546bcdb2654f1ad1ea3919a700b2270023f569,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-026.patch
+CRPP1-RPP-CONFIGURATION-027,controlled/rbi-related-parties-portal-copy,9200627,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_027_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature027.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-028"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-027
+- Configuration key: `rbi_related_parties_portal.feature027.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_027_TIMEOUT_SECONDS`
+- Documented default: `57`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-027: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1c93668c129085c54320e9863ba83be0f3dd74af2f016b390127734d28c0d198,cbdeb55727f807e9a7c818612f2d542b493b398837690cd4d3eed69f3d9c07d3,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-027.patch
+CRPP1-RPP-CONFIGURATION-028,controlled/rbi-related-parties-portal-copy,9200628,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
+@@ -62,7 +62,7 @@
+       ""default"": 58,
+       ""environmentVariable"": ""RPP_FEATURE_028_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature028.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-028
+- Configuration key: `rbi_related_parties_portal.feature028.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_028_TIMEOUT_SECONDS`
+- Documented default: `58`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-028: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,063fbc89c2dfc448a8b8fa4c484584293f1504131a804b1a2eb28c8d1be96a4d,34ae1f84ba4f258f2ef3c780fab4823037a0756405d59a545e29db6a02e50b13,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-028.patch
+CRPP1-RPP-CONFIGURATION-029,controlled/rbi-related-parties-portal-copy,9200629,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-029"",
+-      ""default"": 59,
++      ""default"": 89,
+       ""environmentVariable"": ""RPP_FEATURE_029_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature029.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-029
+- Configuration key: `rbi_related_parties_portal.feature029.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_029_TIMEOUT_SECONDS`
+- Documented default: `59`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-029: kod mijenja dokumentovanu konfiguraciju iz '59' u '89' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b9431b2eb7fad4086e30019d1236a5370e2b5c850f7b61e0370877cb730bc45a,f27b000eb2df7704e21589fde22d55e18b8b413bcbc012b0836bfaeac166272f,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-029.patch
+CRPP1-RPP-CONFIGURATION-030,controlled/rbi-related-parties-portal-copy,9200630,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_03.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""RPP-CFG-030"",
+       ""default"": 60,
+-      ""environmentVariable"": ""RPP_FEATURE_030_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_030_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature030.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-030
+- Configuration key: `rbi_related_parties_portal.feature030.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_030_TIMEOUT_SECONDS`
+- Documented default: `60`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-030: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_030_TIMEOUT_SECONDS' u 'RPP_FEATURE_030_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aa8d9e2da86e6d3985eb7d4d150a141ce36ec8e968077152650d19dbecb61f05,32dade5199a813a7f5f38473676ec08c09a83b9dd1aee8f113f69ed35858787f,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-030.patch
+CRPP1-RPP-CONFIGURATION-031,controlled/rbi-related-parties-portal-copy,9200631,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_031_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature031.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-032"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-031
+- Configuration key: `rbi_related_parties_portal.feature031.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_031_TIMEOUT_SECONDS`
+- Documented default: `61`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-031: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1eeb3a0f1c837639c550fa8aae4c6650fcce040c91d67602d43e01c5d2ef02de,2cfd7f21103b92ed9d5ab8402be7dd61e038e0e0abe6aaee6cc2e8adaa23892c,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-031.patch
+CRPP1-RPP-CONFIGURATION-032,controlled/rbi-related-parties-portal-copy,9200632,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
+@@ -14,7 +14,7 @@
+       ""default"": 62,
+       ""environmentVariable"": ""RPP_FEATURE_032_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature032.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-032
+- Configuration key: `rbi_related_parties_portal.feature032.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_032_TIMEOUT_SECONDS`
+- Documented default: `62`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-032: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b8c49a76ea77345c1fccd666a2cede2ffaaf0b69ad490924efcfb3093c61b565,6fd121a3b87d158993f0a6927d5b333fa98a648984aaa0c009df089caebb5ecb,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-032.patch
+CRPP1-RPP-CONFIGURATION-033,controlled/rbi-related-parties-portal-copy,9200633,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-033"",
+-      ""default"": 63,
++      ""default"": 93,
+       ""environmentVariable"": ""RPP_FEATURE_033_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature033.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-033
+- Configuration key: `rbi_related_parties_portal.feature033.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_033_TIMEOUT_SECONDS`
+- Documented default: `63`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-033: kod mijenja dokumentovanu konfiguraciju iz '63' u '93' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fcbc256775f8bd551b6c69fd75e1f714bb078624a131c67b56a745ec76968087,b60d506b72f977748cd1d5afa36c9347b355d319782eae02bfe3e2bff231d32d,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-033.patch
+CRPP1-RPP-CONFIGURATION-034,controlled/rbi-related-parties-portal-copy,9200634,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""RPP-CFG-034"",
+       ""default"": 64,
+-      ""environmentVariable"": ""RPP_FEATURE_034_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_034_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature034.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-034
+- Configuration key: `rbi_related_parties_portal.feature034.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_034_TIMEOUT_SECONDS`
+- Documented default: `64`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-034: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_034_TIMEOUT_SECONDS' u 'RPP_FEATURE_034_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bfeb93a9afdbbc70eba8fe128fac0cbc9215e62af4096a2259cbe8525ddcd18c,f3ce66b1fc2cc81033defe7ba623a43ca15cd21d1d599528b0dc66d4c043e40f,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-034.patch
+CRPP1-RPP-CONFIGURATION-035,controlled/rbi-related-parties-portal-copy,9200635,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_035_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature035.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-036"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-035
+- Configuration key: `rbi_related_parties_portal.feature035.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_035_TIMEOUT_SECONDS`
+- Documented default: `65`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-035: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b6cc77663f3d88a6d79287856fdc9c53d9d28353073b16ed2615db245172d744,9c48a2c216f0a96d465c8ac74bcf51b751a292221ca415e4eaafe7ef5265b232,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-035.patch
+CRPP1-RPP-CONFIGURATION-036,controlled/rbi-related-parties-portal-copy,9200636,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
+@@ -46,7 +46,7 @@
+       ""default"": 66,
+       ""environmentVariable"": ""RPP_FEATURE_036_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature036.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-036
+- Configuration key: `rbi_related_parties_portal.feature036.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_036_TIMEOUT_SECONDS`
+- Documented default: `66`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-036: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f43b5e149e184936cb42ba580f155d825261d462dc8b19f3bf3ffdcd1bf68930,eeb2a60666f4472702ea943aa4aabc236940b4120293f0f38e612fbaf7b8c1bf,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-036.patch
+CRPP1-RPP-CONFIGURATION-037,controlled/rbi-related-parties-portal-copy,9200637,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-037"",
+-      ""default"": 67,
++      ""default"": 97,
+       ""environmentVariable"": ""RPP_FEATURE_037_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature037.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-037
+- Configuration key: `rbi_related_parties_portal.feature037.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_037_TIMEOUT_SECONDS`
+- Documented default: `67`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-037: kod mijenja dokumentovanu konfiguraciju iz '67' u '97' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e81b061a558f225b7b56367209c203a26d41567ad59af1dc1afd370372af8a0f,ccd38f5770413a462570a5f00fb89aa822766ac4cf49b8f1a140b11c84c80ec4,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-037.patch
+CRPP1-RPP-CONFIGURATION-038,controlled/rbi-related-parties-portal-copy,9200638,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""RPP-CFG-038"",
+       ""default"": 68,
+-      ""environmentVariable"": ""RPP_FEATURE_038_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_038_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature038.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-038
+- Configuration key: `rbi_related_parties_portal.feature038.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_038_TIMEOUT_SECONDS`
+- Documented default: `68`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-038: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_038_TIMEOUT_SECONDS' u 'RPP_FEATURE_038_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1a68f628dfd2d47606b0c70746c0fe583bdd1ee3edb26bb5baa1e3ed9a2a1ef5,6f1e5c0ad7308b9b7a96a9db061fe51bada8ac6e7834df398c418e2d8af8bce3,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-038.patch
+CRPP1-RPP-CONFIGURATION-039,controlled/rbi-related-parties-portal-copy,9200639,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_039_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature039.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-040"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-039
+- Configuration key: `rbi_related_parties_portal.feature039.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_039_TIMEOUT_SECONDS`
+- Documented default: `69`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-039: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,052e54b7b24aa5f939b78e30ee7e91fc02d0d1583a765cd13ed9838e3726f96f,6c99010934e35ce51236053880b4ba7e63f89afc303e2d86457362d524e60456,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-039.patch
+CRPP1-RPP-CONFIGURATION-040,controlled/rbi-related-parties-portal-copy,9200640,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_04.json
+@@ -78,7 +78,7 @@
+       ""default"": 70,
+       ""environmentVariable"": ""RPP_FEATURE_040_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature040.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-040
+- Configuration key: `rbi_related_parties_portal.feature040.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_040_TIMEOUT_SECONDS`
+- Documented default: `70`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-040: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,29087343f61c4a2b7d711118ba7b46fa83e43e132efc0b85fbf9e4435ea766f0,4e634ddbc53415b86db714449ce269bfcbeb8e877e692ac0b6834bcf3fd4ff69,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-040.patch
+CRPP1-RPP-CONFIGURATION-041,controlled/rbi-related-parties-portal-copy,9200641,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""RPP-CFG-041"",
+-      ""default"": 71,
++      ""default"": 101,
+       ""environmentVariable"": ""RPP_FEATURE_041_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature041.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-041
+- Configuration key: `rbi_related_parties_portal.feature041.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_041_TIMEOUT_SECONDS`
+- Documented default: `71`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-041: kod mijenja dokumentovanu konfiguraciju iz '71' u '101' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6acb53557e9146791e64c8e6783bca448380a09ccd20f7c22ad4b198c58dd4f4,745fbf796cbea271639c6d297815e690d3d3a432c4ac605f688b16672c78168b,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-041.patch
+CRPP1-RPP-CONFIGURATION-042,controlled/rbi-related-parties-portal-copy,9200642,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""RPP-CFG-042"",
+       ""default"": 72,
+-      ""environmentVariable"": ""RPP_FEATURE_042_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_042_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature042.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-042
+- Configuration key: `rbi_related_parties_portal.feature042.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_042_TIMEOUT_SECONDS`
+- Documented default: `72`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-042: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_042_TIMEOUT_SECONDS' u 'RPP_FEATURE_042_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,30866c6bc5009d819a057fcc759da69b4c3739aa1a89fefa42f839c3143683c1,a47972443302bf622ce38eff4c74755536b06500e4d2ce07754ba94ed41437bd,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-042.patch
+CRPP1-RPP-CONFIGURATION-043,controlled/rbi-related-parties-portal-copy,9200643,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_043_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature043.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-044"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-043
+- Configuration key: `rbi_related_parties_portal.feature043.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_043_TIMEOUT_SECONDS`
+- Documented default: `73`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-043: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6ecdc66b4bd8b85fd59faf2bae6081d3b7354ecd24ae58d8622a36508f279ed5,1c13ea232e1850dea5b54224f07c043d765bcf5a7ab0130e01c30d8f8568651e,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-043.patch
+CRPP1-RPP-CONFIGURATION-044,controlled/rbi-related-parties-portal-copy,9200644,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
+@@ -30,7 +30,7 @@
+       ""default"": 74,
+       ""environmentVariable"": ""RPP_FEATURE_044_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature044.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-044
+- Configuration key: `rbi_related_parties_portal.feature044.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_044_TIMEOUT_SECONDS`
+- Documented default: `74`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-044: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7369e088901d88a790adb176e554ca01cb6c7b86b3f9df3f8b999b9c8da1fc4b,cb627c2a7613877c98b37c932c263d852f5126661d4f9e718ba17a653afa2732,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-044.patch
+CRPP1-RPP-CONFIGURATION-045,controlled/rbi-related-parties-portal-copy,9200645,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-045"",
+-      ""default"": 75,
++      ""default"": 105,
+       ""environmentVariable"": ""RPP_FEATURE_045_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature045.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-045
+- Configuration key: `rbi_related_parties_portal.feature045.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_045_TIMEOUT_SECONDS`
+- Documented default: `75`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-045: kod mijenja dokumentovanu konfiguraciju iz '75' u '105' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,31d5e65aa4552d87c9bc562583bbcb26cbf019048b4121a5eb9f3bd2f94d8493,542042c17f506ae7318f87bc852ed0238ff8774f8eac32c53610d67ffe474256,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-045.patch
+CRPP1-RPP-CONFIGURATION-046,controlled/rbi-related-parties-portal-copy,9200646,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""RPP-CFG-046"",
+       ""default"": 76,
+-      ""environmentVariable"": ""RPP_FEATURE_046_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_046_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature046.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-046
+- Configuration key: `rbi_related_parties_portal.feature046.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_046_TIMEOUT_SECONDS`
+- Documented default: `76`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-046: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_046_TIMEOUT_SECONDS' u 'RPP_FEATURE_046_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e1432a4d903d77a96013a5c00cb393af44b620dafff9285a5f2a9b2bf3ec604f,8e27cd3dfcedff14afbd930a3282f7c154f7aa99682af3a325332368417e367a,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-046.patch
+CRPP1-RPP-CONFIGURATION-047,controlled/rbi-related-parties-portal-copy,9200647,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_047_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature047.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-048"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-047
+- Configuration key: `rbi_related_parties_portal.feature047.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_047_TIMEOUT_SECONDS`
+- Documented default: `77`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-047: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bb8ca65ea5ed5a18444d971b187df50470899589de2b19fa3eeb92e05e1b8d91,5e73759f2aef402b65b5c39ea23299dab65f54bf1820f2002da35fee2b12a386,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-047.patch
+CRPP1-RPP-CONFIGURATION-048,controlled/rbi-related-parties-portal-copy,9200648,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
+@@ -62,7 +62,7 @@
+       ""default"": 78,
+       ""environmentVariable"": ""RPP_FEATURE_048_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature048.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-048
+- Configuration key: `rbi_related_parties_portal.feature048.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_048_TIMEOUT_SECONDS`
+- Documented default: `78`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-048: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0894e228e9dc7b6a1fe65eb6989d1c8d9e1a798142727e11cc1d556d959e492c,2e046e77abf969f70e0024ed3e71238aabf1e7a9d718601cd00e71ac7c6f8d86,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-048.patch
+CRPP1-RPP-CONFIGURATION-049,controlled/rbi-related-parties-portal-copy,9200649,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-049"",
+-      ""default"": 79,
++      ""default"": 109,
+       ""environmentVariable"": ""RPP_FEATURE_049_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature049.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-049
+- Configuration key: `rbi_related_parties_portal.feature049.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_049_TIMEOUT_SECONDS`
+- Documented default: `79`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-049: kod mijenja dokumentovanu konfiguraciju iz '79' u '109' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,38566c1fe19ef5ff47627627a9fdce1da38dead3d6d6753e7b16ced64d11b0d9,f9288d0f47fe1813d57adbbfbd7ad214903daa61d9e5c3aed39ffaff1741aa8a,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-049.patch
+CRPP1-RPP-CONFIGURATION-050,controlled/rbi-related-parties-portal-copy,9200650,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_05.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""RPP-CFG-050"",
+       ""default"": 80,
+-      ""environmentVariable"": ""RPP_FEATURE_050_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_050_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature050.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-050
+- Configuration key: `rbi_related_parties_portal.feature050.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_050_TIMEOUT_SECONDS`
+- Documented default: `80`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-050: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_050_TIMEOUT_SECONDS' u 'RPP_FEATURE_050_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,65d4d2daa8cfcf696874b7f37e87c57d48fb228206e22850cf7284bafd5f4ed9,f0aa88df64da8c4799ce0a32090cae879b5d60f8447cb1bf61836b7f22a0935f,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-050.patch
+CRPP1-RPP-CONFIGURATION-051,controlled/rbi-related-parties-portal-copy,9200651,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_051_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature051.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-052"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-051
+- Configuration key: `rbi_related_parties_portal.feature051.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_051_TIMEOUT_SECONDS`
+- Documented default: `81`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-051: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b0d604d30ba31ba65a1fa3e005a2e03cde2a198b4ae3a045852718714bf04428,7d133baefc2500e1d81629b261a67dfa8ed39e23a48f918475fe310468b08178,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-051.patch
+CRPP1-RPP-CONFIGURATION-052,controlled/rbi-related-parties-portal-copy,9200652,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
+@@ -14,7 +14,7 @@
+       ""default"": 82,
+       ""environmentVariable"": ""RPP_FEATURE_052_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature052.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-052
+- Configuration key: `rbi_related_parties_portal.feature052.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_052_TIMEOUT_SECONDS`
+- Documented default: `82`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-052: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,53f2f07ee7960ff2b94cdb2cc3647103325aebb9dd3637ad59efed2358b943b9,1e1ca1e0e21b409010df18e9f74160682d98acc5d5c42a3246d82d8165633adf,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-052.patch
+CRPP1-RPP-CONFIGURATION-053,controlled/rbi-related-parties-portal-copy,9200653,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-053"",
+-      ""default"": 83,
++      ""default"": 113,
+       ""environmentVariable"": ""RPP_FEATURE_053_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature053.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-053
+- Configuration key: `rbi_related_parties_portal.feature053.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_053_TIMEOUT_SECONDS`
+- Documented default: `83`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-053: kod mijenja dokumentovanu konfiguraciju iz '83' u '113' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cdeff9c81e39a5f8a37facedab3f19488354ca467eb00b24114fb8540a65048f,37eef823df2dc638e80eab6079add5370418137667a2f567f0489174c5766d7d,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-053.patch
+CRPP1-RPP-CONFIGURATION-054,controlled/rbi-related-parties-portal-copy,9200654,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""RPP-CFG-054"",
+       ""default"": 84,
+-      ""environmentVariable"": ""RPP_FEATURE_054_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_054_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature054.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-054
+- Configuration key: `rbi_related_parties_portal.feature054.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_054_TIMEOUT_SECONDS`
+- Documented default: `84`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-054: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_054_TIMEOUT_SECONDS' u 'RPP_FEATURE_054_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9f0e48f92ac15045290edb6f1e0c1a0303b01026328a71461159d0f998377964,dd9aeaf0a7eec3ce686da119af14858eede1a7685edd5ea86e5b535ae06419e0,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-054.patch
+CRPP1-RPP-CONFIGURATION-055,controlled/rbi-related-parties-portal-copy,9200655,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_055_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature055.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-056"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-055
+- Configuration key: `rbi_related_parties_portal.feature055.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_055_TIMEOUT_SECONDS`
+- Documented default: `85`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-055: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,73c468700754ec7c7b0bcde155032d7eee0ba52bc28da2cf6dc350f277aee1fd,db08d2a2840645d1216d34dfa2a22a3d7cd65d53774f422fe999ab9b6dc5a3ec,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-055.patch
+CRPP1-RPP-CONFIGURATION-056,controlled/rbi-related-parties-portal-copy,9200656,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
+@@ -46,7 +46,7 @@
+       ""default"": 86,
+       ""environmentVariable"": ""RPP_FEATURE_056_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature056.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-056
+- Configuration key: `rbi_related_parties_portal.feature056.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_056_TIMEOUT_SECONDS`
+- Documented default: `86`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-056: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8c9a5f7f161ad8b80d39737a5631a86a8eba068cad68d752b9a4e18d2dea68f6,95e11c3378a11b86d51f2ab915193360fae35024465316ce2508ca6e1ba6c4e7,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-056.patch
+CRPP1-RPP-CONFIGURATION-057,controlled/rbi-related-parties-portal-copy,9200657,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-057"",
+-      ""default"": 87,
++      ""default"": 117,
+       ""environmentVariable"": ""RPP_FEATURE_057_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature057.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-057
+- Configuration key: `rbi_related_parties_portal.feature057.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_057_TIMEOUT_SECONDS`
+- Documented default: `87`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-057: kod mijenja dokumentovanu konfiguraciju iz '87' u '117' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,306dac7c7819e2800517b5320685b221bff1717929cb96287c0fe20422c2e37d,db40e3685c701c8a04e477283ff437e81489fecc2d3423b787230f2e2ef9306b,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-057.patch
+CRPP1-RPP-CONFIGURATION-058,controlled/rbi-related-parties-portal-copy,9200658,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""RPP-CFG-058"",
+       ""default"": 88,
+-      ""environmentVariable"": ""RPP_FEATURE_058_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_058_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature058.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-058
+- Configuration key: `rbi_related_parties_portal.feature058.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_058_TIMEOUT_SECONDS`
+- Documented default: `88`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-058: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_058_TIMEOUT_SECONDS' u 'RPP_FEATURE_058_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e64ab17c56eb8d5dbfdfd6fecf4aaa0eebac549208dd57244cdf44b6a31cc7fc,25fc1c315ac2d1a2a132fd3c9c9d0d0782fb0b41a0639f199b68a31b68ab0797,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-058.patch
+CRPP1-RPP-CONFIGURATION-059,controlled/rbi-related-parties-portal-copy,9200659,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_059_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature059.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-060"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-059
+- Configuration key: `rbi_related_parties_portal.feature059.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_059_TIMEOUT_SECONDS`
+- Documented default: `89`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-059: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,851a18f3ba377ff6dd87272725e9f2c6067d877b38316382e35307876830a291,f2463565e6cd6b86851667c5db515c17a0c392b8dd32ef2f0ff2273d2338c4fd,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-059.patch
+CRPP1-RPP-CONFIGURATION-060,controlled/rbi-related-parties-portal-copy,9200660,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_06.json
+@@ -78,7 +78,7 @@
+       ""default"": 90,
+       ""environmentVariable"": ""RPP_FEATURE_060_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature060.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-060
+- Configuration key: `rbi_related_parties_portal.feature060.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_060_TIMEOUT_SECONDS`
+- Documented default: `90`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-060: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7dd0076908ea623010ef5a18fd25c2c719812d274bcd35d3e3a5678031952ddf,9f2f088a9a3306a3a9f9d89880bf4769ce4626c80cab1d83056ea07b336c0293,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-060.patch
+CRPP1-RPP-CONFIGURATION-061,controlled/rbi-related-parties-portal-copy,9200661,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""RPP-CFG-061"",
+-      ""default"": 91,
++      ""default"": 121,
+       ""environmentVariable"": ""RPP_FEATURE_061_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature061.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-061
+- Configuration key: `rbi_related_parties_portal.feature061.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_061_TIMEOUT_SECONDS`
+- Documented default: `91`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-061: kod mijenja dokumentovanu konfiguraciju iz '91' u '121' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9bd58d0c0115f62fb78293736837aeeeee41014ff17f5b44bc2467f0789ea3c5,6dc98003f2dbd7770edd4dd69d18ac4713039b2ecb19a7caa284269005bb8012,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-061.patch
+CRPP1-RPP-CONFIGURATION-062,controlled/rbi-related-parties-portal-copy,9200662,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""RPP-CFG-062"",
+       ""default"": 92,
+-      ""environmentVariable"": ""RPP_FEATURE_062_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_062_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature062.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-062
+- Configuration key: `rbi_related_parties_portal.feature062.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_062_TIMEOUT_SECONDS`
+- Documented default: `92`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-062: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_062_TIMEOUT_SECONDS' u 'RPP_FEATURE_062_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a67e19cce48434b24244e610a969a348a9224be8b80bbd6131bcf3c068a2c68a,f1d24356a536a85ac326235cc1cdb82202bdf74909398df68bd741b1cf1f056f,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-062.patch
+CRPP1-RPP-CONFIGURATION-063,controlled/rbi-related-parties-portal-copy,9200663,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_063_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature063.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-064"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-063
+- Configuration key: `rbi_related_parties_portal.feature063.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_063_TIMEOUT_SECONDS`
+- Documented default: `93`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-063: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6a787b804254c67841a45e82f145148db7904287ba30c6e7d1f0dd4539766cb1,f8c145c1926e2de578a7fb9588214e57d7eb146a31d5557e3ed535c3db02b318,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-063.patch
+CRPP1-RPP-CONFIGURATION-064,controlled/rbi-related-parties-portal-copy,9200664,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
+@@ -30,7 +30,7 @@
+       ""default"": 94,
+       ""environmentVariable"": ""RPP_FEATURE_064_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature064.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-064
+- Configuration key: `rbi_related_parties_portal.feature064.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_064_TIMEOUT_SECONDS`
+- Documented default: `94`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-064: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2a1d208073f867b05fe7f78ac0503e38921f5cf4c341390eb71ec8e6d51c04ac,9141f7bdd90a81d23c55638906fe8548afbfee907062d58d419a4fc9552eed76,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-064.patch
+CRPP1-RPP-CONFIGURATION-065,controlled/rbi-related-parties-portal-copy,9200665,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-065"",
+-      ""default"": 95,
++      ""default"": 125,
+       ""environmentVariable"": ""RPP_FEATURE_065_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature065.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-065
+- Configuration key: `rbi_related_parties_portal.feature065.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_065_TIMEOUT_SECONDS`
+- Documented default: `95`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-065: kod mijenja dokumentovanu konfiguraciju iz '95' u '125' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4f45bf3c89fa8d865309b580e4d47a1b7040c8c1d62bd11245bc51181c3a2130,962ffa223f5f164910d774ac588260bccfb7caea0f44ae28293cb02c56971fbc,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-065.patch
+CRPP1-RPP-CONFIGURATION-066,controlled/rbi-related-parties-portal-copy,9200666,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""RPP-CFG-066"",
+       ""default"": 96,
+-      ""environmentVariable"": ""RPP_FEATURE_066_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_066_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature066.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-066
+- Configuration key: `rbi_related_parties_portal.feature066.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_066_TIMEOUT_SECONDS`
+- Documented default: `96`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-066: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_066_TIMEOUT_SECONDS' u 'RPP_FEATURE_066_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a55872369c61fcd2a42f0e648c29375808e56c49a52801e8c2e1126b7192680d,2dc8e9aacbb5e7566ea7464f1d2fa2c2cd05893081508240abf29713ba010bcc,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-066.patch
+CRPP1-RPP-CONFIGURATION-067,controlled/rbi-related-parties-portal-copy,9200667,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_067_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature067.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-068"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-067
+- Configuration key: `rbi_related_parties_portal.feature067.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_067_TIMEOUT_SECONDS`
+- Documented default: `97`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-067: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8dcfc26132c7824d7d7c8e6da68f81535a8a09e13bb22ab807f3da6e5f04a900,642d1293b9763bb505e03673042df82a1eb12267f14e2e838855344905d870b6,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-067.patch
+CRPP1-RPP-CONFIGURATION-068,controlled/rbi-related-parties-portal-copy,9200668,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
+@@ -62,7 +62,7 @@
+       ""default"": 98,
+       ""environmentVariable"": ""RPP_FEATURE_068_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature068.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-068
+- Configuration key: `rbi_related_parties_portal.feature068.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_068_TIMEOUT_SECONDS`
+- Documented default: `98`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-068: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6cb4f8df75501cbbfacc9b0ca81a23544322c61d1c95b2a4975927e63822e115,1e311f4f54a854641a075772c79e2f3247d42886710c04421e3cbd1c5b15a0fd,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-068.patch
+CRPP1-RPP-CONFIGURATION-069,controlled/rbi-related-parties-portal-copy,9200669,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-069"",
+-      ""default"": 99,
++      ""default"": 129,
+       ""environmentVariable"": ""RPP_FEATURE_069_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature069.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-069
+- Configuration key: `rbi_related_parties_portal.feature069.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_069_TIMEOUT_SECONDS`
+- Documented default: `99`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-069: kod mijenja dokumentovanu konfiguraciju iz '99' u '129' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7928c9bcccb4e057f27a2168b0c10b4179523cbc36d19d668e0aee5e9dbb0e63,a6db732c13d64370c459183d182e004dcf00cd5c90e64fc0101e09125fead831,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-069.patch
+CRPP1-RPP-CONFIGURATION-070,controlled/rbi-related-parties-portal-copy,9200670,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_07.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""RPP-CFG-070"",
+       ""default"": 100,
+-      ""environmentVariable"": ""RPP_FEATURE_070_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_070_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature070.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-070
+- Configuration key: `rbi_related_parties_portal.feature070.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_070_TIMEOUT_SECONDS`
+- Documented default: `100`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-070: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_070_TIMEOUT_SECONDS' u 'RPP_FEATURE_070_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b89c26a14e615d0406378f020f4a81871e753e8cf8d24350a71cbc7ee1ae2899,f73ffe50a3e40bb0d55df099f2132d612939b9b81efc137973f22fc2e95fc51b,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-070.patch
+CRPP1-RPP-CONFIGURATION-071,controlled/rbi-related-parties-portal-copy,9200671,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_071_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature071.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-072"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-071
+- Configuration key: `rbi_related_parties_portal.feature071.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_071_TIMEOUT_SECONDS`
+- Documented default: `101`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-071: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0606b9815e250d385a92db8897214afe820a9cb18cfaf0406758e58732aa98cf,e406274cd39abe187f0be85b94a63eb27a8a97d77b5432095496b47d6bfde1c9,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-071.patch
+CRPP1-RPP-CONFIGURATION-072,controlled/rbi-related-parties-portal-copy,9200672,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
+@@ -14,7 +14,7 @@
+       ""default"": 102,
+       ""environmentVariable"": ""RPP_FEATURE_072_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature072.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-072
+- Configuration key: `rbi_related_parties_portal.feature072.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_072_TIMEOUT_SECONDS`
+- Documented default: `102`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-072: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c68edd695cb22f8f11041ad614e2419a0b35d143bbc6a890e5b60c3a7aac6172,c25aff2115277b94cdcb65a5bf5c28be05803b179393a2146bc2545956ecf866,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-072.patch
+CRPP1-RPP-CONFIGURATION-073,controlled/rbi-related-parties-portal-copy,9200673,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-073"",
+-      ""default"": 103,
++      ""default"": 133,
+       ""environmentVariable"": ""RPP_FEATURE_073_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature073.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-073
+- Configuration key: `rbi_related_parties_portal.feature073.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_073_TIMEOUT_SECONDS`
+- Documented default: `103`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-073: kod mijenja dokumentovanu konfiguraciju iz '103' u '133' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,52eaed517c7e9bd566ebe70cccc78e48bb4b7ae3cbc62db3c749412329506260,ce849fe005a9cdd824946142996261896630686b0e9234469a5735ed2e43c36d,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-073.patch
+CRPP1-RPP-CONFIGURATION-074,controlled/rbi-related-parties-portal-copy,9200674,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""RPP-CFG-074"",
+       ""default"": 104,
+-      ""environmentVariable"": ""RPP_FEATURE_074_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_074_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature074.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-074
+- Configuration key: `rbi_related_parties_portal.feature074.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_074_TIMEOUT_SECONDS`
+- Documented default: `104`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-074: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_074_TIMEOUT_SECONDS' u 'RPP_FEATURE_074_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8b0548fdd32a9f9311ed28318872e25359ebc4b69063ed481a1e669b69fffdd4,4d29aece744f8b1a49bb8e64572c1fbdbcf034de66e8bb037403e4893ec1b199,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-074.patch
+CRPP1-RPP-CONFIGURATION-075,controlled/rbi-related-parties-portal-copy,9200675,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_075_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature075.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-076"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-075
+- Configuration key: `rbi_related_parties_portal.feature075.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_075_TIMEOUT_SECONDS`
+- Documented default: `105`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-075: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7b6335de50ccf57bdaac63b1fac99d7fc14e874e0ff661d0184ad2fe2d73f2bd,cad726709c23c35c17aeb7bc8d587b6bfc0b23ec623542871341a2b7ba1e2ef2,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-075.patch
+CRPP1-RPP-CONFIGURATION-076,controlled/rbi-related-parties-portal-copy,9200676,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
+@@ -46,7 +46,7 @@
+       ""default"": 106,
+       ""environmentVariable"": ""RPP_FEATURE_076_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature076.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-076
+- Configuration key: `rbi_related_parties_portal.feature076.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_076_TIMEOUT_SECONDS`
+- Documented default: `106`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-076: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1424fcb6fdaecdd9d4d54c9de38c77d29650ce98d54f5fe06877a2abd3583d53,da101064673acc5c9db6ab035d33bda0a94fb17eb415ddf58feeca0ce855412a,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-076.patch
+CRPP1-RPP-CONFIGURATION-077,controlled/rbi-related-parties-portal-copy,9200677,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-077"",
+-      ""default"": 107,
++      ""default"": 137,
+       ""environmentVariable"": ""RPP_FEATURE_077_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature077.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-077
+- Configuration key: `rbi_related_parties_portal.feature077.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_077_TIMEOUT_SECONDS`
+- Documented default: `107`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-077: kod mijenja dokumentovanu konfiguraciju iz '107' u '137' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0774f4ee8bce35400546abd721315a0079735e825e2dfc0ef9266b94c4e9f54d,1532af0773aead14dd65cc26ed8125ea3ebdaf639c31386e42667543484bf979,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-077.patch
+CRPP1-RPP-CONFIGURATION-078,controlled/rbi-related-parties-portal-copy,9200678,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""RPP-CFG-078"",
+       ""default"": 108,
+-      ""environmentVariable"": ""RPP_FEATURE_078_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_078_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature078.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-078
+- Configuration key: `rbi_related_parties_portal.feature078.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_078_TIMEOUT_SECONDS`
+- Documented default: `108`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-078: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_078_TIMEOUT_SECONDS' u 'RPP_FEATURE_078_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9b0d557b77c1871f6183251086253f7f3627906918c676f132d972f99e489572,7faedfbd57131e3e72dd46e5d7c07998b03e141f28f334ef5591d6b723ff5b74,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-078.patch
+CRPP1-RPP-CONFIGURATION-079,controlled/rbi-related-parties-portal-copy,9200679,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_079_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature079.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-080"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-079
+- Configuration key: `rbi_related_parties_portal.feature079.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_079_TIMEOUT_SECONDS`
+- Documented default: `109`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-079: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a9eebd82d8ea0aeff832a88139db8a44157b3f985f44d454d29c934e689c7fff,d3803514e642a77da3307f3b55c86d67781a8e038d6449f9f41a86ad167757b7,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-079.patch
+CRPP1-RPP-CONFIGURATION-080,controlled/rbi-related-parties-portal-copy,9200680,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_08.json
+@@ -78,7 +78,7 @@
+       ""default"": 110,
+       ""environmentVariable"": ""RPP_FEATURE_080_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature080.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-080
+- Configuration key: `rbi_related_parties_portal.feature080.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_080_TIMEOUT_SECONDS`
+- Documented default: `110`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-080: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d4a21e501fa5d28c3d196345d46145c0250082091cba8d81bdac047d295e9334,bf649c26eea2846fb2f11640824bc7670c09d6817c95b8c9e813e65753d479f7,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-080.patch
+CRPP1-RPP-CONFIGURATION-081,controlled/rbi-related-parties-portal-copy,9200681,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""RPP-CFG-081"",
+-      ""default"": 111,
++      ""default"": 141,
+       ""environmentVariable"": ""RPP_FEATURE_081_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature081.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-081
+- Configuration key: `rbi_related_parties_portal.feature081.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_081_TIMEOUT_SECONDS`
+- Documented default: `111`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-081: kod mijenja dokumentovanu konfiguraciju iz '111' u '141' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,da6f2c59ef9fed9b2fc101bb1096ea5d868e899fc0a219eaddbdbf5240139f84,9245dcbc4f13bb3e4bb7628e6ddccb3566b5d4e814c5a3cd6f820b1cb18b6c10,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-081.patch
+CRPP1-RPP-CONFIGURATION-082,controlled/rbi-related-parties-portal-copy,9200682,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
+@@ -12,7 +12,7 @@
+     {
+       ""contractId"": ""RPP-CFG-082"",
+       ""default"": 112,
+-      ""environmentVariable"": ""RPP_FEATURE_082_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_082_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature082.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-082
+- Configuration key: `rbi_related_parties_portal.feature082.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_082_TIMEOUT_SECONDS`
+- Documented default: `112`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-082: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_082_TIMEOUT_SECONDS' u 'RPP_FEATURE_082_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6e1b6b8e42fb407d2b4013951f362cbe4e85c563e4988b1da770a88cb8235ae7,17deb7612e30a73f54f2194c07d9e8dbdae2133b0ee4d0b61c21448bb636f8c3,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-082.patch
+CRPP1-RPP-CONFIGURATION-083,controlled/rbi-related-parties-portal-copy,9200683,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
+@@ -23,7 +23,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_083_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature083.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-084"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-083
+- Configuration key: `rbi_related_parties_portal.feature083.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_083_TIMEOUT_SECONDS`
+- Documented default: `113`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-083: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7a2d61d4521a5b9903537d59fcb57e243a7c40a327300227ce0269b2d7ca5b4e,56ac3f0f3db2f5471d3fe982d54feda773a39f97815652d52ad92dffa89c28e6,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-083.patch
+CRPP1-RPP-CONFIGURATION-084,controlled/rbi-related-parties-portal-copy,9200684,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
+@@ -30,7 +30,7 @@
+       ""default"": 114,
+       ""environmentVariable"": ""RPP_FEATURE_084_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature084.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-084
+- Configuration key: `rbi_related_parties_portal.feature084.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_084_TIMEOUT_SECONDS`
+- Documented default: `114`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-084: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b714bbc1ab972e88a8dae6781742c4ac8478c8a1055cbf94dad29efc271e44d8,f5b185649533433ceeca3b7a43159666a512909e0884bc0139e1764a19aa4f2f,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-084.patch
+CRPP1-RPP-CONFIGURATION-085,controlled/rbi-related-parties-portal-copy,9200685,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
+@@ -35,7 +35,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-085"",
+-      ""default"": 115,
++      ""default"": 145,
+       ""environmentVariable"": ""RPP_FEATURE_085_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature085.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-085
+- Configuration key: `rbi_related_parties_portal.feature085.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_085_TIMEOUT_SECONDS`
+- Documented default: `115`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-085: kod mijenja dokumentovanu konfiguraciju iz '115' u '145' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dfe3e043f5412e265fe8a1bb4718950b8bf1cdd3dd57f9029934b1aeeefe7726,b25b6a1e7bed6eb834339b8789ebc6d559dbb34db9f5e620ebc54f2ddfa23774,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-085.patch
+CRPP1-RPP-CONFIGURATION-086,controlled/rbi-related-parties-portal-copy,9200686,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
+@@ -44,7 +44,7 @@
+     {
+       ""contractId"": ""RPP-CFG-086"",
+       ""default"": 116,
+-      ""environmentVariable"": ""RPP_FEATURE_086_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_086_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature086.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-086
+- Configuration key: `rbi_related_parties_portal.feature086.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_086_TIMEOUT_SECONDS`
+- Documented default: `116`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-086: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_086_TIMEOUT_SECONDS' u 'RPP_FEATURE_086_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1ec8403c09f535ed3cb3ff6e53bb786edef4ee84f7c4f8f3ab5319c9815d2c98,4ca3c590a91895b91de021643c07e71bbade1099ac3ea385f2513ec72a839cbe,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-086.patch
+CRPP1-RPP-CONFIGURATION-087,controlled/rbi-related-parties-portal-copy,9200687,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
+@@ -55,7 +55,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_087_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature087.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-088"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-087
+- Configuration key: `rbi_related_parties_portal.feature087.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_087_TIMEOUT_SECONDS`
+- Documented default: `117`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-087: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9bdb7280401f1ae75adc22e102a69b28ebbb0655b62bf88ac68f8b7845e4e886,dbcf6ebe7f435242157bd16c3eea70e85a235bbe93c79d4a2e791a26f8cd3b4a,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-087.patch
+CRPP1-RPP-CONFIGURATION-088,controlled/rbi-related-parties-portal-copy,9200688,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
+@@ -62,7 +62,7 @@
+       ""default"": 118,
+       ""environmentVariable"": ""RPP_FEATURE_088_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature088.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-088
+- Configuration key: `rbi_related_parties_portal.feature088.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_088_TIMEOUT_SECONDS`
+- Documented default: `118`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-088: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ee71bcdb45448d8d9e351dc8237bca6b215b59fa155e4d9c9eb718c5215f5e53,ea7e74429d1e320544183f386574033e515bfb61ab2ab9c3132da54a6b8d5d3b,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-088.patch
+CRPP1-RPP-CONFIGURATION-089,controlled/rbi-related-parties-portal-copy,9200689,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
+@@ -67,7 +67,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-089"",
+-      ""default"": 119,
++      ""default"": 149,
+       ""environmentVariable"": ""RPP_FEATURE_089_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature089.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-089
+- Configuration key: `rbi_related_parties_portal.feature089.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_089_TIMEOUT_SECONDS`
+- Documented default: `119`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-089: kod mijenja dokumentovanu konfiguraciju iz '119' u '149' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6e38ec8fc40adf228770d412bafe6ce99b2e408e1d6d9d09834f83583f9aeb64,d419483c716cf6d6906b737b6f73587e97e557ce5fe883f2ef5b2f18492225d9,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-089.patch
+CRPP1-RPP-CONFIGURATION-090,controlled/rbi-related-parties-portal-copy,9200690,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_09.json
+@@ -76,7 +76,7 @@
+     {
+       ""contractId"": ""RPP-CFG-090"",
+       ""default"": 120,
+-      ""environmentVariable"": ""RPP_FEATURE_090_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_090_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature090.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-090
+- Configuration key: `rbi_related_parties_portal.feature090.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_090_TIMEOUT_SECONDS`
+- Documented default: `120`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-090: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_090_TIMEOUT_SECONDS' u 'RPP_FEATURE_090_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,75ff681062af0e8713d5ef9971b8ea93c45383cb896ab7a89b3fcf517eff36ee,435500b83973b7f8d3da300bb5d98aeea7956e5a961602e9739d1255e3978fa6,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-090.patch
+CRPP1-RPP-CONFIGURATION-091,controlled/rbi-related-parties-portal-copy,9200691,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
+@@ -7,7 +7,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_091_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature091.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-092"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-091
+- Configuration key: `rbi_related_parties_portal.feature091.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_091_TIMEOUT_SECONDS`
+- Documented default: `121`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-091: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0364aa2d53d94d0e196dfaab471b7a24cfc0acbe7e28a7d054e380d604372609,1eb1020a6ff64bcfd53b4337c62d3288e9a8b60ebd013cd285358f444639daca,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-091.patch
+CRPP1-RPP-CONFIGURATION-092,controlled/rbi-related-parties-portal-copy,9200692,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
+@@ -14,7 +14,7 @@
+       ""default"": 122,
+       ""environmentVariable"": ""RPP_FEATURE_092_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature092.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-092
+- Configuration key: `rbi_related_parties_portal.feature092.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_092_TIMEOUT_SECONDS`
+- Documented default: `122`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-092: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c59927ee50e40e421d6605925e0ffcc120b2837e2dcdee815ca3d309f4b1220f,9464cc1d88c0c5f65ecef5d0cef437bd09a42bc857bb831a98e847c6bf79c068,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-092.patch
+CRPP1-RPP-CONFIGURATION-093,controlled/rbi-related-parties-portal-copy,9200693,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-093"",
+-      ""default"": 123,
++      ""default"": 153,
+       ""environmentVariable"": ""RPP_FEATURE_093_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature093.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-093
+- Configuration key: `rbi_related_parties_portal.feature093.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_093_TIMEOUT_SECONDS`
+- Documented default: `123`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-093: kod mijenja dokumentovanu konfiguraciju iz '123' u '153' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9cac03f0047b1a2d23ffed988bd8034c349c48b549a7847ec97322470c3f0309,a062332bc65ee2a4b5361d0691b40cc0e4666f39ae22fe0897848e38470db4cf,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-093.patch
+CRPP1-RPP-CONFIGURATION-094,controlled/rbi-related-parties-portal-copy,9200694,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
+@@ -28,7 +28,7 @@
+     {
+       ""contractId"": ""RPP-CFG-094"",
+       ""default"": 124,
+-      ""environmentVariable"": ""RPP_FEATURE_094_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_094_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature094.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-094
+- Configuration key: `rbi_related_parties_portal.feature094.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_094_TIMEOUT_SECONDS`
+- Documented default: `124`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-094: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_094_TIMEOUT_SECONDS' u 'RPP_FEATURE_094_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,58fdd69109e98d0ca9681ba4b5a3c6b9699ea6ddd6fe3a9186c71bf951d71d96,dcbe4dd6da2d755228492ea068a5ec7beff0ef4771d9f11f19443a42e6f2d9e3,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-094.patch
+CRPP1-RPP-CONFIGURATION-095,controlled/rbi-related-parties-portal-copy,9200695,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
+@@ -39,7 +39,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_095_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature095.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-096"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-095
+- Configuration key: `rbi_related_parties_portal.feature095.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_095_TIMEOUT_SECONDS`
+- Documented default: `125`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-095: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,392804af91c0c4c5cffa7027dd4c9faee26554dc498f156a3b2ce99f00816761,af034859d90faea12b9016f10de83fa31b684017f22891498157829ada206268,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-095.patch
+CRPP1-RPP-CONFIGURATION-096,controlled/rbi-related-parties-portal-copy,9200696,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
+@@ -46,7 +46,7 @@
+       ""default"": 126,
+       ""environmentVariable"": ""RPP_FEATURE_096_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature096.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     },
+     {
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-096
+- Configuration key: `rbi_related_parties_portal.feature096.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_096_TIMEOUT_SECONDS`
+- Documented default: `126`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-096: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dfb8f8d1f4872df20e051c1e844f916c94bdf2a0ef76e3b87afba7321c477eec,8fdd5a99b3b7d65ab69fca7c8afab386e529dd9abd5b4127986bcabcc12b8d1f,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-096.patch
+CRPP1-RPP-CONFIGURATION-097,controlled/rbi-related-parties-portal-copy,9200697,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
+@@ -51,7 +51,7 @@
+     },
+     {
+       ""contractId"": ""RPP-CFG-097"",
+-      ""default"": 127,
++      ""default"": 157,
+       ""environmentVariable"": ""RPP_FEATURE_097_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature097.timeoutSeconds"",
+       ""mode"": ""safe"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-097
+- Configuration key: `rbi_related_parties_portal.feature097.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_097_TIMEOUT_SECONDS`
+- Documented default: `127`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-097: kod mijenja dokumentovanu konfiguraciju iz '127' u '157' (documented_default_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,41bb659b26ac7fe5db973533a79d6c2480b4384e54d53e39700bb3e25765c360,69a5f9321c213f58dffd90a9ada28761942c49a8fc6def5c918185e8a3020279,configuration,rbi_related_parties_portal,documented_default_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-097.patch
+CRPP1-RPP-CONFIGURATION-098,controlled/rbi-related-parties-portal-copy,9200698,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
+@@ -60,7 +60,7 @@
+     {
+       ""contractId"": ""RPP-CFG-098"",
+       ""default"": 128,
+-      ""environmentVariable"": ""RPP_FEATURE_098_TIMEOUT_SECONDS"",
++      ""environmentVariable"": ""RPP_FEATURE_098_TIMEOUT_SECONDS_V2"",
+       ""key"": ""rbi_related_parties_portal.feature098.timeoutSeconds"",
+       ""mode"": ""safe"",
+       ""required"": false
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-098
+- Configuration key: `rbi_related_parties_portal.feature098.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_098_TIMEOUT_SECONDS`
+- Documented default: `128`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-098: kod mijenja dokumentovanu konfiguraciju iz 'RPP_FEATURE_098_TIMEOUT_SECONDS' u 'RPP_FEATURE_098_TIMEOUT_SECONDS_V2' (environment_variable_rename), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,716ba0f1865cbfef90a8056f0fdd18b21fdcbcb899afacfacebcef988f63b4b2,8dc36879f7243d481f4d11111559b00fb08aded5afb9263edc2958c076a130c6,configuration,rbi_related_parties_portal,environment_variable_rename,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-098.patch
+CRPP1-RPP-CONFIGURATION-099,controlled/rbi-related-parties-portal-copy,9200699,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
+@@ -71,7 +71,7 @@
+       ""environmentVariable"": ""RPP_FEATURE_099_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature099.timeoutSeconds"",
+       ""mode"": ""safe"",
+-      ""required"": false
++      ""required"": true
+     },
+     {
+       ""contractId"": ""RPP-CFG-100"",
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-099
+- Configuration key: `rbi_related_parties_portal.feature099.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_099_TIMEOUT_SECONDS`
+- Documented default: `129`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-099: kod mijenja dokumentovanu konfiguraciju iz 'false' u 'true' (optional_to_required), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,03dae8a75524caf53e1002a050ffe8a70abdc26b0ad34143ebbbdd9f6ab4cded,8c7359bdfcadc5e7e7469923f342311ac76aaaa2ea8449efc7c00a1a13312e63,configuration,rbi_related_parties_portal,optional_to_required,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-099.patch
+CRPP1-RPP-CONFIGURATION-100,controlled/rbi-related-parties-portal-copy,9200700,typescript,"[""src/Web/src/docguard-contract-lab/configuration/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/configuration/contracts_10.json
+@@ -78,7 +78,7 @@
+       ""default"": 130,
+       ""environmentVariable"": ""RPP_FEATURE_100_TIMEOUT_SECONDS"",
+       ""key"": ""rbi_related_parties_portal.feature100.timeoutSeconds"",
+-      ""mode"": ""safe"",
++      ""mode"": ""strict"",
+       ""required"": false
+     }
+   ],
+","<!-- docs/docguard-contract-lab/CONFIGURATION.md @ controlled-baseline:d4d06c3dfdcbc534 -->
+### RPP-CFG-100
+- Configuration key: `rbi_related_parties_portal.feature100.timeoutSeconds`
+- Environment variable: `RPP_FEATURE_100_TIMEOUT_SECONDS`
+- Documented default: `130`
+- Required: `false`
+- Mode: `safe`
+",True,configuration,Controlled design expectation: configuration; independent human/owner acceptance still required before merge.,True,configuration,"RPP-CFG-100: kod mijenja dokumentovanu konfiguraciju iz 'safe' u 'strict' (configuration_mode_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a50eda39e42e53515c6f8b874faf109c719c9d566648febd39ba747cb5cde4dc,71e25bbac3cf8fbaf79cdfecc1e828fdfaba17fdc5e46e292076f58971a3912c,configuration,rbi_related_parties_portal,configuration_mode_change,cases/patches/rbi_related_parties_portal/configuration/RPP-CFG-100.patch

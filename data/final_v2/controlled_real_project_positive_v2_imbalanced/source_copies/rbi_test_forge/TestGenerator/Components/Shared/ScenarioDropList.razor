@@ -1,0 +1,169 @@
+@* ============================================================
+   ScenarioDropList — drag&drop reorder scenarija unutar jedne grupe (AC2)
+   ============================================================
+   Samostalna komponenta: drži vlastiti MudDropContainer + lokalnu kopiju
+   liste (optimistički UI), perzistira preko IGroupService.ReorderScenariosAsync
+   i radi rollback ako servis baci grešku.
+
+   Reorder logika je u čistoj, testiranoj DragReorder.Move (nema logike u markup-u).
+   Cross-group prevlačenje nije podržano (samo reorder unutar grupe) — "premještanje"
+   je izvan opsega US #5.
+
+   Upotreba:
+     <ScenarioDropList GroupId="node.Group.Id" Items="scenariji" />
+   ============================================================ *@
+
+@using RBBH.TestAutomation.Api.Services.Groups
+@inject IGroupService GroupSvc
+@inject IUserContext UserCtx
+@inject ToastService Toast
+
+<MudDropContainer T="ScenarioListItemDto"
+                  @ref="_container"
+                  Items="_items"
+                  ItemsSelector="@((item, zone) => true)"
+                  ItemDropped="OnDropped"
+                  Class="mt-2">
+    <ChildContent>
+        <MudDropZone T="ScenarioListItemDto"
+                     AllowReorder="true"
+                     Class="d-flex flex-column gap-1" />
+    </ChildContent>
+    <ItemRenderer>
+        <MudPaper Class="d-flex align-center pa-2" Elevation="0" Outlined="true" Style="cursor:grab">
+            <MudIcon Icon="@Icons.Material.Filled.DragIndicator" Size="Size.Small" Class="mr-2" Color="Color.Secondary" />
+            <MudText Typo="Typo.body2">@context.Naziv</MudText>
+            <MudText Typo="Typo.caption" Color="Color.Secondary" Class="ml-2">(@context.Tip)</MudText>
+            @if (context.RunSequentially)
+            {
+                <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Warning" Class="ml-2">
+                    Sekvencijalno
+                </MudChip>
+            }
+            <MudSpacer />
+            <CopyScenarioMenu Scenario="context"
+                              Groups="@CopyTargets()"
+                              OnTargetSelected="@(targetId => CopyTo(context, targetId))" />
+        </MudPaper>
+    </ItemRenderer>
+</MudDropContainer>
+
+@if (_items.Count == 0)
+{
+    <MudText Typo="Typo.caption" Color="Color.Secondary">Nema scenarija u ovoj grupi.</MudText>
+}
+
+@code {
+    /// <summary>Grupa čiji se scenariji prikazuju i reorderaju.</summary>
+    [Parameter, EditorRequired]
+    public Guid GroupId { get; set; }
+
+    /// <summary>Scenariji grupe (već sortirani po redoslijedu). Komponenta radi nad lokalnom kopijom.</summary>
+    [Parameter, EditorRequired]
+    public IReadOnlyList<ScenarioListItemDto> Items { get; set; } = [];
+
+    /// <summary>Sve grupe (root + podgrupe) — za meni „Kopiraj u grupu…". Izvorna grupa se isključuje.</summary>
+    [Parameter]
+    public IReadOnlyList<GroupDto> AllGroups { get; set; } = [];
+
+    /// <summary>Javlja roditelju da osvježi stablo nakon kopiranja (mijenja broj scenarija ciljne grupe).</summary>
+    [Parameter]
+    public EventCallback OnChanged { get; set; }
+
+    private MudDropContainer<ScenarioListItemDto>? _container;
+    private List<ScenarioListItemDto> _items = [];
+    private bool _reordering;
+    private bool _needsRefresh;
+
+    protected override void OnParametersSet()
+    {
+        // Resetuj lokalnu kopiju SAMO kad parent dostavi drugačiji SKUP scenarija
+        // (npr. nakon kopiranja/reload-a). Tako re-render parenta ne poništi lokalni
+        // optimistički redoslijed (isti skup, drugi poredak).
+        // Pri stvarnoj promjeni skupa MudDropContainer mora dobiti Refresh() da prikaže
+        // novu listu — radimo to u OnAfterRender (kontejner mora već biti renderovan).
+        if (!_items.Select(ItemSignature).SequenceEqual(Items.Select(ItemSignature)))
+        {
+            _items = Items.ToList();
+            _needsRefresh = true;
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (_needsRefresh)
+        {
+            _needsRefresh = false;
+            _container?.Refresh();
+        }
+    }
+
+    private async Task OnDropped(MudItemDropInfo<ScenarioListItemDto> info)
+    {
+        if (_reordering)
+            return;
+
+        var oldIndex = _items.FindIndex(s => s.Id == info.Item!.Id);
+        if (oldIndex < 0)
+            return;
+
+        var reordered = DragReorder.Move(_items, oldIndex, info.IndexInZone);
+        if (reordered.Select(s => s.Id).SequenceEqual(_items.Select(s => s.Id)))
+            return; // poredak nepromijenjen → ništa za perzistirati
+
+        var snapshot = _items.ToList(); // kopija za rollback
+
+        // Optimistički UI — mutiramo POSTOJEĆU listu (stabilna referenca), pa Refresh().
+        // Ako se zamijeni cijela kolekcija novom referencom, MudDropContainer se ne osvježi
+        // pouzdano iz prvog pokušaja (poznat "treba dva drop-a" simptom). In-place + Refresh
+        // proradi iz prvog drop-a.
+        _items.Clear();
+        _items.AddRange(reordered);
+        _container?.Refresh();
+
+        _reordering = true;
+        try
+        {
+            await GroupSvc.ReorderScenariosAsync(GroupId, _items.Select(s => s.Id).ToList());
+        }
+        catch (Exception)
+        {
+            // Rollback na prethodno stanje (također in-place).
+            _items.Clear();
+            _items.AddRange(snapshot);
+            _container?.Refresh();
+            Toast.Error("Greška pri promjeni redoslijeda scenarija. Promjena je poništena.");
+        }
+        finally
+        {
+            _reordering = false;
+        }
+    }
+
+    // ── Kopiranje scenarija (AC3) ──────────────────────────────────────────────
+
+    private IReadOnlyList<GroupDto> CopyTargets() =>
+        AllGroups.Where(g => g.Id != GroupId).ToList();
+
+    private async Task CopyTo(ScenarioListItemDto scenario, Guid targetGroupId)
+    {
+        try
+        {
+            var targetName = AllGroups.FirstOrDefault(g => g.Id == targetGroupId)?.Naziv ?? "odabranu grupu";
+            await GroupSvc.CopyScenarioAsync(scenario.Id, targetGroupId, UserCtx.UserId, UserCtx.FullName);
+            Toast.Success($"Scenarij \"{scenario.Naziv}\" dodijeljen u grupu \"{targetName}\".");
+            await OnChanged.InvokeAsync();
+        }
+        catch (InvalidOperationException ex)
+        {
+            Toast.Error(ex.Message);
+        }
+        catch (Exception)
+        {
+            Toast.Error("Greška pri kopiranju scenarija.");
+        }
+    }
+
+    private static string ItemSignature(ScenarioListItemDto item) =>
+        $"{item.Id:N}|{item.GroupId:N}|{item.Naziv}|{item.Tip}|{item.Redoslijed}|{item.RunSequentially}";
+}

@@ -1,0 +1,38 @@
+@if (HasAccess)
+{
+    <NavLink class="navitem" ActiveClass="is-active"
+             Match="@(ExactMatch ? NavLinkMatch.All : NavLinkMatch.Prefix)"
+             href="@Href">
+        <IconPlate Icon="@Icon" />
+        <span class="navitem__label">@Label</span>
+        @if (Trailing is not null)
+        {
+            <span class="navitem__trailing">@Trailing</span>
+        }
+    </NavLink>
+}
+else
+{
+    <div class="navitem navitem--disabled"
+         title="@(ComingSoon ? "Dolazi u sljedećem sprintu" : "Nemate pristup ovom modulu")"
+         role="link"
+         aria-disabled="true"
+         tabindex="-1">
+        <IconPlate Icon="@Icon" />
+        <span class="navitem__label">@Label</span>
+        @if (ComingSoon)
+        {
+            <span class="navitem__soon">uskoro</span>
+        }
+    </div>
+}
+
+@code {
+    [Parameter, EditorRequired] public string Href        { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Label       { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Icon        { get; set; } = string.Empty;
+    [Parameter]                 public bool   HasAccess   { get; set; } = true;
+    [Parameter]                 public bool   ExactMatch  { get; set; }
+    [Parameter]                 public bool   ComingSoon  { get; set; }
+    [Parameter]                 public RenderFragment? Trailing { get; set; }
+}

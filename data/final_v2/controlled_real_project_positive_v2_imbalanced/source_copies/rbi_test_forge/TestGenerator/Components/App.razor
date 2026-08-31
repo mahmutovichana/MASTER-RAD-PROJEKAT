@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="bs">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+
+    @* Favicon — žuti RBI mark (Gable cross na žutom kvadratu), kvadratni format *@
+    <link rel="icon" type="image/png" sizes="32x32" href="images/login/logo-mark-yellow.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="images/login/logo-mark-yellow.png" />
+
+    @* Apple Touch Icon — iOS home screen ikona (180×180 je standard za Retina) *@
+    <link rel="apple-touch-icon" sizes="180x180" href="images/login/logo-mark-yellow.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    @* Roboto ostaje kao fallback (učitava ga i MudBlazor); Hanken Grotesk je primarni brand font, JetBrains Mono za mono labele *@
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="RBBH.TestAutomation.Api.styles.css" />
+    <HeadOutlet @rendermode="@InteractiveServer" />
+</head>
+
+<body>
+    <Routes @rendermode="@InteractiveServer" />
+    <script src="_framework/blazor.web.js"></script>
+    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+    @* Idle timeout — sluša korisničke događaje za auto-logout *@
+    <script src="js/idle-timeout.js"></script>
+    <script src="js/download-file.js"></script>
+    @* ZIP download helper — popunjava feature/S2-generator (US #6) *@
+    <script src="js/download.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1009 @@
+@page "/test-generator"
+@attribute [Authorize(Roles = AppRoles.Administrator + "," + AppRoles.QALead)]
+@rendermode InteractiveServer
+@inject IScenarioService ScenarioSvc
+@inject IGroupService GroupSvc
+@inject RestTestGenerator Generator
+@inject BUnitTestGenerator BUnitGenerator
+@inject PlaywrightE2eGenerator PlaywrightGenerator
+@inject IJSRuntime JS
+@inject IUserContext UserCtx
+@inject ToastService Toast
+
+<PageTitle>Generator testova</PageTitle>
+
+@if (!UserCtx.CanAccess(AppModules.TestGenerator))
+{
+    <MudAlert Severity="Severity.Warning" Class="ma-4">
+        Nemate pristup ovom modulu. Potrebna rola: Administrator ili QA Lead.
+    </MudAlert>
+    return;
+}
+
+<PageHeader Title="Generator testova" Subtitle="Generiši xUnit, bUnit ili Playwright E2E test projekat" />
+
+<MudTabs Elevation="0" Rounded ApplyEffectsToContainer Class="mb-2"
+         @bind-ActivePanelIndex="_activeTab">
+    <MudTabPanel Text="REST (xUnit)" Icon="@Icons.Material.Filled.Http" />
+    <MudTabPanel Text="Blazor (bUnit / Playwright)" Icon="@Icons.Material.Filled.Widgets" />
+</MudTabs>
+
+@if (_activeTab == 0)
+{
+
+@if (_isLoading)
+{
+    <MudProgressLinear Indeterminate Color="Color.Primary" Class="mb-4" />
+}
+else if (_loadError is not null)
+{
+    <ErrorAlert Message="@_loadError" />
+}
+else
+{
+    <MudGrid Spacing="3">
+
+        <MudItem xs="12" md="5">
+            <MudPaper Class="pa-4" Elevation="1">
+                <MudText Typo="Typo.h6" Class="mb-3">Izvor specifikacije</MudText>
+
+                <MudToggleGroup T="string" @bind-Value="_mode" Exclusive SelectionMode="SelectionMode.SingleSelection" Class="mb-4" Color="Color.Primary">
+                    <MudToggleItem Value="@("scenarij")">Iz scenarija</MudToggleItem>
+                    <MudToggleItem Value="@("rucno")">Ručni unos</MudToggleItem>
+                </MudToggleGroup>
+
+                @if (_mode == "scenarij")
+                {
+                    <MudSelect T="Guid" Label="REST scenariji" MultiSelection="true"
+                               @bind-SelectedValues="_selectedScenarioIds"
+                               MultiSelectionTextFunc="@GetMultiSelectionText"
+                               Variant="Variant.Outlined" AnchorOrigin="Origin.BottomLeft"
+                               Disabled="@(_restScenarios.Count == 0)">
+                        @foreach (var s in _restScenarios)
+                        {
+                            <MudSelectItem T="Guid" Value="@s.Id">@s.Naziv</MudSelectItem>
+                        }
+                    </MudSelect>
+                    @if (_restScenarios.Count == 0)
+                    {
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-1">
+                            Nema REST scenarija. Kreirajte ih na stranici Scenariji.
+                        </MudText>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-1">
+                            Možete odabrati više scenarija — svi se generišu i izvoze u jedan ZIP.
+                        </MudText>
+                    }
+                }
+                else
+                {
+                    <MudTextField @bind-Value="_manualClassName" Label="Naziv klase (PascalCase)"
+                                  Variant="Variant.Outlined" Class="mb-2" Immediate
+                                  Validation="@(_classNameValidator)" />
+
+                    <MudSelect T="string" @bind-Value="_manualMethod" Label="HTTP metoda"
+                               Variant="Variant.Outlined" Class="mb-2">
+                        @foreach (var m in new[] { "GET", "POST", "PUT", "PATCH", "DELETE" })
+                        {
+                            <MudSelectItem T="string" Value="@m">@m</MudSelectItem>
+                        }
+                    </MudSelect>
+
+                    <MudTextField @bind-Value="_manualRoute" Label="Ruta endpointa (npr. /api/users)"
+                                  Variant="Variant.Outlined" Class="mb-2" Immediate
+                                  Validation="@(_routeValidator)" />
+
+                    <MudNumericField @bind-Value="_manualStatus" Label="Očekivani status (2xx)"
+                                     Variant="Variant.Outlined" Class="mb-2" Min="100" Max="599" />
+
+                    <MudTextField @bind-Value="_manualBody" Label="Request body (JSON, opciono)"
+                                  Variant="Variant.Outlined" Lines="3" Class="mb-2" Immediate
+                                  Validation="@(_jsonValidator)" />
+
+                    <MudCheckBox @bind-Value="_manualRequiresAuth" Color="Color.Primary" Class="mb-2">
+                        Generiši 401 test (endpoint zahtijeva autentikaciju)
+                    </MudCheckBox>
+                }
+
+                <div class="d-flex justify-end mt-4">
+                    <LoadingButton IsLoading="@_generating" Text="Generiši"
+                                   Color="Color.Primary" Variant="Variant.Filled"
+                                   OnClick="@HandleGenerate" />
+                </div>
+            </MudPaper>
+        </MudItem>
+
+        <MudItem xs="12" md="7">
+            @if (_result is null)
+            {
+                <MudPaper Class="pa-6 d-flex flex-column align-center justify-center" Elevation="1" Style="min-height:300px;">
+                    <MudIcon Icon="@Icons.Material.Outlined.Code" Color="Color.Secondary" Size="Size.Large" Class="mb-2" />
+                    <MudText Typo="Typo.body1" Color="Color.Secondary">
+                        Popunite specifikaciju i kliknite "Generiši"
+                    </MudText>
+                </MudPaper>
+            }
+            else
+            {
+                <MudPaper Class="pa-4" Elevation="1">
+                    <div class="d-flex justify-space-between align-center mb-3">
+                        <MudText Typo="Typo.h6">Preview generisanog koda</MudText>
+                        <div class="d-flex gap-2">
+                            @if (_lastSpec is not null)
+                            {
+                                <MudButton StartIcon="@Icons.Material.Filled.SaveAlt"
+                                           Variant="Variant.Outlined" Color="Color.Primary"
+                                           OnClick="@(() => _showSave = !_showSave)">
+                                    Spasi u scenario
+                                </MudButton>
+                            }
+                            <MudButton StartIcon="@Icons.Material.Filled.Download"
+                                       Variant="Variant.Filled" Color="Color.Primary"
+                                       OnClick="@HandleDownload">
+                                Download ZIP
+                            </MudButton>
+                        </div>
+                    </div>
+
+                    @if (_showSave)
+                    {
+                        <MudPaper Class="pa-3 mb-3" Elevation="0" Style="background:#FFFBEA;border:1px solid #FEE600;">
+                            <MudText Typo="Typo.subtitle2" Class="mb-2">Spasi kao novi xUnit scenarij</MudText>
+                            <MudGrid Spacing="2" Class="align-center">
+                                <MudItem xs="12" sm="5">
+                                    <MudTextField @bind-Value="_saveName" Label="Naziv scenarija"
+                                                  Variant="Variant.Outlined" Margin="Margin.Dense" Immediate />
+                                </MudItem>
+                                <MudItem xs="12" sm="4">
+                                    <MudSelect T="Guid?" @bind-Value="_saveGroupId" Label="Grupa (opciono)"
+                                               Variant="Variant.Outlined" Margin="Margin.Dense" Clearable>
+                                        @foreach (var g in _groups)
+                                        {
+                                            <MudSelectItem T="Guid?" Value="@((Guid?)g.Id)">@g.Naziv</MudSelectItem>
+                                        }
+                                    </MudSelect>
+                                </MudItem>
+                                <MudItem xs="12" sm="3">
+                                    <LoadingButton IsLoading="@_saving" Text="Sačuvaj"
+                                                   Color="Color.Primary" Variant="Variant.Filled"
+                                                   OnClick="@HandleSaveToScenario" />
+                                </MudItem>
+                            </MudGrid>
+                        </MudPaper>
+                    }
+
+                    <MudTabs Elevation="0" Rounded ApplyEffectsToContainer PanelClass="pa-0 pt-3">
+                        @foreach (var file in _result.Files)
+                        {
+                            <MudTabPanel Text="@file.FileName">
+                                <MudTextField Value="@file.Content" ReadOnly Lines="25"
+                                              Variant="Variant.Outlined"
+                                              Style="font-family: 'JetBrains Mono', monospace; font-size: 12px;" />
+                            </MudTabPanel>
+                        }
+                    </MudTabs>
+                </MudPaper>
+            }
+        </MudItem>
+
+    </MudGrid>
+}
+
+} @* kraj _activeTab == 0 *@
+
+@if (_activeTab == 1)
+{
+    <MudGrid Spacing="3">
+
+        <MudItem xs="12" md="5">
+            <MudPaper Class="pa-4" Elevation="1">
+                <MudText Typo="Typo.h6" Class="mb-3">Blazor izvor</MudText>
+
+                <MudToggleGroup T="string" Value="_blazorSource" ValueChanged="OnBlazorSourceChanged" Exclusive
+                                SelectionMode="SelectionMode.SingleSelection" Class="mb-4" Color="Color.Primary">
+                    <MudToggleItem Value="@("fajl")">Jedan fajl (paste)</MudToggleItem>
+                    <MudToggleItem Value="@("projekat")">Cijeli projekat (ZIP)</MudToggleItem>
+                </MudToggleGroup>
+
+                @if (_blazorSource == "fajl")
+                {
+                    <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-3">
+                        Zalijepite sadržaj .razor fajla. Analizator prepoznaje @("@page"), [Parameter], EventCallback,
+                        @("@onclick") handlere, HttpClient pozive i EditForm forme.
+                    </MudText>
+
+                    <MudTextField @bind-Value="_blazorComponentName"
+                                  Label="Naziv komponente (npr. Grupe)"
+                                  Variant="Variant.Outlined"
+                                  Class="mb-3"
+                                  Immediate="true" />
+
+                    <MudTextField @bind-Value="_blazorRazorContent"
+                                  Label="Sadržaj .razor fajla"
+                                  Variant="Variant.Outlined"
+                                  Lines="14"
+                                  Class="mb-3"
+                                  Placeholder="@("@page \"/primjer\"\n@code {\n    [Parameter] public string Title { get; set; } = \"\";\n}")"
+                                  Immediate="true" />
+
+                    <div class="d-flex gap-2 justify-end">
+                        <MudButton Variant="Variant.Outlined" Color="Color.Default"
+                                   OnClick="HandleBlazorAnalyze"
+                                   Disabled="@(string.IsNullOrWhiteSpace(_blazorRazorContent))">
+                            Analiziraj
+                        </MudButton>
+                        <LoadingButton IsLoading="@_blazorGenerating" Text="Generiši bUnit"
+                                       Color="Color.Primary" Variant="Variant.Filled"
+                                       OnClick="HandleBlazorGenerate"
+                                       Disabled="@(_blazorSpec is null)" />
+                        <LoadingButton IsLoading="@_playwrightGenerating" Text="Generiši Playwright E2E"
+                                       Color="Color.Secondary" Variant="Variant.Filled"
+                                       OnClick="HandlePlaywrightGenerate"
+                                       Disabled="@(_blazorSpec is null)" />
+                    </div>
+                }
+                else
+                {
+                    <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-3">
+                        Učitaj <code>.zip</code> cijelog Blazor projekta (ili odaberi više <code>.razor</code> fajlova).
+                        Analizator izlista sve stranice i komponente, a po odabiru generiše bUnit ili Playwright testove.
+                    </MudText>
+
+                    @* RBI-themed upload: MudButton kao <label> okida skriveni InputFile *@
+                    <MudButton HtmlTag="label"
+                               for="blazorProjectFile"
+                               Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               StartIcon="@Icons.Material.Filled.UploadFile">
+                        Učitaj projekat (.zip / .razor)
+                    </MudButton>
+                    <InputFile id="blazorProjectFile" OnChange="OnProjectFilesSelected"
+                               multiple accept=".zip,.razor" style="display:none" />
+
+                    @if (_projectFileNames is { Count: > 0 })
+                    {
+                        <MudText Typo="Typo.caption" Class="d-block mt-2">
+                            <MudIcon Icon="@Icons.Material.Filled.Description" Size="Size.Small" />
+                            @string.Join(", ", _projectFileNames)
+                        </MudText>
+                    }
+                    @if (_projectParsing)
+                    {
+                        <MudProgressLinear Indeterminate Color="Color.Primary" Class="mt-3" />
+                    }
+                    @if (_projectError is not null)
+                    {
+                        <MudAlert Severity="Severity.Error" Class="mt-3" Dense>@_projectError</MudAlert>
+                    }
+                }
+            </MudPaper>
+        </MudItem>
+
+        <MudItem xs="12" md="7">
+            @if (_blazorResult is null && _blazorSource == "projekat" && _projectAnalysis is null)
+            {
+                <MudPaper Class="pa-6 d-flex flex-column align-center justify-center" Elevation="1" Style="min-height:300px;">
+                    <MudIcon Icon="@Icons.Material.Outlined.FolderZip" Color="Color.Secondary" Size="Size.Large" Class="mb-2" />
+                    <MudText Typo="Typo.body1" Color="Color.Secondary">
+                        Učitaj .zip projekta da vidiš listu svih stranica i komponenti
+                    </MudText>
+                </MudPaper>
+            }
+            else if (_blazorResult is null && _projectAnalysis is not null)
+            {
+                <MudPaper Class="pa-4" Elevation="1">
+                    <div class="d-flex justify-space-between align-center mb-1">
+                        <MudText Typo="Typo.h6">Stranice i komponente</MudText>
+                        <div class="d-flex gap-2">
+                            <MudChip T="string" Size="Size.Small" Color="Color.Primary" Variant="Variant.Text">@_projectAnalysis.PageCount stranica</MudChip>
+                            <MudChip T="string" Size="Size.Small" Color="Color.Default" Variant="Variant.Text">@_projectAnalysis.ComponentCount komponenti</MudChip>
+                        </div>
+                    </div>
+
+                    @foreach (var w in _projectAnalysis.Warnings.Take(3))
+                    {
+                        <MudAlert Severity="Severity.Warning" Dense Class="mb-1">@w</MudAlert>
+                    }
+
+                    <MudTable Items="_projectAnalysis.Components" T="BlazorComponentInfo" Dense Hover Striped
+                              FixedHeader="true" Height="360px" Class="mt-2"
+                              OnRowClick="@(args => SelectComponent(args.Item))"
+                              RowClassFunc="@((info, _) => ReferenceEquals(info, _selectedComponent) ? "mud-selected-item" : string.Empty)">
+                        <HeaderContent>
+                            <MudTh>Tip</MudTh>
+                            <MudTh>Komponenta</MudTh>
+                            <MudTh>Rute</MudTh>
+                            <MudTh>Param</MudTh>
+                            <MudTh>EvCb</MudTh>
+                            <MudTh>@("@onclick")</MudTh>
+                            <MudTh>HTTP</MudTh>
+                            <MudTh>Forme</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Tip">
+                                <MudChip T="string" Size="Size.Small" Variant="Variant.Filled"
+                                         Color="@(context.IsPage ? Color.Primary : Color.Default)">
+                                    @(context.IsPage ? "Stranica" : "Komponenta")
+                                </MudChip>
+                            </MudTd>
+                            <MudTd DataLabel="Komponenta">@context.Spec.ComponentName</MudTd>
+                            <MudTd DataLabel="Rute" Style="font-family:'JetBrains Mono',monospace;">
+                                @(context.Spec.Routes.Count > 0 ? string.Join(", ", context.Spec.Routes.Select(r => r.Route)) : "—")
+                            </MudTd>
+                            <MudTd DataLabel="Param">@context.Spec.Parameters.Count</MudTd>
+                            <MudTd DataLabel="EvCb">@context.Spec.EventCallbacks.Count</MudTd>
+                            <MudTd DataLabel="onclick">@context.Spec.OnClickHandlers.Count</MudTd>
+                            <MudTd DataLabel="HTTP">@context.Spec.HttpCalls.Count</MudTd>
+                            <MudTd DataLabel="Forme">@context.Spec.Forms.Count</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+
+                    @if (_selectedComponent is not null)
+                    {
+                        <div class="d-flex align-center justify-space-between mt-3">
+                            <MudText Typo="Typo.body2" Color="Color.Secondary">
+                                Odabrano: <strong>@_selectedComponent.Spec.ComponentName</strong>
+                                @if (_selectedComponent.IsPage)
+                                {
+                                    <MudChip T="string" Size="Size.Small" Color="Color.Primary" Variant="Variant.Text" Class="ml-1">stranica</MudChip>
+                                }
+                            </MudText>
+                            <div class="d-flex gap-2">
+                                <LoadingButton IsLoading="@_blazorGenerating" Text="Generiši bUnit"
+                                               Color="Color.Primary" Variant="Variant.Filled"
+                                               OnClick="HandleBlazorGenerate" />
+                                <LoadingButton IsLoading="@_playwrightGenerating" Text="Generiši Playwright E2E"
+                                               Color="Color.Secondary" Variant="Variant.Filled"
+                                               OnClick="HandlePlaywrightGenerate" />
+                            </div>
+                        </div>
+                    }
+                </MudPaper>
+            }
+            else if (_blazorResult is null && _blazorSpec is null)
+            {
+                <MudPaper Class="pa-6 d-flex flex-column align-center justify-center" Elevation="1" Style="min-height:300px;">
+                    <MudIcon Icon="@Icons.Material.Outlined.Widgets" Color="Color.Secondary" Size="Size.Large" Class="mb-2" />
+                    <MudText Typo="Typo.body1" Color="Color.Secondary">
+                        Zalijepite .razor sadržaj i kliknite "Analiziraj"
+                    </MudText>
+                </MudPaper>
+            }
+            else if (_blazorResult is null && _blazorSpec is not null)
+            {
+                <MudPaper Class="pa-4" Elevation="1">
+                    <MudText Typo="Typo.h6" Class="mb-3">Rezultati analize</MudText>
+                    <MudList T="string" Dense>
+                        <MudListItem Icon="@Icons.Material.Filled.Link" IconColor="Color.Primary">
+                            <strong>Rute:</strong> @(string.Join(", ", _blazorSpec.Routes.Select(r => r.Route)) is { } r && r.Length > 0 ? r : "—")
+                        </MudListItem>
+                        <MudListItem Icon="@Icons.Material.Filled.Tune" IconColor="Color.Secondary">
+                            <strong>Parametri (@_blazorSpec.Parameters.Count):</strong>
+                            @string.Join(", ", _blazorSpec.Parameters.Select(p => $"{p.Name}: {p.Type}"))
+                        </MudListItem>
+                        <MudListItem Icon="@Icons.Material.Filled.CallMade" IconColor="Color.Info">
+                            <strong>EventCallbacks (@_blazorSpec.EventCallbacks.Count):</strong>
+                            @string.Join(", ", _blazorSpec.EventCallbacks.Select(e => e.GenericArg is { Length: > 0 } a ? $"{e.Name}<{a}>" : e.Name))
+                        </MudListItem>
+                        <MudListItem Icon="@Icons.Material.Filled.TouchApp" IconColor="Color.Warning">
+                            <strong>@("@onclick") handleri (@_blazorSpec.OnClickHandlers.Count):</strong>
+                            @string.Join(", ", _blazorSpec.OnClickHandlers.Select(h => h.MethodName))
+                        </MudListItem>
+                        <MudListItem Icon="@Icons.Material.Filled.Http" IconColor="Color.Success">
+                            <strong>HTTP pozivi (@_blazorSpec.HttpCalls.Count):</strong>
+                            @string.Join(", ", _blazorSpec.HttpCalls.Select(h => h.ClientMethod))
+                        </MudListItem>
+                        <MudListItem Icon="@Icons.Material.Filled.Assignment" IconColor="Color.Error">
+                            <strong>Forme (@_blazorSpec.Forms.Count):</strong>
+                            @(_blazorSpec.Forms.Count > 0 ? $"{string.Join(", ", _blazorSpec.Forms[0].InputTypes)} | ValidationSummary: {(_blazorSpec.Forms[0].HasValidationSummary ? "DA" : "NE")}" : "—")
+                        </MudListItem>
+                    </MudList>
+                </MudPaper>
+            }
+            else if (_blazorResult is not null)
+            {
+                <MudPaper Class="pa-4" Elevation="1">
+                    <div class="d-flex justify-space-between align-center mb-3">
+                        <MudText Typo="Typo.h6">@_blazorResultTitle</MudText>
+                        <div class="d-flex gap-2">
+                            @if (_projectAnalysis is not null)
+                            {
+                                <MudButton StartIcon="@Icons.Material.Filled.ArrowBack"
+                                           Variant="Variant.Text" Color="Color.Default"
+                                           OnClick="@BackToComponentList">
+                                    Nazad na listu
+                                </MudButton>
+                            }
+                            @if (_blazorResultKind == "bunit")
+                            {
+                                <MudButton StartIcon="@Icons.Material.Filled.Save"
+                                           Variant="Variant.Outlined" Color="Color.Secondary"
+                                           OnClick="@(() => { _blazorSaveName = _blazorComponentName; _blazorShowSave = true; })">
+                                    Spremi u scenarij
+                                </MudButton>
+                            }
+                            <MudButton StartIcon="@Icons.Material.Filled.Download"
+                                       Variant="Variant.Filled" Color="Color.Primary"
+                                       OnClick="HandleBlazorDownload">
+                                Download ZIP
+                            </MudButton>
+                        </div>
+                    </div>
+                    <MudTabs Elevation="0" Rounded ApplyEffectsToContainer PanelClass="pa-0 pt-3">
+                        @foreach (var file in _blazorResult.Files)
+                        {
+                            <MudTabPanel Text="@file.FileName">
+                                <MudTextField Value="@file.Content" ReadOnly Lines="25"
+                                              Variant="Variant.Outlined"
+                                              Style="font-family: 'JetBrains Mono', monospace; font-size: 12px;" />
+                            </MudTabPanel>
+                        }
+                    </MudTabs>
+                </MudPaper>
+
+                @if (_blazorShowSave)
+                {
+                    <MudPaper Class="pa-4 mt-3" Elevation="1">
+                        <MudText Typo="Typo.h6" Class="mb-3">Spremi kao Blazor scenarij</MudText>
+                        <MudGrid Spacing="2">
+                            <MudItem xs="12" md="6">
+                                <MudTextField @bind-Value="_blazorSaveName"
+                                              Label="Naziv scenarija"
+                                              Variant="Variant.Outlined"
+                                              Immediate="true" />
+                            </MudItem>
+                            <MudItem xs="12" md="6">
+                                <MudSelect T="Guid" Value="_blazorSaveGroup"
+                                           ValueChanged="@((Guid v) => _blazorSaveGroup = v)"
+                                           Label="Grupa (opcionalno)"
+                                           Variant="Variant.Outlined"
+                                           Clearable>
+                                    @foreach (var g in _groups)
+                                    {
+                                        <MudSelectItem T="Guid" Value="@g.Id">@g.Naziv</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                        </MudGrid>
+                        <div class="d-flex gap-2 justify-end mt-3">
+                            <MudButton Variant="Variant.Text"
+                                       OnClick="@(() => _blazorShowSave = false)">
+                                Odustani
+                            </MudButton>
+                            <LoadingButton IsLoading="@_blazorSaving" Text="Spremi"
+                                           Color="Color.Primary" Variant="Variant.Filled"
+                                           OnClick="HandleBlazorSave"
+                                           Disabled="@(string.IsNullOrWhiteSpace(_blazorSaveName))" />
+                        </div>
+                    </MudPaper>
+                }
+            }
+        </MudItem>
+
+    </MudGrid>
+}
+
+@code {
+    // ─── Validatori (Func — izbjegava CS8917 u Blazor Validation) ────────────
+
+    private readonly Func<string?, string?> _classNameValidator =
+        v => string.IsNullOrWhiteSpace(v) ? "Obavezno" : null;
+
+    private readonly Func<string?, string?> _routeValidator =
+        v => string.IsNullOrWhiteSpace(v) ? "Obavezno" : null;
+
+    private readonly Func<string?, string?> _jsonValidator = v =>
+    {
+        if (string.IsNullOrWhiteSpace(v)) return null;
+        try { System.Text.Json.JsonDocument.Parse(v); return null; }
+        catch { return "Nije validan JSON"; }
+    };
+
+    // ─── State ───────────────────────────────────────────────────────────────
+
+    private int     _activeTab  = 0;
+
+    // REST tab
+    private bool    _isLoading  = true;
+    private string? _loadError  = null;
+    private bool    _generating = false;
+
+    // Blazor (bUnit) tab
+    private string              _blazorSource        = "fajl"; // "fajl" | "projekat"
+    private string              _blazorComponentName = string.Empty;
+    private string              _blazorRazorContent  = string.Empty;
+    private BlazorComponentSpec? _blazorSpec         = null;
+    private GeneratedTestProject? _blazorResult      = null;
+    private bool                _blazorGenerating    = false;
+    private bool                _playwrightGenerating = false;
+    private string              _blazorResultKind    = "";
+    private string              _blazorResultTitle   = "Preview generisanog koda";
+
+    // Blazor — učitavanje cijelog projekta (ZIP / više .razor fajlova)
+    private const long          MaxUploadBytes = 32L * 1024 * 1024; // 32 MB po fajlu
+    private const int           MaxUploadFiles = 50;
+    private bool                _projectParsing  = false;
+    private string?             _projectError    = null;
+    private List<string>        _projectFileNames = [];
+    private BlazorProjectAnalysis? _projectAnalysis = null;
+    private BlazorComponentInfo?   _selectedComponent = null;
+
+    // bUnit save state
+    private bool   _blazorShowSave  = false;
+    private bool   _blazorSaving    = false;
+    private string _blazorSaveName  = string.Empty;
+    private Guid   _blazorSaveGroup = Guid.Empty;
+
+    private string  _mode     = "scenarij";
+    private IEnumerable<Guid> _selectedScenarioIds = new HashSet<Guid>();
+
+    private string  _manualClassName    = string.Empty;
+    private string  _manualMethod       = "GET";
+    private string  _manualRoute        = string.Empty;
+    private int     _manualStatus       = 200;
+    private string? _manualBody         = null;
+    private bool    _manualRequiresAuth = false;
+
+    private List<ScenarioListItemDto>                        _restScenarios = [];
+    private Dictionary<Guid, ScenarioDto>                    _scenarioCache = [];
+    private GeneratedTestProject?                            _result        = null;
+
+    // Spasi u scenario
+    private bool                   _showSave   = false;
+    private bool                   _saving     = false;
+    private string                 _saveName   = string.Empty;
+    private Guid?                  _saveGroupId;
+    private List<GroupDto>         _groups     = [];
+    private RestEndpointSpec?      _lastSpec   = null;
+
+    // ─── Lifecycle ───────────────────────────────────────────────────────────
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var all = await ScenarioSvc.GetAllAsync();
+            _restScenarios = all.Where(s => s.Tip == nameof(TipScenarija.Rest)).ToList();
+            _groups = (await GroupSvc.GetRootGroupsAsync()).ToList();
+        }
+        catch (Exception ex)
+        {
+            _loadError = $"Greška pri učitavanju scenarija: {ex.Message}";
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    // ─── Akcije ──────────────────────────────────────────────────────────────
+
+    private async Task HandleGenerate()
+    {
+        _generating = true;
+        _result = null;
+        try
+        {
+            if (_mode == "scenarij")
+            {
+                var ids = _selectedScenarioIds.ToList();
+                if (ids.Count == 0)
+                {
+                    Toast.Error("Odaberite bar jedan scenarij.");
+                    return;
+                }
+
+                // Skupi spec za svaki odabrani scenarij (preskoči one bez REST specifikacije).
+                var specs = new List<RestEndpointSpec>();
+                foreach (var id in ids)
+                {
+                    var spec = await BuildScenarioSpec(id);
+                    if (spec is not null) specs.Add(spec);
+                }
+                if (specs.Count == 0) return;
+
+                if (specs.Count == 1)
+                {
+                    // Jedan scenarij → zadrži "Spasi u scenario" tok (treba _lastSpec).
+                    _lastSpec = specs[0];
+                    _saveName = specs[0].ClassName;
+                    _result   = Generator.Generate(specs[0]);
+                }
+                else
+                {
+                    // Više scenarija → spoji u jedan projekat; spašavanje pojedinačno nema smisla.
+                    _lastSpec = null;
+                    _result   = MergeProjects(specs.Select(Generator.Generate));
+                }
+                Toast.Success($"Test projekat generisan za {specs.Count} scenarij(a).");
+            }
+            else
+            {
+                var spec = BuildManualSpec();
+                if (spec is null) return;
+                _lastSpec = spec;
+                _saveName = spec.ClassName;
+                _result   = Generator.Generate(spec);
+                Toast.Success("Test projekat uspješno generisan.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Toast.Error($"Greška pri generisanju: {ex.Message}");
+        }
+        finally
+        {
+            _generating = false;
+        }
+    }
+
+    private async Task<RestEndpointSpec?> BuildScenarioSpec(Guid id)
+    {
+        if (!_scenarioCache.TryGetValue(id, out var dto))
+        {
+            dto = await ScenarioSvc.GetByIdAsync(id);
+            if (dto is null)
+            {
+                Toast.Error("Scenarij nije pronađen.");
+                return null;
+            }
+            _scenarioCache[id] = dto;
+        }
+
+        if (dto.Rest is null)
+        {
+            Toast.Error($"Scenarij \"{dto.Naziv}\" nema REST specifikaciju — preskočen.");
+            return null;
+        }
+
+        return GeneratorSpecMapper.ToSpec(dto.Naziv, dto.Rest);
+    }
+
+    private RestEndpointSpec? BuildManualSpec()
+    {
+        if (string.IsNullOrWhiteSpace(_manualClassName) || string.IsNullOrWhiteSpace(_manualRoute))
+        {
+            Toast.Error("Naziv klase i ruta su obavezni.");
+            return null;
+        }
+
+        return GeneratorSpecMapper.FromManualInput(
+            _manualClassName,
+            _manualMethod,
+            _manualRoute,
+            _manualStatus,
+            string.IsNullOrWhiteSpace(_manualBody) ? null : _manualBody,
+            _manualRequiresAuth);
+    }
+
+    // Spaja više generisanih projekata u jedan ZIP-abilan projekat. Dijeljeni fajlovi
+    // (factory, .csproj, fixture-i) su identični pa se zadrže jednom; test-klase se
+    // dodaju sve, a kolizija naziva (dva scenarija s istim ClassName) se disambiguira.
+    private static GeneratedTestProject MergeProjects(IEnumerable<GeneratedTestProject> projects)
+    {
+        var byName = new Dictionary<string, GeneratedTestFile>(StringComparer.OrdinalIgnoreCase);
+        foreach (var proj in projects)
+        {
+            foreach (var file in proj.Files)
+            {
+                if (!byName.TryGetValue(file.FileName, out var existing))
+                {
+                    byName[file.FileName] = file;
+                    continue;
+                }
+                if (existing.Content == file.Content) continue; // isti dijeljeni fajl
+
+                var unique = MakeUniqueName(file.FileName, byName.Keys);
+                byName[unique] = file with { FileName = unique };
+            }
+        }
+        return new GeneratedTestProject(byName.Values.ToList());
+    }
+
+    private static string MakeUniqueName(string fileName, IEnumerable<string> taken)
+    {
+        var set = new HashSet<string>(taken, StringComparer.OrdinalIgnoreCase);
+        var dot = fileName.IndexOf('.');
+        var stem = dot < 0 ? fileName : fileName[..dot];
+        var ext  = dot < 0 ? string.Empty : fileName[dot..];
+        for (var i = 2; ; i++)
+        {
+            var candidate = $"{stem}_{i}{ext}";
+            if (!set.Contains(candidate)) return candidate;
+        }
+    }
+
+    private string GetMultiSelectionText(List<string> selected) => selected.Count switch
+    {
+        0 => string.Empty,
+        1 => selected[0],
+        _ => $"{selected.Count} scenarija odabrano"
+    };
+
+    private async Task HandleSaveToScenario()
+    {
+        if (_lastSpec is null) { Toast.Error("Prvo generišite test."); return; }
+        if (string.IsNullOrWhiteSpace(_saveName)) { Toast.Error("Naziv je obavezan."); return; }
+
+        _saving = true;
+        try
+        {
+            // Spec → REST scenarij (isti oblik koji runner kompajlira u xUnit).
+            var rest = new RestScenarioDto(
+                Metoda:          Enum.Parse<HttpMetoda>(_lastSpec.HttpMethod, ignoreCase: true),
+                Url:             _lastSpec.RoutePath,
+                Headeri:         [],
+                RequestBody:     _lastSpec.RequestBodyJson,
+                OcekivaniStatus: _lastSpec.ExpectedStatus,
+                ResponseAsserti: []);
+
+            var req = new CreateScenarioRequest(
+                GroupId: _saveGroupId,
+                Naziv:   _saveName.Trim(),
+                Opis:    "Generisan iz Generatora testova (xUnit).",
+                Tip:     TipScenarija.Rest,
+                Rest:    rest,
+                Ui:      null);
+
+            await ScenarioSvc.CreateAsync(req, UserCtx.UserId, UserCtx.FullName);
+            Toast.Success($"Scenarij \"{_saveName}\" spašen. Može se pokrenuti kao xUnit na Scenariji.");
+            _showSave = false;
+
+            // Osvježi listu REST scenarija (da se odmah vidi u dropdownu).
+            var all = await ScenarioSvc.GetAllAsync();
+            _restScenarios = all.Where(s => s.Tip == nameof(TipScenarija.Rest)).ToList();
+        }
+        catch (Exception ex)
+        {
+            Toast.Error($"Greška pri spašavanju: {ex.Message}");
+        }
+        finally
+        {
+            _saving = false;
+        }
+    }
+
+    private async Task HandleDownload()
+    {
+        if (_result is null) return;
+        await DownloadZip(_result, "GeneratedTests.zip");
+    }
+
+    // ─── Blazor (bUnit) tab handleri ─────────────────────────────────────────
+
+    // Prebacivanje izvora (jedan fajl ↔ cijeli projekat) — resetuje stanje da se ne miješaju modovi.
+    private void OnBlazorSourceChanged(string source)
+    {
+        _blazorSource      = source;
+        _blazorResult      = null;
+        _blazorResultKind  = "";
+        _blazorSpec        = null;
+        _projectAnalysis   = null;
+        _selectedComponent = null;
+        _projectError      = null;
+        _projectFileNames  = [];
+    }
+
+    /// <summary>
+    /// Učitava cijeli Blazor projekat: prihvata <c>.zip</c> (raspakuje .razor/.razor.cs entryje)
+    /// ili direktno odabrane <c>.razor</c> fajlove, te pokreće <see cref="BlazorProjectAnalyzer"/>.
+    /// </summary>
+    private async Task OnProjectFilesSelected(InputFileChangeEventArgs e)
+    {
+        _projectParsing    = true;
+        _projectError      = null;
+        _projectAnalysis   = null;
+        _selectedComponent = null;
+        _blazorResult      = null;
+        _blazorSpec        = null;
+        _projectFileNames  = [];
+
+        try
+        {
+            var razorFiles = new List<BlazorRazorFile>();
+
+            foreach (var file in e.GetMultipleFiles(MaxUploadFiles))
+            {
+                _projectFileNames.Add(file.Name);
+
+                await using var stream = file.OpenReadStream(MaxUploadBytes);
+                using var ms = new MemoryStream();
+                await stream.CopyToAsync(ms);
+                ms.Position = 0;
+
+                if (file.Name.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
+                {
+                    using var zip = new System.IO.Compression.ZipArchive(ms, System.IO.Compression.ZipArchiveMode.Read);
+                    foreach (var entry in zip.Entries)
+                    {
+                        if (entry.Length == 0) continue; // folder entry
+                        // .razor + .razor.cs code-behind (analyzer spaja istoimene fajlove radi tačnije detekcije).
+                        if (!entry.FullName.EndsWith(".razor", StringComparison.OrdinalIgnoreCase)
+                         && !entry.FullName.EndsWith(".razor.cs", StringComparison.OrdinalIgnoreCase)) continue;
+
+                        using var reader = new StreamReader(entry.Open());
+                        razorFiles.Add(new BlazorRazorFile(entry.FullName, await reader.ReadToEndAsync()));
+                    }
+                }
+                else // pojedinačni .razor / .razor.cs fajl
+                {
+                    using var reader = new StreamReader(ms);
+                    razorFiles.Add(new BlazorRazorFile(file.Name, await reader.ReadToEndAsync()));
+                }
+            }
+
+            _projectAnalysis = BlazorProjectAnalyzer.Analyze(razorFiles);
+
+            if (_projectAnalysis.Components.Count == 0)
+                _projectError = _projectAnalysis.Warnings.FirstOrDefault()
+                    ?? "U učitanom projektu nije pronađena nijedna komponenta.";
+            else
+                Toast.Success($"Učitano: {_projectAnalysis.PageCount} stranica, " +
+                              $"{_projectAnalysis.ComponentCount} komponenti.");
+        }
+        catch (Exception ex)
+        {
+            _projectError = $"Učitavanje projekta nije uspjelo: {ex.Message}";
+        }
+        finally
+        {
+            _projectParsing = false;
+        }
+    }
+
+    // Odabir komponente iz tabele projekta → puni spec/naziv/sadržaj koje postojeći generatori koriste.
+    // Item iz MudTable OnRowClick je nullable — defanzivno izađi ako je null (npr. klik van reda).
+    private void SelectComponent(BlazorComponentInfo? info)
+    {
+        if (info is null) return;
+
+        _selectedComponent   = info;
+        _blazorSpec          = info.Spec;
+        _blazorComponentName = info.Spec.ComponentName;
+        _blazorRazorContent  = info.RawContent;
+        _blazorResult        = null;
+        _blazorResultKind    = "";
+    }
+
+    // Vrati se sa preview-a generisanog testa na listu svih izvučenih komponenti.
+    // Analiza (_projectAnalysis) i odabir (_selectedComponent) ostaju netaknuti,
+    // pa se lista prikaže ponovo s hajlajtanim redom — bez ponovnog učitavanja ZIP-a.
+    private void BackToComponentList()
+    {
+        _blazorResult     = null;
+        _blazorResultKind = "";
+        _blazorShowSave   = false;
+    }
+
+    private void HandleBlazorAnalyze()
+    {
+        if (string.IsNullOrWhiteSpace(_blazorRazorContent))
+        {
+            Toast.Error("Zalijepite sadržaj .razor fajla.");
+            return;
+        }
+
+        var name = string.IsNullOrWhiteSpace(_blazorComponentName)
+            ? "Komponenta"
+            : _blazorComponentName.Trim();
+
+        _blazorSpec   = BlazorComponentAnalyzer.Analyze(name, _blazorRazorContent);
+        _blazorResult = null;
+        _blazorResultKind = "";
+        _blazorResultTitle = "Preview generisanog koda";
+        Toast.Success($"Analiza završena: {_blazorSpec.Parameters.Count} param, " +
+                      $"{_blazorSpec.EventCallbacks.Count} EC, " +
+                      $"{_blazorSpec.Forms.Count} formi.");
+    }
+
+    private async Task HandleBlazorGenerate()
+    {
+        if (_blazorSpec is null) return;
+
+        _blazorGenerating = true;
+        try
+        {
+            _blazorResult = BUnitGenerator.Generate(_blazorSpec);
+            _blazorResultKind = "bunit";
+            _blazorResultTitle = "Preview generisanog bUnit koda";
+            Toast.Success("bUnit test projekat uspješno generisan.");
+        }
+        catch (Exception ex)
+        {
+            Toast.Error($"Greška pri generisanju: {ex.Message}");
+        }
+        finally
+        {
+            _blazorGenerating = false;
+        }
+
+        await Task.CompletedTask;
+    }
+
+    private async Task HandlePlaywrightGenerate()
+    {
+        if (_blazorSpec is null) return;
+
+        _playwrightGenerating = true;
+        try
+        {
+            _blazorResult = PlaywrightGenerator.Generate(_blazorSpec);
+            _blazorResultKind = "playwright";
+            _blazorResultTitle = "Preview generisanog Playwright E2E koda";
+            _blazorShowSave = false;
+            Toast.Success("Playwright E2E test projekat uspješno generisan.");
+        }
+        catch (Exception ex)
+        {
+            Toast.Error($"Greška pri generisanju: {ex.Message}");
+        }
+        finally
+        {
+            _playwrightGenerating = false;
+        }
+
+        await Task.CompletedTask;
+    }
+
+    private async Task HandleBlazorDownload()
+    {
+        if (_blazorResult is null) return;
+        var suffix = _blazorResultKind == "playwright" ? "PlaywrightE2e" : "BUnit";
+        await DownloadZip(_blazorResult, $"{_blazorSpec?.ComponentName ?? suffix}{suffix}Tests.zip");
+    }
+
+    private async Task HandleBlazorSave()
+    {
+        if (_blazorSpec is null || string.IsNullOrWhiteSpace(_blazorSaveName)) return;
+
+        _blazorSaving = true;
+        try
+        {
+            var req = new CreateScenarioRequest(
+                GroupId: _blazorSaveGroup == Guid.Empty ? null : _blazorSaveGroup,
+                Naziv:   _blazorSaveName.Trim(),
+                Opis:    $"bUnit testovi za komponentu {_blazorSpec.ComponentName}. Generisano automatski.",
+                Tip:     TipScenarija.Blazor,
+                Rest:    null,
+                Ui:      null,
+                Blazor:  new BlazorScenarioDto(_blazorSpec.ComponentName, _blazorRazorContent));
+
+            await ScenarioSvc.CreateAsync(req, UserCtx.UserId, UserCtx.FullName);
+            Toast.Success($"Scenarij \"{_blazorSaveName}\" spašen. Vidljiv na Scenariji stranici.");
+            _blazorShowSave = false;
+        }
+        catch (Exception ex)
+        {
+            Toast.Error($"Greška pri spašavanju: {ex.Message}");
+        }
+        finally
+        {
+            _blazorSaving = false;
+        }
+    }
+
+    private async Task DownloadZip(GeneratedTestProject project, string zipName)
+    {
+        try
+        {
+            using var ms = new System.IO.MemoryStream();
+            using (var zip = new System.IO.Compression.ZipArchive(ms, System.IO.Compression.ZipArchiveMode.Create, leaveOpen: true))
+            {
+                foreach (var file in project.Files)
+                {
+                    var entry = zip.CreateEntry(file.FileName);
+                    await using var writer = new System.IO.StreamWriter(entry.Open());
+                    await writer.WriteAsync(file.Content);
+                }
+            }
+            var base64 = Convert.ToBase64String(ms.ToArray());
+            await JS.InvokeVoidAsync("testforgeDownload", zipName, base64);
+        }
+        catch (Exception ex)
+        {
+            Toast.Error($"Greška pri preuzimanju: {ex.Message}");
+        }
+    }
+}

@@ -1,0 +1,181 @@
+@page "/"
+@attribute [Authorize]
+@rendermode InteractiveServer
+@inject IUserContext UserCtx
+@inject IGroupService GroupSvc
+
+<PageTitle>Dashboard</PageTitle>
+
+<p class="breadcrumb">Home / Overview</p>
+<h1 class="greeting">@Greeting, <span>@UserCtx.FullName</span>.</h1>
+
+<div class="card-grid">
+
+    @* ── Kartica 1: Tvoja rola / role ───────────────────────────────── *@
+    <div class="card">
+        <div class="card__header">
+            <Chevron Size="20" Color="#0E0F12" />
+            <h2 class="card__title">@(UserCtx.Roles.Length == 1 ? "Tvoja rola" : "Tvoje role")</h2>
+        </div>
+        <p class="card__desc">
+            Pristup modulima određen je rolama dodijeljenim u Keycloak-u.
+        </p>
+        @if (UserCtx.Roles.Length == 0)
+        {
+            <p class="card__desc" style="margin-bottom:0">
+                Trenutno nemaš dodijeljenu nijednu rolu — obrati se administratoru.
+            </p>
+        }
+        else
+        {
+            <div class="chip-list">
+                @foreach (var role in UserCtx.Roles)
+                {
+                    <RoleChip DotColor="@RoleColor(role)">@role</RoleChip>
+                }
+            </div>
+        }
+    </div>
+
+    @* ── Kartica 2: Tvoji moduli (stvarni pristup) ──────────────────── *@
+    <div class="card">
+        <div class="card__header">
+            <Chevron Size="20" Color="#0E0F12" />
+            <h2 class="card__title">Tvoji moduli</h2>
+        </div>
+        <p class="card__desc">Sekcije kojima imaš pristup sa trenutnim rolama.</p>
+        <nav class="link-list">
+            @foreach (var m in AccessibleModules())
+            {
+                <a class="link-list__item" href="@m.Href">
+                    <span>@m.Label</span>
+                    <span class="link-list__arrow">→</span>
+                </a>
+            }
+        </nav>
+    </div>
+
+    @* ── Kartica 3: Tvoj nalog + sistem ─────────────────────────────── *@
+    <div class="card card--dark">
+        <div>
+            <p class="card__eyebrow">Tvoj nalog</p>
+            <h3 class="card__heading">@UserCtx.FullName</h3>
+            <p class="card__body-text">@UserCtx.Email</p>
+            <p class="card__body-text" style="margin-top:6px">
+                @UserCtx.Roles.Length @RoleWord(UserCtx.Roles.Length)
+            </p>
+        </div>
+        <div class="card__footer">
+            <div class="chevrons-pair">
+                <Chevron Size="48" Color="#FEE600" />
+                <Chevron Size="48" Color="#FEE600" />
+            </div>
+        </div>
+    </div>
+
+    @* ── Kartica 4: Grupe testova (at a glance) ─────────────────────── *@
+    <div class="card card--wide">
+        <div class="card__header">
+            <Chevron Size="20" Color="#0E0F12" />
+            <h2 class="card__title">Grupe testova</h2>
+            <a class="card__header-link" href="/grupe">Sve grupe →</a>
+        </div>
+
+        @if (_groupsLoading)
+        {
+            <p class="card__desc" style="margin-bottom:0">Učitavanje grupa…</p>
+        }
+        else if (_groups.Count == 0)
+        {
+            <p class="card__desc" style="margin-bottom:0">
+                Još nema grupa testova. <a href="/grupe">Kreiraj prvu →</a>
+            </p>
+        }
+        else
+        {
+            <div class="group-grid">
+                @foreach (var node in _groups)
+                {
+                    <a class="group-tile" href="/grupe">
+                        <span class="group-tile__dot"
+                              style="background:@(string.IsNullOrWhiteSpace(node.Group.Boja) ? TagColor(node.Group.Tag) : node.Group.Boja)"></span>
+                        <span class="group-tile__body">
+                            <span class="group-tile__name">@node.Group.Naziv</span>
+                            <span class="group-tile__meta">
+                                @node.Summary.ScenarioCount @ScenarioWord(node.Summary.ScenarioCount)@(node.Children.Count > 0 ? $" · {node.Children.Count} podgr." : "")
+                            </span>
+                        </span>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+
+</div>
+
+@code {
+    private record ModuleLink(string Label, string Href);
+
+    private IReadOnlyList<GroupTreeNodeDto> _groups = [];
+    private bool _groupsLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _groups = await GroupSvc.GetGroupsTreeAsync();
+        }
+        catch
+        {
+            _groups = []; // grupe nisu kritične za dashboard — tiho fallback na prazno
+        }
+        finally
+        {
+            _groupsLoading = false;
+        }
+    }
+
+    private static string ScenarioWord(int n) => n == 1 ? "scenarij" : "scenarija";
+
+    private static string TagColor(TestTag tag) => tag switch
+    {
+        TestTag.Smoke      => "#1F8A6A",
+        TestTag.Regression => "#2F4D7A",
+        TestTag.Full       => "#6B5A3E",
+        _                  => "#888888",
+    };
+
+    /// <summary>Pozdrav prema dobu dana (server lokalno vrijeme).</summary>
+    private string Greeting => DateTime.Now.Hour switch
+    {
+        >= 5 and < 12  => "Dobro jutro",
+        >= 12 and < 18 => "Dobar dan",
+        _              => "Dobro veče",
+    };
+
+    /// <summary>Boja tačke uz rolu — usklađena s bojama iz prethodne verzije kartice.</summary>
+    private static string RoleColor(string role) => role switch
+    {
+        AppRoles.Administrator  => "#D6433C",
+        AppRoles.QALead         => "#1A6E48",
+        AppRoles.QAInzenjer     => "#1F8A6A",
+        AppRoles.Developer      => "#2F4D7A",
+        AppRoles.DevOpsInzenjer => "#6B5A3E",
+        _                       => "#888888",
+    };
+
+    /// <summary>Sekcije kojima korisnik ima pristup (test-automatizacija je otvorena svima;
+    /// administracija je gate-ovana matricom pristupa).</summary>
+    private IEnumerable<ModuleLink> AccessibleModules()
+    {
+        yield return new("Grupe", "/grupe");
+        yield return new("Scenariji", "/scenariji");
+        if (UserCtx.CanAccess(AppModules.Korisnici)) yield return new("Korisnici", "/users");
+        if (UserCtx.CanAccess(AppModules.Role))      yield return new("Upravljanje rolama", "/roles");
+        if (UserCtx.CanAccess(AppModules.Sifarnici)) yield return new("Šifarnici", "/sifarnici");
+        if (UserCtx.CanAccess(AppModules.AuditLog))  yield return new("Audit Log", "/audit-log");
+        if (UserCtx.CanAccess(AppModules.Postavke))  yield return new("Podešavanja", "/settings");
+    }
+
+    private static string RoleWord(int n) => n == 1 ? "dodijeljena rola" : "dodijeljenih rola";
+}

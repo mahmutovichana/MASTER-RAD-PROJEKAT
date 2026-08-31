@@ -1,0 +1,1826 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-RPP-API_REFERENCE-001,controlled/rbi-related-parties-portal-copy,9200501,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""RPP-API-001"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation001"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/001"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-001
+- Operation: `rbirelatedpartiesportalOperation001`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/001`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-001: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9b98ef12d168166cebf0134e397db42e264efaf40e2fdd69f9d31fa5f738b27d,eab2d65f15018b2eda002dd140e698ef4b48c831fe0aa1c45fb3920291554b7b,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-001.patch
+CRPP1-RPP-API_REFERENCE-002,controlled/rbi-related-parties-portal-copy,9200502,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""RPP-API-002"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation002"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/002"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/002"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-002
+- Operation: `rbirelatedpartiesportalOperation002`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/002`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-002: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/002' u '/api/rbi-related-parties-portal/v2/resources/002' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0e0a9cb925240161916a51aa48765da7c1bbfe500f445fa8ab768d865f528f9a,d24d04607e710452093d54f571a2da02223bbfbb57f3600dd01f5ba2cfe0e6a9,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-002.patch
+CRPP1-RPP-API_REFERENCE-003,controlled/rbi-related-parties-portal-copy,9200503,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation003"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/003"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-003
+- Operation: `rbirelatedpartiesportalOperation003`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/003`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-003: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9007decfa8a47a59c74d551593e289985470f1b6fbaca3b7512c3c4ef330e029,a405b63786fc0f068ee8f867dd23f658d6f3b0eb7435dc2a07d65688a4347b22,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-003.patch
+CRPP1-RPP-API_REFERENCE-004,controlled/rbi-related-parties-portal-copy,9200504,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-005"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-004
+- Operation: `rbirelatedpartiesportalOperation004`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/004`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-004: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7cd8e72464c77dc199808f8bca6a28378f66e573d1da160f580aa3247ec357d3,3312d698cf7283bab634effaecd1a1432eed2484743a26427a0da1955827c258,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-004.patch
+CRPP1-RPP-API_REFERENCE-005,controlled/rbi-related-parties-portal-copy,9200505,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-005"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation005"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/005"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-005
+- Operation: `rbirelatedpartiesportalOperation005`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/005`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-005: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3c150e9112f45a6b43345ed9cb9d3d159bd04b495ed3a6b069595a94ef58b2b0,296064b12ad4729acb657b76107eb144da32042068384549cbfa65445a61a4ee,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-005.patch
+CRPP1-RPP-API_REFERENCE-006,controlled/rbi-related-parties-portal-copy,9200506,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""RPP-API-006"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation006"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/006"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/006"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-006
+- Operation: `rbirelatedpartiesportalOperation006`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/006`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-006: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/006' u '/api/rbi-related-parties-portal/v2/resources/006' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f2036c8df4952b5edf94e181d30bc5fbe2d3d02559acbeda8b6c7bbf95f11b7a,39c1525cfb458ea96cf8ff0e1601076e4c9fdc268da96131088130ec6f8c6e32,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-006.patch
+CRPP1-RPP-API_REFERENCE-007,controlled/rbi-related-parties-portal-copy,9200507,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation007"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/007"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-007
+- Operation: `rbirelatedpartiesportalOperation007`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/007`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-007: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9c4b566c099eb4420c5f713bd12ca60b9fbd24bc26210006dc309240a3d0cb3e,a95b49f097a03694523e110c2febfa06354b2fe2bb917b140f8e3ffc2c3fe7dc,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-007.patch
+CRPP1-RPP-API_REFERENCE-008,controlled/rbi-related-parties-portal-copy,9200508,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-009"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-008
+- Operation: `rbirelatedpartiesportalOperation008`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/008`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-008: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,da0bc0324beeae2a6c50606ae54b97104be408da6a2625606e11a4a808481fad,cee5618648624455c3c5e6e6cacae4f23b6893f5dc9ada8e33ca729bc9384e32,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-008.patch
+CRPP1-RPP-API_REFERENCE-009,controlled/rbi-related-parties-portal-copy,9200509,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-009"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation009"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/009"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-009
+- Operation: `rbirelatedpartiesportalOperation009`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/009`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-009: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2fff65d7d5cf495f1a246af29f54835f3cb559d1718c5159e582042f590f7e00,e283f6a0516a8b3a886e74153e47b9d42f0bf39b7d6ed14aca3973a7af0cfcd8,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-009.patch
+CRPP1-RPP-API_REFERENCE-010,controlled/rbi-related-parties-portal-copy,9200510,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_01.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_01.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""RPP-API-010"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation010"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/010"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/010"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-010
+- Operation: `rbirelatedpartiesportalOperation010`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/010`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-010: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/010' u '/api/rbi-related-parties-portal/v2/resources/010' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e79e011f1d77d014af4ef50571a4cb82433bff78662fcbf7aa42f6995adce31e,b6f887339dbcdb0fa1d9b55d49704b3d1c508e12e7d749725d60154601020d2f,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-010.patch
+CRPP1-RPP-API_REFERENCE-011,controlled/rbi-related-parties-portal-copy,9200511,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation011"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/011"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-011
+- Operation: `rbirelatedpartiesportalOperation011`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/011`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-011: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5f84d3eecde79e46c49c5d2098a3a90f41ae566e4fb21129d9a19bc6f3a35a51,d09bdaec674ba3cd4c13a1a43caf31be8700b1b81a060f748471b99b1aca8a7f,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-011.patch
+CRPP1-RPP-API_REFERENCE-012,controlled/rbi-related-parties-portal-copy,9200512,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-013"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-012
+- Operation: `rbirelatedpartiesportalOperation012`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/012`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-012: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b42a49dc040a4b65a8c4ee30681111434fdb2f2936e754e7c6c7ae04f668057f,c1f18345b86468d99f62ef5f9ed3ea5facca54e301a112bed15d5ead1a404db8,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-012.patch
+CRPP1-RPP-API_REFERENCE-013,controlled/rbi-related-parties-portal-copy,9200513,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-013"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation013"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/013"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-013
+- Operation: `rbirelatedpartiesportalOperation013`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/013`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-013: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b8a9439ffa5c29ac5024d87ab5cced8c8216b8f895c5c37ff6f269106cbf80bc,c57edb38934c1222cb4f25bc3f6f412f32f56b178c423577f422990c47394026,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-013.patch
+CRPP1-RPP-API_REFERENCE-014,controlled/rbi-related-parties-portal-copy,9200514,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""RPP-API-014"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation014"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/014"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/014"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-014
+- Operation: `rbirelatedpartiesportalOperation014`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/014`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-014: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/014' u '/api/rbi-related-parties-portal/v2/resources/014' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ebc88e4545bd763991944c269ca86c0c25879e672bf7605f177c871e29c73683,fde3cc35c219fcbff4d3c51d3ba831be7d8d82220967523fbed34008e34944b0,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-014.patch
+CRPP1-RPP-API_REFERENCE-015,controlled/rbi-related-parties-portal-copy,9200515,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation015"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/015"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-015
+- Operation: `rbirelatedpartiesportalOperation015`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/015`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-015: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f75cd0fda16f585054ace3e305cf4772bca565fe10e9af57efac3a9ab0f70e0a,2e40cb2d0455bea864255375cc8b28c6fb0c8adca498d2d3fcb09731fe77d0bb,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-015.patch
+CRPP1-RPP-API_REFERENCE-016,controlled/rbi-related-parties-portal-copy,9200516,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-017"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-016
+- Operation: `rbirelatedpartiesportalOperation016`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/016`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-016: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9574edf346629c5a2514213bf95fde697db57e80cc42c2ccb9270a562a4664f9,53c86f407045837ca5df356c7c1c79d09b715700e66dd14b17e9ca7c34c5f15c,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-016.patch
+CRPP1-RPP-API_REFERENCE-017,controlled/rbi-related-parties-portal-copy,9200517,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-017"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation017"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/017"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-017
+- Operation: `rbirelatedpartiesportalOperation017`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/017`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-017: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,abcaa4ea6911fd9976397b490035dc24c44629719d85f078cb4a7302b32978d0,d80942f5220e2e63f7b054fd66c5136d916f88e97fdd07c0a2a411d565555d5e,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-017.patch
+CRPP1-RPP-API_REFERENCE-018,controlled/rbi-related-parties-portal-copy,9200518,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""RPP-API-018"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation018"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/018"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/018"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-018
+- Operation: `rbirelatedpartiesportalOperation018`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/018`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-018: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/018' u '/api/rbi-related-parties-portal/v2/resources/018' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e60afd198fff698ccd045da7300ec1f1988c532d94c6855013485fb8150b356d,d8278709cc3803aea221f7ecd329b8f5e1ed6bdb7a60ed70b5329f6f6ecd9064,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-018.patch
+CRPP1-RPP-API_REFERENCE-019,controlled/rbi-related-parties-portal-copy,9200519,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation019"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/019"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-019
+- Operation: `rbirelatedpartiesportalOperation019`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/019`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-019: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,67f415677beee88cdb291f1b03c8684ccfe77c106d571c3d91c2217523026c96,b6db368abdb698d1ee988c79d843067a1fcfeabb2430012450fe8a3ce1351c75,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-019.patch
+CRPP1-RPP-API_REFERENCE-020,controlled/rbi-related-parties-portal-copy,9200520,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_02.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_02.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_related_parties_portal"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-020
+- Operation: `rbirelatedpartiesportalOperation020`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/020`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-020: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,52320ef56cc4147bc92bdcf3042c9fcaa4157d3b296f496429452e052b9ff855,49377e1ae4ca666facaa8a9fd4848381d64842b5e36e0618e7495ea828a960ab,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-020.patch
+CRPP1-RPP-API_REFERENCE-021,controlled/rbi-related-parties-portal-copy,9200521,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""RPP-API-021"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation021"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/021"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-021
+- Operation: `rbirelatedpartiesportalOperation021`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/021`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-021: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fa015cb8ceaf20601be361a4aa48257078a7d70002d709383d058b5d1b3b84e9,e45227d465e7f3adef7e465f0941363fdef6282fc664c558c28f0bca31c9d2da,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-021.patch
+CRPP1-RPP-API_REFERENCE-022,controlled/rbi-related-parties-portal-copy,9200522,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""RPP-API-022"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation022"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/022"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/022"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-022
+- Operation: `rbirelatedpartiesportalOperation022`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/022`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-022: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/022' u '/api/rbi-related-parties-portal/v2/resources/022' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c4c47d4e6d2f870f81c4e6e8842be18f1b57ae129023b2a7b3d0759e38829401,09cda88a416dc2bccb452752373d4089042895b8c41c98091b30355d30d2ecdd,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-022.patch
+CRPP1-RPP-API_REFERENCE-023,controlled/rbi-related-parties-portal-copy,9200523,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation023"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/023"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-023
+- Operation: `rbirelatedpartiesportalOperation023`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/023`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-023: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b815c177270263df1b4f9bb351becce9f1c49b7e38e1882e852c77172d31875f,39def59cf8a535f4f414dfecb64889dc17a007566b6d8c13bdf5d1827802ca74,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-023.patch
+CRPP1-RPP-API_REFERENCE-024,controlled/rbi-related-parties-portal-copy,9200524,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-025"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-024
+- Operation: `rbirelatedpartiesportalOperation024`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/024`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-024: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,94f66efb57b0622a985a67d8f12e951985c58244c3edb272ddcc1194c0682b78,764540c4975c6fd96a5d756195b9b26ec608bf4bb89a0043d5da39d500ce7db2,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-024.patch
+CRPP1-RPP-API_REFERENCE-025,controlled/rbi-related-parties-portal-copy,9200525,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-025"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation025"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/025"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-025
+- Operation: `rbirelatedpartiesportalOperation025`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/025`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-025: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e62e5d3fa7357915b5168d7e068340cd3f1bd32079d771cefcb35bce95a3377f,a75826859aa4b4003a309ed2730b8c6d02b1876adfe1cc9b2798c9e2186d77b7,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-025.patch
+CRPP1-RPP-API_REFERENCE-026,controlled/rbi-related-parties-portal-copy,9200526,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""RPP-API-026"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation026"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/026"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/026"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-026
+- Operation: `rbirelatedpartiesportalOperation026`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/026`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-026: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/026' u '/api/rbi-related-parties-portal/v2/resources/026' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3206f899daba5e8d46fb72a1c998482787295f894870013d97e787e616892f18,8c7451681542d6f4510dad4537a28a1abc194e94348a1f7e6740a66496eadf08,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-026.patch
+CRPP1-RPP-API_REFERENCE-027,controlled/rbi-related-parties-portal-copy,9200527,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation027"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/027"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-027
+- Operation: `rbirelatedpartiesportalOperation027`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/027`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-027: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9745d7e2079104f08157da75ec80f15519b7113acaf4387a0ae7939b386c9a2c,87574b1aacb89033a6a816f6d84850a71f9e859918a217e62a6ac55c94e62d6c,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-027.patch
+CRPP1-RPP-API_REFERENCE-028,controlled/rbi-related-parties-portal-copy,9200528,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-029"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-028
+- Operation: `rbirelatedpartiesportalOperation028`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/028`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-028: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a87310f8eb87af155ce6c6947bc8856acda68a158c0480de051cb27e037dc306,34d6384631f81b999d8afa355becb567a925064562967d34cc18ec73a8df6023,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-028.patch
+CRPP1-RPP-API_REFERENCE-029,controlled/rbi-related-parties-portal-copy,9200529,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-029"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation029"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/029"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-029
+- Operation: `rbirelatedpartiesportalOperation029`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/029`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-029: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,67daac820264493ab1e8b548bf8f18262f9b7d16e2f3b53aab4bfa802d165744,0cdd1beab9fcbbfe4192fa4b90286a62264fceb746cba261053f053e8708c48d,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-029.patch
+CRPP1-RPP-API_REFERENCE-030,controlled/rbi-related-parties-portal-copy,9200530,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_03.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_03.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""RPP-API-030"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation030"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/030"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/030"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-030
+- Operation: `rbirelatedpartiesportalOperation030`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/030`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-030: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/030' u '/api/rbi-related-parties-portal/v2/resources/030' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,49833936daa34dbf459444ddd75e3e403f682654563d14ef9129658c444f05be,cb1e72360f81be7bc5d684c9f2d879de40780b9da1df0c2adced72349ccac52b,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-030.patch
+CRPP1-RPP-API_REFERENCE-031,controlled/rbi-related-parties-portal-copy,9200531,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation031"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/031"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-031
+- Operation: `rbirelatedpartiesportalOperation031`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/031`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-031: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,74bc9a6d3831ef72ec918e447e90c9734f80a8f5aa564953c1fa0de8c561d33b,220ecf08175d9f774fe0306499db9f1a7aa1f8a5ebc2b481782da412a2d5c324,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-031.patch
+CRPP1-RPP-API_REFERENCE-032,controlled/rbi-related-parties-portal-copy,9200532,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-033"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-032
+- Operation: `rbirelatedpartiesportalOperation032`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/032`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-032: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c52e146d7bd956c60c1700e56f21d1023471f9301c49914c4744966a45afd7aa,65d5b09d25851cc59f7c37ded3e81ead71ae9efe39b095226000db2977671838,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-032.patch
+CRPP1-RPP-API_REFERENCE-033,controlled/rbi-related-parties-portal-copy,9200533,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-033"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation033"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/033"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-033
+- Operation: `rbirelatedpartiesportalOperation033`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/033`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-033: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e414c13b799a05bde18a57172cdbaa9dfb156135830de11054abb78f5a9d3d08,a6684000b5fca25d0ffaaab957abc2d7b6d0d598afd4e9afe4797cb7e6f4e95c,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-033.patch
+CRPP1-RPP-API_REFERENCE-034,controlled/rbi-related-parties-portal-copy,9200534,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""RPP-API-034"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation034"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/034"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/034"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-034
+- Operation: `rbirelatedpartiesportalOperation034`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/034`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-034: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/034' u '/api/rbi-related-parties-portal/v2/resources/034' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,03402cd63f379348227f129ed680149c819cdfd076682dc04e9bcbf77125c207,47da29da2e27d0e68ee5b1cfa62bd40d0167361805ff56fef7b765babbb32f15,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-034.patch
+CRPP1-RPP-API_REFERENCE-035,controlled/rbi-related-parties-portal-copy,9200535,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation035"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/035"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-035
+- Operation: `rbirelatedpartiesportalOperation035`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/035`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-035: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1fa0bc020a78cf5379351f571c5a2ff7bc2d286b23df6fbdd032af72b4a3bba5,6d8a214327c47365a59a612026809635afa51597581442dc111549627fc41f2e,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-035.patch
+CRPP1-RPP-API_REFERENCE-036,controlled/rbi-related-parties-portal-copy,9200536,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-037"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-036
+- Operation: `rbirelatedpartiesportalOperation036`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/036`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-036: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,af10a42dc0e24c842742437618344ddfa355abf5dde6d860d8d5bb9f405b5ee6,958e4074a67d57995efc08ac67f9a98fa98b99af7e165ab443b59cb258233ce3,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-036.patch
+CRPP1-RPP-API_REFERENCE-037,controlled/rbi-related-parties-portal-copy,9200537,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-037"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation037"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/037"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-037
+- Operation: `rbirelatedpartiesportalOperation037`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/037`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-037: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,139d211b669a2c8f413a86ee649f8bf8a9e7874f039eb1880c925d125c75249f,10434b83cc8dfb0f1284e609cf7e7cb275642e551d72bf6bb2936dd794695b27,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-037.patch
+CRPP1-RPP-API_REFERENCE-038,controlled/rbi-related-parties-portal-copy,9200538,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""RPP-API-038"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation038"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/038"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/038"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-038
+- Operation: `rbirelatedpartiesportalOperation038`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/038`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-038: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/038' u '/api/rbi-related-parties-portal/v2/resources/038' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,285b7717b8eb94f51c586b10d9211c55598a4b2f1cd86474f4ecfe7b1e696be3,58743c4b00f76cdd1f49d59c691cbb550da1c518105555fb00741462c3e33296,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-038.patch
+CRPP1-RPP-API_REFERENCE-039,controlled/rbi-related-parties-portal-copy,9200539,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation039"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/039"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-039
+- Operation: `rbirelatedpartiesportalOperation039`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/039`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-039: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0c0450645e5dce3fe60216353999a1b31a6decc940c332b87d1ea3489e65ed66,3af687f78ef95c8d71b0dafe3fbe4e589dfb26472bdb050b409f8a1c07d6c2cd,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-039.patch
+CRPP1-RPP-API_REFERENCE-040,controlled/rbi-related-parties-portal-copy,9200540,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_04.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_04.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_related_parties_portal"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-040
+- Operation: `rbirelatedpartiesportalOperation040`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/040`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-040: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,606af8a468ede297594dd7a5e4ec469d293f6420f13cc9c9c8dbc80007ec7eb9,ec3f7bdf38c49a7883b0886de92ba7717415eefd9f14967854c75a0dfaae06d9,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-040.patch
+CRPP1-RPP-API_REFERENCE-041,controlled/rbi-related-parties-portal-copy,9200541,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""RPP-API-041"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation041"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/041"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-041
+- Operation: `rbirelatedpartiesportalOperation041`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/041`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-041: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7b42a5be9fe5cee97e2a75b909e8840fa42256bef330dfef58ba0a0be3defbd4,eef41b7bf5314d5e91c5deb0234870aac9fe8ded242ab1423299bf995255adfc,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-041.patch
+CRPP1-RPP-API_REFERENCE-042,controlled/rbi-related-parties-portal-copy,9200542,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""RPP-API-042"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation042"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/042"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/042"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-042
+- Operation: `rbirelatedpartiesportalOperation042`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/042`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-042: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/042' u '/api/rbi-related-parties-portal/v2/resources/042' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,226a1b78cdc7395387ae59871b0594c9a8c33ac7a33f27c463f84cd48a52b9ff,9c5ae68d61997a4b7d2794b421c398d4f5732d071acdb244c2a98128cdcc36be,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-042.patch
+CRPP1-RPP-API_REFERENCE-043,controlled/rbi-related-parties-portal-copy,9200543,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation043"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/043"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-043
+- Operation: `rbirelatedpartiesportalOperation043`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/043`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-043: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f537955755827a7828cc69aba2f2a5bc3de1cc03c008937047309af3eb221f39,127bb5f49e5b15fcf97cfbc13ed865fb3c6f94dbd366f89c6024dfa118b478e0,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-043.patch
+CRPP1-RPP-API_REFERENCE-044,controlled/rbi-related-parties-portal-copy,9200544,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-045"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-044
+- Operation: `rbirelatedpartiesportalOperation044`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/044`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-044: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,96b9b8a4af8f38f1cf17dd7f18dad8436e593f8ccde6e9b7973b5c4d67c6bd5d,ed82e72802896ed0238d4dd4f1ef92fc1d3e5cc933a792161f881f8951a8c66c,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-044.patch
+CRPP1-RPP-API_REFERENCE-045,controlled/rbi-related-parties-portal-copy,9200545,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-045"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation045"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/045"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-045
+- Operation: `rbirelatedpartiesportalOperation045`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/045`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-045: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f73d0313b1e929ccd37a43a94ea089da01cb2a329a3b21a74b76da8ecdf4825c,7bd6e1746ba208c79dda58f89e2580e3ace06f4b8af3bca03a4d505d575a3683,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-045.patch
+CRPP1-RPP-API_REFERENCE-046,controlled/rbi-related-parties-portal-copy,9200546,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""RPP-API-046"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation046"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/046"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/046"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-046
+- Operation: `rbirelatedpartiesportalOperation046`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/046`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-046: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/046' u '/api/rbi-related-parties-portal/v2/resources/046' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,79cd3f1d3e14db4efc712991de8498ede1034a0aeb6d30b267c5e67a2ba6e0ea,e8a7d9390ea96ad3bba81b4fc54a390973c70a3afd8ab88af74e1514ddb4b4a5,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-046.patch
+CRPP1-RPP-API_REFERENCE-047,controlled/rbi-related-parties-portal-copy,9200547,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation047"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/047"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-047
+- Operation: `rbirelatedpartiesportalOperation047`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/047`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-047: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1bef9af5567b531d7b77b507e612d59c48de71aabf368d83a1f68f7adf33e222,dc4325372ed148ddfdb07a9a22effbcc21255b6dfc2d5a532e8174f1517744dc,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-047.patch
+CRPP1-RPP-API_REFERENCE-048,controlled/rbi-related-parties-portal-copy,9200548,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-049"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-048
+- Operation: `rbirelatedpartiesportalOperation048`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/048`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-048: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bd1131ee7f11553b5b45fa7c4fbb89e437250eb6b0d8338d8b2f48a78c72f4a2,2e47c456bad85735fb5886870faea89f3eb92ec8463670e4b69b05166b7349bb,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-048.patch
+CRPP1-RPP-API_REFERENCE-049,controlled/rbi-related-parties-portal-copy,9200549,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-049"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation049"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/049"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-049
+- Operation: `rbirelatedpartiesportalOperation049`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/049`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-049: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b93b23f585d9564de4fb84a3ebcfe4265b20a5441bf4f342d3db9a6d463b6f7f,30348deea89c3ae24697d19e55550042c6fd149e974e912dbba1dc05e1cce915,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-049.patch
+CRPP1-RPP-API_REFERENCE-050,controlled/rbi-related-parties-portal-copy,9200550,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_05.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_05.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""RPP-API-050"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation050"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/050"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/050"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-050
+- Operation: `rbirelatedpartiesportalOperation050`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/050`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-050: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/050' u '/api/rbi-related-parties-portal/v2/resources/050' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,09d7e51bed1c66d5a14ace90380f02304eb90066af9fbace3ccd852b51a7e86e,c96c066dbb929fed0f00db988e6977be89f21b802c44225e619ada728353d75e,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-050.patch
+CRPP1-RPP-API_REFERENCE-051,controlled/rbi-related-parties-portal-copy,9200551,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation051"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/051"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-051
+- Operation: `rbirelatedpartiesportalOperation051`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/051`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-051: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,337400dabb97a8df2f86b4793c7269d70f6656ac4d22a6165d049f84a300d7a6,1b3aeb51b42ba2ff5a9fbf35a0167e8662987545bbfec6c2fed41db540922026,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-051.patch
+CRPP1-RPP-API_REFERENCE-052,controlled/rbi-related-parties-portal-copy,9200552,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-053"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-052
+- Operation: `rbirelatedpartiesportalOperation052`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/052`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-052: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a8fb38eff610700b89561fac9f15cf42a73cfb50809ff52f80e40452a3ee061e,fa6e76362bfebe5eaca5d60556f92579707daec02b367a6a21a11873d28ecb24,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-052.patch
+CRPP1-RPP-API_REFERENCE-053,controlled/rbi-related-parties-portal-copy,9200553,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-053"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation053"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/053"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-053
+- Operation: `rbirelatedpartiesportalOperation053`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/053`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-053: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,93c6e828db3c104bca639e099237db5f49d3abcc316c77215fcacac5656c707d,3ca45139218b5e949231f096a9a368724235430597c5625184cacfe88629431f,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-053.patch
+CRPP1-RPP-API_REFERENCE-054,controlled/rbi-related-parties-portal-copy,9200554,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""RPP-API-054"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation054"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/054"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/054"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-054
+- Operation: `rbirelatedpartiesportalOperation054`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/054`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-054: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/054' u '/api/rbi-related-parties-portal/v2/resources/054' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,227b9fa7f43bda3df0bf413f2b64cdc273aefdd0887af12a6ef99d4996d1f93c,c0f262c4a862dd71a5e572f4de2f7acd8878319473a07d44cdf1e869e09a9d57,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-054.patch
+CRPP1-RPP-API_REFERENCE-055,controlled/rbi-related-parties-portal-copy,9200555,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation055"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/055"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-055
+- Operation: `rbirelatedpartiesportalOperation055`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/055`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-055: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1058b7cf823d6a7b27c34a84561df96c51df3bf824e41a43fa5b8ec2859ab583,985d29ff68c3b8959ab6de3204e57af5b52d12fcaca6f2b37ba0b4f3a1eb2007,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-055.patch
+CRPP1-RPP-API_REFERENCE-056,controlled/rbi-related-parties-portal-copy,9200556,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-057"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-056
+- Operation: `rbirelatedpartiesportalOperation056`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/056`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-056: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,96e939a1216442c5fc2e5da05bcdf3c45a51802e14e310e6e2bf039b7e46ee5f,63f2e902e926aeea925507aaa8f410f1a46a92fa1ab026f68472a51249ca118f,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-056.patch
+CRPP1-RPP-API_REFERENCE-057,controlled/rbi-related-parties-portal-copy,9200557,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-057"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation057"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/057"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-057
+- Operation: `rbirelatedpartiesportalOperation057`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/057`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-057: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b6514099119656ec361ed764f7096c6ae5111d77287eca75b5c84f1efc048bab,57c3ccc1f5363416bb98de9ea41feb77a2d8f7944bc0d352b2610bb858f71d58,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-057.patch
+CRPP1-RPP-API_REFERENCE-058,controlled/rbi-related-parties-portal-copy,9200558,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""RPP-API-058"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation058"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/058"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/058"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-058
+- Operation: `rbirelatedpartiesportalOperation058`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/058`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-058: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/058' u '/api/rbi-related-parties-portal/v2/resources/058' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,54659c1883f1c5b7723e2c2e208ca6f9ed400c51d6e824cfc5ac1f7f91190fac,6269b891941b3367f034af71d098386d459df987e5fc013c09fcaa47820a5c9a,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-058.patch
+CRPP1-RPP-API_REFERENCE-059,controlled/rbi-related-parties-portal-copy,9200559,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation059"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/059"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-059
+- Operation: `rbirelatedpartiesportalOperation059`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/059`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-059: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fc960065050869ac591bff06c01f245c85cbe6fb1b49cb295135a0cf37ee53a9,99a94b44d224f6798b23566d61472d050a5acd2544326d6b03b068fd03099943,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-059.patch
+CRPP1-RPP-API_REFERENCE-060,controlled/rbi-related-parties-portal-copy,9200560,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_06.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_06.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_related_parties_portal"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-060
+- Operation: `rbirelatedpartiesportalOperation060`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/060`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-060: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,62dc91743b4c236e3617003cd61cc983cd4112d4f948f06508de133c9f220ad9,acf18fcb380c59e5f73c2a8f6582b6d20b6e7f1b69f4a97589a6f5a2b9a1d35a,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-060.patch
+CRPP1-RPP-API_REFERENCE-061,controlled/rbi-related-parties-portal-copy,9200561,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""RPP-API-061"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation061"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/061"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-061
+- Operation: `rbirelatedpartiesportalOperation061`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/061`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-061: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,39638f090cd09ee92d60aedaf3691fffc68979eae9c1fa1286b601953d608c53,0093258b3c20b40363eed03234fbb37997783d45acb58c7c0507eb71c98e4cf8,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-061.patch
+CRPP1-RPP-API_REFERENCE-062,controlled/rbi-related-parties-portal-copy,9200562,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""RPP-API-062"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation062"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/062"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/062"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-062
+- Operation: `rbirelatedpartiesportalOperation062`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/062`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-062: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/062' u '/api/rbi-related-parties-portal/v2/resources/062' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fc6c411455c4cd4828751d6901fe12f1079091f55fcefec1469dcd1d87e6c1f2,92fa00728dc51a4e148e403172a2a560944ce48bc05655e84689330ad9e0fd6e,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-062.patch
+CRPP1-RPP-API_REFERENCE-063,controlled/rbi-related-parties-portal-copy,9200563,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation063"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/063"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-063
+- Operation: `rbirelatedpartiesportalOperation063`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/063`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-063: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6bdcf14c220b70ad6fd3638430e561e9f032e43ceebdec1a6691282104443952,923609f74cfb86317f1b436affb329319757fe74f25a5cd210d9b46b17ce7a10,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-063.patch
+CRPP1-RPP-API_REFERENCE-064,controlled/rbi-related-parties-portal-copy,9200564,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-065"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-064
+- Operation: `rbirelatedpartiesportalOperation064`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/064`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-064: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2f0968bfb7cefeb6669cc1691f81322737e5c2fbeb32b29a5306a62283ff21ce,2934b85f07e799fe772303e19afb2ce5510631e2d4a3dac57ce0a4c1bef4d769,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-064.patch
+CRPP1-RPP-API_REFERENCE-065,controlled/rbi-related-parties-portal-copy,9200565,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-065"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation065"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/065"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-065
+- Operation: `rbirelatedpartiesportalOperation065`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/065`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-065: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1a89f09d9f67c0ee6dff466d39accf26f43b6546d71af0d78cf782350cbceb90,3e5c33e2532955934131a6d65f4eae3d55009d6c05e044cea7cf9c3392504be7,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-065.patch
+CRPP1-RPP-API_REFERENCE-066,controlled/rbi-related-parties-portal-copy,9200566,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""RPP-API-066"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation066"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/066"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/066"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-066
+- Operation: `rbirelatedpartiesportalOperation066`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/066`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-066: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/066' u '/api/rbi-related-parties-portal/v2/resources/066' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9818798e2103561a0f79d588620198c88ad72a66d2bb827eac51e08f8cac69aa,42f8242a69b53c91ecb15b6b82d24faec715b1136d8d3943b7e5b469e32e78af,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-066.patch
+CRPP1-RPP-API_REFERENCE-067,controlled/rbi-related-parties-portal-copy,9200567,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation067"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/067"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-067
+- Operation: `rbirelatedpartiesportalOperation067`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/067`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-067: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5b5acd9ba3b4813d65e817b380d93ba7be377eaebce02c5035246d2d1e8cd176,e0b0d485cd278c6003ef21d3fb84850cecee641ea779219a8e5796af7f36732f,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-067.patch
+CRPP1-RPP-API_REFERENCE-068,controlled/rbi-related-parties-portal-copy,9200568,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-069"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-068
+- Operation: `rbirelatedpartiesportalOperation068`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/068`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-068: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2a5e594c684f15d57a9b956cbe808809e474dc7aa1f52861b7dc3f7228a6f233,d10c931fae68c7a6f1899ea56ee662472be8cefd15324619332f31fffdc7d6ce,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-068.patch
+CRPP1-RPP-API_REFERENCE-069,controlled/rbi-related-parties-portal-copy,9200569,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-069"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation069"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/069"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-069
+- Operation: `rbirelatedpartiesportalOperation069`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/069`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-069: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8cc6cef54dc22ecc9c108c4cd691693cf8305b95572f531e877a407d7569291e,e550408d225d02a70731919770ee013f8f1c6cbab8c150673db6fedcc6808c48,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-069.patch
+CRPP1-RPP-API_REFERENCE-070,controlled/rbi-related-parties-portal-copy,9200570,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_07.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_07.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""RPP-API-070"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation070"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/070"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/070"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-070
+- Operation: `rbirelatedpartiesportalOperation070`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/070`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-070: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/070' u '/api/rbi-related-parties-portal/v2/resources/070' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a896e851656f7005a8f8854190f7473d2e3bd76132f7ec6c9a67d26a66f1210c,cb0558b5025b1fece61f1aea8f41b31aefacc7020f1878d3674444a91937622a,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-070.patch
+CRPP1-RPP-API_REFERENCE-071,controlled/rbi-related-parties-portal-copy,9200571,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation071"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/071"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-071
+- Operation: `rbirelatedpartiesportalOperation071`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/071`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-071: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8b91b1f8461d6538396e3336995ac4091bb767c581903e274f2b86404da2a64b,1a1e7bef107239d3bd0d5309fa40095bc557893f26a055a204bd27e3f4851f04,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-071.patch
+CRPP1-RPP-API_REFERENCE-072,controlled/rbi-related-parties-portal-copy,9200572,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-073"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-072
+- Operation: `rbirelatedpartiesportalOperation072`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/072`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-072: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6d36aafa3c4e56efcca3bd3c97a9e86122f27c1934c7747cb431840bae0037b2,4a79a05d9c45585c8de2261da9447bacc77104c5fae253c30803cba44a44329a,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-072.patch
+CRPP1-RPP-API_REFERENCE-073,controlled/rbi-related-parties-portal-copy,9200573,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-073"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation073"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/073"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-073
+- Operation: `rbirelatedpartiesportalOperation073`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/073`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-073: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6ca57f40624546aecc65e668a6890d792ce1068f30fe601189eb7ec6ea067b1e,f008866ed9291432e82cd21e70c20104114f782b1b12fe7c40e5466d2502ae7a,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-073.patch
+CRPP1-RPP-API_REFERENCE-074,controlled/rbi-related-parties-portal-copy,9200574,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""RPP-API-074"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation074"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/074"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/074"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-074
+- Operation: `rbirelatedpartiesportalOperation074`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/074`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-074: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/074' u '/api/rbi-related-parties-portal/v2/resources/074' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,96843ee42995e5cb169b6db5628dcb3d6e91883af570a52efaa05ecf5f8c0a85,287fa9c8aec941d1899ee88adf3a4eb3e88469ef7814715d9c555425c49733aa,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-074.patch
+CRPP1-RPP-API_REFERENCE-075,controlled/rbi-related-parties-portal-copy,9200575,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation075"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/075"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-075
+- Operation: `rbirelatedpartiesportalOperation075`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/075`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-075: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8e4830da99bb67f84aec0b675cbcade5926d302524b39b327ff673e4550e7353,533dc6bc2f2e361c50fab3356d09dbf78e284cd4620e9333e4d13d2126a4f2a7,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-075.patch
+CRPP1-RPP-API_REFERENCE-076,controlled/rbi-related-parties-portal-copy,9200576,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-077"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-076
+- Operation: `rbirelatedpartiesportalOperation076`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/076`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-076: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d838d6271dea6ead125147af5cbf0aef2fae7d601548ba3a711d53899e375c94,626961a62b053b042e4d457f5d36dab1fffbf946d93736441cf9ab5512f5e4b8,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-076.patch
+CRPP1-RPP-API_REFERENCE-077,controlled/rbi-related-parties-portal-copy,9200577,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-077"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation077"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/077"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-077
+- Operation: `rbirelatedpartiesportalOperation077`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/077`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-077: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,96c8357e83d14502cd2e43089604189a7afa09f60c9a8dc9e2ed9e176ae4852c,5baf4853c38e02803a3513e77536ed01d0029513d23bfe194fc0cc2f33291786,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-077.patch
+CRPP1-RPP-API_REFERENCE-078,controlled/rbi-related-parties-portal-copy,9200578,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""RPP-API-078"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation078"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/078"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/078"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-078
+- Operation: `rbirelatedpartiesportalOperation078`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/078`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-078: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/078' u '/api/rbi-related-parties-portal/v2/resources/078' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e08448a403d4f38667426bd08280c7e5c4dceac795266941f63e3db3136c6aac,b44502762ca71b7010382134061bc37dff6494217ce8292f82742f977c7328c0,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-078.patch
+CRPP1-RPP-API_REFERENCE-079,controlled/rbi-related-parties-portal-copy,9200579,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation079"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/079"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-079
+- Operation: `rbirelatedpartiesportalOperation079`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/079`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-079: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,29c38e1ff5b1941da471f67dd65e30a31420d5588de6b7f19f098e2b4a6054a1,f379f8021a862109be914b32d7793d370ac3bfaafc839dab33a8587943308f9a,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-079.patch
+CRPP1-RPP-API_REFERENCE-080,controlled/rbi-related-parties-portal-copy,9200580,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_08.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_08.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_related_parties_portal"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-080
+- Operation: `rbirelatedpartiesportalOperation080`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/080`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-080: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2ce199af94a195f520ea62cedb5f1cba74fe533afed4ae535d37cdfb36ccbcad,63dc11dfbda4abcfa06e10f323af414735bfd9bd27f888b33b25c4ff88730351,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-080.patch
+CRPP1-RPP-API_REFERENCE-081,controlled/rbi-related-parties-portal-copy,9200581,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
+@@ -3,7 +3,7 @@
+   ""contracts"": [
+     {
+       ""contractId"": ""RPP-API-081"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation081"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/081"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-081
+- Operation: `rbirelatedpartiesportalOperation081`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/081`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-081: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,97ef159b585ef0fd22df13dbad659cb3de82a6745987984ab55e584236d2ceec,8e83ec06601f144e41cd93215c2645ca86fad04af8a1d689b022c52fedb965cd,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-081.patch
+CRPP1-RPP-API_REFERENCE-082,controlled/rbi-related-parties-portal-copy,9200582,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
+@@ -15,7 +15,7 @@
+       ""contractId"": ""RPP-API-082"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation082"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/082"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/082"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-082
+- Operation: `rbirelatedpartiesportalOperation082`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/082`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-082: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/082' u '/api/rbi-related-parties-portal/v2/resources/082' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7bee5fdffe631e1d3cf1d7eaa3dd2d68d5596ecf7e8499125dac5eec872895c2,ed2a84d86b845053d56a66fdff766a9ff4dfc47fd0f23ea31fd87ee57aa04465,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-082.patch
+CRPP1-RPP-API_REFERENCE-083,controlled/rbi-related-parties-portal-copy,9200583,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
+@@ -27,7 +27,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation083"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/083"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-083
+- Operation: `rbirelatedpartiesportalOperation083`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/083`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-083: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0569a4baf541bb8e36eb4748a5b192b5aad9502ac701f8cbdcfa2368f61c6d31,2a27dbfd8b8ed204ee31683e2a282ace505ce403a798b3bf40c2a6417019331b,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-083.patch
+CRPP1-RPP-API_REFERENCE-084,controlled/rbi-related-parties-portal-copy,9200584,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
+@@ -39,7 +39,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-085"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-084
+- Operation: `rbirelatedpartiesportalOperation084`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/084`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-084: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1137bc917585c7fe054815e715a20a68eddf71c78168d65f30fe4d98d9ae7525,5037829a33ec8de4c8a6b61ba5c16a50487fa210d57959793e2366d077646b36,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-084.patch
+CRPP1-RPP-API_REFERENCE-085,controlled/rbi-related-parties-portal-copy,9200585,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-085"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation085"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/085"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-085
+- Operation: `rbirelatedpartiesportalOperation085`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/085`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-085: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3d7dfdcd384a3cd819f1beddb267c318d3a211fb8dff4ec33b98672187e9bd12,7ab8c752c542020259127bb0e48b90e52cb3b57953e11e1107a55e2a188fa7ae,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-085.patch
+CRPP1-RPP-API_REFERENCE-086,controlled/rbi-related-parties-portal-copy,9200586,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
+@@ -55,7 +55,7 @@
+       ""contractId"": ""RPP-API-086"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation086"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/086"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/086"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-086
+- Operation: `rbirelatedpartiesportalOperation086`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/086`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-086: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/086' u '/api/rbi-related-parties-portal/v2/resources/086' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c845161b25992c9238ec1af357a47478ea5eaa94b88b2f2d1f09965ed651d563,b032b4459652bea27ad55f7082ea503d55b94d620f4e4e4dc8ecbcf1a972862d,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-086.patch
+CRPP1-RPP-API_REFERENCE-087,controlled/rbi-related-parties-portal-copy,9200587,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
+@@ -67,7 +67,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation087"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/087"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-087
+- Operation: `rbirelatedpartiesportalOperation087`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/087`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-087: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4f805d35acec74f817c6a823bf448f1a26d90d3166204fc8dbd980ee09d4d8cd,eac01a93bc335a8fa53da1a930c7137a13478d86007b8714d2d094dcacc77e5d,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-087.patch
+CRPP1-RPP-API_REFERENCE-088,controlled/rbi-related-parties-portal-copy,9200588,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
+@@ -79,7 +79,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-089"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-088
+- Operation: `rbirelatedpartiesportalOperation088`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/088`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-088: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bfcb122e9c924db5bd32e18bfcb62fc76366c4131379cebb83023e103025e1cb,e80c665ee3f251abccd007e54601e55b9ed7766f453f4c2388b21aeeea244547,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-088.patch
+CRPP1-RPP-API_REFERENCE-089,controlled/rbi-related-parties-portal-copy,9200589,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
+@@ -83,7 +83,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-089"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation089"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/089"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-089
+- Operation: `rbirelatedpartiesportalOperation089`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/089`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-089: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5689ce87dd5ac8f1738359c6fa2302597b260be1f9747083d10e8158096a3359,95dd42ff8a3ba7f24af2e164ae05faf087d4260704e5c206f2fc6f10c709ad49,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-089.patch
+CRPP1-RPP-API_REFERENCE-090,controlled/rbi-related-parties-portal-copy,9200590,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_09.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_09.json
+@@ -95,7 +95,7 @@
+       ""contractId"": ""RPP-API-090"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation090"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/090"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/090"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-090
+- Operation: `rbirelatedpartiesportalOperation090`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/090`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-090: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/090' u '/api/rbi-related-parties-portal/v2/resources/090' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4162f614ae279d6d986d907cee078c5e5f33929878b1637e13b9bbb8a96f2114,e9baeef348151be5167f044fe8d35cd5aaaf33f679211fdb3692b4d66d251089,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-090.patch
+CRPP1-RPP-API_REFERENCE-091,controlled/rbi-related-parties-portal-copy,9200591,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
+@@ -7,7 +7,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation091"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/091"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-091
+- Operation: `rbirelatedpartiesportalOperation091`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/091`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-091: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b073c4c51479472d6b8324f63eb87c168a8dd61f5f52c0f35e36ff3b8b4b8a0e,2d4642ba83f3164a71ae3a9de3bb6b49d289309963026902ca1c095d8bbf4f04,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-091.patch
+CRPP1-RPP-API_REFERENCE-092,controlled/rbi-related-parties-portal-copy,9200592,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
+@@ -19,7 +19,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-093"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-092
+- Operation: `rbirelatedpartiesportalOperation092`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/092`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-092: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2abc6d780eb76ffc7398cb866667b9e48de269874e0b92b9c14926a623c9719e,19f5bcd4a70123e851a8a8bc4cf39df3b91f4863c2c00c2a2d0a9185c946020d,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-092.patch
+CRPP1-RPP-API_REFERENCE-093,controlled/rbi-related-parties-portal-copy,9200593,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
+@@ -23,7 +23,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-093"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation093"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/093"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-093
+- Operation: `rbirelatedpartiesportalOperation093`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/093`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-093: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,edfd15be615689659cd565c05f4acb4f1704e7b87ee14c2f78679f911c5e7328,e5b853a9aa8a302115775e518f2face3671a897360c7a4d4ab715e26f6264df0,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-093.patch
+CRPP1-RPP-API_REFERENCE-094,controlled/rbi-related-parties-portal-copy,9200594,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
+@@ -35,7 +35,7 @@
+       ""contractId"": ""RPP-API-094"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation094"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/094"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/094"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-094
+- Operation: `rbirelatedpartiesportalOperation094`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/094`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-094: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/094' u '/api/rbi-related-parties-portal/v2/resources/094' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c0adf7ef45676c3b1c8892004f5af07db69ecaefdcbded4d23823a34f1f74daf,5fa48dddad13e6c3888e37e5fea07aab2b9eb8cd3bcb1137c1325fe90636e980,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-094.patch
+CRPP1-RPP-API_REFERENCE-095,controlled/rbi-related-parties-portal-copy,9200595,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
+@@ -47,7 +47,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation095"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/095"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-095
+- Operation: `rbirelatedpartiesportalOperation095`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/095`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-095: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,22652deef6c421941d82f40cfd74f8edce3476af78500ebf929647be5126df60,83ef71362499955a6c5841d71606f607c55f1b8c28ca8642901112189942ae6c,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-095.patch
+CRPP1-RPP-API_REFERENCE-096,controlled/rbi-related-parties-portal-copy,9200596,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
+@@ -59,7 +59,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     },
+     {
+       ""contractId"": ""RPP-API-097"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-096
+- Operation: `rbirelatedpartiesportalOperation096`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/096`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-096: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2c05b27ec0cc675705ff8af36a69b02fb471ca56b7a148312764935829b9e84b,469617f752cafd5f33126033467f50a5abebfc7db1beb58a0c6711c1dc08a7c6,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-096.patch
+CRPP1-RPP-API_REFERENCE-097,controlled/rbi-related-parties-portal-copy,9200597,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
+@@ -63,7 +63,7 @@
+     },
+     {
+       ""contractId"": ""RPP-API-097"",
+-      ""method"": ""POST"",
++      ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation097"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/097"",
+       ""requiredQuery"": [
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-097
+- Operation: `rbirelatedpartiesportalOperation097`
+- Public endpoint: `POST /api/rbi-related-parties-portal/v1/resources/097`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-097: kod mijenja javni API ugovor iz 'POST' u 'PUT' (http_method_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,599c07e01bc8f1ce2a7c6871d406f10cb229d4b1d3318f7af3676441221fd3b9,228a4dcae77b9c8fc315806b053a1b2e87c40e10abf38be96134f671f7348032,api_reference,rbi_related_parties_portal,http_method_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-097.patch
+CRPP1-RPP-API_REFERENCE-098,controlled/rbi-related-parties-portal-copy,9200598,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
+@@ -75,7 +75,7 @@
+       ""contractId"": ""RPP-API-098"",
+       ""method"": ""PUT"",
+       ""operationId"": ""rbirelatedpartiesportalOperation098"",
+-      ""path"": ""/api/rbi-related-parties-portal/v1/resources/098"",
++      ""path"": ""/api/rbi-related-parties-portal/v2/resources/098"",
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-098
+- Operation: `rbirelatedpartiesportalOperation098`
+- Public endpoint: `PUT /api/rbi-related-parties-portal/v1/resources/098`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-098: kod mijenja javni API ugovor iz '/api/rbi-related-parties-portal/v1/resources/098' u '/api/rbi-related-parties-portal/v2/resources/098' (endpoint_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,330a3e41fa4b84abe4fe4fa6e1573ccecdb05c83b32676cdb677520dcf4347e4,7d15cc1680d39a7ddcf3e56db12ce2c72fc525869786dc1186114ecf520cc623,api_reference,rbi_related_parties_portal,endpoint_version_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-098.patch
+CRPP1-RPP-API_REFERENCE-099,controlled/rbi-related-parties-portal-copy,9200599,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
+@@ -87,7 +87,8 @@
+       ""operationId"": ""rbirelatedpartiesportalOperation099"",
+       ""path"": ""/api/rbi-related-parties-portal/v1/resources/099"",
+       ""requiredQuery"": [
+-        ""tenantId""
++        ""tenantId"",
++        ""includeAudit""
+       ],
+       ""successStatus"": 200
+     },
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-099
+- Operation: `rbirelatedpartiesportalOperation099`
+- Public endpoint: `DELETE /api/rbi-related-parties-portal/v1/resources/099`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-099: kod mijenja javni API ugovor iz 'tenantId' u 'tenantId, includeAudit' (required_parameter_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,81206bdb68bc09d00f8e8546842b735ea6da146a6664674f4b5b007de116c8e3,d45bee7ed30118ff48f66c28651d84da6b59c6c1af9a92927f4f641963c0fa90,api_reference,rbi_related_parties_portal,required_parameter_added,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-099.patch
+CRPP1-RPP-API_REFERENCE-100,controlled/rbi-related-parties-portal-copy,9200600,typescript,"[""src/Web/src/docguard-contract-lab/api_reference/contracts_10.json""]","--- a/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
++++ b/src/Web/src/docguard-contract-lab/api_reference/contracts_10.json
+@@ -99,7 +99,7 @@
+       ""requiredQuery"": [
+         ""tenantId""
+       ],
+-      ""successStatus"": 200
++      ""successStatus"": 202
+     }
+   ],
+   ""project"": ""rbi_related_parties_portal"",
+","<!-- docs/docguard-contract-lab/API_REFERENCE.md @ controlled-baseline:119f3e449be4f845 -->
+### RPP-API-100
+- Operation: `rbirelatedpartiesportalOperation100`
+- Public endpoint: `GET /api/rbi-related-parties-portal/v1/resources/100`
+- Required query parameters: `tenantId`
+- Success response status: `200`
+",True,api_reference,Controlled design expectation: api_reference; independent human/owner acceptance still required before merge.,True,api_reference,"RPP-API-100: kod mijenja javni API ugovor iz '200' u '202' (success_status_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3535578b0a225338d7eaa5511bc2659ac7a687d1a1c2e06a13663cba4369be57,4b3027ebd8d1d5d6f9ee86aeff5a172af6efde9552250fce553594c7d427a2fe,api_reference,rbi_related_parties_portal,success_status_change,cases/patches/rbi_related_parties_portal/api_reference/RPP-API-100.patch

@@ -1,0 +1,250 @@
+@* ============================================================
+   SifarnikVrijednostDialog — Forma za dodavanje/uređivanje
+   vrijednosti šifarnika. Otvara se kao MudBlazor modal dialog.
+
+   Upotreba iz roditeljske stranice:
+     var parameters = new DialogParameters
+     {
+         [nameof(SifarnikVrijednostDialog.KategorijaId)]      = kategorijaId,
+         [nameof(SifarnikVrijednostDialog.ExistingVrijednost)] = null,  // null = create
+     };
+     var dialog = await DialogService.ShowAsync<SifarnikVrijednostDialog>("Dodaj vrijednost", parameters, options);
+     var result = await dialog.Result;
+     if (!result.Canceled) // reload parent
+
+   Create mode:  ExistingVrijednost = null
+   Edit mode:    ExistingVrijednost = <postojeći DTO>
+   ============================================================ *@
+
+@inject ISifarnikService SifarnikSvc
+@inject IUserContext UserCtx
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            @(_isEditMode ? $"Uredi: {ExistingVrijednost!.Naziv}" : "Nova vrijednost")
+        </MudText>
+    </TitleContent>
+
+    <DialogContent>
+        <MudForm @ref="_form" @bind-IsValid="_isFormValid">
+
+            <MudTextField @bind-Value="_naziv"
+                          Label="Naziv"
+                          Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="Naziv je obavezan."
+                          Validation="@((Func<string, string?>)ValidateNaziv)"
+                          Immediate="true"
+                          @oninput="@OnNazivChanged"
+                          Class="mb-3" />
+
+            <MudTextField @bind-Value="_kod"
+                          Label="Kod (kratka oznaka)"
+                          Variant="Variant.Outlined"
+                          HelperText="Automatski generisan iz naziva. Možete urediti ručno."
+                          Validation="@((Func<string, string?>)ValidateKod)"
+                          Immediate="true"
+                          Class="mb-3" />
+
+            <MudNumericField @bind-Value="_redoslijed"
+                             Label="Redoslijed prikaza"
+                             Variant="Variant.Outlined"
+                             Min="0"
+                             Max="9999"
+                             HelperText="Niži broj = prikazuje se ranije."
+                             Class="mb-3" />
+
+            <MudSwitch @bind-Value="_active"
+                       Label="@(_active ? "Aktivno" : "Neaktivno")"
+                       Color="Color.Success"
+                       Class="mb-2" />
+
+        </MudForm>
+
+        <ErrorAlert Message="@_errorMessage" />
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="@Cancel"
+                   Variant="Variant.Text"
+                   Disabled="@_isSaving">
+            Odustani
+        </MudButton>
+        <LoadingButton Text="Sačuvaj"
+                       IsLoading="@_isSaving"
+                       Disabled="@(!_isFormValid)"
+                       OnClick="@HandleSave"
+                       Color="Color.Primary" />
+    </DialogActions>
+</MudDialog>
+
+@code {
+    // ── Parametri ─────────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// ID kategorije u kojoj se kreira/uređuje vrijednost.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public Guid KategorijaId { get; set; }
+
+    /// <summary>
+    /// null = create mode, postojeći DTO = edit mode.
+    /// </summary>
+    [Parameter]
+    public SifarnikVrijednostDto? ExistingVrijednost { get; set; }
+
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    // ── State ─────────────────────────────────────────────────────────────────
+
+    private MudForm _form = default!;
+    private bool _isFormValid;
+    private bool _isSaving;
+    private string? _errorMessage;
+
+    private string _naziv      = string.Empty;
+    private string _kod        = string.Empty;
+    private int    _redoslijed = 0;
+    private bool   _active     = true;
+
+    private bool _isEditMode   => ExistingVrijednost is not null;
+    // Čuvamo originalni naziv za duplikat-provjeru u edit modu
+    private string _originalNaziv = string.Empty;
+
+    // ── Lifecycle ─────────────────────────────────────────────────────────────
+
+    protected override void OnParametersSet()
+    {
+        if (_isEditMode)
+        {
+            _naziv         = ExistingVrijednost!.Naziv;
+            _kod           = ExistingVrijednost.Kod ?? string.Empty;
+            _redoslijed    = ExistingVrijednost.Redoslijed;
+            _active        = ExistingVrijednost.Active;
+            _originalNaziv = ExistingVrijednost.Naziv;
+        }
+    }
+
+    // ── Auto-generisanje koda iz naziva ──────────────────────────────────────
+
+    private void OnNazivChanged(ChangeEventArgs e)
+    {
+        // Auto-generiši kod samo u create modu ili ako je kod još uvijek prazno/auto
+        if (!_isEditMode || string.IsNullOrWhiteSpace(_kod))
+        {
+            _kod = GenerateKod(e.Value?.ToString() ?? string.Empty);
+        }
+    }
+
+    private static string GenerateKod(string naziv)
+    {
+        if (string.IsNullOrWhiteSpace(naziv)) return string.Empty;
+
+        // "Osnov povezanosti" → "OSNOV_POV"
+        var words = naziv
+            .ToUpperInvariant()
+            .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+        var prefix = words.Length == 1
+            ? naziv.ToUpperInvariant()[..Math.Min(6, naziv.Length)]
+            : string.Join("_", words.Select(w => w[..Math.Min(4, w.Length)]));
+
+        // Ukloni sve znakove osim A-Z, 0-9, _
+        return new string(prefix.Where(c => char.IsLetterOrDigit(c) || c == '_').ToArray());
+    }
+
+    // ── Validacija ────────────────────────────────────────────────────────────
+
+    private string? ValidateNaziv(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return "Naziv je obavezan.";
+        if (value.Trim().Length < 2)
+            return "Naziv mora imati najmanje 2 znaka.";
+        if (value.Length > 200)
+            return "Naziv može imati najviše 200 znakova.";
+        return null;
+    }
+
+    private string? ValidateKod(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return null; // Kod nije obavezan
+
+        if (value.Length > 50)
+            return "Kod može imati najviše 50 znakova.";
+
+        // Dozvoljeni znakovi: slova, brojevi, donja crta, crtica
+        if (!System.Text.RegularExpressions.Regex.IsMatch(value, @"^[A-Za-z0-9_\-]+$"))
+            return "Kod smije sadržavati samo slova, brojeve, _ i -.";
+
+        return null;
+    }
+
+    // ── Save ──────────────────────────────────────────────────────────────────
+
+    private async Task HandleSave()
+    {
+        await _form.Validate();
+        if (!_isFormValid) return;
+
+        _isSaving     = true;
+        _errorMessage = null;
+
+        try
+        {
+            if (_isEditMode)
+            {
+                var request = new UpdateSifarnikVrijednostRequest(
+                    Naziv:      _naziv.Trim(),
+                    Kod:        string.IsNullOrWhiteSpace(_kod) ? null : _kod.Trim(),
+                    Redoslijed: _redoslijed,
+                    Active:     _active);
+
+                await SifarnikSvc.UpdateVrijednostAsync(
+                    ExistingVrijednost!.Id,
+                    request,
+                    UserCtx.UserId,
+                    UserCtx.FullName);
+
+                Snackbar.Add($"Vrijednost \"{_naziv.Trim()}\" ažurirana.", Severity.Success);
+            }
+            else
+            {
+                var request = new CreateSifarnikVrijednostRequest(
+                    KategorijaId: KategorijaId,
+                    Naziv:        _naziv.Trim(),
+                    Kod:          string.IsNullOrWhiteSpace(_kod) ? null : _kod.Trim(),
+                    Redoslijed:   _redoslijed,
+                    Active:       _active);
+
+                await SifarnikSvc.CreateVrijednostAsync(
+                    request,
+                    UserCtx.UserId,
+                    UserCtx.FullName);
+
+                Snackbar.Add($"Vrijednost \"{_naziv.Trim()}\" kreirana.", Severity.Success);
+            }
+
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (InvalidOperationException ex)
+        {
+            // Npr. duplikat naziva — prikazati korisniku
+            _errorMessage = ex.Message;
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"Greška pri snimanju: {ex.Message}";
+        }
+        finally
+        {
+            _isSaving = false;
+        }
+    }
+
+    private void Cancel() => MudDialog.Cancel();
+}

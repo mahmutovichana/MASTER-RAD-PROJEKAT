@@ -1,0 +1,25 @@
+@page "/greska-prijave"
+@layout MainLayout
+@attribute [AllowAnonymous]
+
+<PageTitle>Greška pri prijavi</PageTitle>
+
+<MudPaper Class="rbi-paper access-denied-card" Elevation="2">
+    <MudIcon Icon="@Icons.Material.Filled.ErrorOutline"
+             Size="Size.Large"
+             Color="Color.Error"
+             Class="mb-3" />
+
+    <MudText Typo="Typo.h4" Class="mb-2">Prijava nije uspjela</MudText>
+
+    <MudText Typo="Typo.body1" Class="mb-4">
+        @AuthErrorMessages.LoginFailed
+    </MudText>
+
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               StartIcon="@Icons.Material.Filled.Login"
+               Href="/authentication/login">
+        Pokušaj ponovo
+    </MudButton>
+</MudPaper>

@@ -1,0 +1,1901 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-TFG-DEVELOPER_SETUP-001,controlled/rbi-test-forge-copy,9201201,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-001"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-002"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-001
+- Profile: `developer-profile-001`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 001`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 001`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-001: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,43205019036bf1ce8061bde8c2359dee58242f0f99919e835712e1286a87aebf,99b54fdc4bb3fdc2d201b5b875474ec1bc6fd8e368b3f9c75455424b3e50cc4b,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-001.patch
+CRPP1-TFG-DEVELOPER_SETUP-002,controlled/rbi-test-forge-copy,9201202,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-002"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 002"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 002 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 002"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-002"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-002
+- Profile: `developer-profile-002`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 002`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 002`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-002: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 002' u 'dotnet run --project TestGenerator -- --profile 002 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,893403d564738d3b5f35be2ee43fe1ac90dc0c2e5f2f2a06b05325e5a6329674,beabe53ce175ad8743750cc3c99fcefb35cda9820a402a92aaa89621e9d70453,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-002.patch
+CRPP1-TFG-DEVELOPER_SETUP-003,controlled/rbi-test-forge-copy,9201203,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""TFG-SETUP-003"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 003"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 003"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-003"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-003
+- Profile: `developer-profile-003`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 003`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 003`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-003: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,665bf5587d5229e9d10d08087b6752516b73710ac37d7e7a4afe27e0744d96b6,e24a3443f902daec5e9b2c5bf893f8da3595344f70ddf7cf7c9defc3e305cd51,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-003.patch
+CRPP1-TFG-DEVELOPER_SETUP-004,controlled/rbi-test-forge-copy,9201204,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-004"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 004"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 004"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 004 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-004"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-004
+- Profile: `developer-profile-004`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 004`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 004`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-004: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 004' u 'dotnet ef database update --project TestGenerator --profile 004 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e04b37e4f0f0badb7f5b2685899e5127fe8ea4da133cca7e30ce9a8aa44d55a5,3d353064cc5682186357dfd27b0d06e0dce052aaa8627b639b3211de4cd003f7,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-004.patch
+CRPP1-TFG-DEVELOPER_SETUP-005,controlled/rbi-test-forge-copy,9201205,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-005"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-006"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-005
+- Profile: `developer-profile-005`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 005`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 005`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-005: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,49affd73c3831a2dd3ed47d245208e21faaaec358408798e4d26e7863955307a,7f5d3b6789379950596ab51c6a559f5b79d4c2e0ece95ecd7bc9eddaf885e0ce,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-005.patch
+CRPP1-TFG-DEVELOPER_SETUP-006,controlled/rbi-test-forge-copy,9201206,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-006"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 006"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 006 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 006"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-006"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-006
+- Profile: `developer-profile-006`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 006`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 006`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-006: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 006' u 'dotnet run --project TestGenerator -- --profile 006 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e7c1554a5fa4ed1b00041a64e006859330e30a91f83c4b43897e99908369e9e8,f9b82900a037b5b216d001e47d0264afb1de5ca0a530ad2e7d6986af84bc3ddb,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-006.patch
+CRPP1-TFG-DEVELOPER_SETUP-007,controlled/rbi-test-forge-copy,9201207,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""TFG-SETUP-007"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 007"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 007"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-007"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-007
+- Profile: `developer-profile-007`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 007`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 007`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-007: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fc1e4f84f40d64613b111c9645bfe6ad0122b4303f8360797a0f1e2070237060,1347858bf37ddb3a9205c12605f558fbdeef950c446767952477cd7a7cf6314a,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-007.patch
+CRPP1-TFG-DEVELOPER_SETUP-008,controlled/rbi-test-forge-copy,9201208,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-008"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 008"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 008"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 008 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-008"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-008
+- Profile: `developer-profile-008`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 008`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 008`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-008: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 008' u 'dotnet ef database update --project TestGenerator --profile 008 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1e1793ad1f29db5592548837b8199bb9558e94cbc264f54ff64d87ced7677c06,1dc8d20adc44f1e18851fdd34be9239907547b6e59de8cb27e9030dfa77e91a4,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-008.patch
+CRPP1-TFG-DEVELOPER_SETUP-009,controlled/rbi-test-forge-copy,9201209,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-009"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-010"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-009
+- Profile: `developer-profile-009`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 009`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 009`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-009: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dd6f022bcd1beb109d865443659907b21754ccaa115383d5508d53e072e8d652,f5a0ceeda19a601d62c981c48cff61c9d9ee3f740eb90aee15bdadcbd0ab4a31,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-009.patch
+CRPP1-TFG-DEVELOPER_SETUP-010,controlled/rbi-test-forge-copy,9201210,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_01.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-010"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 010"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 010 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 010"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-010"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-010
+- Profile: `developer-profile-010`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 010`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 010`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-010: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 010' u 'dotnet run --project TestGenerator -- --profile 010 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ac5b129dad555b9fd0460d0335b628ee18d4e314f3e053a30b32e3d6a6ac296e,3ec874a9a22a4ef358849f921587e524f65811a5811731e61e3e2ef126c103f9,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-010.patch
+CRPP1-TFG-DEVELOPER_SETUP-011,controlled/rbi-test-forge-copy,9201211,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""TFG-SETUP-011"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 011"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 011"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-011"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-011
+- Profile: `developer-profile-011`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 011`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 011`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-011: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,24b86e87d954482d16a1b896673dbce175d81e74a66cab366d15fd199fb73890,314cd59bac658e159fdf93dc186e4204345ca5a5d58898bba497fa37ac61ffa3,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-011.patch
+CRPP1-TFG-DEVELOPER_SETUP-012,controlled/rbi-test-forge-copy,9201212,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-012"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 012"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 012"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 012 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-012"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-012
+- Profile: `developer-profile-012`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 012`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 012`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-012: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 012' u 'dotnet ef database update --project TestGenerator --profile 012 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d39e0c33811126831258a27d21fe5c027e7e9cfe822073e2c36e421d823061ba,723c463a85bb4eca172062499b51ab9c6c2c861a16d7db01ae12a12f525a12e9,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-012.patch
+CRPP1-TFG-DEVELOPER_SETUP-013,controlled/rbi-test-forge-copy,9201213,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-013"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-014"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-013
+- Profile: `developer-profile-013`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 013`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 013`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-013: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b44f8252d2185d54893eea56154faf995cdbbf93b962e092f0b0a74c14e685fa,ce758bf2133a5190ccc4db39a205a15e294176821592fdc39cf58f5d47a52cff,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-013.patch
+CRPP1-TFG-DEVELOPER_SETUP-014,controlled/rbi-test-forge-copy,9201214,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-014"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 014"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 014 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 014"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-014"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-014
+- Profile: `developer-profile-014`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 014`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 014`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-014: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 014' u 'dotnet run --project TestGenerator -- --profile 014 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0af58f192999bc9a54c40702e1b161cf8ad35f9ed05454adef4631c1d218c771,1da8a21b576d2e3b08580cd28f2f596151cad12fc57b40129b8afb55584be2e5,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-014.patch
+CRPP1-TFG-DEVELOPER_SETUP-015,controlled/rbi-test-forge-copy,9201215,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""TFG-SETUP-015"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 015"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 015"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-015"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-015
+- Profile: `developer-profile-015`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 015`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 015`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-015: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2c2d0ad4785f25ea444b41994ea1d21d974ab002090d9e6c1ce89fe14ecb735a,2cdbd8bc49e6338205450fa970e43918390bd2e187589a48bea5aeffbfae5e49,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-015.patch
+CRPP1-TFG-DEVELOPER_SETUP-016,controlled/rbi-test-forge-copy,9201216,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-016"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 016"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 016"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 016 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-016"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-016
+- Profile: `developer-profile-016`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 016`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 016`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-016: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 016' u 'dotnet ef database update --project TestGenerator --profile 016 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0c03786baa8e50bbbae08b6cb47cb25982c12ae3048185975077291b421a62d1,ed429d1713576619f9459f7ad8bf2c25d82393d4e48e71db5ca0145ac359a873,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-016.patch
+CRPP1-TFG-DEVELOPER_SETUP-017,controlled/rbi-test-forge-copy,9201217,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-017"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-018"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-017
+- Profile: `developer-profile-017`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 017`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 017`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-017: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8feff76d175300a3cd8b46ca5a15963aaed86ec24b25b0c1ad36619db7e5dd3d,38734de2a8b92f13c90520d8cce2ed7e4be2caaa1417e74162ca7bea413ec5be,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-017.patch
+CRPP1-TFG-DEVELOPER_SETUP-018,controlled/rbi-test-forge-copy,9201218,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-018"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 018"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 018 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 018"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-018"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-018
+- Profile: `developer-profile-018`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 018`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 018`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-018: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 018' u 'dotnet run --project TestGenerator -- --profile 018 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5bef57204fdd35e0946d4c82f29545cb02ab0f24b97b00f2ddd2467f1645b38e,e5f3e7c292b2c4c42f90a4c2b9e439e5481b28292b74afdd79c3efcf22af5c04,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-018.patch
+CRPP1-TFG-DEVELOPER_SETUP-019,controlled/rbi-test-forge-copy,9201219,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""TFG-SETUP-019"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 019"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 019"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-019"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-019
+- Profile: `developer-profile-019`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 019`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 019`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-019: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a42408d8c42379ba583b845f617f2af3c7876c8bbd1c0553ef65984ea25173a8,3efd2ca31a565644c2ffecb28b82135c5a54e50d9cc40586086be825ae522b3f,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-019.patch
+CRPP1-TFG-DEVELOPER_SETUP-020,controlled/rbi-test-forge-copy,9201220,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_02.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-020"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 020"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 020"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 020 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-020"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-020
+- Profile: `developer-profile-020`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 020`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 020`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-020: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 020' u 'dotnet ef database update --project TestGenerator --profile 020 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5dfac3b28d38dbaf9441cbeecfdcfebab9d32f51b0abb840db44e08b17c30248,94a0e0c0f43b42ae40391851556f2b14336e3c31492f8432c06f20181f1c531c,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-020.patch
+CRPP1-TFG-DEVELOPER_SETUP-021,controlled/rbi-test-forge-copy,9201221,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-021"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-022"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-021
+- Profile: `developer-profile-021`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 021`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 021`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-021: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,308da665e2126f6acb9f0d6133cdc387940461a789a884af2e1d2754b3f0edcd,94dce31089122bcab007d15c445b8a049dcd4055d629de1c59aef6e17ddbf7f9,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-021.patch
+CRPP1-TFG-DEVELOPER_SETUP-022,controlled/rbi-test-forge-copy,9201222,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-022"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 022"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 022 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 022"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-022"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-022
+- Profile: `developer-profile-022`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 022`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 022`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-022: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 022' u 'dotnet run --project TestGenerator -- --profile 022 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ada8677e891f7e3dcc93f1176971a8d540df4054f4e865119b66e4b7d704d0d6,1afb62a6cca968e4a6606240657d85cd9ba2a30087ed6d3e82a46ca12ef61f42,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-022.patch
+CRPP1-TFG-DEVELOPER_SETUP-023,controlled/rbi-test-forge-copy,9201223,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""TFG-SETUP-023"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 023"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 023"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-023"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-023
+- Profile: `developer-profile-023`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 023`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 023`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-023: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a94881d90bfa5ec43fa45e58fbf0180a8a243b63f5a995433a9780999c1eb6b6,8f909ae8f6ebe21e39b35c97da03e2bad3cbc3bea33ef25d58797bdb101d0423,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-023.patch
+CRPP1-TFG-DEVELOPER_SETUP-024,controlled/rbi-test-forge-copy,9201224,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-024"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 024"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 024"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 024 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-024"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-024
+- Profile: `developer-profile-024`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 024`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 024`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-024: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 024' u 'dotnet ef database update --project TestGenerator --profile 024 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dfba60fe50856a2ffaa57b052945e958c38ff60f9f42fa515532e11568d95e5b,62be69b0ee5d36b4fd5931c39895605a2b1ed70284208266f4b7f66105124657,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-024.patch
+CRPP1-TFG-DEVELOPER_SETUP-025,controlled/rbi-test-forge-copy,9201225,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-025"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-026"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-025
+- Profile: `developer-profile-025`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 025`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 025`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-025: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b82d9b8dcbfe61361efe35e03f180c80397d44d56bbb92af7df82d782f178733,7f0e6e97aa6d734fdf34aac99080ff64edb1de7b7ff2cda7ce99e2c220d57658,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-025.patch
+CRPP1-TFG-DEVELOPER_SETUP-026,controlled/rbi-test-forge-copy,9201226,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-026"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 026"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 026 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 026"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-026"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-026
+- Profile: `developer-profile-026`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 026`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 026`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-026: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 026' u 'dotnet run --project TestGenerator -- --profile 026 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e472115a5f7aef728d12e2e0a7844d825ab1bfce355a5549b276e8048e306e6a,0ced7c2ce8a8f288f2c4fdb4f5380d8f96995cd673ea76a483425308b2a05f2f,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-026.patch
+CRPP1-TFG-DEVELOPER_SETUP-027,controlled/rbi-test-forge-copy,9201227,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""TFG-SETUP-027"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 027"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 027"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-027"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-027
+- Profile: `developer-profile-027`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 027`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 027`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-027: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7793d4b7e5ee93e60e4b4ef0565b49fbd33228f37b8c964402f1e600df042fef,21ac5621eb1e58da697575b381547ee5675333722a3899fd05599df04ee0fddd,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-027.patch
+CRPP1-TFG-DEVELOPER_SETUP-028,controlled/rbi-test-forge-copy,9201228,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-028"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 028"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 028"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 028 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-028"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-028
+- Profile: `developer-profile-028`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 028`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 028`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-028: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 028' u 'dotnet ef database update --project TestGenerator --profile 028 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e56253f86e6f438a2d3d2a76a659a1fabc2e85477b9672d9a39d6f994ddf8824,655bdfe45f4d40687486b736f805204b3fdafecc1fb0fe2a77ccbcce7d47f7e8,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-028.patch
+CRPP1-TFG-DEVELOPER_SETUP-029,controlled/rbi-test-forge-copy,9201229,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-029"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-030"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-029
+- Profile: `developer-profile-029`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 029`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 029`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-029: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,88b66ae2ef7aa977ac8a1cbc951e02fc115445c0dc61c7b9f23698a05d1e7bc4,d7fc45368ef7bc6d31f315a0e3b66197204eea2f5c1468166c4314cccbf13925,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-029.patch
+CRPP1-TFG-DEVELOPER_SETUP-030,controlled/rbi-test-forge-copy,9201230,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_03.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-030"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 030"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 030 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 030"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-030"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-030
+- Profile: `developer-profile-030`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 030`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 030`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-030: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 030' u 'dotnet run --project TestGenerator -- --profile 030 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6a735b2e425bf85442256c6f72a0375f39cfeff300652a206b9e978d2761be3a,764dcf35f70159a11f7c0194ffefb576a1e8afbbd302cd4c608d58ebbca8dd84,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-030.patch
+CRPP1-TFG-DEVELOPER_SETUP-031,controlled/rbi-test-forge-copy,9201231,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""TFG-SETUP-031"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 031"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 031"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-031"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-031
+- Profile: `developer-profile-031`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 031`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 031`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-031: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c820e1d569d5ce83d8969b439240b8e6caf299ca878fe085886ae312b9a81a4f,c06b16a3998b708d7b6d50bf6b353a406e456e9aa02221c6444ef959558c0f16,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-031.patch
+CRPP1-TFG-DEVELOPER_SETUP-032,controlled/rbi-test-forge-copy,9201232,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-032"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 032"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 032"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 032 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-032"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-032
+- Profile: `developer-profile-032`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 032`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 032`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-032: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 032' u 'dotnet ef database update --project TestGenerator --profile 032 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f22d28050ebf1fdf53646c7f95c863ad64f8c377d76c5e92daccf2492f849619,70734265ec8de2ea4fc9f940dc7dc258c10c442d31cc7c9db7369598805d2587,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-032.patch
+CRPP1-TFG-DEVELOPER_SETUP-033,controlled/rbi-test-forge-copy,9201233,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-033"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-034"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-033
+- Profile: `developer-profile-033`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 033`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 033`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-033: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,de7d8be9daf9448e2a78bc389509283f659b572814a676385d177656deaebc9f,dffc224e3a8f7d99ab8abb18263ca6020e185af734c54a320003cd212d963c6a,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-033.patch
+CRPP1-TFG-DEVELOPER_SETUP-034,controlled/rbi-test-forge-copy,9201234,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-034"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 034"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 034 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 034"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-034"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-034
+- Profile: `developer-profile-034`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 034`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 034`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-034: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 034' u 'dotnet run --project TestGenerator -- --profile 034 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e52eed3202d17aaa64bc2379f2c6866b194c742a802a81fcf8df456a71b05ec7,452daa6f70a8c887d55952d6b186539972da2b7db7b20d720363dd1d56d033a6,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-034.patch
+CRPP1-TFG-DEVELOPER_SETUP-035,controlled/rbi-test-forge-copy,9201235,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""TFG-SETUP-035"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 035"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 035"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-035"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-035
+- Profile: `developer-profile-035`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 035`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 035`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-035: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0d16280cb6540997ca641817e60e41532a0f4c04ffea7c3910e6c8217e6d0b81,61c5ca34eaed7362072e98216ea8bf39e924f232459800c8cbb870bc64133e4b,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-035.patch
+CRPP1-TFG-DEVELOPER_SETUP-036,controlled/rbi-test-forge-copy,9201236,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-036"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 036"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 036"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 036 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-036"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-036
+- Profile: `developer-profile-036`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 036`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 036`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-036: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 036' u 'dotnet ef database update --project TestGenerator --profile 036 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,951720bdb775c9f30abcd2f7e948108c22f05b7d0b66df1a8b782b643c52624c,563b88f8686e91ac79cdfd65e86d355658ce5031b3487e6bddec9d1d3969b1b5,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-036.patch
+CRPP1-TFG-DEVELOPER_SETUP-037,controlled/rbi-test-forge-copy,9201237,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-037"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-038"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-037
+- Profile: `developer-profile-037`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 037`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 037`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-037: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,39f9f5f90e33d400ade678a7d9a4611bb6acfe22f830721b7523440420f788bf,79f58b6d5b7b5546a1a020b162fd844614481942c36ed925999cef368b23f971,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-037.patch
+CRPP1-TFG-DEVELOPER_SETUP-038,controlled/rbi-test-forge-copy,9201238,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-038"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 038"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 038 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 038"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-038"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-038
+- Profile: `developer-profile-038`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 038`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 038`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-038: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 038' u 'dotnet run --project TestGenerator -- --profile 038 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1b86c2dce43a2fc2d97cf3e53e042a260566c5a0fe1489d826674c480e2e9a47,587ce768058ef4d266579b75f04e94c294bf2a32300090c5fa375b1e111a46a9,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-038.patch
+CRPP1-TFG-DEVELOPER_SETUP-039,controlled/rbi-test-forge-copy,9201239,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""TFG-SETUP-039"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 039"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 039"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-039"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-039
+- Profile: `developer-profile-039`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 039`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 039`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-039: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6ebc9d9490608b4bc81dd9fc513bfb8e839dfb899a7f3992050e125b6f414d78,35803ba7694694ca6746ef68712fb3b717ee381935e8cb597bc67614e25f42d6,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-039.patch
+CRPP1-TFG-DEVELOPER_SETUP-040,controlled/rbi-test-forge-copy,9201240,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_04.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-040"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 040"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 040"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 040 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-040"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-040
+- Profile: `developer-profile-040`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 040`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 040`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-040: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 040' u 'dotnet ef database update --project TestGenerator --profile 040 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c45b35dbe697db6b8459bdeb040ad48a966d111a9237153acb1b671ec2c2fee4,e0bc4f9e1201e78ed5991c7532da8b447df85942ffbbee528b308c8aecbaa83b,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-040.patch
+CRPP1-TFG-DEVELOPER_SETUP-041,controlled/rbi-test-forge-copy,9201241,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-041"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-042"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-041
+- Profile: `developer-profile-041`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 041`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 041`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-041: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,90767e3ec43ba6f329940dcfbb2cff2be9ad7db9559c891714bec41bcaebca6f,fe311bf1bc9b0920b36ddb96eec7e4486928339787adce61ff1abdf911f8105f,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-041.patch
+CRPP1-TFG-DEVELOPER_SETUP-042,controlled/rbi-test-forge-copy,9201242,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-042"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 042"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 042 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 042"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-042"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-042
+- Profile: `developer-profile-042`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 042`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 042`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-042: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 042' u 'dotnet run --project TestGenerator -- --profile 042 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1723cf316fffc1c457ea598b4e7417652032b69e0a5e916e866b54f68c96a78a,61a5d4684378a76c6d1333daef3213f505681c6779de631863161dc92a8c6da3,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-042.patch
+CRPP1-TFG-DEVELOPER_SETUP-043,controlled/rbi-test-forge-copy,9201243,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""TFG-SETUP-043"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 043"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 043"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-043"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-043
+- Profile: `developer-profile-043`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 043`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 043`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-043: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,495962107e77dc0d04f7c5c77f7ebb9c4614677fe199bafdee39f5c4ea6d8b5e,56bb486eb776c91c6f46b7b134b5cef9234c5eba9eb3f37073f0322400fd03cb,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-043.patch
+CRPP1-TFG-DEVELOPER_SETUP-044,controlled/rbi-test-forge-copy,9201244,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-044"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 044"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 044"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 044 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-044"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-044
+- Profile: `developer-profile-044`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 044`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 044`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-044: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 044' u 'dotnet ef database update --project TestGenerator --profile 044 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fe5b2102b4c77231e4a1343b320bb547904be56a45d7a5600733a96bcb0297e6,41539a4ef24829ea01dabf31be2d86907d97611f52bbe396fb444ee262801944,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-044.patch
+CRPP1-TFG-DEVELOPER_SETUP-045,controlled/rbi-test-forge-copy,9201245,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-045"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-046"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-045
+- Profile: `developer-profile-045`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 045`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 045`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-045: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,19be7fb638e5a95ce1bf5ca4e9d3136437b479931f928470863019efdbc4989e,2ee601af3d2eaabb686e8635bfbeea71b497b282261ba107b1dbd4d7d16a0747,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-045.patch
+CRPP1-TFG-DEVELOPER_SETUP-046,controlled/rbi-test-forge-copy,9201246,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-046"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 046"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 046 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 046"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-046"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-046
+- Profile: `developer-profile-046`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 046`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 046`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-046: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 046' u 'dotnet run --project TestGenerator -- --profile 046 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b03f70218fb429072651a2433b0881c67babc2cb18fd0fd30f4a7546812f85ef,01b68d5b9581328824e0119c3ad60c11ef209c44a194c936c25479c10c1c6f13,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-046.patch
+CRPP1-TFG-DEVELOPER_SETUP-047,controlled/rbi-test-forge-copy,9201247,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""TFG-SETUP-047"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 047"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 047"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-047"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-047
+- Profile: `developer-profile-047`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 047`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 047`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-047: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4e36b393c888d2f1fe583c913e088c3eb638462b761e4dd45c26606c568dbe55,1da58cbd9668b0ec93047e686b44ce4f540b4862f6cbdb9170bcc616ad17fa53,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-047.patch
+CRPP1-TFG-DEVELOPER_SETUP-048,controlled/rbi-test-forge-copy,9201248,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-048"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 048"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 048"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 048 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-048"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-048
+- Profile: `developer-profile-048`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 048`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 048`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-048: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 048' u 'dotnet ef database update --project TestGenerator --profile 048 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3cfebcf2b3b65665849ae2e6ff7c46cf4bfebfd379121161a00540bf4da837f1,930d7cf0a61e3c3095be63b0bcd9836f8ab806f71719d6b208aab7e7737433b6,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-048.patch
+CRPP1-TFG-DEVELOPER_SETUP-049,controlled/rbi-test-forge-copy,9201249,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-049"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-050"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-049
+- Profile: `developer-profile-049`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 049`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 049`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-049: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,684e4f747c582b0a8030d179768c18647f40131954e826981962e9e273b19f54,0e3e3f8bc9d61c53b191a94ec6b29f07126b06c1e6b721f34d3c7d917eaee0b3,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-049.patch
+CRPP1-TFG-DEVELOPER_SETUP-050,controlled/rbi-test-forge-copy,9201250,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_05.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-050"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 050"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 050 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 050"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-050"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-050
+- Profile: `developer-profile-050`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 050`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 050`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-050: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 050' u 'dotnet run --project TestGenerator -- --profile 050 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,72de798775ca78948c53f96295fa91ffb6d490c558f66b17bac05c010e2858d5,168ab640f553d42b58af16094756d7883c377c62bcef80ebfae32ca1061081a7,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-050.patch
+CRPP1-TFG-DEVELOPER_SETUP-051,controlled/rbi-test-forge-copy,9201251,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""TFG-SETUP-051"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 051"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 051"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-051"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-051
+- Profile: `developer-profile-051`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 051`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 051`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-051: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,543ab39d61dca98a000bc426c3adee63ddb668bd222be762d490c819fbf35043,175ecfe087ccdf20e00a302741df0f77a610fee689a86311c1c2a4b7872c3e55,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-051.patch
+CRPP1-TFG-DEVELOPER_SETUP-052,controlled/rbi-test-forge-copy,9201252,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-052"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 052"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 052"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 052 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-052"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-052
+- Profile: `developer-profile-052`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 052`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 052`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-052: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 052' u 'dotnet ef database update --project TestGenerator --profile 052 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4fccf10c9b7072f46019d23271f7055b0aec4b5bc34c8bb49f0f1f0bb17b0e4d,1f4541343b68fe25673e3880816e1fbf1b2576c00ff5ff800c5ca89b1f58f7ce,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-052.patch
+CRPP1-TFG-DEVELOPER_SETUP-053,controlled/rbi-test-forge-copy,9201253,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-053"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-054"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-053
+- Profile: `developer-profile-053`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 053`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 053`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-053: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,63625c429af7847efd6eae1846c888d711e0157aa4566015b09b906a3777980a,bb164bc933d0f7a247e683d4e1ed72706314eb724b906425b9f744405cadf459,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-053.patch
+CRPP1-TFG-DEVELOPER_SETUP-054,controlled/rbi-test-forge-copy,9201254,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-054"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 054"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 054 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 054"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-054"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-054
+- Profile: `developer-profile-054`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 054`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 054`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-054: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 054' u 'dotnet run --project TestGenerator -- --profile 054 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,13dc56297866ad0f9876d894d0247a23e4efff8f6e149c353cc8718db4a36640,76ce81a886f20cc45abde616ff2f834234298dcb44345adef943988e49fc03b1,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-054.patch
+CRPP1-TFG-DEVELOPER_SETUP-055,controlled/rbi-test-forge-copy,9201255,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""TFG-SETUP-055"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 055"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 055"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-055"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-055
+- Profile: `developer-profile-055`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 055`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 055`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-055: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7e01b4ee009df065caf763163ed144f7f482aae64195a0a0e71183b69c198a7c,40e34a29c54b816bbdc03230444be3580dd93090c82f0a3664e1f01960a2648b,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-055.patch
+CRPP1-TFG-DEVELOPER_SETUP-056,controlled/rbi-test-forge-copy,9201256,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-056"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 056"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 056"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 056 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-056"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-056
+- Profile: `developer-profile-056`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 056`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 056`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-056: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 056' u 'dotnet ef database update --project TestGenerator --profile 056 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,16ffa0c90e979dacd8ff9043e018129ad24e39d01ec63576b618de7349003fa1,7616ce5b1de51df17b602ae572cd42deb02ab556d9a74a893c35dd3099f70c94,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-056.patch
+CRPP1-TFG-DEVELOPER_SETUP-057,controlled/rbi-test-forge-copy,9201257,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-057"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-058"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-057
+- Profile: `developer-profile-057`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 057`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 057`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-057: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,322b3b5b1335241171270583c088d92a12abf7aafedb3682c6e8e138b8a44346,4d813a7921334cf3a41f22ae1ae56986c7eefeffd6fd6e8e7e2c5f0ac3c2c0c4,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-057.patch
+CRPP1-TFG-DEVELOPER_SETUP-058,controlled/rbi-test-forge-copy,9201258,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-058"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 058"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 058 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 058"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-058"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-058
+- Profile: `developer-profile-058`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 058`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 058`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-058: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 058' u 'dotnet run --project TestGenerator -- --profile 058 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e7d40f17337cdfc2686e48fcaca3fa1b173444ec8d61604f6b437f2f37628e9b,0fc11339f17a0819ea4c9f22587983039348e2b4f8791b2bed62e10c67b27980,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-058.patch
+CRPP1-TFG-DEVELOPER_SETUP-059,controlled/rbi-test-forge-copy,9201259,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""TFG-SETUP-059"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 059"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 059"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-059"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-059
+- Profile: `developer-profile-059`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 059`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 059`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-059: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ffc11ad163af5b32467591b35c4f1466789ea8aa89fb7338df41bddeb899f5e3,b0435f0138d08bcf35489b1680c05f9add291ab8348649e6314bce4f39fe2120,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-059.patch
+CRPP1-TFG-DEVELOPER_SETUP-060,controlled/rbi-test-forge-copy,9201260,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_06.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-060"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 060"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 060"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 060 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-060"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-060
+- Profile: `developer-profile-060`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 060`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 060`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-060: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 060' u 'dotnet ef database update --project TestGenerator --profile 060 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b6bed135ee7a0634f7a417a70372573e8819becdc0092291acf173a23e2c4b6b,b6c85f82d74df5359e88606bb937ee00114cd76d9e16db1cdb1df9ce1b50cb83,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-060.patch
+CRPP1-TFG-DEVELOPER_SETUP-061,controlled/rbi-test-forge-copy,9201261,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-061"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-062"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-061
+- Profile: `developer-profile-061`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 061`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 061`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-061: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,27e50bd99e576dc5ac1d78a15e2f6bb8e09d6d250d351265a14acaa3cb6ffc60,7d1afaf89c85c22e0bd7b17e9796bb36a3590b3943b927e8b38be28f96cf0c45,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-061.patch
+CRPP1-TFG-DEVELOPER_SETUP-062,controlled/rbi-test-forge-copy,9201262,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-062"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 062"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 062 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 062"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-062"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-062
+- Profile: `developer-profile-062`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 062`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 062`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-062: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 062' u 'dotnet run --project TestGenerator -- --profile 062 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b6b7994e6e0496aee66342bcab47df274910eba13a1467d9185bfed166ced46e,d285de1e2447d30d77687ccc7b1a79ad4d3273c882325f40971617ecc5b0f7b5,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-062.patch
+CRPP1-TFG-DEVELOPER_SETUP-063,controlled/rbi-test-forge-copy,9201263,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""TFG-SETUP-063"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 063"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 063"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-063"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-063
+- Profile: `developer-profile-063`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 063`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 063`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-063: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fb65f79b88c5a9f9e813fe72f8a0e272184b3c398a5b0f9b708b52364cd97616,48f1f2ff781b9c0be66f0ff4d9904421fe0be32ad954ef535595e961261f88e9,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-063.patch
+CRPP1-TFG-DEVELOPER_SETUP-064,controlled/rbi-test-forge-copy,9201264,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-064"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 064"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 064"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 064 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-064"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-064
+- Profile: `developer-profile-064`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 064`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 064`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-064: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 064' u 'dotnet ef database update --project TestGenerator --profile 064 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4b28c153155bde8211cca9c0f756951c0c842c8b462326f13ba4234b9d3dfdf5,6ffb2f2216686e71377c7efe6fa8ead8b88622ce7d921e82abd65f1a51b6af10,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-064.patch
+CRPP1-TFG-DEVELOPER_SETUP-065,controlled/rbi-test-forge-copy,9201265,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-065"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-066"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-065
+- Profile: `developer-profile-065`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 065`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 065`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-065: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,df781d9f7c7542cb4d640c2d74abfe63d95eddc607a0d3d492abc6a485e93aa6,4d75e298bc67941717b17d7b463ea079ae6bef05bceaf8f38cefd6e6d911b9e6,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-065.patch
+CRPP1-TFG-DEVELOPER_SETUP-066,controlled/rbi-test-forge-copy,9201266,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-066"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 066"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 066 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 066"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-066"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-066
+- Profile: `developer-profile-066`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 066`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 066`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-066: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 066' u 'dotnet run --project TestGenerator -- --profile 066 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e87ae664a1ae48730e7efd565f24d9145f79f6ac8372707cd9e32a74f77d9294,8799690a79a4eab41d2ef763080211768359bd0247ce356d462075e542ddc261,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-066.patch
+CRPP1-TFG-DEVELOPER_SETUP-067,controlled/rbi-test-forge-copy,9201267,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""TFG-SETUP-067"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 067"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 067"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-067"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-067
+- Profile: `developer-profile-067`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 067`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 067`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-067: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0e9a4a001a208ec4728a981359f2460fa8f55edafb0e899a862e2a3c31fe0caa,e9cd65be45791c9d1be2079c7437aae9e4a0aba421e0177db47aa7d62a1f3d43,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-067.patch
+CRPP1-TFG-DEVELOPER_SETUP-068,controlled/rbi-test-forge-copy,9201268,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-068"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 068"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 068"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 068 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-068"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-068
+- Profile: `developer-profile-068`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 068`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 068`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-068: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 068' u 'dotnet ef database update --project TestGenerator --profile 068 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,afed1e1436b9dd7fef009d15e5f9fe85dca1987b479d041c6036354361621e8c,5bf1f4770956bb009b70878676463499069ad7122791547a05b5eb4b163b77a4,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-068.patch
+CRPP1-TFG-DEVELOPER_SETUP-069,controlled/rbi-test-forge-copy,9201269,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-069"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-070"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-069
+- Profile: `developer-profile-069`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 069`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 069`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-069: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fad1e0c77ad7657b27962425699b7a1fd852ea9ab6e7468f6ad47d3f4dbafaa0,bbc305f17cf9fe1dc60735eafbc2f618f2d563bba8bba9197bdbf1018274c13c,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-069.patch
+CRPP1-TFG-DEVELOPER_SETUP-070,controlled/rbi-test-forge-copy,9201270,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_07.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-070"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 070"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 070 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 070"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-070"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-070
+- Profile: `developer-profile-070`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 070`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 070`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-070: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 070' u 'dotnet run --project TestGenerator -- --profile 070 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f5f0aadd69bdb476e2f1b0ca5049119eebf32fb27878cd15f848a025ffdd76e0,c325808a6f4fb2f88f6c99fdf4ed6c51e1722af63a36b0fd514864210d4170f4,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-070.patch
+CRPP1-TFG-DEVELOPER_SETUP-071,controlled/rbi-test-forge-copy,9201271,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""TFG-SETUP-071"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 071"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 071"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-071"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-071
+- Profile: `developer-profile-071`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 071`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 071`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-071: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,785bf9e3039f7a1d543bfa1d8551e34106234b4665447bd6f59e2d83060151d7,9825ef0d2d5690b9c34d9a9458cb3f99089624eef183884754a4bcdb278d30ff,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-071.patch
+CRPP1-TFG-DEVELOPER_SETUP-072,controlled/rbi-test-forge-copy,9201272,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-072"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 072"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 072"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 072 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-072"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-072
+- Profile: `developer-profile-072`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 072`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 072`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-072: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 072' u 'dotnet ef database update --project TestGenerator --profile 072 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9a6ca9913f76d32447507523d2cf6c0a137a18ac24d85640a050d7e7386ad8a1,1b50a40bf711c3f47d5bb3552c58138ec9a3bca9faa3b882e830cbf7b240c6f1,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-072.patch
+CRPP1-TFG-DEVELOPER_SETUP-073,controlled/rbi-test-forge-copy,9201273,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-073"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-074"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-073
+- Profile: `developer-profile-073`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 073`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 073`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-073: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8565a882902941ec42db14d92d6b88d40a3069011465808927cd03a0e23bb1b2,e6493373c432a17d7921b930f67353833725a32e491897ff851fc09c668b404a,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-073.patch
+CRPP1-TFG-DEVELOPER_SETUP-074,controlled/rbi-test-forge-copy,9201274,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-074"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 074"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 074 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 074"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-074"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-074
+- Profile: `developer-profile-074`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 074`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 074`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-074: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 074' u 'dotnet run --project TestGenerator -- --profile 074 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1f7d1d5baa7d123738b9d0a9acea8cc70232e41cdc2d027b2b1dee60e99dc3f5,2fec9e7003f0852aad58763efd9590e38583469c95ec7d22b7b68bf57f8f3ede,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-074.patch
+CRPP1-TFG-DEVELOPER_SETUP-075,controlled/rbi-test-forge-copy,9201275,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""TFG-SETUP-075"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 075"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 075"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-075"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-075
+- Profile: `developer-profile-075`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 075`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 075`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-075: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1b71976c44200498dd498f20f8cc1f54a42573701366ca2c046b3784e359d450,d29617b51f9ceb19d730d0ce232b1f21bb2f30e98b02d394c4404f8984ab8058,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-075.patch
+CRPP1-TFG-DEVELOPER_SETUP-076,controlled/rbi-test-forge-copy,9201276,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-076"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 076"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 076"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 076 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-076"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-076
+- Profile: `developer-profile-076`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 076`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 076`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-076: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 076' u 'dotnet ef database update --project TestGenerator --profile 076 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4b4eb8e16ff8ac55d3dfbea9cc30ae3e85c51061c197aaefa44de29f51bc7d17,32099283bbff2b6f4c3ccc5618029f5e910f2dd552a4e2a2eb976c0618b19ac6,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-076.patch
+CRPP1-TFG-DEVELOPER_SETUP-077,controlled/rbi-test-forge-copy,9201277,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-077"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-078"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-077
+- Profile: `developer-profile-077`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 077`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 077`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-077: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cc573e65f9690c9f19af7129c4c1360fd332fc11c68e9cb40ee2a77cbe241f1b,b103bbf3d42ccb95c2f7e5adaeb6e57b02c58ca8cd7f97e2dbc440be3cf035fa,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-077.patch
+CRPP1-TFG-DEVELOPER_SETUP-078,controlled/rbi-test-forge-copy,9201278,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-078"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 078"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 078 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 078"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-078"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-078
+- Profile: `developer-profile-078`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 078`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 078`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-078: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 078' u 'dotnet run --project TestGenerator -- --profile 078 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b7af00386cf47121e0b54a892d195335c09ee9b19c11989a6a7e246585981d5f,443153b2f9806ea01b6fe29787b136ca1c3209bec74683a82ccc0e1dc68890dd,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-078.patch
+CRPP1-TFG-DEVELOPER_SETUP-079,controlled/rbi-test-forge-copy,9201279,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""TFG-SETUP-079"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 079"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 079"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-079"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-079
+- Profile: `developer-profile-079`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 079`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 079`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-079: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,65b8d66c1f24b1cab1ae4d969bd8016699ae9a8bcb27487fc47edfb9d0103ff7,e93547e897218da481ec1aa9f05b5c2355d6da1871aba76b4ac400ecfb4aafbe,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-079.patch
+CRPP1-TFG-DEVELOPER_SETUP-080,controlled/rbi-test-forge-copy,9201280,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_08.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-080"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 080"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 080"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 080 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-080"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-080
+- Profile: `developer-profile-080`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 080`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 080`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-080: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 080' u 'dotnet ef database update --project TestGenerator --profile 080 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6fae8c7f1241a646975809c1c82b313df82bb598003a67af495fcab5a7b29037,eedaa7445152bdb4431e4455073c3a4d68a5cf3f46adad38e3e01c8c203f6ad3,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-080.patch
+CRPP1-TFG-DEVELOPER_SETUP-081,controlled/rbi-test-forge-copy,9201281,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
+@@ -8,7 +8,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-081"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-082"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-081
+- Profile: `developer-profile-081`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 081`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 081`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-081: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5ac308f3a9ab18da8e2a1ede31fe09f37900dc2e4d39c931d2114a2b084a64b9,21048fe4bac5a59a3fc515bb01e9ea01e4cd9995dcf9e5362066f8b42d29ee68,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-081.patch
+CRPP1-TFG-DEVELOPER_SETUP-082,controlled/rbi-test-forge-copy,9201282,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
+@@ -12,7 +12,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-082"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 082"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 082 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 082"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-082"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-082
+- Profile: `developer-profile-082`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 082`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 082`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-082: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 082' u 'dotnet run --project TestGenerator -- --profile 082 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5435fc8bfda7f6f5a87b2f2f030990be394d49d4bea67bf44bc397e56508bda4,3a97b54ea755137d14aa1c602db862210ea889ba0615e6e02b7d1269af843693,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-082.patch
+CRPP1-TFG-DEVELOPER_SETUP-083,controlled/rbi-test-forge-copy,9201283,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
+@@ -23,7 +23,7 @@
+       ""contractId"": ""TFG-SETUP-083"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 083"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 083"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-083"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-083
+- Profile: `developer-profile-083`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 083`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 083`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-083: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,746407b19b0f46c5bd5883678379a31391ec9095d87092204151a8e6b32aed00,c2106d21149bb551ff4aabc0ae0622424b169fb38888531c799fd3de220f727f,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-083.patch
+CRPP1-TFG-DEVELOPER_SETUP-084,controlled/rbi-test-forge-copy,9201284,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
+@@ -31,7 +31,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-084"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 084"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 084"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 084 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-084"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-084
+- Profile: `developer-profile-084`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 084`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 084`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-084: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 084' u 'dotnet ef database update --project TestGenerator --profile 084 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,69333d5c1a7497028a2ca452f252e9b3ba4c3758f4f3319c99b89527a757fcfd,458d8e58d90118ab5f5daa6d122ac74e40019dabc7440fff6c001463a50c3d75,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-084.patch
+CRPP1-TFG-DEVELOPER_SETUP-085,controlled/rbi-test-forge-copy,9201285,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
+@@ -44,7 +44,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-085"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-086"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-085
+- Profile: `developer-profile-085`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 085`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 085`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-085: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,394e7286b14fab643e042fcfe8ce0eff26a411aa43c3cf557799424130eefc97,3f9b2babb2838c0471b9bb5f60a75df7252b63cf30a1dae4f980dcb51df08217,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-085.patch
+CRPP1-TFG-DEVELOPER_SETUP-086,controlled/rbi-test-forge-copy,9201286,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
+@@ -48,7 +48,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-086"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 086"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 086 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 086"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-086"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-086
+- Profile: `developer-profile-086`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 086`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 086`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-086: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 086' u 'dotnet run --project TestGenerator -- --profile 086 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ba0bdf3584fd4efdeebaba857feba7992c37fbf460a0965303a4886101ca30bc,6717ed7b6bd7fd1e637d7c854d9a7eeeaae9bf693d477503c92749c563d268a4,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-086.patch
+CRPP1-TFG-DEVELOPER_SETUP-087,controlled/rbi-test-forge-copy,9201287,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
+@@ -59,7 +59,7 @@
+       ""contractId"": ""TFG-SETUP-087"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 087"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 087"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-087"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-087
+- Profile: `developer-profile-087`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 087`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 087`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-087: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9830221099001c89114dd4be9f6b27a6848f13952e058d7473d210e22c96898d,fdb34f9435eeb7a33ab5c5587465aa155f5e08ef567fda8cfdf2dacc93efa4ed,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-087.patch
+CRPP1-TFG-DEVELOPER_SETUP-088,controlled/rbi-test-forge-copy,9201288,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
+@@ -67,7 +67,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-088"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 088"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 088"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 088 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-088"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-088
+- Profile: `developer-profile-088`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 088`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 088`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-088: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 088' u 'dotnet ef database update --project TestGenerator --profile 088 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f8ecd7260f5b3e2fa3fc4ef9d36eae73f0102d7b99b4dfb5e901c19f499f69d3,252d5c632a3d8b4b334acad784ce08cb1ae8b8205423354e859710ef3ffec2c6,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-088.patch
+CRPP1-TFG-DEVELOPER_SETUP-089,controlled/rbi-test-forge-copy,9201289,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
+@@ -80,7 +80,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-089"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-090"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-089
+- Profile: `developer-profile-089`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 089`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 089`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-089: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e4882717f79ae860a87de5a00ea7643a7ede6a1ad5d0d0216043c50d0196906f,abb696badf4deee2ae47932a24f4e542b2f56055823df919735545f7b9f61647,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-089.patch
+CRPP1-TFG-DEVELOPER_SETUP-090,controlled/rbi-test-forge-copy,9201290,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_09.json
+@@ -84,7 +84,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-090"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 090"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 090 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 090"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-090"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-090
+- Profile: `developer-profile-090`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 090`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 090`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-090: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 090' u 'dotnet run --project TestGenerator -- --profile 090 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7ee71f3f41cd2e7434fc18989879d087bd5d4ee3aae8cbd12bd5a177e215f2c4,eb0511affa0bf43b657a7cae6bb8a9c05ba633f5011de086811b57e42069235f,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-090.patch
+CRPP1-TFG-DEVELOPER_SETUP-091,controlled/rbi-test-forge-copy,9201291,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
+@@ -5,7 +5,7 @@
+       ""contractId"": ""TFG-SETUP-091"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 091"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 091"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-091"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-091
+- Profile: `developer-profile-091`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 091`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 091`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-091: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3a81c9f2f9a76211873615bedb3c9dfd18a37cd889e396ba6943822df2a9794c,57f356233fc49cb75929db697a62ab1430d95b8a5f35eb5dcd2abf979d04eb5e,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-091.patch
+CRPP1-TFG-DEVELOPER_SETUP-092,controlled/rbi-test-forge-copy,9201292,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
+@@ -13,7 +13,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-092"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 092"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 092"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 092 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-092"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-092
+- Profile: `developer-profile-092`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 092`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 092`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-092: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 092' u 'dotnet ef database update --project TestGenerator --profile 092 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ced0e89d9fde6b952f962ad256e35ff4c8a0d8f99ee2fc7388783f34e259c411,7dde5c79d930c06abebdd85c050f5d468aa5cea19fa3a6fc57204bde021a41be,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-092.patch
+CRPP1-TFG-DEVELOPER_SETUP-093,controlled/rbi-test-forge-copy,9201293,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
+@@ -26,7 +26,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-093"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-094"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-093
+- Profile: `developer-profile-093`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 093`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 093`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-093: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8fdadd59235e92f0f6c01642f93a3717528a70bb0cbf4f3508991dd6f01fa0d4,cb693e6785d5eb9793505e09214b9f217a01f8b28f400f9548bc7bf1fa01c90e,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-093.patch
+CRPP1-TFG-DEVELOPER_SETUP-094,controlled/rbi-test-forge-copy,9201294,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
+@@ -30,7 +30,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-094"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 094"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 094 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 094"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-094"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-094
+- Profile: `developer-profile-094`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 094`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 094`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-094: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 094' u 'dotnet run --project TestGenerator -- --profile 094 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2edcaeb17bcffa26da26bb2dea91893cd0f37b145f891ccecdd2d2bbfb5ccdba,7b82fa3d3b0ec475dda0e07cc9ac1abe8e786538c9d906d4a71f81263a28a924,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-094.patch
+CRPP1-TFG-DEVELOPER_SETUP-095,controlled/rbi-test-forge-copy,9201295,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
+@@ -41,7 +41,7 @@
+       ""contractId"": ""TFG-SETUP-095"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 095"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 095"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-095"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-095
+- Profile: `developer-profile-095`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 095`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 095`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-095: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6770afdb35154b9bf86f2faee69ff5cb8f5dedd07daaa28522586c48f9333553,fa6a5005a2827d9828017fe0d409a45ac6c67b54fad5930f342d023fd9223ad2,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-095.patch
+CRPP1-TFG-DEVELOPER_SETUP-096,controlled/rbi-test-forge-copy,9201296,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
+@@ -49,7 +49,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-096"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 096"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 096"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 096 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-096"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-096
+- Profile: `developer-profile-096`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 096`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 096`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-096: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 096' u 'dotnet ef database update --project TestGenerator --profile 096 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,95be1dde7bf5afb9994e4fcea97bc3f32106afa6577ee76819bf12a0308e1abe,e6dcf6e5660214b30eb1cba9629cf4e2850c50582001bff2a7751c1619633f8d,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-096.patch
+CRPP1-TFG-DEVELOPER_SETUP-097,controlled/rbi-test-forge-copy,9201297,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
+@@ -62,7 +62,7 @@
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-097"",
+       ""runtime"": "".NET SDK"",
+-      ""runtimeVersion"": ""8.0""
++      ""runtimeVersion"": ""10.0""
+     },
+     {
+       ""contractId"": ""TFG-SETUP-098"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-097
+- Profile: `developer-profile-097`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 097`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 097`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-097: kod mijenja dokumentovani razvojni setup iz '8.0' u '10.0' (runtime_requirement_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ec07d90ac501c21b538499f265f0ca5c73d681f2f37521ff4b4fdf32e70aac96,19327648dac079db55e21e5ac712a4b2dee94d53fa48d1785490ccdab48db726,developer_setup,rbi_test_forge,runtime_requirement_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-097.patch
+CRPP1-TFG-DEVELOPER_SETUP-098,controlled/rbi-test-forge-copy,9201298,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
+@@ -66,7 +66,7 @@
+     },
+     {
+       ""contractId"": ""TFG-SETUP-098"",
+-      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 098"",
++      ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 098 --strict"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 098"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-098"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-098
+- Profile: `developer-profile-098`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 098`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 098`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-098: kod mijenja dokumentovani razvojni setup iz 'dotnet run --project TestGenerator -- --profile 098' u 'dotnet run --project TestGenerator -- --profile 098 --strict' (local_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8dc4c29c9e1c1833617eeeae2c073cdf3b45b1c270caa26b1a4f4ff24098d5ff,5c13103a6937df6088fe0bbf2c03d46a8d28189eb3ee48c123b14526fb6ff063,developer_setup,rbi_test_forge,local_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-098.patch
+CRPP1-TFG-DEVELOPER_SETUP-099,controlled/rbi-test-forge-copy,9201299,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
+@@ -77,7 +77,7 @@
+       ""contractId"": ""TFG-SETUP-099"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 099"",
+       ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 099"",
+-      ""packageManager"": ""NuGet@6"",
++      ""packageManager"": ""NuGet@7"",
+       ""profile"": ""developer-profile-099"",
+       ""runtime"": "".NET SDK"",
+       ""runtimeVersion"": ""8.0""
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-099
+- Profile: `developer-profile-099`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 099`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 099`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-099: kod mijenja dokumentovani razvojni setup iz 'NuGet@6' u 'NuGet@7' (package_manager_version_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,52c58728ac6df6e479f6ad39b6478b651aeef74b2b0875cc16933fc5cf8ef5e3,b2726c6fd66d555402f3f6f416053d598ec0bef160d1a7ebf0af3ddd04ced18c,developer_setup,rbi_test_forge,package_manager_version_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-099.patch
+CRPP1-TFG-DEVELOPER_SETUP-100,controlled/rbi-test-forge-copy,9201300,csharp,"[""TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/developer_setup/contracts_10.json
+@@ -85,7 +85,7 @@
+     {
+       ""contractId"": ""TFG-SETUP-100"",
+       ""developmentCommand"": ""dotnet run --project TestGenerator -- --profile 100"",
+-      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 100"",
++      ""migrationCommand"": ""dotnet ef database update --project TestGenerator --profile 100 --no-build"",
+       ""packageManager"": ""NuGet@6"",
+       ""profile"": ""developer-profile-100"",
+       ""runtime"": "".NET SDK"",
+","<!-- docs/docguard-contract-lab/DEVELOPER_SETUP.md @ controlled-baseline:fd37c9cabcaafb0b -->
+### TFG-SETUP-100
+- Profile: `developer-profile-100`
+- Required runtime: `.NET SDK 8.0`
+- Package manager: `NuGet@6`
+- Local development command: `dotnet run --project TestGenerator -- --profile 100`
+- Migration command: `dotnet ef database update --project TestGenerator --profile 100`
+",True,developer_setup,Controlled design expectation: developer_setup; independent human/owner acceptance still required before merge.,True,developer_setup,"TFG-SETUP-100: kod mijenja dokumentovani razvojni setup iz 'dotnet ef database update --project TestGenerator --profile 100' u 'dotnet ef database update --project TestGenerator --profile 100 --no-build' (migration_command_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ec321b89cc3ea03d25f4b2a0b8fca4781b1b06b1fd1c76b938897a2604fc98cf,dbb5e6c7c34173121e08ea6f1d6b8a642d3f48238be9a141b6f781b4ff203eaa,developer_setup,rbi_test_forge,migration_command_change,cases/patches/rbi_test_forge/developer_setup/TFG-SETUP-100.patch

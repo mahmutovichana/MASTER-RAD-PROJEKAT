@@ -1,0 +1,2151 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-JOB-OTHER_DOCUMENTATION-001,controlled/jobfair-platform-copy,9200401,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-001
+- Workflow: `jobfair_platform-approval-001`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-001: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e04a144d88149013e5cab3128c847bd9f358d1fb8a272e7a190698096873c4ba,78290fd4f660b21db9eba643a1d7adb552351f4949976ce4f127daf154f86331,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-001.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-002,controlled/jobfair-platform-copy,9200402,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-002"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-002
+- Workflow: `jobfair_platform-approval-002`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-002: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fa3eff7fec9d5bcb5f3eb42e852b5bb4476815e9b7e2b8269abafc4c1e560e78,a9d1f73a19724f5ad7ce0c47bb5e8e382a1a523e6bfa87943c3522f31c810aa6,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-002.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-003,controlled/jobfair-platform-copy,9200403,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-003"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-003
+- Workflow: `jobfair_platform-approval-003`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-003: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ed2115b4f5f78852953adc2ed92b0582a5efc4799432d8683a4be6eb50575d79,294e5bd5abeae2ab1944cbd3aa45d81bbbeb50796182d9dbe3b587f169f4dcff,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-003.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-004,controlled/jobfair-platform-copy,9200404,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-004"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-004
+- Workflow: `jobfair_platform-approval-004`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-004: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b909ae24b69310d781a75b65a31c1a01e8d37d2b6f0b6f45b6c35282b49a8377,38bceb7460aa08a2ff45713077dba7efbdbc56d31f780a58235fcff3402c2ff3,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-004.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-005,controlled/jobfair-platform-copy,9200405,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-005
+- Workflow: `jobfair_platform-approval-005`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-005: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,11e57b56f2606238c3ce3cbec0f6c673580cda75bd64e7b78fcd0d9e3a2b914a,3e5dbc0e677ed23085f2e3a34f7eac22d5cd25f4d824b61e6ee9050134b4750f,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-005.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-006,controlled/jobfair-platform-copy,9200406,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-006"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-006
+- Workflow: `jobfair_platform-approval-006`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-006: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c8e8285ab291342a6fb64f0c2ef6d12c9c9275b60c33e20fce9603315cd3b5d1,de2a1b7aaa6137d8b6fee6e6f91accd50ce4d363d13727793eeda382be2f7673,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-006.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-007,controlled/jobfair-platform-copy,9200407,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-007"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-007
+- Workflow: `jobfair_platform-approval-007`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-007: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f183bf8a955790f6e9fff0c2c8cdc5eca4ed72949574a7c5e0656ca191fa174f,ca0a2bd3d90765c61cdbe1e502d10c5b6e1d851982489518ff280057b5e2ed79,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-007.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-008,controlled/jobfair-platform-copy,9200408,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-008"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-008
+- Workflow: `jobfair_platform-approval-008`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-008: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8b74435887601a5839e52b0d1a5b47d400caf5526c438310fedef952332f4932,04fa9c466da1c8b477ef3bd4d043af161a7599dc8d76444fcd6fdd97fd8091ad,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-008.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-009,controlled/jobfair-platform-copy,9200409,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-009
+- Workflow: `jobfair_platform-approval-009`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-009: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1237c1f21de95ef6bc4bcf384a5757cad5df031bf1fd4eb1f05574e12ccf1897,1975f002bbf8ef3158bf480617eb9325b8dcb6bce26f2e92ee5ca3de28f4629b,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-009.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-010,controlled/jobfair-platform-copy,9200410,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_01.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_01.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_01.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-010"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-010
+- Workflow: `jobfair_platform-approval-010`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-010: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5ab559c00a53b3094fb48b31d0eed789d82517ad79d162c17ee2ab710946ea01,3ec5bcb3f4ed1e4132dea2395a877e1236af6aa836ce9146d10946a228d040d6,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-010.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-011,controlled/jobfair-platform-copy,9200411,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-011"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-011
+- Workflow: `jobfair_platform-approval-011`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-011: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,95ef2a1bdd6bda87dd9c71b783dc8dfa9828c48da420fb189cc58e6c2b85ade3,3a07682193bbc93b253f88c89b749c9f4d793178c716fae845dbfaea0c23a69c,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-011.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-012,controlled/jobfair-platform-copy,9200412,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-012"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-012
+- Workflow: `jobfair_platform-approval-012`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-012: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4aaa2b5290524c76ec734fa16edbf49a6710a6cbc7c7288676fe2241cecc41e7,51b45a6878707c292468a9d7c547c9ff9ee8cd9b46cd61ad84c4ff487ca44fec,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-012.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-013,controlled/jobfair-platform-copy,9200413,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-013
+- Workflow: `jobfair_platform-approval-013`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-013: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1401002227906b8c7a22465161c72465528173fb9fb0db0e9f734cf00362bc2c,f4842a23a82fba9de18f2cebae8d92b2e0980cb95d48364eac3554aa696409f8,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-013.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-014,controlled/jobfair-platform-copy,9200414,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-014"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-014
+- Workflow: `jobfair_platform-approval-014`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-014: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4c212bf1a51d11077b78d80917cc12616783cf682e7d0f6dc0acafe321721125,03f8797d6b60a0b85652cdf95e31f9f0b86b764b9d9ed15a7ed94599c0f3ba6d,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-014.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-015,controlled/jobfair-platform-copy,9200415,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-015"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-015
+- Workflow: `jobfair_platform-approval-015`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-015: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7ef23384b309ba58885d922b099cb732b96f817c142202b1590637272ff138b1,1d9bd0201c7c78b4ef87ab6127ec8b6af049143a9861a3f6bd66bdcbfa114b72,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-015.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-016,controlled/jobfair-platform-copy,9200416,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-016"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-016
+- Workflow: `jobfair_platform-approval-016`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-016: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,340d2fd1faf7e784b2f022e2436c3ffed531bc2b4d312a17a8bb5102c4e24791,cd577343c1c0d6ddc7dd4d008e966f0f11e10b4324abb6cf6997165f9a62acc0,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-016.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-017,controlled/jobfair-platform-copy,9200417,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-017
+- Workflow: `jobfair_platform-approval-017`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-017: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,302957ba0de7d3eb71f9f2a7b6cbecbc9f39763a900b0c78a690a7d2e03ce7fc,296ecb25a565a647a5e1e7f5bf8edffe6f9947dc34fcacb7103be63a8d86fb8d,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-017.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-018,controlled/jobfair-platform-copy,9200418,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-018"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-018
+- Workflow: `jobfair_platform-approval-018`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-018: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9f63558da212d2f5539ba4c4e1093dde90817631dc38474be43c84b394162bb2,f72dfd9d6e6dcbf0639429749c640118d22a0cb7667f72e836937878b2fcf97b,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-018.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-019,controlled/jobfair-platform-copy,9200419,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-019"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-019
+- Workflow: `jobfair_platform-approval-019`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-019: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,851e2284a21e636d616d56cf172920507c5223218a5d306ba8a0d3e99bfa0192,e47a0c457297ca58850e3eae8b2f1f64f3e45533611d79f09af5152be0c8fe6f,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-019.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-020,controlled/jobfair-platform-copy,9200420,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_02.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_02.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_02.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-020"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-020
+- Workflow: `jobfair_platform-approval-020`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-020: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ed07150f5b0d19c4e0ea700d82c943ec8a010aca16040415846271ce81a76dd5,f30ad9d1fe74ec32a5658653e3ce4f07ae21c746f7f7ef5f23bf77e42c6f7f60,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-020.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-021,controlled/jobfair-platform-copy,9200421,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-021
+- Workflow: `jobfair_platform-approval-021`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-021: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,26d82dcc9de23a42d9a001a7fc1732098539dea7cbf31a84690402ef15f7848d,7c1e9a1dfd3fe256900b67baa6fffc4665ff370f570809943b9955f2f8770ec7,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-021.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-022,controlled/jobfair-platform-copy,9200422,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-022"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-022
+- Workflow: `jobfair_platform-approval-022`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-022: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a1994d132d98be8ccda94d669a2822845a35e893e07b23e0b74f50ffc70ab74f,7ec058f5c99063e49c62c21f83c1c37cd651cb3185c6cc26dcf2a0325456a6ea,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-022.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-023,controlled/jobfair-platform-copy,9200423,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-023"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-023
+- Workflow: `jobfair_platform-approval-023`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-023: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a5d4d61b3b7dee40e7eee2de815b7c9278f17127ea00aaae5af915cbdbbf6063,8511c64c56cb10222f622bf8f35119ce9231915ea81695412f53cf9ae16fc290,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-023.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-024,controlled/jobfair-platform-copy,9200424,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-024"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-024
+- Workflow: `jobfair_platform-approval-024`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-024: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,80f5a44cccf28c91d4b17641e4fe66aa412d84826f564ca22372c6edca4c644b,1572b0f370c959b6eca88ab5a97ec1774cb53f5b1d6a2f23a0e9c6dfca1577df,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-024.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-025,controlled/jobfair-platform-copy,9200425,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-025
+- Workflow: `jobfair_platform-approval-025`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-025: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c65529ac70827441bff5840a6178ae35466e859dda9acb62b85ef0e2af451275,43fe664c09fa1ad3c41d28422a53078cb409b4938aa8f81a2c2dfcb9e6df632f,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-025.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-026,controlled/jobfair-platform-copy,9200426,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-026"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-026
+- Workflow: `jobfair_platform-approval-026`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-026: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8a63a1888f61d16c19a2656c71f8e6bdd1fe4753e744b393622686b7db0ca29f,3c00071937116203ab30f5cb51677873a6840c1111fbbb5f8d576498924f7292,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-026.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-027,controlled/jobfair-platform-copy,9200427,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-027"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-027
+- Workflow: `jobfair_platform-approval-027`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-027: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7f34f8476583d958e65d832f6a4bafa0409ed9817aa8a02c0bae03c60a9b0f73,31a3755f4030afd5f9fee4f29895ef7d730ccd4456538357419ffc8689b40be0,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-027.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-028,controlled/jobfair-platform-copy,9200428,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-028"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-028
+- Workflow: `jobfair_platform-approval-028`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-028: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0d8e22ea1b83b3a9c6e9272417c6cf8f2f28cda557ff5a2ad3b1a9b95ed6482b,ea9acf2006954e4f59e48101e29a9edce90bf22b81657ed9807b841900f63d43,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-028.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-029,controlled/jobfair-platform-copy,9200429,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-029
+- Workflow: `jobfair_platform-approval-029`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-029: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,14ad421f12fee7773a469536e3bf29cf7718f9a2dc6444fb05383553bae2b3bf,4c36428e321aba4b732a3509222317a83369bc4da1990a374d21464d04e7c54a,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-029.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-030,controlled/jobfair-platform-copy,9200430,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_03.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_03.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_03.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-030"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-030
+- Workflow: `jobfair_platform-approval-030`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-030: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,be31fd683f017386421ea27946c1b0f7d90ebc8d70d6781988cf030cdcd73489,44075c61c05dbc0322fcf3137b43ae860e820febc80adf548ed99e5fceb3be3d,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-030.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-031,controlled/jobfair-platform-copy,9200431,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-031"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-031
+- Workflow: `jobfair_platform-approval-031`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-031: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aaa73a5ed5cbcafe03533ab9d3cea04eb9768c6726d8bf10a8f4e065633eab39,ba1f06813f4a9589ea4cfe22289861a8817f1f8b054cf29dd18743b7ee45f742,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-031.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-032,controlled/jobfair-platform-copy,9200432,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-032"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-032
+- Workflow: `jobfair_platform-approval-032`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-032: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ebb989e13cdc112cd6e931fad1004fdf742e7e42a7b8d017fe7bf2d40e6577e5,1c6b002f432e6763404ecbfff8a0122ae696a441586eb847c0e9e31e725256fc,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-032.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-033,controlled/jobfair-platform-copy,9200433,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-033
+- Workflow: `jobfair_platform-approval-033`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-033: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f59e555965f6cc821a9aae3f4807c227edc6aa44a68cd333969d8583ee7681b4,85a88bbeac20c62d164e904085e50af328c2eeea28461ae87278743ec8965f2e,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-033.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-034,controlled/jobfair-platform-copy,9200434,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-034"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-034
+- Workflow: `jobfair_platform-approval-034`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-034: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7800620696a195c1ee1b77eae8f728609c3054068b65fd26c0f056a1f3427648,3419048f84c40d6223c128cb35b759bf03f9d445964bdbed27a59f487563d8eb,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-034.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-035,controlled/jobfair-platform-copy,9200435,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-035"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-035
+- Workflow: `jobfair_platform-approval-035`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-035: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,84b8ec9026ba4fc85821d06eea94b0479c1665cb9e4888145e893e533dc27609,6a3c91add6c04598e91d5e8e8c85cc9659042ed1113172493d5d7dee37e15283,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-035.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-036,controlled/jobfair-platform-copy,9200436,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-036"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-036
+- Workflow: `jobfair_platform-approval-036`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-036: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,724e7cd85714a095b91dab67353bb01f4ab02a36abda28909982a42bd4180199,63354829ca40cf5a7f7d50acda1596090fc74dafd3c3d19936efa27501cdbba5,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-036.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-037,controlled/jobfair-platform-copy,9200437,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-037
+- Workflow: `jobfair_platform-approval-037`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-037: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d981621c5d3a5f80704a6551614119d944b77a5362924577c93ebf3c9a297580,a84a7d852e16e0e70e03f8cad23e731e197ba07f3d0c7715d4c1b53e430d7ed0,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-037.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-038,controlled/jobfair-platform-copy,9200438,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-038"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-038
+- Workflow: `jobfair_platform-approval-038`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-038: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,029e70076adc8691bccdef0dee49a0cf83d60ac087ae1e67c7b6fb87d19c20fa,9dcd4c88bcae8fbd6ca1cf7670c97620adfed380f0e7e7330dea621150aa8600,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-038.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-039,controlled/jobfair-platform-copy,9200439,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-039"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-039
+- Workflow: `jobfair_platform-approval-039`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-039: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a68d23408a704ce74bb54155474776b46c5e6403f31434e7175cfb2d2f86aaff,697b21c7630177f0980911a2b73811959c8aa4e537842b4e2f50c7430100fb0d,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-039.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-040,controlled/jobfair-platform-copy,9200440,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_04.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_04.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_04.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-040"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-040
+- Workflow: `jobfair_platform-approval-040`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-040: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8c55b5e0e4b5df22a90ac7228881540cd79656ed2661d72cb739a0ee7d1a7f9a,35b70918309f8624c78bfaee68e865c01e3e85923bd88a1b074a457994ad2cd3,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-040.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-041,controlled/jobfair-platform-copy,9200441,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-041
+- Workflow: `jobfair_platform-approval-041`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-041: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3f0383d41a8aa6bdd61f15c4b627644f7991f0f724a13a2b7d868aab2ae28a42,d548b02185ed510906b9e142220bb92019e9b76e185662a6a4510d82a0dd2c15,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-041.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-042,controlled/jobfair-platform-copy,9200442,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-042"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-042
+- Workflow: `jobfair_platform-approval-042`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-042: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8b7a6222ffd44ddf4a209789cf303397ec471466f98ea1fa62090d5231b7ae6e,e88cc298680fd799e646651f7f45e45a32b006be4631ee3912a9d91134f50a7c,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-042.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-043,controlled/jobfair-platform-copy,9200443,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-043"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-043
+- Workflow: `jobfair_platform-approval-043`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-043: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,efa03c894a7e960198be7d0da8a9030819e8af7451101c653ac75ee2741df8a2,edc80155366ba6d0e389257424a82adcd1359294d12fcdc186b3504701ee6f7c,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-043.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-044,controlled/jobfair-platform-copy,9200444,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-044"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-044
+- Workflow: `jobfair_platform-approval-044`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-044: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d4d4854ae8d15cb9ff2808b402e048f5b94480bbc80b596de857de52a221aab1,1f216ea4674bf5562d819bd0e175554f0fb0bfa5097faff900b4024ef60ed0f8,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-044.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-045,controlled/jobfair-platform-copy,9200445,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-045
+- Workflow: `jobfair_platform-approval-045`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-045: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c1549053e88d1156912836e2bb8cf56caf3938b8cbefa44300a26a06067221d7,ce717197e5d7a2d84ca32b8faad3862a4dd033fbea0f13ae13d1f77168d6ad8c,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-045.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-046,controlled/jobfair-platform-copy,9200446,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-046"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-046
+- Workflow: `jobfair_platform-approval-046`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-046: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0f72b265f9753127ad07cde9d6ecde9dc5689936c34dc3cdceabef4cacc8644c,993600bcbadfec4c6bd4ee9cfe78395114102aacdcae13c6e3a2e1b45b6255cc,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-046.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-047,controlled/jobfair-platform-copy,9200447,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-047"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-047
+- Workflow: `jobfair_platform-approval-047`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-047: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,46195b945c9294fe824a98445e3baf8fefae9411e39265bc33c5a2bf1420d327,eec9ff01609faff327de57915d7d619af9b5e63431fa8432c3b71ad4a0168451,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-047.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-048,controlled/jobfair-platform-copy,9200448,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-048"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-048
+- Workflow: `jobfair_platform-approval-048`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-048: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4de7f4a9ead530ee428400e10ced659a668d69e568cec2c2314ef4a02c6997b1,113468f8d9c9fd10444a43858ba7e9cc555af60e3ffe9d949c9febf1d77adb33,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-048.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-049,controlled/jobfair-platform-copy,9200449,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-049
+- Workflow: `jobfair_platform-approval-049`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-049: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0b7e825080dc02600393e483916440511fc9f20fc51206ea3ff6e6c771f4eac0,d34ef562363136c8a9fc76fb6101b65e17e96f3cf13780d94309fd562b361d93,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-049.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-050,controlled/jobfair-platform-copy,9200450,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_05.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_05.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_05.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-050"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-050
+- Workflow: `jobfair_platform-approval-050`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-050: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b76e9dabfe3cebfaa9ae3c95f3958cab6eff2b34476367ca8fcd6615beef4b40,ec85ed75700628fdfcaece4ef240f8dbdb8c850c1c2d0742939b9bdd192161e1,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-050.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-051,controlled/jobfair-platform-copy,9200451,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-051"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-051
+- Workflow: `jobfair_platform-approval-051`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-051: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6e169adcf40abd9f01ecd6db898cb2294ba4c85686227b7e2963858421dd0b80,8ed14d2742aa529cf7877b4dab652f09f5dc7ac6c383f226523c498525fba831,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-051.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-052,controlled/jobfair-platform-copy,9200452,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-052"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-052
+- Workflow: `jobfair_platform-approval-052`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-052: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8aa88f30510e18f9831389aa377f1790680a608446655eb587d12a57a1052516,26fe06559df524e3dd041bbd6b7df9300ffdc7e67cd3773c7a6eba475fc93544,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-052.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-053,controlled/jobfair-platform-copy,9200453,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-053
+- Workflow: `jobfair_platform-approval-053`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-053: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d6bebd7501e613fee9cae5cf3f57d55157759b9a5c871a2d6b748b75ee44a6ef,e8a8ea05a57acd68cbe867ca50d06f0411fd249c4b790697cc770768472adb1f,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-053.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-054,controlled/jobfair-platform-copy,9200454,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-054"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-054
+- Workflow: `jobfair_platform-approval-054`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-054: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a6167fe6994901047ddc947302c0cc0c6f93aec9a30dea2a52e82ce699e7e0d3,6937c666d16e11aac21a037cf5e257907bd8913a036fb1b16cd45d5b5dfb8634,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-054.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-055,controlled/jobfair-platform-copy,9200455,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-055"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-055
+- Workflow: `jobfair_platform-approval-055`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-055: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4e8bfbb12d3c15597a04899db941982ff76f06b088948782f945b3e16e3738c0,8fea1fa7a1b50c55191ff4439ab0a8b7c1e1fc3f1086a2a94cea965b3fc24721,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-055.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-056,controlled/jobfair-platform-copy,9200456,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-056"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-056
+- Workflow: `jobfair_platform-approval-056`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-056: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fa12085728453645ae5033f76a21d8a8750e579f7bd218f2541f04821b870acc,b2826bdb1319fb1e47da8af405a76777736e3914f8f817d5683292ddb3a2d35a,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-056.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-057,controlled/jobfair-platform-copy,9200457,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-057
+- Workflow: `jobfair_platform-approval-057`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-057: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,76e66cc7e52a76525631038f7c4331e829c40493b3d51c8e7b06ebd5c927ccc7,cab6ec591fef25015c312c35fceaf7cf104cb6b30b4f1545321317a48f6ea710,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-057.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-058,controlled/jobfair-platform-copy,9200458,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-058"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-058
+- Workflow: `jobfair_platform-approval-058`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-058: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8c45c4aecb5615e48e460aa20ca78ed374f44f0e0b4247db8271bab67d77bca3,89e7933cee7346969a81efcdfb1fbc09ce80408799142817cfd2ae579aa82fa3,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-058.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-059,controlled/jobfair-platform-copy,9200459,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-059"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-059
+- Workflow: `jobfair_platform-approval-059`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-059: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,436088c2a403028d33ed56272e25afe255a5dc2475593cf48a4343c7806aafcf,dcb968a1a0c4c43521aa2447153770743bf3b91a6ac2f7d48149944dff200179,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-059.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-060,controlled/jobfair-platform-copy,9200460,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_06.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_06.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_06.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-060"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-060
+- Workflow: `jobfair_platform-approval-060`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-060: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8517f63af8316244a6db1e21110a4bc9d04206f23ecba5e6753740f216666550,cb042c2b30c2943e73d0b3076b088d84f89b7b6c49d8ead00f5771fa65e77918,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-060.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-061,controlled/jobfair-platform-copy,9200461,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-061
+- Workflow: `jobfair_platform-approval-061`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-061: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2a6fbd2e2d5c90ebe64a4f2000eb71088f906b59d8e35c75e4fc0d9535f1bad1,2574cf1a7459635022b2dba33811e76af91ea4927c186e26ecc476e830ec019a,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-061.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-062,controlled/jobfair-platform-copy,9200462,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-062"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-062
+- Workflow: `jobfair_platform-approval-062`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-062: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,270439007cc4ad5dec093e3f45ffed77a4b2c9024c7e1760d29b0bb2319ccc78,3acd96ca5890c815ad97ddda08130b63050d81f8f53688a76ad1afe6efcc3c4d,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-062.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-063,controlled/jobfair-platform-copy,9200463,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-063"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-063
+- Workflow: `jobfair_platform-approval-063`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-063: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5aa301d8f71520fc32accd2e1c20f5a766d9d4a71b754a5adfddf45bff4d4c46,4160b9e8493fc5572c7e62692b5a669bab77bdea8ce8f0827ffba1337cea204c,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-063.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-064,controlled/jobfair-platform-copy,9200464,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-064"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-064
+- Workflow: `jobfair_platform-approval-064`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-064: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9bd620959c6c965be362059bd9cfdc65af791ab1e1dff11bbeb84db440dc69ab,ee527f622e1b17f9116e5d32ba84ce9c9d8bdfe2a0df02a651bc6bfe22f69244,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-064.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-065,controlled/jobfair-platform-copy,9200465,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-065
+- Workflow: `jobfair_platform-approval-065`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-065: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1b96eb73f1f1b0e387786a8580942930f06bf1fc925d4fb74195671ed47eb804,5e0473dc3394f9696f31da2dd077caea1de9e89640076a105ec91b364568d8f9,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-065.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-066,controlled/jobfair-platform-copy,9200466,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-066"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-066
+- Workflow: `jobfair_platform-approval-066`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-066: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,09234ffc27e21eaa97ebc1df34d6099cc2cf89575ac3083fda3a0fe0d2506f9b,97b8ba1cd740253ac9e871124a0d068c97f34aa52ce4dbd19933585f5cc128ca,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-066.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-067,controlled/jobfair-platform-copy,9200467,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-067"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-067
+- Workflow: `jobfair_platform-approval-067`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-067: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d09214d5d4820b415f0f6f4971b87cf036d8829f9ba8a251a4b021d5411d17c8,5a3578ad094fbe8be829b494388e31f9b53fad7a3f46ad417383279b51d56303,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-067.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-068,controlled/jobfair-platform-copy,9200468,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-068"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-068
+- Workflow: `jobfair_platform-approval-068`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-068: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,240c30849f2dac6353ea359ff8847e7e314fc2ec8a590d14b2a9d48563dab5ff,eb2dcf42d2f80038afbcee1a132c7f2ed820a825a9712df265b860786a793d19,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-068.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-069,controlled/jobfair-platform-copy,9200469,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-069
+- Workflow: `jobfair_platform-approval-069`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-069: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d1dd250fee0a134587a73c964dead161c301fe81ed42e69abd7872d4da0244aa,423f44f4e2fe2b45e6cf2f00942727ddea3d359fdc94db016a60bcac8728daff,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-069.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-070,controlled/jobfair-platform-copy,9200470,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_07.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_07.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_07.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-070"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-070
+- Workflow: `jobfair_platform-approval-070`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-070: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ad06600dcb4c03e580af3e31df607bb364db2a19beed507feed635274ad1a0de,430789151357a4bc6969ef0b8773e0c4030c0d87b29d277fee96cf4c7414e369,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-070.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-071,controlled/jobfair-platform-copy,9200471,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-071"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-071
+- Workflow: `jobfair_platform-approval-071`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-071: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,feb43d6ba85d0f5c44568e45e6e79d4dfe43fb4f5f795eda05899777c4cce0f4,de426d98085213b1016a853c2e38d2f87b97a19b5d3f49c5f55d5a15ec20a999,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-071.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-072,controlled/jobfair-platform-copy,9200472,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-072"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-072
+- Workflow: `jobfair_platform-approval-072`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-072: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c999b088d6f7e4b83b422c3bd7eccf64f3ba19f254ca5312b4470feec381ba4f,bab56e31a13b9a0dfa2a968be5692fe0109cbc7ed8af797600a3ecc3fbe992ec,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-072.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-073,controlled/jobfair-platform-copy,9200473,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-073
+- Workflow: `jobfair_platform-approval-073`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-073: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,40bb1838afc917b75073bab48fb2476134bb7c8cfaafd8477aaa5774ba40a165,924873a063550dc02234cfb82dc3b782220fd423f822d0b108ba609c843a8e6d,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-073.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-074,controlled/jobfair-platform-copy,9200474,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-074"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-074
+- Workflow: `jobfair_platform-approval-074`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-074: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6f24ee9b8bffc2bf451c4fb0663f110801e6d5f3d7ff3d39e6ece610bffff5ff,a29c04d9748f3354bb7a0eaee784e54b06224c2427bdbc11b0f419c77ebbea79,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-074.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-075,controlled/jobfair-platform-copy,9200475,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-075"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-075
+- Workflow: `jobfair_platform-approval-075`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-075: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9197a21f26e4452edc55cc4449a20aa383cf6b47a1a95183977b31bc31d290e5,3f24346b6f5cb35eea2ba790a57b73465b8375a4cfa2515b0a8cc0d606f78f7b,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-075.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-076,controlled/jobfair-platform-copy,9200476,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-076"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-076
+- Workflow: `jobfair_platform-approval-076`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-076: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ad92eea2b452692ae7af3a5376bcc4e13b19c1196d3c1afc1575ab47e99934be,04141c28896c74e83a42cac7845ca534ca76f3ebca64d023c6cc530f1b829d19,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-076.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-077,controlled/jobfair-platform-copy,9200477,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-077
+- Workflow: `jobfair_platform-approval-077`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-077: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,73825a5ce5b17d256a394ca168e076007df84b616f204268d1ee7a00363648e4,76fcba140cc63d3813054fa04e4bbcb737a1ff0095e7093b1ca6aac61a5bc5d3,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-077.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-078,controlled/jobfair-platform-copy,9200478,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-078"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-078
+- Workflow: `jobfair_platform-approval-078`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-078: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,94bd9dcc62f08d2f2a30ead42f2a9ea7d7874db303f3f4cd50a2253f986b8c1a,c8fc70c2f39b2456ac7dffb4e3a141c7ae73a1743ad2b85510824fe4f42997af,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-078.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-079,controlled/jobfair-platform-copy,9200479,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-079"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-079
+- Workflow: `jobfair_platform-approval-079`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-079: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d4e5d5cf5401d089bfe19a12fc66983871ba4a647c3decff2a555619ab6273fe,97bdf337d105bc38d83e6eb61f91fb1f4254a5674a8286681382f7f91917ef33,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-079.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-080,controlled/jobfair-platform-copy,9200480,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_08.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_08.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_08.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-080"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-080
+- Workflow: `jobfair_platform-approval-080`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-080: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a3f574fd8f5bff141d325efa2a2ec308f4bf7375c08bbce0cf3d2a0754757fcb,62f950030694238d28d1a5000f7429d8c89a750235df07a449b433e0b96b8519,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-080.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-081,controlled/jobfair-platform-copy,9200481,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-081
+- Workflow: `jobfair_platform-approval-081`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-081: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,977cc5d2ad8f674d912479ca99e42160536778976bc1f5dc60f965d21b1bde78,d6e4e975385600b86a56a39aaae7f22bb5bbe5c073ee60fff007d1b1b045a5cb,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-081.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-082,controlled/jobfair-platform-copy,9200482,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-082"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-082
+- Workflow: `jobfair_platform-approval-082`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-082: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,06112739ba45bf7c6f5d87f758fce1ad8e5ee333de9ec0724c7639df00c64a8a,52bf859fc6c170cc26161f76d9f567a87ce36bfb88179afa813f0a9152279253,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-082.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-083,controlled/jobfair-platform-copy,9200483,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-083"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-083
+- Workflow: `jobfair_platform-approval-083`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-083: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c9ec632542ac2b591e95ee92098d8b2f877190f2c7a9757c3e185f06b6cd7a9a,c0757d5ef4032a3ce7679e3a0267f7a92d88f342b1f5eecab4b5b56afb4bac41,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-083.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-084,controlled/jobfair-platform-copy,9200484,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-084"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-084
+- Workflow: `jobfair_platform-approval-084`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-084: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cfef579f50a5d578d863bf7fab90e401d4aaa6af1f87dfd0c618771a1f4c0426,fbf3a4a60fe4d5cb5c478f622dd39ae0c7a637f3d4b267e647a5e6cd8eeaffc2,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-084.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-085,controlled/jobfair-platform-copy,9200485,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-085
+- Workflow: `jobfair_platform-approval-085`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-085: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5eae2164de25521068c21e9bc6e56662f34100f4c5ab7fe66e4faf127bb38ab6,22f6c844f3f6bb9e91dd688b5874668a8e689e189a4f2c049d87cf0e29bf4863,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-085.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-086,controlled/jobfair-platform-copy,9200486,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-086"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-086
+- Workflow: `jobfair_platform-approval-086`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-086: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,994e4c87405a00b20545485203daddc8a6257593a2785ac18520cf8d849d3cde,3017dc095f4b2a2dd7433df45bf0c48b91322aacfaefd97183126326e279f089,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-086.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-087,controlled/jobfair-platform-copy,9200487,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-087"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-087
+- Workflow: `jobfair_platform-approval-087`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-087: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2382a08215b1b3e4bbdf21d4375858ca4fa142fc1ffe475ce4a521da50cf9035,b71ccf84b69fafeed6fc76512ec1c33999d693553f3a9739d33bcdd6a926b057,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-087.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-088,controlled/jobfair-platform-copy,9200488,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-088"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-088
+- Workflow: `jobfair_platform-approval-088`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-088: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ef519e28b71f334dd4fb9c4f97363187062d523f33ad4b0c0fc10d95e7c431d4,2e573e2dcfde63e563df145992888c27f054187cd0bcd491ac2bf1a2da613af1,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-088.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-089,controlled/jobfair-platform-copy,9200489,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-089
+- Workflow: `jobfair_platform-approval-089`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-089: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b5201929ad0b27145fc894a275a7c53ed0a8dc3e3b8bc4a1d1bd04ddd4d7793a,188bd07c23069357c572ae6958cd56e1d7ccc905a3e974141bff5d6575c0e279,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-089.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-090,controlled/jobfair-platform-copy,9200490,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_09.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_09.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_09.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-090"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-090
+- Workflow: `jobfair_platform-approval-090`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-090: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5e3e4583d1459495687c8b5cbb236f4bcc05c201d6b4eaaa9a25644a316e8a82,c72d3ea8eefebb979dd8ede0c596f00682ec28f278e303ed6fce68e4891547b6,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-090.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-091,controlled/jobfair-platform-copy,9200491,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-091"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-091
+- Workflow: `jobfair_platform-approval-091`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-091: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,68f4e0aebceb76dc8e49f5414884761d36557563045f3ea850e8c43a91fd3e61,67310bc3f45e33ace03ac198f6dcf8ff79f280e7af1a6151fa31b168b50edbee,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-091.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-092,controlled/jobfair-platform-copy,9200492,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-092"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-092
+- Workflow: `jobfair_platform-approval-092`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-092: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,862650345280f3a8e1d382ff295d374a94e3230eb466a08946fb82747350d6dc,13339a3943d4924351367d417a82f2b6f563e9a6b2dfd34da973dfa02d1b0242,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-092.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-093,controlled/jobfair-platform-copy,9200493,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-093
+- Workflow: `jobfair_platform-approval-093`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-093: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5571f67955d95872e0bb6a15832cdfef8474bdcfa5a14f8a34f39dfdbf25d086,26f4f57b0526f7dabb8c236fc2758342e3862f20f8ba3af08cbe7f2864d73461,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-093.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-094,controlled/jobfair-platform-copy,9200494,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-094"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-094
+- Workflow: `jobfair_platform-approval-094`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-094: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7b884c46c355157d25585a446114b2b80ac599524fcdd54adc9254cc0ed05368,2a235f6cc51a38a07a52b279568312dfbb5dadcb53523dbe5e640f7d4d9f0264,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-094.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-095,controlled/jobfair-platform-copy,9200495,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-095"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-095
+- Workflow: `jobfair_platform-approval-095`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-095: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a598b61fc5bb24ead26e94ea3161759ccffe8bc38894415bf5d40025e75aaf35,9a76168f6384e3aa547d36c50c92eb0676e6d8a8991b5c4ddfcfd27af5621c0b,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-095.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-096,controlled/jobfair-platform-copy,9200496,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-096"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-096
+- Workflow: `jobfair_platform-approval-096`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-096: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,84256ea0c0601757ac56ceb54f268cec53df891a658c2c072e5dd61f1ccdef99,0e1b6b3eec0f60fc4ee3b4c01374404a7f945ac02c307c63a0c02d37902ac53b,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-096.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-097,controlled/jobfair-platform-copy,9200497,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-097
+- Workflow: `jobfair_platform-approval-097`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-097: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c7ed03c81eb4b73cf0e24d42e8ca11919a8caa24ac4bb01611fc80ad24b900de,571cf8a8fa1718402aafb6cf6aecfcc973f2bb46088254e45a8bd87e1646dd69,other_documentation,jobfair_platform,business_workflow_step_added,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-097.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-098,controlled/jobfair-platform-copy,9200498,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-098"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-098
+- Workflow: `jobfair_platform-approval-098`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-098: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cea3c9495e1690bc3f56e139618f0399359cd07b6f45bd36a2bba905063f9c6d,6becf9b89cbf9a57fb8495d70d34ec73ecc1720c4ad61624dc56ec365459ec57,other_documentation,jobfair_platform,architecture_path_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-098.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-099,controlled/jobfair-platform-copy,9200499,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-099"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-099
+- Workflow: `jobfair_platform-approval-099`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-099: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,202737e69ff727ac1f80827e57be88bc614eaba0472be8565a4f2b520427acd1,0d56a57a708a968b824e14a98a7ba8dd2fbaf4dd98a3b641e93664ca20efbac2,other_documentation,jobfair_platform,operations_retry_policy_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-099.patch
+CRPP1-JOB-OTHER_DOCUMENTATION-100,controlled/jobfair-platform-copy,9200500,typescript,"[""src/docguard-contract-lab/other_documentation/contracts_10.json""]","--- a/src/docguard-contract-lab/other_documentation/contracts_10.json
++++ b/src/docguard-contract-lab/other_documentation/contracts_10.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""JOB-FLOW-100"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:d6310568b3f4cd63 -->
+### JOB-FLOW-100
+- Workflow: `jobfair_platform-approval-100`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"JOB-FLOW-100: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,85f964a40c773f9d828a4fd6590889bc6f76d047f30a3334fe94c14b7d2cb774,fc1b6d23e2ae6c8710465d1b33856fc7d8bbb52ed205283fe75617268fd3c1f0,other_documentation,jobfair_platform,security_approval_flow_change,cases/patches/jobfair_platform/other_documentation/JOB-FLOW-100.patch

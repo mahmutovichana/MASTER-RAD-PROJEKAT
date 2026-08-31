@@ -1,0 +1,135 @@
+@using RBBH.TestAutomation.Api.Services.Notifications
+@using RBBH.TestAutomation.Core.Domain
+@inject INotificationService NotifSvc
+@inject ToastService Toast
+
+<MudExpansionPanels Class="mt-3">
+    <MudExpansionPanel Text="Notifikacije" Icon="@Icons.Material.Filled.Notifications">
+
+        <div class="d-flex gap-4 mb-3">
+            <MudSwitch T="bool" @bind-Value="_notifyOnFailure" Color="Color.Error"
+                       Label="Obavijesti kad run padne" />
+            <MudSwitch T="bool" @bind-Value="_notifyOnSuccess" Color="Color.Success"
+                       Label="Obavijesti kad run prođe" />
+        </div>
+
+        @* ── Email primatelji ──────────────────────────────────── *@
+        <MudText Typo="Typo.subtitle2" Class="mb-1">Email primatelji</MudText>
+        <div class="d-flex align-center gap-2 mb-2">
+            <MudTextField @bind-Value="_newEmail" T="string"
+                          Label="Email adresa" Variant="Variant.Outlined"
+                          Immediate="true" Placeholder="ime@firma.com"
+                          Style="flex:1"
+                          OnKeyDown="@(async (e) => { if (e.Key == "Enter") await AddEmail(); })" />
+            <MudButton Variant="Variant.Outlined" Color="Color.Primary"
+                       OnClick="AddEmail" Disabled="@(string.IsNullOrWhiteSpace(_newEmail))">
+                Dodaj
+            </MudButton>
+        </div>
+        @if (_emails.Count > 0)
+        {
+            <MudChipSet T="string" Class="mb-3">
+                @foreach (var e in _emails)
+                {
+                    <MudChip T="string" Value="@e" Color="Color.Info" Variant="Variant.Outlined"
+                             OnClose="@(() => RemoveEmail(e))">
+                        @e
+                    </MudChip>
+                }
+            </MudChipSet>
+        }
+
+        @* ── Slack ─────────────────────────────────────────────── *@
+        <MudTextField @bind-Value="_slackUrl" T="string"
+                      Label="Slack Webhook URL" Variant="Variant.Outlined"
+                      Placeholder="https://hooks.slack.com/services/..."
+                      Immediate="true" Class="mb-3" />
+
+        @* ── Teams ─────────────────────────────────────────────── *@
+        <MudTextField @bind-Value="_teamsUrl" T="string"
+                      Label="Microsoft Teams Webhook URL" Variant="Variant.Outlined"
+                      Placeholder="https://outlook.webhook.office.com/..."
+                      Immediate="true" Class="mb-3" />
+
+        @* ── Test dugme ────────────────────────────────────────── *@
+        <MudButton StartIcon="@Icons.Material.Filled.Send"
+                   Variant="Variant.Outlined"
+                   Color="Color.Secondary"
+                   Disabled="@(_isTesting || !HasAnyChannel())"
+                   OnClick="SendTestNotification">
+            @(_isTesting ? "Šaljem…" : "Pošalji test notifikaciju")
+        </MudButton>
+
+    </MudExpansionPanel>
+</MudExpansionPanels>
+
+@code {
+    [Parameter] public NotificationConfig? InitialValue { get; set; }
+
+    private bool _notifyOnFailure = true;
+    private bool _notifyOnSuccess;
+    private List<string> _emails = [];
+    private string _slackUrl = "";
+    private string _teamsUrl = "";
+    private string _newEmail = "";
+    private bool _isTesting;
+    private bool _initialized;
+
+    protected override void OnParametersSet()
+    {
+        if (_initialized) return;
+        _initialized = true;
+
+        if (InitialValue is not null)
+        {
+            _notifyOnFailure = InitialValue.NotifyOnFailure;
+            _notifyOnSuccess = InitialValue.NotifyOnSuccess;
+            _emails = [..InitialValue.EmailRecipients];
+            _slackUrl = InitialValue.SlackWebhookUrl ?? "";
+            _teamsUrl = InitialValue.TeamsWebhookUrl ?? "";
+        }
+    }
+
+    public NotificationConfig GetCurrentValue() => new()
+    {
+        NotifyOnFailure = _notifyOnFailure,
+        NotifyOnSuccess = _notifyOnSuccess,
+        EmailRecipients = [.._emails],
+        SlackWebhookUrl = string.IsNullOrWhiteSpace(_slackUrl) ? null : _slackUrl.Trim(),
+        TeamsWebhookUrl = string.IsNullOrWhiteSpace(_teamsUrl) ? null : _teamsUrl.Trim(),
+    };
+
+    private Task AddEmail()
+    {
+        var trimmed = _newEmail?.Trim() ?? "";
+        if (trimmed.Length > 0 && trimmed.Contains('@') && !_emails.Contains(trimmed, StringComparer.OrdinalIgnoreCase))
+        {
+            _emails.Add(trimmed);
+            _newEmail = "";
+        }
+        return Task.CompletedTask;
+    }
+
+    private void RemoveEmail(string e) => _emails.Remove(e);
+
+    private bool HasAnyChannel() =>
+        _emails.Count > 0 || !string.IsNullOrWhiteSpace(_slackUrl) || !string.IsNullOrWhiteSpace(_teamsUrl);
+
+    private async Task SendTestNotification()
+    {
+        _isTesting = true;
+        try
+        {
+            await NotifSvc.SendTestNotificationAsync(GetCurrentValue());
+            Toast.Success("Test notifikacija poslana.");
+        }
+        catch (Exception ex)
+        {
+            Toast.Error($"Greška: {ex.Message}");
+        }
+        finally
+        {
+            _isTesting = false;
+        }
+    }
+}

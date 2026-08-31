@@ -1,0 +1,25 @@
+{
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.Console" ],
+    "MinimumLevel": "Information",
+    "WriteTo": [
+      {
+        "Name": "Console",
+        "Args": {
+          "theme": "Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme::Code, Serilog.Sinks.Console"
+        }
+      }
+    ],
+    "Properties": {
+      "Application": "RBBH.TestAutomation.Api"
+    }
+  },
+  "OpenIDConnectSettings": {
+    "Authority": "https://your-keycloak-server/realms/your-realm",
+    "WellKnown": "/.well-known/openid-configuration",
+    "ClientId": "your-client-id",
+    "ClientSecret": "your-client-secret"
+  },
+  "BackendApiUri": "https://localhost:7101",
+  "AllowedHosts": "*"
+}

@@ -1,0 +1,2151 @@
+﻿case_id,repository,pr_number,language,code_changed_files,code_diff_excerpt,docs_before_excerpt,suggested_docs_update_required,suggested_doc_category,suggested_notes,human_docs_update_required,human_doc_category,human_label_notes,review_status,review_row_hash,review_context_hash,synthetic_category_by_design,source_project_key,mutation_template,patch_path
+CRPP1-TFG-OTHER_DOCUMENTATION-001,controlled/rbi-test-forge-copy,9201401,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-001
+- Workflow: `rbi_test_forge-approval-001`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-001: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4baee3dc08458b59e56d9d6f60e87553cce1037fbdeb1c66044a8b180ff8e533,be5c5d73658b146175274cbe1e1eee8b04a99cb746611de01ead5fb4c872b529,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-001.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-002,controlled/rbi-test-forge-copy,9201402,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-002"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-002
+- Workflow: `rbi_test_forge-approval-002`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-002: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3ba398e95688435e151a0f402f23822104bf89ed79322d1ef1d95be0b84d82b8,2a3e2e39561bcc95de6245a7fa60fbf448fd4028c4b4e3508c67bfd2eb15fc61,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-002.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-003,controlled/rbi-test-forge-copy,9201403,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-003"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-003
+- Workflow: `rbi_test_forge-approval-003`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-003: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7cfe5df22325edf51987ab8b7934d4969d7621422bc95f68e3c79d12a8ffe01e,4c6be3966474a44cad394cd189b59e0d372a4de2e14b059238ab2efc093457c7,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-003.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-004,controlled/rbi-test-forge-copy,9201404,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-004"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-004
+- Workflow: `rbi_test_forge-approval-004`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-004: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,3fc7063ef528d9d6f9fc9d3eeb752944d5afe2413e1c33011a8b632bae7ef667,1abca16b260731d4e15913c4ee3f4bdeaede02b31d2fc66ab82b73d23fe8f335,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-004.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-005,controlled/rbi-test-forge-copy,9201405,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-005
+- Workflow: `rbi_test_forge-approval-005`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-005: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,76f014561ef47c12fa82d7f20e62848679e553b69d694d76af98a4f696512012,6aefb589692bd6c10105a1de205fcb9fc849482d88f4e2003be7535ec23193c8,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-005.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-006,controlled/rbi-test-forge-copy,9201406,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-006"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-006
+- Workflow: `rbi_test_forge-approval-006`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-006: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e59d273ddf11fe1cf496568f5525a951980a2ab4398244f267b3d81add07ce65,4cea17032ecec7fb82573c4e7019e7f5f25bb92958c09b54d8a793d113db3012,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-006.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-007,controlled/rbi-test-forge-copy,9201407,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-007"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-007
+- Workflow: `rbi_test_forge-approval-007`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-007: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d8437547282a9241784db0eba11f71b324e696a2166e6855746f019df321d3b9,787a4f6f8215d42c5dbbf74efca4fed507547484fe428497b63e47382bb92092,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-007.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-008,controlled/rbi-test-forge-copy,9201408,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-008"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-008
+- Workflow: `rbi_test_forge-approval-008`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-008: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,57439564987987883e2ece21ceea1420b0f52ff54025c6c559b5275a1111113a,d940fadcb0313f6e058f46e77d0b0c7c3ad949c29757ff9fd3bb0091b30b18b3,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-008.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-009,controlled/rbi-test-forge-copy,9201409,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-009
+- Workflow: `rbi_test_forge-approval-009`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-009: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b35559f518d5135d3b515a681d67473867e1c48829f6efb038b98257d0e76693,6075f2eaf8927d5407d1ad715da072f519c6f2ff661c62fed9b8070e51ac51ab,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-009.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-010,controlled/rbi-test-forge-copy,9201410,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_01.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-010"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-010
+- Workflow: `rbi_test_forge-approval-010`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-010: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,95426b5e088b2db65461edefdc6f475c9f1c6eb94074d61277b4602e0224d123,ab5479674c04d6d9d90078bb7055da988597dc77e903191b036465fbd6a42ecd,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-010.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-011,controlled/rbi-test-forge-copy,9201411,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-011"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-011
+- Workflow: `rbi_test_forge-approval-011`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-011: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,289702f2effe2eead58a40a42e5d3693278cf6c32f86853be6c02503c7769b12,dba4adc18bb9acad9423491a202b9949200e7b59d917199d8674416ad4e9477c,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-011.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-012,controlled/rbi-test-forge-copy,9201412,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-012"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-012
+- Workflow: `rbi_test_forge-approval-012`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-012: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,05ac73d2c863bcfaea0ba2dbd857ada46391ca84db5b7fb2b854c7c20eb0e0d1,013d3edcf6e0eea29c91c70359585ce2f3f335b4bcf4164af70685c897600d37,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-012.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-013,controlled/rbi-test-forge-copy,9201413,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-013
+- Workflow: `rbi_test_forge-approval-013`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-013: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,78f4744b4f7c2474f6b987e26d70b88d76b4e127056b418e65c155d66d84f193,5901392cbaaeb331cb4c7a1315d049985793437514f881800984fe7a0c13fcf4,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-013.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-014,controlled/rbi-test-forge-copy,9201414,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-014"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-014
+- Workflow: `rbi_test_forge-approval-014`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-014: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4cbc415d51921ab770bcd4cf7e1c1299465c0760942c5cc78bb6b7ab0ec51be0,46c94fdcdb76ba288bae86a283df099a453ba29294b965050e043569ffb1a87e,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-014.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-015,controlled/rbi-test-forge-copy,9201415,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-015"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-015
+- Workflow: `rbi_test_forge-approval-015`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-015: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7e2f0fbf7763e12f38d22c7c9c5b6b2dc0ffe47349e3a59a799c0472075f4af7,b20ab92af3042428c6132b31ee1a8fe107a84111a1055824f1565c33f96edbdc,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-015.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-016,controlled/rbi-test-forge-copy,9201416,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-016"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-016
+- Workflow: `rbi_test_forge-approval-016`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-016: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e72cc05ccc1474541d351469ee7f4898010d66f9f13f7e6654a36b55df0d9caf,509b7ba753bbe3058d98c8d24332697610246acda6987f5cd161c654859a07ef,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-016.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-017,controlled/rbi-test-forge-copy,9201417,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-017
+- Workflow: `rbi_test_forge-approval-017`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-017: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,eda005f9b1865958965b8e37d273422c5ba463a2f45b566b3fb7fa785a1e5c0c,d05659e1cb3fa64d2a8ab1997fbaffcbfc88d9e72243143a43757bd1d477e32f,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-017.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-018,controlled/rbi-test-forge-copy,9201418,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-018"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-018
+- Workflow: `rbi_test_forge-approval-018`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-018: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,11c5d0b80b90b6e119f2da97186f897d994baaccb6a370d7950443d288b6e707,3aff6eb1c7a0a60e9c1847aa005ccdaa3576dd8e2e8b3fffc4d8ee2fa12c724f,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-018.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-019,controlled/rbi-test-forge-copy,9201419,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-019"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-019
+- Workflow: `rbi_test_forge-approval-019`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-019: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0928caf92bbcea20847de73d5298dc617652e8acebefdff185cfacb31e86b866,02b34aeed7fd3b35dd9b2d76b210acfce28866bd9f368633fd92d9c3fe550e4f,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-019.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-020,controlled/rbi-test-forge-copy,9201420,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_02.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-020"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-020
+- Workflow: `rbi_test_forge-approval-020`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-020: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,333c28e30eb0bc63d6262dc8ebcbbd778c7a5eb348563c2aab0b75ed689ecafd,31ac9273585af5731157ecd87479d57077a0ed3410331ad8d734c37dfa9b7c88,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-020.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-021,controlled/rbi-test-forge-copy,9201421,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-021
+- Workflow: `rbi_test_forge-approval-021`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-021: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,32bcacfef65c549c627e5215b3411c45b2e28a70b92fdef7b4b3932323a6aa24,fe496a259b6f04e98e6f8bdcdc632fd9f2285b02b57b1b75fa77addb35c5971d,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-021.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-022,controlled/rbi-test-forge-copy,9201422,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-022"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-022
+- Workflow: `rbi_test_forge-approval-022`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-022: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c5c0f3873cdeb2303520516b94e158f8a9c52a3b66a74d6f10abb7935e83612a,5f9ef9ebc9a03911387d355947a62bc944fe4f95b4d5f92645371030b1da5061,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-022.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-023,controlled/rbi-test-forge-copy,9201423,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-023"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-023
+- Workflow: `rbi_test_forge-approval-023`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-023: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,68bffec8aab4016d7372de4b4e05dc19352a154c590c115b8f0803a6686932f4,205c124801e866b60f0017e44f5f8061d244aad5c849ecbf08bd75202671fe35,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-023.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-024,controlled/rbi-test-forge-copy,9201424,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-024"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-024
+- Workflow: `rbi_test_forge-approval-024`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-024: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ca099d66f4a17983e578076f39d9316a9f2c267e6d3d723e603609f5bd57d378,1d5bc478f7ae92f2ef20e97db4bce675bf6be2f516ad918dc1b9104abd96e8d3,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-024.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-025,controlled/rbi-test-forge-copy,9201425,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-025
+- Workflow: `rbi_test_forge-approval-025`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-025: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aa2dbd061df55473a04de542ddf66ed231014e3c529cda9d82de0b6452a8e1b4,565fdc6c0ad425b703ca3bb328a50bbb25ac24bf3960086b1aaf72e58425e77a,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-025.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-026,controlled/rbi-test-forge-copy,9201426,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-026"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-026
+- Workflow: `rbi_test_forge-approval-026`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-026: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,75d5854bad6b7fab5bf5c214f7887cdd986415cddcb6b882ea6a53555ba3ca7b,8af3ae1c29c3946673fe4cb9fe667249ce9dedb3d32e06ae12da7d8546586145,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-026.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-027,controlled/rbi-test-forge-copy,9201427,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-027"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-027
+- Workflow: `rbi_test_forge-approval-027`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-027: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9c001184978fe0afa541f7c5b0c5a8b422600450850c8d38a2b0a44dbe59e339,525a37588186563070a0c83cd77b52ffff801d6c656f07a320d31d7c85a89775,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-027.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-028,controlled/rbi-test-forge-copy,9201428,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-028"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-028
+- Workflow: `rbi_test_forge-approval-028`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-028: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,7cb76662c8d5ae88184a2dd1a460b82bec7626cd84de723374cf1590c3d9948f,277359db4e14796e8b8beffddb5980e8f5a87027708e019d999a7bb67a48d3ab,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-028.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-029,controlled/rbi-test-forge-copy,9201429,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-029
+- Workflow: `rbi_test_forge-approval-029`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-029: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6fd2647ffdc07f08375827928bd19fe09d8ab5f23ef6998aeb5a00e8125aee02,3e4cdc5deb3f63ddd44de7df6fb46e91fe956491715baf33654b7f19de1c97a7,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-029.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-030,controlled/rbi-test-forge-copy,9201430,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_03.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-030"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-030
+- Workflow: `rbi_test_forge-approval-030`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-030: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d0d0f05539c07ea7ccc5607f2d15b06612e84ff8b238f8d9e35dd29baf5e5682,dbc3a1465b0942fcb8a90ccc688ae279726dfd98167701e414d0f1526a9330b7,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-030.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-031,controlled/rbi-test-forge-copy,9201431,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-031"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-031
+- Workflow: `rbi_test_forge-approval-031`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-031: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aad856005c7f1f6168427523ca97318499e61d5a421fbedfa551d51a9685e170,4dd42558d52db77cdb5dcad029d104f83174b817f1f24744e2997ec4194cb8bd,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-031.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-032,controlled/rbi-test-forge-copy,9201432,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-032"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-032
+- Workflow: `rbi_test_forge-approval-032`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-032: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,92d6d965c933a2d2a771d41f8e7561a1c5a2da4aa831631db188c289182fc353,4418f8220c9fc8556eb1ef94df9d4bb12a00be850ca079a5384f9196f23ecfd2,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-032.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-033,controlled/rbi-test-forge-copy,9201433,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-033
+- Workflow: `rbi_test_forge-approval-033`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-033: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,542d680ed626ba8384c7a44e9fa1ab990bf6b324c051f965dba503bbf02f1f5a,f18f474fcde15669dc87bc77f61aca662f701f85ac8e409863bfb556dec6b5cd,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-033.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-034,controlled/rbi-test-forge-copy,9201434,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-034"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-034
+- Workflow: `rbi_test_forge-approval-034`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-034: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ff2937203bcd381fe66681d3267887204d7cfa12b2b1c7bd2871cf3dceb9d814,907bd7c1c694249a77e74df79a7d0204756cf7d9bab3fcf85556c8d8b72749ba,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-034.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-035,controlled/rbi-test-forge-copy,9201435,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-035"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-035
+- Workflow: `rbi_test_forge-approval-035`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-035: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,8e9155246819ffb7461a5ad1ea7eafa5938bc41087ad28daeb075e11500a833a,bc22ff2f52049e7ad7ff9331795ba8406e8e9c7237eb8ffb64cdbe61f8a9f1e0,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-035.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-036,controlled/rbi-test-forge-copy,9201436,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-036"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-036
+- Workflow: `rbi_test_forge-approval-036`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-036: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c26c75f62a97f2ec0c6c3350820638475802d748a7221675595d75d9a5a8ddfa,214083024db55615d3d06740c0fed39450b3b5388d665ff47e50bad616ea935e,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-036.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-037,controlled/rbi-test-forge-copy,9201437,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-037
+- Workflow: `rbi_test_forge-approval-037`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-037: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5c9ce67411d4af42720f7981fcf7966391fbd397097bcd4d123f41583f4961a8,94dd86d5e968a2f650f96ff6d27fe83ec8551f355c3e9e4a1f470a5840e6b74b,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-037.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-038,controlled/rbi-test-forge-copy,9201438,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-038"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-038
+- Workflow: `rbi_test_forge-approval-038`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-038: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e9f74eb2930f28931d452bab3aef893f47b1b61ab78ac90424ab7597e6abcd83,2375eb90d9a82387b2d6dee615fe6d621d0c3b4241b0470d1ad40d3c6bd5c05b,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-038.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-039,controlled/rbi-test-forge-copy,9201439,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-039"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-039
+- Workflow: `rbi_test_forge-approval-039`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-039: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,156886aa56686680db97c393afedfce92869e7a16028378165c9243e90283e38,39ad049c70411a32c28ae11a607b38689a6b13a341baa2ffc7856661f4bff15e,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-039.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-040,controlled/rbi-test-forge-copy,9201440,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_04.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-040"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-040
+- Workflow: `rbi_test_forge-approval-040`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-040: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bc58c0385a70b462d196e56bd204ba68d92245a34b13d2ae6e33e1f532177a14,66878970f3f403c14ac14d94ba7abf241614a9f36a6ba98a59aee2f57b7f1551,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-040.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-041,controlled/rbi-test-forge-copy,9201441,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-041
+- Workflow: `rbi_test_forge-approval-041`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-041: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b9b4f2b800233194fa11d6e7ee94b59736346066cd22a8eb92a41768ada838f3,513f36aa73ad63e7a75c60b1c079049f2a8903bad4bbe29084921e18a9dab28c,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-041.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-042,controlled/rbi-test-forge-copy,9201442,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-042"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-042
+- Workflow: `rbi_test_forge-approval-042`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-042: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,026e59897ca14453c9f0aa82a97bf8f4d85f3ed13022fa89c5f2be9cfc26b3dc,c2b86ab627b9d720f975a7f0e451189447347b3d3b86afe76f23b77cb95b9cd7,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-042.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-043,controlled/rbi-test-forge-copy,9201443,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-043"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-043
+- Workflow: `rbi_test_forge-approval-043`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-043: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d047ff3194165e66e478719fd33f940d589f85b62ecc62f88f06d21a2c61e7f2,7f0828153b4ee25d557dff8d0712c5dd73c08f3834f3d9c436dff764acc75e41,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-043.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-044,controlled/rbi-test-forge-copy,9201444,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-044"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-044
+- Workflow: `rbi_test_forge-approval-044`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-044: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2dd759e0d915cc888358661b91db6a122a9e1218514145d189086107c4d1b49b,6fe2c1a4028d1622cd41cfe1be04b4a8c6ec40932fa6c2b993c963d674ef736a,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-044.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-045,controlled/rbi-test-forge-copy,9201445,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-045
+- Workflow: `rbi_test_forge-approval-045`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-045: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,b88ecaf4beda52614e50e5979159c18811cd7adc45e0c21d572ef1b3f710ed8a,bdc169f129e207b09bd9e8b07d4b9be2d15d3befb6b9a576ad930980dc5a3fd5,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-045.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-046,controlled/rbi-test-forge-copy,9201446,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-046"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-046
+- Workflow: `rbi_test_forge-approval-046`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-046: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,48524527d2ef0f32315d4ef576f45f554b4657fd6e2ba48e8cfa2648806e5d86,05158df379c5687b25ce7b2ec15d9c4eb07757b0236b735f9dd7684515305885,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-046.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-047,controlled/rbi-test-forge-copy,9201447,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-047"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-047
+- Workflow: `rbi_test_forge-approval-047`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-047: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,269d4d2cbaf8ba7bbdbcdbeba6d2e59b69b6be5d8a47ad4051eefc4a5ad33f28,6c986f5edb99864fd722f36d3a9b0bee254e7ffef288d47c63788197f767c175,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-047.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-048,controlled/rbi-test-forge-copy,9201448,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-048"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-048
+- Workflow: `rbi_test_forge-approval-048`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-048: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,86116de911e9a9505ba3a3420bc163dca3dd5f55986fe910087a4caba07eb607,0630bc04d41a5d3d5eb7c5501d720afc190920b1d753420b1b82ed38070fd971,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-048.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-049,controlled/rbi-test-forge-copy,9201449,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-049
+- Workflow: `rbi_test_forge-approval-049`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-049: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,07739c3db5f1617f66c3b811629e68b0d0b3d6117dd010a63f8cf1257740e9b7,7a967f4361426f7179c22509cc8d0afcc90d42ceee942c0512e4646e458afa33,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-049.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-050,controlled/rbi-test-forge-copy,9201450,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_05.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-050"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-050
+- Workflow: `rbi_test_forge-approval-050`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-050: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2860b187312aff074716dff7fcf4ff0fd80386914cf07f0b46b1cbc1ce90461a,dde15dd2b2191a2ae0de541b1ad1ea1a8b18c34733ac9ed73cd8f45b0a08cdae,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-050.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-051,controlled/rbi-test-forge-copy,9201451,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-051"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-051
+- Workflow: `rbi_test_forge-approval-051`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-051: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6ad920f935530a1d63f0bd227dd96d58b185014444ac5df45057b59cae556fbf,c77ddd522f664f81ccee958b0015cc8349db85e23b39a19b29889d5bce3fb503,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-051.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-052,controlled/rbi-test-forge-copy,9201452,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-052"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-052
+- Workflow: `rbi_test_forge-approval-052`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-052: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,fd5d47f3f81e5c4f6d714a52308c8df59c7256a1831f74c3908782e291a9aad6,bce50e4aa73e6337648af6a6357ed95b0222c87e87d4ca738d2a809478ab4886,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-052.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-053,controlled/rbi-test-forge-copy,9201453,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-053
+- Workflow: `rbi_test_forge-approval-053`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-053: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,53ccd5bdf67f856292ad05c546522f1fc5fbc9c600666e928bc9b01439bad369,5a36cc2ca803806c97240e0dff9f40f37e2487bf6f7e3d0026ff48d9b224e445,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-053.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-054,controlled/rbi-test-forge-copy,9201454,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-054"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-054
+- Workflow: `rbi_test_forge-approval-054`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-054: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,c8af89cb1163943b72368c4960485d4b884263f4c1d476838434888932bd5976,1aee7c54774d1fcf5c81dc82a3c0e3d738d36026b47b55246045ad4ebd6dfedd,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-054.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-055,controlled/rbi-test-forge-copy,9201455,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-055"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-055
+- Workflow: `rbi_test_forge-approval-055`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-055: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,18a67d7ba882bca8994cb69527ad466cf7168bf3a7e0023368df2d7665e21471,8a8785add7508232ba4ed4a398bf2d6f2cb38dd90a17b855def8addad966927d,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-055.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-056,controlled/rbi-test-forge-copy,9201456,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-056"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-056
+- Workflow: `rbi_test_forge-approval-056`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-056: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d72a3b3d9ce88bb22f1422406146fa58c7f7df9176ee8db805eeb200afc46da3,f0f785bddce3cea0049374baa81cdf352bd0133f6c2bd56e80a5f78c2c7fdd4c,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-056.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-057,controlled/rbi-test-forge-copy,9201457,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-057
+- Workflow: `rbi_test_forge-approval-057`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-057: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bc42e6b9f500f2d304e732b8375fbe31b861f42785adcad1027c860abe439780,3ee4da4058feb0b3f223271619b07aeb97708d55c0daaa25a288c604f6a15906,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-057.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-058,controlled/rbi-test-forge-copy,9201458,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-058"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-058
+- Workflow: `rbi_test_forge-approval-058`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-058: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5d74534c0941991693a71c9dbd7ca9f8b409918048e10f34f520b14f77f5ed8e,00bfa98f0a5dc81ecad23c578c02a4b0835247176dce9680d439355fd0a79a47,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-058.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-059,controlled/rbi-test-forge-copy,9201459,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-059"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-059
+- Workflow: `rbi_test_forge-approval-059`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-059: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,bbe8ee56dc895fb0b9fafbf0326d7491d4293d3b914871533ff0bbecc4174413,9f05cd16de03a7239fb39ee0f32f68fbaab09df9cf9cb489718ce333df9297c1,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-059.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-060,controlled/rbi-test-forge-copy,9201460,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_06.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-060"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-060
+- Workflow: `rbi_test_forge-approval-060`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-060: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6086dd102bab533711ebc2ce4ee708cf5a232ee499f165d1c192cd3e0ea7f7a3,d0406956f275acfd846abe3d9caf0470586997e1cc22482c94190f3ef25905fb,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-060.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-061,controlled/rbi-test-forge-copy,9201461,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-061
+- Workflow: `rbi_test_forge-approval-061`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-061: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e1cbb0ff7023f2bda4a0d085f59ab9f665de484ee8a16f78ed9ac3441588ae58,d23368451aef44b060b8ab9ce1667ad9352c6d841ebec6cad05ff5f1009c3a59,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-061.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-062,controlled/rbi-test-forge-copy,9201462,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-062"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-062
+- Workflow: `rbi_test_forge-approval-062`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-062: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2d1428e494cfe433c58887c9987380acf3d6c0fba6325c24b10001b7d2e5a6d9,cdcf3a77f0f9bb556833e7859f26dfc8b4114ea465df477e5a21098ad40b557b,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-062.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-063,controlled/rbi-test-forge-copy,9201463,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-063"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-063
+- Workflow: `rbi_test_forge-approval-063`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-063: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4285eff3ece6d4bc595ab73fa729d97558cf2c7ebd26168eeeecd9de4b397b29,42e4074b92b86b91c8362bfc5d0064f8e684320a91ebd3e062599cfd38579762,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-063.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-064,controlled/rbi-test-forge-copy,9201464,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-064"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-064
+- Workflow: `rbi_test_forge-approval-064`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-064: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,e44bbf98b597a3a7c68b80164a32058baf25d81d40f810bad456e331bc920a5e,23dedc52f982a9a85c741d7ee9291903c3957177eee8ca3dfe8ff9a38d97cf4b,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-064.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-065,controlled/rbi-test-forge-copy,9201465,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-065
+- Workflow: `rbi_test_forge-approval-065`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-065: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1eec89695969d74c3816aa9c6162cad37f49be7201472ac68169d8309470a2a7,613d4e4caf56e1d902c5a74c4960c181999cfeb880aeb22f2b25f54542fb8349,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-065.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-066,controlled/rbi-test-forge-copy,9201466,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-066"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-066
+- Workflow: `rbi_test_forge-approval-066`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-066: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ccf06e7611f529f6fb79cc30f1809b10dbbbc77e3ddca07c469c4c7c265a02e6,256c01adfc60dd9fd5468cfb6e5c0e5bef561ec4329bb71dd029e1c9acee1b32,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-066.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-067,controlled/rbi-test-forge-copy,9201467,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-067"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-067
+- Workflow: `rbi_test_forge-approval-067`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-067: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9239af36663b753be2763d29d67578a80a23f4dc14bc99ca2df08cc57e036eb2,89930db70ca3fdbf27079e56264aa3dafee7bdd90932d5b88d2903d121cb01a7,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-067.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-068,controlled/rbi-test-forge-copy,9201468,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-068"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-068
+- Workflow: `rbi_test_forge-approval-068`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-068: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f003ced30503d1669dff71753b73a47275a947e1967c4ae746ed2a5462cb222a,2cf43318e606da83c9ca4fb9354262dce672ebea1d0e67ec217d5a997d97b475,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-068.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-069,controlled/rbi-test-forge-copy,9201469,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-069
+- Workflow: `rbi_test_forge-approval-069`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-069: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,5b073947b90598d2db6cc98eabeffb042e931d3f3c8eb4a33ca1a2d1c5d92e97,c0fd780d05ee8fa8d7dbeb9f59b1860d63a289901f9f25cda616d50f269bf182,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-069.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-070,controlled/rbi-test-forge-copy,9201470,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_07.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-070"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-070
+- Workflow: `rbi_test_forge-approval-070`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-070: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f7b1ad9fc36509e7bc2e7b299cd91969b931f5a83a70a0eff6e8ba2ed963b4db,01b23a515daa4e848e942cc6282e5c308728f61a684c94d2f4e96a33e4f3e619,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-070.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-071,controlled/rbi-test-forge-copy,9201471,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-071"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-071
+- Workflow: `rbi_test_forge-approval-071`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-071: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,90eef97e923db28f31774bf608d00f1f05a4b86242d83c2521d181dac2d2737d,155542f02111f4090839a8a93d5a7de7ab3724a369e2a7586be348221f96dbc6,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-071.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-072,controlled/rbi-test-forge-copy,9201472,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-072"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-072
+- Workflow: `rbi_test_forge-approval-072`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-072: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,680102c99c0d08b7e4b1d5e89172519b77998dee80ca14eb5a4281f39a991d8e,7f6594fe36e90db857583b4b3e88fa5d07b67378df9097cf4d0972503d0a8512,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-072.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-073,controlled/rbi-test-forge-copy,9201473,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-073
+- Workflow: `rbi_test_forge-approval-073`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-073: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,a6984c8e669f29e37546ef58ab1fcc454dbca4eff0f374a99edfff1151a4bf77,9f2951644e03293d4aab5bec33b3930eb17ef831fbbd9a8fc898335892cc98ec,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-073.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-074,controlled/rbi-test-forge-copy,9201474,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-074"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-074
+- Workflow: `rbi_test_forge-approval-074`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-074: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,06a0733885ea7886abea683673708b809ff0d2fb43fb2c58f4326018a1c6553a,cddae1ef158275f29a8b7b8a75326d148e9ba8f8a502938a8d96ca1a2b9b7af5,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-074.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-075,controlled/rbi-test-forge-copy,9201475,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-075"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-075
+- Workflow: `rbi_test_forge-approval-075`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-075: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,259b49106a41bb3ff124a57eba9f04bf91a197694db9e0e69af95658e1932bd1,2e3c6a749dd36c3ca1aac10ed79d1bb0340f6eb96db2bc8fdee02bb97aa0eebd,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-075.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-076,controlled/rbi-test-forge-copy,9201476,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-076"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-076
+- Workflow: `rbi_test_forge-approval-076`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-076: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,2f153a7b01f8fc83bc5cd220061da64e0aad68a5f6d04ec24e2e43ae2154a054,e3b24a86e26ef4b72c30be566d2c9ce2972ad80ad6785b441d01cc64b3f0d93a,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-076.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-077,controlled/rbi-test-forge-copy,9201477,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-077
+- Workflow: `rbi_test_forge-approval-077`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-077: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,6dc925540a75cc60fafef76954d92c9330da60c42c931f2fc5585705912f1939,2d7e8068b8681f7e423eef8edf272b10260737f8712c7d5d76eb5aa65e2dd6e6,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-077.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-078,controlled/rbi-test-forge-copy,9201478,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-078"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-078
+- Workflow: `rbi_test_forge-approval-078`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-078: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,39573d57a274e6ed3748f08a21d0e47ffae9269986f765005ce4fba9d4327c0b,4a34472c128c286a1c16756992200b8d435766a6fff45ecce1345c033a8f813a,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-078.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-079,controlled/rbi-test-forge-copy,9201479,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-079"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-079
+- Workflow: `rbi_test_forge-approval-079`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-079: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,13e2dbf78b3ea1ab22bd18218bcdfab5dadda60733e0f73d5c8ccaa7af39df0f,ba89ff2747012e6b267ffd81fae58e7f83f50651e782750ffe09d4bd6a296f80,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-079.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-080,controlled/rbi-test-forge-copy,9201480,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_08.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-080"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-080
+- Workflow: `rbi_test_forge-approval-080`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-080: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f185d3450d210bf037ad53090bf6441eba681655cab8a1f829c4e85a15411788,ddf9e34b3eedc13ff7bb068de8bb688b3c05cbcb5226fae4a3a94208c3360add,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-080.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-081,controlled/rbi-test-forge-copy,9201481,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -13,6 +13,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-081
+- Workflow: `rbi_test_forge-approval-081`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-081: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,22e8262c6ed5471809b76370bd8e3d1fef6f7caf9f3ee06ac181dbf39f700258,49c7fa162fae3b8bc3a8f724e60346e6df8615eb17b636e11f47e0b2a98126d3,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-081.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-082,controlled/rbi-test-forge-copy,9201482,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -23,7 +23,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-082"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-082
+- Workflow: `rbi_test_forge-approval-082`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-082: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,0535b198a66a76cab9e6c51c52653243d59b49e82d5d1ed5f47c25dcd7341cc8,e705e81a91bd7b20cb72ade39a8fd3f02ef933a0e8e574ae8c3088068940e5a0,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-082.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-083,controlled/rbi-test-forge-copy,9201483,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -42,7 +42,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-083"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-083
+- Workflow: `rbi_test_forge-approval-083`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-083: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,9b36f3930faec305dea0f965eda8c26a4b0084a7780a71e5a1be913c72a10cf8,351084995d0f429c6e1552640f37aff1651dc2827c0e98e2175394e195d7549a,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-083.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-084,controlled/rbi-test-forge-copy,9201484,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -55,12 +55,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-084"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-084
+- Workflow: `rbi_test_forge-approval-084`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-084: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,4b7e5f941ebbf0fe720f6778a2c0b430b6534d47d7055d4e04ebb10545fb75e3,5794d3740a61556194469fd668766eda0032da8a2bb96328aeae28cb2a6790af,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-084.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-085,controlled/rbi-test-forge-copy,9201485,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -81,6 +81,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-085
+- Workflow: `rbi_test_forge-approval-085`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-085: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,941c363daf3250926ef92e119f7d3ffbc40b3be6dfe52247a3ba3ba9409d091a,6dcd02b46225ace406434644ec52281274b6e3b1374bd4a9f1f7795f56ae0773,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-085.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-086,controlled/rbi-test-forge-copy,9201486,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -91,7 +91,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-086"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-086
+- Workflow: `rbi_test_forge-approval-086`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-086: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,ffb9276d8e19514fd090641d3f668c0de0c4c392b27f067976a3e3a001ed518f,8a2131627a20c6d5fa10f2fb9c11dccad2f5c9a94fdc9abf761644d2784b6217,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-086.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-087,controlled/rbi-test-forge-copy,9201487,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -110,7 +110,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-087"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-087
+- Workflow: `rbi_test_forge-approval-087`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-087: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,13ae2efb696ea1a2625e608e274e13ef3aee2669678decb9d5864e7b2ff152b1,461fe0aa1a577feef448f2c5c64d2bc3e36d553273976f7deb78cbdc75e9632e,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-087.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-088,controlled/rbi-test-forge-copy,9201488,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -123,12 +123,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-088"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-088
+- Workflow: `rbi_test_forge-approval-088`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-088: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,07d10684eec830c4b7d632009cc0046ff7f48dbf7a06c281ce7883a99416a7bf,fe9eb234422d4bf284f774b1a92cf8a012c0506a00462d07c375030db35f6d74,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-088.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-089,controlled/rbi-test-forge-copy,9201489,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -149,6 +149,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-089
+- Workflow: `rbi_test_forge-approval-089`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-089: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,18b2c6c443e9f936d244787692304f328d9366818f7e3e2c864f6a047d5158aa,bef34a6a23f83f47b5980647e217a6a0365ae926b5f0083fd91132cf71e91645,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-089.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-090,controlled/rbi-test-forge-copy,9201490,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_09.json
+@@ -159,7 +159,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-090"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-090
+- Workflow: `rbi_test_forge-approval-090`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-090: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,df041d1deabb854f18670663141c2b752f821612db8eab6031dba77382914b83,1fed40b61a6d560220009f7bded65fc427d149e2e869fb766d75f48320370a7c,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-090.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-091,controlled/rbi-test-forge-copy,9201491,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -8,7 +8,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-091"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-091
+- Workflow: `rbi_test_forge-approval-091`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-091: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,af238972b8c16cfeab88f9065802203867faad028bc5761f1e2a9f01a1d262b6,8744f72e0906fe180829b6015461570cb7dc735cf0e519e7c5de615b165f89ec,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-091.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-092,controlled/rbi-test-forge-copy,9201492,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -21,12 +21,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-092"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-092
+- Workflow: `rbi_test_forge-approval-092`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-092: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,dd696b051de90eef3a7e20d9c033dd2d6cdba2c7444caaa23ce1bf346e0e0950,06bd444b4966dd18c6cc3456ca6cea962654ce88f94d8af69e70d2866501e523,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-092.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-093,controlled/rbi-test-forge-copy,9201493,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -47,6 +47,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-093
+- Workflow: `rbi_test_forge-approval-093`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-093: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,30ea4c6e5f1c5507d04a7f2b7b01396c212ee96f53f984211a2c94d56c0fad57,d8cfc7daf289b3d6985ef7d36749bcf0bf5707de038028572520aad0a5a5417b,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-093.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-094,controlled/rbi-test-forge-copy,9201494,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -57,7 +57,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-094"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-094
+- Workflow: `rbi_test_forge-approval-094`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-094: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cbd59b931d95e41414658fc36165855eb76fb43f119b12ffd177bfa28ae5b578,0f8e5a4887bd5c48b7835e5c3acf8cddf8f1aab5033d6eb73b4fa575e8d5b87c,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-094.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-095,controlled/rbi-test-forge-copy,9201495,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -76,7 +76,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-095"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-095
+- Workflow: `rbi_test_forge-approval-095`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-095: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,cb5b97c14ad020fb1ebee9145aca6778d2a436e19348af544e2861c00dbd2428,a5e1a02e206331718869430099256019abfa4570c08a39704c9c6da69f9bb767,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-095.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-096,controlled/rbi-test-forge-copy,9201496,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -89,12 +89,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-096"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-096
+- Workflow: `rbi_test_forge-approval-096`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-096: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,f04816b7c89223fdf14b176dc31d1e83f6ee9c725b0fd433bc160891e32b197f,787c61e4f569037468c2c3e6da158cb63e9943ce53a7c2059c86d001870ff354,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-096.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-097,controlled/rbi-test-forge-copy,9201497,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -115,6 +115,7 @@
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
++        ""compliance_review"",
+         ""approved"",
+         ""published""
+       ],
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-097
+- Workflow: `rbi_test_forge-approval-097`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-097: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'submitted -> validated -> approved -> published' u 'submitted -> validated -> compliance_review -> approved -> published' (business_workflow_step_added), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,1974654c7b731f2eff9961e3b6da06653e7a45c5e7bb63a14a34e541ab9e231d,00cd6e12e33173496173062ed26fcc83e6413dbc9f80773b81656b04f63d9bf2,other_documentation,rbi_test_forge,business_workflow_step_added,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-097.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-098,controlled/rbi-test-forge-copy,9201498,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -125,7 +125,7 @@
+         ""operator"",
+         ""reviewer""
+       ],
+-      ""architecturePath"": ""frontend -> api -> queue -> database"",
++      ""architecturePath"": ""frontend -> api -> cache -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-098"",
+       ""retryAttempts"": 3,
+       ""securityGate"": ""dual-control"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-098
+- Workflow: `rbi_test_forge-approval-098`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-098: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'frontend -> api -> queue -> database' u 'frontend -> api -> cache -> queue -> database' (architecture_path_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,aefa0a7b2e63046e304b3aec58c06b30e212cfdeb4574d863d2aa09c9e9e6b84,1409d9bdb1e8d2777cc9add8c5297a87dbae4366ea7f664ad171be02a14e7164,other_documentation,rbi_test_forge,architecture_path_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-098.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-099,controlled/rbi-test-forge-copy,9201499,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -144,7 +144,7 @@
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-099"",
+-      ""retryAttempts"": 3,
++      ""retryAttempts"": 5,
+       ""securityGate"": ""dual-control"",
+       ""steps"": [
+         ""submitted"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-099
+- Workflow: `rbi_test_forge-approval-099`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-099: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz '3' u '5' (operations_retry_policy_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,d8e2ebf44f0818042f62f029661dab4eed2333e5d69f5ae6eeabae9ef3804293,6eb6f25e4645812f009a326f6d1c6d7587ebf0e53f82109f41d5d78ca10e94b4,other_documentation,rbi_test_forge,operations_retry_policy_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-099.patch
+CRPP1-TFG-OTHER_DOCUMENTATION-100,controlled/rbi-test-forge-copy,9201500,csharp,"[""TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json""]","--- a/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
++++ b/TestGenerator/DocGuardContractLab/other_documentation/contracts_10.json
+@@ -157,12 +157,13 @@
+     {
+       ""approvalRoles"": [
+         ""operator"",
+-        ""reviewer""
++        ""reviewer"",
++        ""compliance-officer""
+       ],
+       ""architecturePath"": ""frontend -> api -> queue -> database"",
+       ""contractId"": ""TFG-FLOW-100"",
+       ""retryAttempts"": 3,
+-      ""securityGate"": ""dual-control"",
++      ""securityGate"": ""three-person-review"",
+       ""steps"": [
+         ""submitted"",
+         ""validated"",
+","<!-- docs/docguard-contract-lab/WORKFLOWS_AND_OPERATIONS.md @ controlled-baseline:dfd43cf7cd2609ab -->
+### TFG-FLOW-100
+- Workflow: `rbi_test_forge-approval-100`
+- Required sequence: `submitted -> validated -> approved -> published`
+- Architecture path: `frontend -> api -> queue -> database`
+- Retry policy: `3 attempts`
+- Approval roles: `operator, reviewer`
+- Security gate: `dual-control`
+",True,other_documentation,Controlled design expectation: other_documentation; independent human/owner acceptance still required before merge.,True,other_documentation,"TFG-FLOW-100: kod mijenja dokumentovani workflow/arhitekturu/operativno pravilo iz 'dual-control' u 'three-person-review' (security_approval_flow_change), dok docs-before eksplicitno navodi staru vrijednost; dokumentacija bi zato postala zastarjela.",approved,826c65a7c9bea3500f8d59a74a4a97fef8da65a3b6ed4e09ed9d18d3163613d7,cea38dd5dfd4318f10f5e52b6cb6bdf8bb52589488c4a6c4544bba14793f16e0,other_documentation,rbi_test_forge,security_approval_flow_change,cases/patches/rbi_test_forge/other_documentation/TFG-FLOW-100.patch

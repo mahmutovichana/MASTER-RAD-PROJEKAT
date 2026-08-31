@@ -1,0 +1,51 @@
+@* ============================================================
+   StatusBadge — Badge za prikaz rola, statusa i tipa akcije
+   ============================================================
+   Upotreba:
+     <StatusBadge Text="Administrator" Color="Color.Error" />
+     <StatusBadge Text="Aktivno"       Color="Color.Success" />
+     <StatusBadge Text="Finansije"     Color="Color.Info" Size="Size.Medium" />
+
+   Gdje se koristi:
+   - Prikaz rola dodijeljenih korisniku
+   - Status zapisa (aktivno/neaktivno/čeka odobrenje)
+   - Tip akcije u Audit Log tablici
+
+   Napomena: MudBlazor 8.x zahtijeva T="string" na MudChip.
+   ============================================================ *@
+
+<MudChip T="string"
+         Color="@Color"
+         Size="@Size"
+         Variant="Variant.Filled"
+         Class="status-badge">
+    @Text
+</MudChip>
+
+@code {
+    /// <summary>
+    /// Tekst koji se prikazuje na badgeu. Obavezan.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string Text { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Boja badgea. Default: Color.Default (neutralna siva).
+    /// Preporučene kombinacije za TAG:
+    ///   Color.Error     → Administrator (crvena upozorava na privilegovanu rolu)
+    ///   Color.Success   → Aktivno, potvrđeno
+    ///   Color.Warning   → Na čekanju, privremeno
+    ///   Color.Info      → Ostale role (Finansije, Compliance...)
+    ///   Color.Secondary → Neaktivno, arhivirano
+    ///   Color.Default   → Generički, bez semantike
+    /// </summary>
+    [Parameter]
+    public Color Color { get; set; } = Color.Default;
+
+    /// <summary>
+    /// Veličina badgea. Default: Size.Small — pogodan za tablice i liste.
+    /// Koristiti Size.Medium kada je badge samostalan element (nije uz tekst).
+    /// </summary>
+    [Parameter]
+    public Size Size { get; set; } = Size.Small;
+}
