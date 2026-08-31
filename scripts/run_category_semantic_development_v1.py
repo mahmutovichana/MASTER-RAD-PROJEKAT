@@ -1001,7 +1001,13 @@ def main() -> int:
     best_predictions = np.asarray([row["prediction"] for row in prediction_sets[best["name"]]])
     semantic_best = next(item for item in results if item["name"] == best_by_family["semantic"])
     lexical_best = next(item for item in results if item["name"] == best_by_family["two_channel_lexical"])
-    semantic_code_only_best = next(item for item in results if item["name"] == best_by_family["semantic_code_only"])
+    semantic_code_only_best = next(
+        item
+        for item in results
+        if item["representation_family"] == "semantic_code_only"
+        and item["training_source"] == "natural_only"
+        and item["classifier_family"] == semantic_best["classifier_family"]
+    )
     best_representation_utility = controlled_utility[best["representation_family"]]
     best_utility_pair = best_representation_utility["by_classifier"][best["classifier_family"]]
     controlled_bootstrap = best_utility_pair["paired_bootstrap_controlled_minus_natural"]

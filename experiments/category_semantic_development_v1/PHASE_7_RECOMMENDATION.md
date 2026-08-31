@@ -4,7 +4,7 @@
 
 1. Semantic better than TF-IDF V8: **yes**.
 2. Two-channel lexical better than concatenated TF-IDF V8: **yes**.
-3. Semantically represented docs_before improves over semantic code-only: **yes** (Macro-F1 delta **+0.0016**).
+3. Semantically represented docs_before improves over semantic code-only in a matched natural-only OVR comparison: **yes** (Macro-F1 delta **+0.0203**).
 4. Controlled-data deltas are reported in `recommendation.json`; they are retained only if natural-validation generalization improves.
 5. Controlled examples recommended for final training: **no** under the predefined matched-family decision rule. Recommended natural-only model: `hybrid__natural_only__multinomial_logreg` (Macro-F1 **0.4485**, balanced accuracy **0.4709**). The augmented candidate remains an experimental upper bound, not the final recommendation.
 6. Best developer_setup F1: **0.0741**.
