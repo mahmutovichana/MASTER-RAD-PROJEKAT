@@ -10,6 +10,15 @@ PRIMARY_STAGE2_LABELS = ["api_reference", "configuration", "developer_setup", "m
 OTHER_DOCUMENTATION_LABEL = "other_documentation"
 NO_UPDATE_LABEL = "no_update"
 LABEL_SOURCE = "human_reviewed_final_v2"
+NATURAL_HUMAN_GOLD_LABEL_SOURCE = "natural_human_gold"
+ADDITIONAL_REVIEWED_NATURAL_POSITIVE_LABEL_SOURCE = "additional_reviewed_natural_positive"
+CONTROLLED_DESIGN_LABEL_SOURCE = "controlled_design_label"
+VALID_LABEL_SOURCES = {
+    LABEL_SOURCE,  # legacy value retained for backwards-compatible artifacts
+    NATURAL_HUMAN_GOLD_LABEL_SOURCE,
+    ADDITIONAL_REVIEWED_NATURAL_POSITIVE_LABEL_SOURCE,
+    CONTROLLED_DESIGN_LABEL_SOURCE,
+}
 ALLOWED_PARTITIONS = {"development_train", "development_validation", "confirmation"}
 AUDIT_OR_GOLD_ONLY_FIELDS = {
     "source_url",
@@ -64,8 +73,9 @@ def validate_final_gold_row(row: dict[str, Any], *, allowed_partitions: set[str]
         raise ValueError(f"{row_id}: review_status must be approved")
     if row.get("human_review_complete") is not True:
         raise ValueError(f"{row_id}: human_review_complete must be exactly true")
-    if row.get("label_source") != LABEL_SOURCE:
-        raise ValueError(f"{row_id}: label_source must be {LABEL_SOURCE}")
+    label_source = str(row.get("label_source") or "")
+    if label_source not in VALID_LABEL_SOURCES:
+        raise ValueError(f"{row_id}: unsupported label_source {label_source!r}")
     if "gold_docs_update_required" not in row or not isinstance(row.get("gold_docs_update_required"), bool):
         raise ValueError(f"{row_id}: gold_docs_update_required must be a real boolean")
     category = str(row.get("gold_doc_category") or "")
@@ -80,6 +90,17 @@ def validate_final_gold_row(row: dict[str, Any], *, allowed_partitions: set[str]
         raise ValueError(f"{row_id}: partition must be one of {sorted(ALLOWED_PARTITIONS)}")
     if allowed_partitions is not None and partition not in allowed_partitions:
         raise ValueError(f"{row_id}: partition {partition} is not allowed here")
+    if label_source == CONTROLLED_DESIGN_LABEL_SOURCE:
+        if partition != "development_train":
+            raise ValueError(f"{row_id}: controlled design supervision must be development-train-only")
+        if row.get("independent_human_reviewed") is not False:
+            raise ValueError(f"{row_id}: controlled design supervision cannot be independent human gold")
+        if row.get("controlled_design_supervision") is not True:
+            raise ValueError(f"{row_id}: controlled design supervision flag is missing")
+        if row.get("train_only") is not True:
+            raise ValueError(f"{row_id}: controlled design supervision must set train_only=true")
+    elif "independent_human_reviewed" in row and row.get("independent_human_reviewed") is not True:
+        raise ValueError(f"{row_id}: natural human-gold rows must retain independent_human_reviewed=true")
 
 
 def eligible_final_row(row: dict[str, Any], *, allowed_partitions: set[str] | None = None) -> bool:

@@ -6,11 +6,16 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from human_review_workflow_v2 import (
+from scripts.human_review_workflow_v2 import (
     POSITIVE_CATEGORIES,
     parse_bool,
     review_context_hash,
     review_row_hash,
+)
+from docguard_ml_v2.data_contract import (
+    ADDITIONAL_REVIEWED_NATURAL_POSITIVE_LABEL_SOURCE,
+    CONTROLLED_DESIGN_LABEL_SOURCE,
+    NATURAL_HUMAN_GOLD_LABEL_SOURCE,
 )
 
 
@@ -85,6 +90,36 @@ def normalize_label(row: dict[str, Any]) -> tuple[bool, str]:
     return required, category
 
 
+def provenance_for_source(source_name: str, provenance_tier: str) -> dict[str, Any]:
+    """Assign explicit supervision provenance without changing label values."""
+    if provenance_tier == "controlled_real_project_augmentation":
+        return {
+            "label_source": CONTROLLED_DESIGN_LABEL_SOURCE,
+            "supervision_source": "controlled_synthetic_positive",
+            "independent_human_reviewed": False,
+            "controlled_design_supervision": True,
+            "owner_accepted_for_training": True,
+            "train_only": True,
+        }
+    if source_name == "remaining_4800_partial_positive_54":
+        return {
+            "label_source": ADDITIONAL_REVIEWED_NATURAL_POSITIVE_LABEL_SOURCE,
+            "supervision_source": "additional_natural_human_review",
+            "independent_human_reviewed": True,
+            "controlled_design_supervision": False,
+            "owner_accepted_for_training": False,
+            "train_only": False,
+        }
+    return {
+        "label_source": NATURAL_HUMAN_GOLD_LABEL_SOURCE,
+        "supervision_source": "natural_human_gold",
+        "independent_human_reviewed": True,
+        "controlled_design_supervision": False,
+        "owner_accepted_for_training": False,
+        "train_only": False,
+    }
+
+
 def main() -> int:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     merged: list[dict[str, Any]] = []
@@ -114,6 +149,7 @@ def main() -> int:
             copied["human_doc_category"] = category
             copied["consolidated_source_dataset"] = source["name"]
             copied["provenance_tier"] = source["provenance_tier"]
+            copied.update(provenance_for_source(source["name"], source["provenance_tier"]))
             if source["provenance_tier"] == "controlled_real_project_augmentation":
                 copied["training_eligible"] = True
                 copied["merge_status"] = "owner_accepted_for_augmentation"
@@ -148,6 +184,7 @@ def main() -> int:
                 "source_path": path.relative_to(ROOT).as_posix(),
                 "selection": source["selection"],
                 "provenance_tier": source["provenance_tier"],
+                **provenance_for_source(source["name"], source["provenance_tier"]),
             })
             added += 1
         source_stats[source["name"]] = {
@@ -202,6 +239,12 @@ def main() -> int:
         "positive_rate": label_counts["positive"] / len(merged),
         "category_counts": dict(sorted(category_counts.items())),
         "source_counts": dict(sorted(source_counts.items())),
+        "label_source_counts": dict(sorted(Counter(row["label_source"] for row in merged).items())),
+        "supervision_source_counts": dict(sorted(Counter(row["supervision_source"] for row in merged).items())),
+        "independent_human_reviewed_counts": dict(sorted(Counter(str(row["independent_human_reviewed"]) for row in merged).items())),
+        "controlled_design_supervision_counts": dict(sorted(Counter(str(row["controlled_design_supervision"]) for row in merged).items())),
+        "owner_accepted_for_training_counts": dict(sorted(Counter(str(row["owner_accepted_for_training"]) for row in merged).items())),
+        "train_only_counts": dict(sorted(Counter(str(row["train_only"]) for row in merged).items())),
         "source_stats": source_stats,
         "controlled_augmentation_rows": controlled_count,
         "natural_or_historical_rows": natural_or_historical_count,
@@ -233,7 +276,13 @@ def main() -> int:
     report.extend(f"- `{name}`: **{count:,}**" for name, count in sorted(source_counts.items()))
     report.extend([
         "",
-        "Controlled rows are explicitly marked in-row and in source_provenance.jsonl. They must remain development-train-only so repository/template leakage cannot inflate validation or sealed-confirmation metrics.",
+        "## Provenance",
+        "",
+    ])
+    report.extend(f"- `{name}`: **{count:,}**" for name, count in sorted(manifest["label_source_counts"].items()))
+    report.extend([
+        "",
+        "Controlled rows use `label_source=controlled_design_label`, `supervision_source=controlled_synthetic_positive`, `independent_human_reviewed=false`, and `train_only=true`. Natural human gold and the 54 additional natural positives use separate provenance values. Controlled rows must remain development-train-only so repository/template leakage cannot inflate validation or sealed-confirmation metrics.",
     ])
     (OUTPUT / "audit_report.md").write_text("\n".join(report) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True))
