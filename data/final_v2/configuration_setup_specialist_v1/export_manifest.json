@@ -1,0 +1,117 @@
+{
+  "artifacts": {
+    "natural_train_configuration_setup.jsonl": {
+      "bytes": 4702974,
+      "path": "data\\final_v2\\configuration_setup_specialist_v1\\natural_train_configuration_setup.jsonl",
+      "sha256": "bae86d28a07883dc0fac8a0c6919cbd1e3adf9f50b1f2143289c69e0a9a7c495"
+    }
+  },
+  "case_ids_sha256": "34a9b56b9334706ec5dc6b9ea93babe04761f36f1a3c535b38f6e4ceda211cf5",
+  "category_counts": {
+    "configuration": 277,
+    "developer_setup": 88
+  },
+  "confirmation_accessed": false,
+  "controlled_or_synthetic_rows_used": false,
+  "created_at": "2026-09-01T12:13:33.118540+00:00",
+  "current_hybrid_config": {
+    "classifier": {
+      "C": 1.0,
+      "class": "LogisticRegression",
+      "class_weight": null,
+      "max_iter": 2000,
+      "random_state": 42,
+      "resampling": null,
+      "solver": "lbfgs",
+      "threshold": 0.5
+    },
+    "lexical_code_channel": {
+      "analyzer": "char_wb",
+      "dtype": "np.float32",
+      "fit_policy": "fit on each OOF fold-train only; transform fold-eval only",
+      "max_features": 20000,
+      "min_df": 2,
+      "ngram_range": [
+        3,
+        5
+      ],
+      "sublinear_tf": true,
+      "vectorizer": "TfidfVectorizer"
+    },
+    "lexical_scalar_features": [
+      "log1p(shared code/docs token count)",
+      "shared / union token ratio",
+      "shared / min(code token count, docs token count)",
+      "identifier overlap ratio",
+      "changed-path token overlap ratio",
+      "log1p(code text length)",
+      "log1p(docs text length)"
+    ],
+    "semantic_encoder": {
+      "chunk_chars": 1000,
+      "chunk_pooling": "mean of normalized chunk embeddings, then renormalize",
+      "max_chunks_per_side": 2,
+      "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+      "normalize_embeddings": true,
+      "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+    },
+    "semantic_relational_features": [
+      "E_code",
+      "E_docs",
+      "abs(E_code - E_docs)",
+      "E_code * E_docs",
+      "cosine(E_code, E_docs)"
+    ]
+  },
+  "development_validation_rows_used": false,
+  "forbidden_fields_excluded": [
+    "controlled_design_label",
+    "controlled_design_supervision",
+    "docs_after",
+    "docs_after_excerpt",
+    "docs_diff",
+    "docs_diff_excerpt",
+    "human_doc_category",
+    "human_docs_update_required",
+    "human_label_notes",
+    "independent_human_reviewed",
+    "label_source",
+    "owner_accepted_for_training",
+    "pr_number",
+    "provenance_tier",
+    "repository_full_name_for_model",
+    "review_status",
+    "suggested_doc_category",
+    "suggested_docs_update_required",
+    "suggested_notes",
+    "supervision_source"
+  ],
+  "frozen_322_validation_accessed": false,
+  "language_counts": {
+    "go": 5,
+    "python": 51,
+    "typescript": 297,
+    "unknown": 12
+  },
+  "purpose": "train-only repository-grouped OOF pilot for configuration vs developer_setup",
+  "refresh_validation_rows_used": false,
+  "repository_count": 55,
+  "repository_identity_for_grouping_only": true,
+  "row_count": 365,
+  "safe_fields": [
+    "case_id",
+    "repository",
+    "language",
+    "code_changed_files",
+    "code_diff_excerpt",
+    "docs_before_excerpt",
+    "gold_doc_category",
+    "partition"
+  ],
+  "schema": "configuration_setup_specialist_v1_export",
+  "source": {
+    "path": "data\\final_v2\\architecture_challenge_v1\\natural_train_primary_four.jsonl",
+    "sha256": "9dc1136f1cf695eb69c70b763ad051898aa5fae351fcf028eed97116c8891f99",
+    "source_rows": 1038
+  }
+}
