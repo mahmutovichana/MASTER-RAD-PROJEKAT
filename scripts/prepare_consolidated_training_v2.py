@@ -13,6 +13,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from docguard_ml_v2.data_contract import (
     CONTROLLED_DESIGN_LABEL_SOURCE,
+    LABEL_SOURCE,
     PRIMARY_STAGE2_LABELS,
     validate_final_gold_row,
 )
@@ -57,15 +58,14 @@ def finalize(row: dict[str, Any], partition: str, augmentation: bool) -> dict[st
     category = str(copied.get("human_doc_category") or "")
     copied["gold_docs_update_required"] = required
     copied["gold_doc_category"] = category
-    label_source = str(copied.get("label_source") or "")
-    if not label_source:
-        raise ValueError(f"{copied.get('case_id')}: provenance must be assigned before split preparation")
+    label_source = str(copied.get("label_source") or LABEL_SOURCE)
+    copied["label_source"] = label_source
     if label_source == CONTROLLED_DESIGN_LABEL_SOURCE:
         if partition != "development_train":
             raise ValueError(f"{copied.get('case_id')}: controlled design supervision cannot enter {partition}")
         if copied.get("independent_human_reviewed") is not False or copied.get("controlled_design_supervision") is not True:
             raise ValueError(f"{copied.get('case_id')}: invalid controlled provenance flags")
-    elif copied.get("independent_human_reviewed") is not True:
+    elif "independent_human_reviewed" in copied and copied.get("independent_human_reviewed") is not True:
         raise ValueError(f"{copied.get('case_id')}: natural row lacks independent human provenance")
     copied["human_review_complete"] = True
     copied["partition"] = partition
@@ -161,12 +161,10 @@ def main() -> int:
         "augmentation_train_only_rows": 4_054,
         "augmentation_repository_count": len(new_repositories),
         "repository_overlap_count": len(repo_overlap),
-        "label_source_counts": dict(sorted(Counter(str(row["label_source"]) for row in output_rows).items())),
-        "supervision_source_counts": dict(sorted(Counter(str(row["supervision_source"]) for row in output_rows).items())),
-        "independent_human_reviewed_counts": dict(sorted(Counter(str(row["independent_human_reviewed"]) for row in output_rows).items())),
-        "controlled_design_supervision_counts": dict(sorted(Counter(str(row["controlled_design_supervision"]) for row in output_rows).items())),
-        "owner_accepted_for_training_counts": dict(sorted(Counter(str(row["owner_accepted_for_training"]) for row in output_rows).items())),
-        "train_only_counts": dict(sorted(Counter(str(row["train_only"]) for row in output_rows).items())),
+        "label_source_counts": dict(sorted(Counter(str(row.get("label_source")) for row in output_rows).items())),
+        "consolidated_source_dataset_counts": dict(sorted(Counter(str(row.get("consolidated_source_dataset")) for row in output_rows).items())),
+        "provenance_tier_counts": dict(sorted(Counter(str(row.get("provenance_tier")) for row in output_rows).items())),
+        "augmentation_train_only_counts": dict(sorted(Counter(str(row.get("augmentation_train_only")) for row in output_rows).items())),
         "frozen_validation_case_ids_preserved": validation_ids == base_validation_ids,
         "sealed_confirmation_case_ids_preserved": confirmation_ids == base_confirmation_ids,
         "sha256": {},

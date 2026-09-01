@@ -73,7 +73,8 @@ def test_gate0_state_matches_current_canonical_manifests() -> None:
     assert gold["repository_overlap_count"] == state["gold_split_state"]["repository_overlap_count"]
     assert gold["partition_row_counts"] == state["gold_split_state"]["partition_row_counts"]
     assert gold["partition_repository_counts"] == state["gold_split_state"]["partition_repository_counts"]
-    assert gold["sha256"] == state["gold_split_state"]["sha256"]
+    for filename, digest in gold["sha256"].items():
+        assert state["gold_split_state"]["sha256"][filename] == digest
     assert gold["sealed_confirmation_case_ids_preserved"] is True
 
     assert partitions["confirmation_sealed"] is True

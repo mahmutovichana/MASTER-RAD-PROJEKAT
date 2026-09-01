@@ -42,7 +42,7 @@ These may remain as development evidence, but must not feed the Final V2 experim
 | `data/final_v2/controlled_real_project_positive_v2_imbalanced/` | Controlled positive augmentation source already represented through the v2 consolidated manifest. |
 | `data/final_v2/expansion/targeted_positive_enrichment_v1/` | Earlier targeted enrichment pilot/source. Not a standalone final dataset. |
 | `data/final_v2/expansion/targeted_positive_enrichment_v1_remaining_4800/` | Partial external candidate source. Only the independently accepted 54 positive rows are represented through the v2 consolidated manifest. |
-| `data/final_v2/natural_diversity_expansion_v1/` | Natural diversity source/finalized human review family. Its reviewed rows are upstream evidence, not the current unified gold path. |
+| `data/final_v2/natural_diversity_expansion_v1/` | Separate finalized Natural Diversity / refresh-validation family. Gate 1 found that its 779 completed reviewed rows are not represented in the current unified gold path; this must remain explicit and cannot be silently treated as included. |
 | `models/real_gold_classifier_*` | Older classifier artifacts. Historical only. |
 | `models/real_doc_category_classifier_*` | Older category classifier artifacts. Historical only. |
 | `models/external_deep_jit*` | Older external/deep JIT experiments. Historical only. |

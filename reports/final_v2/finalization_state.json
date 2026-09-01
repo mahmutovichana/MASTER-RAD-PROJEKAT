@@ -15,12 +15,18 @@
     "final_human_gold": "experiments/consolidated_enriched_training_v2/gold/final_human_gold.jsonl",
     "final_human_gold_manifest": "experiments/consolidated_enriched_training_v2/gold/human_gold_manifest.json",
     "finalization_protocol": "reports/final_v2/FINALIZATION_PROTOCOL.md",
+    "gate1_blockers": "reports/final_v2/GATE1_BLOCKERS.json",
+    "gate1_dataset_card": "reports/final_v2/GOLD_DATASET_CARD.md",
+    "gate1_report": "reports/final_v2/GATE1_HUMAN_GOLD_FREEZE.md",
+    "gold_freeze_verifier": "scripts/verify_final_v2_gold_freeze.py",
     "pre_experiment_audit": "reports/final_v2/pre_experiment_audit.json",
     "stage3_config": "configs/stage3_semantic_generation_v2.json"
   },
   "confirmation_results_accessed_by_gate_0": false,
+  "confirmation_results_accessed_by_gate_1": false,
   "confirmation_sealed": true,
-  "current_commit_at_audit_start": "ae0d880113b81d57f0aa92e534c6b00bc01e091a",
+  "current_commit_at_gate_1_audit_start": "b1a5b40173967b00a8b3a48263231061907d61c4",
+  "current_gate": 1,
   "dataset_state": {
     "category_counts": {
       "api_reference": 1552,
@@ -43,15 +49,32 @@
     "stage3_freeze_manifest_present": false
   },
   "gate_0_status": "PASS",
+  "gate_1_status": "FAIL",
+  "gate_1_summary": {
+    "gold_freeze_manifest_created": false,
+    "human_review_completion_audit": "passed",
+    "legacy_final_dataset_audit": {
+      "empty_docs_before_excerpt_errors": 25,
+      "partition_recomputation_mismatch_errors": 1893,
+      "status": "fail",
+      "total_errors": 1918
+    },
+    "unresolved_blockers": [
+      "natural_diversity_scope_unresolved",
+      "conflicting_duplicate_model_safe_input",
+      "empty_docs_before_excerpt",
+      "legacy_integrity_audit_not_v2_freeze_compatible"
+    ]
+  },
   "gate_statuses": {
     "gate_0_canonical_pipeline_and_integrity_baseline": "PASS",
-    "gate_1_human_gold_dataset_freeze": "NOT_EXECUTED_IN_THIS_GATE",
-    "gate_2_development_only_ml_model_study": "NOT_EXECUTED_IN_THIS_GATE",
-    "gate_3_final_classifier_selection_and_freeze": "NOT_EXECUTED_IN_THIS_GATE",
-    "gate_4_stage3_retrieval_generation_study_and_freeze": "NOT_EXECUTED_IN_THIS_GATE",
-    "gate_5_one_shot_confirmation": "NOT_EXECUTED_IN_THIS_GATE",
-    "gate_6_post_hoc_and_human_evaluation": "NOT_EXECUTED_IN_THIS_GATE",
-    "gate_7_thesis_evidence_freeze": "NOT_EXECUTED_IN_THIS_GATE"
+    "gate_1_human_gold_dataset_freeze": "FAIL",
+    "gate_2_development_only_ml_model_study": "BLOCKED_UNTIL_GATE_1_PASS",
+    "gate_3_final_classifier_selection_and_freeze": "NOT_EXECUTED",
+    "gate_4_stage3_retrieval_generation_study_and_freeze": "NOT_EXECUTED",
+    "gate_5_one_shot_confirmation": "NOT_EXECUTED",
+    "gate_6_post_hoc_and_human_evaluation": "NOT_EXECUTED",
+    "gate_7_thesis_evidence_freeze": "NOT_EXECUTED"
   },
   "gold_split_state": {
     "augmentation_repository_count": 25,
@@ -72,6 +95,7 @@
     "sha256": {
       "confirmation.jsonl": "35ce93fb3771b3336dd8946018b910733ef4f688d64f4c338bacd0349d5f554d",
       "final_human_gold.jsonl": "baeaa4e6142b7c8b80f6417aaf09ad71bdc155e6ea4aff7f15d6494d503358c5",
+      "human_gold_manifest.json": "c698cadcc3a1b02b0a6b0820d227d22a8e39bfcefccaef8479da63b36cd08ed5",
       "train.jsonl": "51eb370f5636e36034d2e9742c618e831993e0fb28a54ba3a21a11d49548fbe7",
       "validation.jsonl": "6af538c357602367fa6f8ddb796cd7f414591e5f2feff671409917ffdce6a9fc"
     }
@@ -93,7 +117,32 @@
     "models/hf_v0_4/",
     "models/v0_4/"
   ],
-  "next_allowed_gate": "Gate 1 — Human-gold dataset freeze",
+  "human_review_state": {
+    "approved_rows": 25134,
+    "conflict_count": 0,
+    "excluded_rows": 0,
+    "human_review_complete": true,
+    "input_sha256": "6aa3da7a5821e6613bbe4426e56caccc461a6cd0936a87f9328eb47821bc83e4",
+    "pending_rows": 0,
+    "review_integrity_status": "passed",
+    "taxonomy_validation_status": "passed"
+  },
+  "immutable_gold": false,
+  "natural_diversity_trace": {
+    "accepted_candidate_cases": 779,
+    "approved_rows": 779,
+    "completed_reviewed_rows": 779,
+    "included_in_current_candidate_gold_by_case_id": 0,
+    "included_in_current_candidate_gold_by_repo_pr": 0,
+    "outside_current_candidate_gold": 779,
+    "planned_stratified_seeds": 780,
+    "positive_rows": 9,
+    "negative_rows": 770,
+    "refresh_validation_excluded_from_training": true,
+    "sent_to_review": 779,
+    "unresolved_scope_decision": true
+  },
+  "next_allowed_gate": "Gate 1 remediation/adjudication — Gate 2 is blocked until Gate 1 PASS",
   "partition_integrity": {
     "canonical_repository_manifest_confirmation_sealed": true,
     "canonical_repository_manifest_partition_repository_counts": {
@@ -106,7 +155,10 @@
       "development_train": 12551,
       "development_validation": 2139
     },
-    "gold_manifest_repository_overlap_count": 0
+    "gold_manifest_repository_overlap_count": 0,
+    "split_case_overlap_count": 0,
+    "split_repository_overlap_count": 0,
+    "split_source_pr_overlap_count": 0
   },
   "pre_experiment_audit": {
     "checks": 15,
@@ -119,9 +171,10 @@
     "docs_before_excerpt"
   ],
   "tests": {
-    "command": "py -m pytest tests/test_final_v2_pre_experiment_hardening.py tests/test_final_classifier_v2_infrastructure.py tests/test_final_dataset_v2.py tests/test_final_human_review_workflow_v2.py tests/test_consolidated_enriched_training_v2.py tests/test_stage3_v2_evaluation_infrastructure.py tests/test_stage3_v2_semantic_generation.py",
+    "command": "py -m pytest tests/test_final_v2_gold_freeze_verifier.py tests/test_finalization_gate0_protocol.py tests/test_final_v2_pre_experiment_hardening.py tests/test_final_classifier_v2_infrastructure.py tests/test_final_dataset_v2.py tests/test_final_human_review_workflow_v2.py tests/test_consolidated_enriched_training_v2.py tests/test_stage3_v2_evaluation_infrastructure.py tests/test_stage3_v2_semantic_generation.py",
     "failed": 0,
-    "passed": 122,
+    "passed": 128,
+    "skipped": 0,
     "status": "PASS",
     "warnings": 30
   }
