@@ -1,0 +1,128 @@
+{
+  "canonical_paths": {
+    "binary_config": "configs/binary_classifier_v4.json",
+    "binary_development_model": "experiments/consolidated_enriched_training_v2/binary_v4/binary_v4.joblib",
+    "binary_development_summary": "experiments/consolidated_enriched_training_v2/binary_v4/training_summary.json",
+    "canonical_artifact_map": "reports/final_v2/CANONICAL_ARTIFACT_MAP.md",
+    "canonical_partition_manifest": "data/final_v2/partitions/canonical_repository_partitions/repository_partition_manifest.json",
+    "category_config": "configs/category_classifier_v8.json",
+    "category_development_model": "experiments/consolidated_enriched_training_v2/category_v8/category_v8.joblib",
+    "category_development_summary": "experiments/consolidated_enriched_training_v2/category_v8/training_summary.json",
+    "confirmation_split": "experiments/consolidated_enriched_training_v2/gold/confirmation.jsonl",
+    "consolidated_review_manifest": "data/final_v2/human_review/consolidated_enriched_training_v2/manifest.json",
+    "development_train_split": "experiments/consolidated_enriched_training_v2/gold/train.jsonl",
+    "development_validation_split": "experiments/consolidated_enriched_training_v2/gold/validation.jsonl",
+    "final_human_gold": "experiments/consolidated_enriched_training_v2/gold/final_human_gold.jsonl",
+    "final_human_gold_manifest": "experiments/consolidated_enriched_training_v2/gold/human_gold_manifest.json",
+    "finalization_protocol": "reports/final_v2/FINALIZATION_PROTOCOL.md",
+    "pre_experiment_audit": "reports/final_v2/pre_experiment_audit.json",
+    "stage3_config": "configs/stage3_semantic_generation_v2.json"
+  },
+  "confirmation_results_accessed_by_gate_0": false,
+  "confirmation_sealed": true,
+  "current_commit_at_audit_start": "ae0d880113b81d57f0aa92e534c6b00bc01e091a",
+  "dataset_state": {
+    "category_counts": {
+      "api_reference": 1552,
+      "configuration": 1465,
+      "developer_setup": 989,
+      "model_contract": 1122,
+      "no_update": 19195,
+      "other_documentation": 811
+    },
+    "controlled_augmentation_rows": 4000,
+    "negative_rows": 19195,
+    "positive_rate": 0.23629346701679,
+    "positive_rows": 5939,
+    "row_count": 25134,
+    "validation": "PASS"
+  },
+  "final_model_freeze_state": {
+    "binary_freeze_manifest_present": false,
+    "category_freeze_manifest_present": false,
+    "stage3_freeze_manifest_present": false
+  },
+  "gate_0_status": "PASS",
+  "gate_statuses": {
+    "gate_0_canonical_pipeline_and_integrity_baseline": "PASS",
+    "gate_1_human_gold_dataset_freeze": "NOT_EXECUTED_IN_THIS_GATE",
+    "gate_2_development_only_ml_model_study": "NOT_EXECUTED_IN_THIS_GATE",
+    "gate_3_final_classifier_selection_and_freeze": "NOT_EXECUTED_IN_THIS_GATE",
+    "gate_4_stage3_retrieval_generation_study_and_freeze": "NOT_EXECUTED_IN_THIS_GATE",
+    "gate_5_one_shot_confirmation": "NOT_EXECUTED_IN_THIS_GATE",
+    "gate_6_post_hoc_and_human_evaluation": "NOT_EXECUTED_IN_THIS_GATE",
+    "gate_7_thesis_evidence_freeze": "NOT_EXECUTED_IN_THIS_GATE"
+  },
+  "gold_split_state": {
+    "augmentation_repository_count": 25,
+    "augmentation_train_only_rows": 4054,
+    "frozen_validation_case_ids_preserved": true,
+    "partition_repository_counts": {
+      "confirmation": 48,
+      "development_train": 178,
+      "development_validation": 38
+    },
+    "partition_row_counts": {
+      "confirmation": 3587,
+      "development_train": 18519,
+      "development_validation": 3028
+    },
+    "repository_overlap_count": 0,
+    "sealed_confirmation_case_ids_preserved": true,
+    "sha256": {
+      "confirmation.jsonl": "35ce93fb3771b3336dd8946018b910733ef4f688d64f4c338bacd0349d5f554d",
+      "final_human_gold.jsonl": "baeaa4e6142b7c8b80f6417aaf09ad71bdc155e6ea4aff7f15d6494d503358c5",
+      "train.jsonl": "51eb370f5636e36034d2e9742c618e831993e0fb28a54ba3a21a11d49548fbe7",
+      "validation.jsonl": "6af538c357602367fa6f8ddb796cd7f414591e5f2feff671409917ffdce6a9fc"
+    }
+  },
+  "historical_or_deprecated_paths": [
+    "experiments/consolidated_enriched_training_v1/",
+    "data/final_v2/human_review/consolidated_enriched_training_v1/",
+    "data/final_v2/human_review/historical_4k_merged/",
+    "data/final_v2/human_review/historical_4k_migrated/",
+    "data/final_v2/controlled_synthetic_positive_v1/",
+    "data/final_v2/controlled_real_project_positive_v1/",
+    "data/final_v2/controlled_real_project_positive_v2_imbalanced/",
+    "data/final_v2/expansion/targeted_positive_enrichment_v1/",
+    "data/final_v2/expansion/targeted_positive_enrichment_v1_remaining_4800/",
+    "data/final_v2/natural_diversity_expansion_v1/",
+    "models/real_gold_classifier_*",
+    "models/real_doc_category_classifier_*",
+    "models/external_deep_jit*",
+    "models/hf_v0_4/",
+    "models/v0_4/"
+  ],
+  "next_allowed_gate": "Gate 1 — Human-gold dataset freeze",
+  "partition_integrity": {
+    "canonical_repository_manifest_confirmation_sealed": true,
+    "canonical_repository_manifest_partition_repository_counts": {
+      "confirmation": 45,
+      "development_train": 144,
+      "development_validation": 36
+    },
+    "canonical_repository_manifest_partition_row_counts": {
+      "confirmation": 3190,
+      "development_train": 12551,
+      "development_validation": 2139
+    },
+    "gold_manifest_repository_overlap_count": 0
+  },
+  "pre_experiment_audit": {
+    "checks": 15,
+    "status": "PASS"
+  },
+  "safe_model_fields": [
+    "language",
+    "code_changed_files",
+    "code_diff_excerpt",
+    "docs_before_excerpt"
+  ],
+  "tests": {
+    "command": "py -m pytest tests/test_final_v2_pre_experiment_hardening.py tests/test_final_classifier_v2_infrastructure.py tests/test_final_dataset_v2.py tests/test_final_human_review_workflow_v2.py tests/test_consolidated_enriched_training_v2.py tests/test_stage3_v2_evaluation_infrastructure.py tests/test_stage3_v2_semantic_generation.py",
+    "failed": 0,
+    "passed": 122,
+    "status": "PASS",
+    "warnings": 30
+  }
+}
