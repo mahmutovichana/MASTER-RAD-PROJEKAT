@@ -1,0 +1,56 @@
+{
+  "classifier": {
+    "C": 1.0,
+    "class": "sklearn.linear_model.LogisticRegression",
+    "class_weight": null,
+    "max_iter": 2000,
+    "multiclass_behavior": "scikit-learn lbfgs multinomial behavior for multiclass labels",
+    "random_state": 42,
+    "resampling": null,
+    "solver": "lbfgs"
+  },
+  "current_model": "hybrid__natural_only__multinomial_logreg__natural_diversity_expansion_v1",
+  "feature_concatenation": [
+    "code char_wb TF-IDF sparse matrix",
+    "relational semantic dense matrix converted to CSR",
+    "7 lexical scalar features converted to CSR"
+  ],
+  "lexical_channel": {
+    "analyzer": "char_wb",
+    "dtype": "np.float32",
+    "field": "code side only: language + code_changed_files + code_diff_excerpt",
+    "fit_policy": "fit on training rows only; transform internal eval/development validation",
+    "max_features": 20000,
+    "min_df": 2,
+    "ngram_range": [
+      3,
+      5
+    ],
+    "sublinear_tf": true,
+    "vectorizer": "TfidfVectorizer"
+  },
+  "lexical_scalar_features": [
+    "log1p(shared code/docs token count)",
+    "shared / union token ratio",
+    "shared / min(code token count, docs token count)",
+    "identifier overlap ratio",
+    "changed-path token overlap ratio",
+    "log1p(code text length)",
+    "log1p(docs text length)"
+  ],
+  "new_semantic_encoder": "jinaai/jina-embeddings-v2-base-code",
+  "primary_change": "Only replace frozen MiniLM embeddings with frozen Jina code-aware embeddings; keep lexical and classifier channels matched.",
+  "semantic_encoder_replaced": "sentence-transformers/all-MiniLM-L6-v2",
+  "semantic_encoder_replaced_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "semantic_relational_features": [
+    "E_code",
+    "E_docs",
+    "abs(E_code - E_docs)",
+    "E_code * E_docs",
+    "cosine(E_code, E_docs)"
+  ],
+  "source_scripts": [
+    "scripts/run_category_semantic_development_v1.py",
+    "scripts/run_natural_diversity_refresh_category_v1.py"
+  ]
+}
