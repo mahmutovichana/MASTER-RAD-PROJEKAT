@@ -1,0 +1,86 @@
+{
+  "schema_version": "gate2_model_study_v1",
+  "gate1": {
+    "gold_path": "experiments/consolidated_enriched_training_v2/gold/final_human_gold.jsonl",
+    "gold_sha256": "68ebe23ab4dd8a02ee1ea459e3b6a374a3efa2891afc8d344a533676eb3b5a08",
+    "freeze_manifest": "reports/final_v2/GOLD_FREEZE_MANIFEST.json",
+    "development_partitions": ["development_train", "development_validation"],
+    "confirmation_partition": "confirmation",
+    "expected_development_rows": 22166,
+    "expected_confirmation_rows": 3747
+  },
+  "seed": 42,
+  "safe_fields": ["language", "code_changed_files", "code_diff_excerpt", "docs_before_excerpt"],
+  "tasks": {
+    "binary": {
+      "eligible": "all approved frozen development rows",
+      "target": "gold_docs_update_required",
+      "primary_metric": "mcc",
+      "threshold_grid": [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95],
+      "threshold_tie_break": "highest_mcc_then_balanced_accuracy_then_f1_then_closest_to_0.5_then_lower_threshold"
+    },
+    "category": {
+      "eligible": "positive frozen development rows in exact Category V8 primary classes",
+      "target": "gold_doc_category",
+      "classes": ["api_reference", "configuration", "developer_setup", "model_contract"],
+      "other_documentation_treatment": "excluded exactly as in Category V8 primary-stage contract",
+      "primary_metric": "macro_f1"
+    }
+  },
+  "families": {
+    "M0": {"name": "dummy", "strategy": "most_frequent", "selectable": false},
+    "M1": {
+      "name": "canonical_char_tfidf_logistic_regression",
+      "serializer": "docguard_ml_v2.data_contract.serialize_model_row",
+      "analyzer": "char_wb",
+      "ngram_range": [3, 5],
+      "min_df": 1,
+      "max_features": 80000,
+      "sublinear_tf": true
+    },
+    "M2": {
+      "name": "unixcoder_semantic_relation_logistic_regression",
+      "encoder_repository": "microsoft/unixcoder-base",
+      "encoder_revision": "5604afdc964f6c53782a6813140ade5216b99006",
+      "tokenizer_revision": "5604afdc964f6c53782a6813140ade5216b99006",
+      "max_length": 512,
+      "pooling": "attention_masked_mean_of_last_hidden_state",
+      "truncation": "deterministic_head_tail_after_special_token_reservation",
+      "dtype_on_cuda": "float32",
+      "relation": ["code", "docs", "absolute_difference", "elementwise_product", "cosine_similarity"]
+    },
+    "M3": {
+      "name": "canonical_lexical_plus_unixcoder_relation",
+      "lexical_block": "M1",
+      "semantic_block": "M2",
+      "semantic_scale": [0.25, 1.0, 4.0]
+    }
+  },
+  "linear_classifier": {
+    "class": "sklearn.linear_model.LogisticRegression",
+    "C": [0.25, 1.0, 4.0],
+    "class_weight": [null, "balanced"],
+    "max_iter": 4000,
+    "binary_solver": "liblinear",
+    "category_solver": "lbfgs"
+  },
+  "cross_validation": {
+    "outer": {"class": "StratifiedGroupKFold", "requested_splits": 5, "shuffle": true, "random_state": 42},
+    "category_fallback_splits": [5, 4, 3],
+    "inner": {"class": "StratifiedGroupKFold", "splits": 3, "shuffle": true, "random_state_rule": "42 + outer_fold"}
+  },
+  "winner_rule": {
+    "primary_mean_tolerance": 0.005,
+    "tie_break": ["lower_outer_fold_standard_deviation", "simpler_family"],
+    "simplicity_order": ["M1", "M2", "M3"]
+  },
+  "bootstrap": {"replicates": 2000, "unit": "repository", "seed": 42, "interval": 0.95},
+  "dependencies": {
+    "transformers": "4.56.2",
+    "tokenizers": "0.22.0",
+    "accelerate": "1.10.1",
+    "huggingface_hub": "0.35.3",
+    "safetensors": "0.6.2"
+  },
+  "prohibited": ["confirmation_access", "post_result_family_addition", "SMOTE", "oversampling", "undersampling", "provenance_features", "post_change_docs_features"]
+}
