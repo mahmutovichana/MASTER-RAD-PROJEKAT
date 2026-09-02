@@ -9,7 +9,7 @@ Use a Colab Pro **GPU + high-RAM** runtime for the first or incomplete embedding
 ```bash
 !git clone https://github.com/mahmutovichana/MASTER-RAD-PROJEKAT.git /content/docguard
 %cd /content/docguard
-!git checkout 8af1914ff9dae532fdde52d5e9b98e767dd8acfc
+!git checkout 4cbbacb05bad52466dc5c02be4fd08727b45ca0b
 !git lfs install
 !git lfs pull --include="experiments/consolidated_enriched_training_v2/gold/*.jsonl"
 !python -m pip install --only-binary=:all: "transformers==4.56.2" "tokenizers==0.22.0" "accelerate==1.10.1" "huggingface_hub==0.35.3" "safetensors==0.6.2" "scikit-learn>=1.7,<1.9" "scipy>=1.15,<1.17"
