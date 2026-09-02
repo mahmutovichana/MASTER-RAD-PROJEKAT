@@ -159,9 +159,25 @@ def select_inner(task: str, family: str, rows: list[dict[str, Any]], labels: lis
     probabilities: dict[Candidate, list[float]] = {candidate: [math.nan] * len(rows) for candidate in all_candidates}
     # Fit each lexical/scale matrix once per inner fold, then evaluate all C/weight choices.
     for train_idx, val_idx in splits:
-        for scale in sorted({candidate.semantic_scale for candidate in all_candidates}):
+        prepared: dict[float, tuple[Any, Any]] = {}
+        scales = sorted({candidate.semantic_scale for candidate in all_candidates})
+        if family == "M3":
+            assert semantic is not None
+            vec = vectorizer(config)
+            lexical_train = vec.fit_transform([texts[index] for index in train_idx])
+            lexical_val = vec.transform([texts[index] for index in val_idx])
+            for scale in scales:
+                prepared[scale] = (
+                    sparse.hstack([lexical_train, sparse.csr_matrix(semantic[train_idx] * scale)], format="csr"),
+                    sparse.hstack([lexical_val, sparse.csr_matrix(semantic[val_idx] * scale)], format="csr"),
+                )
+        else:
+            for scale in scales:
+                x_train, x_val, _ = matrices_for_fold(family, texts, semantic, train_idx, val_idx, scale, config)
+                prepared[scale] = (x_train, x_val)
+        for scale in scales:
             subset = [candidate for candidate in all_candidates if candidate.semantic_scale == scale]
-            x_train, x_val, _ = matrices_for_fold(family, texts, semantic, train_idx, val_idx, scale, config)
+            x_train, x_val = prepared[scale]
             y_train = [labels[index] for index in train_idx]
             for candidate in subset:
                 model = classifier(task, candidate, config)

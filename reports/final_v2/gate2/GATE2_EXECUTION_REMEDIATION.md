@@ -13,5 +13,6 @@ No data, labels, taxonomy, safe fields, repository boundary, outer/inner fold, s
 3. UniXcoder output is checkpointed to persistent float32 memmaps after every batch. Identity metadata binds gold, development view, row order, encoder/tokenizer, pooling, max length, dtype, shapes, and completed row count.
 4. Every completed outer fold is immediately saved with hashed predictions/probabilities, validation IDs, selected inner configuration/threshold, metrics, scientific config hash, development identity, and fold-assignment hash. Resume restores OOF state and runs only missing folds.
 5. Google Drive is persistent compute storage only. It is not a scientific data source, and embeddings/model weights are excluded from the returned archive.
+6. M3 now computes its identical lexical block once per inner fold and reuses it across the three preregistered semantic scales. This removes redundant compute only; feature values and every candidate configuration remain unchanged.
 
 The failed Colab run remains recorded and contributes no admissible performance result.
