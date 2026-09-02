@@ -9,7 +9,7 @@ Open one GPU runtime, add `HF_TOKEN` through Colab **Secrets** (never paste it i
 ```bash
 !git clone https://github.com/mahmutovichana/MASTER-RAD-PROJEKAT.git /content/docguard
 %cd /content/docguard
-!git checkout PREREGISTRATION_COMMIT_SHA
+!git checkout e89cedfa87edbc1469d467713451a9441aa1360f
 !git lfs pull --include="experiments/consolidated_enriched_training_v2/gold/*.jsonl"
 !python -m pip install --only-binary=:all: "transformers==4.56.2" "tokenizers==0.22.0" "accelerate==1.10.1" "huggingface_hub==0.35.3" "safetensors==0.6.2" "scikit-learn>=1.7,<1.9" "scipy>=1.15,<1.17"
 ```
