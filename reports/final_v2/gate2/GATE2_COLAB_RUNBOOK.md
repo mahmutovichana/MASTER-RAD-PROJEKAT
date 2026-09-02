@@ -32,7 +32,7 @@ assert torch.cuda.is_available()
 ```bash
 !python scripts/verify_final_v2_gold_freeze.py
 !python scripts/extract_gate2_unixcoder_embeddings.py --config configs/final_v2/gate2_model_study.json --output-dir /content/gate2_embeddings
-!python scripts/run_gate2_model_study.py --config configs/final_v2/gate2_model_study.json --embedding-dir /content/gate2_embeddings --output-dir /content/gate2_results --families M2 M3
+!python scripts/run_gate2_model_study.py --config configs/final_v2/gate2_model_study.json --embedding-dir /content/gate2_embeddings --output-dir /content/gate2_results --families M1 M2 M3
 !python scripts/verify_gate2_return_artifacts.py --config configs/final_v2/gate2_model_study.json --embedding-dir /content/gate2_embeddings --result-dir /content/gate2_results
 !tar -czf /content/gate2_colab_return.tar.gz -C /content gate2_embeddings gate2_results
 ```

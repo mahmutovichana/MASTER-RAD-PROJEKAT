@@ -245,11 +245,12 @@ def run_family(task: str, family: str, rows: list[dict[str, Any]], semantic_all:
     source_commit = git_sha()
     for fold in outer_folds:
         run_id = f"gate2-{task}-{family}-fold{fold}-{source_commit[:12]}"
-        base_record = {"run_id": run_id, "task": task, "family": family, "outer_fold": fold, "config": str(config), "random_seed": config["seed"], "source_commit": source_commit, "gold_sha": metadata["gold_sha256"], "encoder_revision": config["families"]["M2"]["encoder_revision"] if family in {"M2", "M3"} else None}
+        base_record = {"run_id": run_id, "task": task, "family": family, "outer_fold": fold, "config": {"schema_version": config["schema_version"], "registered_family": family}, "random_seed": config["seed"], "source_commit": source_commit, "gold_sha": metadata["gold_sha256"], "encoder_revision": config["families"]["M2"]["encoder_revision"] if family in {"M2", "M3"} else None}
         append_registry(registry, {**base_record, "status": "STARTED", "started_unix": time.time()})
         try:
             val_idx = np.asarray([index for index, row in enumerate(task_rows) if fold_map[str(row["repository"]).strip().lower()] == fold], dtype=int)
-            train_idx = np.asarray([index for index in range(len(task_rows)) if index not in set(val_idx.tolist())], dtype=int)
+            validation_indexes = set(val_idx.tolist())
+            train_idx = np.asarray([index for index in range(len(task_rows)) if index not in validation_indexes], dtype=int)
             assert_inner_repo_disjoint(task_rows, train_idx, val_idx)
             train_rows = [task_rows[index] for index in train_idx]
             val_rows = [task_rows[index] for index in val_idx]
@@ -269,8 +270,9 @@ def run_family(task: str, family: str, rows: list[dict[str, Any]], semantic_all:
             fold_results.append(result)
             result_path = output_dir / f"{task}_{family}_fold{fold}.json"
             result_path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-            append_registry(registry, {**base_record, "status": "COMPLETED", "ended_unix": time.time(), "result_artifact_identity": sha256_file(result_path)})
-        except Exception as exc:
+            append_registry(registry, {**base_record, "status": "COMPLETED", "ended_unix": time.time(), "selected_config": selected.payload(), "selected_threshold": threshold, "result_artifact_identity": sha256_file(result_path)})
+            print(json.dumps({"task": task, "family": family, "outer_fold": fold, "status": "COMPLETED"}), flush=True)
+        except BaseException as exc:
             append_registry(registry, {**base_record, "status": "FAILED", "ended_unix": time.time(), "error": str(exc), "traceback": traceback.format_exc()})
             raise
     if any(value is None for value in oof_pred):
@@ -288,7 +290,6 @@ def run_family(task: str, family: str, rows: list[dict[str, Any]], semantic_all:
             if task == "binary":
                 payload["probability"] = oof_score[index]
             handle.write(json.dumps(payload, ensure_ascii=False, sort_keys=True) + "\n")
-    summary["summary_sha256"] = sha256_file(summary_path)
     summary["oof_path"] = str(oof_path)
     summary["oof_sha256"] = sha256_file(oof_path)
     summary_path.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
