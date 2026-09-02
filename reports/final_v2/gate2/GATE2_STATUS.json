@@ -1,0 +1,24 @@
+{
+  "status": "IN_PROGRESS_EXTERNAL_COMPUTE_REQUIRED",
+  "gate1_verifier": "PASS",
+  "gold_sha256": "68ebe23ab4dd8a02ee1ea459e3b6a374a3efa2891afc8d344a533676eb3b5a08",
+  "development_rows": 22166,
+  "confirmation_rows_excluded": 3747,
+  "confirmation_sealed": true,
+  "confirmation_results_accessed": false,
+  "preregistration_commit_sha": "e89cedfa87edbc1469d467713451a9441aa1360f",
+  "execution_commit_sha": "1553c31e73eb705d555028170a86fd79a3d61859",
+  "outer_cv": "5-fold task-specific StratifiedGroupKFold grouped by repository, shuffle=true, seed=42",
+  "inner_cv": "3-fold StratifiedGroupKFold grouped by repository within each outer-train fold, seed=42+outer_fold",
+  "binary_eligible_rows": 22166,
+  "category_eligible_rows": 4820,
+  "completed": {
+    "M0_binary": {"mean_mcc": 0.0, "std_mcc": 0.0, "worst_mcc": 0.0},
+    "M0_category": {"mean_macro_f1": 0.11764415298955459, "std_macro_f1": 0.002449553605729628, "worst_macro_f1": 0.11566888396156688}
+  },
+  "pending": ["M1 Binary and Category", "M2 Binary and Category", "M3 Binary and Category", "OOF diagnostics", "repository bootstrap", "winner selection"],
+  "safe_test_suite": {"passed": 138, "failed": 0, "skipped": 0, "warnings": 30},
+  "blocker": "No local CUDA; local 8-GB memory pressure prevented completion of the exact nested M1 run.",
+  "exact_next_action": "Run the single pinned Colab action in reports/final_v2/gate2/GATE2_COLAB_RUNBOOK.md and return gate2_colab_return.tar.gz.",
+  "gate3_allowed": false
+}
