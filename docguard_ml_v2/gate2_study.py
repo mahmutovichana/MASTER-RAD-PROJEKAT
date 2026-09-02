@@ -211,5 +211,59 @@ def assert_inner_repo_disjoint(rows: list[dict[str, Any]], train_idx: Iterable[i
         raise RuntimeError(f"Inner repository leakage: {sorted(overlap)[:3]}")
 
 
+def canonical_payload_sha256(payload: dict[str, Any]) -> str:
+    encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def write_fold_checkpoint(path: Path, payload: dict[str, Any]) -> dict[str, Any]:
+    required = {
+        "status", "task", "family", "outer_fold", "gold_sha256", "development_view_sha256",
+        "scientific_config_sha256", "fold_assignment_sha256", "selected_config",
+        "validation_case_ids", "validation_predictions", "result",
+    }
+    missing = sorted(required - set(payload))
+    if missing:
+        raise ValueError(f"Fold checkpoint missing fields: {missing}")
+    if payload["status"] != "COMPLETE":
+        raise ValueError("Only COMPLETE outer folds may be checkpointed")
+    if len(payload["validation_case_ids"]) != len(payload["validation_predictions"]):
+        raise ValueError("Fold checkpoint prediction alignment mismatch")
+    probabilities = payload.get("validation_probabilities")
+    if probabilities is not None and len(probabilities) != len(payload["validation_case_ids"]):
+        raise ValueError("Fold checkpoint probability alignment mismatch")
+    complete = dict(payload)
+    complete["payload_sha256"] = canonical_payload_sha256(payload)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(json.dumps(complete, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    temporary.replace(path)
+    return complete
+
+
+def load_fold_checkpoint(path: Path, *, expected_identity: dict[str, Any]) -> dict[str, Any]:
+    try:
+        checkpoint = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise RuntimeError(f"Corrupt fold checkpoint: {exc}") from exc
+    if checkpoint.get("status") != "COMPLETE":
+        raise RuntimeError("Incomplete fold checkpoint cannot be resumed")
+    recorded_sha = checkpoint.pop("payload_sha256", None)
+    if not recorded_sha or canonical_payload_sha256(checkpoint) != recorded_sha:
+        raise RuntimeError("Corrupt fold checkpoint payload hash")
+    for key, expected in expected_identity.items():
+        if checkpoint.get(key) != expected:
+            raise RuntimeError(f"Fold checkpoint identity mismatch: {key}")
+    case_ids = checkpoint.get("validation_case_ids")
+    predictions = checkpoint.get("validation_predictions")
+    probabilities = checkpoint.get("validation_probabilities")
+    if not isinstance(case_ids, list) or not isinstance(predictions, list) or len(case_ids) != len(predictions):
+        raise RuntimeError("Corrupt fold checkpoint prediction alignment")
+    if probabilities is not None and (not isinstance(probabilities, list) or len(probabilities) != len(case_ids)):
+        raise RuntimeError("Corrupt fold checkpoint probability alignment")
+    checkpoint["payload_sha256"] = recorded_sha
+    return checkpoint
+
+
 def primary_labels() -> list[str]:
     return list(PRIMARY_STAGE2_LABELS)

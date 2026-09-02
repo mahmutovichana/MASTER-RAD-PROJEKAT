@@ -33,10 +33,16 @@ def run(config_path: Path, embedding_dir: Path, result_dir: Path) -> dict:
             raise RuntimeError("Embedding row order mismatch")
         if payload["code"].shape[0] != len(rows) or payload["docs"].shape != payload["code"].shape:
             raise RuntimeError("Embedding shape mismatch")
-    completed = sorted(result_dir.glob("*_M[23]_summary.json"))
-    if len(completed) != 4:
-        raise RuntimeError(f"Expected four semantic task-family summaries, found {len(completed)}")
-    return {"status": "PASS", "embedding_sha256": manifest["artifact_sha256"], "result_files": [str(path) for path in completed], "confirmation_accessed": False}
+    expected = {f"{task}_{family}_summary.json" for task in ("binary", "category") for family in ("M1", "M2", "M3")}
+    completed = {path.name: path for path in result_dir.glob("*_M[123]_summary.json")}
+    missing = sorted(expected - set(completed))
+    if missing:
+        raise RuntimeError(f"Missing task-family summaries: {missing}")
+    for name in sorted(expected):
+        summary = json.loads(completed[name].read_text(encoding="utf-8"))
+        if summary.get("confirmation_accessed") is not False or summary.get("development_view_sha256") != view["development_view_sha256"]:
+            raise RuntimeError(f"Invalid development-only summary identity: {name}")
+    return {"status": "PASS", "embedding_sha256": manifest["artifact_sha256"], "result_files": [str(completed[name]) for name in sorted(expected)], "confirmation_accessed": False}
 
 
 def main() -> int:

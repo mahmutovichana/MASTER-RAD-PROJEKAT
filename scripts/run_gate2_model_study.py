@@ -32,7 +32,9 @@ from docguard_ml_v2.gate2_study import (
     load_config,
     load_development_rows,
     load_fold_map,
+    load_fold_checkpoint,
     sha256_file,
+    write_fold_checkpoint,
 )
 from docguard_ml_v2.metrics import binary_metrics, category_metrics
 
@@ -227,7 +229,7 @@ def fit_outer(task: str, family: str, train_rows: list[dict[str, Any]], val_rows
     return category_metrics([str(value) for value in val_labels], pred, list(PRIMARY_STAGE2_LABELS)), pred, None
 
 
-def run_family(task: str, family: str, rows: list[dict[str, Any]], semantic_all: np.ndarray | None, fold_path: Path, output_dir: Path, registry: Path, config: dict[str, Any], metadata: dict[str, Any]) -> dict[str, Any]:
+def run_family(task: str, family: str, rows: list[dict[str, Any]], semantic_all: np.ndarray | None, fold_path: Path, output_dir: Path, registry: Path, config: dict[str, Any], metadata: dict[str, Any], *, resume: bool, force_rerun: bool) -> dict[str, Any]:
     if task == "category":
         eligible_indexes = [index for index, row in enumerate(rows) if bool(row["gold_docs_update_required"]) and str(row["gold_doc_category"]) in PRIMARY_STAGE2_LABELS]
         task_rows = [rows[index] for index in eligible_indexes]
@@ -243,14 +245,42 @@ def run_family(task: str, family: str, rows: list[dict[str, Any]], semantic_all:
     oof_score: list[float | None] = [None] * len(task_rows)
     fold_results: list[dict[str, Any]] = []
     source_commit = git_sha()
+    fold_assignment_sha = sha256_file(fold_path)
     for fold in outer_folds:
         run_id = f"gate2-{task}-{family}-fold{fold}-{source_commit[:12]}"
         base_record = {"run_id": run_id, "task": task, "family": family, "outer_fold": fold, "config": {"schema_version": config["schema_version"], "registered_family": family}, "random_seed": config["seed"], "source_commit": source_commit, "gold_sha": metadata["gold_sha256"], "encoder_revision": config["families"]["M2"]["encoder_revision"] if family in {"M2", "M3"} else None}
+        val_idx = np.asarray([index for index, row in enumerate(task_rows) if fold_map[str(row["repository"]).strip().lower()] == fold], dtype=int)
+        validation_indexes = set(val_idx.tolist())
+        train_idx = np.asarray([index for index in range(len(task_rows)) if index not in validation_indexes], dtype=int)
+        expected_case_ids = [str(task_rows[index]["case_id"]) for index in val_idx]
+        checkpoint_path = output_dir / f"{task}_{family}_fold{fold}_checkpoint.json"
+        checkpoint_identity = {
+            "task": task,
+            "family": family,
+            "outer_fold": fold,
+            "gold_sha256": metadata["gold_sha256"],
+            "development_view_sha256": metadata["development_view_sha256"],
+            "scientific_config_sha256": metadata["scientific_config_sha256"],
+            "fold_assignment_sha256": fold_assignment_sha,
+        }
+        if resume and checkpoint_path.exists() and not force_rerun:
+            checkpoint = load_fold_checkpoint(checkpoint_path, expected_identity=checkpoint_identity)
+            if checkpoint["validation_case_ids"] != expected_case_ids:
+                raise RuntimeError("Fold checkpoint validation case identity mismatch")
+            for local, value in zip(val_idx, checkpoint["validation_predictions"]):
+                oof_pred[int(local)] = value
+            if task == "binary":
+                probabilities = checkpoint.get("validation_probabilities")
+                if probabilities is None:
+                    raise RuntimeError("Binary fold checkpoint lacks probabilities")
+                for local, value in zip(val_idx, probabilities):
+                    oof_score[int(local)] = float(value)
+            fold_results.append(checkpoint["result"])
+            append_registry(registry, {**base_record, "status": "RESUMED_COMPLETED_FOLD", "ended_unix": time.time(), "result_artifact_identity": checkpoint["payload_sha256"]})
+            print(json.dumps({"task": task, "family": family, "outer_fold": fold, "status": "RESUMED"}), flush=True)
+            continue
         append_registry(registry, {**base_record, "status": "STARTED", "started_unix": time.time()})
         try:
-            val_idx = np.asarray([index for index, row in enumerate(task_rows) if fold_map[str(row["repository"]).strip().lower()] == fold], dtype=int)
-            validation_indexes = set(val_idx.tolist())
-            train_idx = np.asarray([index for index in range(len(task_rows)) if index not in validation_indexes], dtype=int)
             assert_inner_repo_disjoint(task_rows, train_idx, val_idx)
             train_rows = [task_rows[index] for index in train_idx]
             val_rows = [task_rows[index] for index in val_idx]
@@ -270,7 +300,17 @@ def run_family(task: str, family: str, rows: list[dict[str, Any]], semantic_all:
             fold_results.append(result)
             result_path = output_dir / f"{task}_{family}_fold{fold}.json"
             result_path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-            append_registry(registry, {**base_record, "status": "COMPLETED", "ended_unix": time.time(), "selected_config": selected.payload(), "selected_threshold": threshold, "result_artifact_identity": sha256_file(result_path)})
+            checkpoint = write_fold_checkpoint(checkpoint_path, {
+                "status": "COMPLETE",
+                **checkpoint_identity,
+                "selected_config": selected.payload(),
+                "selected_threshold": threshold,
+                "validation_case_ids": expected_case_ids,
+                "validation_predictions": pred,
+                "validation_probabilities": scores,
+                "result": result,
+            })
+            append_registry(registry, {**base_record, "status": "COMPLETED", "ended_unix": time.time(), "selected_config": selected.payload(), "selected_threshold": threshold, "result_artifact_identity": checkpoint["payload_sha256"]})
             print(json.dumps({"task": task, "family": family, "outer_fold": fold, "status": "COMPLETED"}), flush=True)
         except BaseException as exc:
             append_registry(registry, {**base_record, "status": "FAILED", "ended_unix": time.time(), "error": str(exc), "traceback": traceback.format_exc()})
@@ -296,11 +336,12 @@ def run_family(task: str, family: str, rows: list[dict[str, Any]], semantic_all:
     return summary
 
 
-def run(config_path: Path, output_dir: Path, families: list[str], embedding_dir: Path | None) -> list[dict[str, Any]]:
+def run(config_path: Path, output_dir: Path, families: list[str], embedding_dir: Path | None, *, resume: bool = False, force_rerun: bool = False) -> list[dict[str, Any]]:
     config = load_config(config_path)
     for family in families:
         assert_registered_family(config, family)
     rows, metadata = load_development_rows(config_path=config_path)
+    metadata["scientific_config_sha256"] = sha256_file(config_path)
     semantic = None
     if any(family in {"M2", "M3"} for family in families):
         if embedding_dir is None:
@@ -313,7 +354,7 @@ def run(config_path: Path, output_dir: Path, families: list[str], embedding_dir:
         fold_path = PROJECT_ROOT / f"reports/final_v2/gate2/outer_fold_assignments_{task}.csv"
         for family in families:
             print(json.dumps({"task": task, "family": family, "status": "STARTING"}), flush=True)
-            results.append(run_family(task, family, rows, semantic, fold_path, output_dir, registry, config, metadata))
+            results.append(run_family(task, family, rows, semantic, fold_path, output_dir, registry, config, metadata, resume=resume, force_rerun=force_rerun))
     return results
 
 
@@ -323,8 +364,10 @@ def main() -> int:
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--embedding-dir")
     parser.add_argument("--families", nargs="+", required=True)
+    parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--force-rerun", action="store_true")
     args = parser.parse_args()
-    results = run(Path(args.config), Path(args.output_dir), args.families, Path(args.embedding_dir) if args.embedding_dir else None)
+    results = run(Path(args.config), Path(args.output_dir), args.families, Path(args.embedding_dir) if args.embedding_dir else None, resume=args.resume, force_rerun=args.force_rerun)
     print(json.dumps({"status": "COMPLETE", "summaries": [{"task": item["task"], "family": item["family"], "primary_mean": item["primary_mean"]} for item in results]}, indent=2))
     return 0
 

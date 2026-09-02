@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -16,6 +17,7 @@ from docguard_ml_v2.data_contract import PRIMARY_STAGE2_LABELS, SAFE_MODEL_FIELD
 
 
 DEFAULT_MANIFEST = PROJECT_ROOT / "reports/final_v2/GOLD_FREEZE_MANIFEST.json"
+DEFAULT_PARTITION_INTEGRITY = PROJECT_ROOT / "reports/final_v2/gate2/GATE1_PARTITION_MANIFEST_INTEGRITY.json"
 
 
 def sha256_file(path: Path) -> str:
@@ -28,6 +30,76 @@ def sha256_file(path: Path) -> str:
 
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def canonical_json_bytes(value: Any) -> bytes:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+
+
+def canonical_json_sha256(value: Any) -> str:
+    return hashlib.sha256(canonical_json_bytes(value)).hexdigest()
+
+
+def verify_json_artifact_identity(
+    path: Path,
+    *,
+    expected_raw_sha256: str,
+    expected_canonical_sha256: str | None,
+) -> tuple[Any | None, list[str]]:
+    errors: list[str] = []
+    try:
+        parsed = load_json(path)
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        return None, [f"malformed JSON: {exc}"]
+    actual_raw = sha256_file(path)
+    actual_canonical = canonical_json_sha256(parsed)
+    if actual_raw != expected_raw_sha256:
+        if not expected_canonical_sha256 or actual_canonical != expected_canonical_sha256:
+            errors.append("raw and canonical JSON SHA-256 mismatch")
+    elif expected_canonical_sha256 and actual_canonical != expected_canonical_sha256:
+        errors.append("canonical JSON SHA-256 mismatch")
+    return parsed, errors
+
+
+def verify_partition_provenance(*, project_root: Path, partition_path: Path, manifest: dict[str, Any], integrity_path: Path) -> list[str]:
+    errors: list[str] = []
+    try:
+        integrity = load_json(integrity_path)
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        return [f"partition integrity metadata invalid: {exc}"]
+    relative = partition_path.relative_to(project_root).as_posix()
+    if integrity.get("artifact_path") != relative:
+        errors.append("partition integrity artifact path mismatch")
+    if integrity.get("frozen_recorded_worktree_sha256") != manifest.get("partition_manifest_sha256"):
+        errors.append("partition integrity is not bound to Gate 1 recorded SHA")
+    parsed, identity_errors = verify_json_artifact_identity(
+        partition_path,
+        expected_raw_sha256=str(manifest.get("partition_manifest_sha256") or ""),
+        expected_canonical_sha256=str(integrity.get("canonical_json_sha256") or "") or None,
+    )
+    errors.extend(f"partition manifest {message}" for message in identity_errors)
+    commit = str(integrity.get("gate1_freeze_commit") or "")
+    git_path = str(integrity.get("artifact_path") or "")
+    try:
+        blob_oid = subprocess.check_output(["git", "rev-parse", f"{commit}:{git_path}"], cwd=project_root, text=True).strip()
+        blob = subprocess.check_output(["git", "cat-file", "blob", f"{commit}:{git_path}"], cwd=project_root)
+    except (OSError, subprocess.CalledProcessError) as exc:
+        errors.append(f"cannot verify frozen Gate 1 Git provenance: {exc}")
+        return errors
+    if blob_oid != integrity.get("gate1_git_blob_oid"):
+        errors.append("Gate 1 partition Git blob OID mismatch")
+    if hashlib.sha256(blob).hexdigest() != integrity.get("gate1_git_blob_sha256"):
+        errors.append("Gate 1 partition Git blob byte SHA-256 mismatch")
+    try:
+        blob_parsed = json.loads(blob.decode("utf-8"))
+    except (UnicodeError, json.JSONDecodeError) as exc:
+        errors.append(f"Gate 1 partition Git blob malformed JSON: {exc}")
+        return errors
+    if canonical_json_sha256(blob_parsed) != integrity.get("canonical_json_sha256"):
+        errors.append("Gate 1 partition Git blob canonical JSON mismatch")
+    if parsed is not None and parsed != blob_parsed:
+        errors.append("working partition manifest differs semantically from frozen Gate 1 Git blob")
+    return errors
 
 
 def load_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -105,7 +177,12 @@ def duplicate_groups(rows: list[dict[str, Any]], key_name: str) -> list[dict[str
     return duplicates
 
 
-def verify(manifest_path: Path = DEFAULT_MANIFEST, *, project_root: Path = PROJECT_ROOT) -> dict[str, Any]:
+def verify(
+    manifest_path: Path = DEFAULT_MANIFEST,
+    *,
+    project_root: Path = PROJECT_ROOT,
+    partition_integrity_path: Path | None = None,
+) -> dict[str, Any]:
     errors: list[str] = []
     warnings: list[str] = []
     if not manifest_path.exists():
@@ -199,10 +276,23 @@ def verify(manifest_path: Path = DEFAULT_MANIFEST, *, project_root: Path = PROJE
                 errors.append("gold category counts mismatch")
 
     if partition_path.exists():
-        if sha256_file(partition_path) != manifest.get("partition_manifest_sha256"):
-            errors.append("partition manifest SHA-256 mismatch")
-        partition_manifest = load_json(partition_path)
-        if partition_manifest.get("confirmation_sealed") is not True:
+        configured_canonical = manifest.get("partition_manifest_canonical_sha256")
+        if partition_integrity_path is None:
+            candidate = project_root / "reports/final_v2/gate2/GATE1_PARTITION_MANIFEST_INTEGRITY.json"
+            partition_integrity_path = candidate if candidate.exists() else None
+        if partition_integrity_path is not None:
+            errors.extend(verify_partition_provenance(project_root=project_root, partition_path=partition_path, manifest=manifest, integrity_path=partition_integrity_path))
+            try:
+                configured_canonical = load_json(partition_integrity_path).get("canonical_json_sha256")
+            except (OSError, UnicodeError, json.JSONDecodeError):
+                configured_canonical = None
+        partition_manifest, identity_errors = verify_json_artifact_identity(
+            partition_path,
+            expected_raw_sha256=str(manifest.get("partition_manifest_sha256") or ""),
+            expected_canonical_sha256=str(configured_canonical or "") or None,
+        )
+        errors.extend(f"partition manifest {message}" for message in identity_errors)
+        if partition_manifest is not None and partition_manifest.get("confirmation_sealed") is not True:
             errors.append("partition manifest confirmation_sealed is not true")
 
     if completion_path.exists() and sha256_file(completion_path) != manifest.get("completion_audit_sha256"):

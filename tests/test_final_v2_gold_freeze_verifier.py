@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.verify_final_v2_gold_freeze import duplicate_groups, verify
+from scripts.verify_final_v2_gold_freeze import canonical_json_sha256, duplicate_groups, verify, verify_json_artifact_identity
 
 
 def test_gold_freeze_verifier_fails_without_manifest(tmp_path: Path) -> None:
@@ -98,3 +98,40 @@ def test_verifier_accepts_minimal_valid_frozen_manifest(tmp_path: Path) -> None:
     result = verify(manifest, project_root=tmp_path)
 
     assert result["status"] == "PASS", result
+
+
+def test_partition_json_identity_accepts_lf_and_crlf_equivalents(tmp_path: Path) -> None:
+    value = {"confirmation_sealed": True, "repository_assignments": {"org/a": "development_train"}, "counts": {"development_train": 1}}
+    lf = (json.dumps(value, indent=2, sort_keys=True) + "\n").encode("utf-8")
+    crlf = lf.replace(b"\n", b"\r\n")
+    expected_raw = __import__("hashlib").sha256(crlf).hexdigest()
+    expected_canonical = canonical_json_sha256(value)
+    path = tmp_path / "partition.json"
+    for payload in (lf, crlf):
+        path.write_bytes(payload)
+        parsed, errors = verify_json_artifact_identity(path, expected_raw_sha256=expected_raw, expected_canonical_sha256=expected_canonical)
+        assert parsed == value
+        assert errors == []
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        {"confirmation_sealed": True, "repository_assignments": {"org/a": "confirmation"}, "counts": {"development_train": 1}},
+        {"confirmation_sealed": True, "repository_assignments": {"org/a": "development_train"}, "counts": {"development_train": 2}},
+    ],
+)
+def test_partition_json_identity_rejects_semantic_change(tmp_path: Path, mutation: dict) -> None:
+    original = {"confirmation_sealed": True, "repository_assignments": {"org/a": "development_train"}, "counts": {"development_train": 1}}
+    path = tmp_path / "partition.json"
+    path.write_text(json.dumps(mutation), encoding="utf-8")
+    _, errors = verify_json_artifact_identity(path, expected_raw_sha256="0" * 64, expected_canonical_sha256=canonical_json_sha256(original))
+    assert errors == ["raw and canonical JSON SHA-256 mismatch"]
+
+
+def test_partition_json_identity_rejects_malformed_json(tmp_path: Path) -> None:
+    path = tmp_path / "partition.json"
+    path.write_text("{not-json", encoding="utf-8")
+    parsed, errors = verify_json_artifact_identity(path, expected_raw_sha256="0" * 64, expected_canonical_sha256="1" * 64)
+    assert parsed is None
+    assert errors and errors[0].startswith("malformed JSON:")
