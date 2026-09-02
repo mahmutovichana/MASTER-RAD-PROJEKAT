@@ -43,6 +43,12 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def resolve_manifest_path(project_root: Path, value: str | None) -> Path | None:
+    if not value:
+        return None
+    return project_root / value
+
+
 def repo_id(row: dict[str, Any]) -> str:
     return str(row.get("repository") or "").strip().lower().removesuffix(".git")
 
@@ -145,17 +151,52 @@ def verify(manifest_path: Path = DEFAULT_MANIFEST, *, project_root: Path = PROJE
                 errors.append(str(exc))
         empty_docs = [str(row.get("case_id")) for row in rows if not str(row.get("docs_before_excerpt") or "").strip()]
         if empty_docs:
-            errors.append(f"{len(empty_docs)} rows have empty docs_before_excerpt")
+            expected_empty = (manifest.get("empty_docs_audit") or {}).get("rows_with_empty_docs_before_excerpt")
+            unresolved_empty = (manifest.get("empty_docs_audit") or {}).get("unresolved_re_review_rows")
+            if expected_empty != len(empty_docs) or unresolved_empty != 0:
+                errors.append(f"{len(empty_docs)} rows have empty docs_before_excerpt without resolved empty-doc audit")
         for key_name in ["case_id", "repo_pr"]:
             dupes = duplicate_groups(rows, key_name)
             if dupes:
                 errors.append(f"{key_name} duplicate groups: {len(dupes)}")
         safe_dupes = duplicate_groups(rows, "safe_input")
         safe_conflicts = [group for group in safe_dupes if group["conflicting_labels"]]
-        if safe_conflicts:
-            errors.append(f"conflicting labels for identical model-safe input groups: {len(safe_conflicts)}")
+        manifest_collision = manifest.get("model_visible_collision_audit") or {
+            "groups": 0,
+            "conflicting_label_groups": 0,
+            "cross_development_confirmation_groups": 0,
+        }
+        if len(safe_dupes) != manifest_collision.get("groups"):
+            errors.append("model-visible collision group count mismatch")
+        if len(safe_conflicts) != manifest_collision.get("conflicting_label_groups"):
+            errors.append("model-visible conflicting-label group count mismatch")
+        raw_safe_groups: dict[tuple[str, str, str, str], list[dict[str, Any]]] = defaultdict(list)
+        for row in rows:
+            raw_safe_groups[safe_input_key(row)].append(row)
+        safe_cross_boundary = []
+        for group_rows in raw_safe_groups.values():
+            if len(group_rows) <= 1:
+                continue
+            partitions = {str(row.get("partition") or "") for row in group_rows}
+            if "confirmation" in partitions and any(partition != "confirmation" for partition in partitions):
+                safe_cross_boundary.append(group_rows)
+        if safe_cross_boundary:
+            errors.append(f"identical model-safe input crosses development/confirmation: {len(safe_cross_boundary)}")
         elif safe_dupes:
-            warnings.append(f"identical model-safe input duplicate groups without label conflict: {len(safe_dupes)}")
+            warnings.append(f"documented identical model-safe input groups: {len(safe_dupes)}")
+
+        expected_sources = manifest.get("consolidated_source_dataset_counts") or {}
+        if expected_sources:
+            actual_sources = dict(sorted(Counter(str(row.get("consolidated_source_dataset") or "") for row in rows).items()))
+            if actual_sources != expected_sources:
+                errors.append("consolidated source dataset counts mismatch")
+            if actual_sources.get("natural_diversity_expansion_v1") != manifest.get("natural_diversity_included_rows"):
+                errors.append("Natural Diversity included row count mismatch")
+        expected_categories = manifest.get("category_counts") or {}
+        if expected_categories:
+            actual_categories = dict(sorted(Counter(str(row.get("gold_doc_category") or "") for row in rows).items()))
+            if actual_categories != expected_categories:
+                errors.append("gold category counts mismatch")
 
     if partition_path.exists():
         if sha256_file(partition_path) != manifest.get("partition_manifest_sha256"):
@@ -166,6 +207,24 @@ def verify(manifest_path: Path = DEFAULT_MANIFEST, *, project_root: Path = PROJE
 
     if completion_path.exists() and sha256_file(completion_path) != manifest.get("completion_audit_sha256"):
         errors.append("completion audit SHA-256 mismatch")
+    if completion_path.exists():
+        completion_audit = load_json(completion_path)
+        expected_completion = manifest.get("human_review_completion") or {}
+        for key in ["approved_rows", "excluded_rows", "pending_rows"]:
+            if key in expected_completion and completion_audit.get(key) != expected_completion.get(key):
+                errors.append(f"completion audit {key} mismatch")
+
+    for label, path in {
+        "empty docs audit": resolve_manifest_path(project_root, manifest.get("empty_docs_audit_path")),
+        "model-visible collision audit": resolve_manifest_path(project_root, manifest.get("model_visible_collision_audit_path")),
+    }.items():
+        if path is not None and not path.exists():
+            errors.append(f"{label} missing: {path}")
+        elif path is not None:
+            sha_key = f"{label.replace('-', '_').replace(' ', '_')}_sha256"
+            expected_sha = manifest.get(sha_key)
+            if expected_sha and sha256_file(path) != expected_sha:
+                errors.append(f"{label} SHA-256 mismatch")
 
     if rows:
         by_partition: dict[str, list[dict[str, Any]]] = defaultdict(list)

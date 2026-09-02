@@ -2,12 +2,18 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
-LABEL_SOURCE = "human_reviewed_final_v2"
+from docguard_ml_v2.data_contract import VALID_LABEL_SOURCES
+
+
 SAFE_MODEL_FIELDS = {"language", "code_changed_files", "code_diff_excerpt", "docs_before_excerpt"}
 ALLOWED_CATEGORIES = {"api_reference", "configuration", "developer_setup", "model_contract", "other_documentation", "no_update"}
 PRIMARY_STAGE2 = {"api_reference", "configuration", "developer_setup", "model_contract"}
@@ -48,6 +54,7 @@ def safe_serialization(row: dict[str, Any]) -> dict[str, Any]:
 
 def audit(rows: list[dict[str, Any]], partition_manifest: dict[str, Any] | None, previously_seen_rows: list[dict[str, Any]]) -> tuple[list[str], dict[str, Any]]:
     errors: list[str] = []
+    warnings: list[str] = []
     ids = [row_id(row, index) for index, row in enumerate(rows, 1)]
     urls = [str(row.get("source_url") or row.get("url") or "") for row in rows if row.get("source_url") or row.get("url")]
     prs = [pr_key(row) for row in rows if pr_key(row)]
@@ -59,18 +66,21 @@ def audit(rows: list[dict[str, Any]], partition_manifest: dict[str, Any] | None,
         errors.append(f"duplicate PR: {duplicate}")
     for index, row in enumerate(rows, 1):
         rid = row_id(row, index)
-        if row.get("candidate_evidence") and any(key.startswith("gold_") for key in row) and row.get("label_source") != LABEL_SOURCE:
+        if row.get("candidate_evidence") and any(key.startswith("gold_") for key in row) and row.get("label_source") not in VALID_LABEL_SOURCES:
             errors.append(f"{rid}: candidate generated gold fields before human finalization")
         if row.get("human_review_complete") is not True:
             errors.append(f"{rid}: missing human review")
-        if row.get("label_source") != LABEL_SOURCE:
-            errors.append(f"{rid}: non-human final label_source")
+        if row.get("label_source") not in VALID_LABEL_SOURCES:
+            errors.append(f"{rid}: unsupported final label_source")
         if row.get("gold_doc_category") not in ALLOWED_CATEGORIES:
             errors.append(f"{rid}: unsupported category {row.get('gold_doc_category')}")
         for field in SAFE_MODEL_FIELDS:
             value = row.get(field)
             if value is None or value == "" or value == []:
-                errors.append(f"{rid}: empty critical model field {field}")
+                if field == "docs_before_excerpt":
+                    warnings.append(f"{rid}: empty docs_before_excerpt requires Gate 1 empty-doc disposition")
+                else:
+                    errors.append(f"{rid}: empty critical model field {field}")
         leaked = [key for key in safe_serialization(row) if key.startswith("gold_") or key.startswith("suggested_") or key.startswith("human_")]
         if leaked:
             errors.append(f"{rid}: gold/audit field present in safe input serialization: {leaked}")
@@ -81,7 +91,21 @@ def audit(rows: list[dict[str, Any]], partition_manifest: dict[str, Any] | None,
         final = str(row.get("human_doc_category") or row.get("gold_doc_category") or "")
         if original and original not in PRIMARY_STAGE2 and original != "no_update" and final in PRIMARY_STAGE2:
             errors.append(f"{rid}: forced alias use from {original} to {final}")
-    if partition_manifest:
+    if partition_manifest and "repository_assignments" not in partition_manifest:
+        manifest_counts = partition_manifest.get("partition_row_counts") or {}
+        actual_counts = dict(Counter(str(row.get("partition") or "") for row in rows))
+        for partition, expected_count in manifest_counts.items():
+            if actual_counts.get(partition, 0) != expected_count:
+                errors.append(f"{partition}: partition row count mismatch; expected {expected_count}, got {actual_counts.get(partition, 0)}")
+        repos_by_partition: dict[str, set[str]] = defaultdict(set)
+        for row in rows:
+            repos_by_partition[str(row.get("partition") or "")].add(repo_id(row))
+        for index, left in enumerate(list(repos_by_partition)):
+            for right in list(repos_by_partition)[index + 1 :]:
+                overlap = repos_by_partition[left] & repos_by_partition[right]
+                if overlap:
+                    errors.append(f"repository partition overlap {left}/{right}: {sorted(overlap)[:10]}")
+    elif partition_manifest:
         assignments = partition_manifest.get("repository_assignments") or {}
         if partition_manifest.get("confirmation_sealed") is not True:
             errors.append("confirmation partition is not sealed")
@@ -127,6 +151,7 @@ def audit(rows: list[dict[str, Any]], partition_manifest: dict[str, Any] | None,
         "confirmation_language_distribution": dict(Counter(str(row.get("language") or "") for row in rows if row.get("partition") == "confirmation")),
         "no_class_balancing_performed": True,
         "errors": errors,
+        "warnings": warnings,
     }
     return errors, report
 
@@ -145,12 +170,16 @@ def write_markdown(path: Path, report: dict[str, Any]) -> None:
         f"- Confirmation size: `{report['confirmation_size']}`",
         f"- Confirmation language distribution: `{report['confirmation_language_distribution']}`",
         f"- Errors: `{len(report['errors'])}`",
+        f"- Warnings: `{len(report['warnings'])}`",
         "",
         "NO CLASS BALANCING / OVERSAMPLING / UNDERSAMPLING / SMOTE.",
     ]
     if report["errors"]:
         lines.extend(["", "## Errors", ""])
         lines.extend(f"- {error}" for error in report["errors"])
+    if report["warnings"]:
+        lines.extend(["", "## Warnings", ""])
+        lines.extend(f"- {warning}" for warning in report["warnings"])
     path.write_text("\n".join(lines), encoding="utf-8")
 
 

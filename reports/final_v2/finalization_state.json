@@ -12,13 +12,16 @@
     "consolidated_review_manifest": "data/final_v2/human_review/consolidated_enriched_training_v2/manifest.json",
     "development_train_split": "experiments/consolidated_enriched_training_v2/gold/train.jsonl",
     "development_validation_split": "experiments/consolidated_enriched_training_v2/gold/validation.jsonl",
+    "empty_docs_disposition_audit": "reports/final_v2/gate1_empty_docs_disposition_audit.json",
     "final_human_gold": "experiments/consolidated_enriched_training_v2/gold/final_human_gold.jsonl",
     "final_human_gold_manifest": "experiments/consolidated_enriched_training_v2/gold/human_gold_manifest.json",
     "finalization_protocol": "reports/final_v2/FINALIZATION_PROTOCOL.md",
     "gate1_blockers": "reports/final_v2/GATE1_BLOCKERS.json",
     "gate1_dataset_card": "reports/final_v2/GOLD_DATASET_CARD.md",
     "gate1_report": "reports/final_v2/GATE1_HUMAN_GOLD_FREEZE.md",
+    "gold_freeze_manifest": "reports/final_v2/GOLD_FREEZE_MANIFEST.json",
     "gold_freeze_verifier": "scripts/verify_final_v2_gold_freeze.py",
+    "model_visible_collision_audit": "reports/final_v2/gate1_model_visible_collision_audit.json",
     "pre_experiment_audit": "reports/final_v2/pre_experiment_audit.json",
     "stage3_config": "configs/stage3_semantic_generation_v2.json"
   },
@@ -29,18 +32,19 @@
   "current_gate": 1,
   "dataset_state": {
     "category_counts": {
-      "api_reference": 1552,
-      "configuration": 1465,
-      "developer_setup": 989,
+      "api_reference": 1554,
+      "configuration": 1467,
+      "developer_setup": 992,
       "model_contract": 1122,
-      "no_update": 19195,
-      "other_documentation": 811
+      "no_update": 19965,
+      "other_documentation": 813
     },
     "controlled_augmentation_rows": 4000,
-    "negative_rows": 19195,
-    "positive_rate": 0.23629346701679,
-    "positive_rows": 5939,
-    "row_count": 25134,
+    "natural_diversity_rows": 779,
+    "negative_rows": 19965,
+    "positive_rate": 0.22953729788137228,
+    "positive_rows": 5948,
+    "row_count": 25913,
     "validation": "PASS"
   },
   "final_model_freeze_state": {
@@ -49,27 +53,18 @@
     "stage3_freeze_manifest_present": false
   },
   "gate_0_status": "PASS",
-  "gate_1_status": "FAIL",
+  "gate_1_status": "PASS",
   "gate_1_summary": {
-    "gold_freeze_manifest_created": false,
-    "human_review_completion_audit": "passed",
-    "legacy_final_dataset_audit": {
-      "empty_docs_before_excerpt_errors": 25,
-      "partition_recomputation_mismatch_errors": 1893,
-      "status": "fail",
-      "total_errors": 1918
-    },
-    "unresolved_blockers": [
-      "natural_diversity_scope_unresolved",
-      "conflicting_duplicate_model_safe_input",
-      "empty_docs_before_excerpt",
-      "legacy_integrity_audit_not_v2_freeze_compatible"
-    ]
+    "empty_docs_disposition_audit": "reports/final_v2/gate1_empty_docs_disposition_audit.json",
+    "gold_freeze_manifest_created": true,
+    "legacy_final_dataset_audit": "repaired/superseded by scripts/verify_final_v2_gold_freeze.py",
+    "model_visible_collision_audit": "reports/final_v2/gate1_model_visible_collision_audit.json",
+    "unresolved_blockers": []
   },
   "gate_statuses": {
     "gate_0_canonical_pipeline_and_integrity_baseline": "PASS",
-    "gate_1_human_gold_dataset_freeze": "FAIL",
-    "gate_2_development_only_ml_model_study": "BLOCKED_UNTIL_GATE_1_PASS",
+    "gate_1_human_gold_dataset_freeze": "PASS",
+    "gate_2_development_only_ml_model_study": "READY",
     "gate_3_final_classifier_selection_and_freeze": "NOT_EXECUTED",
     "gate_4_stage3_retrieval_generation_study_and_freeze": "NOT_EXECUTED",
     "gate_5_one_shot_confirmation": "NOT_EXECUTED",
@@ -78,27 +73,270 @@
   },
   "gold_split_state": {
     "augmentation_repository_count": 25,
+    "augmentation_train_only_counts": {
+      "False": 21859,
+      "True": 4054
+    },
     "augmentation_train_only_rows": 4054,
+    "base_confirmation_case_ids_preserved": true,
+    "base_validation_case_ids_preserved": true,
+    "category_counts": {
+      "confirmation": {
+        "api_reference": 77,
+        "configuration": 116,
+        "developer_setup": 25,
+        "model_contract": 97,
+        "no_update": 3346,
+        "other_documentation": 86
+      },
+      "development_train": {
+        "api_reference": 1392,
+        "configuration": 1195,
+        "developer_setup": 946,
+        "model_contract": 961,
+        "no_update": 13819,
+        "other_documentation": 705
+      },
+      "development_validation": {
+        "api_reference": 85,
+        "configuration": 156,
+        "developer_setup": 21,
+        "model_contract": 64,
+        "no_update": 2800,
+        "other_documentation": 22
+      }
+    },
+    "class_counts": {
+      "confirmation": {
+        "False": 3346,
+        "True": 401
+      },
+      "development_train": {
+        "False": 13819,
+        "True": 5199
+      },
+      "development_validation": {
+        "False": 2800,
+        "True": 348
+      }
+    },
+    "confirmation_sealed": true,
+    "consolidated_source_dataset_counts": {
+      "consolidated_enriched_training_v1": 21080,
+      "controlled_real_project_positive_v1": 2000,
+      "controlled_real_project_positive_v2_imbalanced": 2000,
+      "natural_diversity_expansion_v1": 779,
+      "remaining_4800_partial_positive_54": 54
+    },
     "frozen_validation_case_ids_preserved": true,
+    "label_source_counts": {
+      "additional_reviewed_natural_positive": 54,
+      "controlled_design_label": 4000,
+      "natural_human_gold": 21859
+    },
+    "model_visible_collision_audit": [
+      {
+        "case_ids": [
+          "DGPR-22f49fae1232c25b",
+          "DGPR-ac2c1d8be862a566"
+        ],
+        "conflicting_labels": false,
+        "cross_development_confirmation": false,
+        "group_id": "model_visible_collision_0001",
+        "labels": [
+          "False::no_update"
+        ],
+        "partitions": [
+          "confirmation"
+        ],
+        "repository_pr_keys": [
+          "agsh/onvif#469",
+          "agsh/onvif#471"
+        ],
+        "rows": 2
+      },
+      {
+        "case_ids": [
+          "DGPR-8bf9a1cccbc50fc3",
+          "DGPR-aca3711697798a43"
+        ],
+        "conflicting_labels": false,
+        "cross_development_confirmation": false,
+        "group_id": "model_visible_collision_0002",
+        "labels": [
+          "False::no_update"
+        ],
+        "partitions": [
+          "confirmation"
+        ],
+        "repository_pr_keys": [
+          "awslabs/amazon-sagemaker-examples#4481",
+          "awslabs/amazon-sagemaker-examples#4673"
+        ],
+        "rows": 2
+      },
+      {
+        "case_ids": [
+          "DGPR-8855c17914e4f995",
+          "DGPR-ab3191293c61f4fa"
+        ],
+        "conflicting_labels": true,
+        "cross_development_confirmation": false,
+        "group_id": "model_visible_collision_0003",
+        "labels": [
+          "False::no_update",
+          "True::developer_setup"
+        ],
+        "partitions": [
+          "development_train"
+        ],
+        "repository_pr_keys": [
+          "microsoft/promptflow#4005",
+          "microsoft/promptflow#4006"
+        ],
+        "rows": 2
+      },
+      {
+        "case_ids": [
+          "DGPR-c2b8f8283cb15ffa",
+          "DGPR-fa36e2b8bc0ea22e"
+        ],
+        "conflicting_labels": false,
+        "cross_development_confirmation": false,
+        "group_id": "model_visible_collision_0004",
+        "labels": [
+          "False::no_update"
+        ],
+        "partitions": [
+          "development_train"
+        ],
+        "repository_pr_keys": [
+          "docgeni/docgeni#711",
+          "docgeni/docgeni#736"
+        ],
+        "rows": 2
+      },
+      {
+        "case_ids": [
+          "DGPR-f0fa63aae2149b4f",
+          "DGPR-a00e30ce496e39c2"
+        ],
+        "conflicting_labels": false,
+        "cross_development_confirmation": false,
+        "group_id": "model_visible_collision_0005",
+        "labels": [
+          "False::no_update"
+        ],
+        "partitions": [
+          "development_train"
+        ],
+        "repository_pr_keys": [
+          "microsoft/promptflow#4021",
+          "microsoft/promptflow#4023"
+        ],
+        "rows": 2
+      },
+      {
+        "case_ids": [
+          "DGPR-7f0de226e7b5bf59",
+          "DGPR-aa537aba145c82c1"
+        ],
+        "conflicting_labels": false,
+        "cross_development_confirmation": false,
+        "group_id": "model_visible_collision_0006",
+        "labels": [
+          "False::no_update"
+        ],
+        "partitions": [
+          "development_validation"
+        ],
+        "repository_pr_keys": [
+          "vercel/next.js#97853",
+          "vercel/next.js#97579"
+        ],
+        "rows": 2
+      },
+      {
+        "case_ids": [
+          "GH-CAND-0349",
+          "GH-CAND-0350"
+        ],
+        "conflicting_labels": false,
+        "cross_development_confirmation": false,
+        "group_id": "model_visible_collision_0007",
+        "labels": [
+          "True::api_reference"
+        ],
+        "partitions": [
+          "development_train"
+        ],
+        "repository_pr_keys": [
+          "microsoft/vscode#324708",
+          "microsoft/vscode#324703"
+        ],
+        "rows": 2
+      }
+    ],
+    "model_visible_collision_conflicting_label_groups": 1,
+    "model_visible_collision_cross_development_confirmation_groups": 0,
+    "model_visible_collision_groups": 7,
+    "model_visible_collision_rows": 14,
+    "natural_diversity_assignment_algorithm": "scripts.build_repository_partitions_v2.assign_partitions(seed=42, confirmation_fraction=0.2, previously_seen=base_gold_repositories)",
+    "natural_diversity_partition_assignments": {
+      "aeonfun/aeon": "development_train",
+      "ansible/ansible-runner": "confirmation",
+      "astral-sh/ty": "development_train",
+      "bluewave-labs/checkmate": "development_train",
+      "callstack/agent-device": "development_train",
+      "colemurray/background-agents": "development_validation",
+      "cookiecutter/cookiecutter": "development_train",
+      "doolijb/serene-pub": "development_train",
+      "eleutherai/lm-evaluation-harness": "confirmation",
+      "hynek/structlog": "development_train",
+      "jestjs/jest": "development_train",
+      "juspay/xyne-spaces": "development_train",
+      "keygraphhq/shannon": "development_validation",
+      "marshmallow-code/marshmallow": "development_train",
+      "melgarafael/deskcommcrm": "development_train",
+      "pytest-dev/pytest-cov": "development_validation",
+      "quay/quay": "confirmation",
+      "rossoctl/rossoctl": "development_train",
+      "sonarsource/sonarjs": "development_train",
+      "vllm-project/tpu-inference": "confirmation"
+    },
+    "natural_diversity_partition_row_counts": {
+      "confirmation": 160,
+      "development_train": 499,
+      "development_validation": 120
+    },
+    "natural_diversity_repository_count": 20,
+    "natural_diversity_rows": 779,
     "partition_repository_counts": {
-      "confirmation": 48,
-      "development_train": 178,
-      "development_validation": 38
+      "confirmation": 52,
+      "development_train": 191,
+      "development_validation": 41
     },
     "partition_row_counts": {
-      "confirmation": 3587,
-      "development_train": 18519,
-      "development_validation": 3028
+      "confirmation": 3747,
+      "development_train": 19018,
+      "development_validation": 3148
+    },
+    "provenance_tier_counts": {
+      "controlled_real_project_augmentation": 4000,
+      "natural_diversity_expansion_v1_reviewed": 779,
+      "natural_historical_and_targeted_reviewed": 21080,
+      "natural_targeted_reviewed": 54
     },
     "repository_overlap_count": 0,
+    "row_count": 25913,
     "sealed_confirmation_case_ids_preserved": true,
     "sha256": {
-      "confirmation.jsonl": "35ce93fb3771b3336dd8946018b910733ef4f688d64f4c338bacd0349d5f554d",
-      "final_human_gold.jsonl": "baeaa4e6142b7c8b80f6417aaf09ad71bdc155e6ea4aff7f15d6494d503358c5",
-      "human_gold_manifest.json": "c698cadcc3a1b02b0a6b0820d227d22a8e39bfcefccaef8479da63b36cd08ed5",
-      "train.jsonl": "51eb370f5636e36034d2e9742c618e831993e0fb28a54ba3a21a11d49548fbe7",
-      "validation.jsonl": "6af538c357602367fa6f8ddb796cd7f414591e5f2feff671409917ffdce6a9fc"
-    }
+      "confirmation.jsonl": "e73caca3b9ef46de284c4755127e3d7cfc0b5db9f3d1c8cd2b85be80b2c6d01b",
+      "final_human_gold.jsonl": "68ebe23ab4dd8a02ee1ea459e3b6a374a3efa2891afc8d344a533676eb3b5a08",
+      "train.jsonl": "257e29d6ee0fe2b35bf6e1370f31cbdd770a00e40a08aa9bdc393f035b9e146f",
+      "validation.jsonl": "caabd5d585a3fef20c218728f4aface55b5316670c00bda0d071aa2550e017a9"
+    },
+    "version": "consolidated_enriched_training_v2_gold"
   },
   "historical_or_deprecated_paths": [
     "experiments/consolidated_enriched_training_v1/",
@@ -110,7 +348,6 @@
     "data/final_v2/controlled_real_project_positive_v2_imbalanced/",
     "data/final_v2/expansion/targeted_positive_enrichment_v1/",
     "data/final_v2/expansion/targeted_positive_enrichment_v1_remaining_4800/",
-    "data/final_v2/natural_diversity_expansion_v1/",
     "models/real_gold_classifier_*",
     "models/real_doc_category_classifier_*",
     "models/external_deep_jit*",
@@ -118,42 +355,39 @@
     "models/v0_4/"
   ],
   "human_review_state": {
-    "approved_rows": 25134,
+    "approved_rows": 25913,
     "conflict_count": 0,
     "excluded_rows": 0,
     "human_review_complete": true,
-    "input_sha256": "6aa3da7a5821e6613bbe4426e56caccc461a6cd0936a87f9328eb47821bc83e4",
+    "input_sha256": "68ebe23ab4dd8a02ee1ea459e3b6a374a3efa2891afc8d344a533676eb3b5a08",
     "pending_rows": 0,
     "review_integrity_status": "passed",
     "taxonomy_validation_status": "passed"
   },
-  "immutable_gold": false,
+  "immutable_gold": true,
   "natural_diversity_trace": {
     "accepted_candidate_cases": 779,
     "approved_rows": 779,
     "completed_reviewed_rows": 779,
-    "included_in_current_candidate_gold_by_case_id": 0,
-    "included_in_current_candidate_gold_by_repo_pr": 0,
-    "outside_current_candidate_gold": 779,
+    "included_in_frozen_gold": 779,
+    "negative_rows": 770,
     "planned_stratified_seeds": 780,
     "positive_rows": 9,
-    "negative_rows": 770,
-    "refresh_validation_excluded_from_training": true,
     "sent_to_review": 779,
-    "unresolved_scope_decision": true
+    "unresolved_scope_decision": false
   },
-  "next_allowed_gate": "Gate 1 remediation/adjudication — Gate 2 is blocked until Gate 1 PASS",
+  "next_allowed_gate": "Gate 2 development-only ML model study",
   "partition_integrity": {
-    "canonical_repository_manifest_confirmation_sealed": true,
-    "canonical_repository_manifest_partition_repository_counts": {
-      "confirmation": 45,
-      "development_train": 144,
-      "development_validation": 36
+    "final_gold_manifest_confirmation_sealed": true,
+    "final_gold_manifest_partition_repository_counts": {
+      "confirmation": 52,
+      "development_train": 191,
+      "development_validation": 41
     },
-    "canonical_repository_manifest_partition_row_counts": {
-      "confirmation": 3190,
-      "development_train": 12551,
-      "development_validation": 2139
+    "final_gold_manifest_partition_row_counts": {
+      "confirmation": 3747,
+      "development_train": 19018,
+      "development_validation": 3148
     },
     "gold_manifest_repository_overlap_count": 0,
     "split_case_overlap_count": 0,

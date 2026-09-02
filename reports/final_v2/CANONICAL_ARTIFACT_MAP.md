@@ -20,6 +20,9 @@ These artifacts define the current Final V2 experiment state.
 | Binary classifier config | `configs/binary_classifier_v4.json` | Final V2 binary classifier configuration. |
 | Category classifier config | `configs/category_classifier_v8.json` | Final V2 category classifier configuration. |
 | Stage 3 semantic generation config | `configs/stage3_semantic_generation_v2.json` | Final V2 Stage 3 retrieval/generation configuration. |
+| Gate 1 gold freeze manifest | `reports/final_v2/GOLD_FREEZE_MANIFEST.json` | Immutable machine-checkable identity for the frozen Final V2 human-gold dataset. |
+| Gate 1 empty-doc disposition audit | `reports/final_v2/gate1_empty_docs_disposition_audit.json` | Resolution record for rows with empty stored `docs_before_excerpt`. |
+| Gate 1 model-visible collision audit | `reports/final_v2/gate1_model_visible_collision_audit.json` | Resolution record for identical safe-input groups and confirmation-boundary safety. |
 | Binary development model artifact | `experiments/consolidated_enriched_training_v2/binary_v4/binary_v4.joblib` | Development-selected binary model. Not a confirmation result. |
 | Binary development summary | `experiments/consolidated_enriched_training_v2/binary_v4/training_summary.json` | Development-only training/model-selection summary. |
 | Category development model artifact | `experiments/consolidated_enriched_training_v2/category_v8/category_v8.joblib` | Development-selected category model. Not a confirmation result. |
@@ -42,7 +45,7 @@ These may remain as development evidence, but must not feed the Final V2 experim
 | `data/final_v2/controlled_real_project_positive_v2_imbalanced/` | Controlled positive augmentation source already represented through the v2 consolidated manifest. |
 | `data/final_v2/expansion/targeted_positive_enrichment_v1/` | Earlier targeted enrichment pilot/source. Not a standalone final dataset. |
 | `data/final_v2/expansion/targeted_positive_enrichment_v1_remaining_4800/` | Partial external candidate source. Only the independently accepted 54 positive rows are represented through the v2 consolidated manifest. |
-| `data/final_v2/natural_diversity_expansion_v1/` | Separate finalized Natural Diversity / refresh-validation family. Gate 1 found that its 779 completed reviewed rows are not represented in the current unified gold path; this must remain explicit and cannot be silently treated as included. |
+| `data/final_v2/natural_diversity_expansion_v1/` | Natural Diversity source family. Its 779 completed approved reviewed rows are represented in the frozen Final V2 gold through the v2 consolidated manifest; the source folder remains historical/provenance evidence, not a standalone final dataset. |
 | `models/real_gold_classifier_*` | Older classifier artifacts. Historical only. |
 | `models/real_doc_category_classifier_*` | Older category classifier artifacts. Historical only. |
 | `models/external_deep_jit*` | Older external/deep JIT experiments. Historical only. |

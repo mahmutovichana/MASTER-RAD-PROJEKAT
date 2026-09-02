@@ -2,9 +2,14 @@ from __future__ import annotations
 
 import hashlib
 import json
+import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from scripts.human_review_workflow_v2 import (
     POSITIVE_CATEGORIES,
@@ -19,7 +24,6 @@ from docguard_ml_v2.data_contract import (
 )
 
 
-ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "data/final_v2/human_review/consolidated_enriched_training_v2"
 SOURCES = [
     {
@@ -49,6 +53,13 @@ SOURCES = [
         "expected_rows": 2_000,
         "selection": "positive_only_owner_accepted",
         "provenance_tier": "controlled_real_project_augmentation",
+    },
+    {
+        "name": "natural_diversity_expansion_v1",
+        "path": ROOT / "data/final_v2/natural_diversity_expansion_v1/human_review/finalized/natural_human_gold.jsonl",
+        "expected_rows": 779,
+        "selection": "all_approved",
+        "provenance_tier": "natural_diversity_expansion_v1_reviewed",
     },
 ]
 
@@ -210,15 +221,15 @@ def main() -> int:
     natural_or_historical_count = len(merged) - controlled_count
 
     expected_categories = Counter({
-        "no_update": 19_195,
-        "api_reference": 1_552,
-        "configuration": 1_465,
-        "developer_setup": 989,
+        "no_update": 19_965,
+        "api_reference": 1_554,
+        "configuration": 1_467,
+        "developer_setup": 992,
         "model_contract": 1_122,
-        "other_documentation": 811,
+        "other_documentation": 813,
     })
-    if len(merged) != 25_134:
-        errors.append({"reason": "unexpected_total", "expected": 25_134, "actual": len(merged)})
+    if len(merged) != 25_913:
+        errors.append({"reason": "unexpected_total", "expected": 25_913, "actual": len(merged)})
     if category_counts != expected_categories:
         errors.append({"reason": "unexpected_category_counts", "expected": dict(expected_categories), "actual": dict(category_counts)})
 
@@ -248,6 +259,9 @@ def main() -> int:
         "source_stats": source_stats,
         "controlled_augmentation_rows": controlled_count,
         "natural_or_historical_rows": natural_or_historical_count,
+        "natural_diversity_included_rows": source_counts["natural_diversity_expansion_v1"],
+        "natural_diversity_expected_rows": 779,
+        "natural_diversity_missing_rows": 779 - source_counts["natural_diversity_expansion_v1"],
         "duplicates_skipped": len(duplicates),
         "validation_error_count": len(errors),
         "sha256": {},
@@ -266,6 +280,7 @@ def main() -> int:
         f"- Negative: **{label_counts['negative']:,}**",
         f"- Controlled augmentation rows: **{controlled_count:,}**",
         f"- Natural/historical reviewed rows: **{natural_or_historical_count:,}**",
+        f"- Natural Diversity Expansion V1 included rows: **{source_counts['natural_diversity_expansion_v1']:,} / 779**",
         f"- Duplicates skipped: **{len(duplicates):,}**",
         "",
         "## Categories",

@@ -1,50 +1,5 @@
 {
   "gate": 1,
-  "gate_1_status": "FAIL",
-  "gold_freeze_manifest_created": false,
-  "confirmation_results_accessed_by_gate_1": false,
-  "blockers": [
-    {
-      "id": "natural_diversity_scope_unresolved",
-      "description": "Natural Diversity Expansion V1 has 779 completed approved reviewed rows, but 0 are represented in the current candidate Final V2 gold by case_id or repository+PR identity.",
-      "candidate_rows": 779,
-      "completed_rows": 779,
-      "included_in_current_candidate_gold": 0,
-      "required_resolution": "Explicitly declare these rows outside the final thesis gold, or rebuild final gold from the intended already-completed subset."
-    },
-    {
-      "id": "conflicting_duplicate_model_safe_input",
-      "description": "One pair of rows has identical model-facing input text but conflicting final labels.",
-      "duplicate_groups": 1,
-      "cases": [
-        {
-          "case_id": "DGPR-8855c17914e4f995",
-          "repository": "microsoft/promptflow",
-          "pr_number": 4005,
-          "label": "false / no_update"
-        },
-        {
-          "case_id": "DGPR-ab3191293c61f4fa",
-          "repository": "microsoft/promptflow",
-          "pr_number": 4006,
-          "label": "true / developer_setup"
-        }
-      ],
-      "required_resolution": "Human adjudication or an explicit protocol decision is required; Gate 1 must not change either label automatically."
-    },
-    {
-      "id": "empty_docs_before_excerpt",
-      "description": "25 candidate gold rows have empty docs_before_excerpt, including 13 positive rows.",
-      "row_count": 25,
-      "positive_rows": 13,
-      "negative_rows": 12,
-      "required_resolution": "Confirm these are valid final-gold examples under the evidence protocol, or adjudicate/exclude them before freeze."
-    },
-    {
-      "id": "legacy_integrity_audit_not_v2_freeze_compatible",
-      "description": "scripts/audit_final_dataset_v2.py reports 1,893 partition recomputation mismatches because it recomputes old partition assignments instead of verifying the consolidated v2 frozen split identity.",
-      "legacy_audit_errors": 1893,
-      "required_resolution": "Use or extend the Gate 1 freeze verifier as the canonical v2 identity check, or update the legacy audit without changing frozen split membership."
-    }
-  ]
+  "status": "PASS",
+  "unresolved_blockers": []
 }
