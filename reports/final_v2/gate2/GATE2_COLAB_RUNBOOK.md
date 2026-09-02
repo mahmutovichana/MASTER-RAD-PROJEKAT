@@ -9,7 +9,7 @@ Open one GPU runtime, add `HF_TOKEN` through Colab **Secrets** (never paste it i
 ```bash
 !git clone https://github.com/mahmutovichana/MASTER-RAD-PROJEKAT.git /content/docguard
 %cd /content/docguard
-!git checkout e89cedfa87edbc1469d467713451a9441aa1360f
+!git checkout 1553c31e73eb705d555028170a86fd79a3d61859
 !git lfs pull --include="experiments/consolidated_enriched_training_v2/gold/*.jsonl"
 !python -m pip install --only-binary=:all: "transformers==4.56.2" "tokenizers==0.22.0" "accelerate==1.10.1" "huggingface_hub==0.35.3" "safetensors==0.6.2" "scikit-learn>=1.7,<1.9" "scipy>=1.15,<1.17"
 ```
@@ -38,3 +38,5 @@ assert torch.cuda.is_available()
 ```
 
 Download only `/content/gate2_colab_return.tar.gz` and place it locally for verification and final aggregation. Do not return model weights or Hugging Face cache directories. The scripts must report the resolved revision `5604afdc964f6c53782a6813140ade5216b99006`, 22,166 aligned row IDs, zero confirmation rows, and artifact hashes.
+
+The scientific preregistration remains commit `e89cedfa87edbc1469d467713451a9441aa1360f`; execution commit `1553c31e73eb705d555028170a86fd79a3d61859` adds only the documented protocol-preserving operational fixes.
