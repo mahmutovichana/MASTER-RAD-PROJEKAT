@@ -2,7 +2,7 @@
 
 Scientific preregistration: `e89cedfa87edbc1469d467713451a9441aa1360f`.
 
-Pinned protocol-preserving execution commit: `__KAGGLE_EXECUTION_COMMIT__`.
+Pinned protocol-preserving execution commit: `648eee910653e95a5e1f71f5ccc50ef9b9a7a9e9`.
 
 This is a replacement technical execution environment for the same frozen Gate 2 study. It does not define a new experiment. Gate 0 and Gate 1 remain frozen, the confirmation partition remains sealed, and the previous Colab incident remains part of the execution record.
 
@@ -15,7 +15,7 @@ In the first cell run:
 ```bash
 !git clone https://github.com/mahmutovichana/MASTER-RAD-PROJEKAT.git /kaggle/working/docguard
 %cd /kaggle/working/docguard
-!git checkout __KAGGLE_EXECUTION_COMMIT__
+!git checkout 648eee910653e95a5e1f71f5ccc50ef9b9a7a9e9
 !git lfs install
 !git lfs pull --include="experiments/consolidated_enriched_training_v2/gold/*.jsonl"
 !python -m pip install --only-binary=:all: "transformers==4.56.2" "tokenizers==0.22.0" "accelerate==1.10.1" "huggingface_hub==0.35.3" "safetensors==0.6.2" "scikit-learn>=1.7,<1.9" "scipy>=1.15,<1.17" threadpoolctl
