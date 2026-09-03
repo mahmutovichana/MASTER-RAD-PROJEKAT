@@ -178,6 +178,94 @@ def verify_complete_artifact(*, output_dir: Path, identity: dict[str, Any], expe
     return {**manifest, "reused_complete_artifact": True}
 
 
+def complete_checkpoint_metadata(*, checkpoint_dir: Path, identity: dict[str, Any], expected_rows: int) -> dict[str, Any] | None:
+    metadata_path = checkpoint_dir / "embedding_checkpoint.json"
+    if not metadata_path.exists():
+        return None
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    for key, expected in identity.items():
+        if metadata.get("identity", {}).get(key) != expected:
+            raise RuntimeError(f"Embedding checkpoint identity mismatch: {key}")
+    if metadata.get("status") != "COMPLETE":
+        return None
+    if metadata.get("total_rows") != expected_rows or metadata.get("completed_count") != expected_rows:
+        raise RuntimeError("COMPLETE embedding checkpoint row count mismatch")
+    if not isinstance(metadata.get("hidden_size"), int) or metadata["hidden_size"] < 1:
+        raise RuntimeError("COMPLETE embedding checkpoint hidden size is invalid")
+    return metadata
+
+
+def finalize_checkpoint(
+    *,
+    output_dir: Path,
+    metadata: dict[str, Any],
+    metadata_path: Path,
+    arrays: dict[str, np.memmap],
+    rows: list[dict[str, Any]],
+    view_manifest: dict[str, Any],
+    identity: dict[str, Any],
+    case_ids: np.ndarray,
+    repositories: np.ndarray,
+    extraction: dict[str, Any],
+    encoder_repository: str,
+) -> dict[str, Any]:
+    hidden_size = int(metadata["hidden_size"])
+    artifact = output_dir / "gate2_unixcoder_embeddings.npz"
+    np.savez_compressed(artifact, case_ids=case_ids, repositories=repositories, code=np.asarray(arrays["code"]), docs=np.asarray(arrays["docs"]))
+
+    def quantiles(values: list[int]) -> dict[str, float]:
+        return {name: float(value) for name, value in zip(["p0", "p25", "p50", "p75", "p90", "p95", "p99", "p100"], np.quantile(values, [0, .25, .5, .75, .9, .95, .99, 1]))}
+
+    code_truncated_total = int(np.sum(arrays["code_truncated"]))
+    docs_truncated_total = int(np.sum(arrays["docs_truncated"]))
+    by_language: dict[str, Counter] = defaultdict(lambda: Counter(rows=0, code_truncated=0, docs_truncated=0))
+    for index, row in enumerate(rows):
+        language = str(row.get("language") or "unknown").lower()
+        by_language[language]["rows"] += 1
+        by_language[language]["code_truncated"] += int(arrays["code_truncated"][index])
+        by_language[language]["docs_truncated"] += int(arrays["docs_truncated"][index])
+    truncation = {
+        "rows": len(rows),
+        "max_length": identity["max_length"],
+        "code_truncated_rows": code_truncated_total,
+        "docs_truncated_rows": docs_truncated_total,
+        "code_truncated_percent": 100.0 * code_truncated_total / len(rows),
+        "docs_truncated_percent": 100.0 * docs_truncated_total / len(rows),
+        "code_token_length_quantiles": quantiles(np.asarray(arrays["code_lengths"]).tolist()),
+        "docs_token_length_quantiles": quantiles(np.asarray(arrays["docs_lengths"]).tolist()),
+        "by_language": {key: dict(value) for key, value in sorted(by_language.items())},
+    }
+    manifest = {
+        "status": "COMPLETE",
+        **view_manifest,
+        "source_commit": extraction.get("source_commit") or git_sha(),
+        "encoder_repository": extraction.get("encoder_repository", encoder_repository),
+        "encoder_revision": identity["encoder_revision"],
+        "tokenizer_revision": identity["tokenizer_revision"],
+        "row_order_sha256": identity["row_order_sha256"],
+        "resolved_model_commit_hash": extraction.get("resolved_model_commit_hash"),
+        "resolved_tokenizer_commit_hash": extraction.get("resolved_tokenizer_commit_hash"),
+        "pooling": identity["pooling"],
+        "max_length": identity["max_length"],
+        "dtype": "float32",
+        "device": extraction.get("device"),
+        "python": extraction.get("python"),
+        "torch": extraction.get("torch"),
+        "transformers": extraction.get("transformers"),
+        "hidden_size": hidden_size,
+        "relation_dimension": hidden_size * 4 + 1,
+        "artifact_path": str(artifact),
+        "artifact_sha256": sha256_file(artifact),
+        "truncation": truncation,
+        "confirmation_accessed": False,
+    }
+    atomic_write_json(output_dir / "gate2_unixcoder_embeddings_manifest.json", manifest)
+    metadata["status"] = "COMPLETE"
+    metadata["final_artifact_sha256"] = manifest["artifact_sha256"]
+    atomic_write_json(metadata_path, metadata)
+    return manifest
+
+
 def run(config_path: Path, output_dir: Path, batch_size: int, *, checkpoint_dir: Path | None = None, resume: bool = False) -> dict[str, Any]:
     config = load_config(config_path)
     semantic = config["families"]["M2"]
@@ -190,6 +278,29 @@ def run(config_path: Path, output_dir: Path, batch_size: int, *, checkpoint_dir:
     complete = verify_complete_artifact(output_dir=output_dir, identity=identity, expected_rows=len(rows))
     if complete is not None:
         return complete
+    persistent_dir = checkpoint_dir or (output_dir / "checkpoint")
+    checkpoint_complete = complete_checkpoint_metadata(checkpoint_dir=persistent_dir, identity=identity, expected_rows=len(rows))
+    if checkpoint_complete is not None:
+        metadata, arrays, metadata_path = open_embedding_checkpoint(
+            persistent_dir,
+            identity=identity,
+            total_rows=len(rows),
+            hidden_size=int(checkpoint_complete["hidden_size"]),
+            resume=True,
+        )
+        return finalize_checkpoint(
+            output_dir=output_dir,
+            metadata=metadata,
+            metadata_path=metadata_path,
+            arrays=arrays,
+            rows=rows,
+            view_manifest=view_manifest,
+            identity=identity,
+            case_ids=case_ids,
+            repositories=repositories,
+            extraction=metadata.get("extraction", {}),
+            encoder_repository=semantic["encoder_repository"],
+        )
     try:
         import torch
         import transformers
@@ -206,7 +317,6 @@ def run(config_path: Path, output_dir: Path, batch_size: int, *, checkpoint_dir:
     model = AutoModel.from_pretrained(repository, revision=revision, token=hf_token, trust_remote_code=False)
     model.eval().cuda()
     hidden_size = int(model.config.hidden_size)
-    persistent_dir = checkpoint_dir or (output_dir / "checkpoint")
     metadata, arrays, metadata_path = open_embedding_checkpoint(
         persistent_dir,
         identity=identity,
@@ -214,6 +324,17 @@ def run(config_path: Path, output_dir: Path, batch_size: int, *, checkpoint_dir:
         hidden_size=hidden_size,
         resume=resume,
     )
+    metadata["extraction"] = {
+        "source_commit": git_sha(),
+        "encoder_repository": repository,
+        "resolved_model_commit_hash": getattr(model.config, "_commit_hash", None),
+        "resolved_tokenizer_commit_hash": tokenizer.init_kwargs.get("_commit_hash"),
+        "device": torch.cuda.get_device_name(0),
+        "python": platform.python_version(),
+        "torch": torch.__version__,
+        "transformers": transformers.__version__,
+    }
+    atomic_write_json(metadata_path, metadata)
 
     def pool(batch_ids: list[list[int]]) -> np.ndarray:
         padded = np.full((len(batch_ids), max_length), int(tokenizer.pad_token_id), dtype=np.int64)
@@ -263,60 +384,21 @@ def run(config_path: Path, output_dir: Path, batch_size: int, *, checkpoint_dir:
 
     if metadata["completed_count"] != len(rows):
         raise RuntimeError("Embedding checkpoint did not reach all development rows")
-    artifact = output_dir / "gate2_unixcoder_embeddings.npz"
-    np.savez_compressed(artifact, case_ids=case_ids, repositories=repositories, code=np.asarray(arrays["code"]), docs=np.asarray(arrays["docs"]))
-
-    def quantiles(values: list[int]) -> dict[str, float]:
-        return {name: float(value) for name, value in zip(["p0", "p25", "p50", "p75", "p90", "p95", "p99", "p100"], np.quantile(values, [0, .25, .5, .75, .9, .95, .99, 1]))}
-
-    code_truncated_total = int(np.sum(arrays["code_truncated"]))
-    docs_truncated_total = int(np.sum(arrays["docs_truncated"]))
-    by_language: dict[str, Counter] = defaultdict(lambda: Counter(rows=0, code_truncated=0, docs_truncated=0))
-    for index, row in enumerate(rows):
-        language = str(row.get("language") or "unknown").lower()
-        by_language[language]["rows"] += 1
-        by_language[language]["code_truncated"] += int(arrays["code_truncated"][index])
-        by_language[language]["docs_truncated"] += int(arrays["docs_truncated"][index])
-    truncation = {
-        "rows": len(rows),
-        "max_length": max_length,
-        "code_truncated_rows": code_truncated_total,
-        "docs_truncated_rows": docs_truncated_total,
-        "code_truncated_percent": 100.0 * code_truncated_total / len(rows),
-        "docs_truncated_percent": 100.0 * docs_truncated_total / len(rows),
-        "code_token_length_quantiles": quantiles(np.asarray(arrays["code_lengths"]).tolist()),
-        "docs_token_length_quantiles": quantiles(np.asarray(arrays["docs_lengths"]).tolist()),
-        "by_language": {key: dict(value) for key, value in sorted(by_language.items())},
-    }
-    manifest = {
-        "status": "COMPLETE",
-        **view_manifest,
-        "source_commit": git_sha(),
-        "encoder_repository": repository,
-        "encoder_revision": revision,
-        "tokenizer_revision": semantic["tokenizer_revision"],
-        "row_order_sha256": row_order_sha,
-        "resolved_model_commit_hash": getattr(model.config, "_commit_hash", None),
-        "resolved_tokenizer_commit_hash": tokenizer.init_kwargs.get("_commit_hash"),
-        "pooling": semantic["pooling"],
-        "max_length": max_length,
-        "dtype": "float32",
-        "device": torch.cuda.get_device_name(0),
-        "python": platform.python_version(),
-        "torch": torch.__version__,
-        "transformers": transformers.__version__,
-        "hidden_size": hidden_size,
-        "relation_dimension": hidden_size * 4 + 1,
-        "artifact_path": str(artifact),
-        "artifact_sha256": sha256_file(artifact),
-        "truncation": truncation,
-        "confirmation_accessed": False,
-    }
-    atomic_write_json(output_dir / "gate2_unixcoder_embeddings_manifest.json", manifest)
     metadata["status"] = "COMPLETE"
-    metadata["final_artifact_sha256"] = manifest["artifact_sha256"]
     atomic_write_json(metadata_path, metadata)
-    return manifest
+    return finalize_checkpoint(
+        output_dir=output_dir,
+        metadata=metadata,
+        metadata_path=metadata_path,
+        arrays=arrays,
+        rows=rows,
+        view_manifest=view_manifest,
+        identity=identity,
+        case_ids=case_ids,
+        repositories=repositories,
+        extraction=metadata["extraction"],
+        encoder_repository=semantic["encoder_repository"],
+    )
 
 
 def main() -> int:

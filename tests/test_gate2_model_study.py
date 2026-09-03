@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import tarfile
 from pathlib import Path
 
 import pytest
@@ -21,8 +22,9 @@ from docguard_ml_v2.gate2_study import (
     safe_docs_view,
     write_fold_checkpoint,
 )
-from scripts.extract_gate2_unixcoder_embeddings import open_embedding_checkpoint, persist_embedding_chunk
-from scripts.run_gate2_external_compute import Stage, execute_fail_closed
+from scripts.extract_gate2_unixcoder_embeddings import open_embedding_checkpoint, persist_embedding_chunk, run as run_embedding_extraction
+from scripts.manage_gate2_checkpoint import export_checkpoint, restore_checkpoint, scientific_identity
+from scripts.run_gate2_external_compute import Stage, execute_fail_closed, require_embedding_compute
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -232,3 +234,104 @@ def test_external_wrapper_stops_after_failed_gate1_stage(tmp_path: Path) -> None
     assert status["status"] == "FAILED"
     assert status["failed_stage"] == "gate1_freeze_verifier"
     assert status["confirmation_accessed"] is False
+
+
+def _portable_checkpoint(tmp_path: Path) -> tuple[Path, Path]:
+    persistent = tmp_path / "persistent"
+    checkpoint = persistent / "embedding_checkpoint"
+    identity = scientific_identity(CONFIG)
+    embedding_identity = {key: identity[key] for key in ["gold_sha256", "development_view_sha256", "row_order_sha256", "encoder_revision", "tokenizer_revision", "pooling", "max_length", "dtype"]}
+    metadata, arrays, metadata_path = open_embedding_checkpoint(
+        checkpoint,
+        identity=embedding_identity,
+        total_rows=identity["development_rows"],
+        hidden_size=1,
+        resume=False,
+    )
+    del arrays
+    archive = tmp_path / "gate2_checkpoint.tar.gz"
+    export_checkpoint(CONFIG, persistent, archive)
+    return persistent, archive
+
+
+def test_portable_checkpoint_export_restore(tmp_path: Path) -> None:
+    persistent, archive = _portable_checkpoint(tmp_path)
+    second_archive = tmp_path / "second-name.tar.gz"
+    export_checkpoint(CONFIG, persistent, second_archive)
+    assert archive.read_bytes() == second_archive.read_bytes()
+    restored = tmp_path / "restored"
+    result = restore_checkpoint(CONFIG, restored, archive)
+    assert result["status"] == "RESTORED"
+    assert (restored / "embedding_checkpoint/embedding_checkpoint.json").is_file()
+    with tarfile.open(archive, "r:gz") as handle:
+        names = {member.name for member in handle.getmembers()}
+    assert not any("confirmation" in name.lower() or "token" in name.lower() or "cache" in name.lower() for name in names)
+
+
+def test_portable_checkpoint_rejects_corruption(tmp_path: Path) -> None:
+    _, archive = _portable_checkpoint(tmp_path)
+    unpacked = tmp_path / "unpacked"
+    with tarfile.open(archive, "r:gz") as handle:
+        handle.extractall(unpacked, filter="data")
+    (unpacked / "embedding_checkpoint/code.mmap").write_bytes(b"corrupt")
+    corrupt = tmp_path / "corrupt.tar.gz"
+    with tarfile.open(corrupt, "w:gz") as handle:
+        for path in sorted(unpacked.rglob("*")):
+            if path.is_file():
+                handle.add(path, arcname=path.relative_to(unpacked).as_posix())
+    with pytest.raises(RuntimeError, match="member hash mismatch"):
+        restore_checkpoint(CONFIG, tmp_path / "corrupt-restore", corrupt)
+
+
+def test_portable_checkpoint_rejects_scientific_identity_mismatch(tmp_path: Path) -> None:
+    _, archive = _portable_checkpoint(tmp_path)
+    changed = json.loads(CONFIG.read_text(encoding="utf-8"))
+    changed["seed"] = 999
+    changed_config = tmp_path / "changed.json"
+    changed_config.write_text(json.dumps(changed), encoding="utf-8")
+    with pytest.raises(RuntimeError, match="scientific identity mismatch"):
+        restore_checkpoint(changed_config, tmp_path / "wrong-study", archive)
+
+
+def test_complete_embeddings_allow_cpu_continuation() -> None:
+    assert require_embedding_compute(complete_artifact=True, complete_checkpoint=False, cuda_available=False)
+    assert require_embedding_compute(complete_artifact=False, complete_checkpoint=True, cuda_available=False)
+
+
+def test_incomplete_embeddings_require_gpu() -> None:
+    with pytest.raises(RuntimeError, match="CUDA GPU is required"):
+        require_embedding_compute(complete_artifact=False, complete_checkpoint=False, cuda_available=False)
+    assert require_embedding_compute(complete_artifact=False, complete_checkpoint=False, cuda_available=True) is False
+
+
+def test_complete_embedding_memmaps_finalize_on_cpu(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    identity = scientific_identity(CONFIG)
+    embedding_identity = {key: identity[key] for key in ["gold_sha256", "development_view_sha256", "row_order_sha256", "encoder_revision", "tokenizer_revision", "pooling", "max_length", "dtype"]}
+    checkpoint = tmp_path / "checkpoint"
+    metadata, arrays, metadata_path = open_embedding_checkpoint(
+        checkpoint,
+        identity=embedding_identity,
+        total_rows=identity["development_rows"],
+        hidden_size=1,
+        resume=False,
+    )
+    for array in arrays.values():
+        array.flush()
+    del arrays
+    metadata["completed_count"] = identity["development_rows"]
+    metadata["status"] = "COMPLETE"
+    metadata["extraction"] = {"encoder_repository": "microsoft/unixcoder-base", "device": "test GPU"}
+    metadata_path.write_text(json.dumps(metadata), encoding="utf-8")
+
+    real_import = __import__
+
+    def forbid_cuda_stack(name: str, *args, **kwargs):
+        if name == "torch" or name.startswith("transformers"):
+            raise AssertionError("COMPLETE checkpoint must not import the CUDA/model stack")
+        return real_import(name, *args, **kwargs)
+
+    monkeypatch.setattr("builtins.__import__", forbid_cuda_stack)
+    manifest = run_embedding_extraction(CONFIG, tmp_path / "embeddings", 16, checkpoint_dir=checkpoint, resume=True)
+    assert manifest["status"] == "COMPLETE"
+    assert manifest["confirmation_accessed"] is False
+    assert (tmp_path / "embeddings/gate2_unixcoder_embeddings.npz").is_file()

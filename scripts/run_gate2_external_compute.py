@@ -17,6 +17,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from docguard_ml_v2.gate2_study import load_config, load_development_rows, sha256_file
+from scripts.manage_gate2_checkpoint import scientific_identity, validate_embedding_checkpoint
 from scripts.verify_gate2_return_artifacts import run as verify_return_artifacts
 
 
@@ -84,7 +85,14 @@ def complete_embedding_exists(embedding_dir: Path, expected: dict[str, Any]) -> 
     return True
 
 
-def verify_environment(config: dict[str, Any], embedding_dir: Path, view: dict[str, Any]) -> None:
+def require_embedding_compute(*, complete_artifact: bool, complete_checkpoint: bool, cuda_available: bool) -> bool:
+    reusable = complete_artifact or complete_checkpoint
+    if not reusable and not cuda_available:
+        raise RuntimeError("CUDA GPU is required until the persistent embedding artifact is COMPLETE")
+    return reusable
+
+
+def verify_environment(config: dict[str, Any], embedding_dir: Path, checkpoint_dir: Path, view: dict[str, Any], config_path: Path) -> None:
     import torch
     import transformers
     import tokenizers
@@ -114,8 +122,9 @@ def verify_environment(config: dict[str, Any], embedding_dir: Path, view: dict[s
         "dtype": "float32",
         "development_rows": view["development_rows"],
     })
-    if not reusable and not torch.cuda.is_available():
-        raise RuntimeError("CUDA GPU is required until the persistent embedding artifact is COMPLETE")
+    checkpoint = validate_embedding_checkpoint(checkpoint_dir, scientific_identity(config_path))
+    complete_memmaps = checkpoint is not None and checkpoint.get("status") == "COMPLETE"
+    require_embedding_compute(complete_artifact=reusable, complete_checkpoint=complete_memmaps, cuda_available=torch.cuda.is_available())
     print(json.dumps({
         "python": platform.python_version(),
         "torch": torch.__version__,
@@ -123,15 +132,16 @@ def verify_environment(config: dict[str, Any], embedding_dir: Path, view: dict[s
         "cuda_device": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
         **actual,
         "complete_embeddings_reused": reusable,
+        "complete_embedding_checkpoint_reused": complete_memmaps,
     }, indent=2), flush=True)
 
 
-def package_return(*, persistent_dir: Path, embedding_dir: Path, result_dir: Path) -> Path:
-    archive = persistent_dir / "gate2_colab_return.tar.gz"
+def package_return(*, archive: Path, embedding_dir: Path, result_dir: Path) -> Path:
     manifest = embedding_dir / "gate2_unixcoder_embeddings_manifest.json"
     verification = result_dir / "return_artifact_verification.json"
     if not manifest.exists() or not verification.exists():
         raise RuntimeError("Verified return metadata is missing")
+    archive.parent.mkdir(parents=True, exist_ok=True)
     with tarfile.open(archive, "w:gz") as handle:
         handle.add(manifest, arcname="gate2_embeddings/gate2_unixcoder_embeddings_manifest.json")
         for path in sorted(result_dir.rglob("*")):
@@ -140,7 +150,7 @@ def package_return(*, persistent_dir: Path, embedding_dir: Path, result_dir: Pat
     return archive
 
 
-def run(config_path: Path, persistent_dir: Path) -> dict[str, Any]:
+def run(config_path: Path, persistent_dir: Path, *, return_archive: Path | None = None) -> dict[str, Any]:
     config = load_config(config_path)
     _, view = load_development_rows(config_path=config_path)
     embedding_dir = persistent_dir / "embeddings"
@@ -156,12 +166,12 @@ def run(config_path: Path, persistent_dir: Path) -> dict[str, Any]:
 
     stages = [
         Stage("gate1_freeze_verifier", lambda: checked_python("scripts/verify_final_v2_gold_freeze.py")),
-        Stage("external_environment_verifier", lambda: verify_environment(config, embedding_dir, view)),
+        Stage("external_environment_verifier", lambda: verify_environment(config, embedding_dir, checkpoint_dir, view, config_path)),
         Stage("development_only_loader", lambda: load_development_rows(config_path=config_path)),
         Stage("unixcoder_embedding_resume", lambda: checked_python("scripts/extract_gate2_unixcoder_embeddings.py", "--config", str(config_path), "--output-dir", str(embedding_dir), "--checkpoint-dir", str(checkpoint_dir), "--resume")),
-        Stage("preregistered_M1_M2_M3_resume", lambda: checked_python("scripts/run_gate2_model_study.py", "--config", str(config_path), "--embedding-dir", str(embedding_dir), "--output-dir", str(result_dir), "--families", "M1", "M2", "M3", "--resume")),
+        Stage("preregistered_M1_M2_M3_resume", lambda: checked_python("scripts/run_gate2_model_study.py", "--config", str(config_path), "--embedding-dir", str(embedding_dir), "--output-dir", str(result_dir), "--families", "M1", "M2", "M3", "--resume", "--thread-limit", "2")),
         Stage("return_artifact_verifier", verify_return),
-        Stage("final_packaging", lambda: package_return(persistent_dir=persistent_dir, embedding_dir=embedding_dir, result_dir=result_dir)),
+        Stage("final_packaging", lambda: package_return(archive=return_archive or (persistent_dir / "gate2_colab_return.tar.gz"), embedding_dir=embedding_dir, result_dir=result_dir)),
     ]
     return execute_fail_closed(stages, status_path=status_path, event_path=event_path)
 
@@ -170,9 +180,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Fail-closed and resumable Final V2 Gate 2 external compute workflow.")
     parser.add_argument("--config", default="configs/final_v2/gate2_model_study.json")
     parser.add_argument("--persistent-dir", required=True)
+    parser.add_argument("--return-archive", help="Final verified return archive path (packaged only after all verifiers pass).")
     args = parser.parse_args()
     try:
-        result = run(Path(args.config), Path(args.persistent_dir))
+        result = run(Path(args.config), Path(args.persistent_dir), return_archive=Path(args.return_archive) if args.return_archive else None)
     except BaseException as exc:
         print(json.dumps({"status": "FAILED", "error": str(exc)}, indent=2), file=sys.stderr)
         return 1

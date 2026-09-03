@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import gc
 import json
 import math
 import subprocess
@@ -22,6 +23,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import brier_score_loss, f1_score
 from sklearn.model_selection import StratifiedGroupKFold
+from threadpoolctl import threadpool_limits
 
 from docguard_ml_v2.data_contract import PRIMARY_STAGE2_LABELS, binary_labels, category_eligible_rows, category_labels, serialize_model_row
 from docguard_ml_v2.gate2_study import (
@@ -81,12 +83,46 @@ def load_semantic(embedding_dir: Path, rows: list[dict[str, Any]], config: dict[
         raise RuntimeError("Embedding encoder revision mismatch")
     if sha256_file(artifact_path) != manifest["artifact_sha256"]:
         raise RuntimeError("Embedding artifact hash mismatch")
+    relation_path = embedding_dir / "gate2_semantic_relation.float32.mmap"
+    relation_manifest_path = embedding_dir / "gate2_semantic_relation_manifest.json"
     with np.load(artifact_path, allow_pickle=False) as payload:
         ids = payload["case_ids"].tolist()
         expected = [str(row["case_id"]) for row in rows]
         if ids != expected:
             raise RuntimeError("Embedding row-order alignment mismatch")
-        return relation_matrix(payload["code"], payload["docs"])
+        code = payload["code"]
+        docs = payload["docs"]
+        shape = (len(rows), int(code.shape[1]) * 4 + 1)
+        expected_bytes = int(np.prod(shape)) * np.dtype("float32").itemsize
+        expected_relation_identity = {
+            "schema_version": "gate2_semantic_relation_mmap_v1",
+            "source_embedding_sha256": manifest["artifact_sha256"],
+            "development_view_sha256": development_hash,
+            "shape": list(shape),
+            "dtype": "float32",
+            "confirmation_accessed": False,
+        }
+        if relation_manifest_path.exists() or relation_path.exists():
+            if not relation_manifest_path.exists() or not relation_path.exists():
+                raise RuntimeError("Semantic relation mmap pair is incomplete")
+            relation_manifest = json.loads(relation_manifest_path.read_text(encoding="utf-8"))
+            for key, value in expected_relation_identity.items():
+                if relation_manifest.get(key) != value:
+                    raise RuntimeError(f"Semantic relation mmap identity mismatch: {key}")
+            if relation_path.stat().st_size != expected_bytes or sha256_file(relation_path) != relation_manifest.get("artifact_sha256"):
+                raise RuntimeError("Semantic relation mmap hash/size mismatch")
+        else:
+            relation = np.memmap(relation_path, dtype="float32", mode="w+", shape=shape)
+            for start in range(0, len(rows), 1024):
+                stop = min(start + 1024, len(rows))
+                relation[start:stop] = relation_matrix(code[start:stop], docs[start:stop])
+            relation.flush()
+            del relation
+            relation_manifest = {**expected_relation_identity, "artifact_sha256": sha256_file(relation_path)}
+            temporary = relation_manifest_path.with_suffix(".json.tmp")
+            temporary.write_text(json.dumps(relation_manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+            temporary.replace(relation_manifest_path)
+    return np.memmap(relation_path, dtype="float32", mode="r", shape=shape)
 
 
 def candidates(config: dict[str, Any], family: str) -> list[Candidate]:
@@ -157,28 +193,24 @@ def select_inner(task: str, family: str, rows: list[dict[str, Any]], labels: lis
     all_candidates = candidates(config, family)
     predictions: dict[Candidate, list[Any]] = {candidate: [None] * len(rows) for candidate in all_candidates}
     probabilities: dict[Candidate, list[float]] = {candidate: [math.nan] * len(rows) for candidate in all_candidates}
-    # Fit each lexical/scale matrix once per inner fold, then evaluate all C/weight choices.
+    # Fit the lexical block once per inner fold, but materialize only one semantic
+    # scale at a time so M3 never retains three equivalent large sparse matrices.
     for train_idx, val_idx in splits:
-        prepared: dict[float, tuple[Any, Any]] = {}
         scales = sorted({candidate.semantic_scale for candidate in all_candidates})
+        lexical_train = lexical_val = None
         if family == "M3":
             assert semantic is not None
             vec = vectorizer(config)
             lexical_train = vec.fit_transform([texts[index] for index in train_idx])
             lexical_val = vec.transform([texts[index] for index in val_idx])
-            for scale in scales:
-                prepared[scale] = (
-                    sparse.hstack([lexical_train, sparse.csr_matrix(semantic[train_idx] * scale)], format="csr"),
-                    sparse.hstack([lexical_val, sparse.csr_matrix(semantic[val_idx] * scale)], format="csr"),
-                )
-        else:
-            for scale in scales:
-                x_train, x_val, _ = matrices_for_fold(family, texts, semantic, train_idx, val_idx, scale, config)
-                prepared[scale] = (x_train, x_val)
+        y_train = [labels[index] for index in train_idx]
         for scale in scales:
+            if family == "M3":
+                x_train = sparse.hstack([lexical_train, sparse.csr_matrix(semantic[train_idx] * scale)], format="csr")
+                x_val = sparse.hstack([lexical_val, sparse.csr_matrix(semantic[val_idx] * scale)], format="csr")
+            else:
+                x_train, x_val, _ = matrices_for_fold(family, texts, semantic, train_idx, val_idx, scale, config)
             subset = [candidate for candidate in all_candidates if candidate.semantic_scale == scale]
-            x_train, x_val = prepared[scale]
-            y_train = [labels[index] for index in train_idx]
             for candidate in subset:
                 model = classifier(task, candidate, config)
                 model.fit(x_train, y_train)
@@ -190,6 +222,11 @@ def select_inner(task: str, family: str, rows: list[dict[str, Any]], labels: lis
                     score = model.predict_proba(x_val)[:, classes.index(1)].tolist()
                     for index, value in zip(val_idx, score):
                         probabilities[candidate][int(index)] = float(value)
+                del model
+            del x_train, x_val
+            gc.collect()
+        del lexical_train, lexical_val
+        gc.collect()
     ranked: list[tuple[tuple[Any, ...], Candidate, float | None, dict[str, Any]]] = []
     for candidate in all_candidates:
         if any(value is None for value in predictions[candidate]):
@@ -294,6 +331,7 @@ def run_family(task: str, family: str, rows: list[dict[str, Any]], semantic_all:
             fold_results.append(checkpoint["result"])
             append_registry(registry, {**base_record, "status": "RESUMED_COMPLETED_FOLD", "ended_unix": time.time(), "result_artifact_identity": checkpoint["payload_sha256"]})
             print(json.dumps({"task": task, "family": family, "outer_fold": fold, "status": "RESUMED"}), flush=True)
+            gc.collect()
             continue
         append_registry(registry, {**base_record, "status": "STARTED", "started_unix": time.time()})
         try:
@@ -328,6 +366,8 @@ def run_family(task: str, family: str, rows: list[dict[str, Any]], semantic_all:
             })
             append_registry(registry, {**base_record, "status": "COMPLETED", "ended_unix": time.time(), "selected_config": selected.payload(), "selected_threshold": threshold, "result_artifact_identity": checkpoint["payload_sha256"]})
             print(json.dumps({"task": task, "family": family, "outer_fold": fold, "status": "COMPLETED"}), flush=True)
+            del train_rows, val_rows, train_labels, val_labels, pred, scores
+            gc.collect()
         except BaseException as exc:
             append_registry(registry, {**base_record, "status": "FAILED", "ended_unix": time.time(), "error": str(exc), "traceback": traceback.format_exc()})
             raise
@@ -352,7 +392,7 @@ def run_family(task: str, family: str, rows: list[dict[str, Any]], semantic_all:
     return summary
 
 
-def run(config_path: Path, output_dir: Path, families: list[str], embedding_dir: Path | None, *, resume: bool = False, force_rerun: bool = False) -> list[dict[str, Any]]:
+def run(config_path: Path, output_dir: Path, families: list[str], embedding_dir: Path | None, *, resume: bool = False, force_rerun: bool = False, thread_limit: int | None = None) -> list[dict[str, Any]]:
     config = load_config(config_path)
     for family in families:
         assert_registered_family(config, family)
@@ -366,11 +406,13 @@ def run(config_path: Path, output_dir: Path, families: list[str], embedding_dir:
     output_dir.mkdir(parents=True, exist_ok=True)
     registry = output_dir / "GATE2_RUN_REGISTRY.jsonl"
     results = []
-    for task in ("binary", "category"):
-        fold_path = PROJECT_ROOT / f"reports/final_v2/gate2/outer_fold_assignments_{task}.csv"
-        for family in families:
-            print(json.dumps({"task": task, "family": family, "status": "STARTING"}), flush=True)
-            results.append(run_family(task, family, rows, semantic, fold_path, output_dir, registry, config, metadata, resume=resume, force_rerun=force_rerun))
+    with threadpool_limits(limits=thread_limit):
+        for task in ("binary", "category"):
+            fold_path = PROJECT_ROOT / f"reports/final_v2/gate2/outer_fold_assignments_{task}.csv"
+            for family in families:
+                print(json.dumps({"task": task, "family": family, "status": "STARTING"}), flush=True)
+                results.append(run_family(task, family, rows, semantic, fold_path, output_dir, registry, config, metadata, resume=resume, force_rerun=force_rerun))
+                gc.collect()
     return results
 
 
@@ -382,8 +424,9 @@ def main() -> int:
     parser.add_argument("--families", nargs="+", required=True)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--force-rerun", action="store_true")
+    parser.add_argument("--thread-limit", type=int, help="Operational BLAS/OpenMP thread cap; does not change the registered models.")
     args = parser.parse_args()
-    results = run(Path(args.config), Path(args.output_dir), args.families, Path(args.embedding_dir) if args.embedding_dir else None, resume=args.resume, force_rerun=args.force_rerun)
+    results = run(Path(args.config), Path(args.output_dir), args.families, Path(args.embedding_dir) if args.embedding_dir else None, resume=args.resume, force_rerun=args.force_rerun, thread_limit=args.thread_limit)
     print(json.dumps({"status": "COMPLETE", "summaries": [{"task": item["task"], "family": item["family"], "primary_mean": item["primary_mean"]} for item in results]}, indent=2))
     return 0
 
