@@ -1,0 +1,90 @@
+{
+  "class_counts": {
+    "api_reference": 1477,
+    "configuration": 1351,
+    "developer_setup": 967,
+    "model_contract": 1025
+  },
+  "classes": [
+    "api_reference",
+    "configuration",
+    "developer_setup",
+    "model_contract"
+  ],
+  "classifier": {
+    "C": 4.0,
+    "class": "sklearn.linear_model.LogisticRegression",
+    "class_weight": "balanced",
+    "max_iter": 4000,
+    "random_state": 42,
+    "solver": "lbfgs"
+  },
+  "confirmation_accessed": false,
+  "dependencies": {
+    "joblib": "1.5.3",
+    "numpy": "2.4.0",
+    "python": "3.14.0",
+    "sklearn": "1.8.0"
+  },
+  "final_threshold": null,
+  "gate1_gold_sha256": "68ebe23ab4dd8a02ee1ea459e3b6a374a3efa2891afc8d344a533676eb3b5a08",
+  "gate2_closure_commit": "eb9448648f52b6d0156e8d905ba516c0e5b008e1",
+  "gate2_final_summary_sha256": "d0be66a1eb3b6a1749fdc18d246f475f8450ca6decba9007ed2789e58549d417",
+  "gate2_return_archive_sha256": "0b5840e1ce600f0df44f935f9c2ec9ce4608694e0dc0e73eb0f9a2e75b63abfd",
+  "gate2_winner_decision_path": "reports/final_v2/gate2/final_results/winner_decision.json",
+  "gate2_winner_decision_sha256": "fce8248b5b3e8848515a7f89646e73a4c05f7c610a461a5a1a4b13f3b7a18cfe",
+  "model_artifact_path": "models/final_v2/gate3/category_m1_gate3.joblib",
+  "model_sha256": "2d8123ac398568b5c9586b0f8d26d6c4079ddfebd504889b934f77bef65b9f59",
+  "reproducibility": {
+    "coefficients_atol_1e-12": true,
+    "predictions_exact": true,
+    "probabilities_atol_1e-12": true,
+    "sample_rows": 128,
+    "standard": "prediction/numerical equivalence; byte identity not required for joblib serialization",
+    "status": "PASS",
+    "vocabulary_exact": true
+  },
+  "safe_fields": [
+    "language",
+    "code_changed_files",
+    "code_diff_excerpt",
+    "docs_before_excerpt"
+  ],
+  "schema_version": "gate3_classifier_freeze_manifest_v1",
+  "scientific_config_sha256": "412f23974cac3fd6e2876da6858907f1fbbc5096c9f80f479e45715376976ee5",
+  "seed": 42,
+  "selected_family": "M1",
+  "selected_family_name": "canonical_char_tfidf_logistic_regression",
+  "selection_evidence_path": "reports/final_v2/gate3/category_full_development_selection_evidence.json",
+  "selection_evidence_sha256": "ebbd5e2b8e5d45f46f7325f10153acd3a805af8590f7fb3241b3dc27e18b3ed2",
+  "serializer": "docguard_ml_v2.data_contract.serialize_model_row",
+  "source_commit": "eb9448648f52b6d0156e8d905ba516c0e5b008e1",
+  "source_commit_semantics": "upstream repository context at training time; exact training implementation is identified by GATE3_TRAINING_PROVENANCE.json source hashes",
+  "training_provenance_path": "reports/final_v2/gate3/GATE3_TRAINING_PROVENANCE.json",
+  "training_provenance_sha256": "4289a53522e8c264a3a9a5994dd9df031d1238085c6ae70c94e3bada33dafdc6",
+  "status": "FROZEN",
+  "task": "category",
+  "threshold_selection_rule": null,
+  "training_data": {
+    "confirmation_excluded_rows": 3747,
+    "development_view_sha256": "f01255edd74aa5153747c5468daf64b49b771f3b0ff38df72c0b054ea33d04b4",
+    "eligible_rows": 4820,
+    "partitions": [
+      "development_train",
+      "development_validation"
+    ]
+  },
+  "training_timestamp_utc": "2026-09-04T18:04:15.012892+00:00",
+  "vectorizer": {
+    "analyzer": "char_wb",
+    "class": "sklearn.feature_extraction.text.TfidfVectorizer",
+    "max_features": 80000,
+    "min_df": 1,
+    "ngram_range": [
+      3,
+      5
+    ],
+    "sublinear_tf": true,
+    "vocabulary_size": 80000
+  }
+}

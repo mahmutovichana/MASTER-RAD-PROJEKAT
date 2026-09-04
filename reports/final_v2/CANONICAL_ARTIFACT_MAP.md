@@ -34,6 +34,12 @@ These artifacts define the current Final V2 experiment state.
 | Gate 2 repository bootstrap | `reports/final_v2/gate2/final_results/repository_bootstrap.json` | Seed-42, 2,000-replicate repository-cluster confidence intervals and paired comparisons. |
 | Gate 2 diagnostics and leakage audit | `reports/final_v2/gate2/final_results/diagnostics.json`, `reports/final_v2/gate2/final_results/leakage_audit.json` | Development-only slice analysis and fail-closed leakage evidence. |
 | Gate 2 immutable artifact manifest | `reports/final_v2/gate2/final_results/artifact_manifest.json` | SHA-256 inventory linking all thesis-facing Gate 2 outputs to imported Kaggle evidence. |
+| Gate 3 frozen Binary classifier | `models/final_v2/gate3/binary_m1_gate3.joblib` | Self-contained M1 Binary inference pipeline frozen at C=0.25 and threshold=0.15. |
+| Gate 3 frozen Category classifier | `models/final_v2/gate3/category_m1_gate3.joblib` | Self-contained M1 four-class Category inference pipeline frozen at C=4.0 and class_weight=balanced. |
+| Gate 3 classifier manifests | `reports/final_v2/gate3/binary_classifier_freeze_manifest.json`, `reports/final_v2/gate3/category_classifier_freeze_manifest.json` | Task-specific immutable model, data, configuration and selection-evidence identities. |
+| Gate 3 overall freeze manifest | `reports/final_v2/gate3/GATE3_CLASSIFIER_FREEZE_MANIFEST.json` | Canonical link between both frozen classifiers and upstream Gate 1/2 evidence. |
+| Gate 3 training provenance | `reports/final_v2/gate3/GATE3_TRAINING_PROVENANCE.json` | Exact source-file hashes used for training, with the Gate 2 closure commit recorded only as upstream context. |
+| Gate 3 freeze report | `reports/final_v2/gate3/GATE3_CLASSIFIER_FREEZE_REPORT.md` | Thesis-facing freeze method, artifacts, reproducibility and sealed-confirmation boundary. |
 
 ## HISTORICAL / DEPRECATED
 

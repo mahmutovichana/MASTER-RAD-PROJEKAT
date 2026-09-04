@@ -31,6 +31,14 @@
     "gate2_colab_runbook": "reports/final_v2/gate2/GATE2_COLAB_RUNBOOK.md",
     "gate2_external_compute_incident_001": "reports/final_v2/gate2/GATE2_EXTERNAL_COMPUTE_INCIDENT_001.md",
     "gate2_execution_remediation": "reports/final_v2/gate2/GATE2_EXECUTION_REMEDIATION.md",
+    "gate3_binary_model": "models/final_v2/gate3/binary_m1_gate3.joblib",
+    "gate3_category_model": "models/final_v2/gate3/category_m1_gate3.joblib",
+    "gate3_binary_freeze_manifest": "reports/final_v2/gate3/binary_classifier_freeze_manifest.json",
+    "gate3_category_freeze_manifest": "reports/final_v2/gate3/category_classifier_freeze_manifest.json",
+    "gate3_overall_freeze_manifest": "reports/final_v2/gate3/GATE3_CLASSIFIER_FREEZE_MANIFEST.json",
+    "gate3_training_provenance": "reports/final_v2/gate3/GATE3_TRAINING_PROVENANCE.json",
+    "gate3_report": "reports/final_v2/gate3/GATE3_CLASSIFIER_FREEZE_REPORT.md",
+    "gate3_verifier": "scripts/verify_gate3_classifier_freeze.py",
     "model_visible_collision_audit": "reports/final_v2/gate1_model_visible_collision_audit.json",
     "pre_experiment_audit": "reports/final_v2/pre_experiment_audit.json",
     "stage3_config": "configs/stage3_semantic_generation_v2.json"
@@ -38,9 +46,10 @@
   "confirmation_results_accessed_by_gate_0": false,
   "confirmation_results_accessed_by_gate_1": false,
   "confirmation_results_accessed_by_gate_2": false,
+  "confirmation_results_accessed_by_gate_3": false,
   "confirmation_sealed": true,
   "current_commit_at_gate_1_audit_start": "b1a5b40173967b00a8b3a48263231061907d61c4",
-  "current_gate": 3,
+  "current_gate": 4,
   "dataset_state": {
     "category_counts": {
       "api_reference": 1554,
@@ -59,8 +68,8 @@
     "validation": "PASS"
   },
   "final_model_freeze_state": {
-    "binary_freeze_manifest_present": false,
-    "category_freeze_manifest_present": false,
+    "binary_freeze_manifest_present": true,
+    "category_freeze_manifest_present": true,
     "stage3_freeze_manifest_present": false
   },
   "gate_0_status": "PASS",
@@ -94,11 +103,31 @@
     "safe_test_suite": {"passed": 420, "failed": 0, "skipped": 0, "warnings": 41, "command": "python -m pytest -q"},
     "blocker": null
   },
+  "gate_3_summary": {
+    "status": "PASS",
+    "upstream_gate2_closure_commit": "eb9448648f52b6d0156e8d905ba516c0e5b008e1",
+    "binary_family": "M1",
+    "binary_C": 0.25,
+    "binary_class_weight": null,
+    "binary_threshold": 0.15,
+    "binary_training_rows": 22166,
+    "binary_model_sha256": "7d6a9263e1262c5c54db3d2e100209707c6a7681133fb1505f44125efa954462",
+    "category_family": "M1",
+    "category_C": 4.0,
+    "category_class_weight": "balanced",
+    "category_training_rows": 4820,
+    "category_model_sha256": "2d8123ac398568b5c9586b0f8d26d6c4079ddfebd504889b934f77bef65b9f59",
+    "training_provenance_sha256": "4289a53522e8c264a3a9a5994dd9df031d1238085c6ae70c94e3bada33dafdc6",
+    "reproducibility_status": "PASS",
+    "confirmation_accessed": false,
+    "safe_test_suite": {"passed": 428, "failed": 0, "skipped": 0, "warnings": 30, "command": "python -m pytest -q", "status": "PASS"},
+    "blocker": null
+  },
   "gate_statuses": {
     "gate_0_canonical_pipeline_and_integrity_baseline": "PASS",
     "gate_1_human_gold_dataset_freeze": "PASS",
     "gate_2_development_only_ml_model_study": "PASS",
-    "gate_3_final_classifier_selection_and_freeze": "NOT_EXECUTED",
+    "gate_3_final_classifier_selection_and_freeze": "PASS",
     "gate_4_stage3_retrieval_generation_study_and_freeze": "NOT_EXECUTED",
     "gate_5_one_shot_confirmation": "NOT_EXECUTED",
     "gate_6_post_hoc_and_human_evaluation": "NOT_EXECUTED",
@@ -409,7 +438,7 @@
     "sent_to_review": 779,
     "unresolved_scope_decision": false
   },
-  "next_allowed_gate": "Gate 3 may begin only after a separate explicit authorization; it remains NOT_EXECUTED in this Gate 2 closure",
+  "next_allowed_gate": "Gate 4 may begin only after a separate explicit authorization; it remains NOT_EXECUTED in this Gate 3 closure",
   "partition_integrity": {
     "final_gold_manifest_confirmation_sealed": true,
     "final_gold_manifest_partition_repository_counts": {

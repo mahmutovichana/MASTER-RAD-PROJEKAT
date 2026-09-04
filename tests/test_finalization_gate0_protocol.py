@@ -52,8 +52,8 @@ def test_gate0_state_is_machine_checkable_and_confirmation_safe() -> None:
         assert (ROOT / rel_path).exists(), key
 
     assert state["final_model_freeze_state"] == {
-        "binary_freeze_manifest_present": False,
-        "category_freeze_manifest_present": False,
+        "binary_freeze_manifest_present": True,
+        "category_freeze_manifest_present": True,
         "stage3_freeze_manifest_present": False,
     }
 

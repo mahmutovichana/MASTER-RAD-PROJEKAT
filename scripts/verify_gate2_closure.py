@@ -33,8 +33,8 @@ def verify(root: Path = PROJECT_ROOT) -> dict:
         raise RuntimeError("Bootstrap contract mismatch")
     if leakage.get("status") != "PASS" or leakage.get("confirmation_accessed") is not False:
         raise RuntimeError("Leakage audit did not pass")
-    if state["gate_statuses"]["gate_2_development_only_ml_model_study"] != "PASS" or state["gate_statuses"]["gate_3_final_classifier_selection_and_freeze"] != "NOT_EXECUTED" or state["current_gate"] != 3 or state["confirmation_results_accessed_by_gate_2"] is not False or state["confirmation_sealed"] is not True:
-        raise RuntimeError("Finalization state does not represent a sealed Gate 2 PASS")
+    if state["gate_statuses"]["gate_2_development_only_ml_model_study"] != "PASS" or int(state["current_gate"]) < 3 or state["confirmation_results_accessed_by_gate_2"] is not False or state["confirmation_sealed"] is not True:
+        raise RuntimeError("Finalization state does not preserve a sealed Gate 2 PASS")
     manifest = json.loads((output / "artifact_manifest.json").read_text(encoding="utf-8"))
     for item in manifest["artifacts"]:
         path = root / item["path"]

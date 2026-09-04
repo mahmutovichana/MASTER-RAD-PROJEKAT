@@ -1,0 +1,73 @@
+{
+  "binary": {
+    "model_path": "models/final_v2/gate3/binary_m1_gate3.joblib",
+    "model_sha256": "7d6a9263e1262c5c54db3d2e100209707c6a7681133fb1505f44125efa954462",
+    "path": "reports/final_v2/gate3/binary_classifier_freeze_manifest.json",
+    "sha256": "0440a0a776ea388ea9953085d9e41e06c5a179208e105cd4ff452739ebc36fc0"
+  },
+  "category": {
+    "model_path": "models/final_v2/gate3/category_m1_gate3.joblib",
+    "model_sha256": "2d8123ac398568b5c9586b0f8d26d6c4079ddfebd504889b934f77bef65b9f59",
+    "path": "reports/final_v2/gate3/category_classifier_freeze_manifest.json",
+    "sha256": "7959a014cac7bee961c47182bbf9fc035fda13a7d1873128562807a585b585fc"
+  },
+  "confirmation_accessed": false,
+  "confirmation_sealed": true,
+  "gate": 3,
+  "gate4_status": "NOT_EXECUTED",
+  "closure_verification": {
+    "safe_non_confirmation_test_suite": {
+      "command": "python -m pytest -q",
+      "failed": 0,
+      "passed": 428,
+      "skipped": 0,
+      "status": "PASS",
+      "warnings": 30
+    },
+    "standalone_verifier": {
+      "command": "python scripts/verify_gate3_classifier_freeze.py",
+      "path": "scripts/verify_gate3_classifier_freeze.py",
+      "status": "PASS"
+    }
+  },
+  "reproducibility": {
+    "binary": {
+      "coefficients_atol_1e-12": true,
+      "predictions_exact": true,
+      "probabilities_atol_1e-12": true,
+      "sample_rows": 128,
+      "standard": "prediction/numerical equivalence; byte identity not required for joblib serialization",
+      "status": "PASS",
+      "vocabulary_exact": true
+    },
+    "category": {
+      "coefficients_atol_1e-12": true,
+      "predictions_exact": true,
+      "probabilities_atol_1e-12": true,
+      "sample_rows": 128,
+      "standard": "prediction/numerical equivalence; byte identity not required for joblib serialization",
+      "status": "PASS",
+      "vocabulary_exact": true
+    }
+  },
+  "schema_version": "gate3_classifier_freeze_v1",
+  "selected_families": {
+    "binary": "M1",
+    "category": "M1"
+  },
+  "training_provenance": {
+    "path": "reports/final_v2/gate3/GATE3_TRAINING_PROVENANCE.json",
+    "sha256": "4289a53522e8c264a3a9a5994dd9df031d1238085c6ae70c94e3bada33dafdc6",
+    "attribution": "exact source-file hashes plus the Gate 2 closure commit as upstream repository context"
+  },
+  "status": "PASS",
+  "upstream": {
+    "gate0": "PASS",
+    "gate1": "PASS",
+    "gate2": "PASS",
+    "gate2_closure_commit": "eb9448648f52b6d0156e8d905ba516c0e5b008e1",
+    "gate2_return_archive_sha256": "0b5840e1ce600f0df44f935f9c2ec9ce4608694e0dc0e73eb0f9a2e75b63abfd",
+    "gold_sha256": "68ebe23ab4dd8a02ee1ea459e3b6a374a3efa2891afc8d344a533676eb3b5a08",
+    "scientific_config_sha256": "412f23974cac3fd6e2876da6858907f1fbbc5096c9f80f479e45715376976ee5"
+  }
+}
