@@ -25,6 +25,9 @@
     "gate2_protocol": "reports/final_v2/gate2/GATE2_ML_STUDY_PROTOCOL.md",
     "gate2_preregistration": "reports/final_v2/gate2/GATE2_PREREGISTRATION.json",
     "gate2_development_view_manifest": "reports/final_v2/gate2/development_view_manifest.json",
+    "gate2_final_summary": "reports/final_v2/gate2/final_results/gate2_final_summary.json",
+    "gate2_final_report": "reports/final_v2/gate2/final_results/GATE2_FINAL_REPORT.md",
+    "gate2_artifact_manifest": "reports/final_v2/gate2/final_results/artifact_manifest.json",
     "gate2_colab_runbook": "reports/final_v2/gate2/GATE2_COLAB_RUNBOOK.md",
     "gate2_external_compute_incident_001": "reports/final_v2/gate2/GATE2_EXTERNAL_COMPUTE_INCIDENT_001.md",
     "gate2_execution_remediation": "reports/final_v2/gate2/GATE2_EXECUTION_REMEDIATION.md",
@@ -37,7 +40,7 @@
   "confirmation_results_accessed_by_gate_2": false,
   "confirmation_sealed": true,
   "current_commit_at_gate_1_audit_start": "b1a5b40173967b00a8b3a48263231061907d61c4",
-  "current_gate": 2,
+  "current_gate": 3,
   "dataset_state": {
     "category_counts": {
       "api_reference": 1554,
@@ -70,28 +73,31 @@
     "unresolved_blockers": []
   },
   "gate_2_summary": {
-    "status": "IN_PROGRESS_EXTERNAL_COMPUTE_REQUIRED",
+    "status": "PASS",
     "preregistration_commit_sha": "e89cedfa87edbc1469d467713451a9441aa1360f",
-    "execution_commit_sha": "1553c31e73eb705d555028170a86fd79a3d61859",
+    "execution_commit_sha": "ee7992192f685a390486079afe54570226dba05d",
     "development_rows": 22166,
     "confirmation_rows_excluded": 3747,
     "confirmation_accessed": false,
     "binary_eligible_rows": 22166,
     "category_eligible_rows": 4820,
-    "completed_families": ["M0"],
-    "pending_families": ["M1", "M2", "M3"],
-    "safe_test_suite": {"passed": 138, "failed": 0, "skipped": 0, "warnings": 30},
-    "external_incident_001": "FAILED_INTERRUPTED_PERFORMANCE_INADMISSIBLE",
-    "remediation_status": "PASS",
-    "remediation_commit_sha": "8af1914ff9dae532fdde52d5e9b98e767dd8acfc",
-    "remediation_pinned_execution_sha": "4cbbacb05bad52466dc5c02be4fd08727b45ca0b",
-    "remediation_safe_test_suite": {"passed": 151, "failed": 0, "skipped": 0, "warnings": 30},
-    "blocker": "Run the fail-closed resumable Colab workflow on persistent Google Drive storage; no valid M1/M2/M3 return artifact exists yet."
+    "completed_families": ["M0", "M1", "M2", "M3"],
+    "learned_outer_folds_verified": 30,
+    "candidate_fits_accounted": 930,
+    "return_archive_sha256": "0b5840e1ce600f0df44f935f9c2ec9ce4608694e0dc0e73eb0f9a2e75b63abfd",
+    "selected_binary_family": "M1",
+    "selected_category_family": "M1",
+    "binary_threshold_policy": "inner repository-grouped CV per outer fold on the frozen preregistered threshold grid",
+    "bootstrap_artifact": "reports/final_v2/gate2/final_results/repository_bootstrap.json",
+    "diagnostics_artifact": "reports/final_v2/gate2/final_results/diagnostics.json",
+    "leakage_audit_artifact": "reports/final_v2/gate2/final_results/leakage_audit.json",
+    "safe_test_suite": {"passed": 420, "failed": 0, "skipped": 0, "warnings": 41, "command": "python -m pytest -q"},
+    "blocker": null
   },
   "gate_statuses": {
     "gate_0_canonical_pipeline_and_integrity_baseline": "PASS",
     "gate_1_human_gold_dataset_freeze": "PASS",
-    "gate_2_development_only_ml_model_study": "IN_PROGRESS_EXTERNAL_COMPUTE_REQUIRED",
+    "gate_2_development_only_ml_model_study": "PASS",
     "gate_3_final_classifier_selection_and_freeze": "NOT_EXECUTED",
     "gate_4_stage3_retrieval_generation_study_and_freeze": "NOT_EXECUTED",
     "gate_5_one_shot_confirmation": "NOT_EXECUTED",
@@ -403,7 +409,7 @@
     "sent_to_review": 779,
     "unresolved_scope_decision": false
   },
-  "next_allowed_gate": "Complete Gate 2 external Colab compute using the pinned runbook; Gate 3 remains forbidden",
+  "next_allowed_gate": "Gate 3 may begin only after a separate explicit authorization; it remains NOT_EXECUTED in this Gate 2 closure",
   "partition_integrity": {
     "final_gold_manifest_confirmation_sealed": true,
     "final_gold_manifest_partition_repository_counts": {

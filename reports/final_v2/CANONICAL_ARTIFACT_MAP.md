@@ -29,6 +29,11 @@ These artifacts define the current Final V2 experiment state.
 | Category development summary | `experiments/consolidated_enriched_training_v2/category_v8/training_summary.json` | Development-only training/model-selection summary. |
 | Development figures | `experiments/consolidated_enriched_training_v2/figures/` | Development-only figures generated before final confirmation. |
 | Pre-experiment audit | `reports/final_v2/pre_experiment_audit.json` | Existing machine-checkable Final V2 safety audit. |
+| Gate 2 final summary | `reports/final_v2/gate2/final_results/gate2_final_summary.json` | Independently re-derived development-only M0–M3 results and verified execution identity. |
+| Gate 2 winner decision | `reports/final_v2/gate2/final_results/winner_decision.json` | Mechanical application of the preregistered tolerance, stability and simplicity rule. |
+| Gate 2 repository bootstrap | `reports/final_v2/gate2/final_results/repository_bootstrap.json` | Seed-42, 2,000-replicate repository-cluster confidence intervals and paired comparisons. |
+| Gate 2 diagnostics and leakage audit | `reports/final_v2/gate2/final_results/diagnostics.json`, `reports/final_v2/gate2/final_results/leakage_audit.json` | Development-only slice analysis and fail-closed leakage evidence. |
+| Gate 2 immutable artifact manifest | `reports/final_v2/gate2/final_results/artifact_manifest.json` | SHA-256 inventory linking all thesis-facing Gate 2 outputs to imported Kaggle evidence. |
 
 ## HISTORICAL / DEPRECATED
 
@@ -73,6 +78,7 @@ These artifacts must not change after their corresponding gate passes.
 | Gate | Immutable artifacts after PASS |
 | --- | --- |
 | Gate 1 — Human-gold dataset freeze | `experiments/consolidated_enriched_training_v2/gold/*`, `data/final_v2/human_review/consolidated_enriched_training_v2/manifest.json`, and the canonical partition manifest. |
+| Gate 2 — Development-only ML model study | `reports/final_v2/gate2/final_results/*`, including imported OOF/fold/checkpoint evidence, metrics, diagnostics, figures and their manifest. |
 | Gate 3 — Final classifier selection and freeze | Frozen binary/category model files, freeze manifests, configs and development-selection summaries. |
 | Gate 4 — Stage 3 retrieval/generation study and freeze | Frozen Stage 3 config, prompt/template source hashes and freeze manifest. |
 | Gate 5 — One-shot confirmation | Confirmation metrics, predictions, generation outputs and one-shot receipts. |
