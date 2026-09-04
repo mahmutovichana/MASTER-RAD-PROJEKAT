@@ -4,6 +4,7 @@ import csv
 import hashlib
 import json
 import tarfile
+import time
 from pathlib import Path
 
 import pytest
@@ -20,11 +21,13 @@ from docguard_ml_v2.gate2_study import (
     make_outer_folds,
     safe_code_view,
     safe_docs_view,
+    write_csv,
     write_fold_checkpoint,
 )
 from scripts.extract_gate2_unixcoder_embeddings import open_embedding_checkpoint, persist_embedding_chunk, run as run_embedding_extraction
-from scripts.manage_gate2_checkpoint import export_checkpoint, restore_checkpoint, scientific_identity
+from scripts.manage_gate2_checkpoint import export_checkpoint, restore_checkpoint, scientific_identity, verify_checkpoint
 from scripts.run_gate2_external_compute import Stage, execute_fail_closed, require_embedding_compute
+from scripts.run_gate2_model_study import ExecutionProgress, FitHeartbeat, execute_candidate_jobs, fits_per_outer, resume_plan, run_family
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -213,6 +216,18 @@ def test_fold_resume_rejects_corrupt_checkpoint(tmp_path: Path) -> None:
         load_fold_checkpoint(path, expected_identity=identity)
 
 
+def test_semantic_fold_resume_rejects_embedding_identity_mismatch(tmp_path: Path) -> None:
+    path = tmp_path / "semantic-fold.json"
+    payload = _fold_payload(0, ["a"], [1])
+    payload["family"] = "M3"
+    payload["embedding_artifact_sha256"] = "embedding-a"
+    write_fold_checkpoint(path, payload)
+    identity = {key: payload[key] for key in ["task", "family", "outer_fold", "gold_sha256", "development_view_sha256", "scientific_config_sha256", "fold_assignment_sha256"]}
+    identity["embedding_artifact_sha256"] = "embedding-b"
+    with pytest.raises(RuntimeError, match="identity mismatch: embedding_artifact_sha256"):
+        load_fold_checkpoint(path, expected_identity=identity)
+
+
 def test_external_wrapper_stops_after_failed_gate1_stage(tmp_path: Path) -> None:
     called: list[str] = []
 
@@ -259,6 +274,7 @@ def test_portable_checkpoint_export_restore(tmp_path: Path) -> None:
     second_archive = tmp_path / "second-name.tar.gz"
     export_checkpoint(CONFIG, persistent, second_archive)
     assert archive.read_bytes() == second_archive.read_bytes()
+    assert verify_checkpoint(CONFIG, archive)["status"] == "VERIFIED"
     restored = tmp_path / "restored"
     result = restore_checkpoint(CONFIG, restored, archive)
     assert result["status"] == "RESTORED"
@@ -335,3 +351,137 @@ def test_complete_embedding_memmaps_finalize_on_cpu(tmp_path: Path, monkeypatch:
     assert manifest["status"] == "COMPLETE"
     assert manifest["confirmation_accessed"] is False
     assert (tmp_path / "embeddings/gate2_unixcoder_embeddings.npz").is_file()
+
+
+def test_progress_accounting_uses_fit_work_units() -> None:
+    progress = ExecutionProgress(total_outer_folds=30, total_candidate_fits=930, recovered_outer_folds=11, recovered_candidate_fits=209)
+    fit = progress.record_fit(2.0)
+    outer = progress.record_outer_fold()
+    assert fit["candidate_fits_completed"] == "210/930"
+    assert fit["structural_progress_percent"] == pytest.approx(22.58, abs=0.01)
+    assert fit["estimated_remaining_seconds"] == 1440.0
+    assert outer["completed_outer_folds"] == "12/30"
+
+
+def test_heartbeat_starts_stops_and_does_not_swallow_exceptions(monkeypatch: pytest.MonkeyPatch) -> None:
+    events: list[str] = []
+    monkeypatch.setattr("scripts.run_gate2_model_study.emit", lambda tag, **fields: events.append(tag))
+    heartbeat = FitHeartbeat({"task": "binary", "family": "M3"}, interval_seconds=0.01)
+    with heartbeat:
+        time.sleep(0.035)
+    assert "[HEARTBEAT]" in events
+    assert heartbeat._thread is not None and not heartbeat._thread.is_alive()
+    with pytest.raises(ValueError, match="fit failed"):
+        with FitHeartbeat({}, interval_seconds=0.01):
+            raise ValueError("fit failed")
+
+
+def test_parallel_candidate_jobs_are_ordered_and_fail_closed() -> None:
+    assert execute_candidate_jobs([3, 1, 2], lambda value: value * 2, candidate_workers=2) == [6, 2, 4]
+
+    def fail(value: int) -> int:
+        if value == 1:
+            raise RuntimeError("candidate failed")
+        return value
+
+    with pytest.raises(RuntimeError, match="candidate failed"):
+        execute_candidate_jobs([0, 1, 2], fail, candidate_workers=2)
+
+
+def _small_execution_fixture(tmp_path: Path) -> tuple[list[dict], Path, dict, dict]:
+    config = json.loads(CONFIG.read_text(encoding="utf-8"))
+    config["cross_validation"]["inner"]["splits"] = 2
+    config["linear_classifier"]["C"] = [0.25, 1.0]
+    config["linear_classifier"]["class_weight"] = [None]
+    config["linear_classifier"]["max_iter"] = 200
+    rows: list[dict] = []
+    for repository_index in range(8):
+        for label in (False, True):
+            rows.append({
+                "case_id": f"case-{repository_index}-{int(label)}",
+                "repository": f"fixture/repo-{repository_index}",
+                "partition": "development_train",
+                "language": "python",
+                "code_changed_files": ["service.py"],
+                "code_diff_excerpt": f"{'+' if label else '-'} setting_{repository_index} = {int(label)}",
+                "docs_before_excerpt": "Configuration and API usage guide",
+                "gold_docs_update_required": label,
+                "gold_doc_category": "configuration" if label else "no_update",
+            })
+    fold_path = tmp_path / "folds.csv"
+    write_csv(fold_path, [{
+        "task": "binary",
+        "fold": repository_index % 2,
+        "repository": f"fixture/repo-{repository_index}",
+        "case_count": 2,
+        "label_distribution": '{"False": 1, "True": 1}',
+        "language_distribution": '{"python": 2}',
+    } for repository_index in range(8)])
+    metadata = {"gold_sha256": "gold", "development_view_sha256": "view", "scientific_config_sha256": "config"}
+    return rows, fold_path, config, metadata
+
+
+def _run_small_fixture(tmp_path: Path, workers: int, family: str = "M1") -> tuple[dict, list[dict]]:
+    rows, fold_path, config, metadata = _small_execution_fixture(tmp_path)
+    output = tmp_path / f"{family}-workers-{workers}"
+    semantic = None
+    if family == "M3":
+        semantic = (np.arange(len(rows) * 5, dtype=np.float32).reshape(len(rows), 5) - 40.0) / 100.0
+        metadata["embedding_artifact_sha256"] = "fixture-embedding"
+    progress = ExecutionProgress(
+        total_outer_folds=2,
+        total_candidate_fits=2 * fits_per_outer(config, family),
+        recovered_outer_folds=0,
+        recovered_candidate_fits=0,
+    )
+    summary = run_family(
+        "binary",
+        family,
+        rows,
+        semantic,
+        fold_path,
+        output,
+        output / "GATE2_RUN_REGISTRY.jsonl",
+        config,
+        metadata,
+        resume=False,
+        force_rerun=False,
+        progress=progress,
+        candidate_workers=workers,
+        heartbeat_seconds=0,
+    )
+    oof = [json.loads(line) for line in Path(summary["oof_path"]).read_text(encoding="utf-8").splitlines()]
+    return summary, oof
+
+
+@pytest.mark.parametrize("family", ["M1", "M3"])
+def test_parallel_and_sequential_execution_are_scientifically_equivalent(tmp_path: Path, family: str) -> None:
+    sequential, sequential_oof = _run_small_fixture(tmp_path, 1, family)
+    optimized, optimized_oof = _run_small_fixture(tmp_path, 2, family)
+    assert sequential["fold_results"] == optimized["fold_results"]
+    assert [row["prediction"] for row in sequential_oof] == [row["prediction"] for row in optimized_oof]
+    assert [row["gold"] for row in sequential_oof] == [row["gold"] for row in optimized_oof]
+    assert [row["probability"] for row in sequential_oof] == pytest.approx([row["probability"] for row in optimized_oof], abs=1e-12)
+    assert sequential["primary_mean"] == pytest.approx(optimized["primary_mean"], abs=1e-12)
+
+
+def test_resume_plan_detects_completed_folds(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    summary, _ = _run_small_fixture(tmp_path, 1)
+    rows, fold_path, config, metadata = _small_execution_fixture(tmp_path)
+    metadata["scientific_config_sha256"] = "config"
+    total_outer, total_fits, recovered_outer, recovered_fits = resume_plan(
+        rows=rows,
+        families=["M1"],
+        output_dir=Path(summary["oof_path"]).parent,
+        config=config,
+        metadata=metadata,
+        resume=True,
+        force_rerun=False,
+        fold_paths={"binary": fold_path, "category": fold_path},
+        tasks=("binary",),
+    )
+    assert (total_outer, recovered_outer) == (2, 2)
+    assert total_fits == recovered_fits == 2 * fits_per_outer(config, "M1")
+    output = capsys.readouterr().out
+    assert "[RESUME PLAN] task=binary family=M1 complete=2/2" in output
+    assert "[RESUME NEXT] status=all_requested_outer_folds_complete" in output

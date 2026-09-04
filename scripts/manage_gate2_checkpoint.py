@@ -105,13 +105,13 @@ def validate_embedding_checkpoint(checkpoint_dir: Path, identity: dict[str, Any]
     return metadata
 
 
-def _validate_fold(path: Path, config_path: Path, identity: dict[str, Any]) -> None:
+def _validate_fold(path: Path, config_path: Path, identity: dict[str, Any], embedding_artifact_sha256: str | None = None) -> None:
     match = FOLD_RE.fullmatch(path.name)
     if not match:
         raise RuntimeError(f"Unexpected results checkpoint file: {path.name}")
     task, family, fold_text = match.groups()
     fold_path = PROJECT_ROOT / f"reports/final_v2/gate2/outer_fold_assignments_{task}.csv"
-    load_fold_checkpoint(path, expected_identity={
+    expected = {
         "task": task,
         "family": family,
         "outer_fold": int(fold_text),
@@ -119,19 +119,25 @@ def _validate_fold(path: Path, config_path: Path, identity: dict[str, Any]) -> N
         "development_view_sha256": identity["development_view_sha256"],
         "scientific_config_sha256": sha256_file(config_path),
         "fold_assignment_sha256": sha256_file(fold_path),
-    })
+    }
+    if family in {"M2", "M3"}:
+        if not embedding_artifact_sha256:
+            raise RuntimeError("Semantic fold checkpoint exists without a COMPLETE embedding identity")
+        expected["embedding_artifact_sha256"] = embedding_artifact_sha256
+    load_fold_checkpoint(path, expected_identity=expected)
 
 
 def collect_portable_files(persistent_dir: Path, config_path: Path, identity: dict[str, Any]) -> list[tuple[Path, str]]:
     files: list[tuple[Path, str]] = []
     metadata = validate_embedding_checkpoint(persistent_dir / "embedding_checkpoint", identity)
+    embedding_artifact_sha256 = metadata.get("final_artifact_sha256") if metadata else None
     if metadata is not None:
         for name in sorted(EMBEDDING_FILES):
             files.append((persistent_dir / "embedding_checkpoint" / name, f"embedding_checkpoint/{name}"))
     result_dir = persistent_dir / "results"
     if result_dir.exists():
         for path in sorted(result_dir.glob("*_checkpoint.json")):
-            _validate_fold(path, config_path, identity)
+            _validate_fold(path, config_path, identity, embedding_artifact_sha256)
             files.append((path, f"results/{path.name}"))
         registry = result_dir / "GATE2_RUN_REGISTRY.jsonl"
         if registry.exists():
@@ -222,9 +228,9 @@ def restore_checkpoint(config_path: Path, persistent_dir: Path, archive: Path) -
             path = temp / Path(name)
             if path.stat().st_size != entry["bytes"] or sha256_file(path) != entry["sha256"]:
                 raise RuntimeError(f"Checkpoint archive member hash mismatch: {name}")
-        validate_embedding_checkpoint(temp / "embedding_checkpoint", identity)
+        restored_metadata = validate_embedding_checkpoint(temp / "embedding_checkpoint", identity)
         for path in sorted((temp / "results").glob("*_checkpoint.json")) if (temp / "results").exists() else []:
-            _validate_fold(path, config_path, identity)
+            _validate_fold(path, config_path, identity, restored_metadata.get("final_artifact_sha256") if restored_metadata else None)
         managed_roots = [persistent_dir / "embedding_checkpoint", persistent_dir / "results"] + [persistent_dir / name for name in SAFE_ROOT_FILES]
         if any(path.exists() for path in managed_roots):
             raise RuntimeError("Restore target already contains managed Gate 2 state; use an empty persistent directory")
@@ -237,15 +243,26 @@ def restore_checkpoint(config_path: Path, persistent_dir: Path, archive: Path) -
     return {"status": "RESTORED", "archive": str(archive), "members": len(declared), "confirmation_accessed": False}
 
 
+def verify_checkpoint(config_path: Path, archive: Path) -> dict[str, Any]:
+    with tempfile.TemporaryDirectory(prefix="gate2_verify_") as temporary:
+        result = restore_checkpoint(config_path, Path(temporary) / "verified_state", archive)
+    return {**result, "status": "VERIFIED"}
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Export or restore a verified, protocol-bound Gate 2 checkpoint archive.")
-    parser.add_argument("action", choices=["export", "restore"])
+    parser.add_argument("action", choices=["export", "restore", "verify"])
     parser.add_argument("--config", default="configs/final_v2/gate2_model_study.json")
-    parser.add_argument("--persistent-dir", required=True)
+    parser.add_argument("--persistent-dir")
     parser.add_argument("--archive", required=True)
     args = parser.parse_args()
-    operation = export_checkpoint if args.action == "export" else restore_checkpoint
-    result = operation(Path(args.config), Path(args.persistent_dir), Path(args.archive))
+    if args.action == "verify":
+        result = verify_checkpoint(Path(args.config), Path(args.archive))
+    else:
+        if not args.persistent_dir:
+            parser.error("--persistent-dir is required for export and restore")
+        operation = export_checkpoint if args.action == "export" else restore_checkpoint
+        result = operation(Path(args.config), Path(args.persistent_dir), Path(args.archive))
     print(json.dumps(result, indent=2, sort_keys=True))
     return 0
 

@@ -150,7 +150,17 @@ def package_return(*, archive: Path, embedding_dir: Path, result_dir: Path) -> P
     return archive
 
 
-def run(config_path: Path, persistent_dir: Path, *, return_archive: Path | None = None) -> dict[str, Any]:
+def run(
+    config_path: Path,
+    persistent_dir: Path,
+    *,
+    return_archive: Path | None = None,
+    candidate_workers: int = 2,
+    thread_limit: int = 1,
+    heartbeat_seconds: float = 60.0,
+) -> dict[str, Any]:
+    if candidate_workers < 1 or thread_limit < 1 or heartbeat_seconds < 0:
+        raise ValueError("candidate-workers/thread-limit must be >= 1 and heartbeat-seconds must be >= 0")
     config = load_config(config_path)
     _, view = load_development_rows(config_path=config_path)
     embedding_dir = persistent_dir / "embeddings"
@@ -169,7 +179,7 @@ def run(config_path: Path, persistent_dir: Path, *, return_archive: Path | None 
         Stage("external_environment_verifier", lambda: verify_environment(config, embedding_dir, checkpoint_dir, view, config_path)),
         Stage("development_only_loader", lambda: load_development_rows(config_path=config_path)),
         Stage("unixcoder_embedding_resume", lambda: checked_python("scripts/extract_gate2_unixcoder_embeddings.py", "--config", str(config_path), "--output-dir", str(embedding_dir), "--checkpoint-dir", str(checkpoint_dir), "--resume")),
-        Stage("preregistered_M1_M2_M3_resume", lambda: checked_python("scripts/run_gate2_model_study.py", "--config", str(config_path), "--embedding-dir", str(embedding_dir), "--output-dir", str(result_dir), "--families", "M1", "M2", "M3", "--resume", "--thread-limit", "2")),
+        Stage("preregistered_M1_M2_M3_resume", lambda: checked_python("scripts/run_gate2_model_study.py", "--config", str(config_path), "--embedding-dir", str(embedding_dir), "--output-dir", str(result_dir), "--families", "M1", "M2", "M3", "--resume", "--candidate-workers", str(candidate_workers), "--thread-limit", str(thread_limit), "--heartbeat-seconds", str(heartbeat_seconds))),
         Stage("return_artifact_verifier", verify_return),
         Stage("final_packaging", lambda: package_return(archive=return_archive or (persistent_dir / "gate2_colab_return.tar.gz"), embedding_dir=embedding_dir, result_dir=result_dir)),
     ]
@@ -181,9 +191,19 @@ def main() -> int:
     parser.add_argument("--config", default="configs/final_v2/gate2_model_study.json")
     parser.add_argument("--persistent-dir", required=True)
     parser.add_argument("--return-archive", help="Final verified return archive path (packaged only after all verifiers pass).")
+    parser.add_argument("--candidate-workers", type=int, default=2)
+    parser.add_argument("--thread-limit", type=int, default=1)
+    parser.add_argument("--heartbeat-seconds", type=float, default=60.0)
     args = parser.parse_args()
     try:
-        result = run(Path(args.config), Path(args.persistent_dir), return_archive=Path(args.return_archive) if args.return_archive else None)
+        result = run(
+            Path(args.config),
+            Path(args.persistent_dir),
+            return_archive=Path(args.return_archive) if args.return_archive else None,
+            candidate_workers=args.candidate_workers,
+            thread_limit=args.thread_limit,
+            heartbeat_seconds=args.heartbeat_seconds,
+        )
     except BaseException as exc:
         print(json.dumps({"status": "FAILED", "error": str(exc)}, indent=2), file=sys.stderr)
         return 1
