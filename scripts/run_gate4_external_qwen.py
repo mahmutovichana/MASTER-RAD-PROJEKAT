@@ -96,15 +96,35 @@ def _result_row(row: dict[str, Any], *, backend: Any, config: dict[str, Any]) ->
             "stage3_result": None,
         }
     started = time.perf_counter()
-    stage3 = generate_semantic_documentation_patch(
-        docs_update_required=True,
-        predicted_category=payload["predicted_category"],
-        code_diff=payload["code_diff_excerpt"],
-        docs_before=payload["docs_before_excerpt"],
-        documentation_context_candidates=payload["documentation_context_candidates"],
-        llm_backend=backend,
-        config=config,
-    )
+    calls_before = int(getattr(backend, "call_count", 0))
+
+    try:
+        stage3 = generate_semantic_documentation_patch(
+            docs_update_required=True,
+            predicted_category=payload["predicted_category"],
+            code_diff=payload["code_diff_excerpt"],
+            docs_before=payload["docs_before_excerpt"],
+            documentation_context_candidates=payload["documentation_context_candidates"],
+            llm_backend=backend,
+            config=config,
+        )
+    except json.JSONDecodeError as exc:
+        calls_after = int(getattr(backend, "call_count", calls_before))
+        case_calls = max(0, calls_after - calls_before)
+
+        stage3 = {
+            "final_status": "human_review_required",
+            "final_source": "none",
+            "final_patch": None,
+            "selected_document": None,
+            "llm_call_count": case_calls,
+            "execution_error": {
+                "code": "invalid_structured_llm_output",
+                "error_type": type(exc).__name__,
+                "message": str(exc),
+            },
+        }
+
     return {
         **base,
         "final_status": stage3["final_status"],
@@ -188,9 +208,17 @@ def run(root: Path, manifest_path: Path, output_dir: Path) -> dict[str, Any]:
     write_jsonl(results_path, ordered)
     status_counts: dict[str, int] = {}
     safety_violations: dict[str, int] = {}
+    execution_errors: dict[str, int] = {}
+
     for row in ordered:
         status_counts[row["final_status"]] = status_counts.get(row["final_status"], 0) + 1
         stage3 = row.get("stage3_result") or {}
+
+        execution_error = stage3.get("execution_error") or {}
+        if execution_error:
+            code = str(execution_error.get("code") or "unknown")
+            execution_errors[code] = execution_errors.get(code, 0) + 1
+
         for verifier_key in ("first_pass_verifier", "repair_verifier"):
             for violation in (stage3.get(verifier_key) or {}).get("violations") or []:
                 code = str(violation.get("code") or "unknown")
@@ -207,6 +235,7 @@ def run(root: Path, manifest_path: Path, output_dir: Path) -> dict[str, Any]:
         "llm_call_count": sum(row["llm_call_count"] for row in ordered),
         "final_status_counts": dict(sorted(status_counts.items())),
         "safety_violation_counts": dict(sorted(safety_violations.items())),
+        "execution_error_counts": dict(sorted(execution_errors.items())),
         "results_sha256": sha256_file(results_path),
         "runtime": runtime,
         "confirmation_accessed": False,

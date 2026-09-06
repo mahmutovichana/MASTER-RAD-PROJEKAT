@@ -12,4 +12,4 @@ Rows without canonical retrieval candidates are system coverage failures, not Qw
 
 Gate 2 nested cross-validation remains the development performance estimate for the classifiers. Gate 4 does not access confirmation. No generation results or Stage 3 freeze are claimed before the external Qwen execution is returned and verified.
 
-Preparation verification passed: 35 focused tests passed, and the complete safe non-confirmation suite passed with 437 tests and 30 warnings.
+Preparation verification passed after the structured-output robustness remediation: 36 focused tests passed, and the complete safe non-confirmation suite passed with 438 tests and 30 warnings. Malformed LLM JSON fails closed as human_review_required and is recorded separately as an execution error rather than aborting the batch.

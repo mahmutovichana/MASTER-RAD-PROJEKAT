@@ -9,7 +9,7 @@ import pytest
 from docguard_llm_v2.context_adapter import assert_generation_payload_safe, normalize_documentation_context
 from docguard_llm_v2.gate4_study import BINARY_MODEL_SHA256, CATEGORY_MODEL_SHA256, primary_sample, secondary_stress_sample, sha256_file
 from docguard_llm_v2.pipeline import generate_semantic_documentation_patch
-from scripts.run_gate4_external_qwen import pending_run_keys, validate_external_inputs
+from scripts.run_gate4_external_qwen import _result_row, pending_run_keys, validate_external_inputs
 from scripts.verify_gate4_preparation import verify
 
 
@@ -123,3 +123,51 @@ def test_external_manifest_and_canonical_preparation_pass():
     assert len(rows) == 200
     assert config["analysis_model"] == "Qwen/Qwen2.5-Coder-7B-Instruct"
     assert verify(ROOT)["status"] == "PASS"
+
+
+def test_external_runner_fails_closed_on_invalid_llm_json(monkeypatch):
+    import json as _json
+    import scripts.run_gate4_external_qwen as runner
+
+    class CountingBackend:
+        def __init__(self):
+            self.call_count = 0
+
+    backend = CountingBackend()
+
+    def fake_stage3(**kwargs):
+        backend.call_count += 2
+        raise _json.JSONDecodeError(
+            "Unterminated string",
+            '{"patch_markdown":"broken',
+            18,
+        )
+
+    monkeypatch.setattr(
+        runner,
+        "generate_semantic_documentation_patch",
+        fake_stage3,
+    )
+
+    row = prediction(
+        "parse-failure-case",
+        category="api_reference",
+        context=True,
+    )
+    row["sample_name"] = "primary_natural_distribution"
+    row["code_diff_excerpt"] = "+example"
+    row["docs_before_excerpt"] = "existing docs"
+
+    result = _result_row(
+        row,
+        backend=backend,
+        config={},
+    )
+
+    assert result["final_status"] == "human_review_required"
+    assert result["generated_patch"] is None
+    assert result["llm_call_count"] == 2
+    assert (
+        result["stage3_result"]["execution_error"]["code"]
+        == "invalid_structured_llm_output"
+    )
