@@ -165,20 +165,27 @@
     "stage3_freeze_manifest_present": false,
     "confirmation_accessed": false,
     "focused_tests": {
-      "passed": 36,
+      "passed": 37,
       "failed": 0,
       "command": "python -m pytest -q tests/test_gate4_stage3_preparation.py tests/test_stage3_v2_semantic_generation.py tests/test_gate3_classifier_freeze.py",
       "status": "PASS"
     },
     "safe_test_suite": {
-      "passed": 438,
+      "passed": 439,
       "failed": 0,
       "skipped": 0,
       "warnings": 30,
       "command": "python -m pytest -q",
       "status": "PASS"
     },
-    "blocker": "Real Qwen/Qwen2.5-Coder-7B-Instruct FP16 development execution requires the preflighted Kaggle 2xT4 environment."
+    "blocker": "Real Qwen/Qwen2.5-Coder-7B-Instruct FP16 development execution requires the preflighted Kaggle 2xT4 environment.",
+    "structured_output_contract": {
+      "status": "HARDENED_DEVELOPMENT_ONLY",
+      "writer_confidence_contract": "numeric_0_to_1",
+      "invalid_json_or_schema_policy": "fail_closed_human_review_required",
+      "execution_errors_reported_separately": true,
+      "confirmation_accessed": false
+    }
   },
   "gate_statuses": {
     "gate_0_canonical_pipeline_and_integrity_baseline": "PASS",

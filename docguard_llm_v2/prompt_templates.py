@@ -40,6 +40,18 @@ def writer_prompt(*, code_diff: str, predicted_category: str, analysis: dict[str
         "validated_change_analysis": analysis,
         "retrieved_document_candidates": candidates,
         "required_json_keys": ["target_document_path", "target_section", "patch_markdown", "writer_confidence"],
+        "output_schema": {
+            "target_document_path": "string; must exactly match one retrieved candidate path",
+            "target_section": "string",
+            "patch_markdown": "string containing the documentation patch",
+            "writer_confidence": "number between 0.0 and 1.0; never use labels such as low, medium, or high",
+        },
+        "output_constraints": [
+            "Return exactly one complete valid JSON object.",
+            "Do not wrap the JSON in Markdown fences.",
+            "Do not emit text before or after the JSON object.",
+            "Use the exact JSON value types specified by output_schema.",
+        ],
         "writing_constraints": [
             "Choose target_document_path only from retrieved_document_candidates.",
             "Write developer-facing documentation prose, not instructions about what to document.",
@@ -62,6 +74,18 @@ def repair_prompt(*, original_patch: str, violations: list[dict[str, Any]], anal
         "retrieved_document_candidates": candidates,
         "repair_instruction": "Rewrite the documentation itself, not an explanation of how to fix it. Keep target_document_path within retrieved candidates.",
         "required_json_keys": ["target_document_path", "target_section", "patch_markdown", "writer_confidence"],
+        "output_schema": {
+            "target_document_path": "string; must exactly match one retrieved candidate path",
+            "target_section": "string",
+            "patch_markdown": "string containing the repaired documentation patch",
+            "writer_confidence": "number between 0.0 and 1.0; never use labels such as low, medium, or high",
+        },
+        "output_constraints": [
+            "Return exactly one complete valid JSON object.",
+            "Do not wrap the JSON in Markdown fences.",
+            "Do not emit text before or after the JSON object.",
+            "Use the exact JSON value types specified by output_schema.",
+        ],
     }
     return [
         {"role": "system", "content": SYSTEM_BOUNDARY + " Repair the documentation patch and return only JSON."},

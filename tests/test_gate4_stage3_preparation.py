@@ -171,3 +171,50 @@ def test_external_runner_fails_closed_on_invalid_llm_json(monkeypatch):
         result["stage3_result"]["execution_error"]["code"]
         == "invalid_structured_llm_output"
     )
+
+
+def test_external_runner_fails_closed_on_invalid_writer_schema(monkeypatch):
+    import scripts.run_gate4_external_qwen as runner
+
+    class CountingBackend:
+        def __init__(self):
+            self.call_count = 0
+
+    backend = CountingBackend()
+
+    def fake_stage3(**kwargs):
+        backend.call_count += 3
+        raise ValueError(
+            "could not convert string to float: 'high'"
+        )
+
+    monkeypatch.setattr(
+        runner,
+        "generate_semantic_documentation_patch",
+        fake_stage3,
+    )
+
+    row = prediction(
+        "invalid-writer-confidence",
+        category="api_reference",
+        context=True,
+    )
+    row["sample_name"] = "primary_natural_distribution"
+    row["code_diff_excerpt"] = "+example"
+    row["docs_before_excerpt"] = "existing docs"
+
+    result = _result_row(
+        row,
+        backend=backend,
+        config={},
+    )
+
+    assert result["final_status"] == "human_review_required"
+    assert result["generated_patch"] is None
+    assert result["llm_call_count"] == 3
+    assert result["stage3_result"]["execution_error"]["code"] == (
+        "invalid_structured_llm_output"
+    )
+    assert result["stage3_result"]["execution_error"]["error_type"] == (
+        "ValueError"
+    )

@@ -108,7 +108,7 @@ def _result_row(row: dict[str, Any], *, backend: Any, config: dict[str, Any]) ->
             llm_backend=backend,
             config=config,
         )
-    except json.JSONDecodeError as exc:
+    except (json.JSONDecodeError, ValueError, TypeError) as exc:
         calls_after = int(getattr(backend, "call_count", calls_before))
         case_calls = max(0, calls_after - calls_before)
 

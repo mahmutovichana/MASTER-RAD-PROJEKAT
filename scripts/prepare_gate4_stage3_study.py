@@ -12,11 +12,18 @@ from docguard_llm_v2.gate4_study import prepare_gate4
 
 
 SOURCE_PATHS = [
+    "docguard_llm_v2/change_analyzer.py",
     "docguard_llm_v2/context_adapter.py",
+    "docguard_llm_v2/document_retriever.py",
+    "docguard_llm_v2/documentation_writer.py",
     "docguard_llm_v2/gate4_study.py",
+    "docguard_llm_v2/generation_options.py",
     "docguard_llm_v2/hf_backend.py",
     "docguard_llm_v2/pipeline.py",
-    "docguard_llm_v2/generation_options.py",
+    "docguard_llm_v2/prompt_templates.py",
+    "docguard_llm_v2/provenance_verifier.py",
+    "docguard_llm_v2/repair.py",
+    "docguard_llm_v2/schemas.py",
     "scripts/prepare_gate4_stage3_study.py",
     "scripts/run_gate4_external_qwen.py",
 ]
