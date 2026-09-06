@@ -1,0 +1,359 @@
+{
+  "all_rows_operational_diagnostic_only": {
+    "all_status_counts": {
+      "accepted_after_repair": 1,
+      "accepted_first_pass": 48,
+      "human_review_required": 42,
+      "retrieval_context_unavailable": 109
+    },
+    "conditional_generation": {
+      "accepted_after_repair": 1,
+      "accepted_first_pass": 48,
+      "accepted_total": 49,
+      "accepted_total_rate": 0.5384615384615384,
+      "accepted_total_wilson_95": {
+        "lower": 0.43656172336109367,
+        "upper": 0.6372456609520694
+      },
+      "denominator_invoked": 91,
+      "first_pass_acceptance_rate": 0.5274725274725275,
+      "human_review_rate": 0.46153846153846156,
+      "human_review_required": 42,
+      "recorded_repair_attempt_count": 24,
+      "recorded_repair_attempt_rate": 0.26373626373626374
+    },
+    "execution_error_counts": {
+      "input_token_budget_exceeded": 6,
+      "invalid_structured_llm_output": 13
+    },
+    "execution_error_type_counts": {
+      "InputTokenBudgetExceeded": 6,
+      "JSONDecodeError": 13
+    },
+    "invocation_rate": 0.455,
+    "latency_seconds": {
+      "max": 151.1809090900001,
+      "mean": 33.09795958613188,
+      "median": 29.283612113000345,
+      "p95": 56.45182992600007
+    },
+    "llm_calls": {
+      "mean_per_invoked": 2.0549450549450547,
+      "median_per_invoked": 2,
+      "p95_per_invoked": 3.0,
+      "total": 187
+    },
+    "retrieval_context_available": 91,
+    "retrieval_context_unavailable": 109,
+    "safety_violation_counts": {
+      "target_not_retrieved": 2,
+      "unsupported_fact": 50
+    },
+    "sample_rows": 200
+  },
+  "interpretation_contract": {
+    "conditional_generation_quality": "Computed only over rows with canonical retrieval context and an actual Stage 3 invocation.",
+    "confirmation": "Not accessed or used.",
+    "execution_errors": "Reported separately from safety/provenance verifier rejections.",
+    "primary": "Natural-distribution development-validation evidence.",
+    "secondary": "Supplementary predicted-category stress sample; do not pool with primary as a natural-distribution quality estimate.",
+    "system_coverage": "Computed over all sampled predicted positives."
+  },
+  "primary": {
+    "all_status_counts": {
+      "accepted_after_repair": 1,
+      "accepted_first_pass": 1,
+      "human_review_required": 6,
+      "retrieval_context_unavailable": 92
+    },
+    "conditional_generation": {
+      "accepted_after_repair": 1,
+      "accepted_first_pass": 1,
+      "accepted_total": 2,
+      "accepted_total_rate": 0.25,
+      "accepted_total_wilson_95": {
+        "lower": 0.071479212752109,
+        "upper": 0.5907245696898311
+      },
+      "denominator_invoked": 8,
+      "first_pass_acceptance_rate": 0.125,
+      "human_review_rate": 0.75,
+      "human_review_required": 6,
+      "recorded_repair_attempt_count": 3,
+      "recorded_repair_attempt_rate": 0.375
+    },
+    "execution_error_counts": {
+      "input_token_budget_exceeded": 2,
+      "invalid_structured_llm_output": 2
+    },
+    "execution_error_type_counts": {
+      "InputTokenBudgetExceeded": 2,
+      "JSONDecodeError": 2
+    },
+    "invocation_rate": 0.08,
+    "latency_seconds": {
+      "max": 151.1809090900001,
+      "mean": 78.36730449862503,
+      "median": 62.98606752450007,
+      "p95": 151.1809090900001
+    },
+    "llm_calls": {
+      "mean_per_invoked": 2.375,
+      "median_per_invoked": 3.0,
+      "p95_per_invoked": 3.0,
+      "total": 19
+    },
+    "retrieval_context_available": 8,
+    "retrieval_context_unavailable": 92,
+    "safety_violation_counts": {
+      "target_not_retrieved": 2,
+      "unsupported_fact": 6
+    },
+    "sample_rows": 100
+  },
+  "scope": "Gate 4 development-only post-run analysis",
+  "secondary": {
+    "all_status_counts": {
+      "accepted_first_pass": 47,
+      "human_review_required": 36,
+      "retrieval_context_unavailable": 17
+    },
+    "conditional_generation": {
+      "accepted_after_repair": 0,
+      "accepted_first_pass": 47,
+      "accepted_total": 47,
+      "accepted_total_rate": 0.5662650602409639,
+      "accepted_total_wilson_95": {
+        "lower": 0.4590592640283887,
+        "upper": 0.667608345537133
+      },
+      "denominator_invoked": 83,
+      "first_pass_acceptance_rate": 0.5662650602409639,
+      "human_review_rate": 0.43373493975903615,
+      "human_review_required": 36,
+      "recorded_repair_attempt_count": 21,
+      "recorded_repair_attempt_rate": 0.25301204819277107
+    },
+    "execution_error_counts": {
+      "input_token_budget_exceeded": 4,
+      "invalid_structured_llm_output": 11
+    },
+    "execution_error_type_counts": {
+      "InputTokenBudgetExceeded": 4,
+      "JSONDecodeError": 11
+    },
+    "invocation_rate": 0.83,
+    "latency_seconds": {
+      "max": 48.54265795099991,
+      "mean": 28.73464923312049,
+      "median": 28.122701819000213,
+      "p95": 44.68308811499992
+    },
+    "llm_calls": {
+      "mean_per_invoked": 2.0240963855421685,
+      "median_per_invoked": 2,
+      "p95_per_invoked": 3.0,
+      "total": 168
+    },
+    "retrieval_context_available": 83,
+    "retrieval_context_unavailable": 17,
+    "safety_violation_counts": {
+      "unsupported_fact": 44
+    },
+    "sample_rows": 100
+  },
+  "secondary_by_predicted_category": {
+    "api_reference": {
+      "all_status_counts": {
+        "accepted_first_pass": 1,
+        "human_review_required": 23,
+        "retrieval_context_unavailable": 1
+      },
+      "conditional_generation": {
+        "accepted_after_repair": 0,
+        "accepted_first_pass": 1,
+        "accepted_total": 1,
+        "accepted_total_rate": 0.041666666666666664,
+        "accepted_total_wilson_95": {
+          "lower": 0.0073934561655057685,
+          "upper": 0.20241806478655938
+        },
+        "denominator_invoked": 24,
+        "first_pass_acceptance_rate": 0.041666666666666664,
+        "human_review_rate": 0.9583333333333334,
+        "human_review_required": 23,
+        "recorded_repair_attempt_count": 14,
+        "recorded_repair_attempt_rate": 0.5833333333333334
+      },
+      "execution_error_counts": {
+        "input_token_budget_exceeded": 3,
+        "invalid_structured_llm_output": 6
+      },
+      "execution_error_type_counts": {
+        "InputTokenBudgetExceeded": 3,
+        "JSONDecodeError": 6
+      },
+      "invocation_rate": 0.96,
+      "latency_seconds": {
+        "max": 48.54265795099991,
+        "mean": 30.09890616254171,
+        "median": 32.57399560700003,
+        "p95": 47.14345260099981
+      },
+      "llm_calls": {
+        "mean_per_invoked": 2.0833333333333335,
+        "median_per_invoked": 3.0,
+        "p95_per_invoked": 3.0,
+        "total": 50
+      },
+      "retrieval_context_available": 24,
+      "retrieval_context_unavailable": 1,
+      "safety_violation_counts": {
+        "unsupported_fact": 29
+      },
+      "sample_rows": 25
+    },
+    "configuration": {
+      "all_status_counts": {
+        "accepted_first_pass": 14,
+        "human_review_required": 6,
+        "retrieval_context_unavailable": 5
+      },
+      "conditional_generation": {
+        "accepted_after_repair": 0,
+        "accepted_first_pass": 14,
+        "accepted_total": 14,
+        "accepted_total_rate": 0.7,
+        "accepted_total_wilson_95": {
+          "lower": 0.4810271816464765,
+          "upper": 0.8545227551323956
+        },
+        "denominator_invoked": 20,
+        "first_pass_acceptance_rate": 0.7,
+        "human_review_rate": 0.3,
+        "human_review_required": 6,
+        "recorded_repair_attempt_count": 1,
+        "recorded_repair_attempt_rate": 0.05
+      },
+      "execution_error_counts": {
+        "invalid_structured_llm_output": 5
+      },
+      "execution_error_type_counts": {
+        "JSONDecodeError": 5
+      },
+      "invocation_rate": 0.8,
+      "latency_seconds": {
+        "max": 40.67118959399977,
+        "mean": 26.42308422619997,
+        "median": 24.734624070500104,
+        "p95": 37.20936496500008
+      },
+      "llm_calls": {
+        "mean_per_invoked": 1.8,
+        "median_per_invoked": 2.0,
+        "p95_per_invoked": 2.0,
+        "total": 36
+      },
+      "retrieval_context_available": 20,
+      "retrieval_context_unavailable": 5,
+      "safety_violation_counts": {
+        "unsupported_fact": 2
+      },
+      "sample_rows": 25
+    },
+    "developer_setup": {
+      "all_status_counts": {
+        "accepted_first_pass": 17,
+        "human_review_required": 5,
+        "retrieval_context_unavailable": 3
+      },
+      "conditional_generation": {
+        "accepted_after_repair": 0,
+        "accepted_first_pass": 17,
+        "accepted_total": 17,
+        "accepted_total_rate": 0.7727272727272727,
+        "accepted_total_wilson_95": {
+          "lower": 0.5656004682477829,
+          "upper": 0.8987696001475147
+        },
+        "denominator_invoked": 22,
+        "first_pass_acceptance_rate": 0.7727272727272727,
+        "human_review_rate": 0.22727272727272727,
+        "human_review_required": 5,
+        "recorded_repair_attempt_count": 5,
+        "recorded_repair_attempt_rate": 0.22727272727272727
+      },
+      "execution_error_counts": {},
+      "execution_error_type_counts": {},
+      "invocation_rate": 0.88,
+      "latency_seconds": {
+        "max": 39.77699415500001,
+        "mean": 30.64860417659094,
+        "median": 31.605103768999925,
+        "p95": 38.43538750700009
+      },
+      "llm_calls": {
+        "mean_per_invoked": 2.227272727272727,
+        "median_per_invoked": 2.0,
+        "p95_per_invoked": 3.0,
+        "total": 49
+      },
+      "retrieval_context_available": 22,
+      "retrieval_context_unavailable": 3,
+      "safety_violation_counts": {
+        "unsupported_fact": 10
+      },
+      "sample_rows": 25
+    },
+    "model_contract": {
+      "all_status_counts": {
+        "accepted_first_pass": 15,
+        "human_review_required": 2,
+        "retrieval_context_unavailable": 8
+      },
+      "conditional_generation": {
+        "accepted_after_repair": 0,
+        "accepted_first_pass": 15,
+        "accepted_total": 15,
+        "accepted_total_rate": 0.8823529411764706,
+        "accepted_total_wilson_95": {
+          "lower": 0.6566364940511412,
+          "upper": 0.9671202262362074
+        },
+        "denominator_invoked": 17,
+        "first_pass_acceptance_rate": 0.8823529411764706,
+        "human_review_rate": 0.11764705882352941,
+        "human_review_required": 2,
+        "recorded_repair_attempt_count": 1,
+        "recorded_repair_attempt_rate": 0.058823529411764705
+      },
+      "execution_error_counts": {
+        "input_token_budget_exceeded": 1
+      },
+      "execution_error_type_counts": {
+        "InputTokenBudgetExceeded": 1
+      },
+      "invocation_rate": 0.68,
+      "latency_seconds": {
+        "max": 46.256986001999394,
+        "mean": 27.0512448258235,
+        "median": 24.383704206000402,
+        "p95": 46.256986001999394
+      },
+      "llm_calls": {
+        "mean_per_invoked": 1.9411764705882353,
+        "median_per_invoked": 2,
+        "p95_per_invoked": 3.0,
+        "total": 33
+      },
+      "retrieval_context_available": 17,
+      "retrieval_context_unavailable": 8,
+      "safety_violation_counts": {
+        "unsupported_fact": 3
+      },
+      "sample_rows": 25
+    }
+  },
+  "source_verification_report": "C:\\Users\\mahmu\\Desktop\\MASTER RAD PROJEKAT\\.work\\gate4_postrun\\verification_report.json",
+  "status": "PASS"
+}

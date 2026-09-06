@@ -1,0 +1,422 @@
+{
+  "artifact_manifest": {
+    "path": "reports/final_v2/gate4/final_results/artifact_manifest.json",
+    "sha256": "6514c3f4a8fc94d22fc4a9542abf04577843c6470299d8968f018f1b4b0f63ed"
+  },
+  "confirmation_accessed": false,
+  "confirmation_sealed": true,
+  "development_analysis": {
+    "path": "reports/final_v2/gate4/final_results/gate4_development_analysis_summary.json",
+    "sha256": "948cb73284d7d0a438db88fd1def4953482d41a8efc24581c021b9c8cfc2034f",
+    "status": "PASS"
+  },
+  "development_evidence": {
+    "interpretation_contract": {
+      "conditional_generation_quality": "Computed only over rows with canonical retrieval context and an actual Stage 3 invocation.",
+      "confirmation": "Not accessed or used.",
+      "execution_errors": "Reported separately from safety/provenance verifier rejections.",
+      "primary": "Natural-distribution development-validation evidence.",
+      "secondary": "Supplementary predicted-category stress sample; do not pool with primary as a natural-distribution quality estimate.",
+      "system_coverage": "Computed over all sampled predicted positives."
+    },
+    "primary": {
+      "all_status_counts": {
+        "accepted_after_repair": 1,
+        "accepted_first_pass": 1,
+        "human_review_required": 6,
+        "retrieval_context_unavailable": 92
+      },
+      "conditional_generation": {
+        "accepted_after_repair": 1,
+        "accepted_first_pass": 1,
+        "accepted_total": 2,
+        "accepted_total_rate": 0.25,
+        "accepted_total_wilson_95": {
+          "lower": 0.071479212752109,
+          "upper": 0.5907245696898311
+        },
+        "denominator_invoked": 8,
+        "first_pass_acceptance_rate": 0.125,
+        "human_review_rate": 0.75,
+        "human_review_required": 6,
+        "recorded_repair_attempt_count": 3,
+        "recorded_repair_attempt_rate": 0.375
+      },
+      "execution_error_counts": {
+        "input_token_budget_exceeded": 2,
+        "invalid_structured_llm_output": 2
+      },
+      "execution_error_type_counts": {
+        "InputTokenBudgetExceeded": 2,
+        "JSONDecodeError": 2
+      },
+      "invocation_rate": 0.08,
+      "latency_seconds": {
+        "max": 151.1809090900001,
+        "mean": 78.36730449862503,
+        "median": 62.98606752450007,
+        "p95": 151.1809090900001
+      },
+      "llm_calls": {
+        "mean_per_invoked": 2.375,
+        "median_per_invoked": 3.0,
+        "p95_per_invoked": 3.0,
+        "total": 19
+      },
+      "retrieval_context_available": 8,
+      "retrieval_context_unavailable": 92,
+      "safety_violation_counts": {
+        "target_not_retrieved": 2,
+        "unsupported_fact": 6
+      },
+      "sample_rows": 100
+    },
+    "secondary": {
+      "all_status_counts": {
+        "accepted_first_pass": 47,
+        "human_review_required": 36,
+        "retrieval_context_unavailable": 17
+      },
+      "conditional_generation": {
+        "accepted_after_repair": 0,
+        "accepted_first_pass": 47,
+        "accepted_total": 47,
+        "accepted_total_rate": 0.5662650602409639,
+        "accepted_total_wilson_95": {
+          "lower": 0.4590592640283887,
+          "upper": 0.667608345537133
+        },
+        "denominator_invoked": 83,
+        "first_pass_acceptance_rate": 0.5662650602409639,
+        "human_review_rate": 0.43373493975903615,
+        "human_review_required": 36,
+        "recorded_repair_attempt_count": 21,
+        "recorded_repair_attempt_rate": 0.25301204819277107
+      },
+      "execution_error_counts": {
+        "input_token_budget_exceeded": 4,
+        "invalid_structured_llm_output": 11
+      },
+      "execution_error_type_counts": {
+        "InputTokenBudgetExceeded": 4,
+        "JSONDecodeError": 11
+      },
+      "invocation_rate": 0.83,
+      "latency_seconds": {
+        "max": 48.54265795099991,
+        "mean": 28.73464923312049,
+        "median": 28.122701819000213,
+        "p95": 44.68308811499992
+      },
+      "llm_calls": {
+        "mean_per_invoked": 2.0240963855421685,
+        "median_per_invoked": 2,
+        "p95_per_invoked": 3.0,
+        "total": 168
+      },
+      "retrieval_context_available": 83,
+      "retrieval_context_unavailable": 17,
+      "safety_violation_counts": {
+        "unsupported_fact": 44
+      },
+      "sample_rows": 100
+    },
+    "secondary_by_predicted_category": {
+      "api_reference": {
+        "all_status_counts": {
+          "accepted_first_pass": 1,
+          "human_review_required": 23,
+          "retrieval_context_unavailable": 1
+        },
+        "conditional_generation": {
+          "accepted_after_repair": 0,
+          "accepted_first_pass": 1,
+          "accepted_total": 1,
+          "accepted_total_rate": 0.041666666666666664,
+          "accepted_total_wilson_95": {
+            "lower": 0.0073934561655057685,
+            "upper": 0.20241806478655938
+          },
+          "denominator_invoked": 24,
+          "first_pass_acceptance_rate": 0.041666666666666664,
+          "human_review_rate": 0.9583333333333334,
+          "human_review_required": 23,
+          "recorded_repair_attempt_count": 14,
+          "recorded_repair_attempt_rate": 0.5833333333333334
+        },
+        "execution_error_counts": {
+          "input_token_budget_exceeded": 3,
+          "invalid_structured_llm_output": 6
+        },
+        "execution_error_type_counts": {
+          "InputTokenBudgetExceeded": 3,
+          "JSONDecodeError": 6
+        },
+        "invocation_rate": 0.96,
+        "latency_seconds": {
+          "max": 48.54265795099991,
+          "mean": 30.09890616254171,
+          "median": 32.57399560700003,
+          "p95": 47.14345260099981
+        },
+        "llm_calls": {
+          "mean_per_invoked": 2.0833333333333335,
+          "median_per_invoked": 3.0,
+          "p95_per_invoked": 3.0,
+          "total": 50
+        },
+        "retrieval_context_available": 24,
+        "retrieval_context_unavailable": 1,
+        "safety_violation_counts": {
+          "unsupported_fact": 29
+        },
+        "sample_rows": 25
+      },
+      "configuration": {
+        "all_status_counts": {
+          "accepted_first_pass": 14,
+          "human_review_required": 6,
+          "retrieval_context_unavailable": 5
+        },
+        "conditional_generation": {
+          "accepted_after_repair": 0,
+          "accepted_first_pass": 14,
+          "accepted_total": 14,
+          "accepted_total_rate": 0.7,
+          "accepted_total_wilson_95": {
+            "lower": 0.4810271816464765,
+            "upper": 0.8545227551323956
+          },
+          "denominator_invoked": 20,
+          "first_pass_acceptance_rate": 0.7,
+          "human_review_rate": 0.3,
+          "human_review_required": 6,
+          "recorded_repair_attempt_count": 1,
+          "recorded_repair_attempt_rate": 0.05
+        },
+        "execution_error_counts": {
+          "invalid_structured_llm_output": 5
+        },
+        "execution_error_type_counts": {
+          "JSONDecodeError": 5
+        },
+        "invocation_rate": 0.8,
+        "latency_seconds": {
+          "max": 40.67118959399977,
+          "mean": 26.42308422619997,
+          "median": 24.734624070500104,
+          "p95": 37.20936496500008
+        },
+        "llm_calls": {
+          "mean_per_invoked": 1.8,
+          "median_per_invoked": 2.0,
+          "p95_per_invoked": 2.0,
+          "total": 36
+        },
+        "retrieval_context_available": 20,
+        "retrieval_context_unavailable": 5,
+        "safety_violation_counts": {
+          "unsupported_fact": 2
+        },
+        "sample_rows": 25
+      },
+      "developer_setup": {
+        "all_status_counts": {
+          "accepted_first_pass": 17,
+          "human_review_required": 5,
+          "retrieval_context_unavailable": 3
+        },
+        "conditional_generation": {
+          "accepted_after_repair": 0,
+          "accepted_first_pass": 17,
+          "accepted_total": 17,
+          "accepted_total_rate": 0.7727272727272727,
+          "accepted_total_wilson_95": {
+            "lower": 0.5656004682477829,
+            "upper": 0.8987696001475147
+          },
+          "denominator_invoked": 22,
+          "first_pass_acceptance_rate": 0.7727272727272727,
+          "human_review_rate": 0.22727272727272727,
+          "human_review_required": 5,
+          "recorded_repair_attempt_count": 5,
+          "recorded_repair_attempt_rate": 0.22727272727272727
+        },
+        "execution_error_counts": {},
+        "execution_error_type_counts": {},
+        "invocation_rate": 0.88,
+        "latency_seconds": {
+          "max": 39.77699415500001,
+          "mean": 30.64860417659094,
+          "median": 31.605103768999925,
+          "p95": 38.43538750700009
+        },
+        "llm_calls": {
+          "mean_per_invoked": 2.227272727272727,
+          "median_per_invoked": 2.0,
+          "p95_per_invoked": 3.0,
+          "total": 49
+        },
+        "retrieval_context_available": 22,
+        "retrieval_context_unavailable": 3,
+        "safety_violation_counts": {
+          "unsupported_fact": 10
+        },
+        "sample_rows": 25
+      },
+      "model_contract": {
+        "all_status_counts": {
+          "accepted_first_pass": 15,
+          "human_review_required": 2,
+          "retrieval_context_unavailable": 8
+        },
+        "conditional_generation": {
+          "accepted_after_repair": 0,
+          "accepted_first_pass": 15,
+          "accepted_total": 15,
+          "accepted_total_rate": 0.8823529411764706,
+          "accepted_total_wilson_95": {
+            "lower": 0.6566364940511412,
+            "upper": 0.9671202262362074
+          },
+          "denominator_invoked": 17,
+          "first_pass_acceptance_rate": 0.8823529411764706,
+          "human_review_rate": 0.11764705882352941,
+          "human_review_required": 2,
+          "recorded_repair_attempt_count": 1,
+          "recorded_repair_attempt_rate": 0.058823529411764705
+        },
+        "execution_error_counts": {
+          "input_token_budget_exceeded": 1
+        },
+        "execution_error_type_counts": {
+          "InputTokenBudgetExceeded": 1
+        },
+        "invocation_rate": 0.68,
+        "latency_seconds": {
+          "max": 46.256986001999394,
+          "mean": 27.0512448258235,
+          "median": 24.383704206000402,
+          "p95": 46.256986001999394
+        },
+        "llm_calls": {
+          "mean_per_invoked": 1.9411764705882353,
+          "median_per_invoked": 2,
+          "p95_per_invoked": 3.0,
+          "total": 33
+        },
+        "retrieval_context_available": 17,
+        "retrieval_context_unavailable": 8,
+        "safety_violation_counts": {
+          "unsupported_fact": 3
+        },
+        "sample_rows": 25
+      }
+    }
+  },
+  "external_execution": {
+    "execution_error_counts": {
+      "input_token_budget_exceeded": 6,
+      "invalid_structured_llm_output": 13
+    },
+    "final_status_counts": {
+      "accepted_after_repair": 1,
+      "accepted_first_pass": 48,
+      "human_review_required": 42,
+      "retrieval_context_unavailable": 109
+    },
+    "input_manifest_path": "reports/final_v2/gate4/external_run_input_manifest.json",
+    "input_manifest_sha256": "0e72d7ac93e44a0035046ac65b808f84ac851a556e9e3ddc076f03bdba4bd1f8",
+    "llm_call_count": 187,
+    "processed_rows": 200,
+    "results_path": "reports/final_v2/gate4/external_return/development_generation_results.jsonl",
+    "results_sha256": "b6614a90b6429ace634ed20118c30a235c34e2d9d144e528260549292d5f3792",
+    "return_archive_path": "reports/final_v2/gate4/external_return/gate4_external_return.zip",
+    "return_archive_sha256": "95d53f9e5d99b4e456632fe22a5251e6abcce70851e2a2c57c7d9bde2156cd7b",
+    "runtime": {
+      "accelerate": "1.13.0",
+      "cuda_available": true,
+      "cuda_device_count": 2,
+      "cuda_devices": [
+        "Tesla T4",
+        "Tesla T4"
+      ],
+      "max_input_tokens": 4096,
+      "model": "Qwen/Qwen2.5-Coder-7B-Instruct",
+      "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+      "precision": "float16",
+      "python": "3.12.13",
+      "quantized": false,
+      "torch": "2.10.0+cu128",
+      "transformers": "5.0.0"
+    },
+    "safety_violation_counts": {
+      "target_not_retrieved": 2,
+      "unsupported_fact": 50
+    },
+    "source_commit": "c3ddac2d64f71127082f66fba53850f64e071ec3",
+    "stage3_invocation_count": 91
+  },
+  "freeze_contract": {
+    "immutable_after_pass": [
+      "Stage 3 configuration",
+      "Qwen model identity",
+      "prompt templates",
+      "retrieval route",
+      "generation route",
+      "input token budget",
+      "repair policy",
+      "safety/provenance verifier behavior",
+      "runtime source identities"
+    ],
+    "post_confirmation_tuning_allowed": false
+  },
+  "gate": 4,
+  "implementation_source_sha256": {
+    "docguard_llm_v2/change_analyzer.py": "f461f4df94a6d0e344ec923101ac9aa6e062b07e72409e5bd4bc8ef4afad386d",
+    "docguard_llm_v2/context_adapter.py": "168e2f6f781204ecfed31ca31f72f1da487e3b375f8d24fb69c4c14b2bcbaf93",
+    "docguard_llm_v2/document_retriever.py": "6c5028884fe4a958cf363b344472a953d4bfb044e2dbf9b189a7d9959eb1607b",
+    "docguard_llm_v2/documentation_writer.py": "18dbedcfce10a4b982e067169d52e2836cff52e3b4c3ac7bd1c1a8381c9a4619",
+    "docguard_llm_v2/gate4_study.py": "d0d342bce2c749648b11c4096423406695eab742297cbb817d90f98a4cf5cd32",
+    "docguard_llm_v2/generation_options.py": "2a146476b18d8390bbc5f5ef8c33f729860fa060abe760c8dab557c2b6c0b61e",
+    "docguard_llm_v2/hf_backend.py": "101795ae8a3f7c2a2b0df636f836f26e9d3e77323b83fc315e6cfc00b78b5006",
+    "docguard_llm_v2/pipeline.py": "9c00d19ed877eb951697623ec24a03284b00cfedc808557389a17395cb21bb56",
+    "docguard_llm_v2/prompt_templates.py": "0d2637baa359150e30d6e3dbb524bfa000ab602b924e0603dd36c44fe93000ca",
+    "docguard_llm_v2/provenance_verifier.py": "03baaa73e90137ba90d6a7eeb90a9a6b76f6c18d84f259949ca6b7a4d3082894",
+    "docguard_llm_v2/repair.py": "52408fa770ea8079dc154ecdd10ffa7cd1a8cb60f751aee90333cac0f95b0e0e",
+    "docguard_llm_v2/schemas.py": "a8f1ce036aaf4585020248ec777b15eb82e195038af6aaca3e3185e26336f36c",
+    "scripts/prepare_gate4_stage3_study.py": "6b0b10dff0a0dd970bba68695c3a5743f6e337afb6e8f2fe5a4578236e100ba8",
+    "scripts/run_gate4_external_qwen.py": "2b07e7f5f45e32169d5f07362cd65642ee5e531015c3dfa93f4eb823d9d66605"
+  },
+  "postrun_verification": {
+    "path": "reports/final_v2/gate4/final_results/postrun_verification_report.json",
+    "sha256": "752d70408a8076e957eae48ecbf7fd918947ee5847885308190cb7e0b4e575c4",
+    "status": "PASS"
+  },
+  "schema_version": "gate4_stage3_freeze_v1",
+  "stage3_config": {
+    "path": "configs/stage3_semantic_generation_v2.json",
+    "settings": {
+      "analysis_model": "Qwen/Qwen2.5-Coder-7B-Instruct",
+      "max_input_tokens": 4096,
+      "max_repair_attempts": 1,
+      "max_tokens_analysis": 512,
+      "max_tokens_repair": 512,
+      "max_tokens_writer": 512,
+      "pipeline_version": "stage3_semantic_generation_v2",
+      "repair_model": "Qwen/Qwen2.5-Coder-7B-Instruct",
+      "temperature": 0.1,
+      "top_k_documents": 3,
+      "writer_model": "Qwen/Qwen2.5-Coder-7B-Instruct"
+    },
+    "sha256": "27c234a3f998c34256025b0d914ddf3fd2a202eb3466b37a25f5aed0283e3192"
+  },
+  "stage3_status": "FROZEN",
+  "status": "PASS",
+  "upstream": {
+    "binary_model_sha256": "7d6a9263e1262c5c54db3d2e100209707c6a7681133fb1505f44125efa954462",
+    "category_model_sha256": "2d8123ac398568b5c9586b0f8d26d6c4079ddfebd504889b934f77bef65b9f59",
+    "gate3_closure_commit": "e4b4bed2ca5ddcbc34ad98d5f78fbf88769fa012",
+    "gate3_status": "PASS"
+  }
+}

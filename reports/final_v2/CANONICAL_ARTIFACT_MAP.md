@@ -46,6 +46,11 @@ These artifacts define the current Final V2 experiment state.
 | Gate 4 preparation manifests | `reports/final_v2/gate4/sample_manifest.json`, `reports/final_v2/gate4/context_coverage_audit.json`, `reports/final_v2/gate4/external_run_input_manifest.json`, `reports/final_v2/gate4/external_run_manifest.json` | Sampling, retrieval-coverage, source/input integrity and external-compute boundary. |
 | Gate 4 external runbook | `reports/final_v2/gate4/GATE4_EXTERNAL_RUNBOOK.md` | Reproducible FP16 Kaggle execution and resumable return-package instructions. |
 
+| Gate 4 external development return | `reports/final_v2/gate4/external_return/` | Verified canonical Qwen development results, checkpoint, receipt and deterministic return archive. |
+| Gate 4 final development analysis | `reports/final_v2/gate4/final_results/` | Primary natural-distribution analysis, supplementary category-stress analysis, diagnostics, final report and immutable artifact inventory. |
+| Gate 4 Stage 3 freeze manifest | `reports/final_v2/gate4/GATE4_STAGE3_FREEZE_MANIFEST.json` | Immutable Stage 3 config, runtime, source hashes, development evidence and sealed-confirmation boundary. |
+| Gate 4 Stage 3 freeze verifier | `scripts/verify_gate4_stage3_freeze.py` | Strict machine-checkable Gate 4 closure verifier. |
+
 ## HISTORICAL / DEPRECATED
 
 These may remain as development evidence, but must not feed the Final V2 experiment unless a later gate explicitly reclassifies them through a new manifest.

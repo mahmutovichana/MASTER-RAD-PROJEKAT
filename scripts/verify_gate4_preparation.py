@@ -82,10 +82,48 @@ def verify(root: Path = ROOT) -> dict:
             raise RuntimeError("External input path/hash mismatch")
     if external["inputs"]["stage3_config"]["sha256"] != STAGE3_CONFIG_SHA256:
         raise RuntimeError("Stage 3 config identity mismatch")
-    if run_manifest.get("status") != "PREPARED_EXTERNAL_COMPUTE_REQUIRED" or run_manifest.get("results_present") is not False or run_manifest.get("stage3_freeze_manifest_present") is not False or run_manifest.get("confirmation_accessed") is not False or run_manifest.get("input_manifest_sha256") != sha256_file(output / "external_run_input_manifest.json"):
+    run_status = str(run_manifest.get("status") or "")
+    prepared_run = (
+        run_status == "PREPARED_EXTERNAL_COMPUTE_REQUIRED"
+        and run_manifest.get("results_present") is False
+        and run_manifest.get("stage3_freeze_manifest_present") is False
+    )
+    completed_run = (
+        run_status == "COMPLETED_DEVELOPMENT_ONLY"
+        and run_manifest.get("results_present") is True
+        and run_manifest.get("stage3_freeze_manifest_present") is True
+    )
+    if (
+        not (prepared_run or completed_run)
+        or run_manifest.get("confirmation_accessed") is not False
+        or run_manifest.get("input_manifest_sha256")
+        != sha256_file(output / "external_run_input_manifest.json")
+    ):
         raise RuntimeError("Gate 4 external-run state mismatch")
     state = load_json(root / "reports/final_v2/finalization_state.json")
-    if state["gate_statuses"]["gate_4_stage3_retrieval_generation_study_and_freeze"] != "IN_PROGRESS_EXTERNAL_COMPUTE_REQUIRED" or state["current_gate"] != 4 or state.get("confirmation_results_accessed_by_gate_4") is not False or state["confirmation_sealed"] is not True or state["final_model_freeze_state"]["stage3_freeze_manifest_present"] is not False:
+    gate4_status = state["gate_statuses"]["gate_4_stage3_retrieval_generation_study_and_freeze"]
+    current_gate = int(state["current_gate"])
+    freeze_present = state["final_model_freeze_state"]["stage3_freeze_manifest_present"]
+
+    in_progress = (
+        gate4_status == "IN_PROGRESS_EXTERNAL_COMPUTE_REQUIRED"
+        and current_gate == 4
+        and freeze_present is False
+        and prepared_run
+    )
+
+    frozen = (
+        gate4_status == "PASS"
+        and current_gate >= 5
+        and freeze_present is True
+        and completed_run
+    )
+
+    if (
+        not (in_progress or frozen)
+        or state.get("confirmation_results_accessed_by_gate_4") is not False
+        or state["confirmation_sealed"] is not True
+    ):
         raise RuntimeError("Gate 4 finalization state mismatch")
     return {
         "status": "PASS",
@@ -94,7 +132,7 @@ def verify(root: Path = ROOT) -> dict:
         "primary": coverage["primary"],
         "secondary": {**coverage["secondary"], "category_counts": dict(sorted(secondary_counts.items()))},
         "confirmation_accessed": False,
-        "gate4_status": "IN_PROGRESS_EXTERNAL_COMPUTE_REQUIRED",
+        "gate4_status": gate4_status,
     }
 
 

@@ -22,7 +22,11 @@ def _sandbox_task(tmp_path: Path, task: str) -> tuple[Path, Path]:
 
 
 def test_gate3_freeze_verifier_passes() -> None:
-    result=verify(); assert result["status"]=="PASS"; assert result["confirmation_accessed"] is False; assert result["gate4_status"]=="NOT_EXECUTED"
+    result=verify()
+    assert result["status"]=="PASS"
+    assert result["confirmation_accessed"] is False
+    assert result["gate4_status"]=="PASS"
+    assert result["current_gate"]==5
 
 
 def test_model_hash_corruption_rejected(tmp_path: Path) -> None:

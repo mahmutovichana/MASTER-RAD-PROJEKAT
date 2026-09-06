@@ -51,11 +51,24 @@ def test_gate0_state_is_machine_checkable_and_confirmation_safe() -> None:
         assert rel_path
         assert (ROOT / rel_path).exists(), key
 
-    assert state["final_model_freeze_state"] == {
-        "binary_freeze_manifest_present": True,
-        "category_freeze_manifest_present": True,
-        "stage3_freeze_manifest_present": False,
-    }
+    freeze_state = state["final_model_freeze_state"]
+
+    assert freeze_state["binary_freeze_manifest_present"] is True
+    assert freeze_state["category_freeze_manifest_present"] is True
+
+    gate4_status = state["gate_statuses"][
+        "gate_4_stage3_retrieval_generation_study_and_freeze"
+    ]
+
+    if gate4_status == "PASS":
+        assert freeze_state["stage3_freeze_manifest_present"] is True
+        assert int(state["current_gate"]) >= 5
+    else:
+        assert gate4_status in {
+            "NOT_EXECUTED",
+            "IN_PROGRESS_EXTERNAL_COMPUTE_REQUIRED",
+        }
+        assert freeze_state["stage3_freeze_manifest_present"] is False
 
 
 def test_gate0_state_matches_current_canonical_manifests() -> None:
