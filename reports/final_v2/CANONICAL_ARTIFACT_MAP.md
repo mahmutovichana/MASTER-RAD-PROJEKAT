@@ -40,6 +40,11 @@ These artifacts define the current Final V2 experiment state.
 | Gate 3 overall freeze manifest | `reports/final_v2/gate3/GATE3_CLASSIFIER_FREEZE_MANIFEST.json` | Canonical link between both frozen classifiers and upstream Gate 1/2 evidence. |
 | Gate 3 training provenance | `reports/final_v2/gate3/GATE3_TRAINING_PROVENANCE.json` | Exact source-file hashes used for training, with the Gate 2 closure commit recorded only as upstream context. |
 | Gate 3 freeze report | `reports/final_v2/gate3/GATE3_CLASSIFIER_FREEZE_REPORT.md` | Thesis-facing freeze method, artifacts, reproducibility and sealed-confirmation boundary. |
+| Gate 4 development predictions | `reports/final_v2/gate4/development_validation_predictions.jsonl`, `reports/final_v2/gate4/development_prediction_manifest.json` | Frozen Gate 3 predictions over all development-validation rows; no confirmation or human/gold outcome fields. |
+| Gate 4 primary sample | `reports/final_v2/gate4/primary_sample.jsonl` | Seed-42 natural-distribution sample of 100 predicted positives, sampled before context-availability inspection. |
+| Gate 4 category stress sample | `reports/final_v2/gate4/secondary_stress_sample.jsonl` | Supplementary development-only sample of 25 predicted positives per primary predicted category. |
+| Gate 4 preparation manifests | `reports/final_v2/gate4/sample_manifest.json`, `reports/final_v2/gate4/context_coverage_audit.json`, `reports/final_v2/gate4/external_run_input_manifest.json`, `reports/final_v2/gate4/external_run_manifest.json` | Sampling, retrieval-coverage, source/input integrity and external-compute boundary. |
+| Gate 4 external runbook | `reports/final_v2/gate4/GATE4_EXTERNAL_RUNBOOK.md` | Reproducible FP16 Kaggle execution and resumable return-package instructions. |
 
 ## HISTORICAL / DEPRECATED
 

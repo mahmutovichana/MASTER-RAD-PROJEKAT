@@ -15,6 +15,7 @@ import joblib
 from docguard_eval_v2.reference_evaluation import generation_view, sha256_file, write_json, write_jsonl
 from docguard_ml_v2.data_contract import binary_eligible_rows, load_jsonl, serialize_model_row
 from docguard_ml_v2.model_manifest import utc_now
+from docguard_llm_v2.context_adapter import normalize_documentation_context
 from docguard_llm_v2.pipeline import generate_semantic_documentation_patch, load_config
 
 
@@ -122,7 +123,7 @@ def run(*, confirmation: Path, repository_partition_manifest: Path, binary_model
                 predicted_category=category,
                 code_diff=str(safe_context.get("code_diff_excerpt") or ""),
                 docs_before=str(safe_context.get("docs_before_excerpt") or ""),
-                documentation_context_candidates=list(row.get("documentation_context_candidates") or row.get("generator_context", {}).get("documentation_context_candidates") or []),
+                documentation_context_candidates=normalize_documentation_context(row),
                 llm_backend=llm_backend,
                 config=cfg,
             )

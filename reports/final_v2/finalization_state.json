@@ -39,6 +39,13 @@
     "gate3_training_provenance": "reports/final_v2/gate3/GATE3_TRAINING_PROVENANCE.json",
     "gate3_report": "reports/final_v2/gate3/GATE3_CLASSIFIER_FREEZE_REPORT.md",
     "gate3_verifier": "scripts/verify_gate3_classifier_freeze.py",
+    "gate4_development_prediction_manifest": "reports/final_v2/gate4/development_prediction_manifest.json",
+    "gate4_primary_sample": "reports/final_v2/gate4/primary_sample.jsonl",
+    "gate4_secondary_stress_sample": "reports/final_v2/gate4/secondary_stress_sample.jsonl",
+    "gate4_sample_manifest": "reports/final_v2/gate4/sample_manifest.json",
+    "gate4_context_coverage_audit": "reports/final_v2/gate4/context_coverage_audit.json",
+    "gate4_external_input_manifest": "reports/final_v2/gate4/external_run_input_manifest.json",
+    "gate4_preparation_verifier": "scripts/verify_gate4_preparation.py",
     "model_visible_collision_audit": "reports/final_v2/gate1_model_visible_collision_audit.json",
     "pre_experiment_audit": "reports/final_v2/pre_experiment_audit.json",
     "stage3_config": "configs/stage3_semantic_generation_v2.json"
@@ -47,6 +54,7 @@
   "confirmation_results_accessed_by_gate_1": false,
   "confirmation_results_accessed_by_gate_2": false,
   "confirmation_results_accessed_by_gate_3": false,
+  "confirmation_results_accessed_by_gate_4": false,
   "confirmation_sealed": true,
   "current_commit_at_gate_1_audit_start": "b1a5b40173967b00a8b3a48263231061907d61c4",
   "current_gate": 4,
@@ -123,12 +131,31 @@
     "safe_test_suite": {"passed": 428, "failed": 0, "skipped": 0, "warnings": 30, "command": "python -m pytest -q", "status": "PASS"},
     "blocker": null
   },
+  "gate_4_summary": {
+    "status": "IN_PROGRESS_EXTERNAL_COMPUTE_REQUIRED",
+    "gate3_closure_commit": "e4b4bed2ca5ddcbc34ad98d5f78fbf88769fa012",
+    "development_validation_rows_scored": 3148,
+    "predicted_positive_pool": 375,
+    "primary_sample_rows": 100,
+    "primary_retrieval_context_available": 8,
+    "primary_retrieval_context_unavailable": 92,
+    "secondary_sample_rows": 100,
+    "secondary_rows_per_predicted_category": 25,
+    "secondary_retrieval_context_available": 83,
+    "secondary_retrieval_context_unavailable": 17,
+    "real_qwen_execution_completed": false,
+    "stage3_freeze_manifest_present": false,
+    "confirmation_accessed": false,
+    "focused_tests": {"passed": 35, "failed": 0, "command": "python -m pytest -q tests/test_gate4_stage3_preparation.py tests/test_stage3_v2_semantic_generation.py tests/test_gate3_classifier_freeze.py", "status": "PASS"},
+    "safe_test_suite": {"passed": 437, "failed": 0, "skipped": 0, "warnings": 30, "command": "python -m pytest -q", "status": "PASS"},
+    "blocker": "Real Qwen/Qwen2.5-Coder-7B-Instruct FP16 development execution requires the preflighted Kaggle 2xT4 environment."
+  },
   "gate_statuses": {
     "gate_0_canonical_pipeline_and_integrity_baseline": "PASS",
     "gate_1_human_gold_dataset_freeze": "PASS",
     "gate_2_development_only_ml_model_study": "PASS",
     "gate_3_final_classifier_selection_and_freeze": "PASS",
-    "gate_4_stage3_retrieval_generation_study_and_freeze": "NOT_EXECUTED",
+    "gate_4_stage3_retrieval_generation_study_and_freeze": "IN_PROGRESS_EXTERNAL_COMPUTE_REQUIRED",
     "gate_5_one_shot_confirmation": "NOT_EXECUTED",
     "gate_6_post_hoc_and_human_evaluation": "NOT_EXECUTED",
     "gate_7_thesis_evidence_freeze": "NOT_EXECUTED"
@@ -438,7 +465,7 @@
     "sent_to_review": 779,
     "unresolved_scope_decision": false
   },
-  "next_allowed_gate": "Gate 4 may begin only after a separate explicit authorization; it remains NOT_EXECUTED in this Gate 3 closure",
+  "next_allowed_gate": "Run the prepared development-only Gate 4 Qwen workload on Kaggle, return and verify its archive, then complete Gate 4 locally. Gate 5 and confirmation remain forbidden.",
   "partition_integrity": {
     "final_gold_manifest_confirmation_sealed": true,
     "final_gold_manifest_partition_repository_counts": {

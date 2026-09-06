@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from docguard_llm_v2.change_analyzer import analyze_change
+from docguard_llm_v2.context_adapter import FORBIDDEN_GENERATION_KEYS, assert_generation_payload_safe
 from docguard_llm_v2.document_retriever import retrieve_documents
 from docguard_llm_v2.documentation_writer import write_documentation
 from docguard_llm_v2.generation_options import options_for_purpose
@@ -15,7 +16,7 @@ from docguard_llm_v2.repair import repair_documentation
 from docguard_llm_v2.schemas import asdict_shallow
 
 
-FORBIDDEN_CONTEXT_KEYS = {"docs_after_excerpt", "docs_diff_excerpt", "gold_docs_update_required", "gold_doc_category", "human_label_notes", "manual_label_notes"}
+FORBIDDEN_CONTEXT_KEYS = FORBIDDEN_GENERATION_KEYS
 
 
 def load_config(path: str | Path) -> dict[str, Any]:
@@ -53,7 +54,40 @@ def generate_semantic_documentation_patch(
             "llm_call_count": 0,
             "latencies": {"total_seconds": time.perf_counter() - started},
         }
-    forbidden = {key: value for key, value in (forbidden_context or {}).items() if key in FORBIDDEN_CONTEXT_KEYS and value}
+    forbidden = {key: value for key, value in (forbidden_context or {}).items() if key in FORBIDDEN_CONTEXT_KEYS}
+    if forbidden:
+        return {
+            "final_status": "human_review_required",
+            "final_source": "none",
+            "final_patch": None,
+            "first_pass_verifier": {
+                "safety_status": "fail",
+                "violations": [{"code": "forbidden_generation_input", "message": "Forbidden outcome/reference input was blocked before any LLM call.", "offending_text": key} for key in sorted(forbidden)],
+                "supported_atoms": [],
+                "unsupported_atoms": [],
+            },
+            "repair_attempted": False,
+            "repair_verifier": None,
+            "llm_call_count": 0,
+            "latencies": {"total_seconds": time.perf_counter() - started},
+        }
+    if not documentation_context_candidates:
+        return {
+            "final_status": "retrieval_context_unavailable",
+            "final_source": "none",
+            "final_patch": None,
+            "selected_document": None,
+            "llm_call_count": 0,
+            "latencies": {"total_seconds": time.perf_counter() - started},
+        }
+    assert_generation_payload_safe(
+        {
+            "code_diff_excerpt": code_diff,
+            "docs_before_excerpt": docs_before,
+            "predicted_category": predicted_category,
+            "documentation_context_candidates": documentation_context_candidates,
+        }
+    )
     analysis_result = analyze_change(code_diff=code_diff, predicted_category=predicted_category, docs_before=docs_before, llm=llm_backend, model=cfg.get("analysis_model") or llm_model, generation_options=options_for_purpose(cfg, "analysis"))
     llm_call_count += 1
     analysis_dict = analysis_result["analysis_dict"]

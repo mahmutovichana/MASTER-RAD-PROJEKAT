@@ -103,7 +103,7 @@ def verify(root: Path = PROJECT_ROOT) -> dict[str, Any]:
         linked=overall[task]; manifest_path=root/linked["path"]
         if linked["sha256"]!=sha256_file(manifest_path) or linked["model_sha256"]!=item["model_sha256"]: raise RuntimeError(f"Overall {task} manifest link mismatch")
     state=json.loads((root/"reports/final_v2/finalization_state.json").read_text())
-    if state["gate_statuses"]["gate_3_final_classifier_selection_and_freeze"]!="PASS" or state["gate_statuses"]["gate_4_stage3_retrieval_generation_study_and_freeze"]!="NOT_EXECUTED" or state["current_gate"]!=4 or state.get("confirmation_results_accessed_by_gate_3") is not False or state["confirmation_sealed"] is not True: raise RuntimeError("Gate 3 finalization state mismatch")
+    if state["gate_statuses"]["gate_3_final_classifier_selection_and_freeze"]!="PASS" or state["gate_statuses"]["gate_4_stage3_retrieval_generation_study_and_freeze"] not in {"NOT_EXECUTED", "IN_PROGRESS_EXTERNAL_COMPUTE_REQUIRED"} or state["current_gate"]!=4 or state.get("confirmation_results_accessed_by_gate_3") is not False or state["confirmation_sealed"] is not True: raise RuntimeError("Gate 3 finalization state mismatch")
     sample=rows[0]; forbidden={**sample,"docs_after_excerpt":"MUTATION","pr_title":"MUTATION","label_source":"MUTATION"}
     for task in ("binary","category"):
         payload=joblib.load(root/f"models/final_v2/gate3/{task}_m1_gate3.joblib"); model=payload["model"]

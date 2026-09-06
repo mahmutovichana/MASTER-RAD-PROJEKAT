@@ -1,0 +1,32 @@
+{
+  "schema_version": "gate4_external_output_contract_v1",
+  "results_file": "development_generation_results.jsonl",
+  "required_result_fields": [
+    "run_key",
+    "sample_name",
+    "case_id",
+    "frozen_binary_prediction",
+    "frozen_category_prediction",
+    "retrieval_context_available",
+    "final_status",
+    "llm_call_count",
+    "generated_patch",
+    "selected_target_document",
+    "latency_seconds",
+    "stage3_result"
+  ],
+  "context_unavailable_contract": {
+    "final_status": "retrieval_context_unavailable",
+    "llm_call_count": 0,
+    "generated_patch": null,
+    "stage3_result": null
+  },
+  "allowed_executed_statuses": [
+    "accepted_first_pass",
+    "accepted_after_repair",
+    "human_review_required"
+  ],
+  "receipt_file": "gate4_external_run_receipt.json",
+  "return_archive": "gate4_external_return.zip",
+  "confirmation_accessed": false
+}
