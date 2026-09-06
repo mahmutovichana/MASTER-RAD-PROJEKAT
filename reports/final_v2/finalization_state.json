@@ -189,12 +189,14 @@
     "memory_safety_contract": {
       "status": "HARDENED_DEVELOPMENT_ONLY",
       "max_input_tokens": 4096,
-      "input_budget_policy": "fail_closed_human_review_required_without_llm_call",
+      "input_budget_policy": "fail_closed_human_review_required; the offending oversized prompt is rejected before CUDA",
       "input_budget_execution_error": "input_token_budget_exceeded",
       "cuda_oom_policy": "fail_closed_human_review_required_and_continue_batch",
       "cuda_oom_execution_error": "cuda_out_of_memory",
       "automatic_prompt_truncation": false,
-      "confirmation_accessed": false
+      "confirmation_accessed": false,
+      "offending_prompt_llm_call_counted": false,
+      "prior_case_llm_calls_preserved": true
     }
   },
   "gate_statuses": {
