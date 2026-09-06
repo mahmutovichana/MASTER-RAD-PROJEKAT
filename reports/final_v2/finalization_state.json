@@ -165,25 +165,35 @@
     "stage3_freeze_manifest_present": false,
     "confirmation_accessed": false,
     "focused_tests": {
-      "passed": 37,
+      "passed": 39,
       "failed": 0,
       "command": "python -m pytest -q tests/test_gate4_stage3_preparation.py tests/test_stage3_v2_semantic_generation.py tests/test_gate3_classifier_freeze.py",
       "status": "PASS"
     },
     "safe_test_suite": {
-      "passed": 439,
+      "passed": 441,
       "failed": 0,
       "skipped": 0,
       "warnings": 30,
       "command": "python -m pytest -q",
       "status": "PASS"
     },
-    "blocker": "Real Qwen/Qwen2.5-Coder-7B-Instruct FP16 development execution requires the preflighted Kaggle 2xT4 environment.",
+    "blocker": "The final canonical development-only Qwen run must complete under the hardened structured-output and 4096-token memory-safety contract before Gate 4 can freeze.",
     "structured_output_contract": {
       "status": "HARDENED_DEVELOPMENT_ONLY",
       "writer_confidence_contract": "numeric_0_to_1",
       "invalid_json_or_schema_policy": "fail_closed_human_review_required",
       "execution_errors_reported_separately": true,
+      "confirmation_accessed": false
+    },
+    "memory_safety_contract": {
+      "status": "HARDENED_DEVELOPMENT_ONLY",
+      "max_input_tokens": 4096,
+      "input_budget_policy": "fail_closed_human_review_required_without_llm_call",
+      "input_budget_execution_error": "input_token_budget_exceeded",
+      "cuda_oom_policy": "fail_closed_human_review_required_and_continue_batch",
+      "cuda_oom_execution_error": "cuda_out_of_memory",
+      "automatic_prompt_truncation": false,
       "confirmation_accessed": false
     }
   },

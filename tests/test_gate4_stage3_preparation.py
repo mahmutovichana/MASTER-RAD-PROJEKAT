@@ -218,3 +218,100 @@ def test_external_runner_fails_closed_on_invalid_writer_schema(monkeypatch):
     assert result["stage3_result"]["execution_error"]["error_type"] == (
         "ValueError"
     )
+
+
+def test_external_runner_fails_closed_on_input_token_budget(monkeypatch):
+    import scripts.run_gate4_external_qwen as runner
+    from docguard_llm_v2.hf_backend import InputTokenBudgetExceeded
+
+    class CountingBackend:
+        def __init__(self):
+            self.call_count = 0
+
+    backend = CountingBackend()
+
+    def fake_stage3(**kwargs):
+        raise InputTokenBudgetExceeded(
+            input_tokens=20265,
+            max_input_tokens=4096,
+            purpose="analysis",
+        )
+
+    monkeypatch.setattr(
+        runner,
+        "generate_semantic_documentation_patch",
+        fake_stage3,
+    )
+
+    row = prediction(
+        "oversized-prompt-case",
+        category="api_reference",
+        context=True,
+    )
+    row["sample_name"] = "secondary_category_stress"
+    row["code_diff_excerpt"] = "+example"
+    row["docs_before_excerpt"] = "existing docs"
+
+    result = runner._result_row(
+        row,
+        backend=backend,
+        config={},
+    )
+
+    assert result["final_status"] == "human_review_required"
+    assert result["generated_patch"] is None
+    assert result["llm_call_count"] == 0
+
+    error = result["stage3_result"]["execution_error"]
+
+    assert error["code"] == "input_token_budget_exceeded"
+    assert error["input_tokens"] == 20265
+    assert error["max_input_tokens"] == 4096
+    assert error["purpose"] == "analysis"
+
+
+def test_external_runner_fails_closed_on_cuda_oom(monkeypatch):
+    import scripts.run_gate4_external_qwen as runner
+    from docguard_llm_v2.hf_backend import GenerationCudaOutOfMemory
+
+    class CountingBackend:
+        def __init__(self):
+            self.call_count = 0
+
+    backend = CountingBackend()
+
+    def fake_stage3(**kwargs):
+        backend.call_count += 1
+        raise GenerationCudaOutOfMemory(
+            purpose="writer"
+        )
+
+    monkeypatch.setattr(
+        runner,
+        "generate_semantic_documentation_patch",
+        fake_stage3,
+    )
+
+    row = prediction(
+        "cuda-oom-case",
+        category="configuration",
+        context=True,
+    )
+    row["sample_name"] = "secondary_category_stress"
+    row["code_diff_excerpt"] = "+example"
+    row["docs_before_excerpt"] = "existing docs"
+
+    result = runner._result_row(
+        row,
+        backend=backend,
+        config={},
+    )
+
+    assert result["final_status"] == "human_review_required"
+    assert result["generated_patch"] is None
+    assert result["llm_call_count"] == 1
+
+    error = result["stage3_result"]["execution_error"]
+
+    assert error["code"] == "cuda_out_of_memory"
+    assert error["purpose"] == "writer"

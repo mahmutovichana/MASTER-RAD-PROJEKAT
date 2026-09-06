@@ -17,7 +17,11 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from docguard_llm_v2.gate4_study import STAGE3_CONFIG_SHA256, generation_payload, sha256_file, write_canonical_json
-from docguard_llm_v2.hf_backend import HuggingFaceChatBackend
+from docguard_llm_v2.hf_backend import (
+    GenerationCudaOutOfMemory,
+    HuggingFaceChatBackend,
+    InputTokenBudgetExceeded,
+)
 from docguard_llm_v2.pipeline import generate_semantic_documentation_patch, load_config
 from docguard_ml_v2.data_contract import load_jsonl, write_jsonl
 
@@ -32,6 +36,7 @@ EXPECTED_CONFIG = {
     "max_tokens_repair": 512,
     "top_k_documents": 3,
     "max_repair_attempts": 1,
+    "max_input_tokens": 4096,
 }
 
 
@@ -108,6 +113,54 @@ def _result_row(row: dict[str, Any], *, backend: Any, config: dict[str, Any]) ->
             llm_backend=backend,
             config=config,
         )
+    except InputTokenBudgetExceeded as exc:
+        calls_after = int(
+            getattr(backend, "call_count", calls_before)
+        )
+        case_calls = max(
+            0,
+            calls_after - calls_before,
+        )
+
+        stage3 = {
+            "final_status": "human_review_required",
+            "final_source": "none",
+            "final_patch": None,
+            "selected_document": None,
+            "llm_call_count": case_calls,
+            "execution_error": {
+                "code": "input_token_budget_exceeded",
+                "error_type": type(exc).__name__,
+                "message": str(exc),
+                "purpose": exc.purpose,
+                "input_tokens": exc.input_tokens,
+                "max_input_tokens": exc.max_input_tokens,
+            },
+        }
+
+    except GenerationCudaOutOfMemory as exc:
+        calls_after = int(
+            getattr(backend, "call_count", calls_before)
+        )
+        case_calls = max(
+            0,
+            calls_after - calls_before,
+        )
+
+        stage3 = {
+            "final_status": "human_review_required",
+            "final_source": "none",
+            "final_patch": None,
+            "selected_document": None,
+            "llm_call_count": case_calls,
+            "execution_error": {
+                "code": "cuda_out_of_memory",
+                "error_type": type(exc).__name__,
+                "message": str(exc),
+                "purpose": exc.purpose,
+            },
+        }
+
     except (json.JSONDecodeError, ValueError, TypeError) as exc:
         calls_after = int(getattr(backend, "call_count", calls_before))
         case_calls = max(0, calls_after - calls_before)
@@ -168,6 +221,7 @@ def _runtime_metadata(backend: HuggingFaceChatBackend) -> dict[str, Any]:
         "model": backend.model_name,
         "precision": "float16",
         "quantized": False,
+        "max_input_tokens": backend.max_input_tokens,
     }
 
 
@@ -193,7 +247,14 @@ def run(root: Path, manifest_path: Path, output_dir: Path) -> dict[str, Any]:
     pending_available = [row for row in samples if f"{row['sample_name']}::{row['case_id']}" not in existing_by_key and row.get("retrieval_context_available")]
     backend = None
     if pending_available:
-        backend = HuggingFaceChatBackend(EXPECTED_CONFIG["analysis_model"], seed=42, require_cuda=True)
+        backend = HuggingFaceChatBackend(
+            EXPECTED_CONFIG["analysis_model"],
+            seed=42,
+            require_cuda=True,
+            max_input_tokens=int(
+                config["max_input_tokens"]
+            ),
+        )
     for row in samples:
         key = f"{row['sample_name']}::{row['case_id']}"
         if key not in pending_keys:
