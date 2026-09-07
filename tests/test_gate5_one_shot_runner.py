@@ -221,3 +221,61 @@ def test_input_budget_failure_is_fail_closed(
         result["llm_call_count"]
         == 0
     )
+
+
+def test_classifier_runtime_canary_is_development_only():
+    root = Path(
+        __file__
+    ).resolve().parents[1]
+
+    canary = json.loads(
+        (
+            root
+            / "reports/final_v2/gate5/"
+              "GATE5_CLASSIFIER_RUNTIME_PORTABILITY_CANARY.json"
+        ).read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert (
+        canary[
+            "confirmation_accessed"
+        ]
+        is False
+    )
+
+    assert (
+        canary[
+            "development_only"
+        ]
+        is True
+    )
+
+    assert (
+        canary[
+            "gate5_execution_started"
+        ]
+        is False
+    )
+
+    assert (
+        canary[
+            "source_runtime"
+        ][
+            "sklearn"
+        ]
+        == "1.8.0"
+    )
+
+    assert (
+        canary[
+            "target_execution_runtime"
+        ]
+        == {
+            "python": "3.12.13",
+            "sklearn": "1.8.0",
+            "numpy": "2.4.0",
+            "joblib": "1.5.3",
+        }
+    )

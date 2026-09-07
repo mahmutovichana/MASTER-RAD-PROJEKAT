@@ -81,6 +81,21 @@ def sha256_file(
     return digest.hexdigest()
 
 
+def canonical_json_sha(
+    payload: object,
+) -> str:
+    data = json.dumps(
+        payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+
+    return hashlib.sha256(
+        data
+    ).hexdigest()
+
+
 def load_json(
     path: Path,
 ) -> dict[str, Any]:
@@ -167,6 +182,32 @@ def verify(
             "EOL portability correction failed."
         )
 
+    gate3_child_link = (
+        gate3.get(
+            "child_manifest_link_eol_portability_correction"
+        )
+        or {}
+    )
+
+    if (
+        gate3_child_link.get(
+            "status"
+        )
+        != "PASS"
+        or gate3_child_link.get(
+            "scientific_content_changed"
+        )
+        is not False
+        or gate3_child_link.get(
+            "confirmation_accessed"
+        )
+        is not False
+    ):
+        raise RuntimeError(
+            "Gate 3 child-manifest link "
+            "portability correction failed."
+        )
+
     gate4 = verify_gate4(
         root
     )
@@ -234,16 +275,107 @@ def verify(
           "GATE3_SELECTION_EVIDENCE_EOL_PORTABILITY_CORRECTION.json"
     )
 
+    child_link_correction_path = (
+        root
+        / "reports/final_v2/gate3/"
+          "GATE3_CHILD_MANIFEST_LINK_EOL_PORTABILITY_CORRECTION.json"
+    )
+
+    classifier_canary_path = (
+        root
+        / "reports/final_v2/gate5/"
+          "GATE5_CLASSIFIER_RUNTIME_PORTABILITY_CANARY.json"
+    )
+
     for required in (
         prereg_path,
         preflight_path,
         runner_path,
         bootstrap_path,
         correction_path,
+        child_link_correction_path,
+        classifier_canary_path,
     ):
         if not required.is_file():
             raise RuntimeError(
                 f"Missing Gate 5 preflight artifact: {required}"
+            )
+
+    classifier_canary = load_json(
+        classifier_canary_path
+    )
+
+    if (
+        classifier_canary.get("schema_version")
+        != "gate5_classifier_runtime_portability_canary_v1"
+        or classifier_canary.get("status")
+        != "REFERENCE_FROZEN_PRE_CONFIRMATION"
+        or classifier_canary.get("confirmation_accessed")
+        is not False
+        or classifier_canary.get("confirmation_sealed")
+        is not True
+        or classifier_canary.get("development_only")
+        is not True
+        or classifier_canary.get("gate5_execution_started")
+        is not False
+        or classifier_canary.get("scientific_method_changed")
+        is not False
+        or classifier_canary.get("model_selection_changed")
+        is not False
+        or classifier_canary.get("threshold_changed")
+        is not False
+        or classifier_canary.get("source_runtime")
+        != {'python': '3.14.0', 'sklearn': '1.8.0', 'numpy': '2.4.0', 'joblib': '1.5.3'}
+        or classifier_canary.get("target_execution_runtime")
+        != {'python': '3.12.13', 'sklearn': '1.8.0', 'numpy': '2.4.0', 'joblib': '1.5.3'}
+        or canonical_json_sha(classifier_canary)
+        != "c90881179b6c92df6ac0cca51c5bb9f84f2fd13140d41273e118a0cca0499439"
+    ):
+        raise RuntimeError(
+            "Gate 5 classifier runtime portability "
+            "canary contract mismatch."
+        )
+
+    for task, expected_model in (
+        ("binary", BINARY_SHA),
+        ("category", CATEGORY_SHA),
+    ):
+        item = (
+            classifier_canary.get(
+                "models",
+                {},
+            ).get(
+                task,
+                {},
+            )
+        )
+
+        task_canary = (
+            classifier_canary.get(
+                "tasks",
+                {},
+            ).get(
+                task,
+                {},
+            )
+        )
+
+        if (
+            item.get("sha256")
+            != expected_model
+            or task_canary.get("sample_rows")
+            != 128
+            or len(
+                task_canary.get(
+                    "case_ids",
+                    [],
+                )
+            )
+            != 128
+        ):
+            raise RuntimeError(
+                f"Gate 5 {task} classifier "
+                "canary identity mismatch."
             )
 
     prereg = load_json(
@@ -626,6 +758,8 @@ def verify(
         "scripts/run_gate5_one_shot_qwen.py",
         "docguard_eval_v2/gate5_bootstrap.py",
         "reports/final_v2/gate3/GATE3_SELECTION_EVIDENCE_EOL_PORTABILITY_CORRECTION.json",
+        "reports/final_v2/gate3/GATE3_CHILD_MANIFEST_LINK_EOL_PORTABILITY_CORRECTION.json",
+        "reports/final_v2/gate5/GATE5_CLASSIFIER_RUNTIME_PORTABILITY_CANARY.json",
     ):
         if required_path not in artifact_map:
             raise RuntimeError(
@@ -672,6 +806,16 @@ def verify(
             sha256_file(
                 correction_path
             ),
+        "gate3_child_manifest_link_portability":
+            "PASS",
+        "gate3_child_manifest_link_portability_sha256":
+            sha256_file(
+                child_link_correction_path
+            ),
+        "classifier_runtime_canary":
+            "REFERENCE_FROZEN_PRE_CONFIRMATION",
+        "classifier_runtime_canary_canonical_sha256":
+            "c90881179b6c92df6ac0cca51c5bb9f84f2fd13140d41273e118a0cca0499439",
         "preregistration_sha256":
             sha256_file(
                 prereg_path

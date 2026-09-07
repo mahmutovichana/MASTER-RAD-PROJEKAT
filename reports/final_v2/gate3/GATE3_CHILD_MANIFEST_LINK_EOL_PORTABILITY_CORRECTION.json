@@ -1,0 +1,82 @@
+{
+  "artifacts": {
+    "binary": {
+      "canonical_git_sha256_lf": "1d6556d09cfc50df2fd9ea09e7cbd07e9fbe2778d19aa7e0b479a3853ee393f2",
+      "historical_crlf_lines": 79,
+      "historical_lf_only_json_keys": [
+        "source_commit",
+        "source_commit_semantics",
+        "training_provenance_path",
+        "training_provenance_sha256"
+      ],
+      "historical_lf_only_lines": [
+        54,
+        55,
+        56,
+        57
+      ],
+      "historical_overall_link_sha256_mixed_eol": "0440a0a776ea388ea9953085d9e41e06c5a179208e105cd4ff452739ebc36fc0",
+      "json_semantic_equivalence_verified": true,
+      "mixed_eol_reconstruction_verified": true,
+      "path": "reports/final_v2/gate3/binary_classifier_freeze_manifest.json",
+      "total_lines": 83
+    },
+    "category": {
+      "canonical_git_sha256_lf": "72645db87c50b0a78edce08731166c84b1c0c46ec130dd4a44800b6ff8a96a36",
+      "historical_crlf_lines": 86,
+      "historical_lf_only_json_keys": [
+        "source_commit",
+        "source_commit_semantics",
+        "training_provenance_path",
+        "training_provenance_sha256"
+      ],
+      "historical_lf_only_lines": [
+        61,
+        62,
+        63,
+        64
+      ],
+      "historical_overall_link_sha256_mixed_eol": "7959a014cac7bee961c47182bbf9fc035fda13a7d1873128562807a585b585fc",
+      "json_semantic_equivalence_verified": true,
+      "mixed_eol_reconstruction_verified": true,
+      "path": "reports/final_v2/gate3/category_classifier_freeze_manifest.json",
+      "total_lines": 90
+    }
+  },
+  "cause": "The Gate 3 overall freeze manifest recorded raw SHA-256 values of Windows mixed-EOL child classifier manifests. The historical bytes used CRLF for all lines except the four provenance/source lines, which used LF. Git canonical storage and Linux checkout normalize the same JSON content to LF. Deterministic mixed-EOL reconstruction reproduces both historical overall-link SHA-256 values exactly.",
+  "confirmation_accessed": false,
+  "confirmation_sealed": true,
+  "correction_type": "mixed_line_ending_raw_hash_portability",
+  "discovered_during_gate": 5,
+  "frozen_models_changed": false,
+  "frozen_thresholds_changed": false,
+  "gate5_execution_started": false,
+  "gate5_preregistration_commit": "d12e4c00c008f86bc7025b9e6de15b977f51fd57",
+  "gate5_preregistration_sha256": "dd4ed749774c144d3533128e93749fa003925dbdf73b1a121fee1a3fd40dc3b8",
+  "historical_eol_rule": {
+    "LF_only_json_keys": [
+      "source_commit",
+      "source_commit_semantics",
+      "training_provenance_path",
+      "training_provenance_sha256"
+    ],
+    "default": "CRLF"
+  },
+  "models": {
+    "binary": {
+      "path": "models/final_v2/gate3/binary_m1_gate3.joblib",
+      "sha256": "7d6a9263e1262c5c54db3d2e100209707c6a7681133fb1505f44125efa954462"
+    },
+    "category": {
+      "path": "models/final_v2/gate3/category_m1_gate3.joblib",
+      "sha256": "2d8123ac398568b5c9586b0f8d26d6c4079ddfebd504889b934f77bef65b9f59"
+    }
+  },
+  "original_gate3_child_manifests_modified": false,
+  "original_gate3_overall_manifest_modified": false,
+  "schema_version": "gate3_child_manifest_link_eol_portability_correction_v1",
+  "scientific_content_changed": false,
+  "selection_decision_changed": false,
+  "source_commit_before_correction": "82ed64481d7f980028e8e264b7dfbf942c849908",
+  "status": "PASS"
+}

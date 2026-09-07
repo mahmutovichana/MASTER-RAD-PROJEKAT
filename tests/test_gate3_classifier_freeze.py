@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.verify_gate3_classifier_freeze import assert_gate2_winners, verify, verify_classifier_manifest
+from scripts.verify_gate3_classifier_freeze import assert_gate2_winners, verify, verify_classifier_manifest, verify_child_manifest_link_hash
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -97,3 +97,98 @@ def test_selection_evidence_lf_checkout_matches_historical_crlf_freeze(
         ==
         "canonical_git_lf_with_verified_crlf_equivalence"
     )
+
+
+def test_child_manifest_link_linux_lf_checkout_is_portable(
+    tmp_path: Path,
+) -> None:
+    overall = json.loads(
+        (
+            ROOT
+            / "reports/final_v2/gate3/"
+              "GATE3_CLASSIFIER_FREEZE_MANIFEST.json"
+        ).read_text(
+            encoding="utf-8"
+        )
+    )
+
+    correction_source = (
+        ROOT
+        / "reports/final_v2/gate3/"
+          "GATE3_CHILD_MANIFEST_LINK_EOL_PORTABILITY_CORRECTION.json"
+    )
+
+    correction_target = (
+        tmp_path
+        / correction_source.relative_to(
+            ROOT
+        )
+    )
+
+    correction_target.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    shutil.copy2(
+        correction_source,
+        correction_target,
+    )
+
+    for task in (
+        "binary",
+        "category",
+    ):
+        linked = overall[
+            task
+        ]
+
+        source = (
+            ROOT
+            / linked[
+                "path"
+            ]
+        )
+
+        target = (
+            tmp_path
+            / linked[
+                "path"
+            ]
+        )
+
+        target.parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
+        target.write_bytes(
+            source.read_bytes().replace(
+                b"\r\n",
+                b"\n",
+            )
+        )
+
+        result = (
+            verify_child_manifest_link_hash(
+                tmp_path,
+                task,
+                linked,
+                target,
+            )
+        )
+
+        assert (
+            result[
+                "status"
+            ]
+            == "PASS"
+        )
+
+        assert (
+            result[
+                "mode"
+            ]
+            ==
+            "canonical_git_lf_with_verified_mixed_eol_equivalence"
+        )

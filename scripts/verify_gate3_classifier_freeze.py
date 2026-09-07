@@ -382,6 +382,397 @@ def verify_eol_portability_correction(
     }
 
 
+CHILD_LINK_CORRECTION_RELATIVE = (
+    "reports/final_v2/gate3/"
+    "GATE3_CHILD_MANIFEST_LINK_EOL_PORTABILITY_CORRECTION.json"
+)
+
+CHILD_LINK_CORRECTION_SCHEMA = (
+    "gate3_child_manifest_link_eol_portability_correction_v1"
+)
+
+CHILD_LINK_SPECIAL_LF_KEYS = (
+    "source_commit",
+    "source_commit_semantics",
+    "training_provenance_path",
+    "training_provenance_sha256",
+)
+
+CHILD_LINK_EXPECTED = {
+    "binary": {
+        "canonical_lf_sha256":
+            "1d6556d09cfc50df2fd9ea09e7cbd07e9fbe2778d19aa7e0b479a3853ee393f2",
+        "historical_mixed_eol_sha256":
+            "0440a0a776ea388ea9953085d9e41e06c5a179208e105cd4ff452739ebc36fc0",
+        "lf_only_lines":
+            [54, 55, 56, 57],
+    },
+    "category": {
+        "canonical_lf_sha256":
+            "72645db87c50b0a78edce08731166c84b1c0c46ec130dd4a44800b6ff8a96a36",
+        "historical_mixed_eol_sha256":
+            "7959a014cac7bee961c47182bbf9fc035fda13a7d1873128562807a585b585fc",
+        "lf_only_lines":
+            [61, 62, 63, 64],
+    },
+}
+
+
+def _load_child_link_correction(
+    root: Path,
+) -> dict[str, Any]:
+    path = (
+        root
+        / CHILD_LINK_CORRECTION_RELATIVE
+    )
+
+    if not path.is_file():
+        raise RuntimeError(
+            "Gate 3 child-manifest link "
+            "EOL portability correction is missing"
+        )
+
+    payload = json.loads(
+        path.read_text(
+            encoding="utf-8"
+        )
+    )
+
+    if (
+        payload.get("schema_version")
+        != CHILD_LINK_CORRECTION_SCHEMA
+        or payload.get("status")
+        != "PASS"
+        or payload.get("confirmation_accessed")
+        is not False
+        or payload.get("confirmation_sealed")
+        is not True
+        or payload.get("gate5_execution_started")
+        is not False
+        or payload.get("scientific_content_changed")
+        is not False
+        or payload.get("selection_decision_changed")
+        is not False
+        or payload.get("frozen_models_changed")
+        is not False
+        or payload.get("frozen_thresholds_changed")
+        is not False
+        or payload.get("original_gate3_child_manifests_modified")
+        is not False
+        or payload.get("original_gate3_overall_manifest_modified")
+        is not False
+        or payload.get("gate5_preregistration_commit")
+        != GATE5_PREREGISTRATION_COMMIT
+        or payload.get("gate5_preregistration_sha256")
+        != GATE5_PREREGISTRATION_SHA256
+    ):
+        raise RuntimeError(
+            "Gate 3 child-manifest link "
+            "portability correction contract mismatch"
+        )
+
+    rule = (
+        payload.get(
+            "historical_eol_rule"
+        )
+        or {}
+    )
+
+    if (
+        rule.get("default")
+        != "CRLF"
+        or rule.get(
+            "LF_only_json_keys"
+        )
+        != list(
+            CHILD_LINK_SPECIAL_LF_KEYS
+        )
+    ):
+        raise RuntimeError(
+            "Gate 3 child-manifest historical "
+            "EOL rule mismatch"
+        )
+
+    return payload
+
+
+def _reconstruct_historical_child_manifest(
+    canonical_lf: bytes,
+) -> tuple[bytes, list[int]]:
+    lines = (
+        _lf_bytes(
+            canonical_lf
+        )
+        .decode("utf-8")
+        .splitlines()
+    )
+
+    output = bytearray()
+    lf_only_lines: list[int] = []
+
+    for line_number, line in enumerate(
+        lines,
+        start=1,
+    ):
+        stripped = line.lstrip()
+
+        special = any(
+            stripped.startswith(
+                f'"{key}":'
+            )
+            for key in
+            CHILD_LINK_SPECIAL_LF_KEYS
+        )
+
+        output.extend(
+            line.encode("utf-8")
+        )
+
+        if special:
+            output.extend(
+                b"\n"
+            )
+            lf_only_lines.append(
+                line_number
+            )
+        else:
+            output.extend(
+                b"\r\n"
+            )
+
+    return (
+        bytes(output),
+        lf_only_lines,
+    )
+
+
+def verify_child_manifest_link_hash(
+    root: Path,
+    task: str,
+    linked: dict[str, Any],
+    manifest_path: Path,
+) -> dict[str, Any]:
+    correction = (
+        _load_child_link_correction(
+            root
+        )
+    )
+
+    item = (
+        correction.get(
+            "artifacts",
+            {},
+        ).get(
+            task,
+            {},
+        )
+    )
+
+    expected = (
+        CHILD_LINK_EXPECTED[
+            task
+        ]
+    )
+
+    if (
+        item.get("path")
+        != linked.get("path")
+        or item.get(
+            "canonical_git_sha256_lf"
+        )
+        != expected[
+            "canonical_lf_sha256"
+        ]
+        or item.get(
+            "historical_overall_link_sha256_mixed_eol"
+        )
+        != expected[
+            "historical_mixed_eol_sha256"
+        ]
+        or item.get(
+            "historical_lf_only_lines"
+        )
+        != expected[
+            "lf_only_lines"
+        ]
+        or item.get(
+            "historical_lf_only_json_keys"
+        )
+        != list(
+            CHILD_LINK_SPECIAL_LF_KEYS
+        )
+        or item.get(
+            "json_semantic_equivalence_verified"
+        )
+        is not True
+        or item.get(
+            "mixed_eol_reconstruction_verified"
+        )
+        is not True
+        or linked.get(
+            "sha256"
+        )
+        != expected[
+            "historical_mixed_eol_sha256"
+        ]
+    ):
+        raise RuntimeError(
+            f"Overall {task} manifest "
+            "link portability metadata mismatch"
+        )
+
+    raw = (
+        manifest_path
+        .read_bytes()
+    )
+
+    canonical_lf = (
+        _lf_bytes(
+            raw
+        )
+    )
+
+    if (
+        _sha256_bytes(
+            canonical_lf
+        )
+        != expected[
+            "canonical_lf_sha256"
+        ]
+    ):
+        raise RuntimeError(
+            f"Overall {task} child manifest "
+            "canonical LF hash mismatch"
+        )
+
+    historical, lf_only_lines = (
+        _reconstruct_historical_child_manifest(
+            canonical_lf
+        )
+    )
+
+    if (
+        lf_only_lines
+        != expected[
+            "lf_only_lines"
+        ]
+    ):
+        raise RuntimeError(
+            f"Overall {task} child manifest "
+            "mixed-EOL line profile mismatch"
+        )
+
+    if (
+        _sha256_bytes(
+            historical
+        )
+        != expected[
+            "historical_mixed_eol_sha256"
+        ]
+    ):
+        raise RuntimeError(
+            f"Overall {task} child manifest "
+            "historical mixed-EOL reconstruction mismatch"
+        )
+
+    if (
+        json.loads(
+            canonical_lf.decode(
+                "utf-8"
+            )
+        )
+        !=
+        json.loads(
+            historical.decode(
+                "utf-8"
+            )
+        )
+    ):
+        raise RuntimeError(
+            f"Overall {task} child manifest "
+            "JSON semantic equivalence mismatch"
+        )
+
+    raw_hash = (
+        _sha256_bytes(
+            raw
+        )
+    )
+
+    mode = (
+        "historical_mixed_eol_raw_match"
+        if raw_hash
+        == expected[
+            "historical_mixed_eol_sha256"
+        ]
+        else
+        "canonical_git_lf_with_verified_mixed_eol_equivalence"
+    )
+
+    return {
+        "status":
+            "PASS",
+        "mode":
+            mode,
+        "canonical_lf_sha256":
+            expected[
+                "canonical_lf_sha256"
+            ],
+        "historical_mixed_eol_sha256":
+            expected[
+                "historical_mixed_eol_sha256"
+            ],
+        "scientific_content_changed":
+            False,
+        "confirmation_accessed":
+            False,
+    }
+
+
+def verify_child_manifest_link_portability(
+    root: Path,
+    overall: dict[str, Any],
+) -> dict[str, Any]:
+    tasks: dict[str, Any] = {}
+
+    for task in (
+        "binary",
+        "category",
+    ):
+        linked = overall[
+            task
+        ]
+
+        manifest_path = (
+            root
+            / linked[
+                "path"
+            ]
+        )
+
+        tasks[task] = (
+            verify_child_manifest_link_hash(
+                root,
+                task,
+                linked,
+                manifest_path,
+            )
+        )
+
+    return {
+        "status":
+            "PASS",
+        "path":
+            CHILD_LINK_CORRECTION_RELATIVE,
+        "scientific_content_changed":
+            False,
+        "confirmation_accessed":
+            False,
+        "tasks":
+            tasks,
+    }
+
+
 def assert_gate2_winners(payload: dict[str, Any]) -> None:
     if payload.get("binary", {}).get("selected_family") != "M1" or payload.get("category", {}).get("selected_family") != "M1":
         raise RuntimeError("Gate 2 winner mismatch")
@@ -468,9 +859,14 @@ def verify(root: Path = PROJECT_ROOT) -> dict[str, Any]:
     binary=verify_classifier_manifest(root,root/"reports/final_v2/gate3/binary_classifier_freeze_manifest.json","binary"); category=verify_classifier_manifest(root,root/"reports/final_v2/gate3/category_classifier_freeze_manifest.json","category")
     overall_path=root/"reports/final_v2/gate3/GATE3_CLASSIFIER_FREEZE_MANIFEST.json"; overall=json.loads(overall_path.read_text())
     if overall.get("status")!="PASS" or overall.get("confirmation_accessed") is not False or overall.get("confirmation_sealed") is not True or overall.get("gate4_status")!="NOT_EXECUTED" or overall.get("selected_families")!={"binary":"M1","category":"M1"}: raise RuntimeError("Overall Gate 3 manifest mismatch")
+    child_manifest_link_portability = verify_child_manifest_link_portability(
+        root,
+        overall,
+    )
     for task,item in (("binary",binary),("category",category)):
-        linked=overall[task]; manifest_path=root/linked["path"]
-        if linked["sha256"]!=sha256_file(manifest_path) or linked["model_sha256"]!=item["model_sha256"]: raise RuntimeError(f"Overall {task} manifest link mismatch")
+        linked=overall[task]
+        if linked["model_sha256"]!=item["model_sha256"]:
+            raise RuntimeError(f"Overall {task} model link mismatch")
     state=json.loads((root/"reports/final_v2/finalization_state.json").read_text())
     gate4_status=state["gate_statuses"]["gate_4_stage3_retrieval_generation_study_and_freeze"]
     current_gate=int(state["current_gate"])
@@ -500,6 +896,8 @@ def verify(root: Path = PROJECT_ROOT) -> dict[str, Any]:
         "current_gate": current_gate,
         "selection_evidence_eol_portability_correction":
             eol_correction,
+        "child_manifest_link_eol_portability_correction":
+            child_manifest_link_portability,
     }
 
 

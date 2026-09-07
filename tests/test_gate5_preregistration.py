@@ -123,3 +123,37 @@ def test_gate5_verifier_reports_gate3_eol_portability_correction():
         ]
         == "PASS"
     )
+
+
+def test_gate5_verifier_reports_final_portability_hardening():
+    result = verify(
+        ROOT
+    )
+
+    assert (
+        result[
+            "gate3_child_manifest_link_portability"
+        ]
+        == "PASS"
+    )
+
+    assert (
+        result[
+            "classifier_runtime_canary"
+        ]
+        == "REFERENCE_FROZEN_PRE_CONFIRMATION"
+    )
+
+    assert (
+        result[
+            "confirmation_accessed"
+        ]
+        is False
+    )
+
+    assert (
+        result[
+            "gate5_execution"
+        ]
+        == "NOT_EXECUTED"
+    )

@@ -16,6 +16,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 import joblib
+import numpy as np
+import sklearn
 
 from docguard_llm_v2.hf_backend import (
     HuggingFaceChatBackend,
@@ -23,6 +25,9 @@ from docguard_llm_v2.hf_backend import (
 from docguard_ml_v2.data_contract import (
     binary_eligible_rows,
     load_jsonl,
+)
+from docguard_ml_v2.gate2_closure import (
+    load_development_without_confirmation,
 )
 from docguard_llm_v2.pipeline import (
     load_config,
@@ -148,6 +153,18 @@ EXPECTED_RUNTIME = {
 }
 
 
+EXPECTED_CLASSIFIER_RUNTIME = {'python': '3.12.13', 'sklearn': '1.8.0', 'numpy': '2.4.0', 'joblib': '1.5.3'}
+
+CLASSIFIER_CANARY_RELATIVE = (
+    "reports/final_v2/gate5/"
+    "GATE5_CLASSIFIER_RUNTIME_PORTABILITY_CANARY.json"
+)
+
+EXPECTED_CLASSIFIER_CANARY_CANONICAL_SHA = (
+    "c90881179b6c92df6ac0cca51c5bb9f84f2fd13140d41273e118a0cca0499439"
+)
+
+
 def sha256_file(
     path: Path,
 ) -> str:
@@ -163,6 +180,21 @@ def sha256_file(
             digest.update(chunk)
 
     return digest.hexdigest()
+
+
+def canonical_json_sha(
+    payload: object,
+) -> str:
+    data = json.dumps(
+        payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+
+    return hashlib.sha256(
+        data
+    ).hexdigest()
 
 
 def load_json(
@@ -727,6 +759,12 @@ def validate_runtime_environment() -> dict[str, Any]:
             transformers.__version__,
         "accelerate":
             accelerate.__version__,
+        "sklearn":
+            sklearn.__version__,
+        "numpy":
+            np.__version__,
+        "joblib":
+            joblib.__version__,
         "cuda_device_count":
             int(
                 torch.cuda.device_count()
@@ -759,6 +797,333 @@ def validate_runtime_environment() -> dict[str, Any]:
             )
 
     return actual
+
+
+def validate_classifier_runtime_portability(
+    root: Path,
+) -> dict[str, Any]:
+    actual = {
+        "python":
+            platform.python_version(),
+        "sklearn":
+            sklearn.__version__,
+        "numpy":
+            np.__version__,
+        "joblib":
+            joblib.__version__,
+    }
+
+    if (
+        actual
+        != EXPECTED_CLASSIFIER_RUNTIME
+    ):
+        raise RuntimeError(
+            "Gate 5 classifier runtime mismatch: "
+            f"{actual!r} != "
+            f"{EXPECTED_CLASSIFIER_RUNTIME!r}"
+        )
+
+    canary_path = (
+        root
+        / CLASSIFIER_CANARY_RELATIVE
+    )
+
+    canary = load_json(
+        canary_path
+    )
+
+    if (
+        canonical_json_sha(
+            canary
+        )
+        != EXPECTED_CLASSIFIER_CANARY_CANONICAL_SHA
+    ):
+        raise RuntimeError(
+            "Gate 5 classifier portability "
+            "canary identity mismatch."
+        )
+
+    if (
+        canary.get("schema_version")
+        != "gate5_classifier_runtime_portability_canary_v1"
+        or canary.get("status")
+        != "REFERENCE_FROZEN_PRE_CONFIRMATION"
+        or canary.get("confirmation_accessed")
+        is not False
+        or canary.get("development_only")
+        is not True
+        or canary.get("target_execution_runtime")
+        != EXPECTED_CLASSIFIER_RUNTIME
+    ):
+        raise RuntimeError(
+            "Gate 5 classifier portability "
+            "canary contract mismatch."
+        )
+
+    rows, view = (
+        load_development_without_confirmation(
+            root
+        )
+    )
+
+    if (
+        view.get(
+            "confirmation_accessed"
+        )
+        is not False
+    ):
+        raise RuntimeError(
+            "Classifier portability canary "
+            "attempted unsafe data access."
+        )
+
+    rows_by_id = {
+        str(row["case_id"]):
+            row
+        for row in rows
+    }
+
+    for task in (
+        "binary",
+        "category",
+    ):
+        item = canary[
+            "tasks"
+        ][
+            task
+        ]
+
+        selected = []
+
+        for case_id in item[
+            "case_ids"
+        ]:
+            if case_id not in rows_by_id:
+                raise RuntimeError(
+                    f"Classifier canary row "
+                    f"missing from development: "
+                    f"{case_id}"
+                )
+
+            selected.append(
+                rows_by_id[
+                    case_id
+                ]
+            )
+
+        model_info = canary[
+            "models"
+        ][
+            task
+        ]
+
+        model_path = (
+            root
+            / model_info[
+                "path"
+            ]
+        )
+
+        if (
+            sha256_file(
+                model_path
+            )
+            != model_info[
+                "sha256"
+            ]
+        ):
+            raise RuntimeError(
+                f"{task} classifier canary "
+                "model hash mismatch."
+            )
+
+        payload = joblib.load(
+            model_path
+        )
+
+        model = payload[
+            "model"
+        ]
+
+        probabilities = np.asarray(
+            model.predict_proba(
+                selected
+            ),
+            dtype=float,
+        )
+
+        if task == "binary":
+            classes = [
+                value.item()
+                if hasattr(
+                    value,
+                    "item",
+                )
+                else value
+                for value in
+                model.classes_
+            ]
+
+            if (
+                classes
+                != item[
+                    "classes"
+                ]
+            ):
+                raise RuntimeError(
+                    "Binary classifier canary "
+                    "class-order mismatch."
+                )
+
+            positive = (
+                classes.index(1)
+            )
+
+            observed_probability = (
+                probabilities[
+                    :,
+                    positive,
+                ]
+            )
+
+            expected_probability = (
+                np.asarray(
+                    item[
+                        "positive_probability"
+                    ],
+                    dtype=float,
+                )
+            )
+
+            if not np.allclose(
+                observed_probability,
+                expected_probability,
+                rtol=0.0,
+                atol=1e-12,
+            ):
+                max_delta = float(
+                    np.max(
+                        np.abs(
+                            observed_probability
+                            - expected_probability
+                        )
+                    )
+                )
+
+                raise RuntimeError(
+                    "Binary classifier runtime "
+                    "portability canary failed: "
+                    f"max_probability_delta="
+                    f"{max_delta}"
+                )
+
+            observed_prediction = (
+                observed_probability
+                >= float(
+                    item[
+                        "threshold"
+                    ]
+                )
+            ).astype(int).tolist()
+
+            if (
+                observed_prediction
+                != item[
+                    "frozen_prediction"
+                ]
+            ):
+                raise RuntimeError(
+                    "Binary classifier runtime "
+                    "portability prediction mismatch."
+                )
+
+        else:
+            classes = [
+                str(value)
+                for value in
+                model.classes_
+            ]
+
+            if (
+                classes
+                != item[
+                    "classes"
+                ]
+            ):
+                raise RuntimeError(
+                    "Category classifier canary "
+                    "class-order mismatch."
+                )
+
+            expected_probability = (
+                np.asarray(
+                    item[
+                        "probabilities"
+                    ],
+                    dtype=float,
+                )
+            )
+
+            if not np.allclose(
+                probabilities,
+                expected_probability,
+                rtol=0.0,
+                atol=1e-12,
+            ):
+                max_delta = float(
+                    np.max(
+                        np.abs(
+                            probabilities
+                            - expected_probability
+                        )
+                    )
+                )
+
+                raise RuntimeError(
+                    "Category classifier runtime "
+                    "portability canary failed: "
+                    f"max_probability_delta="
+                    f"{max_delta}"
+                )
+
+            observed_prediction = [
+                str(value)
+                for value in
+                model.predict(
+                    selected
+                ).tolist()
+            ]
+
+            if (
+                observed_prediction
+                != item[
+                    "prediction"
+                ]
+            ):
+                raise RuntimeError(
+                    "Category classifier runtime "
+                    "portability prediction mismatch."
+                )
+
+    return {
+        "status":
+            "PASS",
+        "confirmation_accessed":
+            False,
+        "development_only":
+            True,
+        "runtime":
+            actual,
+        "canonical_canary_sha256":
+            EXPECTED_CLASSIFIER_CANARY_CANONICAL_SHA,
+        "probability_tolerance":
+            {
+                "rtol":
+                    0.0,
+                "atol":
+                    1e-12,
+            },
+    }
 
 
 def validate_or_create_started_marker(
@@ -1513,6 +1878,12 @@ def execute_one_shot(
         validate_runtime_environment()
     )
 
+    classifier_runtime_portability = (
+        validate_classifier_runtime_portability(
+            ROOT
+        )
+    )
+
     # Load exact frozen Qwen before opening confirmation.
     backend = HuggingFaceChatBackend(
         "Qwen/Qwen2.5-Coder-7B-Instruct",
@@ -1639,6 +2010,8 @@ def execute_one_shot(
         **identities,
         "runtime":
             runtime,
+        "classifier_runtime_portability":
+            classifier_runtime_portability,
         "source_sha256":
             source_hash_inventory(),
         "output_sha256":
