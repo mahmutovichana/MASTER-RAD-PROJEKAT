@@ -110,3 +110,16 @@ def test_gate5_verifier_never_opens_confirmation(
         ]
         is False
     )
+
+
+def test_gate5_verifier_reports_gate3_eol_portability_correction():
+    result = verify(
+        ROOT
+    )
+
+    assert (
+        result[
+            "gate3_eol_portability_correction"
+        ]
+        == "PASS"
+    )

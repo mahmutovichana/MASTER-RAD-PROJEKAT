@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import subprocess
 import sys
@@ -24,6 +25,361 @@ EXPECTED_MODELS = {
     "category": {"sha256": "2d8123ac398568b5c9586b0f8d26d6c4079ddfebd504889b934f77bef65b9f59", "rows": 4820, "C": 4.0, "class_weight": "balanced", "threshold": None, "classes": list(PRIMARY_STAGE2_LABELS), "class_counts": {"api_reference": 1477, "configuration": 1351, "developer_setup": 967, "model_contract": 1025}},
 }
 EXPECTED_PROVENANCE_SHA = "4289a53522e8c264a3a9a5994dd9df031d1238085c6ae70c94e3bada33dafdc6"
+
+
+EOL_CORRECTION_RELATIVE = (
+    "reports/final_v2/gate3/"
+    "GATE3_SELECTION_EVIDENCE_EOL_PORTABILITY_CORRECTION.json"
+)
+
+EOL_CORRECTION_SCHEMA = (
+    "gate3_selection_evidence_eol_portability_correction_v1"
+)
+
+EOL_EXPECTED = {
+    "binary": {
+        "canonical_lf_sha256":
+            "2423ac5f4f3e0e9f1e8ad2561eadbedc3c3164fccd4ff8c5c4e4de0125898f48",
+        "historical_crlf_sha256":
+            "a369341ea2b680a559e2475b31ce7ac8d84e16b6b7c75488466ddb881b5108af",
+    },
+    "category": {
+        "canonical_lf_sha256":
+            "8628825d56f1abe0286f8d4656f9fd9a7aa2481948b1d3d5c1c82d3547f3e711",
+        "historical_crlf_sha256":
+            "ebbd5e2b8e5d45f46f7325f10153acd3a805af8590f7fb3241b3dc27e18b3ed2",
+    },
+}
+
+GATE5_PREREGISTRATION_COMMIT = (
+    "d12e4c00c008f86bc7025b9e6de15b977f51fd57"
+)
+
+GATE5_PREREGISTRATION_SHA256 = (
+    "dd4ed749774c144d3533128e93749fa003925dbdf73b1a121fee1a3fd40dc3b8"
+)
+
+
+def _sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def _lf_bytes(data: bytes) -> bytes:
+    return data.replace(
+        b"\r\n",
+        b"\n",
+    )
+
+
+def _crlf_from_lf(data: bytes) -> bytes:
+    return _lf_bytes(data).replace(
+        b"\n",
+        b"\r\n",
+    )
+
+
+def _load_eol_correction(
+    root: Path,
+) -> dict[str, Any]:
+    path = (
+        root
+        / EOL_CORRECTION_RELATIVE
+    )
+
+    if not path.is_file():
+        raise RuntimeError(
+            "Gate 3 selection-evidence EOL "
+            "portability correction is missing"
+        )
+
+    payload = json.loads(
+        path.read_text(
+            encoding="utf-8"
+        )
+    )
+
+    if (
+        payload.get("schema_version")
+        != EOL_CORRECTION_SCHEMA
+        or payload.get("status")
+        != "PASS"
+        or payload.get("confirmation_accessed")
+        is not False
+        or payload.get("confirmation_sealed")
+        is not True
+        or payload.get("gate5_execution_started")
+        is not False
+        or payload.get("scientific_content_changed")
+        is not False
+        or payload.get("selection_decision_changed")
+        is not False
+        or payload.get("frozen_models_changed")
+        is not False
+        or payload.get("frozen_thresholds_changed")
+        is not False
+        or payload.get("original_gate3_freeze_manifests_modified")
+        is not False
+        or payload.get("original_gate3_training_provenance_modified")
+        is not False
+        or payload.get("gate5_preregistration_commit")
+        != GATE5_PREREGISTRATION_COMMIT
+        or payload.get("gate5_preregistration_sha256")
+        != GATE5_PREREGISTRATION_SHA256
+    ):
+        raise RuntimeError(
+            "Gate 3 EOL portability correction contract mismatch"
+        )
+
+    return payload
+
+
+def _verify_eol_correction_task(
+    root: Path,
+    task: str,
+    manifest: dict[str, Any],
+    evidence_path: Path,
+) -> dict[str, Any]:
+    correction = _load_eol_correction(
+        root
+    )
+
+    item = (
+        correction.get("artifacts", {})
+        .get(task, {})
+    )
+
+    expected = EOL_EXPECTED[
+        task
+    ]
+
+    if (
+        item.get("path")
+        != manifest.get(
+            "selection_evidence_path"
+        )
+        or item.get(
+            "canonical_git_sha256_lf"
+        )
+        != expected[
+            "canonical_lf_sha256"
+        ]
+        or item.get(
+            "historical_freeze_sha256_crlf"
+        )
+        != expected[
+            "historical_crlf_sha256"
+        ]
+        or manifest.get(
+            "selection_evidence_sha256"
+        )
+        != expected[
+            "historical_crlf_sha256"
+        ]
+        or item.get(
+            "json_semantic_equivalence_verified"
+        )
+        is not True
+        or item.get(
+            "lf_to_crlf_reconstruction_verified"
+        )
+        is not True
+    ):
+        raise RuntimeError(
+            f"{task} selection evidence "
+            "EOL correction metadata mismatch"
+        )
+
+    raw = evidence_path.read_bytes()
+
+    lf = _lf_bytes(
+        raw
+    )
+
+    crlf = _crlf_from_lf(
+        lf
+    )
+
+    if (
+        _sha256_bytes(lf)
+        != expected[
+            "canonical_lf_sha256"
+        ]
+    ):
+        raise RuntimeError(
+            f"{task} selection evidence "
+            "canonical LF hash mismatch"
+        )
+
+    if (
+        _sha256_bytes(crlf)
+        != expected[
+            "historical_crlf_sha256"
+        ]
+    ):
+        raise RuntimeError(
+            f"{task} selection evidence "
+            "historical CRLF reconstruction mismatch"
+        )
+
+    if (
+        json.loads(
+            lf.decode("utf-8")
+        )
+        !=
+        json.loads(
+            crlf.decode("utf-8")
+        )
+    ):
+        raise RuntimeError(
+            f"{task} selection evidence "
+            "JSON semantic equivalence mismatch"
+        )
+
+    return {
+        "status":
+            "PASS",
+        "mode":
+            "canonical_git_lf_with_verified_crlf_equivalence",
+        "canonical_lf_sha256":
+            expected[
+                "canonical_lf_sha256"
+            ],
+        "historical_crlf_sha256":
+            expected[
+                "historical_crlf_sha256"
+            ],
+    }
+
+
+def verify_selection_evidence_hash(
+    root: Path,
+    manifest: dict[str, Any],
+    task: str,
+    evidence_path: Path,
+) -> dict[str, Any]:
+    actual = sha256_file(
+        evidence_path
+    )
+
+    historical = manifest.get(
+        "selection_evidence_sha256"
+    )
+
+    if actual == historical:
+        return {
+            "status":
+                "PASS",
+            "mode":
+                "historical_crlf_raw_match",
+            "actual_sha256":
+                actual,
+            "historical_crlf_sha256":
+                historical,
+        }
+
+    return _verify_eol_correction_task(
+        root,
+        task,
+        manifest,
+        evidence_path,
+    )
+
+
+def verify_eol_portability_correction(
+    root: Path,
+) -> dict[str, Any]:
+    correction = _load_eol_correction(
+        root
+    )
+
+    tasks: dict[str, Any] = {}
+
+    for task in (
+        "binary",
+        "category",
+    ):
+        manifest_path = (
+            root
+            / "reports/final_v2/gate3"
+            / f"{task}_classifier_freeze_manifest.json"
+        )
+
+        manifest = json.loads(
+            manifest_path.read_text(
+                encoding="utf-8"
+            )
+        )
+
+        evidence_path = (
+            root
+            / manifest[
+                "selection_evidence_path"
+            ]
+        )
+
+        tasks[task] = (
+            _verify_eol_correction_task(
+                root,
+                task,
+                manifest,
+                evidence_path,
+            )
+        )
+
+        model_item = (
+            correction.get(
+                "models",
+                {},
+            ).get(
+                task,
+                {},
+            )
+        )
+
+        expected_model = (
+            EXPECTED_MODELS[
+                task
+            ][
+                "sha256"
+            ]
+        )
+
+        if (
+            model_item.get(
+                "path"
+            )
+            != manifest.get(
+                "model_artifact_path"
+            )
+            or model_item.get(
+                "sha256"
+            )
+            != expected_model
+            or sha256_file(
+                root
+                / manifest[
+                    "model_artifact_path"
+                ]
+            )
+            != expected_model
+        ):
+            raise RuntimeError(
+                f"{task} model changed during "
+                "EOL portability correction"
+            )
+
+    return {
+        "status":
+            "PASS",
+        "path":
+            EOL_CORRECTION_RELATIVE,
+        "scientific_content_changed":
+            False,
+        "confirmation_accessed":
+            False,
+        "tasks":
+            tasks,
+    }
 
 
 def assert_gate2_winners(payload: dict[str, Any]) -> None:
@@ -60,8 +416,12 @@ def verify_classifier_manifest(root: Path, manifest_path: Path, task: str) -> di
     if sha256_file(provenance_path) != EXPECTED_PROVENANCE_SHA:
         raise RuntimeError(f"{task} training provenance hash mismatch")
     evidence_path = root / manifest["selection_evidence_path"]
-    if sha256_file(evidence_path) != manifest.get("selection_evidence_sha256"):
-        raise RuntimeError(f"{task} selection evidence hash mismatch")
+    selection_evidence_verification = verify_selection_evidence_hash(
+        root,
+        manifest,
+        task,
+        evidence_path,
+    )
     evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
     if evidence.get("task") != task or evidence.get("row_count") != expected["rows"] or evidence.get("confirmation_accessed") is not False or any(fold.get("repository_overlap") != 0 for fold in evidence.get("fold_audit", [])) or len(evidence.get("fold_audit", [])) != 5:
         raise RuntimeError(f"{task} selection evidence contract mismatch")
@@ -79,7 +439,15 @@ def verify_classifier_manifest(root: Path, manifest_path: Path, task: str) -> di
         raise RuntimeError(f"{task} vectorizer mismatch")
     if classifier.C != expected["C"] or classifier.class_weight != expected["class_weight"] or classifier.random_state != 42 or list(classifier.classes_) != expected["classes"]:
         raise RuntimeError(f"{task} loaded classifier mismatch")
-    return {"task": task, "model_sha256": expected["sha256"], "selection_evidence_sha256": manifest["selection_evidence_sha256"], "status": "PASS"}
+    return {
+        "task": task,
+        "model_sha256": expected["sha256"],
+        "selection_evidence_sha256":
+            manifest["selection_evidence_sha256"],
+        "selection_evidence_verification":
+            selection_evidence_verification,
+        "status": "PASS",
+    }
 
 
 def verify(root: Path = PROJECT_ROOT) -> dict[str, Any]:
@@ -96,6 +464,7 @@ def verify(root: Path = PROJECT_ROOT) -> dict[str, Any]:
     if sha256_file(provenance_path)!=EXPECTED_PROVENANCE_SHA or provenance.get("confirmation_accessed") is not False or provenance.get("gate4_status")!="NOT_EXECUTED": raise RuntimeError("Gate 3 provenance mismatch")
     for relative,expected_hash in provenance["implementation_source_hashes"].items():
         if sha256_file(root/relative)!=expected_hash: raise RuntimeError(f"Gate 3 implementation source mismatch: {relative}")
+    eol_correction = verify_eol_portability_correction(root)
     binary=verify_classifier_manifest(root,root/"reports/final_v2/gate3/binary_classifier_freeze_manifest.json","binary"); category=verify_classifier_manifest(root,root/"reports/final_v2/gate3/category_classifier_freeze_manifest.json","category")
     overall_path=root/"reports/final_v2/gate3/GATE3_CLASSIFIER_FREEZE_MANIFEST.json"; overall=json.loads(overall_path.read_text())
     if overall.get("status")!="PASS" or overall.get("confirmation_accessed") is not False or overall.get("confirmation_sealed") is not True or overall.get("gate4_status")!="NOT_EXECUTED" or overall.get("selected_families")!={"binary":"M1","category":"M1"}: raise RuntimeError("Overall Gate 3 manifest mismatch")
@@ -118,7 +487,20 @@ def verify(root: Path = PROJECT_ROOT) -> dict[str, Any]:
         if not np.array_equal(a,b): raise RuntimeError(f"Forbidden fields altered {task} inference")
         empty={field:"" for field in SAFE_MODEL_FIELDS}; first=model.predict_proba([empty]); second=model.predict_proba([empty])
         if not np.array_equal(first,second): raise RuntimeError(f"Empty-field {task} inference is nondeterministic")
-    return {"status":"PASS","gate":3,"binary":binary,"category":category,"development_rows":22166,"category_rows":4820,"confirmation_accessed":False,"confirmation_sealed":True,"gate4_status":gate4_status,"current_gate":current_gate}
+    return {
+        "status": "PASS",
+        "gate": 3,
+        "binary": binary,
+        "category": category,
+        "development_rows": 22166,
+        "category_rows": 4820,
+        "confirmation_accessed": False,
+        "confirmation_sealed": True,
+        "gate4_status": gate4_status,
+        "current_gate": current_gate,
+        "selection_evidence_eol_portability_correction":
+            eol_correction,
+    }
 
 
 def main()->int:

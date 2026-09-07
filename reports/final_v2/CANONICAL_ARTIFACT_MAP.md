@@ -53,6 +53,7 @@ These artifacts define the current Final V2 experiment state.
 
 
 | Gate 5 preregistration | `reports/final_v2/gate5/GATE5_PREREGISTRATION.json` | Pre-confirmation immutable evaluation policy: frozen model identities, metrics, repository-cluster bootstrap, Stage 3 policy and one-shot boundary. |
+| Gate 3 selection-evidence EOL portability correction | `reports/final_v2/gate3/GATE3_SELECTION_EVIDENCE_EOL_PORTABILITY_CORRECTION.json` | Post-freeze, pre-confirmation machine-readable proof that the original Gate 3 selection-evidence hashes were Windows CRLF serialization hashes of the same canonical Git LF JSON content; no model, threshold, selection decision, scientific content, or confirmation data changed. |
 | Gate 5 preflight record | `reports/final_v2/gate5/GATE5_PREFLIGHT.md` | Human-readable confirmation-safe preflight contract; confirmation remains sealed and unaccessed. |
 | Gate 5 repository bootstrap | `docguard_eval_v2/gate5_bootstrap.py` | Seed-42, 2,000-replicate repository-cluster confidence interval implementation for final confirmation metrics. |
 | Gate 5 canonical one-shot runner | `scripts/run_gate5_one_shot_qwen.py` | Explicitly guarded frozen Binary, Category and Qwen confirmation execution; master receipt is written last and canonical rerun is forbidden. |

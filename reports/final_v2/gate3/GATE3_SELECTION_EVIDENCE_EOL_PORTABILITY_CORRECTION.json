@@ -1,0 +1,47 @@
+{
+  "artifacts": {
+    "binary": {
+      "canonical_git_eol": "lf",
+      "canonical_git_sha256_lf": "2423ac5f4f3e0e9f1e8ad2561eadbedc3c3164fccd4ff8c5c4e4de0125898f48",
+      "historical_freeze_sha256_crlf": "a369341ea2b680a559e2475b31ce7ac8d84e16b6b7c75488466ddb881b5108af",
+      "json_semantic_equivalence_verified": true,
+      "lf_to_crlf_reconstruction_verified": true,
+      "path": "reports/final_v2/gate3/binary_full_development_selection_evidence.json"
+    },
+    "category": {
+      "canonical_git_eol": "lf",
+      "canonical_git_sha256_lf": "8628825d56f1abe0286f8d4656f9fd9a7aa2481948b1d3d5c1c82d3547f3e711",
+      "historical_freeze_sha256_crlf": "ebbd5e2b8e5d45f46f7325f10153acd3a805af8590f7fb3241b3dc27e18b3ed2",
+      "json_semantic_equivalence_verified": true,
+      "lf_to_crlf_reconstruction_verified": true,
+      "path": "reports/final_v2/gate3/category_full_development_selection_evidence.json"
+    }
+  },
+  "cause": "Gate 3 selection-evidence SHA-256 values were recorded from the Windows CRLF worktree serialization. Git canonical storage and Linux/Kaggle checkout use LF. Replacing LF with CRLF reproduces the historical frozen hashes exactly for both selection-evidence JSON files.",
+  "confirmation_accessed": false,
+  "confirmation_sealed": true,
+  "correction_type": "line_ending_serialization_hash_portability",
+  "discovered_during_gate": 5,
+  "frozen_models_changed": false,
+  "frozen_thresholds_changed": false,
+  "gate5_execution_started": false,
+  "gate5_preregistration_commit": "d12e4c00c008f86bc7025b9e6de15b977f51fd57",
+  "gate5_preregistration_sha256": "dd4ed749774c144d3533128e93749fa003925dbdf73b1a121fee1a3fd40dc3b8",
+  "models": {
+    "binary": {
+      "path": "models/final_v2/gate3/binary_m1_gate3.joblib",
+      "sha256": "7d6a9263e1262c5c54db3d2e100209707c6a7681133fb1505f44125efa954462"
+    },
+    "category": {
+      "path": "models/final_v2/gate3/category_m1_gate3.joblib",
+      "sha256": "2d8123ac398568b5c9586b0f8d26d6c4079ddfebd504889b934f77bef65b9f59"
+    }
+  },
+  "original_gate3_freeze_manifests_modified": false,
+  "original_gate3_training_provenance_modified": false,
+  "schema_version": "gate3_selection_evidence_eol_portability_correction_v1",
+  "scientific_content_changed": false,
+  "selection_decision_changed": false,
+  "status": "PASS",
+  "verification_rule": "Accept the historical raw CRLF SHA directly when present; otherwise require the exact canonical Git LF SHA and prove that deterministic LF-to-CRLF reconstruction yields the original historical frozen SHA."
+}

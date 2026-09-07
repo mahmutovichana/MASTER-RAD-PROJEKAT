@@ -141,6 +141,32 @@ def verify(
         root
     )
 
+    gate3_eol = (
+        gate3.get(
+            "selection_evidence_eol_portability_correction"
+        )
+        or {}
+    )
+
+    if (
+        gate3_eol.get(
+            "status"
+        )
+        != "PASS"
+        or gate3_eol.get(
+            "scientific_content_changed"
+        )
+        is not False
+        or gate3_eol.get(
+            "confirmation_accessed"
+        )
+        is not False
+    ):
+        raise RuntimeError(
+            "Gate 3 selection-evidence "
+            "EOL portability correction failed."
+        )
+
     gate4 = verify_gate4(
         root
     )
@@ -202,11 +228,18 @@ def verify(
         / "docguard_eval_v2/gate5_bootstrap.py"
     )
 
+    correction_path = (
+        root
+        / "reports/final_v2/gate3/"
+          "GATE3_SELECTION_EVIDENCE_EOL_PORTABILITY_CORRECTION.json"
+    )
+
     for required in (
         prereg_path,
         preflight_path,
         runner_path,
         bootstrap_path,
+        correction_path,
     ):
         if not required.is_file():
             raise RuntimeError(
@@ -592,6 +625,7 @@ def verify(
         "scripts/verify_gate5_preregistration.py",
         "scripts/run_gate5_one_shot_qwen.py",
         "docguard_eval_v2/gate5_bootstrap.py",
+        "reports/final_v2/gate3/GATE3_SELECTION_EVIDENCE_EOL_PORTABILITY_CORRECTION.json",
     ):
         if required_path not in artifact_map:
             raise RuntimeError(
@@ -632,6 +666,12 @@ def verify(
             True,
         "execution_artifacts_present":
             False,
+        "gate3_eol_portability_correction":
+            "PASS",
+        "gate3_eol_portability_correction_sha256":
+            sha256_file(
+                correction_path
+            ),
         "preregistration_sha256":
             sha256_file(
                 prereg_path

@@ -18,6 +18,10 @@ def _sandbox_task(tmp_path: Path, task: str) -> tuple[Path, Path]:
     for relative in (manifest["model_artifact_path"],manifest["selection_evidence_path"],manifest["training_provenance_path"]):
         target=tmp_path/relative; target.parent.mkdir(parents=True,exist_ok=True); shutil.copy2(ROOT/relative,target)
     target_manifest=tmp_path/manifest_source.relative_to(ROOT); target_manifest.parent.mkdir(parents=True,exist_ok=True); shutil.copy2(manifest_source,target_manifest)
+    correction_source=ROOT/"reports/final_v2/gate3/GATE3_SELECTION_EVIDENCE_EOL_PORTABILITY_CORRECTION.json"
+    correction_target=tmp_path/correction_source.relative_to(ROOT)
+    correction_target.parent.mkdir(parents=True,exist_ok=True)
+    shutil.copy2(correction_source,correction_target)
     return tmp_path,target_manifest
 
 
@@ -47,3 +51,49 @@ def test_category_class_contract_corruption_rejected(tmp_path: Path) -> None:
 
 def test_gate2_winner_mismatch_rejected() -> None:
     with pytest.raises(RuntimeError,match="winner mismatch"): assert_gate2_winners({"binary":{"selected_family":"M2"},"category":{"selected_family":"M1"}})
+
+
+def test_selection_evidence_lf_checkout_matches_historical_crlf_freeze(
+    tmp_path: Path,
+) -> None:
+    root, manifest_path = _sandbox_task(
+        tmp_path,
+        "binary",
+    )
+
+    manifest = json.loads(
+        manifest_path.read_text(
+            encoding="utf-8"
+        )
+    )
+
+    evidence = (
+        root
+        / manifest[
+            "selection_evidence_path"
+        ]
+    )
+
+    # Force the canonical Linux/Git LF representation.
+    evidence.write_bytes(
+        evidence.read_bytes().replace(
+            b"\r\n",
+            b"\n",
+        )
+    )
+
+    result = verify_classifier_manifest(
+        root,
+        manifest_path,
+        "binary",
+    )
+
+    assert (
+        result[
+            "selection_evidence_verification"
+        ][
+            "mode"
+        ]
+        ==
+        "canonical_git_lf_with_verified_crlf_equivalence"
+    )
