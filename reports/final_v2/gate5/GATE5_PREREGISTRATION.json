@@ -1,0 +1,190 @@
+{
+  "binary_confirmation": {
+    "confidence_intervals": {
+      "alpha": 0.05,
+      "include_all_rows_of_sampled_repository": true,
+      "invalid_metric_replicates": "skip_only_for_metric_where_undefined",
+      "method": "repository_cluster_bootstrap",
+      "n_bootstrap": 2000,
+      "repeated_repository_repeats_entire_cluster": true,
+      "sample_with_replacement": true,
+      "sampling_unit": "repository",
+      "seed": 42
+    },
+    "model_family": "M1",
+    "post_confirmation_threshold_tuning_allowed": false,
+    "primary_metric": "mcc",
+    "scope": "all frozen binary-eligible confirmation rows",
+    "secondary_metrics": [
+      "accuracy",
+      "balanced_accuracy",
+      "precision",
+      "recall",
+      "specificity",
+      "f1",
+      "roc_auc",
+      "average_precision",
+      "brier_score",
+      "confusion_matrix",
+      "natural_prevalence",
+      "per_language_descriptive_slices"
+    ],
+    "threshold": 0.15
+  },
+  "category_confirmation": {
+    "confidence_intervals": {
+      "alpha": 0.05,
+      "include_all_rows_of_sampled_repository": true,
+      "method": "repository_cluster_bootstrap",
+      "n_bootstrap": 2000,
+      "repeated_repository_repeats_entire_cluster": true,
+      "sample_with_replacement": true,
+      "sampling_unit": "repository",
+      "seed": 42
+    },
+    "end_to_end_binary_conditioned_scope": "must be reported separately",
+    "model_family": "M1",
+    "post_confirmation_model_tuning_allowed": false,
+    "primary_metric": "macro_f1",
+    "scope": "intrinsic frozen category-eligible confirmation rows only",
+    "secondary_metrics": [
+      "accuracy",
+      "weighted_f1",
+      "balanced_accuracy",
+      "per_class_precision",
+      "per_class_recall",
+      "per_class_f1",
+      "per_class_support",
+      "confusion_matrix",
+      "per_language_descriptive_slices"
+    ]
+  },
+  "confirmation_boundary": {
+    "confirmation_accessed_during_preregistration": false,
+    "confirmation_sealed_before_gate5": true,
+    "confirmation_split_must_not_be_opened_before_one_shot": true,
+    "known_row_count_from_gate1_frozen_metadata": 3747,
+    "no_hashing_before_one_shot": true,
+    "no_metric_computation_before_one_shot": true,
+    "no_sampling_before_one_shot": true
+  },
+  "gate": 5,
+  "gate5_execution": {
+    "executed": false,
+    "master_receipt_present": false,
+    "results_present": false
+  },
+  "gate6_human_evaluation_sampling": {
+    "execution_gate": 6,
+    "primary": {
+      "actual_size_rule": "min(100, frozen_binary_predicted_positive_count)",
+      "method": "natural_distribution_random_predicted_positive",
+      "sample_before_retrieval_context_filtering": true,
+      "seed": 42,
+      "target_size": 100
+    },
+    "secondary": {
+      "categories": [
+        "api_reference",
+        "configuration",
+        "developer_setup",
+        "model_contract"
+      ],
+      "method": "supplementary_predicted_category_stress_sample",
+      "pool_with_primary": false,
+      "seed": 42,
+      "supplementary_only": true,
+      "target_per_category": 25,
+      "where_available": true
+    }
+  },
+  "one_shot_contract": {
+    "canonical_output_root": "reports/final_v2/gate5/one_shot",
+    "canonical_runner": "scripts/run_gate5_one_shot_qwen.py",
+    "explicit_execute_flag_required": true,
+    "incomplete_attempt_resume": "Allowed only before the master completion receipt exists, using matching frozen identities and deterministic Stage 3 case checkpoints.",
+    "master_receipt_written_last": true,
+    "post_confirmation_tuning_allowed": false,
+    "rerun_after_master_receipt_allowed": false
+  },
+  "schema_version": "gate5_preregistration_v1",
+  "stage3_confirmation": {
+    "category_source": "frozen Category classifier prediction",
+    "documentation_context_adapter": "normalize_documentation_context",
+    "fail_closed_execution_errors": [
+      "input_token_budget_exceeded",
+      "cuda_out_of_memory",
+      "invalid_structured_llm_output"
+    ],
+    "frozen_generation": {
+      "automatic_prompt_truncation": false,
+      "max_input_tokens": 4096,
+      "max_repair_attempts": 1,
+      "max_tokens_analysis": 512,
+      "max_tokens_repair": 512,
+      "max_tokens_writer": 512,
+      "model": "Qwen/Qwen2.5-Coder-7B-Instruct",
+      "precision": "float16",
+      "quantized": false,
+      "temperature": 0.1,
+      "top_k_documents": 3
+    },
+    "frozen_runtime_contract": {
+      "accelerate": "1.13.0",
+      "cuda_device_count": 2,
+      "cuda_devices": [
+        "Tesla T4",
+        "Tesla T4"
+      ],
+      "cuda_required": true,
+      "precision": "float16",
+      "python": "3.12.13",
+      "quantized": false,
+      "torch": "2.10.0+cu128",
+      "transformers": "5.0.0"
+    },
+    "no_context_contract": {
+      "final_status": "retrieval_context_unavailable",
+      "generated_patch": null,
+      "llm_calls": 0
+    },
+    "reference_or_gold_fields_allowed_during_generation": false,
+    "report": [
+      "binary_predicted_positive_count",
+      "retrieval_context_available",
+      "retrieval_context_unavailable",
+      "retrieval_context_coverage",
+      "stage3_invocation_count",
+      "accepted_first_pass",
+      "accepted_after_repair",
+      "human_review_required",
+      "execution_error_counts",
+      "safety_violation_counts",
+      "llm_call_count",
+      "latency",
+      "predicted_category_slices"
+    ],
+    "selection_scope": "frozen Binary predicted-positive confirmation rows only"
+  },
+  "status": "PREPARED_NOT_ACTIVATED",
+  "upstream": {
+    "binary_model": {
+      "path": "models/final_v2/gate3/binary_m1_gate3.joblib",
+      "sha256": "7d6a9263e1262c5c54db3d2e100209707c6a7681133fb1505f44125efa954462",
+      "threshold": 0.15
+    },
+    "category_model": {
+      "path": "models/final_v2/gate3/category_m1_gate3.joblib",
+      "sha256": "2d8123ac398568b5c9586b0f8d26d6c4079ddfebd504889b934f77bef65b9f59"
+    },
+    "gate4_closure_commit": "fc49c94d6c6e4c575299e7a4df15985bcea71484",
+    "gate4_stage3_freeze_manifest": {
+      "path": "reports/final_v2/gate4/GATE4_STAGE3_FREEZE_MANIFEST.json",
+      "sha256": "8d2d7911330d15d04e8b628200252e6c1a614344651596064b293b17b707076f"
+    },
+    "stage3_config": {
+      "path": "configs/stage3_semantic_generation_v2.json",
+      "sha256": "27c234a3f998c34256025b0d914ddf3fd2a202eb3466b37a25f5aed0283e3192"
+    }
+  }
+}

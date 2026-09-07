@@ -51,6 +51,14 @@ These artifacts define the current Final V2 experiment state.
 | Gate 4 Stage 3 freeze manifest | `reports/final_v2/gate4/GATE4_STAGE3_FREEZE_MANIFEST.json` | Immutable Stage 3 config, runtime, source hashes, development evidence and sealed-confirmation boundary. |
 | Gate 4 Stage 3 freeze verifier | `scripts/verify_gate4_stage3_freeze.py` | Strict machine-checkable Gate 4 closure verifier. |
 
+
+| Gate 5 preregistration | `reports/final_v2/gate5/GATE5_PREREGISTRATION.json` | Pre-confirmation immutable evaluation policy: frozen model identities, metrics, repository-cluster bootstrap, Stage 3 policy and one-shot boundary. |
+| Gate 5 preflight record | `reports/final_v2/gate5/GATE5_PREFLIGHT.md` | Human-readable confirmation-safe preflight contract; confirmation remains sealed and unaccessed. |
+| Gate 5 repository bootstrap | `docguard_eval_v2/gate5_bootstrap.py` | Seed-42, 2,000-replicate repository-cluster confidence interval implementation for final confirmation metrics. |
+| Gate 5 canonical one-shot runner | `scripts/run_gate5_one_shot_qwen.py` | Explicitly guarded frozen Binary, Category and Qwen confirmation execution; master receipt is written last and canonical rerun is forbidden. |
+| Gate 5 preregistration verifier | `scripts/verify_gate5_preregistration.py` | Confirmation-safe machine verifier for all Gate 5 preflight identities and policies. |
+| Gate 5 one-shot output root | `reports/final_v2/gate5/one_shot/` | Reserved for the single final confirmation execution. Must remain empty before Gate 5 activation. |
+
 ## HISTORICAL / DEPRECATED
 
 These may remain as development evidence, but must not feed the Final V2 experiment unless a later gate explicitly reclassifies them through a new manifest.

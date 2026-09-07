@@ -158,21 +158,67 @@ def summarize_reference(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def frozen_binary_prediction(row: dict[str, Any]) -> bool:
+    if "frozen_binary_prediction" in row:
+        value = row.get("frozen_binary_prediction")
+    else:
+        value = row.get("pred_docs_update_required")
+
+    if isinstance(value, bool):
+        return value
+
+    return str(value or "").strip().lower() == "true"
+
+
+def frozen_category_prediction(row: dict[str, Any]) -> str:
+    if "frozen_category_prediction" in row:
+        value = row.get("frozen_category_prediction")
+        if value is not None and str(value).strip():
+            return str(value)
+
+    return str(row.get("pred_doc_category") or "")
+
+
 def sample_primary(rows: list[dict[str, Any]], *, seed: int, target_size: int) -> list[dict[str, Any]]:
-    positives = [row for row in rows if row.get("pred_docs_update_required") is True or str(row.get("pred_docs_update_required")).lower() == "true"]
+    positives = [
+        row
+        for row in rows
+        if frozen_binary_prediction(row)
+    ]
+
     rng = random.Random(seed)
     shuffled = list(positives)
     rng.shuffle(shuffled)
-    return shuffled[: min(target_size, len(shuffled))]
+
+    return shuffled[
+        : min(target_size, len(shuffled))
+    ]
 
 
 def sample_stress(rows: list[dict[str, Any]], *, seed: int, per_category: int) -> list[dict[str, Any]]:
     rng = random.Random(seed)
     output: list[dict[str, Any]] = []
-    for category in ["api_reference", "configuration", "developer_setup", "model_contract"]:
-        bucket = [row for row in rows if row.get("pred_doc_category") == category and (row.get("pred_docs_update_required") is True or str(row.get("pred_docs_update_required")).lower() == "true")]
+
+    for category in [
+        "api_reference",
+        "configuration",
+        "developer_setup",
+        "model_contract",
+    ]:
+        bucket = [
+            row
+            for row in rows
+            if (
+                frozen_binary_prediction(row)
+                and frozen_category_prediction(row) == category
+            )
+        ]
+
         rng.shuffle(bucket)
-        output.extend(bucket[:per_category])
+        output.extend(
+            bucket[:per_category]
+        )
+
     return output
 
 
@@ -181,10 +227,34 @@ def sample_manifest(source: Path, rows: list[dict[str, Any]], *, seed: int, meth
         "source_hash": sha256_file(source),
         "seed": seed,
         "sampling_method": method,
-        "prevalence": sum(1 for row in rows if row.get("pred_docs_update_required") is True or str(row.get("pred_docs_update_required")).lower() == "true") / len(rows) if rows else 0.0,
-        "category_counts": dict(Counter(str(row.get("pred_doc_category") or "") for row in rows)),
-        "language_counts": dict(Counter(str(row.get("language") or "") for row in rows)),
-        "repository_counts": dict(Counter(str(row.get("repository") or "") for row in rows)),
+        "prevalence": (
+            sum(
+                1
+                for row in rows
+                if frozen_binary_prediction(row)
+            )
+            / len(rows)
+            if rows
+            else 0.0
+        ),
+        "category_counts": dict(
+            Counter(
+                frozen_category_prediction(row)
+                for row in rows
+            )
+        ),
+        "language_counts": dict(
+            Counter(
+                str(row.get("language") or "")
+                for row in rows
+            )
+        ),
+        "repository_counts": dict(
+            Counter(
+                str(row.get("repository") or "")
+                for row in rows
+            )
+        ),
     }
 
 

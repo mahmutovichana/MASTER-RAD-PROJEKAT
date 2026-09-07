@@ -7,93 +7,563 @@ from pathlib import Path
 from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 import joblib
 
-from docguard_ml_v2.data_contract import PRIMARY_STAGE2_LABELS, category_eligible_rows, category_labels, load_jsonl, write_json, write_jsonl
-from docguard_ml_v2.metrics import bootstrap_ci, category_metrics, per_language_category_metrics
-from docguard_ml_v2.model_manifest import sha256_file, utc_now
+from docguard_eval_v2.gate5_bootstrap import (
+    DEFAULT_ALPHA,
+    DEFAULT_N_BOOTSTRAP,
+    DEFAULT_SEED,
+    repository_cluster_bootstrap,
+)
+from docguard_ml_v2.data_contract import (
+    PRIMARY_STAGE2_LABELS,
+    category_eligible_rows,
+    category_labels,
+    load_jsonl,
+    write_json,
+    write_jsonl,
+)
+from docguard_ml_v2.metrics import (
+    category_metrics,
+    per_language_category_metrics,
+)
+from docguard_ml_v2.model_manifest import (
+    sha256_file,
+    utc_now,
+)
 
 
-def validate_freeze(model: Path, freeze_manifest: Path) -> dict[str, Any]:
-    if not freeze_manifest.exists():
-        raise FileNotFoundError("Freeze manifest is required before confirmation evaluation.")
-    manifest = json.loads(freeze_manifest.read_text(encoding="utf-8"))
-    if manifest.get("confirmation_accessed") is not False:
-        raise ValueError("Freeze manifest must state confirmation_accessed=false.")
-    expected = manifest.get("hashes", {}).get("model")
-    actual = sha256_file(model)
-    if expected and expected != actual:
-        raise ValueError("Model hash does not match freeze manifest.")
+EXPECTED_BOOTSTRAP = {
+    "method": "repository_cluster_bootstrap",
+    "sampling_unit": "repository",
+    "n_bootstrap": 2000,
+    "seed": 42,
+    "alpha": 0.05,
+}
+
+
+def load_manifest(
+    path: Path,
+) -> dict[str, Any]:
+    if not path.exists():
+        raise FileNotFoundError(
+            "Freeze manifest is required before confirmation evaluation."
+        )
+
+    payload = json.loads(
+        path.read_text(
+            encoding="utf-8"
+        )
+    )
+
+    if not isinstance(
+        payload,
+        dict,
+    ):
+        raise ValueError(
+            "Freeze manifest must be a JSON object."
+        )
+
+    return payload
+
+
+def validate_freeze(
+    model: Path,
+    freeze_manifest: Path,
+) -> dict[str, Any]:
+    manifest = load_manifest(
+        freeze_manifest
+    )
+
+    if (
+        manifest.get("schema_version")
+        != "gate3_classifier_freeze_manifest_v1"
+    ):
+        raise ValueError(
+            "Unexpected Gate 3 freeze manifest schema."
+        )
+
+    if manifest.get("status") != "FROZEN":
+        raise ValueError(
+            "Category freeze manifest must have status=FROZEN."
+        )
+
+    if manifest.get("task") != "category":
+        raise ValueError(
+            "Category evaluator received a non-category freeze manifest."
+        )
+
+    if (
+        manifest.get(
+            "confirmation_accessed"
+        )
+        is not False
+    ):
+        raise ValueError(
+            "Freeze manifest must state confirmation_accessed=false."
+        )
+
+    expected = manifest.get(
+        "model_sha256"
+    )
+
+    if not expected:
+        raise ValueError(
+            "Category freeze manifest is missing model_sha256."
+        )
+
+    actual = sha256_file(
+        model
+    )
+
+    if expected != actual:
+        raise ValueError(
+            "Model hash does not match category freeze manifest."
+        )
+
     return manifest
 
 
-def validate_confirmation_partitions(rows: list[dict[str, Any]], partition_manifest: Path | None) -> dict[str, Any]:
+def validate_confirmation_partitions(
+    rows: list[dict[str, Any]],
+    partition_manifest: Path | None,
+) -> dict[str, Any]:
     if partition_manifest is None:
-        return {"partition_manifest_supplied": False}
-    payload = json.loads(partition_manifest.read_text(encoding="utf-8"))
-    if payload.get("confirmation_sealed") is not True:
-        raise ValueError("Partition manifest must have confirmation_sealed=true")
-    assignments = {str(repo).lower(): part for repo, part in (payload.get("repository_assignments") or {}).items()}
+        return {
+            "partition_manifest_supplied":
+                False,
+        }
+
+    payload = json.loads(
+        partition_manifest.read_text(
+            encoding="utf-8"
+        )
+    )
+
+    if payload.get(
+        "confirmation_sealed"
+    ) is not True:
+        raise ValueError(
+            "Partition manifest must have confirmation_sealed=true"
+        )
+
+    assignments = {
+        str(repo).lower(): part
+        for repo, part in (
+            payload.get(
+                "repository_assignments"
+            )
+            or {}
+        ).items()
+    }
+
     for row in rows:
-        repo = str(row.get("repository") or "").lower()
-        if row.get("partition") != "confirmation" or assignments.get(repo) != "confirmation":
-            raise ValueError(f"Non-confirmation row detected: {row.get('case_id')}")
-    return {"partition_manifest_supplied": True, "partition_manifest_hash": sha256_file(partition_manifest)}
+        repo = str(
+            row.get("repository")
+            or ""
+        ).lower()
+
+        if (
+            row.get("partition")
+            != "confirmation"
+            or assignments.get(repo)
+            != "confirmation"
+        ):
+            raise ValueError(
+                "Non-confirmation row detected: "
+                f"{row.get('case_id')}"
+            )
+
+    return {
+        "partition_manifest_supplied":
+            True,
+        "partition_manifest_hash":
+            sha256_file(
+                partition_manifest
+            ),
+    }
 
 
-def one_shot_guard(output_dir: Path, model_hash: str, confirmation_hash: str, *, enforce: bool, allow_repeat: bool) -> None:
-    receipt = output_dir / "confirmation_evaluation_receipt.json"
-    if enforce and receipt.exists():
-        existing = json.loads(receipt.read_text(encoding="utf-8"))
-        if existing.get("model_hash") == model_hash and existing.get("confirmation_dataset_sha256") == confirmation_hash and not allow_repeat:
-            raise ValueError("Confirmation already evaluated for this model and dataset.")
+def one_shot_guard(
+    output_dir: Path,
+    model_hash: str,
+    confirmation_hash: str,
+    *,
+    enforce: bool,
+    allow_repeat: bool,
+) -> None:
+    receipt = (
+        output_dir
+        / "confirmation_evaluation_receipt.json"
+    )
+
+    if (
+        enforce
+        and receipt.exists()
+    ):
+        existing = json.loads(
+            receipt.read_text(
+                encoding="utf-8"
+            )
+        )
+
+        if (
+            existing.get(
+                "model_hash"
+            )
+            == model_hash
+            and existing.get(
+                "confirmation_dataset_sha256"
+            )
+            == confirmation_hash
+            and not allow_repeat
+        ):
+            raise ValueError(
+                "Confirmation already evaluated for "
+                "this model and dataset."
+            )
 
 
-def run(*, model_path: Path, confirmation: Path, freeze_manifest: Path, output_dir: Path, partition_manifest: Path | None = None, enforce_one_shot: bool = False, allow_repeat_for_reproducibility: bool = False) -> dict[str, Any]:
-    manifest = validate_freeze(model_path, freeze_manifest)
-    model_hash = sha256_file(model_path)
-    confirmation_hash = sha256_file(confirmation)
-    one_shot_guard(output_dir, model_hash, confirmation_hash, enforce=enforce_one_shot, allow_repeat=allow_repeat_for_reproducibility)
-    payload = joblib.load(model_path)
-    source_rows = load_jsonl(confirmation)
-    partition_info = validate_confirmation_partitions(source_rows, partition_manifest)
-    intrinsic_rows = category_eligible_rows(source_rows, allowed_partitions={"confirmation"})
-    y_true = category_labels(intrinsic_rows)
+def _category_metric(
+    name: str,
+):
+    def metric(
+        yt: list[str],
+        yp: list[str],
+    ) -> float:
+        return float(
+            category_metrics(
+                yt,
+                yp,
+                PRIMARY_STAGE2_LABELS,
+            )[name]
+        )
+
+    return metric
+
+
+def repository_bootstrap_category(
+    rows: list[dict[str, Any]],
+    y_true: list[str],
+    y_pred: list[str],
+) -> dict[str, Any]:
+    output = {
+        "method":
+            "repository_cluster_bootstrap",
+        "sampling_unit":
+            "repository",
+        "seed":
+            DEFAULT_SEED,
+        "n_bootstrap":
+            DEFAULT_N_BOOTSTRAP,
+        "alpha":
+            DEFAULT_ALPHA,
+        "metrics": {},
+    }
+
+    for metric_name in (
+        "macro_f1",
+        "accuracy",
+        "weighted_f1",
+        "balanced_accuracy",
+    ):
+        output[
+            "metrics"
+        ][
+            metric_name
+        ] = repository_cluster_bootstrap(
+            _category_metric(
+                metric_name
+            ),
+            rows,
+            y_true,
+            y_pred,
+            seed=DEFAULT_SEED,
+            n_bootstrap=
+                DEFAULT_N_BOOTSTRAP,
+            alpha=
+                DEFAULT_ALPHA,
+        )
+
+    return output
+
+
+def run(
+    *,
+    model_path: Path,
+    confirmation: Path,
+    freeze_manifest: Path,
+    output_dir: Path,
+    partition_manifest: Path | None = None,
+    enforce_one_shot: bool = False,
+    allow_repeat_for_reproducibility: bool = False,
+) -> dict[str, Any]:
+    manifest = validate_freeze(
+        model_path,
+        freeze_manifest,
+    )
+
+    model_hash = sha256_file(
+        model_path
+    )
+
+    confirmation_hash = sha256_file(
+        confirmation
+    )
+
+    one_shot_guard(
+        output_dir,
+        model_hash,
+        confirmation_hash,
+        enforce=enforce_one_shot,
+        allow_repeat=
+            allow_repeat_for_reproducibility,
+    )
+
+    payload = joblib.load(
+        model_path
+    )
+
+    source_rows = load_jsonl(
+        confirmation
+    )
+
+    partition_info = (
+        validate_confirmation_partitions(
+            source_rows,
+            partition_manifest,
+        )
+    )
+
+    intrinsic_rows = (
+        category_eligible_rows(
+            source_rows,
+            allowed_partitions={
+                "confirmation"
+            },
+        )
+    )
+
+    y_true = category_labels(
+        intrinsic_rows
+    )
+
     model = payload["model"]
-    y_pred = [str(item) for item in model.predict(intrinsic_rows)]
-    intrinsic = category_metrics(y_true, y_pred, PRIMARY_STAGE2_LABELS)
-    intrinsic["bootstrap_ci_95"] = {
-        "macro_f1": bootstrap_ci(lambda yt, yp: category_metrics(yt, yp, PRIMARY_STAGE2_LABELS)["macro_f1"], y_true, y_pred),
-        "accuracy": bootstrap_ci(lambda yt, yp: category_metrics(yt, yp, PRIMARY_STAGE2_LABELS)["accuracy"], y_true, y_pred),
-    }
-    intrinsic["per_language"] = per_language_category_metrics(intrinsic_rows, y_true, y_pred, PRIMARY_STAGE2_LABELS)
+
+    y_pred = [
+        str(item)
+        for item
+        in model.predict(
+            intrinsic_rows
+        )
+    ]
+
+    intrinsic = category_metrics(
+        y_true,
+        y_pred,
+        PRIMARY_STAGE2_LABELS,
+    )
+
+    intrinsic[
+        "repository_bootstrap_ci_95"
+    ] = repository_bootstrap_category(
+        intrinsic_rows,
+        y_true,
+        y_pred,
+    )
+
+    intrinsic[
+        "per_language"
+    ] = per_language_category_metrics(
+        intrinsic_rows,
+        y_true,
+        y_pred,
+        PRIMARY_STAGE2_LABELS,
+    )
+
     report = {
-        "stage2_intrinsic_scope": intrinsic,
-        "end_to_end_conditional_scope": {"status": "not_evaluated_here", "reason": "Requires binary predicted positives from frozen Binary V4 flow."},
+        "stage2_intrinsic_scope":
+            intrinsic,
+
+        "end_to_end_conditional_scope":
+            {
+                "status":
+                    "not_evaluated_here",
+                "reason":
+                    "Requires Binary predicted-positive "
+                    "scope and is reported separately.",
+            },
     }
-    output_dir.mkdir(parents=True, exist_ok=True)
-    write_jsonl(output_dir / "confirmation_predictions.jsonl", [{"case_id": row.get("case_id"), "repository": row.get("repository"), "language": row.get("language"), "gold": gold, "prediction": pred} for row, gold, pred in zip(intrinsic_rows, y_true, y_pred)])
-    write_json(output_dir / "confirmation_metrics.json", report)
-    receipt = {"confirmation_evaluated": True, "evaluation_timestamp": utc_now(), "model_hash": model_hash, "confirmation_dataset_sha256": confirmation_hash, "freeze_manifest_hash": sha256_file(freeze_manifest), **partition_info, "repeat_for_reproducibility": bool(allow_repeat_for_reproducibility)}
-    write_json(output_dir / "confirmation_evaluation_receipt.json", receipt)
-    (output_dir / "confirmation_report.md").write_text(f"# Category V8 Confirmation Evaluation\n\n- Frozen model: `{manifest.get('selected_model')}`\n- Intrinsic macro-F1: `{intrinsic['macro_f1']:.4f}`\n- Intrinsic accuracy: `{intrinsic['accuracy']:.4f}`\n\nEnd-to-end conditional scope is not mixed with intrinsic category evaluation.\n", encoding="utf-8")
-    return {"status": "ok", "metrics": report, "receipt": receipt}
+
+    output_dir.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    write_jsonl(
+        output_dir
+        / "confirmation_predictions.jsonl",
+        [
+            {
+                "case_id":
+                    row.get("case_id"),
+                "repository":
+                    row.get("repository"),
+                "language":
+                    row.get("language"),
+                "gold":
+                    gold,
+                "prediction":
+                    pred,
+            }
+            for row, gold, pred
+            in zip(
+                intrinsic_rows,
+                y_true,
+                y_pred,
+            )
+        ],
+    )
+
+    write_json(
+        output_dir
+        / "confirmation_metrics.json",
+        report,
+    )
+
+    receipt = {
+        "confirmation_evaluated": True,
+        "evaluation_timestamp":
+            utc_now(),
+        "model_hash":
+            model_hash,
+        "confirmation_dataset_sha256":
+            confirmation_hash,
+        "freeze_manifest_hash":
+            sha256_file(
+                freeze_manifest
+            ),
+        "bootstrap_policy":
+            EXPECTED_BOOTSTRAP,
+        **partition_info,
+        "repeat_for_reproducibility":
+            bool(
+                allow_repeat_for_reproducibility
+            ),
+    }
+
+    write_json(
+        output_dir
+        / "confirmation_evaluation_receipt.json",
+        receipt,
+    )
+
+    (
+        output_dir
+        / "confirmation_report.md"
+    ).write_text(
+        "# Category V8 Confirmation Evaluation\n\n"
+        f"- Frozen family: "
+        f"`{manifest.get('selected_family')}`\n"
+        f"- Intrinsic Macro-F1: "
+        f"`{intrinsic['macro_f1']:.4f}`\n"
+        f"- Intrinsic accuracy: "
+        f"`{intrinsic['accuracy']:.4f}`\n\n"
+        "End-to-end Binary-conditioned scope is "
+        "reported separately.\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+
+    return {
+        "status": "ok",
+        "metrics": report,
+        "receipt": receipt,
+    }
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Evaluate frozen Category V8 on confirmation only.")
-    parser.add_argument("--model", required=True)
-    parser.add_argument("--confirmation", required=True)
-    parser.add_argument("--freeze-manifest", required=True)
-    parser.add_argument("--output-dir", required=True)
-    parser.add_argument("--repository-partition-manifest")
-    parser.add_argument("--enforce-one-shot", action="store_true")
-    parser.add_argument("--allow-repeat-for-reproducibility", action="store_true")
+    parser = argparse.ArgumentParser(
+        description=(
+            "Evaluate frozen Category V8 "
+            "on confirmation only."
+        )
+    )
+
+    parser.add_argument(
+        "--model",
+        required=True,
+    )
+
+    parser.add_argument(
+        "--confirmation",
+        required=True,
+    )
+
+    parser.add_argument(
+        "--freeze-manifest",
+        required=True,
+    )
+
+    parser.add_argument(
+        "--output-dir",
+        required=True,
+    )
+
+    parser.add_argument(
+        "--repository-partition-manifest",
+    )
+
+    parser.add_argument(
+        "--enforce-one-shot",
+        action="store_true",
+    )
+
+    parser.add_argument(
+        "--allow-repeat-for-reproducibility",
+        action="store_true",
+    )
+
     args = parser.parse_args()
-    print(json.dumps(run(model_path=Path(args.model), confirmation=Path(args.confirmation), freeze_manifest=Path(args.freeze_manifest), output_dir=Path(args.output_dir), partition_manifest=Path(args.repository_partition_manifest) if args.repository_partition_manifest else None, enforce_one_shot=args.enforce_one_shot, allow_repeat_for_reproducibility=args.allow_repeat_for_reproducibility), indent=2, ensure_ascii=False))
+
+    result = run(
+        model_path=Path(
+            args.model
+        ),
+        confirmation=Path(
+            args.confirmation
+        ),
+        freeze_manifest=Path(
+            args.freeze_manifest
+        ),
+        output_dir=Path(
+            args.output_dir
+        ),
+        partition_manifest=(
+            Path(
+                args.repository_partition_manifest
+            )
+            if args.repository_partition_manifest
+            else None
+        ),
+        enforce_one_shot=
+            args.enforce_one_shot,
+        allow_repeat_for_reproducibility=
+            args.allow_repeat_for_reproducibility,
+    )
+
+    print(
+        json.dumps(
+            result,
+            indent=2,
+            ensure_ascii=False,
+        )
+    )
+
     return 0
 
 

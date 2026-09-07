@@ -51,6 +51,11 @@
     "gate4_sample_manifest": "reports/final_v2/gate4/sample_manifest.json",
     "gate4_secondary_stress_sample": "reports/final_v2/gate4/secondary_stress_sample.jsonl",
     "gate4_stage3_freeze_manifest": "reports/final_v2/gate4/GATE4_STAGE3_FREEZE_MANIFEST.json",
+    "gate5_one_shot_runner": "scripts/run_gate5_one_shot_qwen.py",
+    "gate5_preflight": "reports/final_v2/gate5/GATE5_PREFLIGHT.md",
+    "gate5_preregistration": "reports/final_v2/gate5/GATE5_PREREGISTRATION.json",
+    "gate5_preregistration_verifier": "scripts/verify_gate5_preregistration.py",
+    "gate5_repository_bootstrap": "docguard_eval_v2/gate5_bootstrap.py",
     "gold_freeze_manifest": "reports/final_v2/GOLD_FREEZE_MANIFEST.json",
     "gold_freeze_verifier": "scripts/verify_final_v2_gold_freeze.py",
     "model_visible_collision_audit": "reports/final_v2/gate1_model_visible_collision_audit.json",
@@ -62,6 +67,7 @@
   "confirmation_results_accessed_by_gate_2": false,
   "confirmation_results_accessed_by_gate_3": false,
   "confirmation_results_accessed_by_gate_4": false,
+  "confirmation_results_accessed_by_gate_5": false,
   "confirmation_sealed": true,
   "current_commit_at_gate_1_audit_start": "b1a5b40173967b00a8b3a48263231061907d61c4",
   "current_gate": 5,
@@ -555,6 +561,52 @@
       "status": "HARDENED_DEVELOPMENT_ONLY",
       "writer_confidence_contract": "numeric_0_to_1"
     }
+  },
+  "gate_5_summary": {
+    "binary": {
+      "model_sha256": "7d6a9263e1262c5c54db3d2e100209707c6a7681133fb1505f44125efa954462",
+      "primary_metric": "mcc",
+      "threshold": 0.15
+    },
+    "category": {
+      "model_sha256": "2d8123ac398568b5c9586b0f8d26d6c4079ddfebd504889b934f77bef65b9f59",
+      "primary_metric": "macro_f1",
+      "scope": "intrinsic_category_eligible_confirmation"
+    },
+    "confirmation_accessed": false,
+    "confirmation_sealed": true,
+    "execution_completed": false,
+    "master_receipt_present": false,
+    "one_shot_runner": "scripts/run_gate5_one_shot_qwen.py",
+    "preconfirmation_validation": {
+      "gate3_verifier": "PASS",
+      "gate4_verifier": "PASS",
+      "gate5_synthetic_tests": {
+        "failed": 0,
+        "passed": 23
+      },
+      "stage3_regression_suite": {
+        "failed": 0,
+        "passed": 63
+      }
+    },
+    "preregistration_verifier": "scripts/verify_gate5_preregistration.py",
+    "repository_bootstrap": {
+      "alpha": 0.05,
+      "method": "repository_cluster_bootstrap",
+      "n_bootstrap": 2000,
+      "sampling_unit": "repository",
+      "seed": 42
+    },
+    "stage3": {
+      "config_sha256": "27c234a3f998c34256025b0d914ddf3fd2a202eb3466b37a25f5aed0283e3192",
+      "confirmation_execution": "NOT_EXECUTED",
+      "freeze_manifest_sha256": "8d2d7911330d15d04e8b628200252e6c1a614344651596064b293b17b707076f",
+      "max_input_tokens": 4096,
+      "model": "Qwen/Qwen2.5-Coder-7B-Instruct"
+    },
+    "status": "PREPARED_NOT_ACTIVATED",
+    "upstream_gate4_closure_commit": "fc49c94d6c6e4c575299e7a4df15985bcea71484"
   },
   "gate_statuses": {
     "gate_0_canonical_pipeline_and_integrity_baseline": "PASS",

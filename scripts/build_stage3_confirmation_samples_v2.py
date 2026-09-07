@@ -25,7 +25,15 @@ def run(source: Path, output_dir: Path, seed: int = 42, target_size: int = 100, 
         "secondary_is_supplementary": True,
     }
     write_json(output_dir / "sample_manifest.json", manifest)
-    (output_dir / "sample_report.md").write_text("# Stage 3 V2 Confirmation Samples\n\nThe primary sample is natural-distribution random predicted-positive sampling. The category-stratified stress sample is supplementary only.\n", encoding="utf-8")
+    (output_dir / "sample_report.md").write_text(
+        "# Stage 3 V2 Confirmation Samples\n\n"
+        "The primary sample uses the frozen Binary prediction field and is "
+        "a seed-42 natural-distribution random predicted-positive sample. "
+        "Sampling occurs before retrieval-context filtering. "
+        "The category-stratified stress sample uses the frozen Category "
+        "prediction field and is supplementary only.\n",
+        encoding="utf-8",
+    )
     return manifest
 
 

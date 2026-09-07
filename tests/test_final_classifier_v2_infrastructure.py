@@ -201,22 +201,146 @@ def test_confirmation_evaluator_requires_freeze_manifest(tmp_path: Path):
         run_binary_confirmation(model_path=tmp_path / "missing.joblib", confirmation=tmp_path / "confirmation.jsonl", freeze_manifest=tmp_path / "missing_freeze.json", output_dir=tmp_path / "out")
 
 
-def test_one_shot_guard_refuses_repeat_for_same_model_and_confirmation(tmp_path: Path):
-    train_path = tmp_path / "train.jsonl"
-    val_path = tmp_path / "validation.jsonl"
-    config_path = tmp_path / "binary_config.json"
-    write_jsonl(train_path, train_rows())
-    write_jsonl(val_path, validation_rows())
-    tiny_config(config_path)
-    run_binary_train(train=train_path, validation=val_path, output_dir=tmp_path / "binary_out", model_output=tmp_path / "binary.joblib", config_path=config_path)
-    freeze = run_freeze(model_file=tmp_path / "binary.joblib", training_summary=tmp_path / "binary_out" / "training_summary.json", config=config_path, dataset_manifest=config_path, repository_partition_manifest=config_path, output=tmp_path / "freeze.json")
-    assert freeze["confirmation_accessed"] is False
-    out = tmp_path / "confirm"
-    confirmation_path = tmp_path / "confirmation.jsonl"
-    write_jsonl(confirmation_path, confirmation_rows())
-    run_binary_confirmation(model_path=tmp_path / "binary.joblib", confirmation=confirmation_path, freeze_manifest=tmp_path / "freeze.json", output_dir=out, enforce_one_shot=True)
-    with pytest.raises(ValueError):
-        run_binary_confirmation(model_path=tmp_path / "binary.joblib", confirmation=confirmation_path, freeze_manifest=tmp_path / "freeze.json", output_dir=out, enforce_one_shot=True)
+def test_one_shot_guard_refuses_repeat_for_same_model_and_confirmation(
+    tmp_path: Path,
+):
+    import joblib
+
+    train_path = (
+        tmp_path
+        / "train.jsonl"
+    )
+
+    val_path = (
+        tmp_path
+        / "validation.jsonl"
+    )
+
+    config_path = (
+        tmp_path
+        / "binary_config.json"
+    )
+
+    model_path = (
+        tmp_path
+        / "binary.joblib"
+    )
+
+    freeze_path = (
+        tmp_path
+        / "freeze.json"
+    )
+
+    write_jsonl(
+        train_path,
+        train_rows(),
+    )
+
+    write_jsonl(
+        val_path,
+        validation_rows(),
+    )
+
+    tiny_config(
+        config_path
+    )
+
+    run_binary_train(
+        train=train_path,
+        validation=val_path,
+        output_dir=
+            tmp_path
+            / "binary_out",
+        model_output=
+            model_path,
+        config_path=
+            config_path,
+    )
+
+    # This synthetic test exercises the final Gate 3
+    # confirmation contract, whose threshold is frozen at 0.15.
+    model_payload = joblib.load(
+        model_path
+    )
+
+    model_payload[
+        "threshold"
+    ] = 0.15
+
+    joblib.dump(
+        model_payload,
+        model_path,
+    )
+
+    freeze = {
+        "schema_version":
+            "gate3_classifier_freeze_manifest_v1",
+        "status":
+            "FROZEN",
+        "task":
+            "binary",
+        "confirmation_accessed":
+            False,
+        "model_sha256":
+            sha256_file(
+                model_path
+            ),
+    }
+
+    freeze_path.write_text(
+        json.dumps(
+            freeze,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    out = (
+        tmp_path
+        / "confirm"
+    )
+
+    confirmation_path = (
+        tmp_path
+        / "confirmation.jsonl"
+    )
+
+    write_jsonl(
+        confirmation_path,
+        confirmation_rows(),
+    )
+
+    run_binary_confirmation(
+        model_path=
+            model_path,
+        confirmation=
+            confirmation_path,
+        freeze_manifest=
+            freeze_path,
+        output_dir=
+            out,
+        enforce_one_shot=
+            True,
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="already evaluated",
+    ):
+        run_binary_confirmation(
+            model_path=
+                model_path,
+            confirmation=
+                confirmation_path,
+            freeze_manifest=
+                freeze_path,
+            output_dir=
+                out,
+            enforce_one_shot=
+                True,
+        )
 
 
 def test_runtime_source_contains_no_document_routing_or_gold_consumption():

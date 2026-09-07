@@ -284,46 +284,335 @@ class FakeCategoryModel:
         return [[1.0] for _ in rows]
 
 
-def write_freeze(path: Path, model: Path, config_hash: str | None = None):
-    write_json(path, {"confirmation_accessed": False, "hashes": {"model": sha256(model)}, "config_sha256": config_hash, "source_file_sha256": {}})
+def write_freeze(
+    path: Path,
+    model: Path,
+    task: str,
+):
+    write_json(
+        path,
+        {
+            "schema_version":
+                "gate3_classifier_freeze_manifest_v1",
+            "status":
+                "FROZEN",
+            "task":
+                task,
+            "confirmation_accessed":
+                False,
+            "model_sha256":
+                sha256(model),
+        },
+    )
 
 
 def sha256(path: Path) -> str:
     import hashlib
 
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return hashlib.sha256(
+        path.read_bytes()
+    ).hexdigest()
 
 
-def test_frozen_stage3_runner_guards_and_call_flow(tmp_path: Path):
-    confirmation = tmp_path / "confirmation.jsonl"
-    row = final_row(partition="confirmation", repository="org/repo", documentation_context_candidates=[{"path": "docs/config.md", "excerpt": "Configuration REVIEW_WINDOW", "source_ref": "base"}])
-    write_jsonl(confirmation, [row])
-    partition = tmp_path / "partition.json"
-    write_json(partition, {"confirmation_sealed": True, "repository_assignments": {"org/repo": "confirmation"}})
-    binary_model = tmp_path / "binary.joblib"
-    category_model = tmp_path / "category.joblib"
-    joblib.dump({"model": FakeBinaryModel(0.2), "threshold": 0.5}, binary_model)
-    joblib.dump({"model": FakeCategoryModel()}, category_model)
+def test_frozen_stage3_runner_guards_and_call_flow(
+    tmp_path: Path,
+):
+    confirmation = (
+        tmp_path
+        / "confirmation.jsonl"
+    )
+
+    row = final_row(
+        partition="confirmation",
+        repository="org/repo",
+        documentation_context_candidates=[
+            {
+                "path":
+                    "docs/config.md",
+                "excerpt":
+                    "Configuration REVIEW_WINDOW",
+                "source_ref":
+                    "base",
+            }
+        ],
+    )
+
+    write_jsonl(
+        confirmation,
+        [row],
+    )
+
+    partition = (
+        tmp_path
+        / "partition.json"
+    )
+
+    write_json(
+        partition,
+        {
+            "confirmation_sealed":
+                True,
+            "repository_assignments": {
+                "org/repo":
+                    "confirmation",
+            },
+        },
+    )
+
+    binary_model = (
+        tmp_path
+        / "binary.joblib"
+    )
+
+    category_model = (
+        tmp_path
+        / "category.joblib"
+    )
+
+    # Below frozen threshold 0.15 => Stage 3 not called.
+    joblib.dump(
+        {
+            "model":
+                FakeBinaryModel(0.1),
+            "threshold":
+                0.15,
+        },
+        binary_model,
+    )
+
+    joblib.dump(
+        {
+            "model":
+                FakeCategoryModel(),
+        },
+        category_model,
+    )
+
     bf = tmp_path / "bf.json"
     cf = tmp_path / "cf.json"
-    write_freeze(bf, binary_model)
-    write_freeze(cf, category_model)
-    cfg = tmp_path / "stage3.json"
-    cfg.write_text((ROOT / "configs/stage3_semantic_generation_v2.json").read_text(encoding="utf-8"), encoding="utf-8")
+
+    write_freeze(
+        bf,
+        binary_model,
+        "binary",
+    )
+
+    write_freeze(
+        cf,
+        category_model,
+        "category",
+    )
+
+    cfg = (
+        tmp_path
+        / "stage3.json"
+    )
+
+    cfg.write_text(
+        (
+            ROOT
+            / "configs/stage3_semantic_generation_v2.json"
+        ).read_text(
+            encoding="utf-8"
+        ),
+        encoding="utf-8",
+    )
+
+    config_payload = json.loads(
+        cfg.read_text(
+            encoding="utf-8"
+        )
+    )
+
+    frozen_source_relative = (
+        "docguard_llm_v2/context_adapter.py"
+    )
+
+    frozen_source = (
+        ROOT
+        / frozen_source_relative
+    )
+
     sf = tmp_path / "sf.json"
-    write_json(sf, {"config_sha256": sha256(cfg), "source_file_sha256": {}})
+
+    write_json(
+        sf,
+        {
+            "schema_version":
+                "gate4_stage3_freeze_v1",
+            "gate":
+                4,
+            "status":
+                "PASS",
+            "stage3_status":
+                "FROZEN",
+            "confirmation_accessed":
+                False,
+            "confirmation_sealed":
+                True,
+            "stage3_config": {
+                "sha256":
+                    sha256(cfg),
+                "settings":
+                    config_payload,
+            },
+            "implementation_source_sha256": {
+                frozen_source_relative:
+                    sha256(
+                        frozen_source
+                    ),
+            },
+        },
+    )
+
     llm = RecordingLLM()
-    out = tmp_path / "out"
-    result = run_stage3_confirmation(confirmation=confirmation, repository_partition_manifest=partition, binary_model=binary_model, binary_freeze_manifest=bf, category_model=category_model, category_freeze_manifest=cf, stage3_config=cfg, stage3_freeze_manifest=sf, output_dir=out, llm_backend=llm, enforce_one_shot=True)
-    assert result["receipt"]["positive_stage3_invocation_count"] == 0
+
+    out = (
+        tmp_path
+        / "out"
+    )
+
+    result = run_stage3_confirmation(
+        confirmation=
+            confirmation,
+        repository_partition_manifest=
+            partition,
+        binary_model=
+            binary_model,
+        binary_freeze_manifest=
+            bf,
+        category_model=
+            category_model,
+        category_freeze_manifest=
+            cf,
+        stage3_config=
+            cfg,
+        stage3_freeze_manifest=
+            sf,
+        output_dir=
+            out,
+        llm_backend=
+            llm,
+        enforce_one_shot=
+            True,
+    )
+
+    assert (
+        result[
+            "receipt"
+        ][
+            "frozen_binary_predicted_positive_count"
+        ]
+        == 0
+    )
+
+    assert (
+        result[
+            "receipt"
+        ][
+            "stage3_invocation_count"
+        ]
+        == 0
+    )
+
     assert llm.calls == []
-    joblib.dump({"model": FakeBinaryModel(0.9), "threshold": 0.5}, binary_model)
-    write_freeze(bf, binary_model)
-    out2 = tmp_path / "out2"
-    run_stage3_confirmation(confirmation=confirmation, repository_partition_manifest=partition, binary_model=binary_model, binary_freeze_manifest=bf, category_model=category_model, category_freeze_manifest=cf, stage3_config=cfg, stage3_freeze_manifest=sf, output_dir=out2, llm_backend=llm, enforce_one_shot=True)
+
+    # Above frozen threshold => Stage 3 is called.
+    joblib.dump(
+        {
+            "model":
+                FakeBinaryModel(0.9),
+            "threshold":
+                0.15,
+        },
+        binary_model,
+    )
+
+    write_freeze(
+        bf,
+        binary_model,
+        "binary",
+    )
+
+    out2 = (
+        tmp_path
+        / "out2"
+    )
+
+    result2 = run_stage3_confirmation(
+        confirmation=
+            confirmation,
+        repository_partition_manifest=
+            partition,
+        binary_model=
+            binary_model,
+        binary_freeze_manifest=
+            bf,
+        category_model=
+            category_model,
+        category_freeze_manifest=
+            cf,
+        stage3_config=
+            cfg,
+        stage3_freeze_manifest=
+            sf,
+        output_dir=
+            out2,
+        llm_backend=
+            llm,
+        enforce_one_shot=
+            True,
+    )
+
+    assert (
+        result2[
+            "receipt"
+        ][
+            "frozen_binary_predicted_positive_count"
+        ]
+        == 1
+    )
+
+    assert (
+        result2[
+            "receipt"
+        ][
+            "stage3_invocation_count"
+        ]
+        == 1
+    )
+
     assert llm.calls
-    with pytest.raises(ValueError):
-        run_stage3_confirmation(confirmation=confirmation, repository_partition_manifest=partition, binary_model=binary_model, binary_freeze_manifest=bf, category_model=category_model, category_freeze_manifest=cf, stage3_config=cfg, stage3_freeze_manifest=sf, output_dir=out2, llm_backend=RecordingLLM(), enforce_one_shot=True)
+
+    # Same frozen identities + completed receipt => no rerun.
+    with pytest.raises(
+        ValueError,
+        match="already ran",
+    ):
+        run_stage3_confirmation(
+            confirmation=
+                confirmation,
+            repository_partition_manifest=
+                partition,
+            binary_model=
+                binary_model,
+            binary_freeze_manifest=
+                bf,
+            category_model=
+                category_model,
+            category_freeze_manifest=
+                cf,
+            stage3_config=
+                cfg,
+            stage3_freeze_manifest=
+                sf,
+            output_dir=
+                out2,
+            llm_backend=
+                RecordingLLM(),
+            enforce_one_shot=
+                True,
+        )
 
 
 def test_completion_audit_receipt_and_stale_hash_rejected(tmp_path: Path):
