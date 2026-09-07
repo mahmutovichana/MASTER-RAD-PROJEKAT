@@ -244,6 +244,37 @@ def verify(
             "Gate 4 upstream verification failed."
         )
 
+
+    gate4_artifact_portability = (
+        gate4.get(
+            "artifact_eol_portability_correction"
+        )
+        or {}
+    )
+
+    if (
+        gate4_artifact_portability.get(
+            "status"
+        )
+        != "PASS"
+        or gate4_artifact_portability.get(
+            "portable_artifact_count"
+        )
+        != 6
+        or gate4_artifact_portability.get(
+            "scientific_content_changed"
+        )
+        is not False
+        or gate4_artifact_portability.get(
+            "confirmation_accessed"
+        )
+        is not False
+    ):
+        raise RuntimeError(
+            "Gate 4 artifact EOL portability "
+            "correction failed."
+        )
+
     gate5 = (
         root
         / "reports/final_v2/gate5"
@@ -287,6 +318,12 @@ def verify(
           "GATE5_CLASSIFIER_RUNTIME_PORTABILITY_CANARY.json"
     )
 
+    gate4_artifact_eol_correction_path = (
+        root
+        / "reports/final_v2/gate4/"
+          "GATE4_ARTIFACT_EOL_PORTABILITY_CORRECTION.json"
+    )
+
     for required in (
         prereg_path,
         preflight_path,
@@ -295,6 +332,7 @@ def verify(
         correction_path,
         child_link_correction_path,
         classifier_canary_path,
+        gate4_artifact_eol_correction_path,
     ):
         if not required.is_file():
             raise RuntimeError(
@@ -760,6 +798,7 @@ def verify(
         "reports/final_v2/gate3/GATE3_SELECTION_EVIDENCE_EOL_PORTABILITY_CORRECTION.json",
         "reports/final_v2/gate3/GATE3_CHILD_MANIFEST_LINK_EOL_PORTABILITY_CORRECTION.json",
         "reports/final_v2/gate5/GATE5_CLASSIFIER_RUNTIME_PORTABILITY_CANARY.json",
+        "reports/final_v2/gate4/GATE4_ARTIFACT_EOL_PORTABILITY_CORRECTION.json",
     ):
         if required_path not in artifact_map:
             raise RuntimeError(
@@ -811,6 +850,12 @@ def verify(
         "gate3_child_manifest_link_portability_sha256":
             sha256_file(
                 child_link_correction_path
+            ),
+        "gate4_artifact_eol_portability":
+            "PASS",
+        "gate4_artifact_eol_portability_sha256":
+            sha256_file(
+                gate4_artifact_eol_correction_path
             ),
         "classifier_runtime_canary":
             "REFERENCE_FROZEN_PRE_CONFIRMATION",

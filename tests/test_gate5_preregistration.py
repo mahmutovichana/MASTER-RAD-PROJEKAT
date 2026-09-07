@@ -157,3 +157,30 @@ def test_gate5_verifier_reports_final_portability_hardening():
         ]
         == "NOT_EXECUTED"
     )
+
+
+def test_gate5_verifier_reports_gate4_artifact_portability():
+    result = verify(
+        ROOT
+    )
+
+    assert (
+        result[
+            "gate4_artifact_eol_portability"
+        ]
+        == "PASS"
+    )
+
+    assert (
+        result[
+            "confirmation_accessed"
+        ]
+        is False
+    )
+
+    assert (
+        result[
+            "gate5_execution"
+        ]
+        == "NOT_EXECUTED"
+    )

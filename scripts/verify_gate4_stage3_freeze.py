@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import hashlib
@@ -46,6 +46,29 @@ EXPECTED_CONFIG_SHA256 = (
     "27c234a3f998c34256025b0d914ddf3f"
     "d2a202eb3466b37a25f5aed0283e3192"
 )
+
+GATE4_ARTIFACT_EOL_CORRECTION_RELATIVE = (
+    "reports/final_v2/gate4/"
+    "GATE4_ARTIFACT_EOL_PORTABILITY_CORRECTION.json"
+)
+
+GATE4_ARTIFACT_EOL_CORRECTION_SCHEMA = (
+    "gate4_artifact_eol_portability_correction_v1"
+)
+
+GATE5_PREREGISTRATION_SHA256 = (
+    "dd4ed749774c144d3533128e93749fa003925dbdf73b1a121fee1a3fd40dc3b8"
+)
+
+EXPECTED_EOL_PORTABLE_ARTIFACTS = {
+    "reports/final_v2/gate4/final_results/GATE4_DEVELOPMENT_ANALYSIS.md",
+    "reports/final_v2/gate4/final_results/gate4_case_diagnostics.csv",
+    "reports/final_v2/gate4/final_results/gate4_development_analysis_summary.json",
+    "reports/final_v2/gate4/final_results/gate4_sample_summary.csv",
+    "reports/final_v2/gate4/final_results/gate4_secondary_category_summary.csv",
+    "reports/final_v2/gate4/final_results/postrun_verification_report.json",
+}
+
 
 EXPECTED_STATUS_COUNTS = {
     "accepted_after_repair": 1,
@@ -104,6 +127,370 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
             rows.append(row)
 
     return rows
+
+
+def sha256_bytes(
+    data: bytes,
+) -> str:
+    return hashlib.sha256(
+        data
+    ).hexdigest()
+
+
+def lf_bytes(
+    data: bytes,
+) -> bytes:
+    return data.replace(
+        b"\r\n",
+        b"\n",
+    )
+
+
+def crlf_from_lf(
+    data: bytes,
+) -> bytes:
+    return lf_bytes(
+        data
+    ).replace(
+        b"\n",
+        b"\r\n",
+    )
+
+
+def load_gate4_artifact_eol_correction(
+    root: Path,
+) -> dict[str, Any]:
+    path = (
+        root
+        / GATE4_ARTIFACT_EOL_CORRECTION_RELATIVE
+    )
+
+    if not path.is_file():
+        raise RuntimeError(
+            "Gate 4 artifact EOL portability "
+            "correction is missing"
+        )
+
+    payload = load_json(
+        path
+    )
+
+    if (
+        payload.get("schema_version")
+        != GATE4_ARTIFACT_EOL_CORRECTION_SCHEMA
+        or payload.get("status")
+        != "PASS"
+        or payload.get("gate")
+        != 4
+        or payload.get("gate4_freeze_manifest_sha256")
+        != EXPECTED_FREEZE_SHA256
+        or payload.get("gate5_preregistration_sha256")
+        != GATE5_PREREGISTRATION_SHA256
+        or payload.get("confirmation_accessed")
+        is not False
+        or payload.get("confirmation_sealed")
+        is not True
+        or payload.get("gate5_execution_started")
+        is not False
+        or payload.get("scientific_content_changed")
+        is not False
+        or payload.get("stage3_configuration_changed")
+        is not False
+        or payload.get("stage3_model_changed")
+        is not False
+        or payload.get("generation_results_changed")
+        is not False
+        or payload.get("original_gate4_artifacts_modified")
+        is not False
+        or payload.get("original_gate4_artifact_manifest_modified")
+        is not False
+        or payload.get("original_gate4_freeze_manifest_modified")
+        is not False
+        or set(
+            payload.get(
+                "eol_portable_artifacts",
+                [],
+            )
+        )
+        != EXPECTED_EOL_PORTABLE_ARTIFACTS
+    ):
+        raise RuntimeError(
+            "Gate 4 artifact EOL portability "
+            "correction contract mismatch"
+        )
+
+    return payload
+
+
+def verify_frozen_artifact_identity(
+    *,
+    root: Path,
+    relative: str,
+    item: dict[str, Any],
+    correction: dict[str, Any],
+) -> dict[str, Any]:
+    path = (
+        root
+        / relative
+    )
+
+    if not path.is_file():
+        raise RuntimeError(
+            "Missing frozen Gate 4 artifact: "
+            f"{relative}"
+        )
+
+    raw = path.read_bytes()
+
+    expected_sha = (
+        item[
+            "sha256"
+        ]
+    )
+
+    expected_bytes = int(
+        item[
+            "bytes"
+        ]
+    )
+
+    if (
+        sha256_bytes(
+            raw
+        )
+        == expected_sha
+        and len(raw)
+        == expected_bytes
+    ):
+        return {
+            "status":
+                "PASS",
+            "mode":
+                "historical_raw_match",
+        }
+
+    record = (
+        correction.get(
+            "artifacts",
+            {},
+        ).get(
+            relative
+        )
+        or {}
+    )
+
+    if (
+        record.get(
+            "mode"
+        )
+        != "canonical_git_lf_with_verified_crlf_equivalence"
+        or record.get(
+            "historical_frozen_sha256"
+        )
+        != expected_sha
+        or int(
+            record.get(
+                "historical_frozen_bytes",
+                -1,
+            )
+        )
+        != expected_bytes
+        or record.get(
+            "text_semantic_equivalence_verified"
+        )
+        is not True
+        or record.get(
+            "lf_to_crlf_reconstruction_verified"
+        )
+        is not True
+    ):
+        raise RuntimeError(
+            "Frozen Gate 4 artifact changed "
+            "without a valid portability proof: "
+            f"{relative}"
+        )
+
+    canonical_lf = lf_bytes(
+        raw
+    )
+
+    if (
+        sha256_bytes(
+            canonical_lf
+        )
+        != record.get(
+            "canonical_git_sha256_lf"
+        )
+        or len(
+            canonical_lf
+        )
+        != int(
+            record.get(
+                "canonical_git_bytes_lf",
+                -1,
+            )
+        )
+    ):
+        raise RuntimeError(
+            "Frozen Gate 4 canonical LF identity "
+            f"mismatch: {relative}"
+        )
+
+    historical_crlf = (
+        crlf_from_lf(
+            canonical_lf
+        )
+    )
+
+    if (
+        sha256_bytes(
+            historical_crlf
+        )
+        != expected_sha
+        or len(
+            historical_crlf
+        )
+        != expected_bytes
+        or record.get(
+            "historical_reconstructed_sha256_crlf"
+        )
+        != expected_sha
+        or int(
+            record.get(
+                "historical_reconstructed_bytes_crlf",
+                -1,
+            )
+        )
+        != expected_bytes
+    ):
+        raise RuntimeError(
+            "Frozen Gate 4 historical CRLF "
+            f"reconstruction mismatch: {relative}"
+        )
+
+    return {
+        "status":
+            "PASS",
+        "mode":
+            "canonical_git_lf_with_verified_crlf_equivalence",
+        "canonical_lf_sha256":
+            sha256_bytes(
+                canonical_lf
+            ),
+        "historical_crlf_sha256":
+            expected_sha,
+    }
+
+
+def verify_artifact_manifest_link_identity(
+    *,
+    artifact_manifest_path: Path,
+    expected_sha: str,
+    correction: dict[str, Any],
+) -> dict[str, Any]:
+    raw = (
+        artifact_manifest_path
+        .read_bytes()
+    )
+
+    if (
+        sha256_bytes(
+            raw
+        )
+        == expected_sha
+    ):
+        return {
+            "status":
+                "PASS",
+            "mode":
+                "historical_raw_match",
+        }
+
+    record = (
+        correction.get(
+            "artifact_manifest_link"
+        )
+        or {}
+    )
+
+    if (
+        record.get(
+            "historical_frozen_sha256"
+        )
+        != expected_sha
+        or record.get(
+            "mode"
+        )
+        != "canonical_git_lf_with_verified_crlf_equivalence"
+    ):
+        raise RuntimeError(
+            "Freeze/artifact-manifest linkage mismatch"
+        )
+
+    canonical_lf = (
+        lf_bytes(
+            raw
+        )
+    )
+
+    if (
+        sha256_bytes(
+            canonical_lf
+        )
+        != record.get(
+            "canonical_git_sha256_lf"
+        )
+        or len(
+            canonical_lf
+        )
+        != int(
+            record.get(
+                "canonical_git_bytes_lf",
+                -1,
+            )
+        )
+    ):
+        raise RuntimeError(
+            "Artifact-manifest canonical LF "
+            "identity mismatch"
+        )
+
+    historical = (
+        crlf_from_lf(
+            canonical_lf
+        )
+    )
+
+    if (
+        sha256_bytes(
+            historical
+        )
+        != expected_sha
+        or record.get(
+            "historical_reconstructed_sha256_crlf"
+        )
+        != expected_sha
+        or len(
+            historical
+        )
+        != int(
+            record.get(
+                "historical_reconstructed_bytes_crlf",
+                -1,
+            )
+        )
+    ):
+        raise RuntimeError(
+            "Artifact-manifest historical "
+            "CRLF reconstruction mismatch"
+        )
+
+    return {
+        "status":
+            "PASS",
+        "mode":
+            "canonical_git_lf_with_verified_crlf_equivalence",
+    }
 
 
 def verify(
@@ -684,40 +1071,115 @@ def verify(
             "Gate 4 artifact manifest mismatch"
         )
 
+    artifact_eol_correction = (
+        load_gate4_artifact_eol_correction(
+            root
+        )
+    )
+
+    artifact_identity_results = {}
+
     for relative, item in (
         artifact_manifest.get(
             "artifacts",
             {}
         ).items()
     ):
-        path = root / relative
+        artifact_identity_results[
+            relative
+        ] = verify_frozen_artifact_identity(
+            root=
+                root,
+            relative=
+                relative,
+            item=
+                item,
+            correction=
+                artifact_eol_correction,
+        )
 
-        if not path.is_file():
-            raise RuntimeError(
-                f"Missing frozen Gate 4 artifact: "
-                f"{relative}"
-            )
+    artifact_manifest_link_identity = (
+        verify_artifact_manifest_link_identity(
+            artifact_manifest_path=
+                artifact_manifest_path,
+            expected_sha=
+                freeze[
+                    "artifact_manifest"
+                ][
+                    "sha256"
+                ],
+            correction=
+                artifact_eol_correction,
+        )
+    )
 
-        if (
-            sha256_file(path)
-            != item["sha256"]
-            or path.stat().st_size
-            != item["bytes"]
-        ):
-            raise RuntimeError(
-                f"Frozen Gate 4 artifact changed: "
-                f"{relative}"
-            )
+    correction_portable_artifacts = set(
+        artifact_eol_correction.get(
+            "eol_portable_artifacts",
+            [],
+        )
+    )
 
     if (
-        freeze["artifact_manifest"]["sha256"]
-        != sha256_file(
-            artifact_manifest_path
-        )
+        correction_portable_artifacts
+        != EXPECTED_EOL_PORTABLE_ARTIFACTS
     ):
         raise RuntimeError(
-            "Freeze/artifact-manifest linkage mismatch"
+            "Gate 4 portable-artifact inventory mismatch"
         )
+
+    for relative in (
+        EXPECTED_EOL_PORTABLE_ARTIFACTS
+    ):
+        record = (
+            artifact_eol_correction.get(
+                "artifacts",
+                {},
+            ).get(
+                relative,
+                {},
+            )
+        )
+
+        if (
+            record.get("mode")
+            != "canonical_git_lf_with_verified_crlf_equivalence"
+            or record.get(
+                "text_semantic_equivalence_verified"
+            )
+            is not True
+            or record.get(
+                "lf_to_crlf_reconstruction_verified"
+            )
+            is not True
+        ):
+            raise RuntimeError(
+                "Gate 4 portability proof record mismatch: "
+                f"{relative}"
+            )
+
+    portable_count = len(
+        correction_portable_artifacts
+    )
+
+    artifact_eol_portability = {
+        "status":
+            "PASS",
+        "path":
+            GATE4_ARTIFACT_EOL_CORRECTION_RELATIVE,
+        "portable_artifact_count":
+            portable_count,
+        "portable_artifacts":
+            sorted(
+                EXPECTED_EOL_PORTABLE_ARTIFACTS
+            ),
+        "artifact_manifest_link":
+            artifact_manifest_link_identity,
+        "scientific_content_changed":
+            False,
+        "confirmation_accessed":
+            False,
+    }
 
     # ------------------------------------------------
     # External run lifecycle manifest
@@ -865,6 +1327,8 @@ def verify(
         "confirmation_sealed": True,
         "current_gate": 5,
         "gate5_status": "NOT_EXECUTED",
+        "artifact_eol_portability_correction":
+            artifact_eol_portability,
     }
 
 

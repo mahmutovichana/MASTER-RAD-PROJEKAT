@@ -50,6 +50,7 @@ These artifacts define the current Final V2 experiment state.
 | Gate 4 final development analysis | `reports/final_v2/gate4/final_results/` | Primary natural-distribution analysis, supplementary category-stress analysis, diagnostics, final report and immutable artifact inventory. |
 | Gate 4 Stage 3 freeze manifest | `reports/final_v2/gate4/GATE4_STAGE3_FREEZE_MANIFEST.json` | Immutable Stage 3 config, runtime, source hashes, development evidence and sealed-confirmation boundary. |
 | Gate 4 Stage 3 freeze verifier | `scripts/verify_gate4_stage3_freeze.py` | Strict machine-checkable Gate 4 closure verifier. |
+| Gate 4 frozen-artifact EOL portability correction | `reports/final_v2/gate4/GATE4_ARTIFACT_EOL_PORTABILITY_CORRECTION.json` | Pre-confirmation proof that six frozen Gate 4 final-results text artifacts have canonical Git LF bytes equivalent to their historically frozen Windows CRLF serialization; frozen SHA-256 and byte counts are deterministically reproduced without changing Stage 3 configuration, model, generation results, or scientific content. |
 
 
 | Gate 5 preregistration | `reports/final_v2/gate5/GATE5_PREREGISTRATION.json` | Pre-confirmation immutable evaluation policy: frozen model identities, metrics, repository-cluster bootstrap, Stage 3 policy and one-shot boundary. |
