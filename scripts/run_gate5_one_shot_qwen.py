@@ -59,9 +59,8 @@ DEFAULT_CONFIRMATION = (
 )
 
 DEFAULT_PARTITION = (
-    "data/final_v2/partitions/"
-    "canonical_repository_partitions/"
-    "repository_partition_manifest.json"
+    "experiments/consolidated_enriched_training_v2/"
+    "gold/human_gold_manifest.json"
 )
 
 DEFAULT_BINARY_MODEL = (
@@ -135,17 +134,29 @@ EXPECTED_STAGE3_CONFIG_SHA = (
 )
 
 EXPECTED_PARTITION_MANIFEST_SHA = (
-    "ff434af660f52f229ab5d1fbf978fc1268913c2e16ea9711fa863eb44a8f7c89"
+    "88bc919675dac77e5ced805e121021dd6fbf43f5bf13b99babf2359625379b93"
 )
 
-EXPECTED_PARTITION_MANIFEST_BYTES = 11537
+EXPECTED_PARTITION_MANIFEST_BYTES = 7976
 
-EXPECTED_PARTITION_REPOSITORIES = 225
+EXPECTED_CONFIRMATION_SHA = (
+    "e73caca3b9ef46de284c4755127e3d7cfc0b5db9f3d1c8cd2b85be80b2c6d01b"
+)
 
-EXPECTED_PARTITION_COUNTS = {
-    "development_train": 144,
-    "development_validation": 36,
-    "confirmation": 45,
+EXPECTED_CONFIRMATION_ROWS = 3747
+
+EXPECTED_CONFIRMATION_REPOSITORIES = 52
+
+EXPECTED_PARTITION_ROW_COUNTS = {
+    "development_train": 19018,
+    "development_validation": 3148,
+    "confirmation": 3747,
+}
+
+EXPECTED_PARTITION_REPOSITORY_COUNTS = {
+    "development_train": 191,
+    "development_validation": 41,
+    "confirmation": 52,
 }
 
 
@@ -586,7 +597,7 @@ def validate_partition_manifest_preconfirmation(
 
     if not partition_manifest.is_file():
         raise RuntimeError(
-            "Missing canonical repository partition manifest: "
+            "Missing frozen Final V2 gold manifest: "
             f"{partition_manifest}"
         )
 
@@ -607,8 +618,7 @@ def validate_partition_manifest_preconfirmation(
         != EXPECTED_PARTITION_MANIFEST_BYTES
     ):
         raise RuntimeError(
-            "Canonical repository partition manifest "
-            "identity mismatch."
+            "Frozen Final V2 gold manifest identity mismatch."
         )
 
     payload = load_json(
@@ -616,66 +626,73 @@ def validate_partition_manifest_preconfirmation(
     )
 
     if (
-        payload.get(
+        payload.get("version")
+        != "consolidated_enriched_training_v2_gold"
+        or payload.get(
             "confirmation_sealed"
         )
         is not True
+        or payload.get(
+            "row_count"
+        )
+        != 25913
+        or payload.get(
+            "partition_row_counts"
+        )
+        != EXPECTED_PARTITION_ROW_COUNTS
+        or payload.get(
+            "partition_repository_counts"
+        )
+        != EXPECTED_PARTITION_REPOSITORY_COUNTS
+        or payload.get(
+            "repository_overlap_count"
+        )
+        != 0
+        or payload.get(
+            "sealed_confirmation_case_ids_preserved"
+        )
+        is not True
+        or (
+            payload.get(
+                "sha256",
+                {},
+            ).get(
+                "confirmation.jsonl"
+            )
+            != EXPECTED_CONFIRMATION_SHA
+        )
     ):
         raise RuntimeError(
-            "Canonical repository partition manifest "
-            "does not preserve sealed confirmation."
-        )
-
-    assignments = (
-        payload.get(
-            "repository_assignments"
-        )
-        or {}
-    )
-
-    counts = Counter(
-        assignments.values()
-    )
-
-    if (
-        len(assignments)
-        != EXPECTED_PARTITION_REPOSITORIES
-        or dict(counts)
-        != EXPECTED_PARTITION_COUNTS
-    ):
-        raise RuntimeError(
-            "Canonical repository partition manifest "
-            "assignment inventory mismatch."
+            "Frozen Final V2 confirmation-boundary metadata mismatch."
         )
 
     return {
         "status":
             "PASS",
-
         "path":
             str(
                 partition_manifest
             ),
-
+        "manifest_mode":
+            "final_v2_gold_manifest",
         "sha256":
             actual_sha,
-
         "bytes":
             actual_bytes,
-
-        "repository_assignments":
-            len(assignments),
-
-        "partition_counts":
-            dict(
-                sorted(
-                    counts.items()
-                )
-            ),
-
+        "partition_row_counts":
+            EXPECTED_PARTITION_ROW_COUNTS,
+        "partition_repository_counts":
+            EXPECTED_PARTITION_REPOSITORY_COUNTS,
+        "confirmation_rows":
+            EXPECTED_CONFIRMATION_ROWS,
+        "confirmation_repositories":
+            EXPECTED_CONFIRMATION_REPOSITORIES,
+        "expected_confirmation_sha256":
+            EXPECTED_CONFIRMATION_SHA,
+        "repository_overlap_count":
+            0,
         "confirmation_sealed":
             True,
-
         "confirmation_accessed":
             False,
     }
@@ -2037,6 +2054,32 @@ def execute_one_shot(
             confirmation
         )
     )
+
+    if (
+        confirmation_hash
+        != EXPECTED_CONFIRMATION_SHA
+    ):
+        raise RuntimeError(
+            "Frozen Final V2 confirmation SHA-256 mismatch."
+        )
+
+    if (
+        partition_info.get(
+            "manifest_mode"
+        )
+        != "final_v2_gold_manifest"
+        or partition_info.get(
+            "confirmation_rows"
+        )
+        != EXPECTED_CONFIRMATION_ROWS
+        or partition_info.get(
+            "confirmation_repositories"
+        )
+        != EXPECTED_CONFIRMATION_REPOSITORIES
+    ):
+        raise RuntimeError(
+            "Frozen Final V2 confirmation boundary validation failed."
+        )
 
     identities = {
         "schema_version":

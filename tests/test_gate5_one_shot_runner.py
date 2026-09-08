@@ -119,9 +119,8 @@ def test_preconfirmation_validation_does_not_read_confirmation(
                   "GATE4_STAGE3_FREEZE_MANIFEST.json",
             partition_manifest=
                 root
-                / "data/final_v2/partitions/"
-                  "canonical_repository_partitions/"
-                  "repository_partition_manifest.json",
+                / "experiments/consolidated_enriched_training_v2/"
+                  "gold/human_gold_manifest.json",
             output_root=
                 root
                 / "reports/final_v2/gate5/"
@@ -295,9 +294,8 @@ def test_partition_manifest_preflight_is_frozen_metadata() -> None:
     result = (
         validate_partition_manifest_preconfirmation(
             root
-            / "data/final_v2/partitions/"
-              "canonical_repository_partitions/"
-              "repository_partition_manifest.json"
+            / "experiments/consolidated_enriched_training_v2/"
+              "gold/human_gold_manifest.json"
         )
     )
 
@@ -319,35 +317,75 @@ def test_partition_manifest_preflight_is_frozen_metadata() -> None:
 
     assert (
         result[
+            "manifest_mode"
+        ]
+        == "final_v2_gold_manifest"
+    )
+
+    assert (
+        result[
             "sha256"
         ]
         ==
-        "ff434af660f52f229ab5d1fbf978fc1268913c2e16ea9711fa863eb44a8f7c89"
+        "88bc919675dac77e5ced805e121021dd6fbf43f5bf13b99babf2359625379b93"
     )
 
     assert (
         result[
             "bytes"
         ]
-        == 11537
+        == 7976
     )
 
     assert (
         result[
-            "repository_assignments"
+            "confirmation_rows"
         ]
-        == 225
+        == 3747
     )
 
     assert (
         result[
-            "partition_counts"
+            "confirmation_repositories"
+        ]
+        == 52
+    )
+
+    assert (
+        result[
+            "partition_row_counts"
         ]
         == {
-            "confirmation": 45,
-            "development_train": 144,
-            "development_validation": 36,
+            "development_train": 19018,
+            "development_validation": 3148,
+            "confirmation": 3747,
         }
+    )
+
+    assert (
+        result[
+            "partition_repository_counts"
+        ]
+        == {
+            "development_train": 191,
+            "development_validation": 41,
+            "confirmation": 52,
+        }
+    )
+
+    assert (
+        result[
+            "expected_confirmation_sha256"
+        ]
+        ==
+        "e73caca3b9ef46de284c4755127e3d7cfc0b5db9f3d1c8cd2b85be80b2c6d01b"
+    )
+
+    assert (
+        result[
+            "repository_overlap_count"
+        ]
+        == 0
     )
 
 
@@ -357,7 +395,7 @@ def test_missing_partition_manifest_fails_before_confirmation(
 
     with pytest.raises(
         RuntimeError,
-        match="Missing canonical repository partition manifest",
+        match="Missing frozen Final V2 gold manifest",
     ):
         validate_partition_manifest_preconfirmation(
             tmp_path

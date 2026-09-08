@@ -127,7 +127,8 @@ def validate_confirmation_partitions(
 ) -> dict[str, Any]:
     if partition_manifest is None:
         return {
-            "partition_manifest_supplied": False,
+            "partition_manifest_supplied":
+                False,
         }
 
     payload = json.loads(
@@ -136,11 +137,132 @@ def validate_confirmation_partitions(
         )
     )
 
-    if payload.get("confirmation_sealed") is not True:
+    if (
+        payload.get(
+            "confirmation_sealed"
+        )
+        is not True
+    ):
         raise ValueError(
             "Partition manifest must have confirmation_sealed=true"
         )
 
+    manifest_hash = sha256_file(
+        partition_manifest
+    )
+
+    # --------------------------------------------------------
+    # Canonical Final V2 gold-manifest contract.
+    #
+    # The Final V2 consolidation superseded the older
+    # repository-assignment manifest as the Gate 5
+    # confirmation-boundary source of truth.
+    # --------------------------------------------------------
+    if (
+        payload.get("version")
+        == "consolidated_enriched_training_v2_gold"
+    ):
+        expected_rows = (
+            payload.get(
+                "partition_row_counts",
+                {},
+            ).get(
+                "confirmation"
+            )
+        )
+
+        expected_repositories = (
+            payload.get(
+                "partition_repository_counts",
+                {},
+            ).get(
+                "confirmation"
+            )
+        )
+
+        expected_confirmation_sha = (
+            payload.get(
+                "sha256",
+                {},
+            ).get(
+                "confirmation.jsonl"
+            )
+        )
+
+        if (
+            expected_rows != 3747
+            or expected_repositories != 52
+            or payload.get(
+                "repository_overlap_count"
+            ) != 0
+            or expected_confirmation_sha
+            != "e73caca3b9ef46de284c4755127e3d7cfc0b5db9f3d1c8cd2b85be80b2c6d01b"
+        ):
+            raise ValueError(
+                "Final V2 gold manifest confirmation boundary mismatch."
+            )
+
+        if len(rows) != expected_rows:
+            raise ValueError(
+                "Final V2 confirmation row-count mismatch."
+            )
+
+        repositories: set[str] = set()
+
+        for row in rows:
+            if (
+                row.get("partition")
+                != "confirmation"
+            ):
+                raise ValueError(
+                    "Non-confirmation row detected."
+                )
+
+            repository = str(
+                row.get("repository")
+                or ""
+            ).strip().lower()
+
+            if not repository:
+                raise ValueError(
+                    "Confirmation row is missing repository identity."
+                )
+
+            repositories.add(
+                repository
+            )
+
+        if (
+            len(repositories)
+            != expected_repositories
+        ):
+            raise ValueError(
+                "Final V2 confirmation repository-count mismatch."
+            )
+
+        return {
+            "partition_manifest_supplied":
+                True,
+            "manifest_mode":
+                "final_v2_gold_manifest",
+            "partition_manifest_hash":
+                manifest_hash,
+            "repository_partition_manifest_hash":
+                manifest_hash,
+            "expected_confirmation_sha256":
+                expected_confirmation_sha,
+            "confirmation_rows":
+                len(rows),
+            "confirmation_repositories":
+                len(repositories),
+            "repository_overlap_count":
+                0,
+        }
+
+    # --------------------------------------------------------
+    # Legacy compatibility path.
+    # Not used by canonical Gate 5 after incident 002.
+    # --------------------------------------------------------
     assignments = {
         str(repo).lower(): part
         for repo, part in (
@@ -158,19 +280,24 @@ def validate_confirmation_partitions(
         ).lower()
 
         if (
-            row.get("partition") != "confirmation"
+            row.get("partition")
+            != "confirmation"
             or assignments.get(repo)
             != "confirmation"
         ):
             raise ValueError(
-                "Non-confirmation row detected: "
-                f"{row.get('case_id')}"
+                "Non-confirmation row detected."
             )
 
     return {
-        "partition_manifest_supplied": True,
+        "partition_manifest_supplied":
+            True,
+        "manifest_mode":
+            "legacy_repository_assignments",
         "partition_manifest_hash":
-            sha256_file(partition_manifest),
+            manifest_hash,
+        "repository_partition_manifest_hash":
+            manifest_hash,
     }
 
 
@@ -386,6 +513,20 @@ def run(
             partition_manifest,
         )
     )
+
+    if (
+        partition_info.get(
+            "manifest_mode"
+        )
+        == "final_v2_gold_manifest"
+        and confirmation_hash
+        != partition_info[
+            "expected_confirmation_sha256"
+        ]
+    ):
+        raise ValueError(
+            "Frozen Final V2 confirmation SHA-256 mismatch."
+        )
 
     rows = binary_eligible_rows(
         source_rows,
