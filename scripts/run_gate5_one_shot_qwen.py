@@ -134,6 +134,21 @@ EXPECTED_STAGE3_CONFIG_SHA = (
     "2a202eb3466b37a25f5aed0283e3192"
 )
 
+EXPECTED_PARTITION_MANIFEST_SHA = (
+    "ff434af660f52f229ab5d1fbf978fc1268913c2e16ea9711fa863eb44a8f7c89"
+)
+
+EXPECTED_PARTITION_MANIFEST_BYTES = 11537
+
+EXPECTED_PARTITION_REPOSITORIES = 225
+
+EXPECTED_PARTITION_COUNTS = {
+    "development_train": 144,
+    "development_validation": 36,
+    "confirmation": 45,
+}
+
+
 EXPECTED_RUNTIME = {
     "python":
         "3.12.13",
@@ -565,6 +580,107 @@ def validate_preregistration(
     return p
 
 
+def validate_partition_manifest_preconfirmation(
+    partition_manifest: Path,
+) -> dict[str, Any]:
+
+    if not partition_manifest.is_file():
+        raise RuntimeError(
+            "Missing canonical repository partition manifest: "
+            f"{partition_manifest}"
+        )
+
+    actual_sha = sha256_file(
+        partition_manifest
+    )
+
+    actual_bytes = (
+        partition_manifest
+        .stat()
+        .st_size
+    )
+
+    if (
+        actual_sha
+        != EXPECTED_PARTITION_MANIFEST_SHA
+        or actual_bytes
+        != EXPECTED_PARTITION_MANIFEST_BYTES
+    ):
+        raise RuntimeError(
+            "Canonical repository partition manifest "
+            "identity mismatch."
+        )
+
+    payload = load_json(
+        partition_manifest
+    )
+
+    if (
+        payload.get(
+            "confirmation_sealed"
+        )
+        is not True
+    ):
+        raise RuntimeError(
+            "Canonical repository partition manifest "
+            "does not preserve sealed confirmation."
+        )
+
+    assignments = (
+        payload.get(
+            "repository_assignments"
+        )
+        or {}
+    )
+
+    counts = Counter(
+        assignments.values()
+    )
+
+    if (
+        len(assignments)
+        != EXPECTED_PARTITION_REPOSITORIES
+        or dict(counts)
+        != EXPECTED_PARTITION_COUNTS
+    ):
+        raise RuntimeError(
+            "Canonical repository partition manifest "
+            "assignment inventory mismatch."
+        )
+
+    return {
+        "status":
+            "PASS",
+
+        "path":
+            str(
+                partition_manifest
+            ),
+
+        "sha256":
+            actual_sha,
+
+        "bytes":
+            actual_bytes,
+
+        "repository_assignments":
+            len(assignments),
+
+        "partition_counts":
+            dict(
+                sorted(
+                    counts.items()
+                )
+            ),
+
+        "confirmation_sealed":
+            True,
+
+        "confirmation_accessed":
+            False,
+    }
+
+
 def validate_finalization_state(
     root: Path,
 ) -> dict[str, Any]:
@@ -627,8 +743,15 @@ def validate_preconfirmation_frozen_state(
     category_freeze: Path,
     stage3_config: Path,
     stage3_freeze: Path,
+    partition_manifest: Path,
     output_root: Path,
 ) -> dict[str, Any]:
+
+    partition_manifest_preflight = (
+        validate_partition_manifest_preconfirmation(
+            partition_manifest
+        )
+    )
 
     gate3 = verify_gate3(
         root
@@ -742,6 +865,9 @@ def validate_preconfirmation_frozen_state(
             gate3,
         "gate4":
             gate4,
+
+        "partition_manifest":
+            partition_manifest_preflight,
     }
 
 
@@ -1869,6 +1995,8 @@ def execute_one_shot(
                 stage3_config,
             stage3_freeze=
                 stage3_freeze,
+            partition_manifest=
+                partition_manifest,
             output_root=
                 output_root,
         )

@@ -13,6 +13,7 @@ from scripts.run_gate5_one_shot_qwen import (
     MASTER_RECEIPT,
     ensure_master_receipt_absent,
     require_execute_one_shot,
+    validate_partition_manifest_preconfirmation,
     validate_preconfirmation_frozen_state,
 )
 
@@ -116,6 +117,11 @@ def test_preconfirmation_validation_does_not_read_confirmation(
                 root
                 / "reports/final_v2/gate4/"
                   "GATE4_STAGE3_FREEZE_MANIFEST.json",
+            partition_manifest=
+                root
+                / "data/final_v2/partitions/"
+                  "canonical_repository_partitions/"
+                  "repository_partition_manifest.json",
             output_root=
                 root
                 / "reports/final_v2/gate5/"
@@ -279,3 +285,81 @@ def test_classifier_runtime_canary_is_development_only():
             "joblib": "1.5.3",
         }
     )
+
+
+def test_partition_manifest_preflight_is_frozen_metadata() -> None:
+    root = Path(
+        __file__
+    ).resolve().parents[1]
+
+    result = (
+        validate_partition_manifest_preconfirmation(
+            root
+            / "data/final_v2/partitions/"
+              "canonical_repository_partitions/"
+              "repository_partition_manifest.json"
+        )
+    )
+
+    assert result["status"] == "PASS"
+
+    assert (
+        result[
+            "confirmation_accessed"
+        ]
+        is False
+    )
+
+    assert (
+        result[
+            "confirmation_sealed"
+        ]
+        is True
+    )
+
+    assert (
+        result[
+            "sha256"
+        ]
+        ==
+        "ff434af660f52f229ab5d1fbf978fc1268913c2e16ea9711fa863eb44a8f7c89"
+    )
+
+    assert (
+        result[
+            "bytes"
+        ]
+        == 11537
+    )
+
+    assert (
+        result[
+            "repository_assignments"
+        ]
+        == 225
+    )
+
+    assert (
+        result[
+            "partition_counts"
+        ]
+        == {
+            "confirmation": 45,
+            "development_train": 144,
+            "development_validation": 36,
+        }
+    )
+
+
+def test_missing_partition_manifest_fails_before_confirmation(
+    tmp_path: Path,
+) -> None:
+
+    with pytest.raises(
+        RuntimeError,
+        match="Missing canonical repository partition manifest",
+    ):
+        validate_partition_manifest_preconfirmation(
+            tmp_path
+            / "repository_partition_manifest.json"
+        )
