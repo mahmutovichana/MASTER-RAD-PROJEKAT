@@ -133,11 +133,17 @@ EXPECTED_STAGE3_CONFIG_SHA = (
     "2a202eb3466b37a25f5aed0283e3192"
 )
 
-EXPECTED_PARTITION_MANIFEST_SHA = (
+EXPECTED_PARTITION_MANIFEST_CANONICAL_LF_SHA = (
+    "31745b74192f2711624b30297b5bf5fa210d0a28ef6b6221b26ca2a96272c81e"
+)
+
+EXPECTED_PARTITION_MANIFEST_CANONICAL_LF_BYTES = 7710
+
+EXPECTED_PARTITION_MANIFEST_WINDOWS_CRLF_SHA = (
     "88bc919675dac77e5ced805e121021dd6fbf43f5bf13b99babf2359625379b93"
 )
 
-EXPECTED_PARTITION_MANIFEST_BYTES = 7976
+EXPECTED_PARTITION_MANIFEST_WINDOWS_CRLF_BYTES = 7976
 
 EXPECTED_CONFIRMATION_SHA = (
     "e73caca3b9ef46de284c4755127e3d7cfc0b5db9f3d1c8cd2b85be80b2c6d01b"
@@ -601,28 +607,72 @@ def validate_partition_manifest_preconfirmation(
             f"{partition_manifest}"
         )
 
-    actual_sha = sha256_file(
-        partition_manifest
+    raw = partition_manifest.read_bytes()
+
+    raw_sha = hashlib.sha256(
+        raw
+    ).hexdigest()
+
+    raw_bytes = len(
+        raw
     )
 
-    actual_bytes = (
-        partition_manifest
-        .stat()
-        .st_size
+    canonical_lf = raw.replace(
+        b"\r\n",
+        b"\n",
+    )
+
+    canonical_lf_sha = hashlib.sha256(
+        canonical_lf
+    ).hexdigest()
+
+    canonical_lf_bytes = len(
+        canonical_lf
     )
 
     if (
-        actual_sha
-        != EXPECTED_PARTITION_MANIFEST_SHA
-        or actual_bytes
-        != EXPECTED_PARTITION_MANIFEST_BYTES
+        canonical_lf_sha
+        != EXPECTED_PARTITION_MANIFEST_CANONICAL_LF_SHA
+        or canonical_lf_bytes
+        != EXPECTED_PARTITION_MANIFEST_CANONICAL_LF_BYTES
     ):
         raise RuntimeError(
-            "Frozen Final V2 gold manifest identity mismatch."
+            "Frozen Final V2 gold manifest canonical LF identity mismatch."
         )
 
-    payload = load_json(
-        partition_manifest
+    if raw == canonical_lf:
+        serialization_mode = (
+            "canonical_git_lf"
+        )
+
+    else:
+        expected_crlf = (
+            canonical_lf.replace(
+                b"\n",
+                b"\r\n",
+            )
+        )
+
+        if (
+            raw != expected_crlf
+            or raw_sha
+            != EXPECTED_PARTITION_MANIFEST_WINDOWS_CRLF_SHA
+            or raw_bytes
+            != EXPECTED_PARTITION_MANIFEST_WINDOWS_CRLF_BYTES
+        ):
+            raise RuntimeError(
+                "Frozen Final V2 gold manifest has "
+                "an unsupported text serialization."
+            )
+
+        serialization_mode = (
+            "verified_windows_crlf_equivalent"
+        )
+
+    payload = json.loads(
+        canonical_lf.decode(
+            "utf-8"
+        )
     )
 
     if (
@@ -669,30 +719,63 @@ def validate_partition_manifest_preconfirmation(
     return {
         "status":
             "PASS",
+
         "path":
             str(
                 partition_manifest
             ),
+
         "manifest_mode":
             "final_v2_gold_manifest",
+
+        "serialization_mode":
+            serialization_mode,
+
         "sha256":
-            actual_sha,
+            canonical_lf_sha,
+
         "bytes":
-            actual_bytes,
+            canonical_lf_bytes,
+
+        "canonical_lf_sha256":
+            canonical_lf_sha,
+
+        "canonical_lf_bytes":
+            canonical_lf_bytes,
+
+        "raw_sha256":
+            raw_sha,
+
+        "raw_bytes":
+            raw_bytes,
+
+        "windows_crlf_equivalent_sha256":
+            EXPECTED_PARTITION_MANIFEST_WINDOWS_CRLF_SHA,
+
+        "windows_crlf_equivalent_bytes":
+            EXPECTED_PARTITION_MANIFEST_WINDOWS_CRLF_BYTES,
+
         "partition_row_counts":
             EXPECTED_PARTITION_ROW_COUNTS,
+
         "partition_repository_counts":
             EXPECTED_PARTITION_REPOSITORY_COUNTS,
+
         "confirmation_rows":
             EXPECTED_CONFIRMATION_ROWS,
+
         "confirmation_repositories":
             EXPECTED_CONFIRMATION_REPOSITORIES,
+
         "expected_confirmation_sha256":
             EXPECTED_CONFIRMATION_SHA,
+
         "repository_overlap_count":
             0,
+
         "confirmation_sealed":
             True,
+
         "confirmation_accessed":
             False,
     }

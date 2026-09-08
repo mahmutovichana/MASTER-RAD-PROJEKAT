@@ -26,18 +26,23 @@
   },
   "recovery": {
     "canonical_gate5_boundary_manifest": "experiments/consolidated_enriched_training_v2/gold/human_gold_manifest.json",
+    "gold_manifest_eol_portability": "Canonical Git/Kaggle LF and Windows CRLF serializations are deterministically equivalent; canonical LF identity is used for portable Gate 5 verification.",
     "legacy_manifest": "Retained as historical provenance but no longer used by canonical Gate 5 confirmation validation.",
     "post_activation_validation": "After the explicitly authorized confirmation open, require exactly 3747 rows, 52 repositories, partition=confirmation for every row, and exact frozen confirmation SHA-256.",
     "preconfirmation_validation": "Validate only the frozen Final V2 gold manifest identity and metadata before confirmation access."
   },
   "root_cause": {
     "correct_frozen_final_v2_boundary": {
+      "canonical_git_lf_bytes": 7710,
+      "canonical_git_lf_sha256": "31745b74192f2711624b30297b5bf5fa210d0a28ef6b6221b26ca2a96272c81e",
       "confirmation_dataset_sha256": "e73caca3b9ef46de284c4755127e3d7cfc0b5db9f3d1c8cd2b85be80b2c6d01b",
       "confirmation_repositories": 52,
       "confirmation_rows": 3747,
+      "eol_portability_correction": "reports/final_v2/gate5/GATE5_GOLD_MANIFEST_EOL_PORTABILITY_CORRECTION.json",
       "path": "experiments/consolidated_enriched_training_v2/gold/human_gold_manifest.json",
       "repository_overlap_count": 0,
-      "sha256": "88bc919675dac77e5ced805e121021dd6fbf43f5bf13b99babf2359625379b93"
+      "windows_crlf_equivalent_bytes": 7976,
+      "windows_crlf_equivalent_sha256": "88bc919675dac77e5ced805e121021dd6fbf43f5bf13b99babf2359625379b93"
     },
     "description": "Gate 5 used a pre-Final-V2 repository assignment manifest containing 3190 confirmation rows and 45 confirmation repositories. The frozen Final V2 confirmation contains 3747 rows across 52 repositories. Legitimate Final V2 confirmation rows therefore failed the stale repository-assignment check.",
     "stale_manifest": {

@@ -327,12 +327,52 @@ def test_partition_manifest_preflight_is_frozen_metadata() -> None:
             "sha256"
         ]
         ==
-        "88bc919675dac77e5ced805e121021dd6fbf43f5bf13b99babf2359625379b93"
+        "31745b74192f2711624b30297b5bf5fa210d0a28ef6b6221b26ca2a96272c81e"
     )
 
     assert (
         result[
             "bytes"
+        ]
+        == 7710
+    )
+
+    assert (
+        result[
+            "serialization_mode"
+        ]
+        in {
+            "canonical_git_lf",
+            "verified_windows_crlf_equivalent",
+        }
+    )
+
+    assert (
+        result[
+            "canonical_lf_sha256"
+        ]
+        ==
+        "31745b74192f2711624b30297b5bf5fa210d0a28ef6b6221b26ca2a96272c81e"
+    )
+
+    assert (
+        result[
+            "canonical_lf_bytes"
+        ]
+        == 7710
+    )
+
+    assert (
+        result[
+            "windows_crlf_equivalent_sha256"
+        ]
+        ==
+        "88bc919675dac77e5ced805e121021dd6fbf43f5bf13b99babf2359625379b93"
+    )
+
+    assert (
+        result[
+            "windows_crlf_equivalent_bytes"
         ]
         == 7976
     )
