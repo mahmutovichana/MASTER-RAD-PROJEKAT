@@ -9,7 +9,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from docguard_eval_v2.reference_evaluation import HUMAN_DIMENSIONS, bootstrap_mean_ci, read_jsonl, sha256_file, write_json
+from docguard_eval_v2.reference_evaluation import HUMAN_DIMENSIONS, bootstrap_mean_ci, read_jsonl, sha256_file, validate_review, write_json
 from docguard_ml_v2.model_manifest import utc_now
 
 
@@ -31,12 +31,19 @@ def run(*, safety: Path, reference: Path, human_reviews: Path, freeze_manifest: 
     confirmation_hash = sha256_file(confirmation_dataset)
     receipt_guard(output_dir, frozen_hash=frozen_hash, confirmation_hash=confirmation_hash, enforce=enforce_one_shot, allow_repeat=allow_repeat_for_reproducibility)
     human_rows = read_jsonl(human_reviews)
+    output_rows = [row for row in human_rows if validate_review(row)[1] == "approved"]
+    no_output_rows = [row for row in human_rows if validate_review(row)[1] == "no_output_system_failure"]
+    if len(output_rows) + len(no_output_rows) != len(human_rows):
+        raise ValueError("Human-review input contains incomplete or invalid rows.")
     human_summary = load_json(human_reviews.with_name("human_review_summary.json")) if human_reviews.with_name("human_review_summary.json").exists() else {}
     ci = {
-        "accept_as_is_rate": bootstrap_mean_ci([1.0 if str(row.get("human_accept_as_is")).lower() == "yes" else 0.0 for row in human_rows]),
-        "mean_factual_correctness": bootstrap_mean_ci([float(row["human_factual_correctness"]) for row in human_rows]),
-        "mean_semantic_completeness": bootstrap_mean_ci([float(row["human_semantic_completeness"]) for row in human_rows]),
-        "mean_developer_usefulness": bootstrap_mean_ci([float(row["human_developer_usefulness"]) for row in human_rows]),
+        "end_to_end_accept_as_is_rate": bootstrap_mean_ci([1.0 if str(row.get("human_accept_as_is")).lower() == "yes" else 0.0 for row in human_rows]),
+        "conditional_output_accept_as_is_rate": bootstrap_mean_ci([1.0 if str(row.get("human_accept_as_is")).lower() == "yes" else 0.0 for row in output_rows]),
+        "mean_factual_correctness": bootstrap_mean_ci([float(row["human_factual_correctness"]) for row in output_rows]),
+        "mean_semantic_completeness": bootstrap_mean_ci([float(row["human_semantic_completeness"]) for row in output_rows]),
+        "mean_developer_usefulness": bootstrap_mean_ci([float(row["human_developer_usefulness"]) for row in output_rows]),
+        "mean_readability": bootstrap_mean_ci([float(row["human_readability"]) for row in output_rows]),
+        "mean_style_fit": bootstrap_mean_ci([float(row["human_style_fit"]) for row in output_rows]),
     }
     result = {
         "safety_provenance": load_json(safety),

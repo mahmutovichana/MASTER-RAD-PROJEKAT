@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "review_status": {
+            "const": "NO_OUTPUT_SYSTEM_FAILURE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "generated_documentation_patch": {
+            "const": ""
+          },
+          "human_accept_as_is": {
+            "const": "N/A"
+          },
+          "human_developer_usefulness": {
+            "const": "N/A"
+          },
+          "human_factual_correctness": {
+            "const": "N/A"
+          },
+          "human_readability": {
+            "const": "N/A"
+          },
+          "human_semantic_completeness": {
+            "const": "N/A"
+          },
+          "human_style_fit": {
+            "const": "N/A"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "review_status": {
+            "const": "approved"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "human_accept_as_is": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "human_developer_usefulness": {
+            "maximum": 5,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "human_factual_correctness": {
+            "maximum": 5,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "human_readability": {
+            "maximum": 5,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "human_semantic_completeness": {
+            "maximum": 5,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "human_style_fit": {
+            "maximum": 5,
+            "minimum": 1,
+            "type": "integer"
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "code_changed_files": {
+      "type": "string"
+    },
+    "code_diff_excerpt": {
+      "type": "string"
+    },
+    "docs_before_excerpt": {
+      "type": "string"
+    },
+    "generated_documentation_patch": {
+      "type": "string"
+    },
+    "human_accept_as_is": {
+      "enum": [
+        "",
+        "yes",
+        "no",
+        "N/A"
+      ]
+    },
+    "human_developer_usefulness": {
+      "oneOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "const": "N/A"
+        }
+      ]
+    },
+    "human_factual_correctness": {
+      "oneOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "const": "N/A"
+        }
+      ]
+    },
+    "human_notes": {
+      "type": "string"
+    },
+    "human_readability": {
+      "oneOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "const": "N/A"
+        }
+      ]
+    },
+    "human_semantic_completeness": {
+      "oneOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "const": "N/A"
+        }
+      ]
+    },
+    "human_style_fit": {
+      "oneOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "const": "N/A"
+        }
+      ]
+    },
+    "language": {
+      "type": "string"
+    },
+    "review_status": {
+      "enum": [
+        "pending",
+        "approved",
+        "NO_OUTPUT_SYSTEM_FAILURE"
+      ]
+    },
+    "selected_target_document": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "case_id",
+    "language",
+    "code_changed_files",
+    "code_diff_excerpt",
+    "docs_before_excerpt",
+    "selected_target_document",
+    "generated_documentation_patch",
+    "review_status",
+    "human_factual_correctness",
+    "human_semantic_completeness",
+    "human_developer_usefulness",
+    "human_readability",
+    "human_style_fit",
+    "human_accept_as_is",
+    "human_notes"
+  ],
+  "title": "Gate 6 primary blind human review row",
+  "type": "object"
+}

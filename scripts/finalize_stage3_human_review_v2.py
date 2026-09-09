@@ -13,21 +13,30 @@ from docguard_eval_v2.reference_evaluation import read_jsonl, summarize_human_re
 
 
 def run(input_path: Path, output_dir: Path) -> dict:
-    approved = []
+    evaluated = []
     excluded = []
     for row in read_jsonl(input_path):
         ok, reason = validate_review(row)
         if ok:
-            approved.append(row)
+            evaluated.append(row)
         else:
             excluded.append({**row, "exclusion_reason": reason})
     output_dir.mkdir(parents=True, exist_ok=True)
-    summary = summarize_human_reviews(approved)
+    summary = summarize_human_reviews(evaluated)
     summary["excluded_or_incomplete_reviews"] = len(excluded)
-    write_jsonl(output_dir / "approved_reviews.jsonl", approved)
+    write_jsonl(output_dir / "approved_reviews.jsonl", evaluated)
     write_jsonl(output_dir / "excluded_or_incomplete_reviews.jsonl", excluded)
     write_json(output_dir / "human_review_summary.json", summary)
-    (output_dir / "human_review_report.md").write_text(f"# Stage 3 V2 Human Review\n\n- Approved reviews: `{len(approved)}`\n- Excluded/incomplete: `{len(excluded)}`\n- Accept-as-is rate: `{summary['accept_as_is_rate']:.4f}`\n", encoding="utf-8")
+    (output_dir / "human_review_report.md").write_text(
+        "# Stage 3 V2 Human Review\n\n"
+        f"- Complete primary evaluations: `{len(evaluated)}`\n"
+        f"- No-output system failures: `{summary['no_output_system_failure_rows']}`\n"
+        f"- Scorable output rows: `{summary['scorable_output_rows']}`\n"
+        f"- Excluded/incomplete: `{len(excluded)}`\n"
+        f"- End-to-end accept-as-is rate (all primary rows): `{summary['end_to_end_accept_as_is_rate']:.4f}`\n"
+        f"- Conditional accept-as-is rate (output rows only): `{summary['conditional_output_accept_as_is_rate']:.4f}`\n",
+        encoding="utf-8",
+    )
     return summary
 
 

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import json
 from pathlib import Path
 
@@ -7,6 +8,8 @@ import pytest
 
 from docguard_eval_v2.reference_evaluation import (
     BLIND_FORBIDDEN_FIELDS,
+    HUMAN_DIMENSIONS,
+    NO_OUTPUT_SYSTEM_FAILURE,
     build_blind_row,
     evaluation_reference_view,
     evaluate_reference_row,
@@ -72,6 +75,16 @@ def review_row(case_id: str, *, approved: bool = True, score: int = 4, accept: s
     }
 
 
+def no_output_row(case_id: str) -> dict:
+    return {
+        "case_id": case_id,
+        "generated_documentation_patch": "",
+        "review_status": NO_OUTPUT_SYSTEM_FAILURE,
+        **{dimension: "N/A" for dimension in HUMAN_DIMENSIONS},
+        "human_accept_as_is": "N/A",
+    }
+
+
 def test_freeze_stage3_does_not_read_confirmation(tmp_path: Path):
     dev_summary = tmp_path / "development_summary.json"
     dev_summary.write_text("{}", encoding="utf-8")
@@ -130,6 +143,66 @@ def test_scores_must_be_1_to_5_and_incomplete_reviews_excluded(tmp_path: Path):
     assert summary["total_approved"] == 1
     assert summary["excluded_or_incomplete_reviews"] == 2
     assert summary["accept_as_is_rate"] == 1.0
+
+
+def test_no_output_is_complete_without_scores_and_counts_against_end_to_end(tmp_path: Path):
+    no_output = no_output_row("no-output")
+    assert validate_review(no_output) == (True, "no_output_system_failure")
+    input_path = tmp_path / "reviews.jsonl"
+    write_jsonl(input_path, [review_row("accepted"), no_output])
+    summary = finalize_reviews(input_path, tmp_path / "finalized")
+    assert summary["total_evaluated"] == 2
+    assert summary["no_output_system_failure_rows"] == 1
+    assert summary["excluded_or_incomplete_reviews"] == 0
+    assert summary["end_to_end_acceptance_denominator"] == 2
+    assert summary["end_to_end_accept_as_is_rate"] == 0.5
+    assert summary["conditional_output_acceptance_denominator"] == 1
+    assert summary["conditional_output_accept_as_is_rate"] == 1.0
+
+
+def test_no_output_is_excluded_from_conditional_quality_means():
+    summary = summarize_human_reviews([review_row("output", score=5), no_output_row("none")])
+    assert summary["dimensions"]["human_factual_correctness"]["mean"] == 5
+    assert summary["scorable_output_rows"] == 1
+
+
+def test_output_rows_still_require_scores_and_yes_no():
+    missing_score = review_row("missing")
+    missing_score["human_style_fit"] = None
+    assert validate_review(missing_score)[0] is False
+    assert validate_review(review_row("bad-accept", accept="maybe"))[0] is False
+
+
+def test_blind_builder_premarks_no_output_without_exposing_cause():
+    row = stage3_row("none", "configuration")
+    row["generated_patch"] = None
+    row["final_status"] = "retrieval_context_unavailable"
+    blind = build_blind_row(row)
+    assert blind["review_status"] == NO_OUTPUT_SYSTEM_FAILURE
+    assert blind["human_accept_as_is"] == "N/A"
+    assert all(blind[dimension] == "N/A" for dimension in HUMAN_DIMENSIONS)
+    assert "final_status" not in blind
+    assert "retrieval_context_available" not in blind
+
+
+def test_frozen_gate6_sheet_represents_all_primary_rows_without_secondary_pooling():
+    review_path = ROOT / "reports/final_v2/gate6/review/gate6_primary_blind_review.csv"
+    primary_path = ROOT / "reports/final_v2/gate6/samples/primary_natural_sample.jsonl"
+    manifest_path = ROOT / "reports/final_v2/gate6/review/gate6_primary_blind_review_manifest.json"
+    with review_path.open(encoding="utf-8-sig", newline="") as handle:
+        review_rows = list(csv.DictReader(handle))
+    primary_rows = [
+        json.loads(line)
+        for line in primary_path.read_text(encoding="utf-8").splitlines()
+        if line
+    ]
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert len(review_rows) == 100
+    assert [row["case_id"] for row in review_rows] == [row["case_id"] for row in primary_rows]
+    assert manifest["primary_secondary_separation"]["primary_rows_exported"] == 100
+    assert manifest["primary_secondary_separation"]["secondary_rows_exported"] == 0
+    assert manifest["primary_secondary_separation"]["secondary_is_supplementary"] is True
+    assert not (BLIND_FORBIDDEN_FIELDS & set(review_rows[0]))
 
 
 def test_human_summary_metrics_are_correct():

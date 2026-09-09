@@ -46,10 +46,24 @@ HUMAN_DIMENSIONS = [
     "human_readability",
     "human_style_fit",
 ]
+NO_OUTPUT_SYSTEM_FAILURE = "NO_OUTPUT_SYSTEM_FAILURE"
+STRUCTURAL_NA_VALUES = {"", "na", "n/a", "not applicable", "null", "none"}
 BLIND_FORBIDDEN_FIELDS = REFERENCE_ONLY_FIELDS | {
+    "binary_probability",
+    "binary_threshold",
+    "category_probabilities",
+    "execution_error",
+    "final_status",
     "generation_source",
     "final_source",
+    "frozen_binary_prediction",
+    "frozen_category_prediction",
+    "latency_seconds",
+    "llm_call_count",
     "repair_attempted",
+    "retrieval_context_available",
+    "stage3_invoked",
+    "stage3_result",
     "verifier_result",
     "writer_confidence",
     "quality_label",
@@ -259,20 +273,28 @@ def sample_manifest(source: Path, rows: list[dict[str, Any]], *, seed: int, meth
 
 
 def build_blind_row(row: dict[str, Any]) -> dict[str, Any]:
+    generated = patch_text(row).strip()
+    no_output = not generated
+    patch = row.get("generated_patch")
+    target_document = (
+        (patch.get("target_document_path") if isinstance(patch, dict) else None)
+        or row.get("target_document_path")
+        or row.get("selected_document")
+    )
     result = {
         "case_id": row.get("case_id"),
         "language": row.get("language"),
         "code_changed_files": row.get("code_changed_files"),
         "code_diff_excerpt": row.get("code_diff_excerpt"),
         "docs_before_excerpt": row.get("docs_before_excerpt"),
-        "selected_target_document": row.get("target_document_path") or row.get("selected_document"),
-        "generated_documentation_patch": patch_text(row),
-        "review_status": "pending",
-        "human_accept_as_is": "",
+        "selected_target_document": target_document,
+        "generated_documentation_patch": generated,
+        "review_status": NO_OUTPUT_SYSTEM_FAILURE if no_output else "pending",
+        "human_accept_as_is": "N/A" if no_output else "",
         "human_notes": "",
     }
     for dimension in HUMAN_DIMENSIONS:
-        result[dimension] = None
+        result[dimension] = "N/A" if no_output else None
     leaked = BLIND_FORBIDDEN_FIELDS & set(result)
     if leaked:
         raise ValueError(f"Blind review row leaked fields: {sorted(leaked)}")
@@ -280,7 +302,17 @@ def build_blind_row(row: dict[str, Any]) -> dict[str, Any]:
 
 
 def validate_review(row: dict[str, Any]) -> tuple[bool, str]:
-    if str(row.get("review_status") or "").strip().lower() != "approved":
+    status = str(row.get("review_status") or "").strip()
+    if status.upper() == NO_OUTPUT_SYSTEM_FAILURE:
+        if patch_text(row).strip() or str(row.get("generated_documentation_patch") or "").strip():
+            return False, "no_output_status_has_output"
+        for dimension in HUMAN_DIMENSIONS:
+            if str(row.get(dimension) or "").strip().lower() not in STRUCTURAL_NA_VALUES:
+                return False, f"no_output_score_not_applicable_{dimension}"
+        if str(row.get("human_accept_as_is") or "").strip().lower() not in STRUCTURAL_NA_VALUES:
+            return False, "no_output_accept_not_applicable"
+        return True, "no_output_system_failure"
+    if status.lower() != "approved":
         return False, "not_approved"
     for dimension in HUMAN_DIMENSIONS:
         value = row.get(dimension)
@@ -292,18 +324,40 @@ def validate_review(row: dict[str, Any]) -> tuple[bool, str]:
 
 
 def summarize_human_reviews(rows: list[dict[str, Any]]) -> dict[str, Any]:
-    summary: dict[str, Any] = {"total_approved": len(rows), "dimensions": {}}
+    output_rows = [row for row in rows if validate_review(row)[1] == "approved"]
+    no_output_rows = [row for row in rows if validate_review(row)[1] == "no_output_system_failure"]
+    accepted_output_rows = [
+        row for row in output_rows
+        if str(row.get("human_accept_as_is") or "").strip().lower() == "yes"
+    ]
+    summary: dict[str, Any] = {
+        "sample_scope": "primary",
+        "total_evaluated": len(rows),
+        "total_approved": len(output_rows),
+        "scorable_output_rows": len(output_rows),
+        "no_output_system_failure_rows": len(no_output_rows),
+        "secondary_rows_pooled": 0,
+        "end_to_end_acceptance_denominator": len(rows),
+        "conditional_output_acceptance_denominator": len(output_rows),
+        "accepted_output_rows": len(accepted_output_rows),
+        "dimensions": {},
+    }
     for dimension in HUMAN_DIMENSIONS:
-        values = [int(row[dimension]) for row in rows]
+        values = [int(row[dimension]) for row in output_rows]
         summary["dimensions"][dimension] = {
             "mean": mean(values) if values else 0.0,
             "median": median(values) if values else 0.0,
             "stddev": pstdev(values) if len(values) > 1 else 0.0,
             "distribution": dict(Counter(str(value) for value in values)),
         }
-    accepts = [str(row.get("human_accept_as_is") or "").lower() == "yes" for row in rows]
-    summary["accept_as_is_rate"] = sum(accepts) / len(accepts) if accepts else 0.0
-    summary["composite_descriptive_mean"] = mean([mean([int(row[dim]) for dim in HUMAN_DIMENSIONS]) for row in rows]) if rows else 0.0
+    conditional_rate = len(accepted_output_rows) / len(output_rows) if output_rows else 0.0
+    end_to_end_rate = len(accepted_output_rows) / len(rows) if rows else 0.0
+    summary["conditional_output_accept_as_is_rate"] = conditional_rate
+    summary["end_to_end_accept_as_is_rate"] = end_to_end_rate
+    summary["accept_as_is_rate"] = conditional_rate
+    summary["composite_descriptive_mean"] = mean(
+        [mean([int(row[dim]) for dim in HUMAN_DIMENSIONS]) for row in output_rows]
+    ) if output_rows else 0.0
     return summary
 
 
