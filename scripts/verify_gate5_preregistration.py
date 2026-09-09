@@ -692,39 +692,18 @@ def verify(
           "finalization_state.json"
     )
 
-    if (
-        int(
-            state.get(
-                "current_gate",
-                -1,
-            )
+    current_gate = int(
+        state.get(
+            "current_gate",
+            -1,
         )
-        != 5
-        or state.get(
-            "confirmation_sealed"
-        )
-        is not True
-        or state.get(
-            "confirmation_results_accessed_by_gate_5",
-            False,
-        )
-        is not False
-        or state[
-            "gate_statuses"
-        ][
-            "gate_4_stage3_retrieval_generation_study_and_freeze"
-        ]
-        != "PASS"
-        or state[
-            "gate_statuses"
-        ][
-            "gate_5_one_shot_confirmation"
-        ]
-        != "NOT_EXECUTED"
-    ):
-        raise RuntimeError(
-            "Finalization state is not safely prepared for Gate 5."
-        )
+    )
+
+    gate5_status = state[
+        "gate_statuses"
+    ][
+        "gate_5_one_shot_confirmation"
+    ]
 
     summary = (
         state.get(
@@ -733,23 +712,94 @@ def verify(
         or {}
     )
 
-    if (
-        summary.get(
+    prepared_state = (
+        current_gate == 5
+        and state.get(
+            "confirmation_sealed"
+        )
+        is True
+        and state.get(
+            "confirmation_results_accessed_by_gate_5",
+            False,
+        )
+        is False
+        and state[
+            "gate_statuses"
+        ][
+            "gate_4_stage3_retrieval_generation_study_and_freeze"
+        ]
+        == "PASS"
+        and gate5_status
+        == "NOT_EXECUTED"
+        and summary.get(
             "status"
         )
-        != "PREPARED_NOT_ACTIVATED"
-        or summary.get(
+        == "PREPARED_NOT_ACTIVATED"
+        and summary.get(
             "confirmation_accessed"
         )
-        is not False
-        or summary.get(
+        is False
+        and summary.get(
             "execution_completed"
         )
-        is not False
+        is False
+    )
+
+    closed_state = (
+        current_gate >= 6
+        and state.get(
+            "confirmation_sealed"
+        )
+        is True
+        and state.get(
+            "confirmation_results_accessed_by_gate_5",
+            False,
+        )
+        is True
+        and state[
+            "gate_statuses"
+        ][
+            "gate_4_stage3_retrieval_generation_study_and_freeze"
+        ]
+        == "PASS"
+        and gate5_status
+        == "PASS"
+        and summary.get(
+            "status"
+        )
+        == "PASS_FROZEN_CLOSED"
+        and summary.get(
+            "confirmation_accessed"
+        )
+        is True
+        and summary.get(
+            "confirmation_results_accessed"
+        )
+        is True
+        and summary.get(
+            "rerun_allowed"
+        )
+        is False
+        and summary.get(
+            "post_confirmation_tuning"
+        )
+        is False
+    )
+
+    if not (
+        prepared_state
+        or closed_state
     ):
         raise RuntimeError(
-            "Gate 5 summary mismatch."
+            "Finalization state is neither safely prepared "
+            "for Gate 5 nor a valid frozen successor state."
         )
+
+    lifecycle_state = (
+        "PREPARED_NOT_ACTIVATED"
+        if prepared_state
+        else "POST_CONFIRMATION_FROZEN_CLOSED"
+    )
 
     output_root = (
         gate5
@@ -775,11 +825,37 @@ def verify(
                     )
                 )
 
-    if found_results:
+    if (
+        prepared_state
+        and found_results
+    ):
         raise RuntimeError(
-            "Gate 5 execution artifacts already exist: "
+            "Gate 5 execution artifacts already exist "
+            "before activation: "
             f"{sorted(found_results)}"
         )
+
+    if closed_state:
+        master_receipt = (
+            gate5
+            / "one_shot/"
+              "GATE5_MASTER_ONE_SHOT_RECEIPT.json"
+        )
+
+        freeze_manifest = (
+            gate5
+            / "GATE5_CONFIRMATION_FREEZE_MANIFEST.json"
+        )
+
+        if (
+            not master_receipt.is_file()
+            or not freeze_manifest.is_file()
+            or not found_results
+        ):
+            raise RuntimeError(
+                "Gate 5 successor state is missing "
+                "completed confirmation evidence."
+            )
 
     artifact_map = (
         root
@@ -812,7 +888,11 @@ def verify(
         "gate":
             5,
         "preflight_status":
-            "PREPARED_NOT_ACTIVATED",
+            (
+                "PREPARED_NOT_ACTIVATED"
+                if prepared_state
+                else "PREREGISTRATION_VERIFIED_POST_CONFIRMATION"
+            ),
         "gate4_closure_ancestor":
             True,
         "binary_model_sha256":
@@ -830,15 +910,30 @@ def verify(
         "bootstrap_seed":
             42,
         "current_gate":
-            5,
+            current_gate,
         "gate5_execution":
-            "NOT_EXECUTED",
+            (
+                "NOT_EXECUTED"
+                if prepared_state
+                else "COMPLETED_ONE_SHOT_CONFIRMATION"
+            ),
         "confirmation_accessed":
             False,
+        "confirmation_accessed_by_this_verifier":
+            False,
+        "confirmation_results_accessed_by_gate_5":
+            state.get(
+                "confirmation_results_accessed_by_gate_5",
+                False,
+            ),
         "confirmation_sealed":
             True,
         "execution_artifacts_present":
-            False,
+            bool(
+                found_results
+            ),
+        "lifecycle_state":
+            lifecycle_state,
         "gate3_eol_portability_correction":
             "PASS",
         "gate3_eol_portability_correction_sha256":

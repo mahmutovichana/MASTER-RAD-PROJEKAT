@@ -1224,18 +1224,36 @@ def verify(
         / "reports/final_v2/finalization_state.json"
     )
 
+    gate5_status = (
+        state["gate_statuses"][
+            "gate_5_one_shot_confirmation"
+        ]
+    )
+
+    current_gate = int(
+        state["current_gate"]
+    )
+
+    valid_successor_state = (
+        (
+            gate5_status
+            == "NOT_EXECUTED"
+            and current_gate == 5
+        )
+        or
+        (
+            gate5_status
+            == "PASS"
+            and current_gate >= 6
+        )
+    )
+
     if (
         state["gate_statuses"][
             "gate_4_stage3_retrieval_generation_study_and_freeze"
         ]
         != "PASS"
-        or state["gate_statuses"][
-            "gate_5_one_shot_confirmation"
-        ]
-        != "NOT_EXECUTED"
-        or int(
-            state["current_gate"]
-        ) != 5
+        or not valid_successor_state
         or state[
             "confirmation_sealed"
         ] is not True
@@ -1325,8 +1343,10 @@ def verify(
             "47/83",
         "confirmation_accessed": False,
         "confirmation_sealed": True,
-        "current_gate": 5,
-        "gate5_status": "NOT_EXECUTED",
+        "current_gate":
+            current_gate,
+        "gate5_status":
+            gate5_status,
         "artifact_eol_portability_correction":
             artifact_eol_portability,
     }

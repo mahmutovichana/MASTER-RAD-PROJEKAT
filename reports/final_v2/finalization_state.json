@@ -59,10 +59,17 @@
     "gate5_activation_incident_002": "reports/final_v2/gate5/GATE5_ACTIVATION_INCIDENT_002.json",
     "gate5_classifier_runtime_portability_canary": "reports/final_v2/gate5/GATE5_CLASSIFIER_RUNTIME_PORTABILITY_CANARY.json",
     "gate5_confirmation_boundary_manifest": "experiments/consolidated_enriched_training_v2/gold/human_gold_manifest.json",
+    "gate5_confirmation_freeze_manifest": "reports/final_v2/gate5/GATE5_CONFIRMATION_FREEZE_MANIFEST.json",
+    "gate5_final_report": "reports/final_v2/gate5/final_results/GATE5_FINAL_REPORT.md",
+    "gate5_final_results": "reports/final_v2/gate5/final_results",
+    "gate5_final_summary": "reports/final_v2/gate5/final_results/gate5_final_summary.json",
     "gate5_gold_manifest_eol_portability_correction": "reports/final_v2/gate5/GATE5_GOLD_MANIFEST_EOL_PORTABILITY_CORRECTION.json",
+    "gate5_master_receipt": "reports/final_v2/gate5/one_shot/GATE5_MASTER_ONE_SHOT_RECEIPT.json",
+    "gate5_one_shot_results": "reports/final_v2/gate5/one_shot",
     "gate5_one_shot_runner": "scripts/run_gate5_one_shot_qwen.py",
     "gate5_preflight": "reports/final_v2/gate5/GATE5_PREFLIGHT.md",
     "gate5_preregistration": "reports/final_v2/gate5/GATE5_PREREGISTRATION.json",
+    "gate5_preregistration_successor_state_verifier_correction": "reports/final_v2/gate5/GATE5_PREREGISTRATION_SUCCESSOR_STATE_VERIFIER_CORRECTION.json",
     "gate5_preregistration_verifier": "scripts/verify_gate5_preregistration.py",
     "gate5_repository_bootstrap": "docguard_eval_v2/gate5_bootstrap.py",
     "gold_freeze_manifest": "reports/final_v2/GOLD_FREEZE_MANIFEST.json",
@@ -78,10 +85,10 @@
   "confirmation_results_accessed_by_gate_2": false,
   "confirmation_results_accessed_by_gate_3": false,
   "confirmation_results_accessed_by_gate_4": false,
-  "confirmation_results_accessed_by_gate_5": false,
+  "confirmation_results_accessed_by_gate_5": true,
   "confirmation_sealed": true,
   "current_commit_at_gate_1_audit_start": "b1a5b40173967b00a8b3a48263231061907d61c4",
-  "current_gate": 5,
+  "current_gate": 6,
   "dataset_state": {
     "category_counts": {
       "api_reference": 1554,
@@ -573,134 +580,35 @@
       "writer_confidence_contract": "numeric_0_to_1"
     }
   },
+  "gate_5_status": "PASS",
   "gate_5_summary": {
-    "activation_attempt_001": {
-      "binary_evaluation_started": false,
-      "category_evaluation_started": false,
-      "confirmation_dataset_opened_programmatically": true,
-      "confirmation_results_accessed": false,
-      "confirmation_results_computed": false,
-      "confirmation_rows_manually_inspected": false,
-      "failure": "missing canonical repository partition manifest in remote checkout",
-      "incident_record": "reports/final_v2/gate5/GATE5_ACTIVATION_INCIDENT_001.json",
-      "master_receipt_created": false,
-      "recovery_changes_scientific_method": false,
-      "stage3_confirmation_started": false,
-      "started_marker_created": false,
-      "status": "INTERRUPTED_INFRASTRUCTURE_BEFORE_EVALUATION"
+    "binary_mcc": 0.5381511839614936,
+    "binary_mcc_ci_95": {
+      "high": 0.7887046510033393,
+      "low": 0.13791719341967854
     },
-    "activation_attempt_002": {
-      "affected_commit": "a19eb99cd475ccf75b5a38bea0ec39a743e4cd5d",
-      "attempt_count": 2,
-      "binary_evaluation_started": false,
-      "category_evaluation_started": false,
-      "confirmation_dataset_opened_programmatically": true,
-      "confirmation_results_accessed": false,
-      "confirmation_results_computed": false,
-      "failure": "stale pre-Final-V2 repository partition metadata",
-      "incident_record": "reports/final_v2/gate5/GATE5_ACTIVATION_INCIDENT_002.json",
-      "master_receipt_created": false,
-      "recovery_changes_scientific_method": false,
-      "stage3_confirmation_started": false,
-      "started_marker_created": false,
-      "status": "INTERRUPTED_INFRASTRUCTURE_BEFORE_EVALUATION"
+    "category_macro_f1": 0.40318848348589814,
+    "category_macro_f1_ci_95": {
+      "high": 0.4293518641374458,
+      "low": 0.32919758359846785
     },
-    "activation_status": "RECOVERY_READY_AFTER_METADATA_VERSION_MISMATCH",
-    "binary": {
-      "model_sha256": "7d6a9263e1262c5c54db3d2e100209707c6a7681133fb1505f44125efa954462",
-      "primary_metric": "mcc",
-      "threshold": 0.15
-    },
-    "canonical_confirmation_boundary_manifest": "experiments/consolidated_enriched_training_v2/gold/human_gold_manifest.json",
-    "category": {
-      "model_sha256": "2d8123ac398568b5c9586b0f8d26d6c4079ddfebd504889b934f77bef65b9f59",
-      "primary_metric": "macro_f1",
-      "scope": "intrinsic_category_eligible_confirmation"
-    },
-    "confirmation_accessed": false,
-    "confirmation_dataset_opened_programmatically": true,
-    "confirmation_results_accessed": false,
-    "confirmation_sealed": true,
-    "execution_completed": false,
-    "gold_manifest_eol_portability_correction": {
-      "canonical_git_lf_sha256": "31745b74192f2711624b30297b5bf5fa210d0a28ef6b6221b26ca2a96272c81e",
-      "confirmation_results_accessed": false,
-      "path": "reports/final_v2/gate5/GATE5_GOLD_MANIFEST_EOL_PORTABILITY_CORRECTION.json",
-      "scientific_content_changed": false,
-      "status": "PASS",
-      "windows_crlf_equivalent_sha256": "88bc919675dac77e5ced805e121021dd6fbf43f5bf13b99babf2359625379b93"
-    },
-    "master_receipt_present": false,
-    "one_shot_runner": "scripts/run_gate5_one_shot_qwen.py",
-    "preconfirmation_validation": {
-      "classifier_runtime_portability_canary": {
-        "canonical_json_sha256": "c90881179b6c92df6ac0cca51c5bb9f84f2fd13140d41273e118a0cca0499439",
-        "confirmation_accessed": false,
-        "development_only": true,
-        "source_runtime": {
-          "joblib": "1.5.3",
-          "numpy": "2.4.0",
-          "python": "3.14.0",
-          "sklearn": "1.8.0"
-        },
-        "status": "REFERENCE_FROZEN_PRE_CONFIRMATION",
-        "target_runtime": {
-          "joblib": "1.5.3",
-          "numpy": "2.4.0",
-          "python": "3.12.13",
-          "sklearn": "1.8.0"
-        }
-      },
-      "gate3_child_manifest_link_eol_portability_correction": {
-        "confirmation_accessed": false,
-        "discovered_before_gate5_execution": true,
-        "models_changed": false,
-        "scientific_content_changed": false,
-        "status": "PASS"
-      },
-      "gate3_selection_evidence_eol_portability_correction": {
-        "confirmation_accessed": false,
-        "discovered_before_gate5_execution": true,
-        "models_changed": false,
-        "scientific_content_changed": false,
-        "status": "PASS"
-      },
-      "gate3_verifier": "PASS",
-      "gate4_artifact_eol_portability_correction": {
-        "affected_artifacts": 6,
-        "confirmation_accessed": false,
-        "discovered_before_gate5_confirmation_access": true,
-        "scientific_content_changed": false,
-        "stage3_changed": false,
-        "status": "PASS"
-      },
-      "gate4_verifier": "PASS",
-      "gate5_synthetic_tests": {
-        "failed": 0,
-        "passed": 23
-      },
-      "stage3_regression_suite": {
-        "failed": 0,
-        "passed": 63
-      }
-    },
-    "preregistration_verifier": "scripts/verify_gate5_preregistration.py",
-    "repository_bootstrap": {
-      "alpha": 0.05,
-      "method": "repository_cluster_bootstrap",
-      "n_bootstrap": 2000,
-      "sampling_unit": "repository",
-      "seed": 42
-    },
-    "stage3": {
-      "config_sha256": "27c234a3f998c34256025b0d914ddf3fd2a202eb3466b37a25f5aed0283e3192",
-      "confirmation_execution": "NOT_EXECUTED",
-      "freeze_manifest_sha256": "8d2d7911330d15d04e8b628200252e6c1a614344651596064b293b17b707076f",
-      "max_input_tokens": 4096,
-      "model": "Qwen/Qwen2.5-Coder-7B-Instruct"
-    },
-    "status": "PREPARED_NOT_ACTIVATED",
-    "upstream_gate4_closure_commit": "fc49c94d6c6e4c575299e7a4df15985bcea71484"
+    "confirmation_accessed": true,
+    "confirmation_dataset_sha256": "e73caca3b9ef46de284c4755127e3d7cfc0b5db9f3d1c8cd2b85be80b2c6d01b",
+    "confirmation_results_accessed": true,
+    "confirmation_rows": 3747,
+    "execution_commit": "88e185a637f11204a1af7b2a6ad2eddc6032e30f",
+    "final_report": "reports/final_v2/gate5/final_results/GATE5_FINAL_REPORT.md",
+    "final_summary": "reports/final_v2/gate5/final_results/gate5_final_summary.json",
+    "freeze_manifest": "reports/final_v2/gate5/GATE5_CONFIRMATION_FREEZE_MANIFEST.json",
+    "gate6_required": true,
+    "master_receipt": "reports/final_v2/gate5/one_shot/GATE5_MASTER_ONE_SHOT_RECEIPT.json",
+    "post_confirmation_tuning": false,
+    "rerun_allowed": false,
+    "return_archive_sha256": "bc57c02eba812152713116e978add4c1181d8a741b6a7ed717bd5d4796ea8126",
+    "stage3_accepted_total": 56,
+    "stage3_binary_predicted_positive": 454,
+    "stage3_context_available": 120,
+    "status": "PASS_FROZEN_CLOSED"
   },
   "gate_statuses": {
     "gate_0_canonical_pipeline_and_integrity_baseline": "PASS",
@@ -708,7 +616,7 @@
     "gate_2_development_only_ml_model_study": "PASS",
     "gate_3_final_classifier_selection_and_freeze": "PASS",
     "gate_4_stage3_retrieval_generation_study_and_freeze": "PASS",
-    "gate_5_one_shot_confirmation": "NOT_EXECUTED",
+    "gate_5_one_shot_confirmation": "PASS",
     "gate_6_post_hoc_and_human_evaluation": "NOT_EXECUTED",
     "gate_7_thesis_evidence_freeze": "NOT_EXECUTED"
   },

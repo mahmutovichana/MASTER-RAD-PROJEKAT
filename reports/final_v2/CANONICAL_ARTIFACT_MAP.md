@@ -114,3 +114,18 @@ These artifacts must not change after their corresponding gate passes.
 | Gate 4 — Stage 3 retrieval/generation study and freeze | Frozen Stage 3 config, prompt/template source hashes and freeze manifest. |
 | Gate 5 — One-shot confirmation | Confirmation metrics, predictions, generation outputs and one-shot receipts. |
 | Gate 7 — Thesis evidence freeze | Final tables, figures, reports, manifests and thesis-facing reproducibility evidence. |
+
+### Gate 5 ? one-shot sealed confirmation
+
+- Master one-shot receipt: `reports/final_v2/gate5/one_shot/GATE5_MASTER_ONE_SHOT_RECEIPT.json`
+- Final report: `reports/final_v2/gate5/final_results/GATE5_FINAL_REPORT.md`
+- Final summary: `reports/final_v2/gate5/final_results/gate5_final_summary.json`
+- Figures manifest: `reports/final_v2/gate5/final_results/figures_manifest.json`
+- Generalization-gap evidence: `reports/final_v2/gate5/final_results/GATE5_GENERALIZATION_GAP_EVIDENCE.json`
+- Confirmation freeze manifest: `reports/final_v2/gate5/GATE5_CONFIRMATION_FREEZE_MANIFEST.json`
+- Status: **PASS / FROZEN / CLOSED**
+- Rerun allowed: **no**
+- Next gate: **Gate 6 post-confirmation human/reference evaluation**
+
+
+- Gate 5 preregistration successor-state verifier correction: `reports/final_v2/gate5/GATE5_PREREGISTRATION_SUCCESSOR_STATE_VERIFIER_CORRECTION.json` (lifecycle compatibility only; no scientific change).

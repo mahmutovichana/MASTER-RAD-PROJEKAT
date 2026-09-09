@@ -10,7 +10,7 @@ from scripts.verify_gate5_preregistration import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_gate5_preregistration_verifier_passes():
+def test_gate5_preregistration_verifier_passes_post_confirmation():
     result = verify(
         ROOT
     )
@@ -22,23 +22,51 @@ def test_gate5_preregistration_verifier_passes():
 
     assert (
         result[
+            "lifecycle_state"
+        ]
+        == "POST_CONFIRMATION_FROZEN_CLOSED"
+    )
+
+    assert (
+        result[
             "preflight_status"
         ]
-        == "PREPARED_NOT_ACTIVATED"
+        == "PREREGISTRATION_VERIFIED_POST_CONFIRMATION"
     )
 
     assert (
         result[
             "gate5_execution"
         ]
-        == "NOT_EXECUTED"
+        == "COMPLETED_ONE_SHOT_CONFIRMATION"
     )
 
     assert (
         result[
-            "confirmation_accessed"
+            "current_gate"
+        ]
+        >= 6
+    )
+
+    assert (
+        result[
+            "confirmation_accessed_by_this_verifier"
         ]
         is False
+    )
+
+    assert (
+        result[
+            "confirmation_results_accessed_by_gate_5"
+        ]
+        is True
+    )
+
+    assert (
+        result[
+            "execution_artifacts_present"
+        ]
+        is True
     )
 
     assert (
@@ -63,7 +91,7 @@ def test_gate5_preregistration_verifier_passes():
     )
 
 
-def test_gate5_verifier_never_opens_confirmation(
+def test_gate5_preregistration_verifier_never_opens_confirmation(
     monkeypatch,
 ):
     original_open = Path.open
@@ -76,7 +104,7 @@ def test_gate5_verifier_never_opens_confirmation(
         normalized = str(
             self
         ).replace(
-            "\\\\",
+            "\\",
             "/",
         ).lower()
 
@@ -106,13 +134,13 @@ def test_gate5_verifier_never_opens_confirmation(
 
     assert (
         result[
-            "confirmation_accessed"
+            "confirmation_accessed_by_this_verifier"
         ]
         is False
     )
 
 
-def test_gate5_verifier_reports_gate3_eol_portability_correction():
+def test_gate5_preregistration_verifier_preserves_portability_evidence():
     result = verify(
         ROOT
     )
@@ -124,44 +152,11 @@ def test_gate5_verifier_reports_gate3_eol_portability_correction():
         == "PASS"
     )
 
-
-def test_gate5_verifier_reports_final_portability_hardening():
-    result = verify(
-        ROOT
-    )
-
     assert (
         result[
             "gate3_child_manifest_link_portability"
         ]
         == "PASS"
-    )
-
-    assert (
-        result[
-            "classifier_runtime_canary"
-        ]
-        == "REFERENCE_FROZEN_PRE_CONFIRMATION"
-    )
-
-    assert (
-        result[
-            "confirmation_accessed"
-        ]
-        is False
-    )
-
-    assert (
-        result[
-            "gate5_execution"
-        ]
-        == "NOT_EXECUTED"
-    )
-
-
-def test_gate5_verifier_reports_gate4_artifact_portability():
-    result = verify(
-        ROOT
     )
 
     assert (
@@ -173,7 +168,27 @@ def test_gate5_verifier_reports_gate4_artifact_portability():
 
     assert (
         result[
-            "confirmation_accessed"
+            "classifier_runtime_canary"
+        ]
+        == "REFERENCE_FROZEN_PRE_CONFIRMATION"
+    )
+
+
+def test_gate5_preregistration_verifier_is_post_confirmation_read_only():
+    result = verify(
+        ROOT
+    )
+
+    assert (
+        result[
+            "confirmation_results_accessed_by_gate_5"
+        ]
+        is True
+    )
+
+    assert (
+        result[
+            "confirmation_accessed_by_this_verifier"
         ]
         is False
     )
@@ -182,5 +197,5 @@ def test_gate5_verifier_reports_gate4_artifact_portability():
         result[
             "gate5_execution"
         ]
-        == "NOT_EXECUTED"
+        == "COMPLETED_ONE_SHOT_CONFIRMATION"
     )

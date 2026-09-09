@@ -1,0 +1,132 @@
+{
+  "binary": {
+    "accuracy": 0.9063250600480385,
+    "average_precision": 0.5324236376230164,
+    "balanced_accuracy": 0.7840291679647267,
+    "confusion_matrix": {
+      "fn": 149,
+      "fp": 202,
+      "tn": 3144,
+      "tp": 252
+    },
+    "f1": 0.5894736842105263,
+    "mcc": 0.5381511839614936,
+    "mcc_ci_95": {
+      "high": 0.7887046510033393,
+      "low": 0.13791719341967854
+    },
+    "precision": 0.5550660792951542,
+    "primary_metric": "mcc",
+    "recall": 0.628428927680798,
+    "roc_auc": 0.8835614192253973,
+    "specificity": 0.9396294082486552
+  },
+  "category": {
+    "accuracy": 0.5015873015873016,
+    "balanced_accuracy": 0.4174689752124875,
+    "macro_f1": 0.40318848348589814,
+    "macro_f1_ci_95": {
+      "high": 0.4293518641374458,
+      "low": 0.32919758359846785
+    },
+    "per_class": {
+      "api_reference": {
+        "f1": 0.46445497630331756,
+        "precision": 0.3656716417910448,
+        "recall": 0.6363636363636364,
+        "support": 77
+      },
+      "configuration": {
+        "f1": 0.6311111111111111,
+        "precision": 0.6513761467889908,
+        "recall": 0.6120689655172413,
+        "support": 116
+      },
+      "developer_setup": {
+        "f1": 0.07407407407407407,
+        "precision": 0.5,
+        "recall": 0.04,
+        "support": 25
+      },
+      "model_contract": {
+        "f1": 0.4431137724550898,
+        "precision": 0.5285714285714286,
+        "recall": 0.38144329896907214,
+        "support": 97
+      }
+    },
+    "primary_metric": "macro_f1",
+    "scope": "intrinsic_category_eligible_confirmation",
+    "support": 315,
+    "weighted_f1": 0.48827241220393613
+  },
+  "confirmation": {
+    "dataset_sha256": "e73caca3b9ef46de284c4755127e3d7cfc0b5db9f3d1c8cd2b85be80b2c6d01b",
+    "negative_rows": 3346,
+    "positive_rows": 401,
+    "rows": 3747
+  },
+  "development_vs_confirmation": {
+    "binary": {
+      "absolute_change": -0.29399581603850633,
+      "confirmation": 0.5381511839614936,
+      "development_oof": 0.832147,
+      "metric": "mcc"
+    },
+    "category": {
+      "absolute_change": -0.4577935165141019,
+      "confirmation": 0.40318848348589814,
+      "development_oof": 0.860982,
+      "metric": "macro_f1"
+    },
+    "comparison_is_descriptive_only": true,
+    "post_confirmation_tuning": false
+  },
+  "execution_commit": "88e185a637f11204a1af7b2a6ad2eddc6032e30f",
+  "figures": [
+    "reports/final_v2/gate5/final_results/figures/gate5_binary_confusion_matrix.png",
+    "reports/final_v2/gate5/final_results/figures/gate5_binary_confusion_matrix.pdf",
+    "reports/final_v2/gate5/final_results/figures/gate5_binary_metrics_bootstrap_ci.png",
+    "reports/final_v2/gate5/final_results/figures/gate5_binary_metrics_bootstrap_ci.pdf",
+    "reports/final_v2/gate5/final_results/figures/gate5_category_confusion_matrix.png",
+    "reports/final_v2/gate5/final_results/figures/gate5_category_confusion_matrix.pdf",
+    "reports/final_v2/gate5/final_results/figures/gate5_category_per_class_metrics.png",
+    "reports/final_v2/gate5/final_results/figures/gate5_category_per_class_metrics.pdf",
+    "reports/final_v2/gate5/final_results/figures/gate5_stage3_predicted_positive_outcomes.png",
+    "reports/final_v2/gate5/final_results/figures/gate5_stage3_predicted_positive_outcomes.pdf",
+    "reports/final_v2/gate5/final_results/figures/gate5_development_vs_confirmation_headline.png",
+    "reports/final_v2/gate5/final_results/figures/gate5_development_vs_confirmation_headline.pdf"
+  ],
+  "master_receipt_sha256": "4f94799d764a10c1869a2f16271c165309244783ead3b0365f58667e3ddd5b87",
+  "methodology": {
+    "gate6_human_evaluation_pending": true,
+    "post_confirmation_tuning": false,
+    "rerun_allowed": false
+  },
+  "return_archive_sha256": "bc57c02eba812152713116e978add4c1181d8a741b6a7ed717bd5d4796ea8126",
+  "schema_version": "gate5_final_summary_v1",
+  "stage3": {
+    "accepted_after_repair": 4,
+    "accepted_first_pass": 52,
+    "accepted_total": 56,
+    "binary_predicted_positive": 454,
+    "conditional_acceptance_given_context": 0.4666666666666667,
+    "execution_error_counts": {
+      "input_token_budget_exceeded": 50,
+      "invalid_structured_llm_output": 6
+    },
+    "human_review_required": 64,
+    "llm_call_count": 153,
+    "note": "Stage 3 acceptance is pipeline-level structured/safety acceptance, not human semantic-quality validation. Human/reference evaluation is deferred to Gate 6.",
+    "processed_confirmation_rows": 3747,
+    "retrieval_context_available": 120,
+    "retrieval_context_coverage_rate": 0.2643171806167401,
+    "retrieval_context_unavailable": 334,
+    "safety_violation_counts": {
+      "empty_patch": 3,
+      "target_not_retrieved": 14,
+      "unsupported_fact": 17
+    }
+  },
+  "status": "COMPLETED_ONE_SHOT_CONFIRMATION"
+}

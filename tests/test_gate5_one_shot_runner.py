@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 import scripts.run_frozen_stage3_v2_confirmation as stage3_runner
+import scripts.run_gate5_one_shot_qwen as gate5_runner
 from docguard_llm_v2.hf_backend import (
     InputTokenBudgetExceeded,
 )
@@ -58,6 +59,7 @@ def test_existing_master_receipt_forbids_rerun(
 
 def test_preconfirmation_validation_does_not_read_confirmation(
     monkeypatch,
+    tmp_path: Path,
 ):
     original = Path.read_text
 
@@ -81,6 +83,28 @@ def test_preconfirmation_validation_does_not_read_confirmation(
         Path,
         "read_text",
         guarded_read_text,
+    )
+
+    # This test verifies the PRE-confirmation path specifically.
+    # The real repository is now legitimately Gate 5 CLOSED,
+    # so only the lifecycle-state check is simulated here.
+    # The production execution guard itself remains strict.
+    monkeypatch.setattr(
+        gate5_runner,
+        "validate_finalization_state",
+        lambda root: {
+            "current_gate": 5,
+            "gate_statuses": {
+                "gate_4_stage3_retrieval_generation_study_and_freeze":
+                    "PASS",
+                "gate_5_one_shot_confirmation":
+                    "NOT_EXECUTED",
+            },
+            "confirmation_sealed":
+                True,
+            "confirmation_results_accessed_by_gate_5":
+                False,
+        },
     )
 
     root = Path(__file__).resolve().parents[1]
@@ -122,9 +146,8 @@ def test_preconfirmation_validation_does_not_read_confirmation(
                 / "experiments/consolidated_enriched_training_v2/"
                   "gold/human_gold_manifest.json",
             output_root=
-                root
-                / "reports/final_v2/gate5/"
-                  "one_shot",
+                tmp_path
+                / "one_shot",
         )
     )
 
@@ -440,4 +463,18 @@ def test_missing_partition_manifest_fails_before_confirmation(
         validate_partition_manifest_preconfirmation(
             tmp_path
             / "repository_partition_manifest.json"
+        )
+
+
+def test_frozen_closed_state_forbids_new_one_shot_execution():
+    root = Path(
+        __file__
+    ).resolve().parents[1]
+
+    with pytest.raises(
+        RuntimeError,
+        match="not safe for one-shot execution",
+    ):
+        gate5_runner.validate_finalization_state(
+            root
         )
