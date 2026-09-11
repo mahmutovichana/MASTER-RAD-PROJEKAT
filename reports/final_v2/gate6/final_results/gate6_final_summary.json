@@ -1,0 +1,167 @@
+{
+  "human_evaluation_primary": {
+    "conditional_on_output_quality": {
+      "human_developer_usefulness": {
+        "bootstrap_ci_95_for_mean": {
+          "high": 2.2142857142857144,
+          "low": 1.7857142857142858
+        },
+        "distribution_scores_1_to_5": {
+          "1": 1,
+          "2": 12,
+          "3": 1,
+          "4": 0,
+          "5": 0
+        },
+        "mean": 2,
+        "median": 2.0,
+        "n": 14
+      },
+      "human_factual_correctness": {
+        "bootstrap_ci_95_for_mean": {
+          "high": 4.642857142857143,
+          "low": 3.5339285714285715
+        },
+        "distribution_scores_1_to_5": {
+          "1": 1,
+          "2": 0,
+          "3": 1,
+          "4": 6,
+          "5": 6
+        },
+        "mean": 4.142857142857143,
+        "median": 4.0,
+        "n": 14
+      },
+      "human_readability": {
+        "bootstrap_ci_95_for_mean": {
+          "high": 5.0,
+          "low": 4.357142857142857
+        },
+        "distribution_scores_1_to_5": {
+          "1": 0,
+          "2": 0,
+          "3": 1,
+          "4": 2,
+          "5": 11
+        },
+        "mean": 4.714285714285714,
+        "median": 5.0,
+        "n": 14
+      },
+      "human_semantic_completeness": {
+        "bootstrap_ci_95_for_mean": {
+          "high": 5.0,
+          "low": 3.605357142857143
+        },
+        "distribution_scores_1_to_5": {
+          "1": 1,
+          "2": 1,
+          "3": 1,
+          "4": 0,
+          "5": 11
+        },
+        "mean": 4.357142857142857,
+        "median": 5.0,
+        "n": 14
+      },
+      "human_style_fit": {
+        "bootstrap_ci_95_for_mean": {
+          "high": 2.4285714285714284,
+          "low": 1.7857142857142858
+        },
+        "distribution_scores_1_to_5": {
+          "1": 1,
+          "2": 12,
+          "3": 0,
+          "4": 1,
+          "5": 0
+        },
+        "mean": 2.0714285714285716,
+        "median": 2.0,
+        "n": 14
+      }
+    },
+    "conditional_output_accept_as_is": {
+      "bootstrap_ci_95": {
+        "high": 0.0,
+        "low": 0.0
+      },
+      "denominator": 14,
+      "numerator": 0,
+      "rate": 0.0
+    },
+    "end_to_end_accept_as_is": {
+      "bootstrap_ci_95": {
+        "high": 0.0,
+        "low": 0.0
+      },
+      "denominator": 100,
+      "numerator": 0,
+      "rate": 0.0
+    },
+    "excluded_or_incomplete_reviews": 0,
+    "generated_scorable_rows": 14,
+    "no_output_quality_policy": "STRUCTURALLY_NA_NOT_ZERO",
+    "no_output_system_failure_rate": {
+      "denominator": 100,
+      "numerator": 86,
+      "rate": 0.86
+    },
+    "no_output_system_failure_rows": 86,
+    "primary_sample_size": 100,
+    "review_status_semantics": "approved means completed and schema-valid human review; it is not human_accept_as_is.",
+    "sample_scope": "primary_natural_distribution",
+    "schema_version": "gate6_human_evaluation_metrics_v1",
+    "system_coverage": {
+      "denominator": 100,
+      "numerator": 14,
+      "rate": 0.14
+    }
+  },
+  "reference_diagnostics": {
+    "diagnostic_only": true,
+    "evaluated_output_rows": 14,
+    "exact_match": null,
+    "implementation_empty_set_sentinel_note": "The frozen evaluator emits numeric zero summaries when no reference text is available. Gate 6 reports these metrics as not calculated rather than interpreting the sentinel as performance.",
+    "interpretation": "Reference similarity is supporting diagnostic evidence only and does not replace human judgment.",
+    "reference_availability_rate": 0.0,
+    "reference_available_rows": 0,
+    "sample_scope": "primary_generated_output_rows_only",
+    "schema_version": "gate6_reference_evaluation_metrics_v1",
+    "tfidf_cosine": null,
+    "word_overlap_f1": null
+  },
+  "safety_diagnostics": {
+    "diagnostic_only": true,
+    "execution_error_counts": {
+      "input_token_budget_exceeded": 7,
+      "invalid_structured_llm_output": 1
+    },
+    "final_status_counts": {
+      "accepted_after_repair": 2,
+      "accepted_first_pass": 12,
+      "human_review_required": 10,
+      "retrieval_context_unavailable": 76
+    },
+    "generated_output_rows": 14,
+    "interpretation": "Frozen verifier and execution diagnostics for the 100-row primary sample; pipeline safety acceptance is not human accept-as-is and is not a human quality score.",
+    "retrieval_context_available_count": 24,
+    "safety_violation_counts": {
+      "target_not_retrieved": 5,
+      "unsupported_fact": 1
+    },
+    "sample_rows": 100,
+    "sample_scope": "primary_natural_distribution",
+    "schema_version": "gate6_primary_safety_diagnostics_v1",
+    "stage3_invocation_count": 24
+  },
+  "schema_version": "gate6_final_summary_v1",
+  "secondary_sample": {
+    "pooled_into_primary": false,
+    "rows": 83,
+    "status": "NOT_HUMAN_EVALUATED"
+  },
+  "separation_policy": "Human evaluation, reference diagnostics, and safety diagnostics are separate; no combined accuracy is computed.",
+  "status": "COMPLETED_FROZEN_HUMAN_EVALUATION"
+}
