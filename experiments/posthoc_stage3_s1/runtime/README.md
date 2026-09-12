@@ -1,5 +1,9 @@
 # S1 runtime
 
-Local CUDA was unavailable during preparation. Repository and Hugging Face caches are runtime-only and ignored. The Kaggle canary must validate sequential model loading, 4-bit NF4 generator placement, peak memory, structured JSON, and one complete S1 case before a full development run.
+Local CUDA was unavailable during preparation. Repository and Hugging Face caches are runtime-only and ignored. The Kaggle notebook clones the already-pushed frozen scientific commit, verifies its exact SHA, pulls the four required LFS inputs, obtains `HF_TOKEN` from Kaggle Secrets without printing it, and uses a separately attached runtime asset bundle.
+
+The mandatory canary validates CUDA discovery, exact resolved model revisions, sequential embedding/reranker/generator loading and cleanup, 4-bit generator placement, deterministic plan JSON, critic JSON, one repair, VRAM, host RAM and elapsed times. Any failure writes `CANARY_STOP` and prevents the development runner from starting.
+
+The development runner persists repository corpora, embeddings, lexical/dense scores, reranker scores, model-call responses and unique generation results. It checkpoints each completed result and emits a progress receipt every 25 new cases. Prompt selection remains pending a blind development review when objective evidence cannot resolve P1/P2.
 
 Expected 2xT4 wall time is approximately 4–8 hours for 200 development cases, subject to the measured canary. Stop instead of substituting a model if the pinned 14B model is unreliable.
