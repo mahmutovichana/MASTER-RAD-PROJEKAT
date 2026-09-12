@@ -1,0 +1,28 @@
+{
+  "scientific_status": "POST_HOC_STAGE3_CHALLENGER_DEVELOPMENT_ONLY",
+  "freeze_status": "MODEL_AND_BOUNDED_SEARCH_SPACE_FROZEN_SELECTION_PENDING",
+  "confirmation_accessed": false,
+  "gate6_row_level_human_data_accessed": false,
+  "seed": 42,
+  "models": {
+    "embedding": {"id": "Qwen/Qwen3-Embedding-0.6B", "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3"},
+    "reranker": {"id": "Qwen/Qwen3-Reranker-0.6B", "revision": "e61197ed45024b0ed8a2d74b80b4d909f1255473"},
+    "generator_and_critic": {"id": "Qwen/Qwen2.5-Coder-14B-Instruct", "revision": "aedcc2d42b622764e023cf882b6652e646b95671", "quantization": "4-bit NF4", "temperature": 0}
+  },
+  "bounded_parameters": {
+    "lexical_top_k": [5, 10],
+    "dense_top_k": [5, 10],
+    "reranker_final_candidates": [3],
+    "target_confidence_threshold": [0.35, 0.5, 0.65],
+    "prompt_variant": ["P1", "P2"],
+    "maximum_repairs": 1
+  },
+  "fixed_architecture_limits": {
+    "initial_locality_ordered_document_cap": 64,
+    "semantic_chunk_max_characters": 4000,
+    "dense_encoding_batch_size": 8,
+    "maximum_document_bytes": 2000000
+  },
+  "selected_configuration": null,
+  "final_evaluation_executed": false
+}

@@ -1,0 +1,25 @@
+{
+  "experiment": "S1 Repository-Grounded Documentation Agent",
+  "scientific_status": "POST_HOC_STAGE3_CHALLENGER_NOT_CANONICAL",
+  "development_population": "frozen Gate 4 primary and secondary memberships, reported separately where applicable",
+  "confirmation_accessed": false,
+  "gate6_row_level_human_data_accessed": false,
+  "objective": "improve correctly targeted, useful, grounded documentation coverage without maximizing raw output count",
+  "pre_change_only": true,
+  "head_and_branch_retrieval_forbidden": true,
+  "models_and_revisions": {
+    "embedding": "Qwen/Qwen3-Embedding-0.6B@97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "reranker": "Qwen/Qwen3-Reranker-0.6B@e61197ed45024b0ed8a2d74b80b4d909f1255473",
+    "generator_critic": "Qwen/Qwen2.5-Coder-14B-Instruct@aedcc2d42b622764e023cf882b6652e646b95671"
+  },
+  "bounded_selection": {
+    "lexical_top_k": [5, 10], "dense_top_k": [5, 10], "target_confidence_threshold": [0.35, 0.5, 0.65], "prompt_variants": ["P1", "P2"], "reranker_final_candidates": 3
+  },
+  "fixed_architecture_limits": {"initial_locality_ordered_document_cap": 64, "semantic_chunk_max_characters": 4000, "dense_encoding_batch_size": 8, "maximum_document_bytes": 2000000},
+  "selection_sequence": "Select retrieval top-k on controlled target-document evidence using Hit@3, then MRR, then Hit@1, then smaller lexical top-k, then smaller dense top-k. Execute the minimum 0.35 threshold once per prompt and derive stricter threshold dispositions without rerunning model inference. Do not select P1/P2 from self-critic scores alone; if deterministic diagnostics do not resolve them, freeze a blind development review sample and request authorization before workbook creation.",
+  "generation": {"temperature": 0, "samples": 1, "maximum_repairs": 1},
+  "target_metrics_policy": "Hit@k/MRR only on development rows with legitimate target-document evidence; never invent natural target gold",
+  "human_review_policy": "If manual development review becomes necessary, freeze a blind sample and ask before creating its workbook",
+  "stop_conditions": ["pre-change reconstruction unavailable for most cases", "future-document leakage required", "required model inference unreliable", "materially worse safety", "no development retrieval/coverage improvement"],
+  "fresh_posthoc_final_evaluation": {"executed": false, "must_be_designed_and_frozen_after_S1_selection": true}
+}
