@@ -1,9 +1,18 @@
 {
   "environment": "Kaggle 2x Tesla T4",
   "status": "LAUNCH_HARDENED_CANARY_PENDING",
-  "predevelopment_amendment": "S1_PREDEVELOPMENT_AMENDMENT_01",
+  "predevelopment_amendments": ["S1_PREDEVELOPMENT_AMENDMENT_01", "S1_PREDEVELOPMENT_AMENDMENT_02"],
   "schema_correction_retries_per_structured_call": 1,
   "semantic_documentation_repairs": 1,
+  "embedding_execution": {
+    "configured_logical_batch_size": 8,
+    "adaptive_microbatch_range": [1, 8],
+    "split_trigger": "torch.cuda.OutOfMemoryError only",
+    "max_length": 8192,
+    "single_item_oom": "FAIL_CLOSED",
+    "cpu_fallback": false,
+    "allocator_configuration": "PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True"
+  },
   "frozen_repository_sha": "38f9afb479f738081301172176d3133e4056bd7c",
   "repository_remote": "https://github.com/mahmutovichana/MASTER-RAD-PROJEKAT.git",
   "confirmation_accessed": false,

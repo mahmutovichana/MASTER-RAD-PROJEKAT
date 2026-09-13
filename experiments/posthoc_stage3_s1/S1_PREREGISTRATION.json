@@ -27,6 +27,17 @@
     "fail_closed_after_invalid_retry": true,
     "semantic_documentation_repairs_remain": 1
   },
+  "adaptive_embedding_amendment": {
+    "id": "S1_PREDEVELOPMENT_AMENDMENT_02",
+    "triggered_before_aggregate_neural_development_results": true,
+    "configured_logical_batch_size": 8,
+    "adaptive_microbatch_range": [1, 8],
+    "split_trigger": "torch.cuda.OutOfMemoryError only",
+    "max_length": 8192,
+    "input_order_and_scoring_semantics_unchanged": true,
+    "single_item_oom_disposition": "FAIL_CLOSED",
+    "cpu_fallback": false
+  },
   "target_metrics_policy": "Hit@k/MRR only on development rows with legitimate target-document evidence; never invent natural target gold",
   "human_review_policy": "If manual development review becomes necessary, freeze a blind sample and ask before creating its workbook",
   "stop_conditions": ["pre-change reconstruction unavailable for most cases", "future-document leakage required", "required model inference unreliable", "materially worse safety", "no development retrieval/coverage improvement"],

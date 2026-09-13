@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+import gc
 from dataclasses import dataclass
 from typing import Protocol, Sequence
 
@@ -15,6 +16,8 @@ EMBEDDING_MODEL_ID = "Qwen/Qwen3-Embedding-0.6B"
 EMBEDDING_REVISION = "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3"
 RERANKER_MODEL_ID = "Qwen/Qwen3-Reranker-0.6B"
 RERANKER_REVISION = "e61197ed45024b0ed8a2d74b80b4d909f1255473"
+EMBEDDING_MAX_LENGTH = 8192
+EMBEDDING_LOGICAL_BATCH_SIZE = 8
 
 
 class DenseEncoder(Protocol):
@@ -106,21 +109,26 @@ def rerank_top_documents(query: str, candidates: Sequence[RankedChunk], *, reran
 
 
 class QwenDenseEncoder:
-    def __init__(self, *, cache_dir: str | None = None, device: str | None = None, batch_size: int = 8):
+    def __init__(self, *, cache_dir: str | None = None, device: str | None = None, batch_size: int = EMBEDDING_LOGICAL_BATCH_SIZE):
         import torch
         from transformers import AutoModel, AutoTokenizer
 
+        if batch_size != EMBEDDING_LOGICAL_BATCH_SIZE:
+            raise ValueError("Frozen S1 embedding logical batch size must remain 8")
         self.torch = torch
         self.tokenizer = AutoTokenizer.from_pretrained(EMBEDDING_MODEL_ID, revision=EMBEDDING_REVISION, cache_dir=cache_dir)
         self.model = AutoModel.from_pretrained(EMBEDDING_MODEL_ID, revision=EMBEDDING_REVISION, cache_dir=cache_dir, torch_dtype="auto", device_map=device or "auto")
         self.model.eval()
         self.batch_size = batch_size
+        self.last_encode_diagnostics: dict[str, object] = {}
 
-    def encode(self, texts: Sequence[str]) -> np.ndarray:
+    def _encode_batch(self, texts: Sequence[str]) -> np.ndarray:
         torch = self.torch
-        batches = []
-        for start in range(0, len(texts), self.batch_size):
-            batch = self.tokenizer(list(texts[start : start + self.batch_size]), padding=True, truncation=True, max_length=8192, return_tensors="pt")
+        batch = None
+        output = None
+        vectors = None
+        try:
+            batch = self.tokenizer(list(texts), padding=True, truncation=True, max_length=EMBEDDING_MAX_LENGTH, return_tensors="pt")
             device = next(self.model.parameters()).device
             batch = {key: value.to(device) for key, value in batch.items()}
             with torch.no_grad():
@@ -128,7 +136,48 @@ class QwenDenseEncoder:
                 indexes = batch["attention_mask"].sum(dim=1) - 1
                 vectors = output[torch.arange(output.shape[0], device=device), indexes]
                 vectors = torch.nn.functional.normalize(vectors, p=2, dim=1)
-            batches.append(vectors.float().cpu().numpy())
+            return vectors.float().cpu().numpy()
+        finally:
+            del vectors
+            del output
+            del batch
+
+    def _encode_adaptive(self, texts: Sequence[str], diagnostics: dict[str, object]) -> np.ndarray:
+        size = len(texts)
+        diagnostics["attempted_batch_sizes"].append(size)
+        try:
+            result = self._encode_batch(texts)
+            diagnostics["effective_batch_sizes_used"].append(size)
+            return result
+        except self.torch.cuda.OutOfMemoryError:
+            gc.collect()
+            self.torch.cuda.empty_cache()
+            if size == 1:
+                diagnostics["single_item_oom"] = True
+                raise
+            diagnostics["oom_split_count"] += 1
+            midpoint = size // 2
+            left = self._encode_adaptive(texts[:midpoint], diagnostics)
+            right = self._encode_adaptive(texts[midpoint:], diagnostics)
+            return np.concatenate([left, right], axis=0)
+
+    def encode(self, texts: Sequence[str]) -> np.ndarray:
+        diagnostics: dict[str, object] = {
+            "configured_max_batch_size": self.batch_size,
+            "attempted_batch_sizes": [],
+            "effective_batch_sizes_used": [],
+            "oom_split_count": 0,
+            "minimum_effective_batch_size": None,
+            "single_item_oom": False,
+        }
+        batches = []
+        try:
+            for start in range(0, len(texts), self.batch_size):
+                batches.append(self._encode_adaptive(list(texts[start : start + self.batch_size]), diagnostics))
+        finally:
+            used = diagnostics["effective_batch_sizes_used"]
+            diagnostics["minimum_effective_batch_size"] = min(used) if used else None
+            self.last_encode_diagnostics = diagnostics
         return np.concatenate(batches, axis=0) if batches else np.empty((0, 0))
 
 

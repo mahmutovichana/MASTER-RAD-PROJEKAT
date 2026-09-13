@@ -11,8 +11,14 @@ import traceback
 from pathlib import Path
 from typing import Any
 
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+
+import numpy as np
+
 from experiments.posthoc_stage3_s1.scripts.retrieval import (
     EMBEDDING_MODEL_ID,
+    EMBEDDING_LOGICAL_BATCH_SIZE,
+    EMBEDDING_MAX_LENGTH,
     EMBEDDING_REVISION,
     RERANKER_MODEL_ID,
     RERANKER_REVISION,
@@ -171,6 +177,30 @@ def run_canary(cache_dir: str) -> dict[str, Any]:
     shape = timed_stage(receipt, "embedding_inference", lambda: list(dense.encode(["changed configuration key", "configuration reference documentation"]).shape))
     if shape != [2, 1024]:
         raise RuntimeError(f"Unexpected embedding shape: {shape}")
+    stress_inputs = [f"synthetic-order-marker-{index} " + ("configuration-token " * (6500 + index * 100)) for index in range(EMBEDDING_LOGICAL_BATCH_SIZE)]
+    stress_vectors = timed_stage(receipt, "embedding_memory_stress_adaptive", lambda: dense.encode(stress_inputs))
+    stress_diagnostics = json.loads(json.dumps(dense.last_encode_diagnostics))
+    if stress_vectors.shape != (len(stress_inputs), 1024):
+        raise RuntimeError(f"Embedding stress output shape mismatch: {stress_vectors.shape}")
+    if not np.isfinite(stress_vectors).all():
+        raise RuntimeError("Embedding stress output contains non-finite vectors")
+
+    def individual_references() -> np.ndarray:
+        return np.concatenate([dense.encode([text]) for text in stress_inputs], axis=0)
+
+    reference_vectors = timed_stage(receipt, "embedding_single_item_order_reference", individual_references)
+    if reference_vectors.shape != stress_vectors.shape or not np.allclose(stress_vectors, reference_vectors, rtol=1e-3, atol=1e-4):
+        raise RuntimeError("Adaptive embedding output did not preserve original input row order")
+    receipt["embedding_memory_stress"] = {
+        "synthetic_input_count": len(stress_inputs),
+        "output_row_count": int(stress_vectors.shape[0]),
+        "output_dimension": int(stress_vectors.shape[1]),
+        "all_vectors_finite": True,
+        "original_order_preserved": True,
+        "batch_size_one_verified": True,
+        "max_length": EMBEDDING_MAX_LENGTH,
+        **stress_diagnostics,
+    }
     unload_started = time.monotonic()
     del dense
     unload_cuda = cleanup_cuda()

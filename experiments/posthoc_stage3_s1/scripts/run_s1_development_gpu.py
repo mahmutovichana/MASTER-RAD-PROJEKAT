@@ -108,6 +108,27 @@ def assert_materialized(path: Path) -> None:
         raise RuntimeError(f"Required Git LFS object is not materialized: {path}")
 
 
+def valid_score_checkpoint(path: Path, case_id: str, document_count: int) -> bool:
+    if not path.is_file() or path.name.endswith(".tmp"):
+        return False
+    try:
+        with np.load(path, allow_pickle=False) as arrays:
+            required = {"case_id", "query_embedding", "document_embeddings", "lexical_scores", "dense_scores"}
+            if not required.issubset(arrays.files) or str(arrays["case_id"].item()) != case_id:
+                return False
+            query = arrays["query_embedding"]
+            documents = arrays["document_embeddings"]
+            lexical = arrays["lexical_scores"]
+            dense = arrays["dense_scores"]
+            if query.shape != (1024,) or documents.shape != (document_count, 1024):
+                return False
+            if lexical.shape != (document_count,) or dense.shape != (document_count,):
+                return False
+            return bool(np.isfinite(query).all() and np.isfinite(documents).all() and np.isfinite(lexical).all() and np.isfinite(dense).all())
+    except (OSError, ValueError, KeyError, EOFError):
+        return False
+
+
 def chunk_to_dict(value: DocumentChunk) -> dict[str, Any]:
     return {
         "path": value.path,
@@ -322,7 +343,10 @@ def main() -> int:
     atomic_json(checkpoints / "repository_corpus_complete.json", {"state": "COMPLETE", "case_count": len(corpora)})
     log.info("Repository corpus complete: %d cases", len(corpora))
 
-    missing_scores = [row for row in rows if not (score_dir / f"{safe_case_id(row['case_id'])}.npz").is_file()]
+    missing_scores = [
+        row for row in rows
+        if not valid_score_checkpoint(score_dir / f"{safe_case_id(row['case_id'])}.npz", row["case_id"], len(corpora[row["case_id"]]))
+    ]
     if missing_scores:
         dense = QwenDenseEncoder(cache_dir=args.cache_dir, batch_size=8)
         if getattr(dense.model.config, "_commit_hash", None) != EMBEDDING_REVISION: raise RuntimeError("Embedding revision mismatch")
@@ -331,10 +355,33 @@ def main() -> int:
             lexical = lexical_scores(query, chunks); embeddings = dense.encode([query, *[chunk_text(chunk) for chunk in chunks]])
             dense_scores = cosine_dense_scores(embeddings[0], embeddings[1:])
             target = score_dir / f"{safe_case_id(case_id)}.npz"; temporary = target.with_suffix(".npz.tmp")
-            with temporary.open("wb") as handle: np.savez_compressed(handle, case_id=case_id, query_embedding=embeddings[0], document_embeddings=embeddings[1:], lexical_scores=lexical, dense_scores=dense_scores)
+            embedding_diagnostics = json.dumps(dense.last_encode_diagnostics, sort_keys=True)
+            with temporary.open("wb") as handle: np.savez_compressed(handle, case_id=case_id, query_embedding=embeddings[0], document_embeddings=embeddings[1:], lexical_scores=lexical, dense_scores=dense_scores, embedding_runtime_diagnostics=embedding_diagnostics)
             os.replace(temporary, target)
         del dense; gc.collect(); torch.cuda.empty_cache(); torch.cuda.synchronize()
     atomic_json(checkpoints / "embedding_candidate_retrieval_complete.json", {"state": "COMPLETE", "case_count": 200})
+    embedding_diagnostics = []
+    for row in rows:
+        path = score_dir / f"{safe_case_id(row['case_id'])}.npz"
+        with np.load(path, allow_pickle=False) as arrays:
+            if "embedding_runtime_diagnostics" in arrays.files:
+                diagnostic = json.loads(str(arrays["embedding_runtime_diagnostics"].item()))
+                diagnostic.update({"case_id": row["case_id"], "reused_without_recorded_diagnostics": False})
+            else:
+                diagnostic = {"case_id": row["case_id"], "configured_max_batch_size": 8, "effective_batch_sizes_used": None, "oom_split_count": None, "minimum_effective_batch_size": None, "single_item_oom": None, "reused_without_recorded_diagnostics": True}
+            embedding_diagnostics.append(diagnostic)
+    atomic_json(checkpoints / "embedding_runtime_diagnostics.json", {"case_count": 200, "cases": embedding_diagnostics})
+    known_diagnostics = [item for item in embedding_diagnostics if not item["reused_without_recorded_diagnostics"]]
+    effective_sizes = [size for item in known_diagnostics for size in item["effective_batch_sizes_used"]]
+    runtime_manifest["embedding_microbatch"] = {
+        "configured_max_batch_size": 8,
+        "effective_batch_sizes_used": sorted(set(effective_sizes)),
+        "oom_split_count": sum(item["oom_split_count"] for item in known_diagnostics),
+        "minimum_effective_batch_size": min(effective_sizes) if effective_sizes else None,
+        "single_item_oom": any(item["single_item_oom"] for item in known_diagnostics),
+        "valid_pre_amendment_checkpoints_reused_without_diagnostics": sum(item["reused_without_recorded_diagnostics"] for item in embedding_diagnostics),
+    }
+    atomic_json(output / "runtime_manifest.json", runtime_manifest)
     log.info("Embedding and candidate retrieval complete: 200 cases")
 
     rerank_cache = load_unique_jsonl(checkpoints / "reranker_scores.jsonl", "case_id")
