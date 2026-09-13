@@ -23,6 +23,7 @@ from experiments.posthoc_stage3_s1.scripts.s1_pipeline import (
     GENERATOR_MODEL_ID,
     GENERATOR_REVISION,
     QwenStructuredGenerator,
+    SchemaRetryingGenerator,
 )
 
 
@@ -115,6 +116,28 @@ def timed_stage(receipt: dict[str, Any], name: str, operation):
     return value
 
 
+class ControlledIncompleteCriticOnce:
+    """Canary-only fault injection; retry still uses the real frozen generator."""
+
+    def __init__(self, backend: QwenStructuredGenerator):
+        self.backend = backend
+        self.calls = 0
+
+    def generate_json(self, *, purpose: str, prompt: str) -> dict[str, Any]:
+        self.calls += 1
+        if self.calls == 1:
+            return {
+                "target_fit": True,
+                "useful": True,
+                "style_fit": True,
+                "unsupported_claims": ["Windows is required"],
+                "unnecessary_content": [],
+                "decision": "REPAIR",
+                "repair_instructions": ["Remove the unsupported Windows claim"],
+            }
+        return self.backend.generate_json(purpose=purpose, prompt=prompt)
+
+
 def run_canary(cache_dir: str) -> dict[str, Any]:
     import torch
 
@@ -174,14 +197,15 @@ def run_canary(cache_dir: str) -> dict[str, Any]:
     quantizer = getattr(generator.model, "hf_quantizer", None)
     if quantizer is None:
         raise RuntimeError("Generator is not using the frozen 4-bit quantized runtime")
+    structured = SchemaRetryingGenerator(generator)
 
     plan_prompt = (
         "Return JSON only. Given evidence that config key `cacheMode` changes from `local` to `shared`, create a plan with keys "
         "update_needed, target_document, target_section, change_type, developer_facing_effect, facts_to_document, "
         "facts_not_supported, style_observations, minimal_update_intent. Target docs/configuration.md, section Cache."
     )
-    plan_one = timed_stage(receipt, "deterministic_plan_json_first", lambda: generator.generate_json(purpose="documentation_plan_canary", prompt=plan_prompt))
-    plan_two = timed_stage(receipt, "deterministic_plan_json_repeat", lambda: generator.generate_json(purpose="documentation_plan_canary", prompt=plan_prompt))
+    plan_one = timed_stage(receipt, "deterministic_plan_json_first", lambda: structured.generate_json(purpose="documentation_plan", prompt=plan_prompt))
+    plan_two = timed_stage(receipt, "deterministic_plan_json_repeat", lambda: structured.generate_json(purpose="documentation_plan", prompt=plan_prompt))
     require_keys(plan_one, {"update_needed", "target_document", "target_section", "change_type", "developer_facing_effect", "facts_to_document", "facts_not_supported", "style_observations", "minimal_update_intent"}, "plan")
     if plan_one != plan_two:
         raise RuntimeError("Greedy generator produced non-identical repeated plan JSON")
@@ -191,7 +215,7 @@ def run_canary(cache_dir: str) -> dict[str, Any]:
         "repair_instructions. Evidence supports only `cacheMode: shared`; candidate patch also claims Windows is required. "
         "Set decision to REPAIR and instruct removal of the unsupported Windows claim."
     )
-    critic = timed_stage(receipt, "structured_critic_json", lambda: generator.generate_json(purpose="critic_canary", prompt=critic_prompt))
+    critic = timed_stage(receipt, "structured_critic_json", lambda: structured.generate_json(purpose="critic", prompt=critic_prompt))
     require_keys(critic, {"grounded", "target_fit", "useful", "style_fit", "unsupported_claims", "unnecessary_content", "decision", "repair_instructions"}, "critic")
     if critic.get("decision") != "REPAIR":
         raise RuntimeError("Canary critic did not exercise the required bounded repair path")
@@ -199,9 +223,17 @@ def run_canary(cache_dir: str) -> dict[str, Any]:
         "Return JSON only with target_document, target_section, patch_markdown. Repair exactly once: remove the unsupported "
         "Windows claim and retain only the grounded statement that `cacheMode` now uses `shared`."
     )
-    repaired = timed_stage(receipt, "single_bounded_repair", lambda: generator.generate_json(purpose="repair_canary", prompt=repair_prompt))
+    repaired = timed_stage(receipt, "single_bounded_repair", lambda: structured.generate_json(purpose="repair", prompt=repair_prompt))
     require_keys(repaired, {"target_document", "target_section", "patch_markdown"}, "repair")
     receipt["repair_count"] = 1
+    controlled = SchemaRetryingGenerator(ControlledIncompleteCriticOnce(generator))
+    timed_stage(receipt, "controlled_schema_correction_retry", lambda: controlled.generate_json(purpose="critic", prompt=critic_prompt))
+    controlled_diagnostic = controlled.diagnostics[-1]
+    if not controlled_diagnostic["schema_retry_used"] or not controlled_diagnostic["schema_retry_valid"]:
+        raise RuntimeError("Controlled schema-correction retry did not validate successfully")
+    receipt["structured_call_diagnostics"] = [*structured.diagnostics, controlled_diagnostic]
+    receipt["schema_correction_retry_exercised"] = True
+    receipt["schema_correction_retries_in_controlled_exercise"] = 1
     unload_started = time.monotonic()
     del generator
     unload_cuda = cleanup_cuda()

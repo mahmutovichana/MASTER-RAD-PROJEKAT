@@ -18,6 +18,15 @@
   "fixed_architecture_limits": {"initial_locality_ordered_document_cap": 64, "semantic_chunk_max_characters": 4000, "dense_encoding_batch_size": 8, "maximum_document_bytes": 2000000},
   "selection_sequence": "Select retrieval top-k on controlled target-document evidence using Hit@3, then MRR, then Hit@1, then smaller lexical top-k, then smaller dense top-k. Execute the minimum 0.35 threshold once per prompt and derive stricter threshold dispositions without rerunning model inference. Do not select P1/P2 from self-critic scores alone; if deterministic diagnostics do not resolve them, freeze a blind development review sample and request authorization before workbook creation.",
   "generation": {"temperature": 0, "samples": 1, "maximum_repairs": 1},
+  "structured_output_amendment": {
+    "id": "S1_PREDEVELOPMENT_AMENDMENT_01",
+    "triggered_before_development_results": true,
+    "schema_correction_retries_per_structured_call": 1,
+    "schema_retry_changes_underlying_decision": false,
+    "schema_retry_counts_as_semantic_documentation_repair": false,
+    "fail_closed_after_invalid_retry": true,
+    "semantic_documentation_repairs_remain": 1
+  },
   "target_metrics_policy": "Hit@k/MRR only on development rows with legitimate target-document evidence; never invent natural target gold",
   "human_review_policy": "If manual development review becomes necessary, freeze a blind sample and ask before creating its workbook",
   "stop_conditions": ["pre-change reconstruction unavailable for most cases", "future-document leakage required", "required model inference unreliable", "materially worse safety", "no development retrieval/coverage improvement"],
