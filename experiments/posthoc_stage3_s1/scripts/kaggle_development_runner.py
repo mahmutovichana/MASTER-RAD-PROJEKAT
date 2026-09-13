@@ -55,15 +55,30 @@ def host_ram() -> dict[str, int | None]:
 def cuda_snapshot() -> dict[str, Any]:
     import torch
 
+    def per_device(statistic) -> list[int]:
+        values = []
+        for index in range(torch.cuda.device_count()):
+            with torch.cuda.device(index):
+                values.append(int(statistic()))
+        return values
+
     return {
         "available": torch.cuda.is_available(),
         "device_count": torch.cuda.device_count(),
         "devices": [torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())],
-        "allocated_bytes": [torch.cuda.memory_allocated(i) for i in range(torch.cuda.device_count())],
-        "reserved_bytes": [torch.cuda.memory_reserved(i) for i in range(torch.cuda.device_count())],
-        "peak_allocated_bytes": [torch.cuda.max_memory_allocated(i) for i in range(torch.cuda.device_count())],
-        "peak_reserved_bytes": [torch.cuda.max_memory_reserved(i) for i in range(torch.cuda.device_count())],
+        "allocated_bytes": per_device(torch.cuda.memory_allocated),
+        "reserved_bytes": per_device(torch.cuda.memory_reserved),
+        "peak_allocated_bytes": per_device(torch.cuda.max_memory_allocated),
+        "peak_reserved_bytes": per_device(torch.cuda.max_memory_reserved),
     }
+
+
+def reset_cuda_peak_memory_stats() -> None:
+    import torch
+
+    for index in range(torch.cuda.device_count()):
+        with torch.cuda.device(index):
+            torch.cuda.reset_peak_memory_stats()
 
 
 def cleanup_cuda() -> dict[str, Any]:
@@ -107,8 +122,7 @@ def run_canary(cache_dir: str) -> dict[str, Any]:
         raise RuntimeError("CUDA is required for the frozen S1 canary")
     if not os.environ.get("HF_TOKEN"):
         raise RuntimeError("Kaggle Secret HF_TOKEN was not exported to the environment")
-    for index in range(torch.cuda.device_count()):
-        torch.cuda.reset_peak_memory_stats(index)
+    reset_cuda_peak_memory_stats()
     started = time.monotonic()
     receipt: dict[str, Any] = {
         "state": "CANARY_RUNNING",
