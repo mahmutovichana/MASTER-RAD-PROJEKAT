@@ -89,6 +89,21 @@
     "partial_neural_reranker_scores_used": false,
     "time_budget_prompt_selection_amendment_04_retained": true
   },
+  "phase0_retrieval_reproduction_amendment": {
+    "id": "S1_RUNTIME_AMENDMENT_07_PHASE0_RETRIEVAL_REPRODUCTION",
+    "scientific_status": "PRE-GENERATION IMPLEMENTATION CORRECTION TO AMENDMENT 06",
+    "prior_observed_perfect_amendment06_result_adopted": false,
+    "generation_rows_before_amendment": 0,
+    "active_retrieval_method": "PHASE0_EXACT_DOCUMENT_LEXICAL_TOP3",
+    "document_representation": "one whole-file empty-heading DocumentChunk per candidate with text truncated to 100000 characters",
+    "ranking_tiebreak": ["descending lexical score", "ascending priority tier", "ascending path distance", "descending identifier overlap", "ascending document path"],
+    "representative_section_localization": ["descending within-document semantic-chunk lexical score", "ascending chunk_index"],
+    "controlled_case_level_oracle": "development/local_lexical_target_diagnostics.json",
+    "required_metrics": {"hit_at_1": 0.9746835443037974, "hit_at_3": 1.0, "hit_at_5": 1.0, "hit_at_10": 1.0, "mrr": 0.9873417721518988},
+    "embedding_and_reranker_model_loads_in_active_path": false,
+    "partial_neural_reranker_scores_read": false,
+    "amendment_04_phase_a_b_retained": true
+  },
   "target_metrics_policy": "Hit@k/MRR only on development rows with legitimate target-document evidence; never invent natural target gold",
   "human_review_policy": "If manual development review becomes necessary, freeze a blind sample and ask before creating its workbook",
   "stop_conditions": ["pre-change reconstruction unavailable for most cases", "future-document leakage required", "required model inference unreliable", "materially worse safety", "no development retrieval/coverage improvement"],

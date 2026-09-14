@@ -113,25 +113,69 @@ def rerank_top_documents(query: str, candidates: Sequence[RankedChunk], *, reran
     )[:3]
 
 
-def path_aware_lexical_top_documents(query: str, chunks: Sequence[DocumentChunk], *, final_documents: int = 3) -> list[RankedChunk]:
-    if final_documents != 3:
-        raise ValueError("S1 compute-constrained lexical fallback is fixed at three distinct documents")
-    scores = lexical_scores(query, chunks)
-    ordered_indices = sorted(
-        range(len(chunks)),
-        key=lambda index: (-float(scores[index]), chunks[index].path, chunks[index].chunk_index),
+def phase0_document_chunk(
+    path: str,
+    text: str,
+    *,
+    priority_tier: str,
+    path_distance: int,
+    identifier_overlap: int,
+) -> DocumentChunk:
+    """Build the exact one-whole-file representation used by frozen Phase 0."""
+    return DocumentChunk(
+        path,
+        "",
+        (),
+        text[:100_000],
+        0,
+        priority_tier,
+        path_distance,
+        identifier_overlap,
     )
-    selected: list[RankedChunk] = []
-    seen_paths: set[str] = set()
-    for index in ordered_indices:
-        chunk = chunks[index]
-        if chunk.path in seen_paths:
-            continue
-        seen_paths.add(chunk.path)
-        selected.append(RankedChunk(chunk, float(scores[index]), None, None))
-        if len(selected) == final_documents:
-            break
-    return selected
+
+
+def phase0_rank_documents(query: str, documents: Sequence[DocumentChunk]) -> list[RankedChunk]:
+    """Rank one representation per document with the authoritative Phase-0 key."""
+    if len({document.path for document in documents}) != len(documents):
+        raise ValueError("Phase-0 document ranking requires exactly one representation per path")
+    if any(document.heading or document.heading_path or document.chunk_index != 0 for document in documents):
+        raise ValueError("Phase-0 document representations must use empty headings and chunk_index zero")
+    scores = lexical_scores(query, documents)
+    order = sorted(
+        range(len(documents)),
+        key=lambda index: (
+            -float(scores[index]),
+            documents[index].priority_tier,
+            documents[index].path_distance,
+            -documents[index].identifier_overlap,
+            documents[index].path,
+        ),
+    )
+    return [RankedChunk(documents[index], float(scores[index]), None, None) for index in order]
+
+
+def localize_representative_sections(
+    query: str,
+    ranked_documents: Sequence[RankedChunk],
+    semantic_chunks: Sequence[DocumentChunk],
+    *,
+    final_documents: int = 3,
+) -> list[RankedChunk]:
+    """Localize context inside already-ranked documents without changing their order."""
+    if final_documents != 3:
+        raise ValueError("S1 compute-constrained lexical retrieval is fixed at three documents")
+    selected_documents = list(ranked_documents[:final_documents])
+    localized: list[RankedChunk] = []
+    for document in selected_documents:
+        candidates = [chunk for chunk in semantic_chunks if chunk.path == document.chunk.path]
+        if not candidates:
+            raise RuntimeError(f"No semantic section is available for ranked document {document.chunk.path}")
+        scores = lexical_scores(query, candidates)
+        best = min(range(len(candidates)), key=lambda index: (-float(scores[index]), candidates[index].chunk_index))
+        localized.append(RankedChunk(candidates[best], document.lexical_score, None, None))
+    if [item.chunk.path for item in localized] != [item.chunk.path for item in selected_documents]:
+        raise RuntimeError("Representative-section localization changed frozen document order")
+    return localized
 
 
 class QwenDenseEncoder:

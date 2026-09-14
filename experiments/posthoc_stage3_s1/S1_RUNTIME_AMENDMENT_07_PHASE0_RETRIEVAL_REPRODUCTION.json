@@ -1,0 +1,61 @@
+{
+  "amendment_id": "S1_RUNTIME_AMENDMENT_07_PHASE0_RETRIEVAL_REPRODUCTION",
+  "status": "FROZEN_BEFORE_GENERATION_DEVELOPMENT_METRICS_AND_PROMPT_SELECTION",
+  "scientific_status": "PRE-GENERATION IMPLEMENTATION CORRECTION TO AMENDMENT 06",
+  "prior_runtime_sha": "ea393dd0829fda610590e657bac34e7840a5d6b0",
+  "reason": "Amendment 06 ranked semantic chunks and then deduplicated paths, while frozen Phase 0 ranked one whole-file representation per candidate document",
+  "amendment06_observed_metrics_not_adopted": {
+    "n": 79,
+    "hit_at_1": 1.0,
+    "hit_at_3": 1.0,
+    "mrr": 1.0,
+    "used_for_method_selection": false
+  },
+  "correction_evidence": "comparison of Amendment 06 source with the already-frozen Phase-0 source at commit 38f9afb479f738081301172176d3133e4056bd7c",
+  "active_retrieval": {
+    "method": "PHASE0_EXACT_DOCUMENT_LEXICAL_TOP3",
+    "candidate_discovery": "existing frozen discover_candidates logic",
+    "controlled_candidate_population": "exact authoritative Phase-0 population",
+    "natural_candidate_population": "existing locality-ordered S1 corpus cap may remain",
+    "document_representation": "one DocumentChunk per candidate with empty heading, empty heading_path, chunk_index 0, and raw pre-change document text truncated to exactly 100000 characters",
+    "ranking_key": ["descending lexical score", "ascending priority tier", "ascending path distance", "descending identifier overlap", "ascending document path"],
+    "top_k_document_paths": 3,
+    "representative_section_localization": "after document top-3 is frozen, select one existing semantic chunk per path by descending chunk lexical score then ascending chunk_index without changing document membership or order",
+    "ranked_chunk_lexical_score": "document-level lexical score",
+    "dense_score_participates": false,
+    "reranker_score_participates": false,
+    "target_gold_influences_ranking": false
+  },
+  "mandatory_pre_generation_validation": {
+    "oracle": "experiments/posthoc_stage3_s1/development/local_lexical_target_diagnostics.json",
+    "oracle_use": "validation only, never retrieval input",
+    "case_membership_target_and_rank_exact": true,
+    "denominator": 79,
+    "required_metrics": {
+      "hit_at_1": 0.9746835443037974,
+      "hit_at_3": 1.0,
+      "hit_at_5": 1.0,
+      "hit_at_10": 1.0,
+      "mrr": 0.9873417721518988
+    },
+    "rank2_regression_cases": ["CRPP2-RPP-API_REFERENCE-220", "CRPP2-JOB-API_REFERENCE-188"],
+    "mismatch_disposition": "FAIL_CLOSED_BEFORE_GENERATION"
+  },
+  "embedding_model_loaded": false,
+  "reranker_model_loaded": false,
+  "partial_reranker_scores_read": false,
+  "historical_neural_artifacts_preserved": true,
+  "generation_rows_before_amendment": 0,
+  "prompt_selection_occurred": false,
+  "development_metrics_produced": false,
+  "confirmation_accessed": false,
+  "gate6_row_level_human_data_accessed": false,
+  "amendment_04_phase_a_b_unchanged": true,
+  "generator_model_revision_unchanged": true,
+  "p1_p2_unchanged": true,
+  "thresholds": [0.35, 0.5, 0.65],
+  "schema_retry_maximum": 1,
+  "semantic_repair_maximum": 1,
+  "seed": 42,
+  "development_membership": 200
+}

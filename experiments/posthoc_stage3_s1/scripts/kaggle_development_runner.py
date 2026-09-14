@@ -23,7 +23,9 @@ from experiments.posthoc_stage3_s1.scripts.retrieval import (
     RERANKER_REVISION,
     QwenDenseEncoder,
     QwenReranker,
-    path_aware_lexical_top_documents,
+    localize_representative_sections,
+    phase0_document_chunk,
+    phase0_rank_documents,
 )
 from experiments.posthoc_stage3_s1.scripts.repository_corpus import DocumentChunk
 from experiments.posthoc_stage3_s1.scripts.s1_pipeline import (
@@ -227,26 +229,40 @@ def run_canary(cache_dir: str) -> dict[str, Any]:
     }
 
     lexical_query = "configuration cache mode shared"
-    lexical_chunks = [
+    lexical_documents = [
+        phase0_document_chunk("docs/api.md", "API endpoints and request fields.", priority_tier="B", path_distance=2, identifier_overlap=0),
+        phase0_document_chunk("docs/config.md", "The cache mode supports shared configuration. Legacy unrelated option.", priority_tier="A", path_distance=1, identifier_overlap=1),
+        phase0_document_chunk("docs/setup.md", "Install and configure the service.", priority_tier="B", path_distance=2, identifier_overlap=0),
+    ]
+    semantic_chunks = [
         DocumentChunk("docs/api.md", "API", ("API",), "API endpoints and request fields.", 0),
-        DocumentChunk("docs/config.md", "Cache", ("Configuration", "Cache"), "The cache mode supports shared configuration.", 0),
         DocumentChunk("docs/config.md", "Legacy", ("Configuration", "Legacy"), "Legacy unrelated option.", 1),
+        DocumentChunk("docs/config.md", "Cache", ("Configuration", "Cache"), "The cache mode supports shared configuration.", 0),
         DocumentChunk("docs/setup.md", "Setup", ("Setup",), "Install and configure the service.", 0),
     ]
     lexical_first = timed_stage(
         receipt,
         "active_lexical_retrieval_canary",
-        lambda: path_aware_lexical_top_documents(lexical_query, lexical_chunks),
+        lambda: localize_representative_sections(
+            lexical_query,
+            phase0_rank_documents(lexical_query, lexical_documents),
+            semantic_chunks,
+        ),
     )
-    lexical_second = path_aware_lexical_top_documents(lexical_query, lexical_chunks)
+    lexical_second = localize_representative_sections(
+        lexical_query,
+        phase0_rank_documents(lexical_query, lexical_documents),
+        semantic_chunks,
+    )
     first_identity = [(item.chunk.path, item.chunk.chunk_index, item.lexical_score) for item in lexical_first]
     second_identity = [(item.chunk.path, item.chunk.chunk_index, item.lexical_score) for item in lexical_second]
     if first_identity != second_identity or len(lexical_first) != 3 or len({item.chunk.path for item in lexical_first}) != 3:
         raise RuntimeError("Active lexical retrieval canary is not deterministic top-3 distinct-document retrieval")
     receipt["active_retrieval"] = {
-        "retrieval_method": "PATH_AWARE_LEXICAL_TOP3",
+        "retrieval_method": "PHASE0_EXACT_DOCUMENT_LEXICAL_TOP3",
         "deterministic": True,
         "top_k_distinct_documents": 3,
+        "document_ranking_precedes_representative_section_localization": True,
         "embedding_model_loaded": False,
         "reranker_model_loaded": False,
         "historical_embedding_and_reranker_revisions_documented_only": True,

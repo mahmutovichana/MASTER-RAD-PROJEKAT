@@ -1,6 +1,6 @@
 {
   "scientific_status": "POST-HOC S1 COMPUTE-CONSTRAINED LEXICAL RETRIEVAL CHALLENGER",
-  "freeze_status": "RUNTIME_AMENDMENT_06_LEXICAL_FALLBACK_REGISTERED_SELECTION_PENDING",
+  "freeze_status": "RUNTIME_AMENDMENT_07_PHASE0_REPRODUCTION_REGISTERED_SELECTION_PENDING",
   "confirmation_accessed": false,
   "gate6_row_level_human_data_accessed": false,
   "seed": 42,
@@ -39,15 +39,18 @@
     "mandatory_full_logits_equivalence": true
   },
   "active_retrieval": {
-    "method": "PATH_AWARE_LEXICAL_TOP3",
-    "ranking_tiebreak": ["descending lexical score", "ascending document path", "ascending chunk_index"],
-    "deduplicate_by_document_path": true,
-    "top_k_distinct_documents": 3,
+    "method": "PHASE0_EXACT_DOCUMENT_LEXICAL_TOP3",
+    "document_representation": "one empty-heading DocumentChunk per candidate using raw pre-change text truncated to 100000 characters",
+    "ranking_tiebreak": ["descending lexical score", "ascending priority tier", "ascending path distance", "descending identifier overlap", "ascending document path"],
+    "top_k_document_paths": 3,
+    "representative_section_localization": ["descending within-document semantic-chunk lexical score", "ascending chunk_index"],
+    "localization_cannot_change_document_membership_or_order": true,
     "dense_score_participates": false,
     "reranker_score_participates": false,
     "embedding_model_loaded": false,
     "reranker_model_loaded": false,
-    "controlled_metric_denominator": 79
+    "controlled_metric_denominator": 79,
+    "controlled_case_level_rank_oracle_required": true
   },
   "structured_output_contract": {
     "schema_correction_retries": 1,

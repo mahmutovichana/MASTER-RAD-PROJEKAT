@@ -35,7 +35,9 @@ from experiments.posthoc_stage3_s1.scripts.retrieval import (
     chunk_text,
     cosine_dense_scores,
     lexical_scores,
-    path_aware_lexical_top_documents,
+    localize_representative_sections,
+    phase0_document_chunk,
+    phase0_rank_documents,
 )
 from experiments.posthoc_stage3_s1.scripts.s1_pipeline import (
     GENERATOR_MODEL_ID,
@@ -55,13 +57,17 @@ THRESHOLDS = (0.35, 0.50, 0.65)
 VARIANTS = ("P1", "P2")
 PROMPT_SELECTION_POPULATIONS = (50, 75, 100)
 PROMPT_SELECTION_MINIMUM_REVIEWABLE = 20
-ACTIVE_RETRIEVAL_METHOD = "PATH_AWARE_LEXICAL_TOP3"
+ACTIVE_RETRIEVAL_METHOD = "PHASE0_EXACT_DOCUMENT_LEXICAL_TOP3"
 FROZEN_LEXICAL_METRICS = {
     "n": 79,
     "hit_at_1": 0.9746835443037974,
     "hit_at_3": 1.0,
+    "hit_at_5": 1.0,
+    "hit_at_10": 1.0,
     "mrr": 0.9873417721518988,
 }
+PHASE0_ORACLE_RELATIVE_PATH = "experiments/posthoc_stage3_s1/development/local_lexical_target_diagnostics.json"
+RANK2_REGRESSION_CASES = ("CRPP2-RPP-API_REFERENCE-220", "CRPP2-JOB-API_REFERENCE-188")
 
 
 def atomic_json(path: Path, value: Any) -> None:
@@ -363,6 +369,8 @@ def retrieval_metric(ranks: list[int | None]) -> dict[str, Any]:
         "n": n,
         "hit_at_1": sum(rank == 1 for rank in ranks) / n,
         "hit_at_3": sum(rank is not None and rank <= 3 for rank in ranks) / n,
+        "hit_at_5": sum(rank is not None and rank <= 5 for rank in ranks) / n,
+        "hit_at_10": sum(rank is not None and rank <= 10 for rank in ranks) / n,
         "mrr": sum(0.0 if rank is None else 1.0 / rank for rank in ranks) / n,
     }
 
@@ -607,26 +615,49 @@ def main() -> int:
             raise RuntimeError(f"Explicit pre-change object unavailable in {repository}; HEAD fallback is forbidden")
 
     corpora: dict[str, list[DocumentChunk]] = {}
+    document_corpora: dict[str, list[DocumentChunk]] = {}
     for index, row in enumerate(rows, 1):
         path = corpus_dir / f"{safe_case_id(row['case_id'])}.json"
-        if path.is_file():
-            cached = json.loads(path.read_text(encoding="utf-8"))
-            if cached["case_id"] != row["case_id"]: raise RuntimeError("Corpus cache identity mismatch")
-            chunks = [chunk_from_dict(value) for value in cached["chunks"]]
+        source = sources[row["case_id"]]
+        if source.kind == "git_commit":
+            paths = provider.list_paths(source.repository, source.revision)
+            read = lambda p, s=source: provider.read_text(s.repository, s.revision, p)
         else:
-            source = sources[row["case_id"]]
-            if source.kind == "git_commit":
-                paths = provider.list_paths(source.repository, source.revision)
-                read = lambda p, s=source: provider.read_text(s.repository, s.revision, p)
-            else:
-                local = Path(source.local_root); paths = [p.relative_to(local).as_posix() for p in local.rglob("*") if p.is_file()]
-                read = lambda p, local=local: (local / Path(p)).read_text(encoding="utf-8", errors="replace")
-            discovered = discover_candidates(paths, changed_paths=list(row.get("code_changed_files") or []), code_diff=str(row.get("code_diff_excerpt") or ""))[:64]
+            local = Path(source.local_root); paths = [p.relative_to(local).as_posix() for p in local.rglob("*") if p.is_file()]
+            read = lambda p, local=local: (local / Path(p)).read_text(encoding="utf-8", errors="replace")
+        discovered_all = discover_candidates(
+            paths,
+            changed_paths=list(row.get("code_changed_files") or []),
+            code_diff=str(row.get("code_diff_excerpt") or ""),
+        )
+        # Controlled rows reproduce the authoritative Phase-0 candidate population exactly.
+        # Natural rows retain the frozen S1 locality-ordered cap because no target gold exists.
+        discovered = discovered_all if row.get("synthetic_target_doc_path") else discovered_all[:64]
+        raw_documents = {document: read(document) for document, _tier, _distance, _overlap in discovered}
+        documents = [
+            phase0_document_chunk(
+                document,
+                raw_documents[document],
+                priority_tier=tier,
+                path_distance=distance,
+                identifier_overlap=overlap,
+            )
+            for document, tier, distance, overlap in discovered
+        ]
+        cached = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else None
+        if cached is not None and cached["case_id"] != row["case_id"]:
+            raise RuntimeError("Corpus cache identity mismatch")
+        cached_chunks = [chunk_from_dict(value) for value in cached["chunks"]] if cached is not None else []
+        expected_paths = {document for document, _tier, _distance, _overlap in discovered}
+        if {chunk.path for chunk in cached_chunks} == expected_paths:
+            chunks = cached_chunks
+        else:
             chunks = []
             for document, tier, distance, overlap in discovered:
-                chunks.extend(semantic_chunks(document, read(document), max_chars=4000, priority_tier=tier, distance=distance, identifier_overlap=overlap))
+                chunks.extend(semantic_chunks(document, raw_documents[document], max_chars=4000, priority_tier=tier, distance=distance, identifier_overlap=overlap))
             atomic_json(path, {"case_id": row["case_id"], "chunks": [chunk_to_dict(value) for value in chunks]})
         corpora[row["case_id"]] = chunks
+        document_corpora[row["case_id"]] = documents
     atomic_json(checkpoints / "repository_corpus_complete.json", {"state": "COMPLETE", "case_count": len(corpora)})
     log.info("Repository corpus complete: %d cases", len(corpora))
 
@@ -644,20 +675,30 @@ def main() -> int:
         "reranker_checkpoints_required": False,
         "partial_reranker_rows_preserved_without_score_inspection": partial_reranker_rows,
         "fallback_selection_evidence": "frozen Phase-0 controlled lexical audit only",
+        "document_ranking": "whole-file text truncated to 100000 characters with exact Phase-0 metadata ordering",
+        "representative_section_localization_after_document_top3": True,
     }
     atomic_json(output / "runtime_manifest.json", runtime_manifest)
 
     selected_key = ACTIVE_RETRIEVAL_METHOD
     retrieval: dict[str, dict[str, list[RankedChunk]]] = {selected_key: {}}
+    oracle_path = root / PHASE0_ORACLE_RELATIVE_PATH
+    assert_materialized(oracle_path)
+    oracle = json.loads(oracle_path.read_text(encoding="utf-8"))
+    oracle_cases = oracle.get("cases") or []
+    oracle_case_ids = [item["case_id"] for item in oracle_cases]
+    controlled_case_ids = [row["case_id"] for row in rows if row.get("synthetic_target_doc_path")]
+    if controlled_case_ids != oracle_case_ids:
+        raise RuntimeError("Controlled Phase-0 validation-oracle membership or ordering mismatch")
+    oracle_by_case = {item["case_id"]: item for item in oracle_cases}
     controlled_ranks: list[int | None] = []
+    controlled_rank_map: dict[str, int | None] = {}
     retrieval_rows = []
     for row in rows:
         case_id = row["case_id"]
-        top = path_aware_lexical_top_documents(
-            build_retrieval_query(safe_model_row(row)),
-            corpora[case_id],
-            final_documents=3,
-        )
+        query = build_retrieval_query(safe_model_row(row))
+        ranked_documents = phase0_rank_documents(query, document_corpora[case_id])
+        top = localize_representative_sections(query, ranked_documents, corpora[case_id], final_documents=3)
         retrieval[selected_key][case_id] = top
         retrieval_rows.append({
             "retrieval_method": selected_key,
@@ -676,8 +717,20 @@ def main() -> int:
         })
         target = row.get("synthetic_target_doc_path")
         if target:
-            paths = [value.chunk.path for value in top]
-            controlled_ranks.append(paths.index(target) + 1 if target in paths else None)
+            ranked_paths = [value.chunk.path for value in ranked_documents]
+            actual_rank = ranked_paths.index(target) + 1 if target in ranked_paths else None
+            frozen = oracle_by_case[case_id]
+            if frozen["target_document"] != target or frozen["lexical_rank"] != actual_rank:
+                raise RuntimeError(
+                    f"Phase-0 case-level reproduction mismatch for {case_id}: "
+                    f"expected target/rank={frozen['target_document']}/{frozen['lexical_rank']}, "
+                    f"actual={target}/{actual_rank}"
+                )
+            controlled_ranks.append(actual_rank)
+            controlled_rank_map[case_id] = actual_rank
+    for case_id in RANK2_REGRESSION_CASES:
+        if controlled_rank_map.get(case_id) != 2:
+            raise RuntimeError(f"Frozen Phase-0 rank-2 regression case changed: {case_id}")
     active_metrics = retrieval_metric(controlled_ranks)
     if active_metrics != FROZEN_LEXICAL_METRICS:
         raise RuntimeError(
@@ -693,11 +746,14 @@ def main() -> int:
         "natural_rows_excluded_from_target_accuracy": 121,
         "metrics": active_metrics,
         "frozen_phase0_expected_metrics": FROZEN_LEXICAL_METRICS,
+        "case_level_oracle_path": PHASE0_ORACLE_RELATIVE_PATH,
+        "case_membership_order_target_and_rank_exact": True,
+        "rank2_regression_cases": {case_id: controlled_rank_map[case_id] for case_id in RANK2_REGRESSION_CASES},
         "exact_deterministic_reproduction": True,
         "partial_neural_reranker_scores_used": False,
     })
     atomic_jsonl(output / "retrieval_results.jsonl", retrieval_rows)
-    log.info("Active path-aware lexical top-3 retrieval complete: 200 cases")
+    log.info("Active Phase-0-exact document lexical top-3 retrieval complete: 200 cases")
 
     generation_path = output / "generation_results.jsonl"
     completed_rows = load_unique_jsonl(generation_path, "run_key")
