@@ -8,4 +8,6 @@ The development runner persists repository corpora, embeddings, lexical/dense sc
 
 Amendment 02 retains logical embedding batches of eight and the 8,192-token limit while bisecting only CUDA-OOM batches deterministically down to one. Valid completed score files are reused; incomplete, corrupt, identity-mismatched or non-finite files are atomically replaced. A single-item OOM and all non-OOM runtime failures remain fail-closed.
 
+Amendment 03 first attempts each reranker call's complete candidate batch, then deterministically bisects only on `torch.cuda.OutOfMemoryError` until the unchanged 8,192-token scoring operation fits or a single pair fails closed. Left-before-right concatenation preserves candidate order. Each completed row is durably and atomically checkpointed; valid rows are reused, duplicate or unexpected identities fail, and malformed, incomplete, membership/order-mismatched or non-finite rows are recomputed without touching completed embedding checkpoints.
+
 Expected 2xT4 wall time is approximately 4–8 hours for 200 development cases, subject to the measured canary. Stop instead of substituting a model if the pinned 14B model is unreliable.

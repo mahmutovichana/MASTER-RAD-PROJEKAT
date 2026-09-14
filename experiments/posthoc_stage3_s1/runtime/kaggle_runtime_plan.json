@@ -1,12 +1,21 @@
 {
   "environment": "Kaggle 2x Tesla T4",
-  "status": "LAUNCH_HARDENED_CANARY_PENDING",
-  "predevelopment_amendments": ["S1_PREDEVELOPMENT_AMENDMENT_01", "S1_PREDEVELOPMENT_AMENDMENT_02"],
+  "status": "RESUME_HARDENED_CANARY_PENDING",
+  "predevelopment_amendments": ["S1_PREDEVELOPMENT_AMENDMENT_01", "S1_PREDEVELOPMENT_AMENDMENT_02", "S1_PREDEVELOPMENT_AMENDMENT_03"],
   "schema_correction_retries_per_structured_call": 1,
   "semantic_documentation_repairs": 1,
   "embedding_execution": {
     "configured_logical_batch_size": 8,
     "adaptive_microbatch_range": [1, 8],
+    "split_trigger": "torch.cuda.OutOfMemoryError only",
+    "max_length": 8192,
+    "single_item_oom": "FAIL_CLOSED",
+    "cpu_fallback": false,
+    "allocator_configuration": "PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True"
+  },
+  "reranker_execution": {
+    "original_full_candidate_batch_attempted_first": true,
+    "adaptive_minimum_batch_size": 1,
     "split_trigger": "torch.cuda.OutOfMemoryError only",
     "max_length": 8192,
     "single_item_oom": "FAIL_CLOSED",
@@ -28,7 +37,7 @@
   "canary_expected_minutes_fresh_cache": [20, 35],
   "canary_expected_minutes_warm_cache": [8, 15],
   "checkpoint_policy": ["repository corpus per case", "embedding and retrieval scores per case", "reranker scores per case", "generation result per case", "progress receipt every 25 new generation cases", "development metrics complete"],
-  "resume_policy": "immutable keyed records; reject duplicate or conflicting completed results",
+  "resume_policy": "atomically rewritten durable keyed reranker records; reuse valid rows, reject duplicates/unexpected membership, and recompute malformed, incomplete, identity/order-mismatched or non-finite rows",
   "return_archive": "/kaggle/working/s1_development_return_artifacts.zip",
   "stop_on_model_substitution": true,
   "stop_on_unstable_memory_or_json": true

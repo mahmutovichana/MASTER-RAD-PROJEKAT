@@ -16,6 +16,11 @@ EMBEDDING_MODEL_ID = "Qwen/Qwen3-Embedding-0.6B"
 EMBEDDING_REVISION = "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3"
 RERANKER_MODEL_ID = "Qwen/Qwen3-Reranker-0.6B"
 RERANKER_REVISION = "e61197ed45024b0ed8a2d74b80b4d909f1255473"
+RERANKER_MAX_LENGTH = 8192
+RERANKER_PROMPT_TEMPLATE = (
+    "<|im_start|>system\nJudge whether the Document meets the requirements based on the Query. Answer only yes or no.<|im_end|>\n"
+    "<|im_start|>user\n<Query>: {query}\n<Document>: {document}<|im_end|>\n<|im_start|>assistant\n"
+)
 EMBEDDING_MAX_LENGTH = 8192
 EMBEDDING_LOGICAL_BATCH_SIZE = 8
 
@@ -192,18 +197,66 @@ class QwenReranker:
         self.model.eval()
         self.yes_id = self.tokenizer.convert_tokens_to_ids("yes")
         self.no_id = self.tokenizer.convert_tokens_to_ids("no")
+        self.last_score_diagnostics: dict[str, object] = {}
+
+    def _score_batch(self, query: str, documents: Sequence[str]) -> list[float]:
+        torch = self.torch
+        batch = None
+        logits = None
+        probabilities = None
+        try:
+            prompts = [RERANKER_PROMPT_TEMPLATE.format(query=query, document=document) for document in documents]
+            batch = self.tokenizer(prompts, padding=True, truncation=True, max_length=RERANKER_MAX_LENGTH, return_tensors="pt")
+            device = next(self.model.parameters()).device
+            batch = {key: value.to(device) for key, value in batch.items()}
+            with torch.no_grad():
+                logits = self.model(**batch).logits[:, -1, [self.no_id, self.yes_id]]
+                probabilities = torch.softmax(logits, dim=1)[:, 1]
+            return probabilities.float().cpu().tolist()
+        finally:
+            del probabilities
+            del logits
+            del batch
+
+    def _score_adaptive(self, query: str, documents: Sequence[str], diagnostics: dict[str, object]) -> list[float]:
+        size = len(documents)
+        diagnostics["attempted_batch_sizes"].append(size)
+        try:
+            scores = self._score_batch(query, documents)
+            diagnostics["effective_batch_sizes_used"].append(size)
+            return scores
+        except self.torch.cuda.OutOfMemoryError:
+            gc.collect()
+            self.torch.cuda.empty_cache()
+            if size == 1:
+                diagnostics["single_item_oom"] = True
+                raise
+            diagnostics["oom_split_count"] += 1
+            midpoint = size // 2
+            left = self._score_adaptive(query, documents[:midpoint], diagnostics)
+            right = self._score_adaptive(query, documents[midpoint:], diagnostics)
+            return [*left, *right]
 
     def score(self, query: str, documents: Sequence[str]) -> list[float]:
-        torch = self.torch
-        prompts = [
-            "<|im_start|>system\nJudge whether the Document meets the requirements based on the Query. Answer only yes or no.<|im_end|>\n"
-            f"<|im_start|>user\n<Query>: {query}\n<Document>: {document}<|im_end|>\n<|im_start|>assistant\n"
-            for document in documents
-        ]
-        batch = self.tokenizer(prompts, padding=True, truncation=True, max_length=8192, return_tensors="pt")
-        device = next(self.model.parameters()).device
-        batch = {key: value.to(device) for key, value in batch.items()}
-        with torch.no_grad():
-            logits = self.model(**batch).logits[:, -1, [self.no_id, self.yes_id]]
-            probabilities = torch.softmax(logits, dim=1)[:, 1]
-        return probabilities.float().cpu().tolist()
+        document_list = list(documents)
+        diagnostics: dict[str, object] = {
+            "candidate_count": len(document_list),
+            "attempted_batch_sizes": [],
+            "effective_batch_sizes_used": [],
+            "oom_split_count": 0,
+            "minimum_effective_batch_size": None,
+            "single_item_oom": False,
+            "output_count": 0,
+        }
+        try:
+            scores = self._score_adaptive(query, document_list, diagnostics) if document_list else []
+            if len(scores) != len(document_list):
+                raise RuntimeError("Reranker score count does not match document count")
+            if not all(math.isfinite(value) and 0.0 <= value <= 1.0 for value in scores):
+                raise RuntimeError("Reranker returned a non-finite or out-of-range score")
+            diagnostics["output_count"] = len(scores)
+            return scores
+        finally:
+            used = diagnostics["effective_batch_sizes_used"]
+            diagnostics["minimum_effective_batch_size"] = min(used) if used else None
+            self.last_score_diagnostics = diagnostics

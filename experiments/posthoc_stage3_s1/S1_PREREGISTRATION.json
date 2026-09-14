@@ -38,6 +38,17 @@
     "single_item_oom_disposition": "FAIL_CLOSED",
     "cpu_fallback": false
   },
+  "adaptive_reranker_amendment": {
+    "id": "S1_PREDEVELOPMENT_AMENDMENT_03",
+    "triggered_before_first_completed_reranker_development_row": true,
+    "original_full_candidate_batch_attempted_first": true,
+    "adaptive_minimum_batch_size": 1,
+    "split_trigger": "torch.cuda.OutOfMemoryError only",
+    "max_length": 8192,
+    "query_document_order_and_scoring_semantics_unchanged": true,
+    "single_item_oom_disposition": "FAIL_CLOSED",
+    "cpu_fallback": false
+  },
   "target_metrics_policy": "Hit@k/MRR only on development rows with legitimate target-document evidence; never invent natural target gold",
   "human_review_policy": "If manual development review becomes necessary, freeze a blind sample and ask before creating its workbook",
   "stop_conditions": ["pre-change reconstruction unavailable for most cases", "future-document leakage required", "required model inference unreliable", "materially worse safety", "no development retrieval/coverage improvement"],

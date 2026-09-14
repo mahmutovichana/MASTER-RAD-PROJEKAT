@@ -69,6 +69,17 @@ def append_jsonl(path: Path, value: Any) -> None:
         os.fsync(handle.fileno())
 
 
+def atomic_jsonl(path: Path, values: list[dict[str, Any]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    with temporary.open("w", encoding="utf-8", newline="\n") as handle:
+        for value in values:
+            handle.write(json.dumps(value, sort_keys=True) + "\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(temporary, path)
+
+
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
     if not path.is_file():
         return []
@@ -158,6 +169,56 @@ def load_unique_jsonl(path: Path, key_name: str) -> dict[str, dict[str, Any]]:
         if key in values:
             raise RuntimeError(f"Duplicate checkpoint key {key} in {path}")
         values[key] = row
+    return values
+
+
+def reranker_candidate_indices(chunks: list[DocumentChunk], lexical: np.ndarray, dense: np.ndarray) -> list[int]:
+    union: set[int] = set()
+    for lexical_k, dense_k in GRID:
+        union.update(sorted(range(len(chunks)), key=lambda i: (-float(lexical[i]), chunks[i].path, chunks[i].chunk_index))[:lexical_k])
+        union.update(sorted(range(len(chunks)), key=lambda i: (-float(dense[i]), chunks[i].path, chunks[i].chunk_index))[:dense_k])
+    return sorted(union)
+
+
+def valid_reranker_record(record: Any, case_id: str, candidate_indices: list[int]) -> bool:
+    if not isinstance(record, dict) or record.get("case_id") != case_id:
+        return False
+    scores = record.get("scores")
+    expected_keys = [str(index) for index in candidate_indices]
+    if not isinstance(scores, dict) or set(scores) != set(expected_keys):
+        return False
+    if "candidate_indices" in record and record["candidate_indices"] != candidate_indices:
+        return False
+    try:
+        values = [float(scores[key]) for key in expected_keys]
+    except (TypeError, ValueError, KeyError):
+        return False
+    return len(values) == len(candidate_indices) and all(np.isfinite(value) and 0.0 <= value <= 1.0 for value in values)
+
+
+def load_valid_reranker_checkpoints(path: Path, expected_indices: dict[str, list[int]]) -> dict[str, dict[str, Any]]:
+    if not path.is_file() or path.name.endswith(".tmp"):
+        return {}
+    values: dict[str, dict[str, Any]] = {}
+    seen_case_ids: set[str] = set()
+    for encoded_line in path.read_bytes().splitlines():
+        if not encoded_line.strip():
+            continue
+        try:
+            line = encoded_line.decode("utf-8")
+            row = json.loads(line)
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            continue
+        if not isinstance(row, dict) or not isinstance(row.get("case_id"), str):
+            continue
+        case_id = row["case_id"]
+        if case_id in seen_case_ids:
+            raise RuntimeError(f"Duplicate reranker checkpoint case_id {case_id} in {path}")
+        seen_case_ids.add(case_id)
+        if case_id not in expected_indices:
+            raise RuntimeError(f"Unexpected reranker checkpoint case_id {case_id} in {path}")
+        if valid_reranker_record(row, case_id, expected_indices[case_id]):
+            values[case_id] = row
     return values
 
 
@@ -384,22 +445,58 @@ def main() -> int:
     atomic_json(output / "runtime_manifest.json", runtime_manifest)
     log.info("Embedding and candidate retrieval complete: 200 cases")
 
-    rerank_cache = load_unique_jsonl(checkpoints / "reranker_scores.jsonl", "case_id")
+    expected_reranker_indices: dict[str, list[int]] = {}
+    for row in rows:
+        case_id = row["case_id"]
+        with np.load(score_dir / f"{safe_case_id(case_id)}.npz", allow_pickle=False) as arrays:
+            expected_reranker_indices[case_id] = reranker_candidate_indices(
+                corpora[case_id], arrays["lexical_scores"], arrays["dense_scores"]
+            )
+    reranker_path = checkpoints / "reranker_scores.jsonl"
+    rerank_cache = load_valid_reranker_checkpoints(reranker_path, expected_reranker_indices)
     missing_rerank = [row for row in rows if row["case_id"] not in rerank_cache]
     if missing_rerank:
         reranker = QwenReranker(cache_dir=args.cache_dir)
         if getattr(reranker.model.config, "_commit_hash", None) != RERANKER_REVISION: raise RuntimeError("Reranker revision mismatch")
         for row in missing_rerank:
-            case_id = row["case_id"]; chunks = corpora[case_id]; arrays = np.load(score_dir / f"{safe_case_id(case_id)}.npz")
-            lexical = arrays["lexical_scores"]; dense_values = arrays["dense_scores"]
-            union = set()
-            for lexical_k, dense_k in GRID:
-                union.update(sorted(range(len(chunks)), key=lambda i: (-float(lexical[i]), chunks[i].path, chunks[i].chunk_index))[:lexical_k])
-                union.update(sorted(range(len(chunks)), key=lambda i: (-float(dense_values[i]), chunks[i].path, chunks[i].chunk_index))[:dense_k])
-            indices = sorted(union); values = reranker.score(build_retrieval_query(safe_model_row(row)), [chunk_text(chunks[i]) for i in indices])
-            record = {"case_id": case_id, "scores": {str(i): float(score) for i, score in zip(indices, values)}}
-            append_jsonl(checkpoints / "reranker_scores.jsonl", record); rerank_cache[case_id] = record
+            case_id = row["case_id"]
+            chunks = corpora[case_id]
+            indices = expected_reranker_indices[case_id]
+            values = reranker.score(build_retrieval_query(safe_model_row(row)), [chunk_text(chunks[i]) for i in indices])
+            record = {
+                "case_id": case_id,
+                "candidate_indices": indices,
+                "scores": {str(i): float(score) for i, score in zip(indices, values)},
+                "reranker_runtime_diagnostics": reranker.last_score_diagnostics,
+            }
+            if not valid_reranker_record(record, case_id, indices):
+                raise RuntimeError(f"Invalid reranker result for {case_id}")
+            rerank_cache[case_id] = record
+            atomic_jsonl(reranker_path, [rerank_cache[item["case_id"]] for item in rows if item["case_id"] in rerank_cache])
         del reranker; gc.collect(); torch.cuda.empty_cache(); torch.cuda.synchronize()
+    atomic_jsonl(reranker_path, [rerank_cache[row["case_id"]] for row in rows])
+    reranker_diagnostics = []
+    for row in rows:
+        record = rerank_cache[row["case_id"]]
+        diagnostic = record.get("reranker_runtime_diagnostics")
+        reranker_diagnostics.append({
+            "case_id": row["case_id"],
+            "candidate_count": len(expected_reranker_indices[row["case_id"]]),
+            "reused_without_recorded_diagnostics": diagnostic is None,
+            **(diagnostic or {}),
+        })
+    atomic_json(checkpoints / "reranker_runtime_diagnostics.json", {"case_count": 200, "cases": reranker_diagnostics})
+    known_reranker_diagnostics = [item for item in reranker_diagnostics if not item["reused_without_recorded_diagnostics"]]
+    reranker_effective_sizes = [size for item in known_reranker_diagnostics for size in item["effective_batch_sizes_used"]]
+    runtime_manifest["reranker_microbatch"] = {
+        "original_full_candidate_batch_attempted_first": True,
+        "effective_batch_sizes_used": sorted(set(reranker_effective_sizes)),
+        "total_oom_split_count": sum(item["oom_split_count"] for item in known_reranker_diagnostics),
+        "minimum_effective_batch_size": min(reranker_effective_sizes) if reranker_effective_sizes else None,
+        "single_item_oom": any(item["single_item_oom"] for item in known_reranker_diagnostics),
+        "valid_pre_amendment_checkpoints_reused_without_diagnostics": sum(item["reused_without_recorded_diagnostics"] for item in reranker_diagnostics),
+    }
+    atomic_json(output / "runtime_manifest.json", runtime_manifest)
     atomic_json(checkpoints / "reranking_complete.json", {"state": "COMPLETE", "case_count": 200})
     log.info("Reranking complete: 200 cases")
 

@@ -21,6 +21,7 @@ from experiments.posthoc_stage3_s1.scripts.retrieval import (
     EMBEDDING_MAX_LENGTH,
     EMBEDDING_REVISION,
     RERANKER_MODEL_ID,
+    RERANKER_MAX_LENGTH,
     RERANKER_REVISION,
     QwenDenseEncoder,
     QwenReranker,
@@ -144,6 +145,60 @@ class ControlledIncompleteCriticOnce:
         return self.backend.generate_json(purpose=purpose, prompt=prompt)
 
 
+def controlled_reranker_memory_checks(torch: Any) -> dict[str, Any]:
+    documents = [str(index) for index in range(5)]
+    adaptive = object.__new__(QwenReranker)
+    adaptive.torch = torch
+    adaptive.last_score_diagnostics = {}
+
+    def split_injection(query: str, batch: list[str]) -> list[float]:
+        if len(batch) > 2:
+            raise torch.cuda.OutOfMemoryError(f"controlled reranker OOM at {len(batch)}")
+        return [int(document) / 10.0 for document in batch]
+
+    adaptive._score_batch = split_injection
+    scores = adaptive.score("synthetic query", documents)
+    if scores != [0.0, 0.1, 0.2, 0.3, 0.4]:
+        raise RuntimeError("Controlled adaptive reranker split did not preserve document order")
+    if adaptive.last_score_diagnostics["attempted_batch_sizes"] != [5, 2, 3, 1, 2]:
+        raise RuntimeError("Controlled adaptive reranker split was not deterministic")
+
+    single = object.__new__(QwenReranker)
+    single.torch = torch
+    single.last_score_diagnostics = {}
+    single._score_batch = lambda query, batch: (_ for _ in ()).throw(torch.cuda.OutOfMemoryError("controlled single-item OOM"))
+    try:
+        single.score("synthetic query", ["0"])
+    except torch.cuda.OutOfMemoryError:
+        if not single.last_score_diagnostics["single_item_oom"]:
+            raise RuntimeError("Controlled single-item reranker OOM was not recorded")
+    else:
+        raise RuntimeError("Controlled single-item reranker OOM did not fail closed")
+
+    unrelated = object.__new__(QwenReranker)
+    unrelated.torch = torch
+    unrelated.last_score_diagnostics = {}
+    unrelated._score_batch = lambda query, batch: (_ for _ in ()).throw(RuntimeError("controlled unrelated failure"))
+    try:
+        unrelated.score("synthetic query", ["0", "1"])
+    except RuntimeError as exc:
+        if str(exc) != "controlled unrelated failure":
+            raise
+    else:
+        raise RuntimeError("Unrelated reranker RuntimeError did not propagate")
+
+    return {
+        "synthetic_input_count": len(documents),
+        "output_count": len(scores),
+        "original_order_preserved": True,
+        "no_candidate_dropped": True,
+        "recursive_split_exercised": True,
+        "single_item_oom_fails_closed": True,
+        "unrelated_runtime_error_propagates": True,
+        "diagnostics": adaptive.last_score_diagnostics,
+    }
+
+
 def run_canary(cache_dir: str) -> dict[str, Any]:
     import torch
 
@@ -211,9 +266,19 @@ def run_canary(cache_dir: str) -> dict[str, Any]:
     receipt["resolved_revisions"][RERANKER_MODEL_ID] = revision
     if revision != RERANKER_REVISION:
         raise RuntimeError(f"Reranker revision mismatch: {revision}")
-    scores = timed_stage(receipt, "reranker_inference", lambda: reranker.score("new configuration key", ["API overview", "configuration key reference"]))
-    if len(scores) != 2 or not all(0.0 <= value <= 1.0 for value in scores):
-        raise RuntimeError("Reranker did not return two bounded scores")
+    reranker_documents = [f"synthetic-order-marker-{index} " + ("configuration reference " * (600 + index * 50)) for index in range(5)]
+    scores = timed_stage(receipt, "reranker_memory_stress_adaptive", lambda: reranker.score("new configuration key", reranker_documents))
+    if len(scores) != len(reranker_documents) or not all(np.isfinite(value) and 0.0 <= value <= 1.0 for value in scores):
+        raise RuntimeError("Reranker stress check did not return one finite bounded score per document")
+    receipt["reranker_memory_stress"] = {
+        "synthetic_input_count": len(reranker_documents),
+        "output_count": len(scores),
+        "all_scores_finite": True,
+        "all_scores_bounded_0_1": True,
+        "max_length": RERANKER_MAX_LENGTH,
+        **reranker.last_score_diagnostics,
+    }
+    receipt["reranker_controlled_fallback"] = controlled_reranker_memory_checks(torch)
     unload_started = time.monotonic()
     del reranker
     unload_cuda = cleanup_cuda()
