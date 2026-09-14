@@ -775,6 +775,10 @@ def main() -> int:
     known_reranker_diagnostics = [item for item in reranker_diagnostics if not item["reused_without_recorded_diagnostics"]]
     reranker_effective_sizes = [size for item in known_reranker_diagnostics for size in item["effective_batch_sizes_used"]]
     runtime_manifest["reranker_microbatch"] = {
+        "forward_mode": "LAST_TOKEN_ONLY",
+        "logits_to_keep": 1,
+        "use_cache": False,
+        "last_token_projection_is_exact_execution_optimization_not_scoring_method_change": True,
         "original_full_candidate_batch_attempted_first": True,
         "effective_batch_sizes_used": sorted(set(reranker_effective_sizes)),
         "total_oom_split_count": sum(item["oom_split_count"] for item in known_reranker_diagnostics),
@@ -785,6 +789,7 @@ def main() -> int:
         "worker_device_assignments": [item["device"] for item in reranker_worker_receipts],
         "worker_case_counts": [item["assigned_case_count"] for item in reranker_worker_receipts],
         "worker_runtime_seconds": [item["runtime_seconds"] for item in reranker_worker_receipts],
+        "peak_allocated_cuda_bytes": [item.get("peak_allocated_cuda_bytes") for item in known_reranker_diagnostics],
     }
     atomic_json(output / "runtime_manifest.json", runtime_manifest)
     atomic_json(checkpoints / "reranking_complete.json", {"state": "COMPLETE", "case_count": 200})

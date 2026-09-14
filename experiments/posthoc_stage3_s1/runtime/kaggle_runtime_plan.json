@@ -1,7 +1,7 @@
 {
   "environment": "Kaggle 2x Tesla T4",
   "status": "RESUME_HARDENED_CANARY_PENDING",
-  "predevelopment_amendments": ["S1_PREDEVELOPMENT_AMENDMENT_01", "S1_PREDEVELOPMENT_AMENDMENT_02", "S1_PREDEVELOPMENT_AMENDMENT_03", "S1_PREDEVELOPMENT_AMENDMENT_04_TIME_BUDGET"],
+  "predevelopment_amendments": ["S1_PREDEVELOPMENT_AMENDMENT_01", "S1_PREDEVELOPMENT_AMENDMENT_02", "S1_PREDEVELOPMENT_AMENDMENT_03", "S1_PREDEVELOPMENT_AMENDMENT_04_TIME_BUDGET", "S1_RUNTIME_AMENDMENT_05_LAST_TOKEN_RERANKER"],
   "schema_correction_retries_per_structured_call": 1,
   "semantic_documentation_repairs": 1,
   "embedding_execution": {
@@ -26,6 +26,14 @@
     "single_gpu_fallback": true,
     "separate_durable_shards": true,
     "parent_merge_order": "original frozen case order"
+  },
+  "reranker_forward": {
+    "transformers_version": "4.51.3",
+    "forward_mode": "LAST_TOKEN_ONLY",
+    "logits_to_keep": 1,
+    "use_cache": false,
+    "mandatory_full_logits_probability_equivalence": {"rtol": 0.000001, "atol": 0.0000001},
+    "exact_execution_optimization_not_scoring_method_change": true
   },
   "generation_time_budget": {
     "initial_paired_cases": 50,

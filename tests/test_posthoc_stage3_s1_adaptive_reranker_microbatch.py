@@ -68,15 +68,13 @@ def test_full_reranker_batch_is_attempted_first_and_succeeds():
     documents = [str(index) for index in range(5)]
     scores = reranker.score("query-exact", documents)
     assert scores == [0.0, 0.1, 0.2, 0.3, 0.4]
-    assert reranker.last_score_diagnostics == {
-        "candidate_count": 5,
-        "attempted_batch_sizes": [5],
-        "effective_batch_sizes_used": [5],
-        "oom_split_count": 0,
-        "minimum_effective_batch_size": 5,
-        "single_item_oom": False,
-        "output_count": 5,
-    }
+    assert reranker.last_score_diagnostics["candidate_count"] == 5
+    assert reranker.last_score_diagnostics["attempted_batch_sizes"] == [5]
+    assert reranker.last_score_diagnostics["effective_batch_sizes_used"] == [5]
+    assert reranker.last_score_diagnostics["oom_split_count"] == 0
+    assert reranker.last_score_diagnostics["minimum_effective_batch_size"] == 5
+    assert reranker.last_score_diagnostics["single_item_oom"] is False
+    assert reranker.last_score_diagnostics["output_count"] == 5
 
 
 def test_injected_oom_bisects_odd_batch_deterministically_and_preserves_inputs():

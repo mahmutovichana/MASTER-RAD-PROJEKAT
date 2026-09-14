@@ -266,6 +266,27 @@ def run_canary(cache_dir: str) -> dict[str, Any]:
     receipt["resolved_revisions"][RERANKER_MODEL_ID] = revision
     if revision != RERANKER_REVISION:
         raise RuntimeError(f"Reranker revision mismatch: {revision}")
+    equivalence_query = "new configuration key"
+    equivalence_documents = ["API overview", "configuration key reference", "migration notes"]
+    equivalence = timed_stage(
+        receipt,
+        "reranker_full_vs_last_token_equivalence",
+        lambda: reranker.verify_last_token_equivalence(equivalence_query, equivalence_documents),
+    )
+    optimized_equivalence_scores = timed_stage(
+        receipt,
+        "reranker_optimized_short_pair_inference",
+        lambda: reranker.score(equivalence_query, equivalence_documents),
+    )
+    if not np.allclose(optimized_equivalence_scores, equivalence["new_scores"], rtol=equivalence["rtol"], atol=equivalence["atol"]):
+        raise RuntimeError("Optimized reranker score path differs from direct last-token equivalence path")
+    receipt["reranker_last_token_equivalence"] = {
+        **equivalence,
+        "optimized_score_count": len(optimized_equivalence_scores),
+        "optimized_output_order_matches": True,
+        "logits_to_keep_1_supported": True,
+        "max_length": RERANKER_MAX_LENGTH,
+    }
     reranker_documents = [f"synthetic-order-marker-{index} " + ("configuration reference " * (600 + index * 50)) for index in range(5)]
     scores = timed_stage(receipt, "reranker_memory_stress_adaptive", lambda: reranker.score("new configuration key", reranker_documents))
     if len(scores) != len(reranker_documents) or not all(np.isfinite(value) and 0.0 <= value <= 1.0 for value in scores):

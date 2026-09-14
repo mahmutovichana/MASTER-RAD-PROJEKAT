@@ -62,6 +62,18 @@
     "phase_b_selected_prompt_development_population": 200,
     "losing_prompt_outside_paired_subset": "NOT_REQUIRED"
   },
+  "last_token_reranker_runtime_amendment": {
+    "id": "S1_RUNTIME_AMENDMENT_05_LAST_TOKEN_RERANKER",
+    "triggered_by_single_pair_cuda_oom_before_generation": true,
+    "transformers_version": "4.51.3",
+    "optimized_forward": {"logits_to_keep": 1, "use_cache": false},
+    "reference_equivalence_forward": {"logits_to_keep": 0, "use_cache": false},
+    "mandatory_probability_equivalence": {"rtol": 0.000001, "atol": 0.0000001},
+    "scoring_semantics_unchanged": true,
+    "adaptive_reranker_amendment_03_retained": true,
+    "two_gpu_execution_amendment_04_retained": true,
+    "valid_existing_reranker_rows_reused": true
+  },
   "target_metrics_policy": "Hit@k/MRR only on development rows with legitimate target-document evidence; never invent natural target gold",
   "human_review_policy": "If manual development review becomes necessary, freeze a blind sample and ask before creating its workbook",
   "stop_conditions": ["pre-change reconstruction unavailable for most cases", "future-document leakage required", "required model inference unreliable", "materially worse safety", "no development retrieval/coverage improvement"],

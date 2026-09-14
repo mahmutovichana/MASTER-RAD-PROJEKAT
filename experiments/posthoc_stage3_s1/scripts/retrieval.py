@@ -199,24 +199,101 @@ class QwenReranker:
         self.no_id = self.tokenizer.convert_tokens_to_ids("no")
         self.last_score_diagnostics: dict[str, object] = {}
 
+    def _tokenized_batch(self, query: str, documents: Sequence[str]):
+        prompts = [RERANKER_PROMPT_TEMPLATE.format(query=query, document=document) for document in documents]
+        batch = self.tokenizer(prompts, padding=True, truncation=True, max_length=RERANKER_MAX_LENGTH, return_tensors="pt")
+        device = next(self.model.parameters()).device
+        return {key: value.to(device) for key, value in batch.items()}, device
+
+    def _record_peak_cuda_memory(self, device) -> None:
+        if getattr(device, "type", str(device).split(":", 1)[0]) != "cuda":
+            return
+        with self.torch.cuda.device(device):
+            peak = int(self.torch.cuda.max_memory_allocated())
+        previous = self._score_peak_allocated_cuda_bytes
+        self._score_peak_allocated_cuda_bytes = peak if previous is None else max(previous, peak)
+
     def _score_batch(self, query: str, documents: Sequence[str]) -> list[float]:
         torch = self.torch
         batch = None
+        outputs = None
         logits = None
         probabilities = None
+        device = None
         try:
-            prompts = [RERANKER_PROMPT_TEMPLATE.format(query=query, document=document) for document in documents]
-            batch = self.tokenizer(prompts, padding=True, truncation=True, max_length=RERANKER_MAX_LENGTH, return_tensors="pt")
-            device = next(self.model.parameters()).device
-            batch = {key: value.to(device) for key, value in batch.items()}
-            with torch.no_grad():
-                logits = self.model(**batch).logits[:, -1, [self.no_id, self.yes_id]]
+            batch, device = self._tokenized_batch(query, documents)
+            with torch.inference_mode():
+                outputs = self.model(**batch, logits_to_keep=1, use_cache=False)
+                logits = outputs.logits[:, -1, [self.no_id, self.yes_id]]
                 probabilities = torch.softmax(logits, dim=1)[:, 1]
+            self._record_peak_cuda_memory(device)
             return probabilities.float().cpu().tolist()
         finally:
             del probabilities
             del logits
+            del outputs
             del batch
+
+    def verify_last_token_equivalence(self, query: str, documents: Sequence[str], *, rtol: float = 1e-6, atol: float = 1e-7) -> dict[str, object]:
+        torch = self.torch
+        full_batch = None
+        optimized_batch = None
+        full_outputs = None
+        optimized_outputs = None
+        cache_enabled_outputs = None
+        old_probability = None
+        new_probability = None
+        cache_enabled_probability = None
+        try:
+            full_batch, _ = self._tokenized_batch(query, documents)
+            optimized_batch, _ = self._tokenized_batch(query, documents)
+            tokenizer_output_identical = set(full_batch) == set(optimized_batch) and all(
+                torch.equal(full_batch[key], optimized_batch[key]) for key in full_batch
+            )
+            if not tokenizer_output_identical:
+                raise RuntimeError("Old and optimized reranker paths received different tokenized inputs")
+            with torch.inference_mode():
+                full_outputs = self.model(**full_batch, use_cache=False, logits_to_keep=0)
+                old_logits = full_outputs.logits[:, -1, [self.no_id, self.yes_id]]
+                old_probability = torch.softmax(old_logits, dim=1)[:, 1]
+                optimized_outputs = self.model(**optimized_batch, use_cache=False, logits_to_keep=1)
+                new_logits = optimized_outputs.logits[:, -1, [self.no_id, self.yes_id]]
+                new_probability = torch.softmax(new_logits, dim=1)[:, 1]
+                cache_enabled_outputs = self.model(**optimized_batch, use_cache=True, logits_to_keep=1)
+                cache_enabled_logits = cache_enabled_outputs.logits[:, -1, [self.no_id, self.yes_id]]
+                cache_enabled_probability = torch.softmax(cache_enabled_logits, dim=1)[:, 1]
+            equivalent = bool(torch.allclose(old_probability, new_probability, rtol=rtol, atol=atol))
+            cache_setting_equivalent = bool(torch.allclose(cache_enabled_probability, new_probability, rtol=rtol, atol=atol))
+            maximum_absolute_difference = float(torch.max(torch.abs(old_probability - new_probability)).item()) if len(documents) else 0.0
+            if not equivalent:
+                raise RuntimeError(f"Full-logits and last-token-only reranker probabilities differ: max_abs={maximum_absolute_difference}")
+            if not cache_setting_equivalent:
+                raise RuntimeError("use_cache=False changed the last-token reranker probability")
+            return {
+                "pair_count": len(documents),
+                "tokenizer_output_identical": True,
+                "yes_token_id": self.yes_id,
+                "no_token_id": self.no_id,
+                "old_scores": old_probability.float().cpu().tolist(),
+                "new_scores": new_probability.float().cpu().tolist(),
+                "maximum_absolute_difference": maximum_absolute_difference,
+                "rtol": rtol,
+                "atol": atol,
+                "equivalent": True,
+                "use_cache_false_probability_equivalent": True,
+                "full_logits_to_keep": 0,
+                "optimized_logits_to_keep": 1,
+                "use_cache": False,
+            }
+        finally:
+            del cache_enabled_probability
+            del new_probability
+            del old_probability
+            del cache_enabled_outputs
+            del optimized_outputs
+            del full_outputs
+            del optimized_batch
+            del full_batch
 
     def _score_adaptive(self, query: str, documents: Sequence[str], diagnostics: dict[str, object]) -> list[float]:
         size = len(documents)
@@ -241,13 +318,19 @@ class QwenReranker:
         document_list = list(documents)
         diagnostics: dict[str, object] = {
             "candidate_count": len(document_list),
+            "logits_to_keep": 1,
+            "use_cache": False,
+            "forward_mode": "LAST_TOKEN_ONLY",
+            "exact_execution_optimization_not_scoring_change": True,
             "attempted_batch_sizes": [],
             "effective_batch_sizes_used": [],
             "oom_split_count": 0,
             "minimum_effective_batch_size": None,
             "single_item_oom": False,
             "output_count": 0,
+            "peak_allocated_cuda_bytes": None,
         }
+        self._score_peak_allocated_cuda_bytes = None
         try:
             scores = self._score_adaptive(query, document_list, diagnostics) if document_list else []
             if len(scores) != len(document_list):
@@ -259,4 +342,5 @@ class QwenReranker:
         finally:
             used = diagnostics["effective_batch_sizes_used"]
             diagnostics["minimum_effective_batch_size"] = min(used) if used else None
+            diagnostics["peak_allocated_cuda_bytes"] = self._score_peak_allocated_cuda_bytes
             self.last_score_diagnostics = diagnostics
