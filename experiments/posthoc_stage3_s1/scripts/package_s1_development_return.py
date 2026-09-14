@@ -24,11 +24,20 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=Path("/kaggle/working/s1-development"))
     args = parser.parse_args()
     output = args.output.resolve()
+    status_path = output / "development_selection_status.json"
+    status = json.loads(status_path.read_text(encoding="utf-8")) if status_path.is_file() else {}
+    state = status.get("state")
     required = [
-        "canary_receipt.json", "runtime_manifest.json", "development_metrics.json", "retrieval_metrics.json",
-        "retrieval_results.jsonl", "generation_results.jsonl", "prompt_hashes.json", "model_revision_receipt.json",
-        "development_selection_status.json", "execution.log", "checkpoints/development_metrics_complete.json",
+        "canary_receipt.json", "runtime_manifest.json", "retrieval_metrics.json", "retrieval_results.jsonl",
+        "generation_results.jsonl", "prompt_hashes.json", "model_revision_receipt.json",
+        "development_selection_status.json", "execution.log", "checkpoints/prompt_selection_subset.json",
     ]
+    if state == "PROMPT_SELECTION_BLIND_REVIEW_REQUIRED":
+        required.extend(["s1_development_blind_prompt_review.csv", "checkpoints/blind_review_private_mapping.json"])
+    elif state == "DEVELOPMENT_METRICS_COMPLETE_SELECTED_PROMPT":
+        required.extend(["development_metrics.json", "checkpoints/development_metrics_complete.json"])
+    else:
+        raise RuntimeError(f"Cannot package unrecognized S1 execution state: {state}")
     missing = [relative for relative in required if not (output / relative).is_file()]
     if missing:
         raise RuntimeError(f"Cannot package incomplete S1 development return; missing: {missing}")

@@ -1,6 +1,6 @@
 {
   "scientific_status": "POST_HOC_STAGE3_CHALLENGER_DEVELOPMENT_ONLY",
-  "freeze_status": "PREDEVELOPMENT_AMENDMENT_03_REGISTERED_SELECTION_PENDING",
+  "freeze_status": "PREDEVELOPMENT_AMENDMENT_04_TIME_BUDGET_REGISTERED_SELECTION_PENDING",
   "confirmation_accessed": false,
   "gate6_row_level_human_data_accessed": false,
   "seed": 42,
@@ -16,6 +16,20 @@
     "target_confidence_threshold": [0.35, 0.5, 0.65],
     "prompt_variant": ["P1", "P2"],
     "maximum_repairs": 1
+  },
+  "time_budget_execution": {
+    "reranker_process_workers": 2,
+    "reranker_worker_devices": ["cuda:0", "cuda:1"],
+    "single_gpu_fallback": true,
+    "initial_paired_prompt_population": 50,
+    "initial_primary_secondary_counts": [25, 25],
+    "minimum_reviewable_pairs": 20,
+    "extension_increment": 25,
+    "maximum_paired_prompt_population": 100,
+    "prior_maximum_prompt_case_runs": 400,
+    "amended_maximum_prompt_case_runs": 300,
+    "phase_a_stop_state": "PROMPT_SELECTION_BLIND_REVIEW_REQUIRED",
+    "phase_b_selected_prompt_population": 200
   },
   "structured_output_contract": {
     "schema_correction_retries": 1,

@@ -1,7 +1,7 @@
 {
   "environment": "Kaggle 2x Tesla T4",
   "status": "RESUME_HARDENED_CANARY_PENDING",
-  "predevelopment_amendments": ["S1_PREDEVELOPMENT_AMENDMENT_01", "S1_PREDEVELOPMENT_AMENDMENT_02", "S1_PREDEVELOPMENT_AMENDMENT_03"],
+  "predevelopment_amendments": ["S1_PREDEVELOPMENT_AMENDMENT_01", "S1_PREDEVELOPMENT_AMENDMENT_02", "S1_PREDEVELOPMENT_AMENDMENT_03", "S1_PREDEVELOPMENT_AMENDMENT_04_TIME_BUDGET"],
   "schema_correction_retries_per_structured_call": 1,
   "semantic_documentation_repairs": 1,
   "embedding_execution": {
@@ -20,7 +20,26 @@
     "max_length": 8192,
     "single_item_oom": "FAIL_CLOSED",
     "cpu_fallback": false,
-    "allocator_configuration": "PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True"
+    "allocator_configuration": "PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True",
+    "two_process_workers": true,
+    "worker_devices": ["cuda:0", "cuda:1"],
+    "single_gpu_fallback": true,
+    "separate_durable_shards": true,
+    "parent_merge_order": "original frozen case order"
+  },
+  "generation_time_budget": {
+    "initial_paired_cases": 50,
+    "initial_primary_secondary_counts": [25, 25],
+    "case_order": "SHA256('42:' + case_id) within each frozen half",
+    "extension_increment": 25,
+    "extension_trigger": "fewer than 20 reviewable paired rows",
+    "maximum_paired_cases": 100,
+    "prior_maximum_prompt_case_runs": 400,
+    "amended_maximum_prompt_case_runs": 300,
+    "phase_a_stop_state": "PROMPT_SELECTION_BLIND_REVIEW_REQUIRED",
+    "prompt_selection": "blind human review only",
+    "phase_b": "selected prompt only for missing selected-variant development cases",
+    "selected_prompt_final_case_count": 200
   },
   "frozen_repository_sha": "38f9afb479f738081301172176d3133e4056bd7c",
   "repository_remote": "https://github.com/mahmutovichana/MASTER-RAD-PROJEKAT.git",

@@ -49,6 +49,19 @@
     "single_item_oom_disposition": "FAIL_CLOSED",
     "cpu_fallback": false
   },
+  "time_budget_execution_amendment": {
+    "id": "S1_PREDEVELOPMENT_AMENDMENT_04_TIME_BUDGET",
+    "frozen_before_generation_result_inspection": true,
+    "reranker_process_workers": {"maximum": 2, "device_assignments": ["cuda:0", "cuda:1"], "single_gpu_fallback": true},
+    "initial_paired_prompt_subset": {"total": 50, "primary": 25, "secondary": 25, "order": "SHA256('42:' + case_id) within each frozen half"},
+    "minimum_reviewable_pairs_before_extension_stops": 20,
+    "extension_increment": 25,
+    "maximum_paired_prompt_population": 100,
+    "prompt_selection_source": "completed blind human review only",
+    "prompt_selection_tiebreak": ["reviewer_preference", "total human-positive target_fit+grounding+usefulness+style_fit", "P1"],
+    "phase_b_selected_prompt_development_population": 200,
+    "losing_prompt_outside_paired_subset": "NOT_REQUIRED"
+  },
   "target_metrics_policy": "Hit@k/MRR only on development rows with legitimate target-document evidence; never invent natural target gold",
   "human_review_policy": "If manual development review becomes necessary, freeze a blind sample and ask before creating its workbook",
   "stop_conditions": ["pre-change reconstruction unavailable for most cases", "future-document leakage required", "required model inference unreliable", "materially worse safety", "no development retrieval/coverage improvement"],

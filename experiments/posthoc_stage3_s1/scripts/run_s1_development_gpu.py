@@ -6,6 +6,7 @@ import gc
 import hashlib
 import json
 import logging
+import multiprocessing
 import os
 import random
 import subprocess
@@ -52,6 +53,8 @@ CONTROLLED_TARGET_COUNT = 79
 GRID = ((5, 5), (5, 10), (10, 5), (10, 10))
 THRESHOLDS = (0.35, 0.50, 0.65)
 VARIANTS = ("P1", "P2")
+PROMPT_SELECTION_POPULATIONS = (50, 75, 100)
+PROMPT_SELECTION_MINIMUM_REVIEWABLE = 20
 
 
 def atomic_json(path: Path, value: Any) -> None:
@@ -222,6 +225,103 @@ def load_valid_reranker_checkpoints(path: Path, expected_indices: dict[str, list
     return values
 
 
+def assign_cases_to_workers(rows: list[dict[str, Any]], missing_case_ids: set[str], worker_count: int) -> list[list[str]]:
+    if worker_count < 1:
+        raise ValueError("worker_count must be positive")
+    assignments = [[] for _ in range(worker_count)]
+    for frozen_index, row in enumerate(rows):
+        if row["case_id"] in missing_case_ids:
+            assignments[frozen_index % worker_count].append(row["case_id"])
+    return assignments
+
+
+def reranker_worker_count(cuda_device_count: int) -> int:
+    return 2 if cuda_device_count >= 2 else 1
+
+
+def merge_reranker_sources(
+    rows: list[dict[str, Any]],
+    expected_indices: dict[str, list[int]],
+    sources: list[dict[str, dict[str, Any]]],
+) -> dict[str, dict[str, Any]]:
+    merged: dict[str, dict[str, Any]] = {}
+    for source in sources:
+        for case_id, record in source.items():
+            if case_id in merged:
+                raise RuntimeError(f"Duplicate reranker checkpoint case_id across shards: {case_id}")
+            if case_id not in expected_indices or not valid_reranker_record(record, case_id, expected_indices[case_id]):
+                raise RuntimeError(f"Invalid or unexpected reranker checkpoint case_id: {case_id}")
+            merged[case_id] = record
+    expected_case_ids = [row["case_id"] for row in rows]
+    missing = [case_id for case_id in expected_case_ids if case_id not in merged]
+    unexpected = sorted(set(merged) - set(expected_case_ids))
+    if missing or unexpected:
+        raise RuntimeError(f"Reranker shard merge identity mismatch: missing={missing}, unexpected={unexpected}")
+    return {case_id: merged[case_id] for case_id in expected_case_ids}
+
+
+def reranker_process_worker(
+    worker_id: int,
+    device_index: int,
+    tasks: list[dict[str, Any]],
+    shard_path_text: str,
+    receipt_path_text: str,
+    cache_dir: str,
+) -> None:
+    import torch
+
+    started = time.monotonic()
+    shard_path = Path(shard_path_text)
+    receipt_path = Path(receipt_path_text)
+    expected = {task["case_id"]: task["candidate_indices"] for task in tasks}
+    completed = load_valid_reranker_checkpoints(shard_path, expected)
+    reused_count = len(completed)
+    try:
+        torch.cuda.set_device(device_index)
+        reranker = QwenReranker(cache_dir=cache_dir, device=f"cuda:{device_index}")
+        if getattr(reranker.model.config, "_commit_hash", None) != RERANKER_REVISION:
+            raise RuntimeError("Reranker revision mismatch")
+        for task in tasks:
+            case_id = task["case_id"]
+            if case_id in completed:
+                continue
+            values = reranker.score(task["query"], task["documents"])
+            record = {
+                "case_id": case_id,
+                "candidate_indices": task["candidate_indices"],
+                "scores": {str(index): float(score) for index, score in zip(task["candidate_indices"], values)},
+                "reranker_runtime_diagnostics": reranker.last_score_diagnostics,
+                "worker_id": worker_id,
+                "worker_device": f"cuda:{device_index}",
+            }
+            if not valid_reranker_record(record, case_id, task["candidate_indices"]):
+                raise RuntimeError(f"Invalid reranker result for {case_id}")
+            completed[case_id] = record
+            atomic_jsonl(shard_path, [completed[item["case_id"]] for item in tasks if item["case_id"] in completed])
+        atomic_jsonl(shard_path, [completed[task["case_id"]] for task in tasks])
+        atomic_json(receipt_path, {
+            "state": "COMPLETE",
+            "worker_id": worker_id,
+            "device": f"cuda:{device_index}",
+            "assigned_case_count": len(tasks),
+            "reused_case_count": reused_count,
+            "new_case_count": len(tasks) - reused_count,
+            "runtime_seconds": time.monotonic() - started,
+        })
+    except Exception as exc:
+        atomic_json(receipt_path, {
+            "state": "FAILED",
+            "worker_id": worker_id,
+            "device": f"cuda:{device_index}",
+            "assigned_case_count": len(tasks),
+            "reused_case_count": reused_count,
+            "runtime_seconds": time.monotonic() - started,
+            "error_type": type(exc).__name__,
+            "error": str(exc),
+        })
+        raise
+
+
 class PersistentBackend:
     def __init__(self, backend: QwenStructuredGenerator, path: Path):
         self.backend = backend
@@ -281,6 +381,108 @@ def outcome_summary(results: dict[str, dict[str, Any]], case_ids: list[str], thr
     }
 
 
+def prompt_selection_case_ids(rows: list[dict[str, Any]], population: int = 50) -> list[str]:
+    if len(rows) != MEMBERSHIP_COUNT or population not in PROMPT_SELECTION_POPULATIONS:
+        raise ValueError("Prompt-selection membership requires 200 frozen rows and population 50, 75, or 100")
+    primary = sorted((row["case_id"] for row in rows[:100]), key=lambda case_id: hashlib.sha256(f"42:{case_id}".encode()).hexdigest())
+    secondary = sorted((row["case_id"] for row in rows[100:]), key=lambda case_id: hashlib.sha256(f"42:{case_id}".encode()).hexdigest())
+    selected = [*primary[:25], *secondary[:25]]
+    if population >= 75:
+        selected.extend([*primary[25:38], *secondary[25:37]])
+    if population >= 100:
+        selected.extend([*primary[38:50], *secondary[37:50]])
+    if len(selected) != population or len(set(selected)) != population:
+        raise RuntimeError("Prompt-selection subset construction failed")
+    return selected
+
+
+def paired_prompt_run_keys(rows: list[dict[str, Any]], population: int) -> list[str]:
+    return [f"{variant}:{case_id}" for case_id in prompt_selection_case_ids(rows, population) for variant in VARIANTS]
+
+
+def selected_prompt_missing_run_keys(case_ids: list[str], selected_variant: str, completed_keys: set[str]) -> list[str]:
+    if selected_variant not in VARIANTS:
+        raise ValueError("Selected prompt variant must be P1 or P2")
+    return [f"{selected_variant}:{case_id}" for case_id in case_ids if f"{selected_variant}:{case_id}" not in completed_keys]
+
+
+def next_prompt_selection_population(population: int, reviewable_pairs: int) -> int:
+    if population not in PROMPT_SELECTION_POPULATIONS:
+        raise ValueError("Invalid paired prompt-selection population")
+    if reviewable_pairs >= PROMPT_SELECTION_MINIMUM_REVIEWABLE or population == 100:
+        return population
+    return population + 25
+
+
+def reviewable_pair_count(case_ids: list[str], completed_rows: dict[str, dict[str, Any]]) -> int:
+    count = 0
+    for case_id in case_ids:
+        p1 = completed_rows[f"P1:{case_id}"]["result"]
+        p2 = completed_rows[f"P2:{case_id}"]["result"]
+        patch1 = str((p1.get("patch") or {}).get("patch_markdown") or "")
+        patch2 = str((p2.get("patch") or {}).get("patch_markdown") or "")
+        count += bool(patch1 and patch2 and patch1 != patch2)
+    return count
+
+
+def select_prompt_from_completed_blind_review(sheet: Path, mapping_path: Path) -> dict[str, Any] | None:
+    if not sheet.is_file() or not mapping_path.is_file():
+        return None
+    with sheet.open("r", encoding="utf-8-sig", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    if not rows:
+        return None
+    mapping_rows = json.loads(mapping_path.read_text(encoding="utf-8"))["rows"]
+    mapping = {row["review_item_id"]: row for row in mapping_rows}
+    if len(mapping) != len(mapping_rows) or set(mapping) != {row.get("review_item_id") for row in rows}:
+        raise RuntimeError("Blind review private mapping identity mismatch")
+    judgment_dimensions = ("target_fit", "grounding", "usefulness", "style_fit")
+    preference_counts = {"P1": 0, "P2": 0}
+    positive_counts = {"P1": 0, "P2": 0}
+
+    def candidate(value: str) -> str | None:
+        normalized = str(value).strip().casefold().replace("candidate", "").replace("_", "").replace(" ", "")
+        return normalized.upper() if normalized in {"a", "b"} else None
+
+    def positive(value: str) -> bool | None:
+        normalized = str(value).strip().casefold()
+        if normalized in {"yes", "y", "true", "1", "positive"}:
+            return True
+        if normalized in {"no", "n", "false", "0", "negative"}:
+            return False
+        return None
+
+    for row in rows:
+        preference = candidate(row.get("reviewer_preference", ""))
+        judgments = {
+            (side, dimension): positive(row.get(f"reviewer_{dimension}_{side}", ""))
+            for side in ("A", "B") for dimension in judgment_dimensions
+        }
+        if preference is None or any(value is None for value in judgments.values()):
+            return None
+        identity = mapping[row["review_item_id"]]
+        preference_counts[identity[f"candidate_{preference}"]] += 1
+        for side in ("A", "B"):
+            prompt = identity[f"candidate_{side}"]
+            positive_counts[prompt] += sum(bool(judgments[(side, dimension)]) for dimension in judgment_dimensions)
+    if preference_counts["P1"] != preference_counts["P2"]:
+        selected = max(preference_counts, key=preference_counts.get)
+        selection_basis = "reviewer_preference"
+    elif positive_counts["P1"] != positive_counts["P2"]:
+        selected = max(positive_counts, key=positive_counts.get)
+        selection_basis = "total_human_positive_judgments"
+    else:
+        selected = "P1"
+        selection_basis = "preregistered_deterministic_tiebreaker"
+    return {
+        "selected_prompt_variant": selected,
+        "selection_basis": selection_basis,
+        "reviewer_preference_counts": preference_counts,
+        "human_positive_judgment_counts": positive_counts,
+        "reviewed_pair_count": len(rows),
+    }
+
+
 def write_blind_review(output: Path, rows: list[dict[str, Any]], outcomes: dict[str, dict[str, dict[str, Any]]]) -> dict[str, Any]:
     columns = [
         "review_item_id", "case_id", "code_changed_files", "code_diff_excerpt", "docs_before_excerpt",
@@ -313,9 +515,20 @@ def write_blind_review(output: Path, rows: list[dict[str, Any]], outcomes: dict[
         })
         private_mapping.append({"review_item_id": item_id, "candidate_A": "P2" if swap else "P1", "candidate_B": "P1" if swap else "P2"})
     sheet = output / "s1_development_blind_prompt_review.csv"
+    mapping_path = output / "checkpoints/blind_review_private_mapping.json"
+    if sheet.is_file() and mapping_path.is_file():
+        with sheet.open("r", encoding="utf-8-sig", newline="") as handle:
+            existing_rows = list(csv.DictReader(handle))
+        nonreviewer_columns = [column for column in columns if not column.startswith("reviewer_")]
+        existing_public = [{column: row.get(column, "") for column in nonreviewer_columns} for row in existing_rows]
+        proposed_public = [{column: str(row.get(column, "")) for column in nonreviewer_columns} for row in review_rows]
+        existing_mapping = json.loads(mapping_path.read_text(encoding="utf-8"))
+        if existing_public != proposed_public or existing_mapping.get("rows") != private_mapping:
+            raise RuntimeError("Existing blind review does not match frozen paired subset")
+        return {"status": "BLIND_DEVELOPMENT_REVIEW_REQUIRED", "row_count": len(existing_rows), "path": str(sheet), "sha256": sha256(sheet)}
     with sheet.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=columns); writer.writeheader(); writer.writerows(review_rows)
-    atomic_json(output / "checkpoints/blind_review_private_mapping.json", {"seed": 42, "rows": private_mapping})
+    atomic_json(mapping_path, {"seed": 42, "rows": private_mapping})
     return {"status": "BLIND_DEVELOPMENT_REVIEW_REQUIRED", "row_count": len(review_rows), "path": str(sheet), "sha256": sha256(sheet)}
 
 
@@ -455,25 +668,98 @@ def main() -> int:
     reranker_path = checkpoints / "reranker_scores.jsonl"
     rerank_cache = load_valid_reranker_checkpoints(reranker_path, expected_reranker_indices)
     missing_rerank = [row for row in rows if row["case_id"] not in rerank_cache]
+    available_reranker_workers = reranker_worker_count(torch.cuda.device_count())
+    if missing_rerank and available_reranker_workers == 1:
+        missing_ids = {row["case_id"] for row in missing_rerank}
+        prior_two_worker_assignments = assign_cases_to_workers(rows, missing_ids, 2)
+        for worker_id, case_ids in enumerate(prior_two_worker_assignments):
+            shard_path = checkpoints / f"reranker_scores_worker_{worker_id}.jsonl"
+            shard_expected = {case_id: expected_reranker_indices[case_id] for case_id in case_ids}
+            for case_id, record in load_valid_reranker_checkpoints(shard_path, shard_expected).items():
+                if case_id in rerank_cache:
+                    raise RuntimeError(f"Duplicate reranker checkpoint case_id across global file and worker shard: {case_id}")
+                rerank_cache[case_id] = record
+        missing_rerank = [row for row in rows if row["case_id"] not in rerank_cache]
+    reranker_worker_receipts: list[dict[str, Any]] = []
+    if not missing_rerank:
+        for receipt_path in sorted(checkpoints.glob("reranker_worker_*_receipt.json")):
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            if receipt.get("state") == "COMPLETE":
+                reranker_worker_receipts.append(receipt)
     if missing_rerank:
-        reranker = QwenReranker(cache_dir=args.cache_dir)
-        if getattr(reranker.model.config, "_commit_hash", None) != RERANKER_REVISION: raise RuntimeError("Reranker revision mismatch")
-        for row in missing_rerank:
-            case_id = row["case_id"]
-            chunks = corpora[case_id]
-            indices = expected_reranker_indices[case_id]
-            values = reranker.score(build_retrieval_query(safe_model_row(row)), [chunk_text(chunks[i]) for i in indices])
-            record = {
-                "case_id": case_id,
-                "candidate_indices": indices,
-                "scores": {str(i): float(score) for i, score in zip(indices, values)},
-                "reranker_runtime_diagnostics": reranker.last_score_diagnostics,
+        if available_reranker_workers == 2:
+            missing_ids = {row["case_id"] for row in missing_rerank}
+            assignments = assign_cases_to_workers(rows, missing_ids, 2)
+            row_by_id = {row["case_id"]: row for row in rows}
+            processes = []
+            worker_paths = []
+            context = multiprocessing.get_context("spawn")
+            for worker_id, case_ids in enumerate(assignments):
+                tasks = []
+                for case_id in case_ids:
+                    row = row_by_id[case_id]
+                    indices = expected_reranker_indices[case_id]
+                    tasks.append({
+                        "case_id": case_id,
+                        "candidate_indices": indices,
+                        "query": build_retrieval_query(safe_model_row(row)),
+                        "documents": [chunk_text(corpora[case_id][index]) for index in indices],
+                    })
+                shard_path = checkpoints / f"reranker_scores_worker_{worker_id}.jsonl"
+                receipt_path = checkpoints / f"reranker_worker_{worker_id}_receipt.json"
+                worker_paths.append((shard_path, receipt_path, {case_id: expected_reranker_indices[case_id] for case_id in case_ids}))
+                process = context.Process(
+                    target=reranker_process_worker,
+                    args=(worker_id, worker_id, tasks, str(shard_path), str(receipt_path), args.cache_dir),
+                )
+                process.start()
+                processes.append(process)
+            for process in processes:
+                process.join()
+            failed_exit_codes = [process.exitcode for process in processes if process.exitcode != 0]
+            if failed_exit_codes:
+                raise RuntimeError(f"Reranker worker failure exit codes: {failed_exit_codes}")
+            shard_caches = []
+            for shard_path, receipt_path, expected in worker_paths:
+                receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+                if receipt.get("state") != "COMPLETE":
+                    raise RuntimeError(f"Reranker worker receipt is not complete: {receipt_path}")
+                reranker_worker_receipts.append(receipt)
+                shard_caches.append(load_valid_reranker_checkpoints(shard_path, expected))
+            rerank_cache = merge_reranker_sources(rows, expected_reranker_indices, [rerank_cache, *shard_caches])
+        else:
+            single_started = time.monotonic()
+            reranker = QwenReranker(cache_dir=args.cache_dir)
+            if getattr(reranker.model.config, "_commit_hash", None) != RERANKER_REVISION: raise RuntimeError("Reranker revision mismatch")
+            for row in missing_rerank:
+                case_id = row["case_id"]
+                chunks = corpora[case_id]
+                indices = expected_reranker_indices[case_id]
+                values = reranker.score(build_retrieval_query(safe_model_row(row)), [chunk_text(chunks[i]) for i in indices])
+                record = {
+                    "case_id": case_id,
+                    "candidate_indices": indices,
+                    "scores": {str(i): float(score) for i, score in zip(indices, values)},
+                    "reranker_runtime_diagnostics": reranker.last_score_diagnostics,
+                    "worker_id": 0,
+                    "worker_device": "existing_single_worker_device_map",
+                }
+                if not valid_reranker_record(record, case_id, indices):
+                    raise RuntimeError(f"Invalid reranker result for {case_id}")
+                rerank_cache[case_id] = record
+                atomic_jsonl(reranker_path, [rerank_cache[item["case_id"]] for item in rows if item["case_id"] in rerank_cache])
+            single_receipt = {
+                "state": "COMPLETE",
+                "worker_id": 0,
+                "device": "existing_single_worker_device_map",
+                "assigned_case_count": len(missing_rerank),
+                "reused_case_count": len(rows) - len(missing_rerank),
+                "new_case_count": len(missing_rerank),
+                "runtime_seconds": time.monotonic() - single_started,
             }
-            if not valid_reranker_record(record, case_id, indices):
-                raise RuntimeError(f"Invalid reranker result for {case_id}")
-            rerank_cache[case_id] = record
-            atomic_jsonl(reranker_path, [rerank_cache[item["case_id"]] for item in rows if item["case_id"] in rerank_cache])
-        del reranker; gc.collect(); torch.cuda.empty_cache(); torch.cuda.synchronize()
+            reranker_worker_receipts.append(single_receipt)
+            atomic_json(checkpoints / "reranker_worker_0_receipt.json", single_receipt)
+            del reranker; gc.collect(); torch.cuda.empty_cache(); torch.cuda.synchronize()
     atomic_jsonl(reranker_path, [rerank_cache[row["case_id"]] for row in rows])
     reranker_diagnostics = []
     for row in rows:
@@ -495,6 +781,10 @@ def main() -> int:
         "minimum_effective_batch_size": min(reranker_effective_sizes) if reranker_effective_sizes else None,
         "single_item_oom": any(item["single_item_oom"] for item in known_reranker_diagnostics),
         "valid_pre_amendment_checkpoints_reused_without_diagnostics": sum(item["reused_without_recorded_diagnostics"] for item in reranker_diagnostics),
+        "worker_count": len(reranker_worker_receipts),
+        "worker_device_assignments": [item["device"] for item in reranker_worker_receipts],
+        "worker_case_counts": [item["assigned_case_count"] for item in reranker_worker_receipts],
+        "worker_runtime_seconds": [item["runtime_seconds"] for item in reranker_worker_receipts],
     }
     atomic_json(output / "runtime_manifest.json", runtime_manifest)
     atomic_json(checkpoints / "reranking_complete.json", {"state": "COMPLETE", "case_count": 200})
@@ -526,43 +816,162 @@ def main() -> int:
     retrieval_jsonl = output / "retrieval_results.jsonl"
     temporary = retrieval_jsonl.with_suffix(".jsonl.tmp"); temporary.write_text("".join(json.dumps(row, sort_keys=True) + "\n" for row in retrieval_rows), encoding="utf-8"); os.replace(temporary, retrieval_jsonl)
 
-    generation_path = output / "generation_results.jsonl"; completed_rows = load_unique_jsonl(generation_path, "run_key")
-    required_keys = [f"{variant}:{row['case_id']}" for variant in VARIANTS for row in rows]
-    missing_generation = [key for key in required_keys if key not in completed_rows]
-    if missing_generation:
-        generator = QwenStructuredGenerator(cache_dir=args.cache_dir)
-        if getattr(generator.model.config, "_commit_hash", None) != GENERATOR_REVISION: raise RuntimeError("Generator revision mismatch")
-        backend = PersistentBackend(generator, checkpoints / "model_call_cache.jsonl")
-        row_map = {row["case_id"]: row for row in rows}; lexical_k = int(selected_key.split("_")[0][1:]); dense_k = int(selected_key.split("_")[1][1:])
-        newly_completed = 0
-        for run_key in required_keys:
-            if run_key in completed_rows: continue
-            variant, case_id = run_key.split(":", 1); row = row_map[case_id]
+    generation_path = output / "generation_results.jsonl"
+    completed_rows = load_unique_jsonl(generation_path, "run_key")
+    all_case_ids = [row["case_id"] for row in rows]
+    allowed_run_keys = {f"{variant}:{case_id}" for variant in VARIANTS for case_id in all_case_ids}
+    if set(completed_rows) - allowed_run_keys:
+        raise RuntimeError("Generation checkpoint contains an unexpected variant or case identity")
+    row_map = {row["case_id"]: row for row in rows}
+    lexical_k = int(selected_key.split("_")[0][1:])
+    dense_k = int(selected_key.split("_")[1][1:])
+    generator = None
+    backend = None
+    newly_completed = 0
+
+    def run_generation_keys(required_keys: list[str], phase: str) -> None:
+        nonlocal generator, backend, newly_completed
+        missing_keys = [key for key in required_keys if key not in completed_rows]
+        if missing_keys and generator is None:
+            generator = QwenStructuredGenerator(cache_dir=args.cache_dir)
+            if getattr(generator.model.config, "_commit_hash", None) != GENERATOR_REVISION:
+                raise RuntimeError("Generator revision mismatch")
+            backend = PersistentBackend(generator, checkpoints / "model_call_cache.jsonl")
+        for run_key in missing_keys:
+            variant, case_id = run_key.split(":", 1)
+            row = row_map[case_id]
             agent = S1Agent(backend, S1Configuration(lexical_k, dense_k, 3, 0.35, variant))
             result = agent.run(safe_model_row(row), retrieval[selected_key][case_id], document_corpus=corpora[case_id])
-            record = {"run_key": run_key, "variant": variant, "case_id": case_id, "result": result}
-            append_jsonl(generation_path, record); completed_rows[run_key] = record; newly_completed += 1
+            record = {"run_key": run_key, "variant": variant, "case_id": case_id, "result": result, "execution_phase": phase}
+            append_jsonl(generation_path, record)
+            completed_rows[run_key] = record
+            newly_completed += 1
             if newly_completed % 25 == 0:
-                atomic_json(checkpoints / "generation_progress.json", {"state": "RUNNING", "completed": len(completed_rows), "required": len(required_keys), "last_run_key": run_key})
-                log.info("Generation checkpoint: %d/%d", len(completed_rows), len(required_keys))
+                atomic_json(checkpoints / "generation_progress.json", {
+                    "state": "RUNNING", "phase": phase, "completed_total": len(completed_rows),
+                    "phase_required": len(required_keys), "last_run_key": run_key,
+                })
+                log.info("Generation checkpoint: %d total completed", len(completed_rows))
+
+    plan_path = checkpoints / "prompt_selection_subset.json"
+    if plan_path.is_file():
+        prompt_plan = json.loads(plan_path.read_text(encoding="utf-8"))
+        population = int(prompt_plan["paired_population"])
+    else:
+        population = 50
+    while True:
+        paired_case_ids = prompt_selection_case_ids(rows, population)
+        paired_keys = paired_prompt_run_keys(rows, population)
+        atomic_json(plan_path, {
+            "seed": 42,
+            "paired_population": population,
+            "case_ids": paired_case_ids,
+            "selection_source": "frozen membership and SHA256('42:' + case_id) only",
+            "primary_count": sum(case_id in set(all_case_ids[:100]) for case_id in paired_case_ids),
+            "secondary_count": sum(case_id in set(all_case_ids[100:]) for case_id in paired_case_ids),
+            "maximum_paired_population": 100,
+        })
+        run_generation_keys(paired_keys, "PHASE_A_PAIRED_PROMPT_SELECTION")
+        if any(key not in completed_rows for key in paired_keys):
+            raise RuntimeError("Phase A paired prompt checkpoint is incomplete")
+        reviewable_pairs = reviewable_pair_count(paired_case_ids, completed_rows)
+        extended_population = next_prompt_selection_population(population, reviewable_pairs)
+        if extended_population == population:
+            break
+        population = extended_population
+
+    paired_case_set = set(paired_case_ids)
+    losing_outside_subset = [
+        key for key in completed_rows
+        if key.split(":", 1)[1] not in paired_case_set
+    ]
+    selection_rows = [row_map[case_id] for case_id in paired_case_ids]
+    paired_outcomes = {
+        variant: {case_id: completed_rows[f"{variant}:{case_id}"]["result"] for case_id in paired_case_ids}
+        for variant in VARIANTS
+    }
+    review = write_blind_review(output, selection_rows, paired_outcomes)
+    mapping_path = checkpoints / "blind_review_private_mapping.json"
+    prompt_selection = select_prompt_from_completed_blind_review(Path(review["path"]), mapping_path)
+    if prompt_selection is None:
+        if losing_outside_subset:
+            raise RuntimeError("Losing prompt has results outside the frozen paired subset before human selection")
+        selection = {
+            "state": "PROMPT_SELECTION_BLIND_REVIEW_REQUIRED",
+            "selected_retrieval_key": selected_key,
+            "selected_threshold": None,
+            "selected_prompt_variant": None,
+            "paired_population": population,
+            "reviewable_pair_count": reviewable_pairs,
+            "review": review,
+            "selection_uses_self_critic_metrics": False,
+        }
+        atomic_json(output / "development_selection_status.json", selection)
+        atomic_json(checkpoints / "generation_progress.json", {
+            "state": "PROMPT_SELECTION_BLIND_REVIEW_REQUIRED",
+            "phase": "PHASE_A",
+            "paired_population": population,
+            "completed_paired_runs": len(paired_keys),
+        })
+        if generator is not None:
+            del generator; gc.collect(); torch.cuda.empty_cache(); torch.cuda.synchronize()
+        prompt_dir = Path(__file__).resolve().parents[1] / "prompts"
+        atomic_json(output / "prompt_hashes.json", {path.name: sha256(path) for path in sorted(prompt_dir.glob("*.txt"))})
+        atomic_json(output / "model_revision_receipt.json", canary.get("resolved_revisions", {}))
+        runtime_manifest.update({"state": "PROMPT_SELECTION_BLIND_REVIEW_REQUIRED", "runtime_seconds": time.monotonic() - started, "final_cuda": cuda_snapshot(), "final_host_ram": host_ram()})
+        atomic_json(output / "runtime_manifest.json", runtime_manifest)
+        log.info("Paired prompt subset complete; blind human review required before Phase B")
+        print("PROMPT_SELECTION_BLIND_REVIEW_REQUIRED")
+        return 0
+
+    selected_variant = prompt_selection["selected_prompt_variant"]
+    losing_variant = "P2" if selected_variant == "P1" else "P1"
+    invalid_losing_keys = [key for key in completed_rows if key.startswith(f"{losing_variant}:") and key.split(":", 1)[1] not in paired_case_set]
+    if invalid_losing_keys:
+        raise RuntimeError("Losing prompt result exists outside the frozen paired selection subset")
+    selected_keys = [f"{selected_variant}:{case_id}" for case_id in all_case_ids]
+    selected_missing_keys = selected_prompt_missing_run_keys(all_case_ids, selected_variant, set(completed_rows))
+    run_generation_keys(selected_missing_keys, "PHASE_B_SELECTED_PROMPT_ONLY")
+    if any(key not in completed_rows for key in selected_keys):
+        raise RuntimeError("Selected prompt does not have all 200 development results")
+    if generator is not None:
         del generator; gc.collect(); torch.cuda.empty_cache(); torch.cuda.synchronize()
-    if set(completed_rows) != set(required_keys): raise RuntimeError("Generation checkpoint is incomplete or contains unexpected keys")
-    atomic_json(checkpoints / "generation_progress.json", {"state": "COMPLETE", "completed": len(completed_rows), "required": len(required_keys)})
-    outcomes = {variant: {row["case_id"]: completed_rows[f"{variant}:{row['case_id']}"]["result"] for row in rows} for variant in VARIANTS}
-    groups = {"all_development": [row["case_id"] for row in rows], "primary": [row["case_id"] for row in rows[:100]], "secondary": [row["case_id"] for row in rows[100:]]}
-    development_metrics = {variant: {str(threshold): {group: outcome_summary(outcomes[variant], ids, threshold) for group, ids in groups.items()} for threshold in THRESHOLDS} for variant in VARIANTS}
-    atomic_json(output / "development_metrics.json", {"confirmation_accessed": False, "self_critic_is_human_ground_truth": False, "metrics": development_metrics})
-    review = write_blind_review(output, rows, outcomes)
-    selection = {"state": "SELECTION_REQUIRES_BLIND_DEVELOPMENT_REVIEW", "selected_retrieval_key": selected_key, "selected_threshold": None, "selected_prompt_variant": None, "review": review}
+    atomic_json(checkpoints / "generation_progress.json", {
+        "state": "COMPLETE", "phase": "PHASE_B", "selected_prompt_variant": selected_variant,
+        "selected_prompt_completed": len(selected_keys), "paired_population": population,
+    })
+    selected_outcomes = {case_id: completed_rows[f"{selected_variant}:{case_id}"]["result"] for case_id in all_case_ids}
+    groups = {"all_development": all_case_ids, "primary": all_case_ids[:100], "secondary": all_case_ids[100:]}
+    development_metrics = {
+        str(threshold): {group: outcome_summary(selected_outcomes, ids, threshold) for group, ids in groups.items()}
+        for threshold in THRESHOLDS
+    }
+    atomic_json(output / "development_metrics.json", {
+        "confirmation_accessed": False,
+        "self_critic_is_human_ground_truth": False,
+        "selected_prompt_variant": selected_variant,
+        "thresholds": list(THRESHOLDS),
+        "metrics": development_metrics,
+        "paired_prompt_selection_population": population,
+    })
+    selection = {
+        "state": "DEVELOPMENT_METRICS_COMPLETE_SELECTED_PROMPT",
+        "selected_retrieval_key": selected_key,
+        "selected_threshold": None,
+        "paired_population": population,
+        "reviewable_pair_count": reviewable_pairs,
+        "review": review,
+        **prompt_selection,
+    }
     atomic_json(output / "development_selection_status.json", selection)
     prompt_dir = Path(__file__).resolve().parents[1] / "prompts"
     atomic_json(output / "prompt_hashes.json", {path.name: sha256(path) for path in sorted(prompt_dir.glob("*.txt"))})
     atomic_json(output / "model_revision_receipt.json", canary.get("resolved_revisions", {}))
-    runtime_manifest.update({"state": "DEVELOPMENT_METRICS_COMPLETE_SELECTION_PENDING_BLIND_REVIEW", "runtime_seconds": time.monotonic() - started, "final_cuda": cuda_snapshot(), "final_host_ram": host_ram()})
+    runtime_manifest.update({"state": "DEVELOPMENT_METRICS_COMPLETE_SELECTED_PROMPT", "runtime_seconds": time.monotonic() - started, "final_cuda": cuda_snapshot(), "final_host_ram": host_ram()})
     atomic_json(output / "runtime_manifest.json", runtime_manifest)
     atomic_json(checkpoints / "development_metrics_complete.json", {"state": "COMPLETE", "selection_state": selection["state"]})
-    log.info("Development metrics complete; prompt/threshold selection remains pending blind development review")
-    print("DEVELOPMENT_METRICS_COMPLETE_SELECTION_PENDING_BLIND_REVIEW")
+    log.info("Development metrics complete for human-selected prompt across 200 cases")
+    print("DEVELOPMENT_METRICS_COMPLETE_SELECTED_PROMPT")
     return 0
 
 
