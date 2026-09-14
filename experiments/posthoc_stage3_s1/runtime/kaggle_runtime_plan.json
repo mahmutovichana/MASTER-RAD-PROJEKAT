@@ -1,10 +1,11 @@
 {
   "environment": "Kaggle 2x Tesla T4",
   "status": "RESUME_HARDENED_CANARY_PENDING",
-  "predevelopment_amendments": ["S1_PREDEVELOPMENT_AMENDMENT_01", "S1_PREDEVELOPMENT_AMENDMENT_02", "S1_PREDEVELOPMENT_AMENDMENT_03", "S1_PREDEVELOPMENT_AMENDMENT_04_TIME_BUDGET", "S1_RUNTIME_AMENDMENT_05_LAST_TOKEN_RERANKER"],
+  "predevelopment_amendments": ["S1_PREDEVELOPMENT_AMENDMENT_01", "S1_PREDEVELOPMENT_AMENDMENT_02", "S1_PREDEVELOPMENT_AMENDMENT_03", "S1_PREDEVELOPMENT_AMENDMENT_04_TIME_BUDGET", "S1_RUNTIME_AMENDMENT_05_LAST_TOKEN_RERANKER", "S1_RUNTIME_AMENDMENT_06_LEXICAL_FALLBACK"],
   "schema_correction_retries_per_structured_call": 1,
   "semantic_documentation_repairs": 1,
   "embedding_execution": {
+    "status": "INACTIVE_HISTORICAL_ARTIFACT",
     "configured_logical_batch_size": 8,
     "adaptive_microbatch_range": [1, 8],
     "split_trigger": "torch.cuda.OutOfMemoryError only",
@@ -14,6 +15,7 @@
     "allocator_configuration": "PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True"
   },
   "reranker_execution": {
+    "status": "INACTIVE_HISTORICAL_ATTEMPT",
     "original_full_candidate_batch_attempted_first": true,
     "adaptive_minimum_batch_size": 1,
     "split_trigger": "torch.cuda.OutOfMemoryError only",
@@ -28,12 +30,25 @@
     "parent_merge_order": "original frozen case order"
   },
   "reranker_forward": {
+    "status": "INACTIVE_HISTORICAL_OPTIMIZATION",
     "transformers_version": "4.51.3",
     "forward_mode": "LAST_TOKEN_ONLY",
     "logits_to_keep": 1,
     "use_cache": false,
     "mandatory_full_logits_probability_equivalence": {"rtol": 0.000001, "atol": 0.0000001},
     "exact_execution_optimization_not_scoring_method_change": true
+  },
+  "active_retrieval": {
+    "scientific_label": "POST-HOC S1 COMPUTE-CONSTRAINED LEXICAL RETRIEVAL CHALLENGER",
+    "method": "PATH_AWARE_LEXICAL_TOP3",
+    "ranking_tiebreak": ["descending lexical score", "ascending document path", "ascending chunk_index"],
+    "top_k_distinct_documents": 3,
+    "embedding_model_load": "SKIPPED",
+    "reranker_model_load": "SKIPPED",
+    "reranker_completion_required": false,
+    "partial_reranker_score_values_read": false,
+    "controlled_metric_denominator": 79,
+    "required_exact_metrics": {"hit_at_1": 0.9746835443037974, "hit_at_3": 1.0, "mrr": 0.9873417721518988}
   },
   "generation_time_budget": {
     "initial_paired_cases": 50,
@@ -54,7 +69,7 @@
   "confirmation_accessed": false,
   "hf_token_source": "Kaggle Secret HF_TOKEN exported to environment without value logging",
   "persistent_cache": "/kaggle/working/hf-cache",
-  "sequence": ["install pinned runtime", "load HF_TOKEN secret", "clone and verify frozen remote SHA", "pull required Git LFS objects", "embedding canary", "unload embedding", "reranker canary", "unload reranker", "14B NF4 deterministic plan/critic/repair canary", "unload generator", "full Gate 4 development-only study", "package return ZIP"],
+  "sequence": ["install pinned runtime", "load HF_TOKEN secret", "clone and verify frozen remote SHA", "pull required Git LFS objects", "deterministic lexical top-3 canary", "14B NF4 deterministic plan/critic/repair canary", "unload generator", "resume corpus checkpoints", "active lexical top-3 exact metric guard", "time-budget generation protocol", "package return ZIP"],
   "generator_quantization": "4-bit NF4",
   "device_map": "auto",
   "expected_runtime_2x_t4_hours": [4, 8],

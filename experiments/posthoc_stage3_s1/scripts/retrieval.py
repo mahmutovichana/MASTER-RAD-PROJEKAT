@@ -37,7 +37,7 @@ class Reranker(Protocol):
 class RankedChunk:
     chunk: DocumentChunk
     lexical_score: float
-    dense_score: float
+    dense_score: float | None
     reranker_score: float | None = None
 
 
@@ -111,6 +111,27 @@ def rerank_top_documents(query: str, candidates: Sequence[RankedChunk], *, reran
         best_by_path.values(),
         key=lambda item: (-(-math.inf if item.reranker_score is None else item.reranker_score), item.chunk.path),
     )[:3]
+
+
+def path_aware_lexical_top_documents(query: str, chunks: Sequence[DocumentChunk], *, final_documents: int = 3) -> list[RankedChunk]:
+    if final_documents != 3:
+        raise ValueError("S1 compute-constrained lexical fallback is fixed at three distinct documents")
+    scores = lexical_scores(query, chunks)
+    ordered_indices = sorted(
+        range(len(chunks)),
+        key=lambda index: (-float(scores[index]), chunks[index].path, chunks[index].chunk_index),
+    )
+    selected: list[RankedChunk] = []
+    seen_paths: set[str] = set()
+    for index in ordered_indices:
+        chunk = chunks[index]
+        if chunk.path in seen_paths:
+            continue
+        seen_paths.add(chunk.path)
+        selected.append(RankedChunk(chunk, float(scores[index]), None, None))
+        if len(selected) == final_documents:
+            break
+    return selected
 
 
 class QwenDenseEncoder:

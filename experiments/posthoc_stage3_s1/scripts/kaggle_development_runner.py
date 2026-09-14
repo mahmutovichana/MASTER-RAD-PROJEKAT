@@ -13,8 +13,6 @@ from typing import Any
 
 os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
-import numpy as np
-
 from experiments.posthoc_stage3_s1.scripts.retrieval import (
     EMBEDDING_MODEL_ID,
     EMBEDDING_LOGICAL_BATCH_SIZE,
@@ -25,7 +23,9 @@ from experiments.posthoc_stage3_s1.scripts.retrieval import (
     RERANKER_REVISION,
     QwenDenseEncoder,
     QwenReranker,
+    path_aware_lexical_top_documents,
 )
+from experiments.posthoc_stage3_s1.scripts.repository_corpus import DocumentChunk
 from experiments.posthoc_stage3_s1.scripts.s1_pipeline import (
     GENERATOR_MODEL_ID,
     GENERATOR_REVISION,
@@ -216,94 +216,41 @@ def run_canary(cache_dir: str) -> dict[str, Any]:
         "initial_host_ram": host_ram(),
         "stages": [],
         "expected_revisions": {
+            GENERATOR_MODEL_ID: GENERATOR_REVISION,
+        },
+        "inactive_model_revisions_documented_not_loaded": {
             EMBEDDING_MODEL_ID: EMBEDDING_REVISION,
             RERANKER_MODEL_ID: RERANKER_REVISION,
-            GENERATOR_MODEL_ID: GENERATOR_REVISION,
         },
         "resolved_revisions": {},
         "repair_count": 0,
     }
 
-    dense = timed_stage(receipt, "embedding_load", lambda: QwenDenseEncoder(cache_dir=cache_dir))
-    revision = resolved_revision(dense.model)
-    receipt["resolved_revisions"][EMBEDDING_MODEL_ID] = revision
-    if revision != EMBEDDING_REVISION:
-        raise RuntimeError(f"Embedding revision mismatch: {revision}")
-    shape = timed_stage(receipt, "embedding_inference", lambda: list(dense.encode(["changed configuration key", "configuration reference documentation"]).shape))
-    if shape != [2, 1024]:
-        raise RuntimeError(f"Unexpected embedding shape: {shape}")
-    stress_inputs = [f"synthetic-order-marker-{index} " + ("configuration-token " * (6500 + index * 100)) for index in range(EMBEDDING_LOGICAL_BATCH_SIZE)]
-    stress_vectors = timed_stage(receipt, "embedding_memory_stress_adaptive", lambda: dense.encode(stress_inputs))
-    stress_diagnostics = json.loads(json.dumps(dense.last_encode_diagnostics))
-    if stress_vectors.shape != (len(stress_inputs), 1024):
-        raise RuntimeError(f"Embedding stress output shape mismatch: {stress_vectors.shape}")
-    if not np.isfinite(stress_vectors).all():
-        raise RuntimeError("Embedding stress output contains non-finite vectors")
-
-    def individual_references() -> np.ndarray:
-        return np.concatenate([dense.encode([text]) for text in stress_inputs], axis=0)
-
-    reference_vectors = timed_stage(receipt, "embedding_single_item_order_reference", individual_references)
-    if reference_vectors.shape != stress_vectors.shape or not np.allclose(stress_vectors, reference_vectors, rtol=1e-3, atol=1e-4):
-        raise RuntimeError("Adaptive embedding output did not preserve original input row order")
-    receipt["embedding_memory_stress"] = {
-        "synthetic_input_count": len(stress_inputs),
-        "output_row_count": int(stress_vectors.shape[0]),
-        "output_dimension": int(stress_vectors.shape[1]),
-        "all_vectors_finite": True,
-        "original_order_preserved": True,
-        "batch_size_one_verified": True,
-        "max_length": EMBEDDING_MAX_LENGTH,
-        **stress_diagnostics,
-    }
-    unload_started = time.monotonic()
-    del dense
-    unload_cuda = cleanup_cuda()
-    receipt["stages"].append({"name": "embedding_unload", "elapsed_seconds": time.monotonic() - unload_started, "cuda": unload_cuda, "host_ram": host_ram()})
-
-    reranker = timed_stage(receipt, "reranker_load", lambda: QwenReranker(cache_dir=cache_dir))
-    revision = resolved_revision(reranker.model)
-    receipt["resolved_revisions"][RERANKER_MODEL_ID] = revision
-    if revision != RERANKER_REVISION:
-        raise RuntimeError(f"Reranker revision mismatch: {revision}")
-    equivalence_query = "new configuration key"
-    equivalence_documents = ["API overview", "configuration key reference", "migration notes"]
-    equivalence = timed_stage(
+    lexical_query = "configuration cache mode shared"
+    lexical_chunks = [
+        DocumentChunk("docs/api.md", "API", ("API",), "API endpoints and request fields.", 0),
+        DocumentChunk("docs/config.md", "Cache", ("Configuration", "Cache"), "The cache mode supports shared configuration.", 0),
+        DocumentChunk("docs/config.md", "Legacy", ("Configuration", "Legacy"), "Legacy unrelated option.", 1),
+        DocumentChunk("docs/setup.md", "Setup", ("Setup",), "Install and configure the service.", 0),
+    ]
+    lexical_first = timed_stage(
         receipt,
-        "reranker_full_vs_last_token_equivalence",
-        lambda: reranker.verify_last_token_equivalence(equivalence_query, equivalence_documents),
+        "active_lexical_retrieval_canary",
+        lambda: path_aware_lexical_top_documents(lexical_query, lexical_chunks),
     )
-    optimized_equivalence_scores = timed_stage(
-        receipt,
-        "reranker_optimized_short_pair_inference",
-        lambda: reranker.score(equivalence_query, equivalence_documents),
-    )
-    if not np.allclose(optimized_equivalence_scores, equivalence["new_scores"], rtol=equivalence["rtol"], atol=equivalence["atol"]):
-        raise RuntimeError("Optimized reranker score path differs from direct last-token equivalence path")
-    receipt["reranker_last_token_equivalence"] = {
-        **equivalence,
-        "optimized_score_count": len(optimized_equivalence_scores),
-        "optimized_output_order_matches": True,
-        "logits_to_keep_1_supported": True,
-        "max_length": RERANKER_MAX_LENGTH,
+    lexical_second = path_aware_lexical_top_documents(lexical_query, lexical_chunks)
+    first_identity = [(item.chunk.path, item.chunk.chunk_index, item.lexical_score) for item in lexical_first]
+    second_identity = [(item.chunk.path, item.chunk.chunk_index, item.lexical_score) for item in lexical_second]
+    if first_identity != second_identity or len(lexical_first) != 3 or len({item.chunk.path for item in lexical_first}) != 3:
+        raise RuntimeError("Active lexical retrieval canary is not deterministic top-3 distinct-document retrieval")
+    receipt["active_retrieval"] = {
+        "retrieval_method": "PATH_AWARE_LEXICAL_TOP3",
+        "deterministic": True,
+        "top_k_distinct_documents": 3,
+        "embedding_model_loaded": False,
+        "reranker_model_loaded": False,
+        "historical_embedding_and_reranker_revisions_documented_only": True,
     }
-    reranker_documents = [f"synthetic-order-marker-{index} " + ("configuration reference " * (600 + index * 50)) for index in range(5)]
-    scores = timed_stage(receipt, "reranker_memory_stress_adaptive", lambda: reranker.score("new configuration key", reranker_documents))
-    if len(scores) != len(reranker_documents) or not all(np.isfinite(value) and 0.0 <= value <= 1.0 for value in scores):
-        raise RuntimeError("Reranker stress check did not return one finite bounded score per document")
-    receipt["reranker_memory_stress"] = {
-        "synthetic_input_count": len(reranker_documents),
-        "output_count": len(scores),
-        "all_scores_finite": True,
-        "all_scores_bounded_0_1": True,
-        "max_length": RERANKER_MAX_LENGTH,
-        **reranker.last_score_diagnostics,
-    }
-    receipt["reranker_controlled_fallback"] = controlled_reranker_memory_checks(torch)
-    unload_started = time.monotonic()
-    del reranker
-    unload_cuda = cleanup_cuda()
-    receipt["stages"].append({"name": "reranker_unload", "elapsed_seconds": time.monotonic() - unload_started, "cuda": unload_cuda, "host_ram": host_ram()})
 
     generator = timed_stage(receipt, "generator_4bit_nf4_load", lambda: QwenStructuredGenerator(cache_dir=cache_dir))
     revision = resolved_revision(generator.model)

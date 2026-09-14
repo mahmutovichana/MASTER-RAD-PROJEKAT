@@ -6,7 +6,6 @@ import gc
 import hashlib
 import json
 import logging
-import multiprocessing
 import os
 import random
 import subprocess
@@ -36,6 +35,7 @@ from experiments.posthoc_stage3_s1.scripts.retrieval import (
     chunk_text,
     cosine_dense_scores,
     lexical_scores,
+    path_aware_lexical_top_documents,
 )
 from experiments.posthoc_stage3_s1.scripts.s1_pipeline import (
     GENERATOR_MODEL_ID,
@@ -55,6 +55,13 @@ THRESHOLDS = (0.35, 0.50, 0.65)
 VARIANTS = ("P1", "P2")
 PROMPT_SELECTION_POPULATIONS = (50, 75, 100)
 PROMPT_SELECTION_MINIMUM_REVIEWABLE = 20
+ACTIVE_RETRIEVAL_METHOD = "PATH_AWARE_LEXICAL_TOP3"
+FROZEN_LEXICAL_METRICS = {
+    "n": 79,
+    "hit_at_1": 0.9746835443037974,
+    "hit_at_3": 1.0,
+    "mrr": 0.9873417721518988,
+}
 
 
 def atomic_json(path: Path, value: Any) -> None:
@@ -95,6 +102,12 @@ def sha256(path: Path) -> str:
 
 def safe_case_id(case_id: str) -> str:
     return hashlib.sha256(case_id.encode()).hexdigest()[:20]
+
+
+def count_durable_jsonl_rows_without_scores(path: Path) -> int:
+    if not path.is_file() or path.name.endswith(".tmp"):
+        return 0
+    return sum(bool(line.strip()) and line.endswith((b"\n", b"\r")) for line in path.read_bytes().splitlines(keepends=True))
 
 
 def safe_model_row(row: dict[str, Any]) -> dict[str, Any]:
@@ -617,209 +630,74 @@ def main() -> int:
     atomic_json(checkpoints / "repository_corpus_complete.json", {"state": "COMPLETE", "case_count": len(corpora)})
     log.info("Repository corpus complete: %d cases", len(corpora))
 
-    missing_scores = [
-        row for row in rows
-        if not valid_score_checkpoint(score_dir / f"{safe_case_id(row['case_id'])}.npz", row["case_id"], len(corpora[row["case_id"]]))
-    ]
-    if missing_scores:
-        dense = QwenDenseEncoder(cache_dir=args.cache_dir, batch_size=8)
-        if getattr(dense.model.config, "_commit_hash", None) != EMBEDDING_REVISION: raise RuntimeError("Embedding revision mismatch")
-        for row in missing_scores:
-            case_id = row["case_id"]; chunks = corpora[case_id]; query = build_retrieval_query(safe_model_row(row))
-            lexical = lexical_scores(query, chunks); embeddings = dense.encode([query, *[chunk_text(chunk) for chunk in chunks]])
-            dense_scores = cosine_dense_scores(embeddings[0], embeddings[1:])
-            target = score_dir / f"{safe_case_id(case_id)}.npz"; temporary = target.with_suffix(".npz.tmp")
-            embedding_diagnostics = json.dumps(dense.last_encode_diagnostics, sort_keys=True)
-            with temporary.open("wb") as handle: np.savez_compressed(handle, case_id=case_id, query_embedding=embeddings[0], document_embeddings=embeddings[1:], lexical_scores=lexical, dense_scores=dense_scores, embedding_runtime_diagnostics=embedding_diagnostics)
-            os.replace(temporary, target)
-        del dense; gc.collect(); torch.cuda.empty_cache(); torch.cuda.synchronize()
-    atomic_json(checkpoints / "embedding_candidate_retrieval_complete.json", {"state": "COMPLETE", "case_count": 200})
-    embedding_diagnostics = []
-    for row in rows:
-        path = score_dir / f"{safe_case_id(row['case_id'])}.npz"
-        with np.load(path, allow_pickle=False) as arrays:
-            if "embedding_runtime_diagnostics" in arrays.files:
-                diagnostic = json.loads(str(arrays["embedding_runtime_diagnostics"].item()))
-                diagnostic.update({"case_id": row["case_id"], "reused_without_recorded_diagnostics": False})
-            else:
-                diagnostic = {"case_id": row["case_id"], "configured_max_batch_size": 8, "effective_batch_sizes_used": None, "oom_split_count": None, "minimum_effective_batch_size": None, "single_item_oom": None, "reused_without_recorded_diagnostics": True}
-            embedding_diagnostics.append(diagnostic)
-    atomic_json(checkpoints / "embedding_runtime_diagnostics.json", {"case_count": 200, "cases": embedding_diagnostics})
-    known_diagnostics = [item for item in embedding_diagnostics if not item["reused_without_recorded_diagnostics"]]
-    effective_sizes = [size for item in known_diagnostics for size in item["effective_batch_sizes_used"]]
-    runtime_manifest["embedding_microbatch"] = {
-        "configured_max_batch_size": 8,
-        "effective_batch_sizes_used": sorted(set(effective_sizes)),
-        "oom_split_count": sum(item["oom_split_count"] for item in known_diagnostics),
-        "minimum_effective_batch_size": min(effective_sizes) if effective_sizes else None,
-        "single_item_oom": any(item["single_item_oom"] for item in known_diagnostics),
-        "valid_pre_amendment_checkpoints_reused_without_diagnostics": sum(item["reused_without_recorded_diagnostics"] for item in embedding_diagnostics),
+    partial_reranker_rows = {
+        "global": count_durable_jsonl_rows_without_scores(checkpoints / "reranker_scores.jsonl"),
+        "worker_0": count_durable_jsonl_rows_without_scores(checkpoints / "reranker_scores_worker_0.jsonl"),
+        "worker_1": count_durable_jsonl_rows_without_scores(checkpoints / "reranker_scores_worker_1.jsonl"),
+    }
+    runtime_manifest["active_retrieval"] = {
+        "retrieval_method": ACTIVE_RETRIEVAL_METHOD,
+        "scientific_label": "POST-HOC S1 COMPUTE-CONSTRAINED LEXICAL RETRIEVAL CHALLENGER",
+        "embedding_model_loaded": False,
+        "reranker_model_loaded": False,
+        "dense_artifacts_required": False,
+        "reranker_checkpoints_required": False,
+        "partial_reranker_rows_preserved_without_score_inspection": partial_reranker_rows,
+        "fallback_selection_evidence": "frozen Phase-0 controlled lexical audit only",
     }
     atomic_json(output / "runtime_manifest.json", runtime_manifest)
-    log.info("Embedding and candidate retrieval complete: 200 cases")
 
-    expected_reranker_indices: dict[str, list[int]] = {}
+    selected_key = ACTIVE_RETRIEVAL_METHOD
+    retrieval: dict[str, dict[str, list[RankedChunk]]] = {selected_key: {}}
+    controlled_ranks: list[int | None] = []
+    retrieval_rows = []
     for row in rows:
         case_id = row["case_id"]
-        with np.load(score_dir / f"{safe_case_id(case_id)}.npz", allow_pickle=False) as arrays:
-            expected_reranker_indices[case_id] = reranker_candidate_indices(
-                corpora[case_id], arrays["lexical_scores"], arrays["dense_scores"]
-            )
-    reranker_path = checkpoints / "reranker_scores.jsonl"
-    rerank_cache = load_valid_reranker_checkpoints(reranker_path, expected_reranker_indices)
-    missing_rerank = [row for row in rows if row["case_id"] not in rerank_cache]
-    available_reranker_workers = reranker_worker_count(torch.cuda.device_count())
-    if missing_rerank and available_reranker_workers == 1:
-        missing_ids = {row["case_id"] for row in missing_rerank}
-        prior_two_worker_assignments = assign_cases_to_workers(rows, missing_ids, 2)
-        for worker_id, case_ids in enumerate(prior_two_worker_assignments):
-            shard_path = checkpoints / f"reranker_scores_worker_{worker_id}.jsonl"
-            shard_expected = {case_id: expected_reranker_indices[case_id] for case_id in case_ids}
-            for case_id, record in load_valid_reranker_checkpoints(shard_path, shard_expected).items():
-                if case_id in rerank_cache:
-                    raise RuntimeError(f"Duplicate reranker checkpoint case_id across global file and worker shard: {case_id}")
-                rerank_cache[case_id] = record
-        missing_rerank = [row for row in rows if row["case_id"] not in rerank_cache]
-    reranker_worker_receipts: list[dict[str, Any]] = []
-    if not missing_rerank:
-        for receipt_path in sorted(checkpoints.glob("reranker_worker_*_receipt.json")):
-            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
-            if receipt.get("state") == "COMPLETE":
-                reranker_worker_receipts.append(receipt)
-    if missing_rerank:
-        if available_reranker_workers == 2:
-            missing_ids = {row["case_id"] for row in missing_rerank}
-            assignments = assign_cases_to_workers(rows, missing_ids, 2)
-            row_by_id = {row["case_id"]: row for row in rows}
-            processes = []
-            worker_paths = []
-            context = multiprocessing.get_context("spawn")
-            for worker_id, case_ids in enumerate(assignments):
-                tasks = []
-                for case_id in case_ids:
-                    row = row_by_id[case_id]
-                    indices = expected_reranker_indices[case_id]
-                    tasks.append({
-                        "case_id": case_id,
-                        "candidate_indices": indices,
-                        "query": build_retrieval_query(safe_model_row(row)),
-                        "documents": [chunk_text(corpora[case_id][index]) for index in indices],
-                    })
-                shard_path = checkpoints / f"reranker_scores_worker_{worker_id}.jsonl"
-                receipt_path = checkpoints / f"reranker_worker_{worker_id}_receipt.json"
-                worker_paths.append((shard_path, receipt_path, {case_id: expected_reranker_indices[case_id] for case_id in case_ids}))
-                process = context.Process(
-                    target=reranker_process_worker,
-                    args=(worker_id, worker_id, tasks, str(shard_path), str(receipt_path), args.cache_dir),
-                )
-                process.start()
-                processes.append(process)
-            for process in processes:
-                process.join()
-            failed_exit_codes = [process.exitcode for process in processes if process.exitcode != 0]
-            if failed_exit_codes:
-                raise RuntimeError(f"Reranker worker failure exit codes: {failed_exit_codes}")
-            shard_caches = []
-            for shard_path, receipt_path, expected in worker_paths:
-                receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
-                if receipt.get("state") != "COMPLETE":
-                    raise RuntimeError(f"Reranker worker receipt is not complete: {receipt_path}")
-                reranker_worker_receipts.append(receipt)
-                shard_caches.append(load_valid_reranker_checkpoints(shard_path, expected))
-            rerank_cache = merge_reranker_sources(rows, expected_reranker_indices, [rerank_cache, *shard_caches])
-        else:
-            single_started = time.monotonic()
-            reranker = QwenReranker(cache_dir=args.cache_dir)
-            if getattr(reranker.model.config, "_commit_hash", None) != RERANKER_REVISION: raise RuntimeError("Reranker revision mismatch")
-            for row in missing_rerank:
-                case_id = row["case_id"]
-                chunks = corpora[case_id]
-                indices = expected_reranker_indices[case_id]
-                values = reranker.score(build_retrieval_query(safe_model_row(row)), [chunk_text(chunks[i]) for i in indices])
-                record = {
-                    "case_id": case_id,
-                    "candidate_indices": indices,
-                    "scores": {str(i): float(score) for i, score in zip(indices, values)},
-                    "reranker_runtime_diagnostics": reranker.last_score_diagnostics,
-                    "worker_id": 0,
-                    "worker_device": "existing_single_worker_device_map",
+        top = path_aware_lexical_top_documents(
+            build_retrieval_query(safe_model_row(row)),
+            corpora[case_id],
+            final_documents=3,
+        )
+        retrieval[selected_key][case_id] = top
+        retrieval_rows.append({
+            "retrieval_method": selected_key,
+            "case_id": case_id,
+            "candidates": [
+                {
+                    "path": value.chunk.path,
+                    "heading": value.chunk.heading,
+                    "chunk_index": value.chunk.chunk_index,
+                    "lexical_score": value.lexical_score,
+                    "dense_score": None,
+                    "reranker_score": None,
                 }
-                if not valid_reranker_record(record, case_id, indices):
-                    raise RuntimeError(f"Invalid reranker result for {case_id}")
-                rerank_cache[case_id] = record
-                atomic_jsonl(reranker_path, [rerank_cache[item["case_id"]] for item in rows if item["case_id"] in rerank_cache])
-            single_receipt = {
-                "state": "COMPLETE",
-                "worker_id": 0,
-                "device": "existing_single_worker_device_map",
-                "assigned_case_count": len(missing_rerank),
-                "reused_case_count": len(rows) - len(missing_rerank),
-                "new_case_count": len(missing_rerank),
-                "runtime_seconds": time.monotonic() - single_started,
-            }
-            reranker_worker_receipts.append(single_receipt)
-            atomic_json(checkpoints / "reranker_worker_0_receipt.json", single_receipt)
-            del reranker; gc.collect(); torch.cuda.empty_cache(); torch.cuda.synchronize()
-    atomic_jsonl(reranker_path, [rerank_cache[row["case_id"]] for row in rows])
-    reranker_diagnostics = []
-    for row in rows:
-        record = rerank_cache[row["case_id"]]
-        diagnostic = record.get("reranker_runtime_diagnostics")
-        reranker_diagnostics.append({
-            "case_id": row["case_id"],
-            "candidate_count": len(expected_reranker_indices[row["case_id"]]),
-            "reused_without_recorded_diagnostics": diagnostic is None,
-            **(diagnostic or {}),
+                for value in top
+            ],
         })
-    atomic_json(checkpoints / "reranker_runtime_diagnostics.json", {"case_count": 200, "cases": reranker_diagnostics})
-    known_reranker_diagnostics = [item for item in reranker_diagnostics if not item["reused_without_recorded_diagnostics"]]
-    reranker_effective_sizes = [size for item in known_reranker_diagnostics for size in item["effective_batch_sizes_used"]]
-    runtime_manifest["reranker_microbatch"] = {
-        "forward_mode": "LAST_TOKEN_ONLY",
-        "logits_to_keep": 1,
-        "use_cache": False,
-        "last_token_projection_is_exact_execution_optimization_not_scoring_method_change": True,
-        "original_full_candidate_batch_attempted_first": True,
-        "effective_batch_sizes_used": sorted(set(reranker_effective_sizes)),
-        "total_oom_split_count": sum(item["oom_split_count"] for item in known_reranker_diagnostics),
-        "minimum_effective_batch_size": min(reranker_effective_sizes) if reranker_effective_sizes else None,
-        "single_item_oom": any(item["single_item_oom"] for item in known_reranker_diagnostics),
-        "valid_pre_amendment_checkpoints_reused_without_diagnostics": sum(item["reused_without_recorded_diagnostics"] for item in reranker_diagnostics),
-        "worker_count": len(reranker_worker_receipts),
-        "worker_device_assignments": [item["device"] for item in reranker_worker_receipts],
-        "worker_case_counts": [item["assigned_case_count"] for item in reranker_worker_receipts],
-        "worker_runtime_seconds": [item["runtime_seconds"] for item in reranker_worker_receipts],
-        "peak_allocated_cuda_bytes": [item.get("peak_allocated_cuda_bytes") for item in known_reranker_diagnostics],
-    }
-    atomic_json(output / "runtime_manifest.json", runtime_manifest)
-    atomic_json(checkpoints / "reranking_complete.json", {"state": "COMPLETE", "case_count": 200})
-    log.info("Reranking complete: 200 cases")
-
-    retrieval: dict[str, dict[str, list[RankedChunk]]] = {f"l{l}_d{d}": {} for l, d in GRID}
-    retrieval_metrics = {}
-    retrieval_rows = []
-    for lexical_k, dense_k in GRID:
-        key = f"l{lexical_k}_d{dense_k}"; ranks = []
-        for row in rows:
-            case_id = row["case_id"]; chunks = corpora[case_id]; arrays = np.load(score_dir / f"{safe_case_id(case_id)}.npz")
-            lexical = arrays["lexical_scores"]; dense_values = arrays["dense_scores"]
-            lex_ids = sorted(range(len(chunks)), key=lambda i: (-float(lexical[i]), chunks[i].path, chunks[i].chunk_index))[:lexical_k]
-            den_ids = sorted(range(len(chunks)), key=lambda i: (-float(dense_values[i]), chunks[i].path, chunks[i].chunk_index))[:dense_k]
-            score_map = rerank_cache[case_id]["scores"]; ranked = [RankedChunk(chunks[i], float(lexical[i]), float(dense_values[i]), float(score_map[str(i)])) for i in set(lex_ids) | set(den_ids)]
-            best = {}
-            for value in ranked:
-                if value.chunk.path not in best or value.reranker_score > best[value.chunk.path].reranker_score: best[value.chunk.path] = value
-            top = sorted(best.values(), key=lambda value: (-value.reranker_score, value.chunk.path))[:3]; retrieval[key][case_id] = top
-            retrieval_rows.append({"configuration": key, "case_id": case_id, "candidates": [{"path": v.chunk.path, "heading": v.chunk.heading, "lexical_score": v.lexical_score, "dense_score": v.dense_score, "reranker_score": v.reranker_score} for v in top]})
-            target = row.get("synthetic_target_doc_path")
-            if target:
-                paths = [value.chunk.path for value in top]; ranks.append(paths.index(target) + 1 if target in paths else None)
-        retrieval_metrics[key] = retrieval_metric(ranks)
-    if any(value["n"] != 79 for value in retrieval_metrics.values()): raise RuntimeError("Target metrics escaped the controlled 79-row denominator")
-    selected_key = sorted(retrieval_metrics, key=lambda key: (-retrieval_metrics[key]["hit_at_3"], -retrieval_metrics[key]["mrr"], -retrieval_metrics[key]["hit_at_1"], int(key.split("_")[0][1:]), int(key.split("_")[1][1:])))[0]
-    atomic_json(output / "retrieval_metrics.json", {"controlled_only": True, "natural_target_ground_truth": False, "metrics": retrieval_metrics, "selected_retrieval_key": selected_key})
-    retrieval_jsonl = output / "retrieval_results.jsonl"
-    temporary = retrieval_jsonl.with_suffix(".jsonl.tmp"); temporary.write_text("".join(json.dumps(row, sort_keys=True) + "\n" for row in retrieval_rows), encoding="utf-8"); os.replace(temporary, retrieval_jsonl)
+        target = row.get("synthetic_target_doc_path")
+        if target:
+            paths = [value.chunk.path for value in top]
+            controlled_ranks.append(paths.index(target) + 1 if target in paths else None)
+    active_metrics = retrieval_metric(controlled_ranks)
+    if active_metrics != FROZEN_LEXICAL_METRICS:
+        raise RuntimeError(
+            f"Active lexical retrieval does not reproduce frozen Phase-0 metrics: "
+            f"expected={FROZEN_LEXICAL_METRICS}, actual={active_metrics}"
+        )
+    atomic_json(output / "retrieval_metrics.json", {
+        "retrieval_method": ACTIVE_RETRIEVAL_METHOD,
+        "scientific_label": "POST-HOC S1 COMPUTE-CONSTRAINED LEXICAL RETRIEVAL CHALLENGER",
+        "controlled_only": True,
+        "controlled_target_evidence_count": CONTROLLED_TARGET_COUNT,
+        "natural_target_ground_truth": False,
+        "natural_rows_excluded_from_target_accuracy": 121,
+        "metrics": active_metrics,
+        "frozen_phase0_expected_metrics": FROZEN_LEXICAL_METRICS,
+        "exact_deterministic_reproduction": True,
+        "partial_neural_reranker_scores_used": False,
+    })
+    atomic_jsonl(output / "retrieval_results.jsonl", retrieval_rows)
+    log.info("Active path-aware lexical top-3 retrieval complete: 200 cases")
 
     generation_path = output / "generation_results.jsonl"
     completed_rows = load_unique_jsonl(generation_path, "run_key")
@@ -828,8 +706,10 @@ def main() -> int:
     if set(completed_rows) - allowed_run_keys:
         raise RuntimeError("Generation checkpoint contains an unexpected variant or case identity")
     row_map = {row["case_id"]: row for row in rows}
-    lexical_k = int(selected_key.split("_")[0][1:])
-    dense_k = int(selected_key.split("_")[1][1:])
+    # These legacy configuration fields are not consulted by S1Agent after candidates are supplied.
+    # Keep registered values while the active candidates come exclusively from lexical top-3 above.
+    lexical_k = 5
+    dense_k = 5
     generator = None
     backend = None
     newly_completed = 0

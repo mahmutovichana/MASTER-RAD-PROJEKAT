@@ -74,6 +74,21 @@
     "two_gpu_execution_amendment_04_retained": true,
     "valid_existing_reranker_rows_reused": true
   },
+  "compute_constrained_lexical_fallback_amendment": {
+    "id": "S1_RUNTIME_AMENDMENT_06_LEXICAL_FALLBACK",
+    "scientific_label": "POST-HOC S1 COMPUTE-CONSTRAINED LEXICAL RETRIEVAL CHALLENGER",
+    "frozen_before_generation_and_development_metrics": true,
+    "selection_evidence": "pre-existing Phase-0 controlled lexical audit only",
+    "active_retrieval_method": "PATH_AWARE_LEXICAL_TOP3",
+    "ranking_tiebreak": ["descending lexical score", "ascending document path", "ascending chunk_index"],
+    "distinct_document_top_k": 3,
+    "controlled_metric_denominator": 79,
+    "required_metrics": {"hit_at_1": 0.9746835443037974, "hit_at_3": 1.0, "mrr": 0.9873417721518988},
+    "natural_target_accuracy_forbidden": true,
+    "embedding_and_reranker_model_loads_in_active_path": false,
+    "partial_neural_reranker_scores_used": false,
+    "time_budget_prompt_selection_amendment_04_retained": true
+  },
   "target_metrics_policy": "Hit@k/MRR only on development rows with legitimate target-document evidence; never invent natural target gold",
   "human_review_policy": "If manual development review becomes necessary, freeze a blind sample and ask before creating its workbook",
   "stop_conditions": ["pre-change reconstruction unavailable for most cases", "future-document leakage required", "required model inference unreliable", "materially worse safety", "no development retrieval/coverage improvement"],

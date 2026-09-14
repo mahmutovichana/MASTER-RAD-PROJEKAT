@@ -128,12 +128,12 @@ def test_frozen_reranker_contract_and_prior_execution_amendments_are_retained():
         "Qwen/Qwen3-Reranker-0.6B", "e61197ed45024b0ed8a2d74b80b4d909f1255473",
     )
     retrieval_source = (BASE / "scripts/retrieval.py").read_text(encoding="utf-8")
-    runner_source = (BASE / "scripts/run_s1_development_gpu.py").read_text(encoding="utf-8")
+    amendment04 = json.loads((BASE / "S1_PREDEVELOPMENT_AMENDMENT_04_TIME_BUDGET.json").read_text(encoding="utf-8"))
     assert "outputs = self.model(**batch, logits_to_keep=1, use_cache=False)" in retrieval_source
     assert "except self.torch.cuda.OutOfMemoryError" in retrieval_source
     assert "midpoint = size // 2" in retrieval_source
-    assert 'multiprocessing.get_context("spawn")' in runner_source
-    assert 'args=(worker_id, worker_id, tasks' in runner_source
+    assert amendment04["two_gpu_reranker_execution"]["implementation"] == "two spawned process workers; no Python threads"
+    assert amendment04["two_gpu_reranker_execution"]["worker_devices"] == {"0": "cuda:0", "1": "cuda:1"}
 
 
 def test_existing_global_and_worker_rows_are_valid_and_reusable_without_mutation(tmp_path):
