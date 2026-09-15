@@ -1,0 +1,45 @@
+{
+  "amendment": "S1_DEVELOPMENT_FREEZE_AMENDMENT_01",
+  "applies_to_commit": "21b64f361fd1bfb770ccdea769e871db4c5834f0",
+  "applies_to_freeze": "POSTHOC_STAGE3_S1_DEVELOPMENT_V1",
+  "applies_to_tag": "posthoc-stage3-s1-development-v1",
+  "correction": {
+    "corrected_interpretation": {
+      "scientific_artifact_integrity": "PASS",
+      "validation.git_diff_check": "FAIL_SOURCE_WHITESPACE_ONLY",
+      "whitespace_violation_scope": "s1_development_blind_prompt_review.csv only"
+    },
+    "original_receipt_field": {
+      "validation.git_diff_check": "PASS"
+    }
+  },
+  "created_at_utc": "2026-09-15T18:19:29.642403+00:00",
+  "does_not_supersede": [
+    "source archive SHA256",
+    "artifact hashes",
+    "development metrics",
+    "prompt selection",
+    "threshold status",
+    "scientific status",
+    "original freeze commit",
+    "original freeze tag"
+  ],
+  "explanation": [
+    "The offending whitespace was already present in the externally returned Kaggle artifact.",
+    "The CSV was intentionally not edited because doing so would alter the hash-verified scientific evidence.",
+    "The failure is a repository whitespace-hygiene finding, not an experiment, metric, selection, provenance, or artifact-integrity failure.",
+    "All 108 S1 tests passed before the freeze.",
+    "The original immutable S1 freeze tag is retained and is not rewritten."
+  ],
+  "integrity_evidence": {
+    "blind_review_csv_sha256": "3c9050ad7c658ab15c6663facebeed46ac8d9e5b13b532274769f9f17767b8e3",
+    "external_return_modified": false,
+    "matches_original_artifact_manifest": true,
+    "matches_original_freeze_receipt_hash": true
+  },
+  "reason": "The original freeze receipt recorded git_diff_check as PASS, but the actual staged git diff --check reported trailing whitespace inside the immutable Kaggle-return blind-review CSV.",
+  "scientific_impact": "NONE",
+  "supersedes_only": [
+    "validation.git_diff_check interpretation in S1_DEVELOPMENT_FREEZE_RECEIPT.json"
+  ]
+}
