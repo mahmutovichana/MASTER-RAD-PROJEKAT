@@ -1,0 +1,85 @@
+{
+  "created_at_utc": "2026-09-15T18:30:19.527444+00:00",
+  "gate": 7,
+  "gate7_artifacts": [
+    {
+      "bytes": 15267,
+      "path": "reports/final_v2/gate7/GATE7_INPUT_EVIDENCE_REGISTRY.json",
+      "sha256": "3eea22242b02581f15dd9dd88c71f97a50d8b1d2441ed4345ff7f1988464f908"
+    },
+    {
+      "bytes": 12790,
+      "path": "reports/final_v2/gate7/GATE7_FINAL_THESIS_SUMMARY.json",
+      "sha256": "e3a3f3af4d06bc3f2e43919f65cf06233c464a4da58c0ab4546449d724682262"
+    },
+    {
+      "bytes": 6934,
+      "path": "reports/final_v2/gate7/GATE7_FINAL_THESIS_REPORT.md",
+      "sha256": "9d273ba780db546d9b5b7afe625b685a78e774d4cfe237999cf1b3eefdd7caad"
+    }
+  ],
+  "headline_results": {
+    "binary_classifier_confirmation": {
+      "bootstrap_ci_95": {
+        "high": 0.7887046510033393,
+        "low": 0.13791719341967854
+      },
+      "metric": "MCC",
+      "value": 0.5381511839614936
+    },
+    "category_classifier_confirmation": {
+      "bootstrap_ci_95": {
+        "high": 0.4293518641374458,
+        "low": 0.32919758359846785
+      },
+      "metric": "Macro-F1",
+      "value": 0.40318848348589814
+    },
+    "stage3_human_evaluation": {
+      "conditional_accept_as_is": 0.0,
+      "end_to_end_accept_as_is": 0.0,
+      "generated_scorable_rows": 14,
+      "human_quality_means": {
+        "human_developer_usefulness": 2,
+        "human_factual_correctness": 4.142857142857143,
+        "human_readability": 4.714285714285714,
+        "human_semantic_completeness": 4.357142857142857,
+        "human_style_fit": 2.0714285714285716
+      },
+      "primary_sample_size": 100,
+      "system_coverage": 0.14
+    }
+  },
+  "interpretation_guardrails": {
+    "automatic_accepted_equals_human_accept_as_is": false,
+    "generalization_gap_must_be_reported": true,
+    "posthoc_s1_may_replace_gate5_gate6": false,
+    "unavailable_reference_metrics_equal_zero": false
+  },
+  "repository": {
+    "branch": "gate7-final-thesis-evidence",
+    "gate7_parent_commit": "5924a137589ee0a751e4680c17bee43c781c158d"
+  },
+  "s1_status": {
+    "evidence_class": "POST_HOC_DEVELOPMENT_ONLY",
+    "selected_prompt": "P1",
+    "selected_threshold": null
+  },
+  "schema_version": "gate7_final_freeze_manifest_v1",
+  "scientific_separation_assertions": {
+    "gate4_is_development_only": true,
+    "gate5_is_one_shot_confirmation": true,
+    "gate6_is_frozen_human_evaluation": true,
+    "gate6_secondary_pooled_into_primary": false,
+    "s1_confirmation_accessed": false,
+    "s1_is_headline_result": false,
+    "s1_is_posthoc_development_only": true,
+    "s1_threshold_selected": false
+  },
+  "status": "PASS_READY_FOR_IMMUTABLE_FREEZE",
+  "upstream_evidence": {
+    "all_registered_hashes_reverified": true,
+    "registry_sha256": "3eea22242b02581f15dd9dd88c71f97a50d8b1d2441ed4345ff7f1988464f908",
+    "source_count": 16
+  }
+}

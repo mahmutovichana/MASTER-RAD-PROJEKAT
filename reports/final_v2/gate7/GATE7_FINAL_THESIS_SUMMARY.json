@@ -1,0 +1,320 @@
+{
+  "allowed_thesis_claims": [
+    "Report Gate 5 MCC and Macro-F1 as the primary classifier confirmation results.",
+    "Report the development-to-confirmation performance drop as evidence of generalization difficulty.",
+    "Report Gate 6 coverage and human scores as the final human evaluation of the original Stage 3 system.",
+    "Describe S1 as a promising post-hoc development challenger.",
+    "State that S1 improved development coverage without confirmation access.",
+    "State that further confirmation evaluation would be required to establish S1 generalization."
+  ],
+  "created_at_utc": "2026-09-15T18:28:20.078522+00:00",
+  "generalization_evidence": {
+    "binary_absolute_change": -0.29399581603850633,
+    "binary_confirmation": 0.5381511839614936,
+    "binary_development_oof": 0.832147,
+    "category_absolute_change": -0.4577935165141019,
+    "category_confirmation": 0.40318848348589814,
+    "category_development_oof": 0.860982,
+    "interpretation": "Substantial development-to-confirmation degradation indicates meaningful generalization difficulty."
+  },
+  "limitations": [
+    "Classifier performance dropped substantially between development and confirmation, demonstrating non-trivial generalization shift.",
+    "Gate 6 human quality metrics are conditional on only 14 generated outputs and therefore have substantial sampling uncertainty.",
+    "The original Stage 3 system achieved only 14% end-to-end coverage on the primary natural-distribution sample.",
+    "No Gate 6 reference text was available for similarity evaluation; reference metrics are unavailable rather than zero.",
+    "The secondary category-stress sample is supplementary and is not pooled into the primary estimate.",
+    "S1 is post-hoc development-only evidence and has no sealed confirmation evaluation.",
+    "No S1 threshold was selected; threshold-specific development results must remain separate.",
+    "Automatic pipeline ACCEPTED status is not equivalent to human accept-as-is."
+  ],
+  "main_findings": [
+    {
+      "claim": "The frozen binary classifier retained meaningful predictive signal on one-shot confirmation data.",
+      "id": "F1",
+      "strength": "PRIMARY_CONFIRMATION",
+      "support": "MCC=0.538."
+    },
+    {
+      "claim": "Fine-grained category classification generalized substantially less strongly than development estimates suggested.",
+      "id": "F2",
+      "strength": "PRIMARY_CONFIRMATION",
+      "support": "Macro-F1 declined from 0.861 development OOF to 0.403 confirmation."
+    },
+    {
+      "claim": "The original Stage 3 system's dominant final limitation was low end-to-end coverage rather than inability to produce factually plausible text when output was generated.",
+      "id": "F3",
+      "strength": "PRIMARY_HUMAN_EVALUATION",
+      "support": "System coverage=14%; factual correctness=4.14/5; readability=4.71/5."
+    },
+    {
+      "claim": "Generated outputs were not ready for direct acceptance without editing in the frozen human evaluation.",
+      "id": "F4",
+      "strength": "PRIMARY_HUMAN_EVALUATION",
+      "support": "Conditional human accept-as-is=0%; end-to-end accept-as-is=0%."
+    },
+    {
+      "claim": "The post-hoc S1 challenger improved development-stage automated coverage and removed target-not-retrieved failures in the evaluated development population.",
+      "id": "F5",
+      "strength": "POST_HOC_DEVELOPMENT_ONLY",
+      "support": "At t=0.35 development coverage=54.5%; target-not-retrieved rate=0.0%."
+    }
+  ],
+  "posthoc_s1_challenger": {
+    "confirmation_accessed": false,
+    "development_results": {
+      "0.35": {
+        "all_development": {
+          "abstention_rate": 0.455,
+          "accepted_output_coverage": 0.545,
+          "execution_error_rate": 0.0,
+          "first_pass_accept_rate": 0.54,
+          "generation_invocation_rate": 0.725,
+          "n": 200,
+          "repaired_accept_rate": 0.005,
+          "state_counts": {
+            "ABSTAINED_LOW_UTILITY": 11,
+            "ABSTAINED_NO_TARGET": 50,
+            "ABSTAINED_UNSUPPORTED_CLAIMS": 30,
+            "ACCEPTED": 109
+          },
+          "target_not_retrieved_rate": 0.0,
+          "unsupported_fact_violation_rate": 0.15
+        },
+        "primary": {
+          "abstention_rate": 0.6,
+          "accepted_output_coverage": 0.4,
+          "execution_error_rate": 0.0,
+          "first_pass_accept_rate": 0.39,
+          "generation_invocation_rate": 0.51,
+          "n": 100,
+          "repaired_accept_rate": 0.01,
+          "state_counts": {
+            "ABSTAINED_LOW_UTILITY": 8,
+            "ABSTAINED_NO_TARGET": 44,
+            "ABSTAINED_UNSUPPORTED_CLAIMS": 8,
+            "ACCEPTED": 40
+          },
+          "target_not_retrieved_rate": 0.0,
+          "unsupported_fact_violation_rate": 0.08
+        },
+        "secondary": {
+          "abstention_rate": 0.31,
+          "accepted_output_coverage": 0.69,
+          "execution_error_rate": 0.0,
+          "first_pass_accept_rate": 0.69,
+          "generation_invocation_rate": 0.94,
+          "n": 100,
+          "repaired_accept_rate": 0.0,
+          "state_counts": {
+            "ABSTAINED_LOW_UTILITY": 3,
+            "ABSTAINED_NO_TARGET": 6,
+            "ABSTAINED_UNSUPPORTED_CLAIMS": 22,
+            "ACCEPTED": 69
+          },
+          "target_not_retrieved_rate": 0.0,
+          "unsupported_fact_violation_rate": 0.22
+        }
+      },
+      "0.5": {
+        "all_development": {
+          "abstention_rate": 0.47,
+          "accepted_output_coverage": 0.53,
+          "execution_error_rate": 0.0,
+          "first_pass_accept_rate": 0.525,
+          "generation_invocation_rate": 0.71,
+          "n": 200,
+          "repaired_accept_rate": 0.005,
+          "state_counts": {
+            "ABSTAINED_LOW_UTILITY": 11,
+            "ABSTAINED_NO_TARGET": 53,
+            "ABSTAINED_UNSUPPORTED_CLAIMS": 30,
+            "ACCEPTED": 106
+          },
+          "target_not_retrieved_rate": 0.0,
+          "unsupported_fact_violation_rate": 0.15
+        },
+        "primary": {
+          "abstention_rate": 0.63,
+          "accepted_output_coverage": 0.37,
+          "execution_error_rate": 0.0,
+          "first_pass_accept_rate": 0.36,
+          "generation_invocation_rate": 0.48,
+          "n": 100,
+          "repaired_accept_rate": 0.01,
+          "state_counts": {
+            "ABSTAINED_LOW_UTILITY": 8,
+            "ABSTAINED_NO_TARGET": 47,
+            "ABSTAINED_UNSUPPORTED_CLAIMS": 8,
+            "ACCEPTED": 37
+          },
+          "target_not_retrieved_rate": 0.0,
+          "unsupported_fact_violation_rate": 0.08
+        },
+        "secondary": {
+          "abstention_rate": 0.31,
+          "accepted_output_coverage": 0.69,
+          "execution_error_rate": 0.0,
+          "first_pass_accept_rate": 0.69,
+          "generation_invocation_rate": 0.94,
+          "n": 100,
+          "repaired_accept_rate": 0.0,
+          "state_counts": {
+            "ABSTAINED_LOW_UTILITY": 3,
+            "ABSTAINED_NO_TARGET": 6,
+            "ABSTAINED_UNSUPPORTED_CLAIMS": 22,
+            "ACCEPTED": 69
+          },
+          "target_not_retrieved_rate": 0.0,
+          "unsupported_fact_violation_rate": 0.22
+        }
+      },
+      "0.65": {
+        "all_development": {
+          "abstention_rate": 0.48,
+          "accepted_output_coverage": 0.52,
+          "execution_error_rate": 0.0,
+          "first_pass_accept_rate": 0.515,
+          "generation_invocation_rate": 0.695,
+          "n": 200,
+          "repaired_accept_rate": 0.005,
+          "state_counts": {
+            "ABSTAINED_LOW_UTILITY": 8,
+            "ABSTAINED_NO_TARGET": 59,
+            "ABSTAINED_UNSUPPORTED_CLAIMS": 29,
+            "ACCEPTED": 104
+          },
+          "target_not_retrieved_rate": 0.0,
+          "unsupported_fact_violation_rate": 0.145
+        },
+        "primary": {
+          "abstention_rate": 0.64,
+          "accepted_output_coverage": 0.36,
+          "execution_error_rate": 0.0,
+          "first_pass_accept_rate": 0.35,
+          "generation_invocation_rate": 0.47,
+          "n": 100,
+          "repaired_accept_rate": 0.01,
+          "state_counts": {
+            "ABSTAINED_LOW_UTILITY": 5,
+            "ABSTAINED_NO_TARGET": 51,
+            "ABSTAINED_UNSUPPORTED_CLAIMS": 8,
+            "ACCEPTED": 36
+          },
+          "target_not_retrieved_rate": 0.0,
+          "unsupported_fact_violation_rate": 0.08
+        },
+        "secondary": {
+          "abstention_rate": 0.32,
+          "accepted_output_coverage": 0.68,
+          "execution_error_rate": 0.0,
+          "first_pass_accept_rate": 0.68,
+          "generation_invocation_rate": 0.92,
+          "n": 100,
+          "repaired_accept_rate": 0.0,
+          "state_counts": {
+            "ABSTAINED_LOW_UTILITY": 3,
+            "ABSTAINED_NO_TARGET": 8,
+            "ABSTAINED_UNSUPPORTED_CLAIMS": 21,
+            "ACCEPTED": 68
+          },
+          "target_not_retrieved_rate": 0.0,
+          "unsupported_fact_violation_rate": 0.21
+        }
+      }
+    },
+    "evidence_class": "POST_HOC_DEVELOPMENT_ONLY",
+    "headline": false,
+    "interpretation": "S1 provides evidence that the Stage 3 design can achieve materially higher automated development coverage under a revised retrieval/generation strategy, but it was not evaluated on the sealed confirmation population and therefore cannot replace the Gate 5 or Gate 6 final estimates.",
+    "preference_counts": {
+      "P1": 16,
+      "P2": 6
+    },
+    "reported_thresholds": [
+      "0.35",
+      "0.5",
+      "0.65"
+    ],
+    "scientific_role": "POST_HOC_STAGE3_CHALLENGER_DEVELOPMENT_ONLY",
+    "selected_prompt": "P1",
+    "selected_threshold": null,
+    "selection_basis": "reviewer_preference"
+  },
+  "primary_thesis_results": {
+    "binary_classifier_confirmation": {
+      "bootstrap_ci_95": {
+        "high": 0.7887046510033393,
+        "low": 0.13791719341967854
+      },
+      "evidence_class": "ONE_SHOT_CONFIRMATION",
+      "headline": true,
+      "metric": "MCC",
+      "value": 0.5381511839614936
+    },
+    "category_classifier_confirmation": {
+      "bootstrap_ci_95": {
+        "high": 0.4293518641374458,
+        "low": 0.32919758359846785
+      },
+      "evidence_class": "ONE_SHOT_CONFIRMATION",
+      "headline": true,
+      "metric": "Macro-F1",
+      "value": 0.40318848348589814
+    },
+    "stage3_human_evaluation": {
+      "conditional_accept_as_is": 0.0,
+      "end_to_end_accept_as_is": 0.0,
+      "evidence_class": "FROZEN_HUMAN_EVALUATION",
+      "generated_scorable_rows": 14,
+      "headline": true,
+      "human_quality_means": {
+        "human_developer_usefulness": 2,
+        "human_factual_correctness": 4.142857142857143,
+        "human_readability": 4.714285714285714,
+        "human_semantic_completeness": 4.357142857142857,
+        "human_style_fit": 2.0714285714285716
+      },
+      "primary_sample_size": 100,
+      "system_coverage": 0.14
+    }
+  },
+  "prohibited_or_overstated_claims": [
+    "Do not call S1 the final confirmed Stage 3 system.",
+    "Do not report S1 development coverage as confirmation performance.",
+    "Do not claim a selected S1 threshold.",
+    "Do not equate automatic ACCEPTED with human accept-as-is.",
+    "Do not pool Gate 6 secondary rows into the primary natural-distribution estimate.",
+    "Do not describe unavailable reference metrics as zero performance.",
+    "Do not hide the development-to-confirmation generalization gap."
+  ],
+  "schema_version": "gate7_final_thesis_summary_v1",
+  "stage3_original_system": {
+    "confirmation": {
+      "accepted_total": 56,
+      "binary_predicted_positive": 454,
+      "evidence_class": "ONE_SHOT_CONFIRMATION_PIPELINE",
+      "human_review_required": 64,
+      "retrieval_context_available": 120,
+      "retrieval_context_unavailable": 334
+    },
+    "development": {
+      "conditional_acceptance_rate": 0.25,
+      "evidence_class": "DEVELOPMENT_ONLY",
+      "invocation_rate": 0.08,
+      "primary_sample_size": 100,
+      "retrieval_context_available": 8
+    },
+    "human_evaluation": {
+      "accept_as_is": 0.0,
+      "evidence_class": "FROZEN_HUMAN_EVALUATION",
+      "human_quality_means": {
+        "human_developer_usefulness": 2,
+        "human_factual_correctness": 4.142857142857143,
+        "human_readability": 4.714285714285714,
+        "human_semantic_completeness": 4.357142857142857,
+        "human_style_fit": 2.0714285714285716
+      },
+      "system_coverage": 0.14
+    }
+  },
+  "status": "FINAL_EVIDENCE_SYNTHESIS_COMPLETE"
+}
